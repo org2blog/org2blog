@@ -4,8 +4,11 @@
   and images. It uploads images on the local system automatically to
   your wordpress blog.
 
-  It is inspired by and based on a wordpress posting client for
-  muse-mode written by Ashish Shukla. 
+  It is inspired by and based on a [[http://paste.lisp.org/display/69993][wordpress posting client for
+  muse-mode]] written by [[http://www.emacswiki.org/emacs/AshishShukla][Ashish Shukla]].
+
+  org2blog is licensed under GPLv3
+
 * Installation
 
   Download org2blog for github
@@ -16,8 +19,8 @@
 
   : (require 'org2blog)
 
-  to your dot emacs. You can optionally save your the xmlrpc url of
-  your blog and your username.
+  to your dot emacs. You can optionally save the xmlrpc url of your
+  blog and the username. 
 
   : (setq org2blog-server-url "http://username.wordpress.com/xmlrpc.php"
   :       org2blog-server-user "username")
@@ -32,7 +35,7 @@
   2. To start writing a new post use *M-x org2blog-new-entry RET*
      Tags to your post are comma separated values passed to KEYWORDS.
      Categories are comma separated values passed to
-     DESCRIPTION. Completion is triggered using *C-c t*.
+     DESCRIPTION. Completion (for both) is triggered using *C-c t*.
   3. Use *C-c p* to Publish or *C-c d* to post as draft. 
   4. You could also publish your exiting org files; with a few edits.
      
