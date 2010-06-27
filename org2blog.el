@@ -40,6 +40,8 @@
 
 
 (require 'org)
+(require 'xml-rpc)
+(require 'metaweblog)
 
 (defgroup org2blog nil 
   "Post to weblogs from Emacs" 
