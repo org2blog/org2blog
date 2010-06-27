@@ -1,0 +1,38 @@
+* Overview
+  org2blog provides a simple way of publishing from org-mode to
+  (wordpress) blogs. Presently supports posting with categories, tags
+  and images. It uploads images on the local system automatically to
+  your wordpress blog.
+
+  It is inspired by and based on a wordpress posting client for
+  muse-mode written by Ashish Shukla. 
+* Installation
+
+  Download org2blog for github
+
+  : git clone http://github.com/punchagan/org2blog.git
+  
+  Add the org2blog directory to your load path and then add
+
+  : (require 'org2blog)
+
+  to your dot emacs. You can optionally save your the xmlrpc url of
+  your blog and your username.
+
+  : (setq org2blog-server-url "http://username.wordpress.com/xmlrpc.php"
+  :       org2blog-server-user "username")
+  
+  *Note* - org2blog depends on xml-rpc available at [[http://launchpad.net/xml-rpc-el][Launchpad]]. Add it
+   to your load-path before using org2blog. 
+
+* Usage
+  1. Log in using *M-x org2blog-login RET*. Provide xmlrpc url,
+     username, password and blog-id (not in use now; useful when
+     editing posts). Optionally, you could set these in your .emacs. 
+  2. To start writing a new post use *M-x org2blog-new-entry RET*
+     Tags to your post are comma separated values passed to KEYWORDS.
+     Categories are comma separated values passed to
+     DESCRIPTION. Completion is triggered using *C-c t*.
+  3. Use *C-c p* to Publish or *C-c d* to post as draft. 
+  4. You could also publish your exiting org files; with a few edits.
+     
