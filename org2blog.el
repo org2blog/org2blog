@@ -157,7 +157,7 @@
   (let ((org2blog-buffer (generate-new-buffer org2blog-buffer-name)))
     (switch-to-buffer org2blog-buffer)
     (org-mode)
-    (insert "#+OPTIONS: toc:nil\n")
+    (insert "#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil\n")
     (insert "#+DESCRIPTION: \n")
     (insert "#+KEYWORDS: \n")
     (insert "#+TITLE: <Enter Title Here>")
