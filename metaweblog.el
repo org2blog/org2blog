@@ -25,7 +25,7 @@
 		       user-name
 		       password))
 
-(defun wordpress-get-tags (blog-xmlrpc user-name password blog-id)
+(defun wp-get-tags (blog-xmlrpc user-name password blog-id)
   "Retrieves list of tags from the weblog system. Uses wp.getTags"
   (xml-rpc-method-call blog-xmlrpc
 		       "wp.getTags"
@@ -125,22 +125,20 @@ no. of posts that should be returned."
 	  (kill-buffer)
 	  (setq fff-image `(("name" . ,name)
 			    ("bits" . ,image-base64)
-			    ("type" . ,(concat "image/" type))
-			    ("overwrite" . ,"t"))))))
+			    ("type" . ,(concat "image/" type)))))))
   fff-image))
 
 (defun metaweblog-upload-image (blog-xmlrpc user-name password blog-id image)
-  "Uploads an image to the blog. IMAGE will be an alist name, type, bits, overwrite as keys mapped to name of the image, mime type of the image, image data in base 64, overwrite boolean, respectively. Presently uses wp.uploadFile, probably won't work with other engines."
+  "Uploads an image to the blog. IMAGE will be an alist name, type, bits, as keys mapped to name of the image, mime type of the image, image data in base 64, respectively." 
   (let ((image-name (cdr (assoc "name" image)))
 	(image-type (cdr (assoc "type" image)))
-	(image-bits (cdr (assoc "bits" image)))
-	(image-over (cdr (assoc "overwrite" image))))
+	(image-bits (cdr (assoc "bits" image))))
 
   (xml-rpc-xml-to-response (xml-rpc-request
    blog-xmlrpc
    `((methodCall
       nil
-      (methodName nil "wp.uploadFile") 
+      (methodName nil "metaWeblog.newMediaObject") 
       (params nil 
 	      (param nil (value nil (string nil ,blog-id)))
 	      (param nil (value nil (string nil ,user-name)))
@@ -156,10 +154,7 @@ no. of posts that should be returned."
 					 (base64 nil ,image-bits))
 				 (member nil
 					 (name nil "type")
-					 (value nil ,image-type))
-				 (member nil
-					 (name nil "overwrite")
-					 (value nil ,image-over)))))
+					 (value nil ,image-type)))))
 	      )))))))
 
 
