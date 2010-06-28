@@ -133,7 +133,7 @@
   					   org2blog-server-weblog-id)))
   (setq org2blog-tags-list
   	(mapcar (lambda (tag) (cdr (assoc "slug" tag)))
-  		(wordpress-get-tags org2blog-server-xmlrpc-url
+  		(wp-get-tags org2blog-server-xmlrpc-url
   					   org2blog-server-userid
   					   (or org2blog-server-pass
   					       (read-passwd "Weblog Password ? "))
