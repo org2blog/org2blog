@@ -116,29 +116,30 @@
 (defun org2blog-login()
   "Logs into the blog. Initializes the internal data structures."
   (interactive)
-  (setq org2blog-server-xmlrpc-url (or org2blog-server-url
-				   (read-no-blanks-input 
-				    "Weblog XML-RPC URL ? ")))
-  (setq org2blog-server-userid (or org2blog-server-user
-			       (read-no-blanks-input 
-				"Weblog User ID ? ")))
-  (setq org2blog-server-blogid (or org2blog-server-weblog-id
-			       (read-no-blanks-input "Weblog ID ? ")))
-  (setq org2blog-categories-list
-  	(mapcar (lambda (category) (cdr (assoc "categoryName" category)))
-  		(metaweblog-get-categories org2blog-server-xmlrpc-url
-  					   org2blog-server-userid
-  					   (or org2blog-server-pass
-  					       (read-passwd "Weblog Password ? "))
-  					   org2blog-server-weblog-id)))
-  (setq org2blog-tags-list
-  	(mapcar (lambda (tag) (cdr (assoc "slug" tag)))
-  		(wp-get-tags org2blog-server-xmlrpc-url
-  					   org2blog-server-userid
-  					   (or org2blog-server-pass
-  					       (read-passwd "Weblog Password ? "))
-  					   org2blog-server-weblog-id)))
-  (setq org2blog-logged-in t))
+  (let ((password))
+    (setq org2blog-server-xmlrpc-url (or org2blog-server-url
+					 (read-no-blanks-input 
+					  "Weblog XML-RPC URL ? ")))
+    (setq org2blog-server-userid (or org2blog-server-user
+				     (read-no-blanks-input 
+				      "Weblog User ID ? ")))
+    (setq org2blog-server-blogid (or org2blog-server-weblog-id
+				     (read-no-blanks-input "Weblog ID ? ")))
+    (setq org2blog-categories-list
+	  (mapcar (lambda (category) (cdr (assoc "categoryName" category)))
+		  (metaweblog-get-categories org2blog-server-xmlrpc-url
+					     org2blog-server-userid
+					     (or org2blog-server-pass
+						 (setq password (read-passwd "Weblog Password ? ")))
+					     org2blog-server-weblog-id)))
+    (setq org2blog-tags-list
+	  (mapcar (lambda (tag) (cdr (assoc "slug" tag)))
+		  (wp-get-tags org2blog-server-xmlrpc-url
+			       org2blog-server-userid
+			       (or org2blog-server-pass
+				   password)
+			       org2blog-server-weblog-id)))
+    (setq org2blog-logged-in t)))
 
 (defun org2blog-logout()
   "Logs out from the blog and clears. Clears the internal data structures."
