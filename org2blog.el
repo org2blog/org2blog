@@ -168,7 +168,8 @@
 (defun upload-images-insert-links (html-string)
   "Uploads images if any in the html, and changes their links"
   (let ((re "<img src=\"/\\([^\s-]\\)*\"")
-	file-url file-name file-web-url)
+	(file-all-urls nil)
+	file-url file-name file-web-url blog-pass)
     (with-temp-buffer
       (insert html-string)
       (goto-char (point-min))
@@ -180,11 +181,15 @@
 			  (metaweblog-upload-image org2blog-server-xmlrpc-url
 						   org2blog-server-userid
 						   (or org2blog-server-pass
-						       (read-passwd "blog psswd? "))
+						       blog-pass
+						       (setq blog-pass (read-passwd "Img Upload - blog password ? ")))
 						   org2blog-server-weblog-id
 						   (get-image-properties file-name)))))
-	(goto-char (match-beginning 0))
-	(replace-regexp re (concat "<img src=\"" file-web-url "\"")))
+	(setq file-all-urls (append file-all-urls (list (cons 
+							 file-url file-web-url)))))
+      (goto-char (point-min))
+      (dolist (image file-all-urls)
+	(replace-string (car image) (concat "<img src=\"" (cdr image) "\"")))
   (buffer-string))))
 
 
