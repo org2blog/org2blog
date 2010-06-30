@@ -165,16 +165,21 @@
     (newline)
     (use-local-map org2blog-entry-mode-map)))
 
-(defun upload-images-insert-links (html-string)
+(defun upload-images-insert-links ()
   "Uploads images if any in the html, and changes their links"
-  (let ((re "<img src=\"\\(/[^[:space:]]*\\)\"")
+  (let ((re 
+	 (concat "\\[\\[\\(/.*\\)" 
+		 (substring (org-image-file-name-regexp) 0 -2)
+		 "\\]\\]"))
 	(file-all-urls nil)
 	file-name file-web-url blog-pass)
-    (with-temp-buffer
-      (insert html-string)
+    (save-excursion
       (goto-char (point-min))
       (while (re-search-forward re  nil t 1)
-	(setq file-name (match-string-no-properties 1))
+	(setq file-name (concat 
+			 (match-string-no-properties 1)
+			 "."
+			 (match-string-no-properties 2)))
 	(setq file-web-url
 	      (cdr (assoc "url" 
 			  (metaweblog-upload-image org2blog-server-xmlrpc-url
@@ -188,9 +193,7 @@
 							 file-name file-web-url)))))
       (goto-char (point-min))
       (dolist (image file-all-urls)
-	(replace-string (car image) (cdr image)))
-  (buffer-string))))
-
+	(replace-string (car image) (cdr image))))))
 
 (defun org2blog-post-entry(&optional publish)
   "Posts blog entry to the blog."
@@ -201,26 +204,25 @@
     (save-excursion 
       (goto-char (point-min))
       (if (re-search-forward "^#\\+POSTID: \\(.*\\)" nil t 1)
-	(setq post-id (match-string-no-properties 1))))
+	  (setq post-id (match-string-no-properties 1))))
     (setq post-title (plist-get (org-infile-export-plist) :title))
     (setq tags (split-string 
 		      (plist-get (org-infile-export-plist) :keywords) ", " t))
     (setq categories (split-string 
 		      (plist-get (org-infile-export-plist) :description) ", " t))
-    (setq html-text 
-	  (upload-images-insert-links
-	   (org-export-as-html 2 nil nil 'string t nil)))
+    (upload-images-insert-links)
+    (setq html-text (org-export-as-html 2 nil nil 'string t nil))
     (if post-id
 	(metaweblog-edit-post org2blog-server-xmlrpc-url
-			     org2blog-server-userid
-			     (or org2blog-server-pass
-				 (read-passwd "Weblog Password ? "))
-			     post-id
-			     `(("description" . ,html-text)
-			       ("title" . ,post-title)
-			       ("categories" . ,categories)
-			       ("tags" . ,tags))
-			     publish)
+			      org2blog-server-userid
+			      (or org2blog-server-pass
+				  (read-passwd "Weblog Password ? "))
+			      post-id
+			      `(("description" . ,html-text)
+				("title" . ,post-title)
+				("categories" . ,categories)
+				("tags" . ,tags))
+			      publish)
       (setq post-id (metaweblog-new-post org2blog-server-xmlrpc-url
 					 org2blog-server-userid
 					 (or org2blog-server-pass
