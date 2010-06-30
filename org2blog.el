@@ -199,9 +199,10 @@
   (unless org2blog-logged-in (error "Please log-in to the blog first"))
   (let* (html-text post-title categories post-id post-buffer)
     (setq post-buffer (buffer-name))
-    (goto-char (point-min))
-    (if (re-search-forward "^#\\+POSTID: \\(.*\\)" nil t 1)
-	(setq post-id (match-string-no-properties 1)))
+    (save-excursion 
+      (goto-char (point-min))
+      (if (re-search-forward "^#\\+POSTID: \\(.*\\)" nil t 1)
+	(setq post-id (match-string-no-properties 1))))
     (setq post-title (plist-get (org-infile-export-plist) :title))
     (setq tags (split-string 
 		      (plist-get (org-infile-export-plist) :keywords) ", " t))
