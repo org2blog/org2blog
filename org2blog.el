@@ -101,8 +101,20 @@
 (defvar org2blog-buffer-name "*org2blog*" 
   "Name of the blog buffer")
 
+(defvar org2blog-buffer-kill-prompt t
+  "Ask before killing buffer")
+
+(make-variable-buffer-local 'org2blog-buffer-kill-prompt)
+
 (defconst org2blog-version "0.2" 
   "Current version of blog.el")
+
+(defun org2blog-kill-buffer-hook ()
+  "Prompt before killing buffer."
+  (if (and org2blog-buffer-kill-prompt
+	   (not (buffer-file-name)))
+    (if (y-or-n-p "Save entry?")
+	(save-buffer))))
 
 (unless org2blog-entry-mode-map
   (setq org2blog-entry-mode-map
@@ -157,6 +169,7 @@
     (error "Please log-in to the blog first"))
   (let ((org2blog-buffer (generate-new-buffer org2blog-buffer-name)))
     (switch-to-buffer org2blog-buffer)
+    (add-hook 'kill-buffer-hook 'org2blog-kill-buffer-hook nil 'local)
     (org-mode)
     (insert "#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil\n")
     (insert "#+DESCRIPTION: \n")
