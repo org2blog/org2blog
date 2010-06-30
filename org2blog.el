@@ -167,15 +167,14 @@
 
 (defun upload-images-insert-links (html-string)
   "Uploads images if any in the html, and changes their links"
-  (let ((re "<img src=\"/\\([^\s-]\\)*\"")
+  (let ((re "<img src=\"\\(/[^[:space:]]*\\)\"")
 	(file-all-urls nil)
-	file-url file-name file-web-url blog-pass)
+	file-name file-web-url blog-pass)
     (with-temp-buffer
       (insert html-string)
       (goto-char (point-min))
       (while (re-search-forward re  nil t 1)
-	(setq file-url (match-string-no-properties 0))
-	(setq file-name (substring file-url 10 -1))
+	(setq file-name (match-string-no-properties 1))
 	(setq file-web-url
 	      (cdr (assoc "url" 
 			  (metaweblog-upload-image org2blog-server-xmlrpc-url
@@ -186,10 +185,10 @@
 						   org2blog-server-weblog-id
 						   (get-image-properties file-name)))))
 	(setq file-all-urls (append file-all-urls (list (cons 
-							 file-url file-web-url)))))
+							 file-name file-web-url)))))
       (goto-char (point-min))
       (dolist (image file-all-urls)
-	(replace-string (car image) (concat "<img src=\"" (cdr image) "\"")))
+	(replace-string (car image) (cdr image)))
   (buffer-string))))
 
 
