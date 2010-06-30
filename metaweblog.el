@@ -33,7 +33,8 @@
 		       user-name
 		       password))
 
-(defun metaweblog-new-post (blog-xmlrpc user-name password blog-id content publish)
+(defun metaweblog-new-post 
+  (blog-xmlrpc user-name password blog-id content publish)
   "Sends a new post to the blog. If PUBLISH is non-nil, the post is
 published, otherwise it is saved as draft. CONTENT will be an alist
 title, description, categories, and date as keys (string-ified) mapped to the
@@ -67,6 +68,67 @@ title of the post, post contents, list of categories, and date respectively."
 				 (member nil
 					 (name nil "dateCreated")
 					 (value nil ,post-date))
+				 ,(when post-tags
+				    `(member nil 
+					     (name nil "mt_keywords")
+					     (value nil
+						    (array
+						     nil
+						     ,(append 
+						       '(data nil)
+						       (mapcar
+							(lambda(f)
+							  `(value nil (string nil ,f)))
+							post-tags))))))
+				 ,(when post-categories
+				    `(member nil 
+					     (name nil "categories")
+					     (value nil
+						    (array
+						     nil
+						     ,(append 
+						       '(data nil)
+						       (mapcar
+							(lambda(f)
+							  `(value nil (string nil ,f)))
+							post-categories)))))))))
+	      (param nil (value nil (boolean nil ,(if publish "1" "0")))))))))))
+
+(defun metaweblog-edit-post 
+  (blog-xmlrpc user-name password post-id content publish)
+  "Edits an exiting post, if post-id is given. If PUBLISH is non-nil, the 
+post is published, otherwise it is saved as draft. CONTENT will be an alist 
+title, description, categories, and date as keys (string-ified) mapped to the 
+title of the post, post contents, list of categories, and date respectively."
+  (let ((post-title (cdr (assoc "title" content)))
+	(post-description (cdr (assoc "description" content)))
+	(post-categories (cdr (assoc "categories" content)))
+	(post-tags (cdr (assoc "tags" content)))
+	(post-date (cdr (assoc "date" content))))
+    (message post-date)
+  ;;; since xml-rpc-method-call entitifies the HTML text in the post
+  ;;; we've to use raw
+  (xml-rpc-xml-to-response (xml-rpc-request
+   blog-xmlrpc
+   `((methodCall
+      nil
+      (methodName nil "metaWeblog.editPost") 
+      (params nil 
+	      (param nil (value nil (string nil ,post-id)))
+	      (param nil (value nil (string nil ,user-name)))
+	      (param nil (value nil (string nil ,password)))
+	      (param nil (value nil
+				(struct
+				 nil
+				 (member nil
+					 (name nil "title")
+					 (value nil ,post-title))
+				 (member nil
+					 (name nil "description")
+					 (value nil ,post-description))
+				 ;; (member nil
+				 ;; 	 (name nil "dateCreated")
+				 ;; 	 (value nil ,post-date))
 				 ,(when post-tags
 				    `(member nil 
 					     (name nil "mt_keywords")

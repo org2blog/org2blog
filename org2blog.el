@@ -199,6 +199,9 @@
   (unless org2blog-logged-in (error "Please log-in to the blog first"))
   (let* (html-text post-title categories post-id post-buffer)
     (setq post-buffer (buffer-name))
+    (goto-char (point-min))
+    (if (re-search-forward "^#\\+POSTID: \\(.*\\)" nil t 1)
+	(setq post-id (match-string-no-properties 1)))
     (setq post-title (plist-get (org-infile-export-plist) :title))
     (setq tags (split-string 
 		      (plist-get (org-infile-export-plist) :keywords) ", " t))
@@ -207,20 +210,30 @@
     (setq html-text 
 	  (upload-images-insert-links
 	   (org-export-as-html 2 nil nil 'string t nil)))
-
-    (setq post-id (metaweblog-new-post org2blog-server-xmlrpc-url
-				       org2blog-server-userid
-				       (or org2blog-server-pass
-					   (read-passwd "Weblog Password ? "))
-				       org2blog-server-blogid
-				       `(("description" . ,html-text)
-					 ("title" . ,post-title)
-					 ("categories" . ,categories)
-					 ("tags" . ,tags))
-				       publish))
-    (switch-to-buffer post-buffer)
-    (goto-char (point-min))
-    (insert (concat "#+POSTID: " post-id "\n"))))
+    (if post-id
+	(metaweblog-edit-post org2blog-server-xmlrpc-url
+			     org2blog-server-userid
+			     (or org2blog-server-pass
+				 (read-passwd "Weblog Password ? "))
+			     post-id
+			     `(("description" . ,html-text)
+			       ("title" . ,post-title)
+			       ("categories" . ,categories)
+			       ("tags" . ,tags))
+			     publish)
+      (setq post-id (metaweblog-new-post org2blog-server-xmlrpc-url
+					 org2blog-server-userid
+					 (or org2blog-server-pass
+					     (read-passwd "Weblog Password ? "))
+					 org2blog-server-blogid
+					 `(("description" . ,html-text)
+					   ("title" . ,post-title)
+					   ("categories" . ,categories)
+					   ("tags" . ,tags))
+					 publish))
+      (switch-to-buffer post-buffer)
+      (goto-char (point-min))
+      (insert (concat "#+POSTID: " post-id "\n")))))
 
 (defun org2blog-complete-category()
   "Provides completion for categories and tags. DESCRIPTION for categories and KEYWORDS for tags."
