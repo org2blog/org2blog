@@ -42,12 +42,3 @@
 
   4. You could also publish your exiting org files; with a few edits.
      
-* *wpautop* issue with WordPress
-  WordPress has an annoying plugin called *wpautop* which
-  automatically /formats/ the text. It shows up line feeds in the html
-  source as line breaks in the output. With automatic line wrapping in
-  org-mode, the results are badly formatted blog posts. :-(
-
-  Use the disable wpautop plugin, if you are running your own instance
-  of WordPress. If you have a wordpress.com blog like me, stop using
-  org2blog! 
