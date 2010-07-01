@@ -210,7 +210,7 @@
 
 (defun org2blog-post-entry(&optional publish)
   "Posts blog entry to the blog."
-  (interactive)
+  (interactive "P")
   (unless org2blog-logged-in (error "Please log-in to the blog first"))
   (let* (html-text post-title categories post-id post-buffer)
     (setq post-buffer (buffer-name))
