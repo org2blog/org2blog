@@ -225,7 +225,7 @@
 		      (plist-get (org-infile-export-plist) :description) ", " t))
     (upload-images-insert-links)
     (setq html-text (org-export-as-html 2 nil nil 'string t nil))
-    (setq html-text (replace-regexp-in-string "\\\n" "" html-text))
+    (setq html-text (replace-regexp-in-string "\\\n" " " html-text))
     (if post-id
 	(metaweblog-edit-post org2blog-server-xmlrpc-url
 			      org2blog-server-userid
