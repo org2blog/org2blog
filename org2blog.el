@@ -222,17 +222,22 @@
 	  (setq post-id (match-string-no-properties 1))))
     (setq post-title (plist-get (org-infile-export-plist) :title))
     (setq post-date (plist-get (org-infile-export-plist) :date))
-    (setq post-date (replace-regexp-in-string "[-[:alpha:][:space:]]" "" 
-					      post-date))
-    (setq post-date (concat (substring post-date 1 9) 
-			    "T"  
-			    (substring post-date 9 14) 
-			    ":00Z"
-			    (format-time-string "%z" (current-time))))
-    (setq tags (split-string 
-		      (plist-get (org-infile-export-plist) :keywords) ", " t))
-    (setq categories (split-string 
-		      (plist-get (org-infile-export-plist) :description) ", " t))
+    (setq tags (plist-get (org-infile-export-plist) :keywords))
+    (setq categories (plist-get (org-infile-export-plist) :description))
+    (if post-date
+	(progn
+	  (setq post-date (replace-regexp-in-string "[-[:alpha:][:space:]]" "" 
+						    post-date))
+	  (setq post-date (concat (substring post-date 1 9) 
+				  "T"  
+				  (substring post-date 9 14) 
+				  ":00Z"
+				  (format-time-string "%z" (current-time))))))
+    
+    (if tags
+	(split-string tags ", " t))
+    (if categories
+	(split-string categories ", " t))
     (upload-images-insert-links)
     (setq html-text (org-export-as-html 2 nil nil 'string t nil))
     (setq html-text (replace-regexp-in-string "\\\n" " " html-text))
