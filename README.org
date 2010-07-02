@@ -31,14 +31,15 @@
    to your load-path before using org2blog.
    
 * Usage
-  1. Log in using *M-x org2blog-login RET*.  Provide xmlrpc url,
-     username, password and blog-id (not in use now; useful when
-     editing posts).  Optionally, you could set these in your .emacs.  
+  1. Log in using *M-x org2blog-login*.  Provide xmlrpc url, username,
+     password and blog-id (not in use now; useful when editing posts).
+     Optionally, you could set these in your .emacs.   
      
-  2. To start writing a new post use *M-x org2blog-new-entry RET*
-     Tags to your post are comma separated values passed to KEYWORDS.
+  2. To start writing a new post use *M-x org2blog-new-entry*.  Tags
+     to your post are comma separated values passed to KEYWORDS.
      Categories are comma separated values passed to DESCRIPTION.
-     Completion (for both) is triggered using *C-c t*.    
+     Completion (for both) is triggered using *C-c t*.  If a new
+     category is used you will be prompted before adding it.
 
   3. Use *C-c p* to Publish or *C-c d* to post as draft. 
 
@@ -49,4 +50,5 @@
      - If you wish to edit an existing post, add a #+POSTID.
      - To post as draft - *M-x org2blog-post-entry* 
      - To publish - *C-u M-x org2blog-post-entry* 
-
+       
+       

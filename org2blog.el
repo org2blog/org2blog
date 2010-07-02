@@ -235,9 +235,25 @@
 				  (format-time-string "%z" (current-time))))))
     
     (if tags
-	(split-string tags ", " t))
+	(if (setq tags (split-string tags "[ ,]+" t))
+	    ()
+	  (setq tags ""))
+      (setq tags ""))
+
     (if categories
-	(split-string categories ", " t))
+	(if (setq categories (split-string categories "[ ,]+" t))
+	    (mapcar (lambda (s)
+		      (if (not (member s org2blog-categories-list))
+			  (if (y-or-n-p (format "Create %s category? " s))
+			      (wp-new-category org2blog-server-xmlrpc-url
+					       org2blog-server-userid
+					       (or org2blog-server-pass
+						   (read-passwd "Weblog Password ? "))
+					       org2blog-server-blogid
+					       s)))) categories)
+	  (setq categories ""))
+      (setq categories ""))
+
     (upload-images-insert-links)
     (setq html-text (org-export-as-html 2 nil nil 'string t nil))
     (save-excursion

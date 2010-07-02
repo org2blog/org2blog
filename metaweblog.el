@@ -25,6 +25,15 @@
 		       user-name
 		       password))
 
+(defun wp-new-category (blog-xmlrpc user-name password blog-id category)
+  "Create new category on the weblog"
+  (xml-rpc-method-call blog-xmlrpc
+		       "wp.newCategory"
+		       blog-id
+		       user-name
+		       password
+		       `(("name" . ,category))))
+
 (defun wp-get-tags (blog-xmlrpc user-name password blog-id)
   "Retrieves list of tags from the weblog system. Uses wp.getTags"
   (xml-rpc-method-call blog-xmlrpc
