@@ -240,7 +240,15 @@
 	(split-string categories ", " t))
     (upload-images-insert-links)
     (setq html-text (org-export-as-html 2 nil nil 'string t nil))
-    (setq html-text (replace-regexp-in-string "\\\n" " " html-text))
+    (save-excursion
+      (with-temp-buffer
+	(let* (start-pos end-pos)
+	  (insert html-text)
+	  (setq start-pos (point-min))
+	  (while (re-search-forward "<pre.+>" nil t)
+	    (setq end-pos (match-beginning 0))
+	    (replace-regexp "\\\n" " " nil start-pos end-pos)
+	    (setq start-pos (match-end 0))))))
     (if post-id
 	(metaweblog-edit-post org2blog-server-xmlrpc-url
 			      org2blog-server-userid
