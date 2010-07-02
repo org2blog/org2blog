@@ -1,8 +1,10 @@
+#+POSTID: 722
+#+DATE: [2010-08-02 Mon 18:55]
 * Overview
   org2blog provides a simple way of publishing from org-mode to
-  (wordpress) blogs. Presently supports posting with categories, tags
-  and images. It uploads images on the local system automatically to
-  your wordpress blog.
+  (wordpress) blogs.  Presently supports posting with categories, tags
+  and images.  It uploads images on the local system automatically to
+  your wordpress blog. 
 
   It is inspired by and based on a [[http://paste.lisp.org/display/69993][wordpress posting client for
   muse-mode]] written by [[http://www.emacswiki.org/emacs/AshishShukla][Ashish Shukla]].
@@ -19,30 +21,32 @@
 
   : (require 'org2blog)
 
-  to your dot emacs. You can optionally save the xmlrpc url of your
-  blog and the username. 
+  to your dot emacs.  You can optionally save the xmlrpc url of your
+  blog and the username.
 
   : (setq org2blog-server-url "http://username.wordpress.com/xmlrpc.php"
   :       org2blog-server-user "username")
-  
-  *Note* - org2blog depends on xml-rpc available at [[http://launchpad.net/xml-rpc-el][Launchpad]]. Add it
-   to your load-path before using org2blog. 
+
+  *Note* - org2blog depends on xml-rpc available at [[http://launchpad.net/xml-rpc-el][Launchpad]].  Add it
+   to your load-path before using org2blog.
    
 * Usage
-  1. Log in using *M-x org2blog-login RET*. Provide xmlrpc url,
+  1. Log in using *M-x org2blog-login RET*.  Provide xmlrpc url,
      username, password and blog-id (not in use now; useful when
-     editing posts). Optionally, you could set these in your .emacs. 
+     editing posts).  Optionally, you could set these in your .emacs.  
      
   2. To start writing a new post use *M-x org2blog-new-entry RET*
      Tags to your post are comma separated values passed to KEYWORDS.
-     Categories are comma separated values passed to
-     DESCRIPTION. Completion (for both) is triggered using *C-c t*.
+     Categories are comma separated values passed to DESCRIPTION.
+     Completion (for both) is triggered using *C-c t*.    
 
   3. Use *C-c p* to Publish or *C-c d* to post as draft. 
 
-  4. You could also publish your exiting org files; with a few edits.
-     - Add the #+TITLE, [#+KEYWORDS, #+DESCRIPTION].
-     - *M-x org2blog-post-entry* to post as a draft.
-     - The same thing as above, with a prefix argument publishes. 
+  4. You could also publish your exiting org files.
+     - Add #+TITLE, #+OPTIONS, #+KEYWORDS, #+DESCRIPTION, #+DATE,
+       to your file.  All of these are Optional.  If a #+TITLE is
+       absent, your post will be untitled.
+     - If you wish to edit an existing post, add a #+POSTID.
+     - To post as draft - *M-x org2blog-post-entry* 
+     - To publish - *C-u M-x org2blog-post-entry* 
 
-     
