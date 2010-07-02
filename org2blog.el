@@ -171,6 +171,8 @@
     (switch-to-buffer org2blog-buffer)
     (add-hook 'kill-buffer-hook 'org2blog-kill-buffer-hook nil 'local)
     (org-mode)
+    (insert "#+DATE: ")
+    (insert (format-time-string "[%Y-%m-%d %a %H:%M]\n" (current-time)))
     (insert "#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil\n")
     (insert "#+DESCRIPTION: \n")
     (insert "#+KEYWORDS: \n")
@@ -219,6 +221,14 @@
       (if (re-search-forward "^#\\+POSTID: \\(.*\\)" nil t 1)
 	  (setq post-id (match-string-no-properties 1))))
     (setq post-title (plist-get (org-infile-export-plist) :title))
+    (setq post-date (plist-get (org-infile-export-plist) :date))
+    (setq post-date (replace-regexp-in-string "[-[:alpha:][:space:]]" "" 
+					      post-date))
+    (setq post-date (concat (substring post-date 1 9) 
+			    "T"  
+			    (substring post-date 9 14) 
+			    ":00Z"
+			    (format-time-string "%z" (current-time))))
     (setq tags (split-string 
 		      (plist-get (org-infile-export-plist) :keywords) ", " t))
     (setq categories (split-string 
@@ -234,6 +244,7 @@
 			      post-id
 			      `(("description" . ,html-text)
 				("title" . ,post-title)
+				("date" . ,post-date)
 				("categories" . ,categories)
 				("tags" . ,tags))
 			      publish)
@@ -244,6 +255,7 @@
 					 org2blog-server-blogid
 					 `(("description" . ,html-text)
 					   ("title" . ,post-title)
+					   ("date" . ,post-date)
 					   ("categories" . ,categories)
 					   ("tags" . ,tags))
 					 publish))

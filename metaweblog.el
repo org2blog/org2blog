@@ -67,7 +67,7 @@ title of the post, post contents, list of categories, and date respectively."
 					 (value nil ,post-description))
 				 (member nil
 					 (name nil "dateCreated")
-					 (value nil ,post-date))
+					 (dateTime.iso8601 nil ,post-date))
 				 ,(when post-tags
 				    `(member nil 
 					     (name nil "mt_keywords")
@@ -126,9 +126,9 @@ title of the post, post contents, list of categories, and date respectively."
 				 (member nil
 					 (name nil "description")
 					 (value nil ,post-description))
-				 ;; (member nil
-				 ;; 	 (name nil "dateCreated")
-				 ;; 	 (value nil ,post-date))
+				 (member nil
+				 	 (name nil "dateCreated")
+				 	 (dateTime.iso8601 nil ,post-date))
 				 ,(when post-tags
 				    `(member nil 
 					     (name nil "mt_keywords")
