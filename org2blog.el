@@ -151,7 +151,8 @@
 			       (or org2blog-server-pass
 				   password)
 			       org2blog-server-weblog-id)))
-    (setq org2blog-logged-in t)))
+    (setq org2blog-logged-in t)
+    (message "Logged in")))
 
 (defun org2blog-logout()
   "Logs out from the blog and clears. Clears the internal data structures."
@@ -160,7 +161,8 @@
 	org2blog-server-userid nil
 	org2blog-server-blogid nil
 	org2blog-categories-list nil
-	org2blog-logged-in nil))
+	org2blog-logged-in nil)
+  (message "Logged out"))
 
 (defun org2blog-new-entry()
   "Creates a new blog entry. Use DESCRIPTION option for categories and KEYWORDS for tags."
@@ -201,7 +203,10 @@
 						   org2blog-server-userid
 						   (or org2blog-server-pass
 						       blog-pass
-						       (setq blog-pass (read-passwd "Img Upload - blog password ? ")))
+						       (setq blog-pass (read-passwd 
+									(format 
+									 "%s image upload - blog password ? " 
+									 file-name))))
 						   org2blog-server-weblog-id
 						   (get-image-properties file-name)))))
 	(setq file-all-urls (append file-all-urls (list (cons 
@@ -290,7 +295,10 @@
 					 publish))
       (switch-to-buffer post-buffer)
       (goto-char (point-min))
-      (insert (concat "#+POSTID: " post-id "\n")))))
+      (insert (concat "#+POSTID: " post-id "\n")))
+      (if publish
+	  (message "Post \" %s \" Published" post-title)
+	(message "Post \" %s \" saved as Draft" post-title))))
 
 (defun org2blog-complete-category()
   "Provides completion for categories and tags. DESCRIPTION for categories and KEYWORDS for tags."

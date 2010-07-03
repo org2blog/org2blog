@@ -1,5 +1,3 @@
-#+POSTID: 722
-#+DATE: [2010-08-02 Mon 18:55]
 * Overview
   org2blog provides a simple way of publishing from org-mode to
   (wordpress) blogs.  Presently supports posting with categories, tags
