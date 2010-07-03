@@ -219,7 +219,7 @@
   "Posts blog entry to the blog."
   (interactive "P")
   (unless org2blog-logged-in (error "Please log-in to the blog first"))
-  (let* (html-text post-title categories post-id post-buffer)
+  (let (html-text post-title categories post-id post-buffer)
     (setq post-buffer (buffer-name))
     (save-excursion 
       (goto-char (point-min))
@@ -261,15 +261,22 @@
 
     (upload-images-insert-links)
     (setq html-text (org-export-as-html 2 nil nil 'string t nil))
-    (save-excursion
-      (with-temp-buffer
-	(let* (start-pos end-pos)
-	  (insert html-text)
-	  (setq start-pos (point-min))
-	  (while (re-search-forward "<pre.+>" nil t)
-	    (setq end-pos (match-beginning 0))
-	    (replace-regexp "\\\n" " " nil start-pos end-pos)
-	    (setq start-pos (match-end 0))))))
+    (setq html-text 
+	  (save-excursion
+	    (with-temp-buffer
+	      (let* (start-pos end-pos)
+	  	(insert html-text)
+	  	(setq start-pos (point-min))
+		(goto-char start-pos)
+	  	(while (re-search-forward "<pre.+>" nil t 1)
+	  	  (setq end-pos (match-beginning 0))
+	  	  (replace-regexp "\\\n" " " nil start-pos end-pos)
+	  	  (re-search-forward "</pre>" nil t 1)
+	  	  (setq start-pos (match-end 0))
+		  (goto-char start-pos))
+	  	(setq end-pos (point-max))
+	  	(replace-regexp "\\\n" " " nil start-pos end-pos)
+	      (buffer-substring-no-properties (point-min) (point-max))))))
     (if post-id
 	(metaweblog-edit-post org2blog-server-xmlrpc-url
 			      org2blog-server-userid
