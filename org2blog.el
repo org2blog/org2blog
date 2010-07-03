@@ -175,7 +175,7 @@
     (org-mode)
     (insert "#+DATE: ")
     (insert (format-time-string "[%Y-%m-%d %a %H:%M]\n" (current-time)))
-    (insert "#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil\n")
+    (insert "#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:{}\n")
     (insert "#+DESCRIPTION: \n")
     (insert "#+KEYWORDS: \n")
     (insert "#+TITLE: <Enter Title Here>")

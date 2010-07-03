@@ -49,4 +49,6 @@
      - To post as draft - *M-x org2blog-post-entry* 
      - To publish - *C-u M-x org2blog-post-entry* 
        
-       
+* Miscellaneous 
+  You may want to look at the [[http://orgmode.org/manual/Export-options.html#Export-options][Export options]] and [[http://orgmode.org/manual/HTML-export.html#HTML-export][HTML export]] sections
+  of the org-manual.
