@@ -142,7 +142,7 @@
 		  (metaweblog-get-categories org2blog-server-xmlrpc-url
 					     org2blog-server-userid
 					     (or org2blog-server-pass
-						 (setq password (read-passwd "Weblog Password ? ")))
+						 (setq password (read-passwd "Logging in - Weblog Password ? ")))
 					     org2blog-server-weblog-id)))
     (setq org2blog-tags-list
 	  (mapcar (lambda (tag) (cdr (assoc "slug" tag)))
@@ -168,7 +168,7 @@
   "Creates a new blog entry. Use DESCRIPTION option for categories and KEYWORDS for tags."
   (interactive)
   (unless org2blog-logged-in
-    (error "Please log-in to the blog first"))
+    (org2blog-login))
   (let ((org2blog-buffer (generate-new-buffer org2blog-buffer-name)))
     (switch-to-buffer org2blog-buffer)
     (add-hook 'kill-buffer-hook 'org2blog-kill-buffer-hook nil 'local)
@@ -218,7 +218,8 @@
 (defun org2blog-post-entry(&optional publish)
   "Posts blog entry to the blog."
   (interactive "P")
-  (unless org2blog-logged-in (error "Please log-in to the blog first"))
+  (unless org2blog-logged-in 
+    (org2blog-login))
   (let (html-text post-title categories post-id post-buffer)
     (setq post-buffer (buffer-name))
     (save-excursion 
