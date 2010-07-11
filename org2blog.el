@@ -274,7 +274,7 @@
       (setq categories ""))
 
     (upload-images-insert-links)
-    (setq html-text (org-export-as-html 2 nil nil 'string t nil))
+    (setq html-text (org-export-as-html nil nil nil 'string t nil))
     (setq html-text 
 	  (save-excursion
 	    (with-temp-buffer
