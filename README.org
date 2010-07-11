@@ -1,6 +1,6 @@
 * Overview
   org2blog provides a simple way of publishing from org-mode to
-  (wordpress) blogs.  Presently supports posting with categories, tags
+  [[http://wordpress.org/][WordPress]] blogs.  Presently supports posting with categories, tags
   and images.  It uploads images on the local system automatically to
   your wordpress blog. 
 
@@ -48,7 +48,12 @@
      - If you wish to edit an existing post, add a #+POSTID.
      - To post as draft - *M-x org2blog-post-entry* 
      - To publish - *C-u M-x org2blog-post-entry* 
-       
+     - Alternatively, you could enable org2blog-mode using *M-x
+       org2blog-mode*.  This provides the key-bindings *C-c p*, *C-c
+       d* and *C-c t*. 
+
 * Miscellaneous 
-  You may want to look at the [[http://orgmode.org/manual/Export-options.html#Export-options][Export options]] and [[http://orgmode.org/manual/HTML-export.html#HTML-export][HTML export]] sections
-  of the org-manual.
+  1. You may want to look at the [[http://orgmode.org/manual/Export-options.html#Export-options][Export options]] and [[http://orgmode.org/manual/HTML-export.html#HTML-export][HTML export]]
+     sections of the org-manual.
+  2. If you wish to post to blogger from org-mode, look at the
+     [[http://code.google.com/p/emacspeak/source/browse/trunk/lisp/g-client/org2blogger.el][g-client extension]] by [[http://en.wikipedia.org/wiki/T._V._Raman][T. V. Raman]].  
