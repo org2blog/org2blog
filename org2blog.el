@@ -95,6 +95,10 @@
 (defvar org2blog-entry-mode-map nil 
   "Keymap for blog entry buffer")
 
+(defvar org2blog-mode nil
+  "Mode for org2blog")
+(make-variable-buffer-local 'org2blog-mode)
+
 (defvar org2blog-logged-in nil 
   "Flag whether user is logged-in or not")
 
@@ -103,7 +107,6 @@
 
 (defvar org2blog-buffer-kill-prompt t
   "Ask before killing buffer")
-
 (make-variable-buffer-local 'org2blog-buffer-kill-prompt)
 
 (defconst org2blog-version "0.2" 
@@ -115,6 +118,16 @@
 	   (not (buffer-file-name)))
     (if (y-or-n-p "Save entry?")
 	(save-buffer))))
+
+(defun org2blog-mode (&optional arg)
+  "org2blog mode for providing mode-map."
+  (interactive "P")
+  (setq org2blog-mode
+	(if (null arg)
+	    (not org2blog-mode)
+	  (> (prefix-numeric-value arg) 0)))
+  (if org2blog-mode
+      (use-local-map org2blog-entry-mode-map)))
 
 (unless org2blog-entry-mode-map
   (setq org2blog-entry-mode-map
