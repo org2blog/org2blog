@@ -134,7 +134,9 @@
 	(let ((org2blog-map (make-sparse-keymap)))
 	  (set-keymap-parent org2blog-map org-mode-map)
 	  (define-key org2blog-map (kbd "C-c p") (lambda() (interactive) (org2blog-post-as-entry t)))
+	  (define-key org2blog-map (kbd "C-c P") (lambda() (interactive) (org2blog-post-as-page t)))
 	  (define-key org2blog-map (kbd "C-c d") 'org2blog-post-as-entry)
+	  (define-key org2blog-map (kbd "C-c D") 'org2blog-post-as-page)
 	  (define-key org2blog-map (kbd "C-c t") 'org2blog-complete-category)
 	  org2blog-map)))
 
@@ -328,6 +330,50 @@
 					   ("categories" . ,categories)
 					   ("tags" . ,tags))
 					 publish))
+      (switch-to-buffer post-buffer)
+      (goto-char (point-min))
+      (insert (concat "#+POSTID: " post-id "\n")))
+      (if publish
+	  (message "Post \" %s \" Published" post-title)
+	(message "Post \" %s \" saved as Draft" post-title))))
+
+(defun org2blog-post-as-page(&optional publish)
+  "Posts new page to the blog or edits an existing page."
+  (interactive "P")
+  (unless org2blog-logged-in 
+    (org2blog-login))
+  (let (post html-text post-title post-id post-buffer post-date tags categories)
+    (setq post (org2blog-parse-entry))
+    (setq html-text (nth 0 post)
+          post-title (nth 1 post)
+          post-id (nth 2 post)
+          post-buffer (nth 3 post)
+          post-date (nth 4 post)
+          categories (nth 5 post)
+          tags (nth 6 post))
+    (if post-id
+	(metaweblog-edit-post org2blog-server-xmlrpc-url
+			      org2blog-server-userid
+			      (or org2blog-server-pass
+				  (read-passwd "Weblog Password ? "))
+			      post-id
+			      `(("description" . ,html-text)
+				("title" . ,post-title)
+				("date" . ,post-date)
+				("categories" . ,categories)
+				("tags" . ,tags))
+			      publish)
+      (setq post-id (wp-new-page org2blog-server-xmlrpc-url
+                                 org2blog-server-userid
+                                 (or org2blog-server-pass
+                                     (read-passwd "Weblog Password ? "))
+                                 org2blog-server-blogid
+                                 `(("description" . ,html-text)
+                                   ("title" . ,post-title)
+                                   ("date" . ,post-date)
+                                   ("categories" . ,categories)
+                                   ("tags" . ,tags))
+                                 publish))
       (switch-to-buffer post-buffer)
       (goto-char (point-min))
       (insert (concat "#+POSTID: " post-id "\n")))
