@@ -233,7 +233,7 @@
   (interactive "P")
   (unless org2blog-logged-in 
     (org2blog-login))
-  (let (html-text post-title categories post-id post-buffer)
+  (let (html-text post-title post-id post-buffer tags categories)
     (setq post-buffer (buffer-name))
     (save-excursion 
       (goto-char (point-min))
