@@ -133,8 +133,8 @@
   (setq org2blog-entry-mode-map
 	(let ((org2blog-map (make-sparse-keymap)))
 	  (set-keymap-parent org2blog-map org-mode-map)
-	  (define-key org2blog-map (kbd "C-c p") (lambda() (interactive) (org2blog-post-entry t)))
-	  (define-key org2blog-map (kbd "C-c d") 'org2blog-post-entry)
+	  (define-key org2blog-map (kbd "C-c p") (lambda() (interactive) (org2blog-post-as-entry t)))
+	  (define-key org2blog-map (kbd "C-c d") 'org2blog-post-as-entry)
 	  (define-key org2blog-map (kbd "C-c t") 'org2blog-complete-category)
 	  org2blog-map)))
 
@@ -228,12 +228,10 @@
       (dolist (image file-all-urls)
 	(replace-string (car image) (cdr image))))))
 
-(defun org2blog-post-entry(&optional publish)
-  "Posts blog entry to the blog."
+(defun org2blog-parse-entry(&optional publish)
+  "Parse an org2blog buffer."
   (interactive "P")
-  (unless org2blog-logged-in 
-    (org2blog-login))
-  (let (html-text post-title post-id post-buffer tags categories)
+  (let* (html-text post-title post-id post-buffer post-date tags categories)
     (setq post-buffer (buffer-name))
     (save-excursion 
       (goto-char (point-min))
@@ -291,6 +289,22 @@
 	  	(setq end-pos (point-max))
 	  	(replace-regexp "\\\n" " " nil start-pos end-pos)
 	      (buffer-substring-no-properties (point-min) (point-max))))))
+    (list html-text post-title post-id post-buffer post-date tags categories)))
+
+(defun org2blog-post-as-entry(&optional publish)
+  "Posts new blog entry to the blog or edits an existing entry."
+  (interactive "P")
+  (unless org2blog-logged-in 
+    (org2blog-login))
+  (let (post html-text post-title post-id post-buffer post-date tags categories)
+    (setq post (org2blog-parse-entry))
+    (setq html-text (nth 0 post)
+          post-title (nth 1 post)
+          post-id (nth 2 post)
+          post-buffer (nth 3 post)
+          post-date (nth 4 post)
+          categories (nth 5 post)
+          tags (nth 6 post))
     (if post-id
 	(metaweblog-edit-post org2blog-server-xmlrpc-url
 			      org2blog-server-userid
