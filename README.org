@@ -39,7 +39,8 @@
      Completion (for both) is triggered using *C-c t*.  If a new
      category is used you will be prompted before adding it.
 
-  3. Use *C-c p* to Publish or *C-c d* to post as draft. 
+  3. Use *C-c p* to Publish or *C-c d* to post as draft. Use *C-c P*
+     to Publish as page or *C-c D* to save page as draft.
 
   4. You could also publish your exiting org files.
      - Add #+TITLE, #+OPTIONS, #+KEYWORDS, #+DESCRIPTION, #+DATE,
@@ -51,6 +52,14 @@
      - Alternatively, you could enable org2blog-mode using *M-x
        org2blog-mode*.  This provides the key-bindings *C-c p*, *C-c
        d* and *C-c t*. 
+
+  5. To delete an entry or a page -
+     - If you are in the buffer of the entry/page, with #+POST_ID
+       present on the page, use *M-x org2blog-delete-entry* or *M-x
+       org2blog-delete-page*  
+     - If you want to delete a particular post (whose post-id is
+       known) from any buffer, use *C-u post-id M-x
+       org2blog-delete-entry*. Similarly, for a page. 
 
 * Miscellaneous 
   1. You may want to look at the [[http://orgmode.org/manual/Export-options.html#Export-options][Export options]] and [[http://orgmode.org/manual/HTML-export.html#HTML-export][HTML export]]
