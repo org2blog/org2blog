@@ -230,15 +230,21 @@
       (dolist (image file-all-urls)
 	(replace-string (car image) (cdr image))))))
 
+(defun org2blog-get-post-id ()
+  "Gets the post-id from a buffer."
+  (let (post-id)
+    (save-excursion 
+      (goto-char (point-min))
+      (if (re-search-forward "^#\\+POSTID: \\(.*\\)" nil t 1)
+          (setq post-id (match-string-no-properties 1))))
+    post-id))
+
 (defun org2blog-parse-entry(&optional publish)
   "Parse an org2blog buffer."
   (interactive "P")
   (let* (html-text post-title post-id post-buffer post-date tags categories)
     (setq post-buffer (buffer-name))
-    (save-excursion 
-      (goto-char (point-min))
-      (if (re-search-forward "^#\\+POSTID: \\(.*\\)" nil t 1)
-	  (setq post-id (match-string-no-properties 1))))
+    (setq post-id (org2blog-get-post-id))
     (setq post-title (plist-get (org-infile-export-plist) :title))
     (setq post-date (plist-get (org-infile-export-plist) :date))
     (setq tags (plist-get (org-infile-export-plist) :keywords))
@@ -380,6 +386,29 @@
       (if publish
 	  (message "Post \" %s \" Published" post-title)
 	(message "Post \" %s \" saved as Draft" post-title))))
+
+(defun org2blog-delete-entry (&optional post-id)
+  (interactive "P")
+  (if (null post-id)
+      (setq post-id (org2blog-get-post-id)))
+  (metaweblog-delete-post org2blog-server-xmlrpc-url
+                                org2blog-server-userid
+                                (or org2blog-server-pass
+                                    (read-passwd "Weblog Password ? "))
+                                post-id)
+  (message "Post Deleted"))
+
+(defun org2blog-delete-page (&optional page-id)
+  (interactive "P")
+  (if (null page-id)
+      (setq page-id (org2blog-get-post-id)))
+  (wp-delete-page org2blog-server-xmlrpc-url
+                  org2blog-server-blogid
+                  org2blog-server-userid
+                  (or org2blog-server-pass
+                      (read-passwd "Weblog Password ? "))
+                  page-id)
+   (message "Page Deleted"))
 
 (defun org2blog-complete-category()
   "Provides completion for categories and tags. DESCRIPTION for categories and KEYWORDS for tags."

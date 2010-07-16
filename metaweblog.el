@@ -105,7 +105,7 @@ title of the post, post contents, list of categories, and date respectively."
 
 (defun wp-new-page
   (blog-xmlrpc user-name password blog-id content publish)
-  "Sends a new post to the blog. If PUBLISH is non-nil, the post is
+  "Sends a new page to the blog. If PUBLISH is non-nil, the post is
 published, otherwise it is saved as draft. CONTENT will be an alist
 title, description, categories, and date as keys (string-ified) mapped to the
 title of the post, post contents, list of categories, and date respectively." 
@@ -233,6 +233,25 @@ which is to be returned"
 		       post-id
 		       user-name
 		       password))
+
+(defun metaweblog-delete-post (blog-xmlrpc user-name password post-id)
+  "Delete an entry from the weblog system."
+  (xml-rpc-method-call blog-xmlrpc
+		       "blogger.deletePost"
+                       nil
+		       post-id
+		       user-name
+		       password
+                       t))
+
+(defun wp-delete-page (blog-xmlrpc blog-id user-name password page-id)
+  "Delete a page from the weblog system."
+  (xml-rpc-method-call blog-xmlrpc
+		       "wp.deletePage"
+                       blog-id
+		       user-name
+		       password
+		       page-id))
 
 (defun metaweblog-get-recent-posts(blog-xmlrpc blog-id user-name password number-of-posts)
   "Fetches the recent posts from the weblog. NUMBER-OF-POSTS is the
