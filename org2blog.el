@@ -256,8 +256,7 @@
 	  (setq post-date (concat (substring post-date 1 9) 
 				  "T"  
 				  (substring post-date 9 14) 
-				  ":00Z"
-				  (format-time-string "%z" (current-time))))))
+				  ":00"))))
     
     (if tags
 	(if (setq tags (split-string tags "[ ,]+" t))
@@ -311,8 +310,8 @@
           post-id (nth 2 post)
           post-buffer (nth 3 post)
           post-date (nth 4 post)
-          categories (nth 5 post)
-          tags (nth 6 post))
+          tags (nth 5 post)
+          categories (nth 6 post))
     (if post-id
 	(metaweblog-edit-post org2blog-server-xmlrpc-url
 			      org2blog-server-userid

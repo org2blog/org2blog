@@ -53,7 +53,6 @@ title of the post, post contents, list of categories, and date respectively."
 	(post-categories (cdr (assoc "categories" content)))
 	(post-tags (cdr (assoc "tags" content)))
 	(post-date (cdr (assoc "date" content))))
-    (message post-date)
   ;;; since xml-rpc-method-call entitifies the HTML text in the post
   ;;; we've to use raw
   (xml-rpc-xml-to-response (xml-rpc-request
