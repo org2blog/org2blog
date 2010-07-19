@@ -138,10 +138,10 @@
   (setq org2blog-entry-mode-map
 	(let ((org2blog-map (make-sparse-keymap)))
 	  (set-keymap-parent org2blog-map org-mode-map)
-	  (define-key org2blog-map (kbd "C-c p") (lambda() (interactive) (org2blog-post-as-entry t)))
-	  (define-key org2blog-map (kbd "C-c P") (lambda() (interactive) (org2blog-post-as-page t)))
-	  (define-key org2blog-map (kbd "C-c d") 'org2blog-post-as-entry)
-	  (define-key org2blog-map (kbd "C-c D") 'org2blog-post-as-page)
+	  (define-key org2blog-map (kbd "C-c p") (lambda() (interactive) (org2blog-post-entry t)))
+	  (define-key org2blog-map (kbd "C-c P") (lambda() (interactive) (org2blog-post-entry-as-page t)))
+	  (define-key org2blog-map (kbd "C-c d") 'org2blog-post-entry)
+	  (define-key org2blog-map (kbd "C-c D") 'org2blog-post-entry-as-page)
 	  (define-key org2blog-map (kbd "C-c t") 'org2blog-complete-category)
 	  org2blog-map)))
 
@@ -260,16 +260,17 @@
           (setq post-id (match-string-no-properties 1))))
     post-id))
 
-(defun org2blog-parse-entry(&optional publish)
+(defun org2blog-parse-entry (&optional publish)
   "Parse an org2blog buffer."
   (interactive "P")
-  (let* (html-text post-title post-id post-buffer post-date tags categories)
-    (setq post-buffer (buffer-name))
-    (setq post-id (org2blog-get-post-id))
-    (setq post-title (plist-get (org-infile-export-plist) :title))
-    (setq post-date (plist-get (org-infile-export-plist) :date))
-    (setq tags (plist-get (org-infile-export-plist) :keywords))
-    (setq categories (plist-get (org-infile-export-plist) :description))
+  (let (html-text 
+        (post-buffer (buffer-name))
+        (post-title (plist-get (org-infile-export-plist) :title))
+        (post-id (org2blog-get-post-id))
+        (post-date (plist-get (org-infile-export-plist) :date))
+        (tags (plist-get (org-infile-export-plist) :keywords))
+        (categories (plist-get (org-infile-export-plist) :description)))
+
     (if post-date
 	(progn
 	  (setq post-date (replace-regexp-in-string "[-[:alpha:][:space:]]" "" 
@@ -287,7 +288,6 @@
 
     (if categories
 	(if (setq categories (split-string categories "[ ,]+" t))
-            (org2blog-create-categories org2blog-categories-list)
 	  (setq categories ""))
       (setq categories ""))
 
@@ -309,91 +309,80 @@
 	  	(setq end-pos (point-max))
 	  	(replace-regexp "\\\n" " " nil start-pos end-pos)
 	      (buffer-substring-no-properties (point-min) (point-max))))))
-    (list html-text post-title post-id post-buffer post-date tags categories)))
+    (list
+     (cons "date" post-date)
+     (cons "title" post-title)
+     (cons "tags" tags)
+     (cons "categories" categories)
+     (cons "post-id" post-id)
+     (cons "buffer" post-buffer)
+     (cons "description" html-text))))
 
-(defun org2blog-post-as-entry(&optional publish)
+(defun org2blog-post-entry (&optional publish)
   "Posts new blog entry to the blog or edits an existing entry."
   (interactive "P")
   (unless org2blog-logged-in 
     (org2blog-login))
-  (let (post html-text post-title post-id post-buffer post-date tags categories)
-    (setq post (org2blog-parse-entry))
-    (setq html-text (nth 0 post)
-          post-title (nth 1 post)
-          post-id (nth 2 post)
-          post-buffer (nth 3 post)
-          post-date (nth 4 post)
-          tags (nth 5 post)
-          categories (nth 6 post))
+  (let ((post (org2blog-parse-entry))
+        post-id post-buf)
+    (org2blog-create-categories (cdr (assoc "categories" post)))
+    (setq post-id (cdr (assoc "post-id" post)))
+    (setq post-buf (cdr (assoc "buffer" post)))
     (if post-id
 	(metaweblog-edit-post org2blog-server-xmlrpc-url
 			      org2blog-server-userid
                               (org2blog-password)
 			      post-id
-			      `(("description" . ,html-text)
-				("title" . ,post-title)
-				("date" . ,post-date)
-				("categories" . ,categories)
-				("tags" . ,tags))
+                              post
 			      publish)
       (setq post-id (metaweblog-new-post org2blog-server-xmlrpc-url
 					 org2blog-server-userid
                                          (org2blog-password)
 					 org2blog-server-blogid
-					 `(("description" . ,html-text)
-					   ("title" . ,post-title)
-					   ("date" . ,post-date)
-					   ("categories" . ,categories)
-					   ("tags" . ,tags))
+                                         post
 					 publish))
-      (switch-to-buffer post-buffer)
-      (goto-char (point-min))
-      (insert (concat "#+POSTID: " post-id "\n")))
-      (if publish
-	  (message "Post \" %s \" Published" post-title)
-	(message "Post \" %s \" saved as Draft" post-title))))
+      (save-excursion
+        (switch-to-buffer post-buf)
+        (goto-char (point-min))
+        (insert (concat "#+POSTID: " post-id "\n"))))
+    (message (if publish
+                 "Published (%s): %s"
+               "Draft (%s): %s")
+             post-id
+             (cdr (assoc "title" post)))))
 
-(defun org2blog-post-as-page(&optional publish)
+(defun org2blog-post-entry-as-page (&optional publish)
   "Posts new page to the blog or edits an existing page."
   (interactive "P")
   (unless org2blog-logged-in 
     (org2blog-login))
-  (let (post html-text post-title post-id post-buffer post-date tags categories)
-    (setq post (org2blog-parse-entry))
-    (setq html-text (nth 0 post)
-          post-title (nth 1 post)
-          post-id (nth 2 post)
-          post-buffer (nth 3 post)
-          post-date (nth 4 post)
-          categories (nth 5 post)
-          tags (nth 6 post))
+  (let ((post (org2blog-parse-entry))
+        post-id post-buf)
+    (org2blog-create-categories (cdr (assoc "categories" post)))
+    (setq post-id (cdr (assoc "post-id" post)))
+    (setq post-buf (cdr (assoc "buffer" post)))
     (if post-id
 	(metaweblog-edit-post org2blog-server-xmlrpc-url
 			      org2blog-server-userid
                               (org2blog-password)
 			      post-id
-			      `(("description" . ,html-text)
-				("title" . ,post-title)
-				("date" . ,post-date)
-				("categories" . ,categories)
-				("tags" . ,tags))
+                              post
 			      publish)
       (setq post-id (wp-new-page org2blog-server-xmlrpc-url
                                  org2blog-server-userid
                                  (org2blog-password)
                                  org2blog-server-blogid
-                                 `(("description" . ,html-text)
-                                   ("title" . ,post-title)
-                                   ("date" . ,post-date)
-                                   ("categories" . ,categories)
-                                   ("tags" . ,tags))
+                                 post
                                  publish))
-      (switch-to-buffer post-buffer)
-      (goto-char (point-min))
-      (insert (concat "#+POSTID: " post-id "\n")))
-      (if publish
-	  (message "Post \" %s \" Published" post-title)
-	(message "Post \" %s \" saved as Draft" post-title))))
+      (save-excursion
+        (switch-to-buffer post-buf)
+        (goto-char (point-min))
+        (insert (concat "#+POSTID: " post-id "\n"))))
+    (message (if publish
+                 "Published (%s): %s"
+               "Draft (%s): %s")
+             post-id
+             (cdr (assoc "title" post)))))
 
 (defun org2blog-delete-entry (&optional post-id)
   (interactive "P")
