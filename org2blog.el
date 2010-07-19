@@ -145,6 +145,24 @@
 	  (define-key org2blog-map (kbd "C-c t") 'org2blog-complete-category)
 	  org2blog-map)))
 
+(defun org2blog-create-categories (categories)
+  "Create unknown CATEGORIES."
+  (mapcar
+   (lambda (cat)
+     (if (and (not (member cat org2blog-categories-list))
+              (y-or-n-p (format "Create %s category? " cat)))
+         (wp-new-category org2blog-server-xmlrpc-url
+                          org2blog-server-userid
+                          (org2blog-password)
+                          org2blog-server-blogid
+                          cat)))
+   categories))
+
+(defun org2blog-password ()
+  "Get password or prompt if needed."
+  (or org2blog-server-pass
+      (setq org2blog-server-pass (read-passwd "Weblog password? "))))
+
 (defun org2blog-login()
   "Logs into the blog. Initializes the internal data structures."
   (interactive)
@@ -269,14 +287,7 @@
 
     (if categories
 	(if (setq categories (split-string categories "[ ,]+" t))
-	    (mapcar (lambda (s)
-		      (if (not (member s org2blog-categories-list))
-			  (if (y-or-n-p (format "Create %s category? " s))
-			      (wp-new-category org2blog-server-xmlrpc-url
-					       org2blog-server-userid
-                                               (org2blog-password)
-					       org2blog-server-blogid
-					       s)))) categories)
+            (org2blog-create-categories org2blog-categories-list)
 	  (setq categories ""))
       (setq categories ""))
 
@@ -429,23 +440,6 @@
       	(goto-char current-pos)
       	(command-execute (lookup-key org-mode-map (kbd "C-c t")))))))
 
-(defun org2blog-create-categories (categories)
-  "Create unknown CATEGORIES."
-  (mapcar
-   (lambda (cat)
-     (if (and (not (member cat org2blog-categories-list))
-              (y-or-n-p (format "Create %s category? " cat)))
-         (wp-new-category org2blog-server-xmlrpc-url
-                          org2blog-server-userid
-                          (org2blog-password)
-                          org2blog-server-blogid
-                          cat)))
-   categories))
-
-(defun org2blog-password ()
-  "Get password or prompt if needed."
-  (or org2blog-server-pass
-      (setq org2blog-server-pass (read-passwd "Weblog password? "))))
 
 (defun org2blog-upload-images-insert-links (&optional beg end)
   "Upload images and replace with links in the region specified by BEG to END."
