@@ -260,56 +260,84 @@
           (setq post-id (match-string-no-properties 1))))
     post-id))
 
+(defun org2blog-strip-new-lines (html)
+  "Strip the new lines from the html, except in pre and blockquote tags."
+  (save-excursion
+    (with-temp-buffer
+      (let* (start-pos end-pos)
+        (insert html)
+        (setq start-pos (point-min))
+        (goto-char start-pos)
+        (while (re-search-forward "<\\(pre\\|blockquote\\).*?>" nil t 1)
+          (setq end-pos (match-beginning 0))
+          (replace-regexp "\\\n" " " nil start-pos end-pos)
+          (re-search-forward (concat "</" (match-string-no-properties 1) ">") nil t 1)
+          (setq start-pos (match-end 0))
+          (goto-char start-pos))
+        (setq end-pos (point-max))
+        (replace-regexp "\\\n" " " nil start-pos end-pos)
+        (buffer-substring-no-properties (point-min) (point-max))))))
+
 (defun org2blog-parse-entry (&optional publish)
   "Parse an org2blog buffer."
   (interactive "P")
-  (let (html-text 
-        (post-buffer (buffer-name))
-        (post-title (plist-get (org-infile-export-plist) :title))
-        (post-id (org2blog-get-post-id))
-        (post-date (plist-get (org-infile-export-plist) :date))
-        (tags (plist-get (org-infile-export-plist) :keywords))
-        (categories (plist-get (org-infile-export-plist) :description)))
+  (let* (html-text post-title post-id post-buffer post-date tags categories narrow-p)
+    (save-restriction
+      (save-excursion
+        (setq narrow-p (not (equal (- (point-max) (point-min)) (buffer-size))))
+        (if narrow-p
+            (progn
+              (setq post-title (or (org-entry-get (point) "Title")
+                                   (nth 4 (org-heading-components))))
+              (setq post-id (org-entry-get (point) "Post ID"))
+              ;; Set post-date to the Post Date property or look for timestamp
+              (setq post-date (or (org-entry-get (point) "Post Date")
+                                  (org-entry-get (point) "SCHEDULED")
+                                  (org-entry-get (point) "DEADLINE")
+                                  (org-entry-get (point) "TIMESTAMP_IA")
+                                  (org-entry-get (point) "TIMESTAMP")))
+              (setq tags (mapcar 'org-no-properties (org-get-tags-at (point) nil)))
+              (setq categories (org-split-string 
+                                (or (org-entry-get (point) "CATEGORIES") "") ":")))
+          (setq post-buffer (buffer-name))
+          (setq post-title (plist-get (org-infile-export-plist) :title))
+          (setq post-id (org2blog-get-post-id))
+          (setq post-date (plist-get (org-infile-export-plist) :date))
+          (setq tags (plist-get (org-infile-export-plist) :keywords))
+          (setq categories (plist-get (org-infile-export-plist) :description))
+          (setq tags
+                (or (split-string (or tags "") "[ ,]+" t) ""))
 
-    (if post-date
-	(progn
-	  (setq post-date (replace-regexp-in-string "[-[:alpha:][:space:]]" "" 
-						    post-date))
-	  (setq post-date (concat (substring post-date 1 9) 
-				  "T"  
-				  (substring post-date 9 14) 
-				  ":00"))))
-    
-    (if tags
-	(if (setq tags (split-string tags "[ ,]+" t))
-	    ()
-	  (setq tags ""))
-      (setq tags ""))
+          (setq categories
+                (or (split-string (or categories "") "[ ,]+" t) "")))
 
-    (if categories
-	(if (setq categories (split-string categories "[ ,]+" t))
-	  (setq categories ""))
-      (setq categories ""))
+        ;; Convert post date to ISO timestamp
+        (setq post-date
+              (format-time-string "%Y%m%dT%T"
+                                  (if post-date
+                                      (apply 'encode-time (org-parse-time-string post-date))
+                                    (current-time))
+                                  t))
+        
+        (if org2blog-use-tags-as-categories
+            (setq categories tags
+                  tags nil))
+        
+        (upload-images-insert-links)
+        (if (not narrow-p)
+            (setq html-text (org-export-as-html nil nil nil 'string t nil))
+          (setq html-text
+                (org-export-region-as-html
+                 (1+ (and (org-back-to-heading) (line-end-position)))
+                 (org-end-of-subtree)
+                 t 'string)))
 
-    (upload-images-insert-links)
-    (setq html-text (org-export-as-html nil nil nil 'string t nil))
-    (setq html-text 
-	  (save-excursion
-	    (with-temp-buffer
-	      (let* (start-pos end-pos)
-	  	(insert html-text)
-	  	(setq start-pos (point-min))
-		(goto-char start-pos)
-                (while (re-search-forward "<\\(pre\\|blockquote\\).*?>" nil t 1)
-                  (setq end-pos (match-beginning 0))
-                  (replace-regexp "\\\n" " " nil start-pos end-pos)
-                  (re-search-forward (concat "</" (match-string-no-properties 1) ">") nil t 1)
-                  (setq start-pos (match-end 0))
-                  (goto-char start-pos))
-	  	(setq end-pos (point-max))
-	  	(replace-regexp "\\\n" " " nil start-pos end-pos)
-	      (buffer-substring-no-properties (point-min) (point-max))))))
+        (setq html-text (org2blog-strip-new-lines 
+                         (org-no-properties html-text)))))
+
     (list
+     (cons "point" (point))
+     (cons "subtree" narrow-p)
      (cons "date" post-date)
      (cons "title" post-title)
      (cons "tags" tags)
@@ -325,26 +353,27 @@
     (org2blog-login))
   (let ((post (org2blog-parse-entry))
         post-id post-buf)
-    (org2blog-create-categories (cdr (assoc "categories" post)))
-    (setq post-id (cdr (assoc "post-id" post)))
-    (setq post-buf (cdr (assoc "buffer" post)))
-    (if post-id
-	(metaweblog-edit-post org2blog-server-xmlrpc-url
-			      org2blog-server-userid
-                              (org2blog-password)
-			      post-id
-                              post
-			      publish)
-      (setq post-id (metaweblog-new-post org2blog-server-xmlrpc-url
-					 org2blog-server-userid
-                                         (org2blog-password)
-					 org2blog-server-blogid
-                                         post
-					 publish))
-      (save-excursion
-        (switch-to-buffer post-buf)
-        (goto-char (point-min))
-        (insert (concat "#+POSTID: " post-id "\n"))))
+    (save-excursion
+      (org2blog-create-categories (cdr (assoc "categories" post)))
+      (setq post-id (cdr (assoc "post-id" post)))
+      (setq post-buf (cdr (assoc "buffer" post)))
+      (if post-id
+          (metaweblog-edit-post org2blog-server-xmlrpc-url
+                                org2blog-server-userid
+                                (org2blog-password)
+                                post-id
+                                post
+                                publish)
+        (setq post-id (metaweblog-new-post org2blog-server-xmlrpc-url
+                                           org2blog-server-userid
+                                           (org2blog-password)
+                                           org2blog-server-blogid
+                                           post
+                                           publish))
+        (if (cdr (assoc "subtree" post))
+            (org-entry-put (point) "Post ID" post-id)
+          (goto-char (point-min))
+          (insert (concat "#+POSTID: " post-id "\n")))))
     (message (if publish
                  "Published (%s): %s"
                "Draft (%s): %s")
@@ -374,10 +403,11 @@
                                  org2blog-server-blogid
                                  post
                                  publish))
-      (save-excursion
-        (switch-to-buffer post-buf)
-        (goto-char (point-min))
-        (insert (concat "#+POSTID: " post-id "\n"))))
+      (if (cdr (assoc "subtree" post))
+          (org-entry-put (point) "Post ID" post-id)
+        (save-excursion
+          (goto-char (point-min))
+          (insert (concat "#+POSTID: " post-id "\n")))))
     (message (if publish
                  "Published (%s): %s"
                "Draft (%s): %s")
@@ -429,126 +459,13 @@
       	(goto-char current-pos)
       	(command-execute (lookup-key org-mode-map (kbd "C-c t")))))))
 
-
-(defun org2blog-upload-images-insert-links (&optional beg end)
-  "Upload images and replace with links in the region specified by BEG to END."
-  (interactive "r")
-  (let ((re 
-	 (concat "\\[\\[\\(.*\\)" 
-		 (substring (org-image-file-name-regexp) 0 -2)
-		 "\\]\\]"))
-	file-all-urls file-name file-web-url blog-pass)
-    (save-excursion
-      (save-restriction
-        (narrow-to-region (or beg (point-min))
-                          (or end (point-max)))
-        (goto-char (point-min))
-        (while (re-search-forward re nil t 1)
-          (setq file-name (concat 
-                           (match-string-no-properties 1)
-                           "."
-                           (match-string-no-properties 2)))
-          (unless (save-match-data (string-match org-link-types-re file-name))
-            (save-match-data 
-              (if (assoc file-name file-all-urls)
-                  (setq file-web-url (cdr (assoc file-name file-all-urls)))
-                (setq file-web-url
-                      (cdr (assoc "url" 
-                                  (metaweblog-upload-image org2blog-server-xmlrpc-url
-                                                           org2blog-server-userid
-                                                           (org2blog-password)
-                                                           org2blog-server-weblog-id
-                                                           (get-image-properties file-name))))
-                      file-all-urls (append file-all-urls (list (cons 
-                                                                 file-name file-web-url))))))
-            (replace-match (concat "[[" file-web-url "]]") t t nil 0)))))
-    file-all-urls))
-
 (defun org2blog-post-subtree (&optional publish)
   "Post the current entry as a draft. Publish if PUBLISH is non-nil."
   (interactive "P")
-  (let ((post (org2blog-parse-subtree))
-        post-id)
-    (org2blog-create-categories (cdr (assoc "categories" post)))
-    (setq post-id (cdr (assoc "post-id" post)))
-    (save-excursion 
-      (org2blog-upload-images-insert-links (org-back-to-heading) (org-end-of-subtree)))
-    (if post-id
-        (metaweblog-edit-post org2blog-server-xmlrpc-url
-			      org2blog-server-userid
-                              (org2blog-password)
-			      post-id
-                              post
-			      publish)
-      (setq post-id
-            (metaweblog-new-post
-             org2blog-server-xmlrpc-url
-             org2blog-server-userid
-             (org2blog-password)
-             org2blog-server-blogid
-             post
-             publish))
-      (org-entry-put (point) "Post ID" post-id)
-      (message (if publish
-                   "Published (%s): %s"
-                 "Draft (%s): %s")
-               post-id
-               (cdr (assoc "title" post))))))
-
-(defun org2blog-parse-subtree ()
-  "Parse the current subtree as a blog entry."
-  (let (html-text
-        (post-title (or (org-entry-get (point) "Title")
-                        (org-get-heading t)))
-        (post-id (org-entry-get (point) "Post ID"))
-        ;; Set post-date to the Post Date property or look for timestamp
-        (post-date (or (org-entry-get (point) "Post Date")
-                       (org-entry-get (point) "SCHEDULED")
-                       (org-entry-get (point) "DEADLINE")                       
-                       (org-entry-get (point) "TIMESTAMP_IA")
-                       (org-entry-get (point) "TIMESTAMP")))
-        (tags (org-get-tags-at (point) nil))
-        (categories (org-split-string (or (org-entry-get (point) "CATEGORIES") "") ":")))
-    ;; Convert post date to ISO timestamp
-    (setq post-date
-          (format-time-string "%Y%m%dT%T"
-                              (if post-date
-                                  (apply 'encode-time (org-parse-time-string post-date))
-                                (current-time))
-                              t))
-    (if org2blog-use-tags-as-categories
-        (setq categories tags
-              tags nil))
+  (save-restriction
     (save-excursion
-      (setq html-text
-            (org-export-region-as-html
-             (and (org-back-to-heading) (line-end-position))
-             (org-end-of-subtree)
-             t 'string))
-      (setq html-text
-            (with-temp-buffer
-              (insert html-text)
-              (goto-char (point-min))
-              ;; Fix newlines
-	      (let (start-pos end-pos)
-                (setq start-pos (point-min))
-		(goto-char start-pos)
-                (while (re-search-forward "<\\(pre\\|blockquote\\).*?>" nil t 1)
-                  (setq end-pos (match-beginning 0))
-                  (replace-string "\n" " " nil start-pos end-pos)
-                  (re-search-forward (concat "</" (match-string-no-properties 1) ">") nil t 1)
-                  (setq start-pos (match-end 0))
-                  (goto-char start-pos))
-	  	(setq end-pos (point-max))
-	  	(replace-string "\n" " " nil start-pos end-pos))
-              ;; Copy the text
-              (buffer-substring-no-properties (point-min) (point-max)))))
-    (list
-     (cons "date" post-date)
-     (cons "title" post-title)
-     (cons "tags" tags)
-     (cons "categories" categories)
-     (cons "post-id" post-id)
-     (cons "description" html-text))))
+      (org-narrow-to-subtree)
+      (org2blog-post-entry)
+      (widen))))
 
 (provide 'org2blog)
