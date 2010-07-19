@@ -161,15 +161,13 @@
 	  (mapcar (lambda (category) (cdr (assoc "categoryName" category)))
 		  (metaweblog-get-categories org2blog-server-xmlrpc-url
 					     org2blog-server-userid
-					     (or org2blog-server-pass
-						 (setq password (read-passwd "Logging in - Weblog Password ? ")))
+                                             (org2blog-password)
 					     org2blog-server-weblog-id)))
     (setq org2blog-tags-list
 	  (mapcar (lambda (tag) (cdr (assoc "slug" tag)))
 		  (wp-get-tags org2blog-server-xmlrpc-url
 			       org2blog-server-userid
-			       (or org2blog-server-pass
-				   password)
+                               (org2blog-password)
 			       org2blog-server-weblog-id)))
     (setq org2blog-logged-in t)
     (message "Logged in")))
@@ -276,8 +274,7 @@
 			  (if (y-or-n-p (format "Create %s category? " s))
 			      (wp-new-category org2blog-server-xmlrpc-url
 					       org2blog-server-userid
-					       (or org2blog-server-pass
-						   (read-passwd "Weblog Password ? "))
+                                               (org2blog-password)
 					       org2blog-server-blogid
 					       s)))) categories)
 	  (setq categories ""))
@@ -320,8 +317,7 @@
     (if post-id
 	(metaweblog-edit-post org2blog-server-xmlrpc-url
 			      org2blog-server-userid
-			      (or org2blog-server-pass
-				  (read-passwd "Weblog Password ? "))
+                              (org2blog-password)
 			      post-id
 			      `(("description" . ,html-text)
 				("title" . ,post-title)
@@ -331,8 +327,7 @@
 			      publish)
       (setq post-id (metaweblog-new-post org2blog-server-xmlrpc-url
 					 org2blog-server-userid
-					 (or org2blog-server-pass
-					     (read-passwd "Weblog Password ? "))
+                                         (org2blog-password)
 					 org2blog-server-blogid
 					 `(("description" . ,html-text)
 					   ("title" . ,post-title)
@@ -364,8 +359,7 @@
     (if post-id
 	(metaweblog-edit-post org2blog-server-xmlrpc-url
 			      org2blog-server-userid
-			      (or org2blog-server-pass
-				  (read-passwd "Weblog Password ? "))
+                              (org2blog-password)
 			      post-id
 			      `(("description" . ,html-text)
 				("title" . ,post-title)
@@ -375,8 +369,7 @@
 			      publish)
       (setq post-id (wp-new-page org2blog-server-xmlrpc-url
                                  org2blog-server-userid
-                                 (or org2blog-server-pass
-                                     (read-passwd "Weblog Password ? "))
+                                 (org2blog-password)
                                  org2blog-server-blogid
                                  `(("description" . ,html-text)
                                    ("title" . ,post-title)
@@ -397,8 +390,7 @@
       (setq post-id (org2blog-get-post-id)))
   (metaweblog-delete-post org2blog-server-xmlrpc-url
                                 org2blog-server-userid
-                                (or org2blog-server-pass
-                                    (read-passwd "Weblog Password ? "))
+                                (org2blog-password)
                                 post-id)
   (message "Post Deleted"))
 
@@ -409,8 +401,7 @@
   (wp-delete-page org2blog-server-xmlrpc-url
                   org2blog-server-blogid
                   org2blog-server-userid
-                  (or org2blog-server-pass
-                      (read-passwd "Weblog Password ? "))
+                  (org2blog-password)
                   page-id)
    (message "Page Deleted"))
 
