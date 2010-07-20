@@ -221,7 +221,7 @@
 (defun upload-images-insert-links ()
   "Uploads images if any in the html, and changes their links"
   (let ((re 
-	 (concat "\\[\\[\\(/.*\\)" 
+	 (concat "\\[\\[\\(.*\\)" 
 		 (substring (org-image-file-name-regexp) 0 -2)
 		 "\\]\\]"))
 	(file-all-urls nil)
