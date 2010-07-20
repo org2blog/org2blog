@@ -233,20 +233,17 @@
 			 (match-string-no-properties 1)
 			 "."
 			 (match-string-no-properties 2)))
-	(setq file-web-url
-	      (cdr (assoc "url" 
-			  (metaweblog-upload-image org2blog-server-xmlrpc-url
-						   org2blog-server-userid
-						   (or org2blog-server-pass
-						       blog-pass
-						       (setq blog-pass (read-passwd 
-									(format 
-									 "%s image upload - blog password ? " 
-									 file-name))))
-						   org2blog-server-weblog-id
-						   (get-image-properties file-name)))))
-	(setq file-all-urls (append file-all-urls (list (cons 
-							 file-name file-web-url)))))
+        (if (string-match "\\(http[s]*\\|ftp\\)://" file-name)
+            ()
+          (setq file-web-url
+                (cdr (assoc "url" 
+                            (metaweblog-upload-image org2blog-server-xmlrpc-url
+                                                     org2blog-server-userid
+                                                     (org2blog-password)
+                                                     org2blog-server-weblog-id
+                                                     (get-image-properties file-name)))))
+          (setq file-all-urls (append file-all-urls (list (cons 
+                                                           file-name file-web-url))))))
       (goto-char (point-min))
       (dolist (image file-all-urls)
 	(replace-string (car image) (cdr image))))))
