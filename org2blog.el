@@ -465,7 +465,7 @@
   (save-restriction
     (save-excursion
       (org-narrow-to-subtree)
-      (org2blog-post-entry)
+      (org2blog-post-entry publish)
       (widen))))
 
 (provide 'org2blog)
