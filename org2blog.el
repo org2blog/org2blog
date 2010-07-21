@@ -278,7 +278,7 @@
 (defun org2blog-parse-entry (&optional publish)
   "Parse an org2blog buffer."
   (interactive "P")
-  (let* (html-text post-title post-id post-buffer post-date tags categories narrow-p)
+  (let* (html-text post-title post-id post-buffer post-date tags categories narrow-p cur-time)
     (save-restriction
       (save-excursion
         (setq narrow-p (not (equal (- (point-max) (point-min)) (buffer-size))))
@@ -309,11 +309,18 @@
                 (or (split-string (or categories "") "[ ,]+" t) "")))
 
         ;; Convert post date to ISO timestamp
+        ;;add the date of posting to the post. otherwise edits will change it
+        (setq cur-time (format-time-string (org-time-stamp-format t t) (org-current-time) t))
         (setq post-date
               (format-time-string "%Y%m%dT%T"
                                   (if post-date
                                       (apply 'encode-time (org-parse-time-string post-date))
-                                    (current-time))
+                                    (current-time)
+                                    (if narrow-p
+                                        (org-entry-put (point) "Post Date" cur-time)
+                                      (save-excursion
+                                        (goto-char (point-min))
+                                        (insert (concat "#+DATE: " cur-time "\n")))))
                                   t))
         
         (if org2blog-use-tags-as-categories
