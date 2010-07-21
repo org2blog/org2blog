@@ -312,7 +312,7 @@
         ;;add the date of posting to the post. otherwise edits will change it
         (setq cur-time (format-time-string (org-time-stamp-format t t) (org-current-time) t))
         (setq post-date
-              (format-time-string "%Y%m%dT%T"
+              (format-time-string "%Y%m%dT%T" 
                                   (if post-date
                                       (apply 'encode-time (org-parse-time-string post-date))
                                     (current-time)
@@ -321,7 +321,7 @@
                                       (save-excursion
                                         (goto-char (point-min))
                                         (insert (concat "#+DATE: " cur-time "\n")))))
-                                  t))
+                                  nil))
         
         (if org2blog-use-tags-as-categories
             (setq categories tags
