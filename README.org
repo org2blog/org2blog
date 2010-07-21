@@ -23,7 +23,13 @@
   blog and the username.
 
   : (setq org2blog-server-url "http://username.wordpress.com/xmlrpc.php"
-  :       org2blog-server-user "username")
+  :       org2blog-server-user "username"
+  :       org2blog-server-weblog-id "")
+
+  If you use only categories, set the org2blog-use-tags-as-categories
+  variable. 
+
+  : (setq org2blog-use-tags-as-categories t)
 
   *Note* - org2blog depends on xml-rpc available at [[http://launchpad.net/xml-rpc-el][Launchpad]].  Add it
    to your load-path before using org2blog.
