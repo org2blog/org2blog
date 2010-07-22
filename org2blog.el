@@ -1,7 +1,7 @@
 ;;; org2blog.el --- blog from Org mode to wordpress
 ;; Copyright (C) 2010 Puneeth Chaganti
 
-;; Author: Puneeth Chaganti <punchagan at gmail dot com>
+;; Author: Puneeth Chaganti <punchagan+org2blog at gmail dot com>
 
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
