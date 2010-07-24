@@ -122,7 +122,9 @@
   (if (and org2blog-buffer-kill-prompt
 	   (not (buffer-file-name)))
     (if (y-or-n-p "Save entry?")
-	(save-buffer))))
+        (progn
+          (save-buffer)
+          (org2blog-save-details (org2blog-parse-entry) nil (y-or-n-p "Published?"))))))
 
 (defun org2blog-mode (&optional arg)
   "org2blog mode for providing mode-map."
@@ -378,6 +380,7 @@
             (org-entry-put (point) "Post ID" post-id)
           (goto-char (point-min))
           (insert (concat "#+POSTID: " post-id "\n")))))
+    (org2blog-save-details post post-id publish)
     (message (if publish
                  "Published (%s): %s"
                "Draft (%s): %s")
@@ -438,6 +441,33 @@
                   (org2blog-password)
                   page-id)
    (message "Page Deleted"))
+
+(defun org2blog-save-details (post pid pub)
+  "Save the details of posting, to a file."
+  (let (o2b-id log-file)
+    (save-excursion
+      (if (cdr (assoc "subtree" post))
+          (setq o2b-id (org-id-get nil t "o2b"))
+        (setq o2b-id (buffer-file-name)))
+      (setq log-file (find-file (expand-file-name ".org2blog.org" org-directory)))
+      (if (not o2b-id)
+          ()
+        (if (not (condition-case nil 
+                     (org-link-search o2b-id)
+                   (error nil)))
+            (progn
+              (goto-char (point-max))
+              (org-insert-heading-respect-content)
+              (insert (cdr (assoc "title" post)))))
+        (org-entry-put (point) "Post ID" (or pid ""))
+        (org-entry-put (point) "Post Date" (cdr (assoc "date" post)))
+        (org-entry-put (point) "Published" (if pub "Yes" "No"))
+        (org-entry-put (point) "Where" 
+                       (if (cdr (assoc "subtree" post))
+                           (concat "[[id:" o2b-id "]]")
+                         (concat "[[file:" o2b-id "]]"))))
+      (save-buffer)
+      (kill-buffer log-file))))
 
 (defun org2blog-complete-category()
   "Provides completion for categories and tags. DESCRIPTION for categories and KEYWORDS for tags."
