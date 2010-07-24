@@ -114,6 +114,10 @@
   "Ask before killing buffer")
 (make-variable-buffer-local 'org2blog-buffer-kill-prompt)
 
+(defvar org2blog-track-posts ".org2blog.org"
+  "File where to save logs about posts. 
+Set to nil if you don't wish to track posts.")
+
 (defconst org2blog-version "0.2" 
   "Current version of blog.el")
 
@@ -124,7 +128,9 @@
     (if (y-or-n-p "Save entry?")
         (progn
           (save-buffer)
-          (org2blog-save-details (org2blog-parse-entry) nil (y-or-n-p "Published?"))))))
+          (if org2blog-track-posts
+              (org2blog-save-details (org2blog-parse-entry) nil 
+                                     (y-or-n-p "Published?")))))))
 
 (defun org2blog-mode (&optional arg)
   "org2blog mode for providing mode-map."
@@ -380,7 +386,8 @@
             (org-entry-put (point) "Post ID" post-id)
           (goto-char (point-min))
           (insert (concat "#+POSTID: " post-id "\n")))))
-    (org2blog-save-details post post-id publish)
+    (if org2blog-track-posts
+        (org2blog-save-details post post-id publish))
     (message (if publish
                  "Published (%s): %s"
                "Draft (%s): %s")
@@ -415,6 +422,8 @@
         (save-excursion
           (goto-char (point-min))
           (insert (concat "#+POSTID: " post-id "\n")))))
+    (if org2blog-track-posts
+        (org2blog-save-details post post-id publish))    
     (message (if publish
                  "Published (%s): %s"
                "Draft (%s): %s")
@@ -449,7 +458,8 @@
       (if (cdr (assoc "subtree" post))
           (setq o2b-id (org-id-get nil t "o2b"))
         (setq o2b-id (buffer-file-name)))
-      (setq log-file (find-file (expand-file-name ".org2blog.org" org-directory)))
+      (setq log-file (find-file (expand-file-name 
+                                 org2blog-track-posts org-directory)))
       (if (not o2b-id)
           ()
         (if (not (condition-case nil 
