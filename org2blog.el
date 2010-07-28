@@ -205,14 +205,16 @@ Set to nil if you don't wish to track posts.")
 	org2blog-server-userid nil
 	org2blog-server-blogid nil
 	org2blog-categories-list nil
+	org2blog-tags-list nil
 	org2blog-logged-in nil)
   (message "Logged out"))
 
 (defun org2blog-new-entry()
   "Creates a new blog entry. Use DESCRIPTION option for categories and KEYWORDS for tags."
   (interactive)
-  (unless org2blog-logged-in
-    (org2blog-login))
+  (if (and (not org2blog-logged-in)
+           (y-or-n-p "You are not logged in. Login?"))
+      (org2blog-login))
   (let ((org2blog-buffer (generate-new-buffer org2blog-buffer-name)))
     (switch-to-buffer org2blog-buffer)
     (add-hook 'kill-buffer-hook 'org2blog-kill-buffer-hook nil 'local)
