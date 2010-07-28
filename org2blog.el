@@ -228,33 +228,30 @@ Set to nil if you don't wish to track posts.")
 
 (defun upload-images-insert-links ()
   "Uploads images if any in the html, and changes their links"
-  (let ((re 
-	 (concat "\\[\\[\\(.*\\)" 
-		 (substring (org-image-file-name-regexp) 0 -2)
-		 "\\]\\]"))
-	(file-all-urls nil)
-	file-name file-web-url blog-pass)
+  (let ((file-all-urls nil)
+	file-name file-web-url 
+        (image-regexp (org-image-file-name-regexp)))
     (save-excursion
       (goto-char (point-min))
-      (while (re-search-forward re  nil t 1)
-	(setq file-name (concat 
-			 (match-string-no-properties 1)
-			 "."
-			 (match-string-no-properties 2)))
-        (if (string-match "\\(http[s]*\\|ftp\\)://" file-name)
-            ()
-          (setq file-web-url
-                (cdr (assoc "url" 
-                            (metaweblog-upload-image org2blog-server-xmlrpc-url
-                                                     org2blog-server-userid
-                                                     (org2blog-password)
-                                                     org2blog-server-weblog-id
-                                                     (get-image-properties file-name)))))
-          (setq file-all-urls (append file-all-urls (list (cons 
-                                                           file-name file-web-url))))))
+      (while (re-search-forward org-any-link-re  nil t 1)
+        (let ((link (or (match-string-no-properties 2) (match-string-no-properties 0))))
+          (if (and
+               (save-match-data (string-match image-regexp link))
+               (save-match-data (not (string-match org-link-types-re link))))
+              (progn
+                (setq file-name (match-string-no-properties 2))
+                (setq file-web-url
+                      (cdr (assoc "url" 
+                                  (metaweblog-upload-image org2blog-server-xmlrpc-url
+                                                           org2blog-server-userid
+                                                           (org2blog-password)
+                                                           org2blog-server-weblog-id
+                                                           (get-image-properties file-name)))))
+                (setq file-all-urls (append file-all-urls (list (cons 
+                                                                 file-name file-web-url))))))))
       (goto-char (point-min))
       (dolist (image file-all-urls)
-	(replace-string (car image) (cdr image))))))
+        (replace-string (car image) (cdr image))))))
 
 (defun org2blog-get-post-id ()
   "Gets the post-id from a buffer."
