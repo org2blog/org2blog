@@ -511,4 +511,13 @@ Set to nil if you don't wish to track posts.")
       (org2blog-post-entry publish)
       (widen))))
 
+(defun org2blog-mark-subtree-as-draft ()
+  "Post the current subtree as a draft. Saves details in tracking file."
+  (interactive)
+  (save-restriction
+    (save-excursion
+      (org-narrow-to-subtree)
+      (org2blog-save-details (org2blog-parse-entry) "" nil)
+      (widen))))
+
 (provide 'org2blog)
