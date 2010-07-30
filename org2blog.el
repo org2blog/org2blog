@@ -474,7 +474,8 @@ Set to nil if you don't wish to track posts.")
         (org-entry-put (point) "Where" 
                        (if (cdr (assoc "subtree" post))
                            (concat "[[id:" o2b-id "]]")
-                         (concat "[[file:" o2b-id "]]"))))
+                         (concat "[[file:" o2b-id "]]")))
+        (org-id-update-id-locations))
       (save-buffer)
       (kill-buffer log-file))))
 
