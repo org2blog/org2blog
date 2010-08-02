@@ -285,7 +285,7 @@ Set to nil if you don't wish to track posts.")
 (defun org2blog-parse-entry (&optional publish)
   "Parse an org2blog buffer."
   (interactive "P")
-  (let* (html-text post-title post-id post-buffer post-date tags categories narrow-p cur-time)
+  (let* (html-text post-title post-id post-date tags categories narrow-p cur-time)
     (save-restriction
       (save-excursion
         (setq narrow-p (not (equal (- (point-max) (point-min)) (buffer-size))))
@@ -303,7 +303,6 @@ Set to nil if you don't wish to track posts.")
               (setq tags (mapcar 'org-no-properties (org-get-tags-at (point) nil)))
               (setq categories (org-split-string 
                                 (or (org-entry-get (point) "CATEGORIES") "") ":")))
-          (setq post-buffer (buffer-name))
           (setq post-title (plist-get (org-infile-export-plist) :title))
           (setq post-id (org2blog-get-post-id))
           (setq post-date (plist-get (org-infile-export-plist) :date))
@@ -354,7 +353,6 @@ Set to nil if you don't wish to track posts.")
      (cons "tags" tags)
      (cons "categories" categories)
      (cons "post-id" post-id)
-     (cons "buffer" post-buffer)
      (cons "description" html-text))))
 
 (defun org2blog-post-entry (&optional publish)
@@ -366,10 +364,9 @@ Set to nil if you don't wish to track posts.")
     (save-restriction
       (widen)
       (let ((post (org2blog-parse-entry))
-            post-id post-buf)
+            post-id)
         (org2blog-create-categories (cdr (assoc "categories" post)))
         (setq post-id (cdr (assoc "post-id" post)))
-        (setq post-buf (cdr (assoc "buffer" post)))
         (if post-id
             (metaweblog-edit-post org2blog-server-xmlrpc-url
                                   org2blog-server-userid
@@ -401,7 +398,7 @@ Set to nil if you don't wish to track posts.")
   (unless org2blog-logged-in 
     (org2blog-login))
   (let ((post (org2blog-parse-entry))
-        post-id post-buf)
+        post-id)
     (org2blog-create-categories (cdr (assoc "categories" post)))
     (setq post-id (cdr (assoc "post-id" post)))
     (setq post-buf (cdr (assoc "buffer" post)))
