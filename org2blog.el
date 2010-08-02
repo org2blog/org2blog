@@ -386,47 +386,48 @@ Set to nil if you don't wish to track posts.")
             (insert (concat "#+POSTID: " post-id "\n"))))
     (if org2blog-track-posts
         (org2blog-save-details post post-id publish))
-      (message (if publish
-                   "Published (%s): %s"
-                 "Draft (%s): %s")
-               post-id
-               (cdr (assoc "title" post)))))))
+    (message (if publish
+                 "Published (%s): %s"
+               "Draft (%s): %s")
+             post-id
+             (cdr (assoc "title" post)))))))
 
 (defun org2blog-post-entry-as-page (&optional publish)
   "Posts new page to the blog or edits an existing page."
   (interactive "P")
   (unless org2blog-logged-in 
     (org2blog-login))
-  (let ((post (org2blog-parse-entry))
-        post-id)
-    (org2blog-create-categories (cdr (assoc "categories" post)))
-    (setq post-id (cdr (assoc "post-id" post)))
-    (setq post-buf (cdr (assoc "buffer" post)))
-    (if post-id
-	(metaweblog-edit-post org2blog-server-xmlrpc-url
-			      org2blog-server-userid
-                              (org2blog-password)
-			      post-id
-                              post
-			      publish)
-      (setq post-id (wp-new-page org2blog-server-xmlrpc-url
-                                 org2blog-server-userid
-                                 (org2blog-password)
-                                 org2blog-server-blogid
-                                 post
-                                 publish))
-      (if (cdr (assoc "subtree" post))
-          (org-entry-put (point) "Post ID" post-id)
-        (save-excursion
-          (goto-char (point-min))
-          (insert (concat "#+POSTID: " post-id "\n")))))
+  (save-excursion
+    (save-restriction
+      (widen)
+      (let ((post (org2blog-parse-entry))
+            post-id)
+        (org2blog-create-categories (cdr (assoc "categories" post)))
+        (setq post-id (cdr (assoc "post-id" post)))
+        (if post-id
+            (metaweblog-edit-post org2blog-server-xmlrpc-url
+                                  org2blog-server-userid
+                                  (org2blog-password)
+                                  post-id
+                                  post
+                                  publish)
+          (setq post-id (wp-new-page org2blog-server-xmlrpc-url
+                                     org2blog-server-userid
+                                     (org2blog-password)
+                                     org2blog-server-blogid
+                                     post
+                                     publish))
+          (if (cdr (assoc "subtree" post))
+              (org-entry-put (point) "Post ID" post-id)
+            (goto-char (point-min))
+            (insert (concat "#+POSTID: " post-id "\n"))))
     (if org2blog-track-posts
-        (org2blog-save-details post post-id publish))    
+        (org2blog-save-details post post-id publish))
     (message (if publish
                  "Published (%s): %s"
                "Draft (%s): %s")
              post-id
-             (cdr (assoc "title" post)))))
+             (cdr (assoc "title" post)))))))
 
 (defun org2blog-delete-entry (&optional post-id)
   (interactive "P")
