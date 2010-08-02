@@ -507,7 +507,14 @@ Set to nil if you don't wish to track posts.")
   (save-restriction
     (save-excursion
       (org-narrow-to-subtree)
-      (org2blog-post-entry publish)
+      (org-back-to-heading)
+      (let ((level (- (org-reduced-level (org-outline-level)) 1))
+            (contents (buffer-substring (point-min) (point-max))))
+        (dotimes (n level nil) (org-promote-subtree))
+        (org2blog-post-entry publish)
+        (delete-region (point-min) (point-max))
+        (insert contents)
+        (save-buffer))
       (widen))))
 
 (defun org2blog-mark-subtree-as-draft ()
