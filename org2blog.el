@@ -146,10 +146,10 @@ Set to nil if you don't wish to track posts.")
   (setq org2blog-entry-mode-map
 	(let ((org2blog-map (make-sparse-keymap)))
 	  (set-keymap-parent org2blog-map org-mode-map)
-	  (define-key org2blog-map (kbd "C-c p") (lambda() (interactive) (org2blog-post-entry t)))
-	  (define-key org2blog-map (kbd "C-c P") (lambda() (interactive) (org2blog-post-entry-as-page t)))
-	  (define-key org2blog-map (kbd "C-c d") 'org2blog-post-entry)
-	  (define-key org2blog-map (kbd "C-c D") 'org2blog-post-entry-as-page)
+	  (define-key org2blog-map (kbd "C-c p") (lambda() (interactive) (org2blog-post-buffer t)))
+	  (define-key org2blog-map (kbd "C-c P") (lambda() (interactive) (org2blog-post-buffer-as-page t)))
+	  (define-key org2blog-map (kbd "C-c d") 'org2blog-post-buffer)
+	  (define-key org2blog-map (kbd "C-c D") 'org2blog-post-buffer-as-page)
 	  (define-key org2blog-map (kbd "C-c t") 'org2blog-complete-category)
 	  org2blog-map)))
 
@@ -363,7 +363,7 @@ Set to nil if you don't wish to track posts.")
      (cons "post-id" post-id)
      (cons "description" html-text))))
 
-(defun org2blog-post-entry (&optional publish)
+(defun org2blog-post-buffer (&optional publish)
   "Posts new blog entry to the blog or edits an existing entry."
   (interactive "P")
   (unless org2blog-logged-in 
@@ -399,7 +399,7 @@ Set to nil if you don't wish to track posts.")
              post-id
              (cdr (assoc "title" post)))))))
 
-(defun org2blog-post-entry-as-page (&optional publish)
+(defun org2blog-post-buffer-as-page (&optional publish)
   "Posts new page to the blog or edits an existing page."
   (interactive "P")
   (unless org2blog-logged-in 
@@ -526,7 +526,7 @@ Set to nil if you don't wish to track posts.")
             (goto-char (point-min))
             (org-narrow-to-subtree)
             (dotimes (n level nil) (org-promote-subtree))
-            (org2blog-post-entry publish)
+            (org2blog-post-buffer publish)
             (dotimes (n level nil) (org-demote-subtree))
             (setq contents (buffer-string))))
         (delete-region (point-min) (point-max))

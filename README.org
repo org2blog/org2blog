@@ -53,12 +53,12 @@
        to your file.  All of these are Optional.  If a #+TITLE is
        absent, your post will be untitled.
      - If you wish to edit an existing post, add a #+POSTID.
-     - To post as draft - *M-x org2blog-post-entry* 
-     - To publish - *C-u M-x org2blog-post-entry* 
+     - To post as draft - *M-x org2blog-post-buffer* 
+     - To publish - *C-u M-x org2blog-post-buffer* 
      - Alternatively, you could enable org2blog-mode using *M-x
        org2blog-mode*.  This provides the key-bindings *C-c p*, *C-c
        d* and *C-c t*. 
-     - To post entry as a page, use *M-x org2blog-post-entry-as-page* 
+     - To post entry as a page, use *M-x org2blog-post-buffer-as-page* 
 
   5. Thanks to Sacha, you can now also post a subtree with *M-x
      org2blog-post-subtree*. Tags of the subtree will be used for
