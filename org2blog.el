@@ -515,16 +515,22 @@ Set to nil if you don't wish to track posts.")
   (save-restriction
     (save-excursion
       (org-narrow-to-subtree)
-      (org-back-to-heading)
-      (org2blog-post-entry publish)
-      ;; (let ((level (- (org-reduced-level (org-outline-level)) 1))
-      ;;       (t-min (point-min))
-      ;;       (t-max (point-max))
-      ;;       (contents (buffer-substring t-min t-max)))
-      ;;   (dotimes (n level nil) (org-promote-subtree))
-      ;;   
-      ;;   (delete-region t-min t-max)
-      ;;   (insert contents))
+      (org-insert-heading-after-current)
+      (org-backward-same-level 1)
+      (let ((level (1- (org-reduced-level (org-outline-level))))
+            (contents (buffer-substring (point-min) (point-max))))
+        (save-excursion
+          (with-temp-buffer
+            (insert contents)
+            (org-mode)
+            (goto-char (point-min))
+            (org-narrow-to-subtree)
+            (dotimes (n level nil) (org-promote-subtree))
+            (org2blog-post-entry publish)
+            (dotimes (n level nil) (org-demote-subtree))
+            (setq contents (buffer-string))))
+        (delete-region (point-min) (point-max))
+        (insert contents))
       (widen))))
 
 (defun org2blog-mark-subtree-as-draft ()
