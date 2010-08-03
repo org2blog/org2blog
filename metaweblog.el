@@ -267,12 +267,12 @@ no. of posts that should be returned."
   (let* (image-base64 type name)
     (save-excursion
       (save-restriction
-	(with-temp-buffer
-	  (set-buffer (find-file file))
+	(with-current-buffer
+            (find-file-noselect file)
 	  (setq name (file-name-nondirectory file))
 	  (setq image-base64 (base64-encode-string (buffer-string)))
 	  (setq type (symbol-name (image-type file)))
-	  (kill-buffer)
+          (kill-buffer)
 	  (setq fff-image `(("name" . ,name)
 			    ("bits" . ,image-base64)
 			    ("type" . ,(concat "image/" type)))))))

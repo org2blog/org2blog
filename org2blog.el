@@ -221,27 +221,30 @@ Set to nil if you don't wish to track posts.")
     (org-mode)
     (insert "#+DATE: ")
     (insert (format-time-string "[%Y-%m-%d %a %H:%M]\n" (current-time)))
-    (insert "#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:{}\n")
+    (insert "#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:{} LaTeX:t TeX:t \n")
     (insert "#+DESCRIPTION: \n")
     (insert "#+KEYWORDS: \n")
     (insert "#+TITLE: <Enter Title Here>")
     (newline)
     (use-local-map org2blog-entry-mode-map)))
 
-(defun upload-images-insert-links ()
+(defun org2blog-upload-images-replace-urls (text)
   "Uploads images if any in the html, and changes their links"
   (let ((file-all-urls nil)
-	file-name file-web-url 
-        (image-regexp (org-image-file-name-regexp)))
+        file-name file-web-url beg
+        (image-regexp "<img src=\"\\(.*?\\)\""))
     (save-excursion
-      (goto-char (point-min))
-      (while (re-search-forward org-any-link-re  nil t 1)
-        (let ((link (or (match-string-no-properties 2) (match-string-no-properties 0))))
-          (if (and
-               (save-match-data (string-match image-regexp link))
-               (save-match-data (not (string-match org-link-types-re link))))
-              (progn
-                (setq file-name (match-string-no-properties 2))
+      (while (string-match image-regexp text beg)
+        (setq file-name (substring text (match-beginning 1) (match-end 1)))
+        (setq beg (match-end 0))
+        (if (save-match-data (not (string-match org-plain-link-re file-name)))
+            (progn
+              (if (re-search-forward (concat "^#\\+" 
+                                             (regexp-quote file-name)
+                                             " ") nil t 1)
+                  (setq file-web-url (buffer-substring-no-properties 
+                                      (point) 
+                                      (or (end-of-line) (point))))
                 (setq file-web-url
                       (cdr (assoc "url" 
                                   (metaweblog-upload-image org2blog-server-xmlrpc-url
@@ -249,11 +252,16 @@ Set to nil if you don't wish to track posts.")
                                                            (org2blog-password)
                                                            org2blog-server-weblog-id
                                                            (get-image-properties file-name)))))
-                (setq file-all-urls (append file-all-urls (list (cons 
-                                                                 file-name file-web-url))))))))
-      (goto-char (point-min))
+                (goto-char (point-max))
+                (newline)
+                (insert (concat "#+" file-name " " file-web-url))
+                (message (concat "BOW" "#+" file-name " " file-web-url)))
+              (setq file-all-urls (append file-all-urls (list (cons 
+                                                               file-name file-web-url)))))))
       (dolist (image file-all-urls)
-        (replace-string (car image) (cdr image))))))
+        (setq text (replace-regexp-in-string 
+                         (regexp-quote (car image)) (cdr image) text))))
+    text))
 
 (defun org2blog-get-post-id ()
   "Gets the post-id from a buffer."
@@ -333,18 +341,17 @@ Set to nil if you don't wish to track posts.")
         (if org2blog-use-tags-as-categories
             (setq categories tags
                   tags nil))
-        
-        (upload-images-insert-links)
-        (if (not narrow-p)
-            (setq html-text (org-export-as-html nil nil nil 'string t nil))
-          (setq html-text
-                (org-export-region-as-html
-                 (1+ (and (org-back-to-heading) (line-end-position)))
-                 (org-end-of-subtree)
-                 t 'string)))
-
-        (setq html-text (org2blog-strip-new-lines 
-                         (org-no-properties html-text)))))
+        (save-excursion
+          (if (not narrow-p)
+              (setq html-text (org-export-as-html nil nil nil 'string t nil))
+            (setq html-text
+                  (org-export-region-as-html
+                   (1+ (and (org-back-to-heading) (line-end-position)))
+                   (org-end-of-subtree)
+                   t 'string)))
+          (setq html-text (org-no-properties html-text)))
+        (setq html-text (org2blog-upload-images-replace-urls html-text))
+        (setq html-text (org2blog-strip-new-lines html-text))))
 
     (list
      (cons "point" (point))
@@ -363,7 +370,6 @@ Set to nil if you don't wish to track posts.")
     (org2blog-login))
   (save-excursion
     (save-restriction
-      (widen)
       (let ((post (org2blog-parse-entry))
             post-id)
         (org2blog-create-categories (cdr (assoc "categories" post)))
@@ -510,13 +516,15 @@ Set to nil if you don't wish to track posts.")
     (save-excursion
       (org-narrow-to-subtree)
       (org-back-to-heading)
-      (let ((level (- (org-reduced-level (org-outline-level)) 1))
-            (contents (buffer-substring (point-min) (point-max))))
-        (dotimes (n level nil) (org-promote-subtree))
-        (org2blog-post-entry publish)
-        (delete-region (point-min) (point-max))
-        (insert contents)
-        (save-buffer))
+      (org2blog-post-entry publish)
+      ;; (let ((level (- (org-reduced-level (org-outline-level)) 1))
+      ;;       (t-min (point-min))
+      ;;       (t-max (point-max))
+      ;;       (contents (buffer-substring t-min t-max)))
+      ;;   (dotimes (n level nil) (org-promote-subtree))
+      ;;   
+      ;;   (delete-region t-min t-max)
+      ;;   (insert contents))
       (widen))))
 
 (defun org2blog-mark-subtree-as-draft ()
