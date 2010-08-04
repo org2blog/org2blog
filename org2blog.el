@@ -82,6 +82,11 @@
   :group 'org2blog
   :type 'boolean)
 
+(defcustom org2blog-confirm-post nil
+  "Non-nil means confirm before Publishing a post."
+  :group 'org2blog
+  :type 'boolean)
+
 (defvar org2blog-categories-list nil 
   "List of weblog categories")
 
@@ -374,6 +379,11 @@ Set to nil if you don't wish to track posts.")
             post-id)
         (org2blog-create-categories (cdr (assoc "categories" post)))
         (setq post-id (cdr (assoc "post-id" post)))
+        (if (not (and org2blog-confirm-post
+                 publish
+                 (y-or-n-p (format "Publish %s ?" 
+                                   (cdr (assoc "title" post))))))
+            (error "Post cancelled."))
         (if post-id
             (metaweblog-edit-post org2blog-server-xmlrpc-url
                                   org2blog-server-userid
@@ -411,6 +421,11 @@ Set to nil if you don't wish to track posts.")
             post-id)
         (org2blog-create-categories (cdr (assoc "categories" post)))
         (setq post-id (cdr (assoc "post-id" post)))
+        (if (not (and org2blog-confirm-post
+                 publish
+                 (y-or-n-p (format "Publish %s ?" 
+                                   (cdr (assoc "title" post))))))
+            (error "Post cancelled."))
         (if post-id
             (metaweblog-edit-post org2blog-server-xmlrpc-url
                                   org2blog-server-userid
