@@ -379,11 +379,10 @@ Set to nil if you don't wish to track posts.")
             post-id)
         (org2blog-create-categories (cdr (assoc "categories" post)))
         (setq post-id (cdr (assoc "post-id" post)))
-        (if (not (and org2blog-confirm-post
-                 publish
-                 (y-or-n-p (format "Publish %s ?" 
-                                   (cdr (assoc "title" post))))))
-            (error "Post cancelled."))
+        (unless (not (and org2blog-confirm-post publish))
+          (if (not (y-or-n-p (format "Publish %s ?" 
+                                     (cdr (assoc "title" post)))))
+              (error "Post cancelled.")))
         (if post-id
             (metaweblog-edit-post org2blog-server-xmlrpc-url
                                   org2blog-server-userid
