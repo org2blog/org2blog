@@ -1,17 +1,15 @@
 * Overview
-  org2blog provides a simple way of publishing from org-mode to
-  [[http://wordpress.org/][WordPress]] blogs.  Presently supports posting with categories, tags
-  and images.  It uploads images on the local system automatically to
-  your wordpress blog. 
+  org2blog is a tool to publish directly from Emacs' org-mode to
+  [[http://wordpress.org/][WordPress]] blogs.  
 
   It is inspired by and based on a [[http://paste.lisp.org/display/69993][wordpress posting client for
-  muse-mode]] written by [[http://www.emacswiki.org/emacs/AshishShukla][Ashish Shukla]].
+  muse-mode]] written by [[http://www.emacswiki.org/emacs/AshishShukla][Ashish Shukla]].  
 
   org2blog is licensed under GPLv3
 
 * Installation
 
-  Download org2blog for github
+  Download org2blog from github
 
   : git clone http://github.com/punchagan/org2blog.git
   
@@ -31,13 +29,16 @@
 
   : (setq org2blog-use-tags-as-categories t)
 
+  If you wish to be asked for confirmation before publishing a post,
+  set the variable =org2blog-confirm-post=. 
+
   *Note* - org2blog depends on xml-rpc available at [[http://launchpad.net/xml-rpc-el][Launchpad]].  Add it
    to your load-path before using org2blog.
    
 * Usage
   1. Log in using *M-x org2blog-login*.  Provide xmlrpc url, username,
-     password and blog-id (not in use now; useful when editing posts).
-     Optionally, you could set these in your .emacs.   
+     password and blog-id. (blog-id isn't really being used.)
+     Optionally, you could set these in your .emacs.    
      
   2. To start writing a new post use *M-x org2blog-new-entry*.  Tags
      to your post are comma separated values passed to KEYWORDS.
@@ -45,23 +46,25 @@
      Completion (for both) is triggered using *C-c t*.  If a new
      category is used you will be prompted before adding it.
 
-  3. Use *C-c p* to Publish or *C-c d* to post as draft. Use *C-c P*
-     to Publish as page or *C-c D* to save page as draft.
+  3. If you wish to
+     - post buffer as draft - *M-x org2blog-post-buffer* or *C-c d* 
+     - to publish buffer - *C-u M-x org2blog-post-buffer* or *C-c p* 
+     - to post buffer as page draft - *M-x
+       org2blog-post-buffer-as-page*  or *C-c D* 
+     - to publish buffer as page - *C-u M-x
+       org2blog-post-buffer-as-page*  or *C-c P*
 
-  4. You could also publish your exiting org files.
-     - Add #+TITLE, #+OPTIONS, #+KEYWORDS, #+DESCRIPTION, #+DATE,
-       to your file.  All of these are Optional.  If a #+TITLE is
-       absent, your post will be untitled.
-     - If you wish to edit an existing post, add a #+POSTID.
-     - To post as draft - *M-x org2blog-post-buffer* 
-     - To publish - *C-u M-x org2blog-post-buffer* 
-     - Alternatively, you could enable org2blog-mode using *M-x
-       org2blog-mode*.  This provides the key-bindings *C-c p*, *C-c
-       d* and *C-c t*. 
-     - To post entry as a page, use *M-x org2blog-post-buffer-as-page* 
+  4. You can post your existing org-files too. 
+      - Add =#+TITLE=, =#+OPTIONS=,  =#+KEYWORDS=, =#+DESCRIPTION=,
+        =#+DATE=, to your file.  (All of these are Optional)
+      - If you wish to edit an existing post, add a =#+POSTID=.
+      - Post buffer using the function names, as above. 
+      - Alternatively, you could enable org2blog-mode using *M-x
+        org2blog-mode*.  This provides the key-bindings *C-c p*, *C-c
+        d* and *C-c t*. 
 
-  5. Thanks to Sacha, you can now also post a subtree with *M-x
-     org2blog-post-subtree*. Tags of the subtree will be used for
+  5. You can also post a subtree, with *M-x
+     org2blog-post-subtree*. Tags of the subtree will be used for 
      tags. Other properties can be set using a property drawer. 
 
   6. To delete an entry or a page -
@@ -75,10 +78,13 @@
 * Miscellaneous 
   1. You may want to look at the [[http://orgmode.org/manual/Export-options.html#Export-options][Export options]] and [[http://orgmode.org/manual/HTML-export.html#HTML-export][HTML export]]
      sections of the org-manual.
+
   2. If you wish to post to blogger from org-mode, look at the
      [[http://code.google.com/p/emacspeak/source/browse/trunk/lisp/g-client/org2blogger.el][g-client extension]] by [[http://en.wikipedia.org/wiki/T._V._Raman][T. V. Raman]].  
+
   3. If you have an issue/bug/feature request, use the issue tracker
      on git or drop a mail to punchagan+org2blog[at]gmail[dot]com.  
+
   4. If you haven't found a bug/issue, but have tried out and/or are
      using org2blog to post to your blog, post me a line on how you
      use it and on what blog. I'd love to hear from you!
