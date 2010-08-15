@@ -476,28 +476,34 @@ Set to nil if you don't wish to track posts.")
   (let (o2b-id log-file)
     (save-excursion
       (if (cdr (assoc "subtree" post))
-          (setq o2b-id (org-id-get nil t "o2b"))
+          (setq o2b-id (and (org-id-get nil t "o2b") (org-id-store-link)))
         (setq o2b-id (buffer-file-name)))
-      (setq log-file (find-file (expand-file-name 
-                                 org2blog-track-posts org-directory)))
-      (if (not o2b-id)
-          ()
-        (if (not (condition-case nil 
-                     (org-link-search o2b-id)
-                   (error nil)))
-            (progn
-              (goto-char (point-max))
-              (org-insert-heading-respect-content)
-              (insert (cdr (assoc "title" post)))))
-        (org-entry-put (point) "Post ID" (or pid ""))
-        (org-entry-put (point) "Post Date" (cdr (assoc "date" post)))
-        (org-entry-put (point) "Published" (if pub "Yes" "No"))
-        (org-entry-put (point) "Where" 
-                       (if (cdr (assoc "subtree" post))
-                           (concat "[[id:" o2b-id "]]")
-                         (concat "[[file:" o2b-id "]]"))))
-      (save-buffer)
-      (kill-buffer log-file))))
+      (with-current-buffer (or (find-buffer-visiting org2blog-track-posts)
+                               (find-file-noselect (expand-file-name 
+                                                    org2blog-track-posts 
+                                                    org-directory)))
+        (save-excursion
+          (save-restriction
+            (goto-char (point-min))
+            (if (not o2b-id)
+                ()
+              (if (search-forward o2b-id nil t 1) 
+                  (progn
+                    (org-back-to-heading)
+                    (forward-char 2)
+                    (kill-line)
+                    (insert (cdr (assoc "title" post))))
+                (goto-char (point-max))
+                (org-insert-heading-respect-content)
+                (insert (cdr (assoc "title" post))))
+              (org-entry-put (point) "Post ID" (or pid ""))
+              (org-entry-put (point) "Post Date" (cdr (assoc "date" post)))
+              (org-entry-put (point) "Published" (if pub "Yes" "No"))
+              (org-entry-put (point) "Where" 
+                             (if (cdr (assoc "subtree" post))
+                                 (concat "[[" o2b-id "]]")
+                               (concat "[[file:" o2b-id "]]"))))
+            (save-buffer)))))))
 
 (defun org2blog-complete-category()
   "Provides completion for categories and tags. DESCRIPTION for categories and KEYWORDS for tags."
