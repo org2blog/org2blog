@@ -490,7 +490,7 @@ Set to nil if you don't wish to track posts.")
               (if (search-forward o2b-id nil t 1) 
                   (progn
                     (org-back-to-heading)
-                    (forward-char 2)
+                    (forward-whitespace 1)
                     (kill-line))
                 (goto-char (point-max))
                 (org-insert-heading-respect-content))
