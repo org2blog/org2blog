@@ -491,18 +491,18 @@ Set to nil if you don't wish to track posts.")
                   (progn
                     (org-back-to-heading)
                     (forward-char 2)
-                    (kill-line)
-                    (insert (cdr (assoc "title" post))))
+                    (kill-line))
                 (goto-char (point-max))
-                (org-insert-heading-respect-content)
-                (insert (cdr (assoc "title" post))))
+                (org-insert-heading-respect-content))
+              (insert 
+               (format
+                (if (cdr (assoc "subtree" post))
+                    (concat "[[" o2b-id "][%s]]")
+                  (concat "[[file:" o2b-id "][%s]]"))
+                (cdr (assoc "title" post))))
               (org-entry-put (point) "Post ID" (or pid ""))
               (org-entry-put (point) "Post Date" (cdr (assoc "date" post)))
-              (org-entry-put (point) "Published" (if pub "Yes" "No"))
-              (org-entry-put (point) "Where" 
-                             (if (cdr (assoc "subtree" post))
-                                 (concat "[[" o2b-id "]]")
-                               (concat "[[file:" o2b-id "]]"))))
+              (org-entry-put (point) "Published" (if pub "Yes" "No")))
             (save-buffer)))))))
 
 (defun org2blog-complete-category()
