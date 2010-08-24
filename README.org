@@ -40,11 +40,11 @@
      password and blog-id. (blog-id isn't really being used.)
      Optionally, you could set these in your .emacs.    
      
-  2. To start writing a new post use *M-x org2blog-new-entry*.  Tags
-     to your post are comma separated values passed to KEYWORDS.
-     Categories are comma separated values passed to DESCRIPTION.
-     Completion (for both) is triggered using *C-c t*.  If a new
-     category is used you will be prompted before adding it.
+  2. To start writing a new post use *M-x org2blog-new-entry*. Tags
+     and Categories are comma or space separated values.  Completion
+     (for both) is triggered using *C-c t*.  If a new category is used
+     you will be prompted before adding it.  The excerpt for a post can
+     be written as =#+DESCRIPTION=.
 
   3. If you wish to
      - post buffer as draft - *M-x org2blog-post-buffer* or *C-c d* 
@@ -55,8 +55,9 @@
        org2blog-post-buffer-as-page*  or *C-c P*
 
   4. You can post your existing org-files too. 
-      - Add =#+TITLE=, =#+OPTIONS=,  =#+KEYWORDS=, =#+DESCRIPTION=,
-        =#+DATE=, to your file.  (All of these are Optional)
+      - Add =#+TITLE=, =#+OPTIONS=, =#+TAGS=, =#+CATEGORY=,
+        =#+DESCRIPTION=, =#+DATE=, to your file.  (All of these are
+        Optional)
       - If you wish to edit an existing post, add a =#+POSTID=.
       - Post buffer using the function names, as above. 
       - Alternatively, you could enable org2blog-mode using *M-x
