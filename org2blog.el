@@ -306,6 +306,7 @@ Set to nil if you don't wish to track posts.")
             (progn
               (setq post-title (or (org-entry-get (point) "Title")
                                    (nth 4 (org-heading-components))))
+              (setq excerpt (org-entry-get (point) "DESCRIPTION"))
               (setq post-id (org-entry-get (point) "Post ID"))
               ;; Set post-date to the Post Date property or look for timestamp
               (setq post-date (or (org-entry-get (point) "Post Date")
@@ -318,6 +319,7 @@ Set to nil if you don't wish to track posts.")
                                 (or (org-entry-get (point) "CATEGORY") "") ":")))
           (setq post-title (or (plist-get (org-infile-export-plist) :title) 
                                "No Title"))
+          (setq excerpt (plist-get (org-infile-export-plist) :description))
           (setq post-id (org2blog-get-post-id))
           (setq post-date (plist-get (org-infile-export-plist) :date))
           (setq tags (or 
@@ -369,6 +371,7 @@ Set to nil if you don't wish to track posts.")
      (cons "tags" tags)
      (cons "categories" categories)
      (cons "post-id" post-id)
+     (cons "excerpt" excerpt)
      (cons "description" html-text))))
 
 (defun org2blog-post-buffer (&optional publish)

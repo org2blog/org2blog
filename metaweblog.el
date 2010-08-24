@@ -52,6 +52,7 @@ title of the post, post contents, list of categories, and date respectively."
 	(post-description (cdr (assoc "description" content)))
 	(post-categories (cdr (assoc "categories" content)))
 	(post-tags (cdr (assoc "tags" content)))
+	(post-excerpt (cdr (assoc "excerpt" content)))
 	(post-date (cdr (assoc "date" content))))
   ;;; since xml-rpc-method-call entitifies the HTML text in the post
   ;;; we've to use raw
@@ -73,6 +74,9 @@ title of the post, post contents, list of categories, and date respectively."
 				 (member nil
 					 (name nil "description")
 					 (value nil ,post-description))
+				 (member nil
+					 (name nil "mt_excerpt")
+					 (value nil ,post-excerpt))
 				 (member nil
 					 (name nil "dateCreated")
 					 (dateTime.iso8601 nil ,post-date))
@@ -112,6 +116,7 @@ title of the post, post contents, list of categories, and date respectively."
 	(post-description (cdr (assoc "description" content)))
 	(post-categories (cdr (assoc "categories" content)))
 	(post-tags (cdr (assoc "tags" content)))
+	(post-excerpt (cdr (assoc "excerpt" content)))
 	(post-date (cdr (assoc "date" content))))
     (message post-date)
   ;;; since xml-rpc-method-call entitifies the HTML text in the post
@@ -134,6 +139,9 @@ title of the post, post contents, list of categories, and date respectively."
 				 (member nil
 					 (name nil "description")
 					 (value nil ,post-description))
+				 (member nil
+					 (name nil "mt_excerpt")
+					 (value nil ,post-excerpt))
 				 (member nil
 					 (name nil "dateCreated")
 					 (dateTime.iso8601 nil ,post-date))
@@ -173,6 +181,7 @@ title of the post, post contents, list of categories, and date respectively."
 	(post-description (cdr (assoc "description" content)))
 	(post-categories (cdr (assoc "categories" content)))
 	(post-tags (cdr (assoc "tags" content)))
+	(post-excerpt (cdr (assoc "excerpt" content)))
 	(post-date (cdr (assoc "date" content))))
     (message post-date)
   ;;; since xml-rpc-method-call entitifies the HTML text in the post
@@ -195,6 +204,9 @@ title of the post, post contents, list of categories, and date respectively."
 				 (member nil
 					 (name nil "description")
 					 (value nil ,post-description))
+				 (member nil
+					 (name nil "mt_excerpt")
+					 (value nil ,post-excerpt))
 				 (member nil
 				 	 (name nil "dateCreated")
 				 	 (dateTime.iso8601 nil ,post-date))
