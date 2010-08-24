@@ -159,7 +159,7 @@ Set to nil if you don't wish to track posts.")
 	  org2blog-map)))
 
 (defun org2blog-create-categories (categories)
-  "Create unknown CATEGORIES."
+  "Create unknown categories."
   (mapcar
    (lambda (cat)
      (if (and (not (member cat org2blog-categories-list))
@@ -215,7 +215,7 @@ Set to nil if you don't wish to track posts.")
   (message "Logged out"))
 
 (defun org2blog-new-entry()
-  "Creates a new blog entry. Use DESCRIPTION option for categories and KEYWORDS for tags."
+  "Creates a new blog entry."
   (interactive)
   (if (and (not org2blog-logged-in)
            (y-or-n-p "You are not logged in. Login?"))
@@ -227,8 +227,8 @@ Set to nil if you don't wish to track posts.")
     (insert "#+DATE: ")
     (insert (format-time-string "[%Y-%m-%d %a %H:%M]\n" (current-time)))
     (insert "#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:{} LaTeX:t TeX:t \n")
-    (insert "#+DESCRIPTION: \n")
-    (insert "#+KEYWORDS: \n")
+    (insert "#+CATEGORY: \n")
+    (insert "#+TAGS: \n")
     (insert "#+TITLE: <Enter Title Here>")
     (newline)
     (use-local-map org2blog-entry-mode-map)))
@@ -315,18 +315,21 @@ Set to nil if you don't wish to track posts.")
                                   (org-entry-get (point) "TIMESTAMP")))
               (setq tags (mapcar 'org-no-properties (org-get-tags-at (point) nil)))
               (setq categories (org-split-string 
-                                (or (org-entry-get (point) "CATEGORIES") "") ":")))
+                                (or (org-entry-get (point) "CATEGORY") "") ":")))
           (setq post-title (or (plist-get (org-infile-export-plist) :title) 
                                "No Title"))
           (setq post-id (org2blog-get-post-id))
           (setq post-date (plist-get (org-infile-export-plist) :date))
-          (setq tags (plist-get (org-infile-export-plist) :keywords))
-          (setq categories (plist-get (org-infile-export-plist) :description))
-          (setq tags
-                (or (split-string (or tags "") "[ ,]+" t) ""))
-
+          (setq tags (or 
+                      (mapcar (lambda (f) (car (split-string (car f) ",")))
+                              org-tag-alist)
+                      ""))
+          (setq categories 
+                (if org-category
+                    (symbol-name org-category)
+                  ""))
           (setq categories
-                (or (split-string (or categories "") "[ ,]+" t) "")))
+                (or (split-string categories "[ ,]+" t) "")))
 
         ;; Convert post date to ISO timestamp
         ;;add the date of posting to the post. otherwise edits will change it
@@ -505,15 +508,15 @@ Set to nil if you don't wish to track posts.")
             (save-buffer)))))))
 
 (defun org2blog-complete-category()
-  "Provides completion for categories and tags. DESCRIPTION for categories and KEYWORDS for tags."
+  "Provides completion for categories and tags."
   (interactive)
   (let* (current-pos tag-or-category-list)
     (setq current-pos (point))
     (forward-line 0)
     (forward-char 2)
-    (if (or (looking-at "DESCRIPTION: ") (looking-at "KEYWORDS: "))
+    (if (or (looking-at "CATEGORY: ") (looking-at "TAGS: "))
       	(progn 
-	  (if (looking-at "KEYWORDS: ")
+	  (if (looking-at "TAGS: ")
 	      (setq tag-or-cat-list org2blog-tags-list)
 	    (setq tag-or-cat-list org2blog-categories-list))
 	  (goto-char current-pos)
