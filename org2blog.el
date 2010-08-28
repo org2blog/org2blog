@@ -87,6 +87,11 @@
   :group 'org2blog
   :type 'boolean)
 
+(defcustom org2blog-keep-new-lines nil
+  "Non-nil means do not strip newlines."
+  :group 'org2blog
+  :type 'boolean)
+
 (defvar org2blog-categories-list nil 
   "List of weblog categories")
 
@@ -286,10 +291,13 @@ Set to nil if you don't wish to track posts.")
         (insert html)
         (setq start-pos (point-min))
         (goto-char start-pos)
-        (while (re-search-forward "<\\(pre\\|blockquote\\).*?>" nil t 1)
+        (while (re-search-forward 
+                (concat 
+                 "\\(<\\(pre\\|blockquote\\).*?>\\(.\\|[[:space:]]\\)*?</\\2.*?>\\|"
+                 "\\[\\([[:word:]]+\\).*?\\]\\(.\\|[[:space:]]\\)*?\\[/\\4.*?\\]\\)")
+                nil t 1)
           (setq end-pos (match-beginning 0))
           (replace-regexp "\\\n" " " nil start-pos end-pos)
-          (re-search-forward (concat "</" (match-string-no-properties 1) ">") nil t 1)
           (setq start-pos (match-end 0))
           (goto-char start-pos))
         (setq end-pos (point-max))
@@ -362,7 +370,8 @@ Set to nil if you don't wish to track posts.")
                    t 'string)))
           (setq html-text (org-no-properties html-text)))
         (setq html-text (org2blog-upload-images-replace-urls html-text))
-        (setq html-text (org2blog-strip-new-lines html-text))))
+        (unless org2blog-keep-new-lines
+          (setq html-text (org2blog-strip-new-lines html-text)))))
 
     (list
      (cons "point" (point))
