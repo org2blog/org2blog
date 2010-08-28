@@ -92,6 +92,20 @@
   :group 'org2blog
   :type 'boolean)
 
+(defcustom org2blog-use-sourcecode-shortcode t
+  "Non-nil means do not strip newlines."
+  :group 'org2blog
+  :type 'boolean)
+
+(defcustom org2blog-sourcecode-langs 
+  (list "actionscript3" "bash" "coldfusion" "cpp" "csharp" "css" "delphi" 
+        "erlang" "fsharp" "diff" "groovy" "javascript" "java" "javafx" "matlab"
+        "objc" "perl" "php" "text" "powershell" "python" "ruby" "scala" "sql" 
+        "vb" "xml")
+  "List of languages supported by sourcecode shortcode of WP."
+  :group 'org2blog
+  :type 'list)
+
 (defvar org2blog-categories-list nil 
   "List of weblog categories")
 
@@ -304,6 +318,30 @@ Set to nil if you don't wish to track posts.")
         (replace-regexp "\\\n" " " nil start-pos end-pos)
         (buffer-substring-no-properties (point-min) (point-max))))))
 
+(defun org2blog-replace-pre (html)
+  "Replace pre blocks with sourcecode shortcode blocks."
+  (save-excursion
+    (with-temp-buffer
+      (insert html)
+      (goto-char (point-min))
+      (save-match-data
+        (while (re-search-forward 
+                "<pre\\(.*?\\)>\\(\\(.\\|[[:space:]]\\|\\\n\\)*?\\)</pre.*?>"
+                nil t 1)
+          (setq code (match-string-no-properties 2))
+          (if (string-match "example" (match-string-no-properties 1))
+              (setq lang "text")
+            (setq lang (substring 
+                        (match-string-no-properties 1) 16 -1))
+            (unless (member lang org2blog-sourcecode-langs)
+              (setq lang "text"))
+            (setq code (replace-regexp-in-string "<.*?>" "" code)))
+          (replace-match 
+           (concat "\n[sourcecode language=\"" lang  "\"]\n" code "[/sourcecode]\n") 
+           nil t)))
+      (buffer-substring-no-properties (point-min) (point-max)))))
+
+
 (defun org2blog-parse-entry (&optional publish)
   "Parse an org2blog buffer."
   (interactive "P")
@@ -371,7 +409,9 @@ Set to nil if you don't wish to track posts.")
           (setq html-text (org-no-properties html-text)))
         (setq html-text (org2blog-upload-images-replace-urls html-text))
         (unless org2blog-keep-new-lines
-          (setq html-text (org2blog-strip-new-lines html-text)))))
+          (setq html-text (org2blog-strip-new-lines html-text)))
+        (when org2blog-use-sourcecode-shortcode
+          (setq html-text (org2blog-replace-pre html-text)))))
 
     (list
      (cons "point" (point))
