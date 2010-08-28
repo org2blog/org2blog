@@ -187,7 +187,8 @@ Set to nil if you don't wish to track posts.")
                           org2blog-server-userid
                           (org2blog-password)
                           org2blog-server-blogid
-                          cat)))
+                          cat))
+     (add-to-list 'org2blog-categories-list cat))
    categories))
 
 (defun org2blog-password ()
