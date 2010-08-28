@@ -322,25 +322,26 @@ Set to nil if you don't wish to track posts.")
 (defun org2blog-replace-pre (html)
   "Replace pre blocks with sourcecode shortcode blocks."
   (save-excursion
-    (with-temp-buffer
-      (insert html)
-      (goto-char (point-min))
-      (save-match-data
-        (while (re-search-forward 
-                "<pre\\(.*?\\)>\\(\\(.\\|[[:space:]]\\|\\\n\\)*?\\)</pre.*?>"
-                nil t 1)
-          (setq code (match-string-no-properties 2))
-          (if (string-match "example" (match-string-no-properties 1))
-              (setq lang "text")
-            (setq lang (substring 
-                        (match-string-no-properties 1) 16 -1))
-            (unless (member lang org2blog-sourcecode-langs)
-              (setq lang "text"))
-            (setq code (replace-regexp-in-string "<.*?>" "" code)))
-          (replace-match 
-           (concat "\n[sourcecode language=\"" lang  "\"]\n" code "[/sourcecode]\n") 
-           nil t)))
-      (buffer-substring-no-properties (point-min) (point-max)))))
+    (let ((start-pos end-pos code lang))
+      (with-temp-buffer
+        (insert html)
+        (goto-char (point-min))
+        (save-match-data
+          (while (re-search-forward 
+                  "<pre\\(.*?\\)>\\(\\(.\\|[[:space:]]\\|\\\n\\)*?\\)</pre.*?>"
+                  nil t 1)
+            (setq code (match-string-no-properties 2))
+            (if (string-match "example" (match-string-no-properties 1))
+                (setq lang "text")
+              (setq lang (substring 
+                          (match-string-no-properties 1) 16 -1))
+              (unless (member lang org2blog-sourcecode-langs)
+                (setq lang "text"))
+              (setq code (replace-regexp-in-string "<.*?>" "" code)))
+            (replace-match 
+             (concat "\n[sourcecode language=\"" lang  "\"]\n" code "[/sourcecode]\n") 
+             nil t)))
+        (setq html (buffer-substring-no-properties (point-min) (point-max)))))))
 
 
 (defun org2blog-parse-entry (&optional publish)
