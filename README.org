@@ -17,8 +17,12 @@
 
   : (require 'org2blog)
 
-  to your dot emacs.  You can optionally save the xmlrpc url of your
-  blog and the username.
+  to your dot emacs.  
+
+  *org2blog depends on xml-rpc available at [[http://launchpad.net/xml-rpc-el][Launchpad]].  Add it to your
+  load-path before using org2blog.*
+
+  You can optionally save the xmlrpc url of your blog and the username.
 
   : (setq org2blog-server-url "http://username.wordpress.com/xmlrpc.php"
   :       org2blog-server-user "username"
@@ -32,9 +36,13 @@
   If you wish to be asked for confirmation before publishing a post,
   set the variable =org2blog-confirm-post=. 
 
-  *Note* - org2blog depends on xml-rpc available at [[http://launchpad.net/xml-rpc-el][Launchpad]].  Add it
-   to your load-path before using org2blog.
-   
+  To browse or customize other variables use the customize group
+  function.
+
+  : M-x customize-group org2blog RET
+  
+  
+
 * Usage
   1. Log in using *M-x org2blog-login*.  Provide xmlrpc url, username,
      password and blog-id. (blog-id isn't really being used.)

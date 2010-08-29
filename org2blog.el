@@ -100,7 +100,7 @@
 (defcustom org2blog-sourcecode-default-params "light=\"true\""
   "Default arguments to pass to WP syntaxhighlighter."
   :group 'org2blog
-  :type 'boolean)
+  :type 'string)
 
 (defcustom org2blog-sourcecode-langs 
   (list "actionscript3" "bash" "coldfusion" "cpp" "csharp" "css" "delphi" 
@@ -110,6 +110,12 @@
   "List of languages supported by sourcecode shortcode of WP."
   :group 'org2blog
   :type 'list)
+
+(defcustom org2blog-track-posts ".org2blog.org"
+  "File where to save logs about posts. 
+Set to nil if you don't wish to track posts."
+  :group 'org2blog
+  :type 'string)
 
 (defvar org2blog-categories-list nil 
   "List of weblog categories")
@@ -142,10 +148,6 @@
 (defvar org2blog-buffer-kill-prompt t
   "Ask before killing buffer")
 (make-variable-buffer-local 'org2blog-buffer-kill-prompt)
-
-(defvar org2blog-track-posts ".org2blog.org"
-  "File where to save logs about posts. 
-Set to nil if you don't wish to track posts.")
 
 (defconst org2blog-version "0.2" 
   "Current version of blog.el")
