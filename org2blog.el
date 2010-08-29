@@ -97,6 +97,11 @@
   :group 'org2blog
   :type 'boolean)
 
+(defcustom org2blog-sourcecode-default-params "light=\"true\""
+  "Default arguments to pass to WP syntaxhighlighter."
+  :group 'org2blog
+  :type 'boolean)
+
 (defcustom org2blog-sourcecode-langs 
   (list "actionscript3" "bash" "coldfusion" "cpp" "csharp" "css" "delphi" 
         "erlang" "fsharp" "diff" "groovy" "javascript" "java" "javafx" "matlab"
@@ -340,8 +345,9 @@ Set to nil if you don't wish to track posts.")
               (save-match-data
                 (setq code (replace-regexp-in-string "<.*?>" "" code))))
             (replace-match 
-             (concat "\n[sourcecode language=\"" lang  "\" light=\"true\"]\n" 
-                     code "\n[/sourcecode]\n") 
+             (concat "\n[sourcecode language=\"" lang  "\"" 
+                     org2blog-sourcecode-default-params "]\n" code 
+                     "\n[/sourcecode]\n") 
              nil t)))
         (setq html (buffer-substring-no-properties (point-min) (point-max))))
       (goto-char (point-min))
