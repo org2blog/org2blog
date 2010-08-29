@@ -330,15 +330,18 @@ Set to nil if you don't wish to track posts.")
                   "<pre\\(.*?\\)>\\(\\(.\\|[[:space:]]\\|\\\n\\)*?\\)</pre.*?>"
                   nil t 1)
             (setq code (match-string-no-properties 2))
-            (if (string-match "example" (match-string-no-properties 1))
+            (if (save-match-data 
+                  (string-match "example" (match-string-no-properties 1)))
                 (setq lang "text")
               (setq lang (substring 
                           (match-string-no-properties 1) 16 -1))
               (unless (member lang org2blog-sourcecode-langs)
                 (setq lang "text"))
-              (setq code (replace-regexp-in-string "<.*?>" "" code)))
+              (save-match-data
+                (setq code (replace-regexp-in-string "<.*?>" "" code))))
             (replace-match 
-             (concat "\n[sourcecode language=\"" lang  "\"]\n" code "\n[/sourcecode]\n") 
+             (concat "\n[sourcecode language=\"" lang  "\" light=\"true\"]\n" 
+                     code "\n[/sourcecode]\n") 
              nil t)))
         (setq html (buffer-substring-no-properties (point-min) (point-max))))
       (goto-char (point-min))
@@ -349,7 +352,7 @@ Set to nil if you don't wish to track posts.")
         (setq params (nth 2 info))
         (setq code (org-html-protect (nth 1 info)))
         (setq code-re (regexp-quote code))
-        (setq src-re (concat "\\[sourcecode language=\"\\(.*?\\)\"\\]\n"
+        (setq src-re (concat "\\[sourcecode language=\"\\(.*?\\)\".*?\\]\n"
                              code-re "\\(\n\\)*\\[/sourcecode\\]"))
         (save-excursion
           (with-temp-buffer
