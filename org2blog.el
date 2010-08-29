@@ -321,7 +321,7 @@ Set to nil if you don't wish to track posts.")
 (defun org2blog-replace-pre (html)
   "Replace pre blocks with sourcecode shortcode blocks."
   (save-excursion
-    (let (start-pos end-pos code lang info params src-re code-re)
+    (let (pos code lang info params src-re code-re)
       (with-temp-buffer
         (insert html)
         (goto-char (point-min))
@@ -342,28 +342,30 @@ Set to nil if you don't wish to track posts.")
              nil t)))
         (setq html (buffer-substring-no-properties (point-min) (point-max))))
       (goto-char (point-min))
+      (setq pos 1)
       (while (re-search-forward org-babel-src-block-regexp nil t 1)
         (backward-word)
         (setq info (org-babel-get-src-block-info))
         (setq params (nth 2 info))
-        (when (assoc :syntaxhl params)
-          (setq code (org-html-protect (nth 1 info)))
-          (setq code-re (regexp-quote code))
-          (setq src-re (concat "\\[sourcecode language=\"\\(.*?\\)\"\\]\n"
-                               code-re "\\(\n\\)*\\[/sourcecode\\]"))
-          (save-excursion
-            (with-temp-buffer
-              (insert html)
-              (goto-char (point-min))
-              (save-match-data
-                (re-search-forward src-re nil t 1)
-                (setq lang (match-string-no-properties 1))
+        (setq code (org-html-protect (nth 1 info)))
+        (setq code-re (regexp-quote code))
+        (setq src-re (concat "\\[sourcecode language=\"\\(.*?\\)\"\\]\n"
+                             code-re "\\(\n\\)*\\[/sourcecode\\]"))
+        (save-excursion
+          (with-temp-buffer
+            (insert html)
+            (goto-char pos)
+            (save-match-data
+              (re-search-forward src-re nil t 1)
+              (setq pos (point))
+              (setq lang (match-string-no-properties 1))
+              (when (assoc :syntaxhl params)
                 (replace-match 
                  (concat "\n[sourcecode language=\"" lang  "\" " 
                          (cdr (assoc :syntaxhl params))
                          "]\n" code "[/sourcecode]\n")
-                 nil t))
-          (setq html (buffer-substring-no-properties (point-min) (point-max)))))))))
+                 nil t)))
+            (setq html (buffer-substring-no-properties (point-min) (point-max))))))))
   html)
 
 (defun org2blog-parse-entry (&optional publish)
