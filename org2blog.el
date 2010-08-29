@@ -280,8 +280,7 @@ Set to nil if you don't wish to track posts.")
                                                            (get-image-properties file-name)))))
                 (goto-char (point-max))
                 (newline)
-                (insert (concat "#+" file-name " " file-web-url))
-                (message (concat "BOW" "#+" file-name " " file-web-url)))
+                (insert (concat "#+" file-name " " file-web-url)))
               (setq file-all-urls (append file-all-urls (list (cons 
                                                                file-name file-web-url)))))))
       (dolist (image file-all-urls)
@@ -322,7 +321,7 @@ Set to nil if you don't wish to track posts.")
 (defun org2blog-replace-pre (html)
   "Replace pre blocks with sourcecode shortcode blocks."
   (save-excursion
-    (let ((start-pos end-pos code lang))
+    (let (start-pos end-pos code lang info params src-re code-re)
       (with-temp-buffer
         (insert html)
         (goto-char (point-min))
@@ -339,10 +338,33 @@ Set to nil if you don't wish to track posts.")
                 (setq lang "text"))
               (setq code (replace-regexp-in-string "<.*?>" "" code)))
             (replace-match 
-             (concat "\n[sourcecode language=\"" lang  "\"]\n" code "[/sourcecode]\n") 
+             (concat "\n[sourcecode language=\"" lang  "\"]\n" code "\n[/sourcecode]\n") 
              nil t)))
-        (setq html (buffer-substring-no-properties (point-min) (point-max)))))))
-
+        (setq html (buffer-substring-no-properties (point-min) (point-max))))
+      (goto-char (point-min))
+      (while (re-search-forward org-babel-src-block-regexp nil t 1)
+        (backward-word)
+        (setq info (org-babel-get-src-block-info))
+        (setq params (nth 2 info))
+        (when (assoc :syntaxhl params)
+          (setq code (org-html-protect (nth 1 info)))
+          (setq code-re (regexp-quote code))
+          (setq src-re (concat "\\[sourcecode language=\"\\(.*?\\)\"\\]\n"
+                               code-re "\\(\n\\)*\\[/sourcecode\\]"))
+          (save-excursion
+            (with-temp-buffer
+              (insert html)
+              (goto-char (point-min))
+              (save-match-data
+                (re-search-forward src-re nil t 1)
+                (setq lang (match-string-no-properties 1))
+                (replace-match 
+                 (concat "\n[sourcecode language=\"" lang  "\" " 
+                         (cdr (assoc :syntaxhl params))
+                         "]\n" code "[/sourcecode]\n")
+                 nil t))
+          (setq html (buffer-substring-no-properties (point-min) (point-max)))))))))
+  html)
 
 (defun org2blog-parse-entry (&optional publish)
   "Parse an org2blog buffer."
