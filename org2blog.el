@@ -135,10 +135,6 @@ Set to nil if you don't wish to track posts."
 (defvar org2blog-entry-mode-map nil 
   "Keymap for blog entry buffer")
 
-(defvar org2blog-mode nil
-  "Mode for org2blog")
-(make-variable-buffer-local 'org2blog-mode)
-
 (defvar org2blog-logged-in nil 
   "Flag whether user is logged-in or not")
 
@@ -152,6 +148,9 @@ Set to nil if you don't wish to track posts."
 (defconst org2blog-version "0.2" 
   "Current version of blog.el")
 
+(defvar org2blog-mode-hook nil
+  "Hook to run upon entry into mode.")
+
 (defun org2blog-kill-buffer-hook ()
   "Prompt before killing buffer."
   (if (and org2blog-buffer-kill-prompt
@@ -163,22 +162,30 @@ Set to nil if you don't wish to track posts."
               (org2blog-save-details (org2blog-parse-entry) nil 
                                      (y-or-n-p "Published?")))))))
 
-(defun org2blog-mode (&optional arg)
-  "org2blog mode for providing mode-map."
-  (interactive "P")
-  (setq org2blog-mode
-	(if (null arg)
-	    (not org2blog-mode)
-	  (> (prefix-numeric-value arg) 0)))
+(define-minor-mode org2blog-mode
+  "Toggle org2blog mode.
+With no argument, the mode is toggled on/off.  
+Non-nil argument turns mode on. 
+Nil argument turns mode off.
+
+Commands:
+\\{org2blog-entry-mode-map}
+
+Entry to this mode calls the value of `org2blog-mode-hook'."
+
+  :init-value nil
+  :lighter " o2b"
+  :group 'org2blog
+  :keymap org2blog-entry-mode-map
   (if org2blog-mode
-      (use-local-map org2blog-entry-mode-map)))
+      (run-mode-hooks 'org2blog-mode-hook)))
 
 (unless org2blog-entry-mode-map
   (setq org2blog-entry-mode-map
 	(let ((org2blog-map (make-sparse-keymap)))
 	  (set-keymap-parent org2blog-map org-mode-map)
-	  (define-key org2blog-map (kbd "C-c p") (lambda() (interactive) (org2blog-post-buffer t)))
-	  (define-key org2blog-map (kbd "C-c P") (lambda() (interactive) (org2blog-post-buffer-as-page t)))
+	  (define-key org2blog-map (kbd "C-c p") 'org2blog-post-buffer-and-publish)
+	  (define-key org2blog-map (kbd "C-c P") 'org2blog-post-buffer-as-page-and-publish)
 	  (define-key org2blog-map (kbd "C-c d") 'org2blog-post-buffer)
 	  (define-key org2blog-map (kbd "C-c D") 'org2blog-post-buffer-as-page)
 	  (define-key org2blog-map (kbd "C-c t") 'org2blog-complete-category)
@@ -461,6 +468,12 @@ Set to nil if you don't wish to track posts."
      (cons "excerpt" excerpt)
      (cons "description" html-text))))
 
+
+(defun org2blog-post-buffer-and-publish
+  "Post buffer and mark it as published"
+  (interactive)
+  (org2blog-post-buffer t))
+
 (defun org2blog-post-buffer (&optional publish)
   "Posts new blog entry to the blog or edits an existing entry."
   (interactive "P")
@@ -500,6 +513,11 @@ Set to nil if you don't wish to track posts."
                "Draft (%s): %s")
              post-id
              (cdr (assoc "title" post)))))))
+
+(defun org2blog-post-buffer-as-page-and-publish
+  "Alias to post buffer and mark it as published"
+  (interactive)
+  (org2blog-post-buffer-as-page t))
 
 (defun org2blog-post-buffer-as-page (&optional publish)
   "Posts new page to the blog or edits an existing page."
