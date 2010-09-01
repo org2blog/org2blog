@@ -646,6 +646,14 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                                      org2blog-server-blogid
                                      post
                                      publish))
+          (setq org2blog-pages-list
+                (mapcar (lambda (pg) 
+                          (cons (cdr (assoc "title" pg)) 
+                                (cdr (assoc "page_id" pg))))
+                        (wp-get-pages org2blog-server-xmlrpc-url
+                                      org2blog-server-userid
+                                      (org2blog-password)
+                                      org2blog-server-weblog-id)))
           (if (cdr (assoc "subtree" post))
               (org-entry-put (point) "Post ID" post-id)
             (goto-char (point-min))
