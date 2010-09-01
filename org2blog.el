@@ -265,7 +265,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
     (org-mode)
     (insert "#+DATE: ")
     (insert (format-time-string "[%Y-%m-%d %a %H:%M]\n" (current-time)))
-    (insert "#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:{} LaTeX:t TeX:t \n")
+    (insert "#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:{} TeX:nil \n")
     (insert "#+CATEGORY: \n")
     (insert "#+TAGS: \n")
     (insert "#+DESCRIPTION: \n")
@@ -372,6 +372,11 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                   (unless (string-match "^latex" (match-string 4))
                     (replace-match (concat " $latex " (match-string 4) "$") 
                                    nil t)))
+                 ((equal m "$1")
+                  (replace-match (concat " $latex " 
+                                         (substring (match-string 2) 1 -1)
+                                         "$") 
+                                   nil t))
                  ((equal m "\\(")
                   (replace-match (concat "$latex " 
                                          (substring (match-string 0) 2 -2)
