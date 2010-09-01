@@ -167,6 +167,17 @@ Set to nil if you don't wish to track posts."
               (org2blog-save-details (org2blog-parse-entry) nil 
                                      (y-or-n-p "Published?")))))))
 
+(unless org2blog-entry-mode-map
+  (setq org2blog-entry-mode-map
+	(let ((org2blog-map (make-sparse-keymap)))
+	  (set-keymap-parent org2blog-map org-mode-map)
+	  (define-key org2blog-map (kbd "C-c p") 'org2blog-post-buffer-and-publish)
+	  (define-key org2blog-map (kbd "C-c P") 'org2blog-post-buffer-as-page-and-publish)
+	  (define-key org2blog-map (kbd "C-c d") 'org2blog-post-buffer)
+	  (define-key org2blog-map (kbd "C-c D") 'org2blog-post-buffer-as-page)
+	  (define-key org2blog-map (kbd "C-c t") 'org2blog-complete-category)
+	  org2blog-map)))
+
 (define-minor-mode org2blog-mode
   "Toggle org2blog mode.
 With no argument, the mode is toggled on/off.  
@@ -182,19 +193,9 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
   :lighter " o2b"
   :group 'org2blog
   :keymap org2blog-entry-mode-map
+
   (if org2blog-mode
       (run-mode-hooks 'org2blog-mode-hook)))
-
-(unless org2blog-entry-mode-map
-  (setq org2blog-entry-mode-map
-	(let ((org2blog-map (make-sparse-keymap)))
-	  (set-keymap-parent org2blog-map org-mode-map)
-	  (define-key org2blog-map (kbd "C-c p") 'org2blog-post-buffer-and-publish)
-	  (define-key org2blog-map (kbd "C-c P") 'org2blog-post-buffer-as-page-and-publish)
-	  (define-key org2blog-map (kbd "C-c d") 'org2blog-post-buffer)
-	  (define-key org2blog-map (kbd "C-c D") 'org2blog-post-buffer-as-page)
-	  (define-key org2blog-map (kbd "C-c t") 'org2blog-complete-category)
-	  org2blog-map)))
 
 (defun org2blog-create-categories (categories)
   "Create unknown categories."
@@ -537,7 +538,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
      (cons "description" html-text))))
 
 
-(defun org2blog-post-buffer-and-publish
+(defun org2blog-post-buffer-and-publish ()
   "Post buffer and mark it as published"
   (interactive)
   (org2blog-post-buffer t))
@@ -582,7 +583,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
              post-id
              (cdr (assoc "title" post)))))))
 
-(defun org2blog-post-buffer-as-page-and-publish
+(defun org2blog-post-buffer-as-page-and-publish ()
   "Alias to post buffer and mark it as published"
   (interactive)
   (org2blog-post-buffer-as-page t))
