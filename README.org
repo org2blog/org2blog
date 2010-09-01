@@ -48,11 +48,13 @@
      password and blog-id. (blog-id isn't really being used.)
      Optionally, you could set these in your .emacs.    
      
-  2. To start writing a new post use *M-x org2blog-new-entry*. Tags
-     and Categories are comma or space separated values.  Completion
-     (for both) is triggered using *C-c t*.  If a new category is used
-     you will be prompted before adding it.  The excerpt for a post can
-     be written as =#+DESCRIPTION=.
+  2. To start writing a new post use *M-x org2blog-new-entry*. 
+     - Tags and Categories are comma or space separated values.
+       Completion (for both) is triggered using *C-c t*.  If a new
+       category is used you will be prompted before adding it.  
+     - The excerpt for a post can be written as =#+DESCRIPTION=.  
+     - The parent for a page can be specified using =#+PARENT=.  *C-c
+       t* again provides completion for the page name. 
 
   3. If you wish to
      - post buffer as draft - *M-x org2blog-post-buffer* or *C-c d* 
