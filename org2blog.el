@@ -370,12 +370,14 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                 (cond
                  ((equal m "$")
                   (unless (string-match "^latex" (match-string 4))
-                    (replace-match (concat " $latex " (match-string 4) "$") 
+                    (replace-match (concat (match-string 1) "$latex "
+                                           (match-string 4) "$" 
+                                           (match-string 6))
                                    nil t)))
                  ((equal m "$1")
-                  (replace-match (concat " $latex " 
+                  (replace-match (concat (match-string 1) "$latex " 
                                          (substring (match-string 2) 1 -1)
-                                         "$") 
+                                         "$" (match-string 3))
                                    nil t))
                  ((equal m "\\(")
                   (replace-match (concat "$latex " 
