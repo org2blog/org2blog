@@ -128,6 +128,9 @@ Set to nil if you don't wish to track posts."
 (defvar org2blog-tags-list nil 
   "List of weblog tags")
 
+(defvar org2blog-pages-list nil 
+  "List of WP pages.")
+
 (defvar org2blog-server-xmlrpc-url nil 
   "Weblog server XML-RPC URL")
 
@@ -240,6 +243,13 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
 			       org2blog-server-userid
                                (org2blog-password)
 			       org2blog-server-weblog-id)))
+    (setq org2blog-pages-list
+	  (mapcar (lambda (pg) 
+                    (cons (cdr (assoc "title" pg)) (cdr (assoc "page_id" pg))))
+		  (wp-get-pages org2blog-server-xmlrpc-url
+                                org2blog-server-userid
+                                (org2blog-password)
+                                org2blog-server-weblog-id)))
     (setq org2blog-logged-in t)
     (message "Logged in")))
 
@@ -251,6 +261,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
 	org2blog-server-blogid nil
 	org2blog-categories-list nil
 	org2blog-tags-list nil
+	org2blog-pages-list nil
 	org2blog-logged-in nil)
   (message "Logged out"))
 
@@ -316,6 +327,21 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
       (if (re-search-forward "^#\\+POSTID: \\(.*\\)" nil t 1)
           (setq post-id (match-string-no-properties 1))))
     post-id))
+
+(defun org2blog-get-post-parent ()
+  "Gets the post's parent from a buffer."
+  (let (post-par)
+    (save-excursion 
+      (goto-char (point-min))
+      (if (re-search-forward "^#\\+PARENT: \\(.*\\)" nil t 1)
+          (setq post-par (match-string-no-properties 1))))
+    (setq post-par 
+          (substring (comment-string-strip post-par t t) 0 -1))
+    (setq post-par (cdr (assoc post-par org2blog-pages-list)))
+    (setq post-par (if post-par
+                       (number-to-string post-par)
+                     "0"))
+    post-par))
 
 (defun org2blog-strip-new-lines (html)
   "Strip the new lines from the html, except in pre and blockquote tags."
@@ -456,7 +482,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
 (defun org2blog-parse-entry (&optional publish)
   "Parse an org2blog buffer."
   (interactive "P")
-  (let* (html-text post-title post-id post-date tags categories narrow-p cur-time)
+  (let* (html-text post-title post-id post-date tags categories narrow-p cur-time post-par)
     (save-restriction
       (save-excursion
         (setq narrow-p (not (equal (- (point-max) (point-min)) (buffer-size))))
@@ -479,6 +505,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                                "No Title"))
           (setq excerpt (plist-get (org-infile-export-plist) :description))
           (setq post-id (org2blog-get-post-id))
+          (setq post-par (org2blog-get-post-parent))
           (setq post-date (plist-get (org-infile-export-plist) :date))
           (setq tags (or 
                       (mapcar (lambda (f) (car (split-string (car f) ",")))
@@ -534,6 +561,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
      (cons "tags" tags)
      (cons "categories" categories)
      (cons "post-id" post-id)
+     (cons "parent" post-par)
      (cons "excerpt" excerpt)
      (cons "description" html-text))))
 
@@ -605,12 +633,13 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                                      (cdr (assoc "title" post)))))
               (error "Post cancelled.")))
         (if post-id
-            (metaweblog-edit-post org2blog-server-xmlrpc-url
-                                  org2blog-server-userid
-                                  (org2blog-password)
-                                  post-id
-                                  post
-                                  publish)
+            (wp-edit-page org2blog-server-xmlrpc-url
+                          org2blog-server-userid
+                          (org2blog-password)
+                          org2blog-server-blogid
+                          post-id
+                          post
+                          publish)
           (setq post-id (wp-new-page org2blog-server-xmlrpc-url
                                      org2blog-server-userid
                                      (org2blog-password)
@@ -691,19 +720,24 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
     (setq current-pos (point))
     (forward-line 0)
     (forward-char 2)
-    (if (or (looking-at "CATEGORY: ") (looking-at "TAGS: "))
-      	(progn 
-	  (if (looking-at "TAGS: ")
-	      (setq tag-or-cat-list org2blog-tags-list)
-	    (setq tag-or-cat-list org2blog-categories-list))
-	  (goto-char current-pos)
+    (if (or (looking-at "CATEGORY: ") (looking-at "TAGS: ")
+            (looking-at "PARENT: "))
+        (progn
+          (cond
+           ((looking-at "TAGS: ")
+            (setq tag-or-cat-list org2blog-tags-list))
+           ((looking-at "CATEGORY: ")
+            (setq tag-or-cat-list org2blog-categories-list))
+           ((looking-at "PARENT: ")
+            (setq tag-or-cat-list org2blog-pages-list)))
+          (goto-char current-pos)
       	  (let ((word-match (or (current-word t) ""))
       		(completion-match nil))
       	    (when word-match
       	      (setq completion-match (completing-read "Category ? " tag-or-cat-list nil nil word-match))
       	      (when (stringp completion-match)
       		(search-backward word-match nil t)
-      	      (replace-match (concat completion-match ", ") nil t)))))
+                (replace-match (concat completion-match ", ") nil t)))))
       (progn
       	(goto-char current-pos)
       	(command-execute (lookup-key org-mode-map (kbd "C-c t")))))))
