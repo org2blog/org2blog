@@ -93,7 +93,12 @@
   :type 'boolean)
 
 (defcustom org2blog-use-sourcecode-shortcode t
-  "Non-nil means do not strip newlines."
+  "Non-nil means convert <pre> tags to WP sourcecode blocks."
+  :group 'org2blog
+  :type 'boolean)
+
+(defcustom org2blog-use-wp-latex t
+  "Non-nil means convert LaTeX to WP latex blocks."
   :group 'org2blog
   :type 'boolean)
 
@@ -332,6 +337,60 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
         (replace-regexp "\\\n" " " nil start-pos end-pos)
         (buffer-substring-no-properties (point-min) (point-max))))))
 
+(defun org2blog-point-in-wp-sc ()
+  "Return True when point in sourcecode block."
+  (save-excursion
+    (let* ((pos (point))
+           (s-count 0)
+           (e-count 0))
+      (while (re-search-backward "\\[sourcecode.*\\]" nil t)
+        (setq s-count (1+ s-count)))
+      (goto-char pos)
+      (while (re-search-backward "\\[/sourcecode\\]" nil t)
+        (setq e-count (1+ e-count)))
+      (> (- s-count e-count) 0))))
+
+(defun org2blog-latex-to-wp (html)
+  "Change inline LaTeX to wp latex blocks."
+  (save-excursion
+    (with-temp-buffer
+      (insert html)
+      (let* ((matchers (plist-get org-format-latex-options :matchers))
+             (re-list org-latex-regexps)
+             beg end re e m n block off)
+        (while (setq e (pop re-list))
+          (setq m (car e) re (nth 1 e) n (nth 2 e)
+                block (if (nth 3 e) "\n\n" ""))
+          (when (member m matchers)
+            (goto-char (point-min))
+            (save-match-data
+              (while (and
+                      (re-search-forward re nil t)
+                      (not (org2blog-point-in-wp-sc)))
+                (cond
+                 ((equal m "$")
+                  (unless (string-match "^latex" (match-string 4))
+                    (replace-match (concat " $latex " (match-string 4) "$") 
+                                   nil t)))
+                 ((equal m "\\(")
+                  (replace-match (concat "$latex " 
+                                         (substring (match-string 0) 2 -2)
+                                         "$") nil t))
+                 ((equal m "\\[")
+                  (replace-match (concat "$latex \\displaystyle " 
+                                         (substring (match-string 0) 2 -2)
+                                         "$") nil t))
+                 ((equal m "$$")
+                  (replace-match (concat "$latex \\displaystyle " 
+                                         (substring (match-string 0) 2 -2)
+                                         "$") nil t))
+                 ((equal m "begin")
+                  (if (equal (match-string 2) "equation")
+                      (replace-match (concat "$latex \\displaystyle " 
+                                             (substring (match-string 1) 16 -14)
+                                             "$") nil t)))))))))
+      (buffer-substring-no-properties (point-min) (point-max)))))
+
 (defun org2blog-replace-pre (html)
   "Replace pre blocks with sourcecode shortcode blocks."
   (save-excursion
@@ -455,7 +514,9 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
         (unless org2blog-keep-new-lines
           (setq html-text (org2blog-strip-new-lines html-text)))
         (when org2blog-use-sourcecode-shortcode
-          (setq html-text (org2blog-replace-pre html-text)))))
+          (setq html-text (org2blog-replace-pre html-text)))
+        (when org2blog-use-wp-latex
+          (setq html-text (org2blog-latex-to-wp html-text)))))
 
     (list
      (cons "point" (point))

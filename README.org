@@ -77,7 +77,7 @@
      tags. Other properties can be set using a property drawer. 
 
   6. To delete an entry or a page -
-     - If you are in the buffer of the entry/page, with #+POST_ID
+     - If you are in the buffer of the entry/page, with =#+POSTID=
        present on the page, use *M-x org2blog-delete-entry* or *M-x
        org2blog-delete-page*  
      - If you want to delete a particular post (whose post-id is
