@@ -50,6 +50,15 @@
 		       user-name
 		       password))
 
+(defun wp-get-pagelist (blog-xmlrpc user-name password blog-id)
+  "Retrieves list of pages (minimal information) from the weblog
+system. Uses wp.getPageList."
+  (xml-rpc-method-call blog-xmlrpc
+		       "wp.getPageList"
+		       blog-id
+		       user-name
+		       password))
+
 (defun metaweblog-new-post 
   (blog-xmlrpc user-name password blog-id content publish)
   "Sends a new post to the blog. If PUBLISH is non-nil, the post is
