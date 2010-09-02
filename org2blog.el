@@ -336,7 +336,8 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
       (if (re-search-forward "^#\\+PARENT: \\(.*\\)" nil t 1)
           (progn
             (setq post-par (match-string-no-properties 1))
-            (if post-par
+            (if (and post-par
+                     (> (length post-par) 1))
                 (setq post-par (substring post-par 0 -2)))
             (setq post-par (cdr (assoc post-par org2blog-pages-list)))
             (if (not post-par)
