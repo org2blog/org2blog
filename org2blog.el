@@ -334,12 +334,15 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
     (save-excursion 
       (goto-char (point-min))
       (if (re-search-forward "^#\\+PARENT: \\(.*\\)" nil t 1)
-          (setq post-par (match-string-no-properties 1))))
-    (setq post-par (substring post-par 0 -2))
-    (setq post-par (cdr (assoc post-par org2blog-pages-list)))
-    (setq post-par (if post-par
-                       (number-to-string post-par)
-                     "0"))
+          (progn
+            (setq post-par (match-string-no-properties 1))
+            (if post-par
+                (setq post-par (substring post-par 0 -2)))
+            (setq post-par (cdr (assoc post-par org2blog-pages-list)))
+            (if (not post-par)
+                (setq post-par 0)))
+        (setq post-par 0)))
+    (setq post-par (number-to-string post-par))
     post-par))
 
 (defun org2blog-strip-new-lines (html)
