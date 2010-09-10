@@ -208,21 +208,16 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
               (y-or-n-p (format "Create %s category? " cat)))
          (wp-new-category org2blog-server-xmlrpc-url
                           org2blog-server-userid
-                          (org2blog-password)
+                          org2blog-server-pass
                           org2blog-server-blogid
                           cat))
      (add-to-list 'org2blog-categories-list cat))
    categories))
 
-(defun org2blog-password ()
-  "Get password or prompt if needed."
-  (or org2blog-server-pass
-      (setq org2blog-server-pass (read-passwd "Weblog password? "))))
-
 (defun org2blog-login()
   "Logs into the blog. Initializes the internal data structures."
   (interactive)
-  (let ((password))
+  (let ()
     (setq org2blog-server-xmlrpc-url (or org2blog-server-url
 					 (read-no-blanks-input 
 					  "Weblog XML-RPC URL ? ")))
@@ -231,24 +226,25 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
 				      "Weblog User ID ? ")))
     (setq org2blog-server-blogid (or org2blog-server-weblog-id
 				     (read-no-blanks-input "Weblog ID ? ")))
+    (setq org2blog-server-pass (read-passwd "Weblog password? "))
     (setq org2blog-categories-list
 	  (mapcar (lambda (category) (cdr (assoc "categoryName" category)))
 		  (metaweblog-get-categories org2blog-server-xmlrpc-url
 					     org2blog-server-userid
-                                             (org2blog-password)
+                                             org2blog-server-pass
 					     org2blog-server-weblog-id)))
     (setq org2blog-tags-list
 	  (mapcar (lambda (tag) (cdr (assoc "slug" tag)))
 		  (wp-get-tags org2blog-server-xmlrpc-url
 			       org2blog-server-userid
-                               (org2blog-password)
+                               org2blog-server-pass
 			       org2blog-server-weblog-id)))
     (setq org2blog-pages-list
 	  (mapcar (lambda (pg) 
                     (cons (cdr (assoc "title" pg)) (cdr (assoc "page_id" pg))))
 		  (wp-get-pagelist org2blog-server-xmlrpc-url
 				   org2blog-server-userid
-				   (org2blog-password)
+				   org2blog-server-pass
 				   org2blog-server-weblog-id)))
     (setq org2blog-logged-in t)
     (message "Logged in")))
@@ -307,7 +303,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                       (cdr (assoc "url" 
                                   (metaweblog-upload-image org2blog-server-xmlrpc-url
                                                            org2blog-server-userid
-                                                           (org2blog-password)
+                                                           org2blog-server-pass
                                                            org2blog-server-weblog-id
                                                            (get-image-properties file-name)))))
                 (goto-char (point-max))
@@ -593,13 +589,13 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
         (if post-id
             (metaweblog-edit-post org2blog-server-xmlrpc-url
                                   org2blog-server-userid
-                                  (org2blog-password)
+                                  org2blog-server-pass
                                   post-id
                                   post
                                   publish)
           (setq post-id (metaweblog-new-post org2blog-server-xmlrpc-url
                                              org2blog-server-userid
-                                             (org2blog-password)
+                                             org2blog-server-pass
                                              org2blog-server-blogid
                                              post
                                              publish))
@@ -639,14 +635,14 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
         (if post-id
             (wp-edit-page org2blog-server-xmlrpc-url
                           org2blog-server-userid
-                          (org2blog-password)
+                          org2blog-server-pass
                           org2blog-server-blogid
                           post-id
                           post
                           publish)
           (setq post-id (wp-new-page org2blog-server-xmlrpc-url
                                      org2blog-server-userid
-                                     (org2blog-password)
+                                     org2blog-server-pass
                                      org2blog-server-blogid
                                      post
                                      publish))
@@ -656,7 +652,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                                 (cdr (assoc "page_id" pg))))
                         (wp-get-pagelist org2blog-server-xmlrpc-url
 					 org2blog-server-userid
-					 (org2blog-password)
+					 org2blog-server-pass
 					 org2blog-server-weblog-id)))
           (if (cdr (assoc "subtree" post))
               (org-entry-put (point) "Post ID" post-id)
@@ -676,7 +672,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
       (setq post-id (org2blog-get-post-id)))
   (metaweblog-delete-post org2blog-server-xmlrpc-url
                                 org2blog-server-userid
-                                (org2blog-password)
+                                org2blog-server-pass
                                 post-id)
   (message "Post Deleted"))
 
@@ -687,7 +683,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
   (wp-delete-page org2blog-server-xmlrpc-url
                   org2blog-server-blogid
                   org2blog-server-userid
-                  (org2blog-password)
+                  org2blog-server-pass
                   page-id)
    (message "Page Deleted"))
 
