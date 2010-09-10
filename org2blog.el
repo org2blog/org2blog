@@ -695,9 +695,12 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
           (setq o2b-id (and (org-id-get nil t "o2b") (org-id-store-link)))
         (setq o2b-id (buffer-file-name)))
       (with-current-buffer (or (find-buffer-visiting org2blog-track-posts)
-                               (find-file-noselect (expand-file-name 
-                                                    org2blog-track-posts 
-                                                    org-directory)))
+                               (find-file-noselect 
+                                (if (file-name-absolute-p org2blog-track-posts)
+                                    org2blog-track-posts
+                                  (expand-file-name 
+                                   org2blog-track-posts 
+                                   org-directory))))
         (save-excursion
           (save-restriction
             (goto-char (point-min))
