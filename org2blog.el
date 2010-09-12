@@ -485,6 +485,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
   (let* (html-text post-title post-id post-date tags categories narrow-p cur-time post-par)
     (save-restriction
       (save-excursion
+        (org-save-outline-visibility 'use-markers (org-mode-restart))
         (setq narrow-p (not (equal (- (point-max) (point-min)) (buffer-size))))
         (if narrow-p
             (progn
