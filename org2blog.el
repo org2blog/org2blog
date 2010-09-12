@@ -273,7 +273,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
     (org-mode)
     (insert "#+DATE: ")
     (insert (format-time-string "[%Y-%m-%d %a %H:%M]\n" (current-time)))
-    (insert "#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:{} TeX:nil \n")
+    (insert "#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil \n")
     (insert "#+CATEGORY: \n")
     (insert "#+TAGS: \n")
     (insert "#+DESCRIPTION: \n")
