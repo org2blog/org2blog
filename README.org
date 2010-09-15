@@ -91,7 +91,9 @@
      sections of the org-manual.
 
   2. If you wish to post to blogger from org-mode, look at the
-     [[http://code.google.com/p/emacspeak/source/browse/trunk/lisp/g-client/org2blogger.el][g-client extension]] by [[http://en.wikipedia.org/wiki/T._V._Raman][T. V. Raman]].  
+     [[http://code.google.com/p/emacspeak/source/browse/trunk/lisp/g-client/org2blogger.el][g-client extension]] by [[http://en.wikipedia.org/wiki/T._V._Raman][T. V. Raman]]. [[http://github.com/rileyrg/org-googlecl][org-googlecl]], a new client by
+     Richard Riley, uses the google command line utility ([[http://code.google.com/p/googlecl/][googlecl]])
+     post to blogger.
 
   3. If you have an issue/bug/feature request, use the issue tracker
      on git or drop a mail to punchagan+org2blog[at]gmail[dot]com.  
