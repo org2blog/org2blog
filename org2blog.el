@@ -92,7 +92,7 @@
   :group 'org2blog
   :type 'boolean)
 
-(defcustom org2blog-use-sourcecode-shortcode t
+(defcustom org2blog-use-sourcecode-shortcode nil
   "Non-nil means convert <pre> tags to WP sourcecode blocks."
   :group 'org2blog
   :type 'boolean)
