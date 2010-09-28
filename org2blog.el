@@ -92,7 +92,7 @@
   :group 'org2blog
   :type 'boolean)
 
-(defcustom org2blog-use-sourcecode-shortcode t
+(defcustom org2blog-use-sourcecode-shortcode nil
   "Non-nil means convert <pre> tags to WP sourcecode blocks."
   :group 'org2blog
   :type 'boolean)
@@ -241,7 +241,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
 			       org2blog-server-weblog-id)))
     (setq org2blog-pages-list
 	  (mapcar (lambda (pg) 
-                    (cons (cdr (assoc "title" pg)) (cdr (assoc "page_id" pg))))
+                    (cons (cdr (assoc "page_title" pg)) (cdr (assoc "page_id" pg))))
 		  (wp-get-pagelist org2blog-server-xmlrpc-url
 				   org2blog-server-userid
 				   org2blog-server-pass
