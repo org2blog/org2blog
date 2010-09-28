@@ -90,8 +90,10 @@
   1. You may want to look at the [[http://orgmode.org/manual/Export-options.html#Export-options][Export options]] and [[http://orgmode.org/manual/HTML-export.html#HTML-export][HTML export]]
      sections of the org-manual.
 
-  2. If you wish to post to blogger from org-mode, look at the
-     [[http://code.google.com/p/emacspeak/source/browse/trunk/lisp/g-client/org2blogger.el][g-client extension]] by [[http://en.wikipedia.org/wiki/T._V._Raman][T. V. Raman]].  
+  2. If you wish to post to blogger from org-mode, look at -
+
+     + [[http://code.google.com/p/emacspeak/source/browse/trunk/lisp/g-client/org2blogger.el][g-client extension]] by [[http://en.wikipedia.org/wiki/T._V._Raman][T. V. Raman]]
+     + [[http://github.com/rileyrg/org-googlecl][org-googlecl]] by Richard Riley -- uses [[http://code.google.com/p/googlecl/][googlecl]]
 
   3. If you have an issue/bug/feature request, use the issue tracker
      on git or drop a mail to punchagan+org2blog[at]gmail[dot]com.  
