@@ -787,4 +787,26 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
       (org2blog-save-details (org2blog-parse-entry) "" nil)
       (widen))))
 
+(defun org2blog-preview-buffer-draft ()
+  (interactive)
+  "Preview the present buffer in browser, if posted as draft."
+  (let* ((postid (org2blog-get-post-id))
+         (url org2blog-server-url))
+    (if (not postid)
+        (message "This buffer hasn't been posted, yet.")
+      (setq url (concat url "?p=" postid "&preview=true"))
+      (setq url (substring url 0 -10))
+      (browse-url url))))
+
+(defun org2blog-preview-subtree-draft ()
+  (interactive)
+  "Preview the present subtree in browser, if posted as draft."
+  (let* ((postid (org-entry-get (point) "Post ID"))
+         (url org2blog-server-url))
+    (if (not postid)
+        (message "This subtree hasn't been posted, yet.")
+      (setq url (concat url "?p=" postid "&preview=true"))
+      (setq url (substring url 0 -10))
+      (browse-url url))))
+
 (provide 'org2blog)
