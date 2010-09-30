@@ -214,6 +214,11 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
      (add-to-list 'org2blog-categories-list cat))
    categories))
 
+(defun org2blog-password ()
+  "Set password."
+  (interactive)
+  (setq org2blog-server-pass (read-passwd "Weblog password? ")))
+
 (defun org2blog-login()
   "Logs into the blog. Initializes the internal data structures."
   (interactive)
@@ -229,7 +234,8 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
 				      "Weblog User ID ? ")))
     (setq org2blog-server-blogid (or org2blog-server-weblog-id
 				     (read-no-blanks-input "Weblog ID ? ")))
-    (setq org2blog-server-pass (read-passwd "Weblog password? "))
+    (setq org2blog-server-pass (or org2blog-server-pass
+                                   (read-passwd "Weblog password? ")))
     (setq org2blog-categories-list
 	  (mapcar (lambda (category) (cdr (assoc "categoryName" category)))
 		  (metaweblog-get-categories org2blog-server-xmlrpc-url
