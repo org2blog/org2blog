@@ -794,8 +794,8 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
          (url org2blog-server-url))
     (if (not postid)
         (message "This buffer hasn't been posted, yet.")
-      (setq url (concat url "?p=" postid "&preview=true"))
       (setq url (substring url 0 -10))
+      (setq url (concat url "?p=" postid "&preview=true"))
       (browse-url url))))
 
 (defun org2blog-preview-subtree-draft ()
@@ -805,8 +805,8 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
          (url org2blog-server-url))
     (if (not postid)
         (message "This subtree hasn't been posted, yet.")
-      (setq url (concat url "?p=" postid "&preview=true"))
       (setq url (substring url 0 -10))
+      (setq url (concat url "?p=" postid "&preview=true"))
       (browse-url url))))
 
 (provide 'org2blog)
