@@ -610,7 +610,11 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                  "Published (%s): %s"
                "Draft (%s): %s")
              post-id
-             (cdr (assoc "title" post)))))))
+             (cdr (assoc "title" post)))
+    (when (y-or-n-p "View post in browser? ")
+      (if (cdr (assoc "subtree" post))
+          (org2blog-preview-subtree-post)
+        (org2blog-preview-buffer-post)))))))
 
 (defun org2blog-post-buffer-as-page-and-publish ()
   "Alias to post buffer and mark it as published"
@@ -787,9 +791,9 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
       (org2blog-save-details (org2blog-parse-entry) "" nil)
       (widen))))
 
-(defun org2blog-preview-buffer-draft ()
+(defun org2blog-preview-buffer-post ()
   (interactive)
-  "Preview the present buffer in browser, if posted as draft."
+  "Preview the present buffer in browser, if posted."
   (let* ((postid (org2blog-get-post-id))
          (url org2blog-server-url))
     (if (not postid)
@@ -798,9 +802,9 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
       (setq url (concat url "?p=" postid "&preview=true"))
       (browse-url url))))
 
-(defun org2blog-preview-subtree-draft ()
+(defun org2blog-preview-subtree-post ()
   (interactive)
-  "Preview the present subtree in browser, if posted as draft."
+  "Preview the present subtree in browser, if posted."
   (let* ((postid (org-entry-get (point) "Post ID"))
          (url org2blog-server-url))
     (if (not postid)
