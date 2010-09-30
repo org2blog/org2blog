@@ -221,6 +221,9 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
     (setq org2blog-server-xmlrpc-url (or org2blog-server-url
 					 (read-no-blanks-input 
 					  "Weblog XML-RPC URL ? ")))
+    (if (listp org2blog-server-xmlrpc-url)
+        (setq org2blog-server-xmlrpc-url 
+              (completing-read "Blog ? " org2blog-server-url nil t )))
     (setq org2blog-server-userid (or org2blog-server-user
 				     (read-no-blanks-input 
 				      "Weblog User ID ? ")))
@@ -795,7 +798,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
   (interactive)
   "Preview the present buffer in browser, if posted."
   (let* ((postid (org2blog-get-post-id))
-         (url org2blog-server-url))
+         (url org2blog-server-xmlrpc-url))
     (if (not postid)
         (message "This buffer hasn't been posted, yet.")
       (setq url (substring url 0 -10))
@@ -806,7 +809,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
   (interactive)
   "Preview the present subtree in browser, if posted."
   (let* ((postid (org-entry-get (point) "Post ID"))
-         (url org2blog-server-url))
+         (url org2blog-server-xmlrpc-url))
     (if (not postid)
         (message "This subtree hasn't been posted, yet.")
       (setq url (substring url 0 -10))
