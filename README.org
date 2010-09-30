@@ -1,3 +1,8 @@
+#+TITLE: Org2blog Readme
+#+Options: num:nil
+#+startup: indent
+#+Style: <style> h1,h2,h3 {font-family: arial, helvetica, sans-serif} </style>
+
 * Overview
   org2blog is a tool to publish directly from Emacs' org-mode to
   [[http://wordpress.org/][WordPress]] blogs.  
@@ -15,14 +20,17 @@
   
   Add the org2blog directory to your load path and then add
 
+  : (setq load-path (cons "~/.emacs.d/org2blog/" load-path))
   : (require 'org2blog)
 
   to your dot emacs.  
 
-  *org2blog depends on xml-rpc available at [[http://launchpad.net/xml-rpc-el][Launchpad]].  Add it to your
-  load-path before using org2blog.*
+** Dependencies
+   org2blog depends on /xml-rpc/ available at [[http://launchpad.net/xml-rpc-el][Launchpad]].  Add it to your /load-path/ before using org2blog.
 
-  You can optionally save the xmlrpc url of your blog and the username.
+* Usage
+** Defining your blog setup
+   You can optionally save the xmlrpc url of your blog and the username.
 
   : (setq org2blog-server-url "http://username.wordpress.com/xmlrpc.php"
   :       org2blog-server-user "username"
@@ -40,51 +48,55 @@
   function.
 
   : M-x customize-group org2blog RET
-  
-  
 
-* Usage
-  1. Log in using *M-x org2blog-login*.  Provide xmlrpc url, username,
-     password and blog-id. (blog-id isn't really being used.)
-     Optionally, you could set these in your .emacs.    
+** Logging In 
+Use *M-x org2blog-login*.  Provide xmlrpc url, username,
+password and blog-id. (blog-id isn't really being used.)
+Optionally, you could set these in your .emacs.    
      
-  2. To start writing a new post use *M-x org2blog-new-entry*. 
-     - Tags and Categories are comma or space separated values.
-       Completion (for both) is triggered using *C-c t*.  If a new
-       category is used you will be prompted before adding it.  
-     - The excerpt for a post can be written as =#+DESCRIPTION=.  
-     - The parent for a page can be specified using =#+PARENT=.  *C-c
-       t* again provides completion for the page name. 
+** Writing a new post 
+Use *M-x org2blog-new-entry*. 
+   - Tags and Categories are comma or space separated values.
+     Completion (for both) is triggered using *C-c t*.  If a new
+     category is used you will be prompted before adding it.  
+   - The excerpt for a post can be written as =#+DESCRIPTION=.  
+   - The parent for a page can be specified using =#+PARENT=.\\
+     *C-c  t* again provides completion for the page name. 
 
-  3. If you wish to
-     - post buffer as draft - *M-x org2blog-post-buffer* or *C-c d* 
-     - to publish buffer - *C-u M-x org2blog-post-buffer* or *C-c p* 
-     - to post buffer as page draft - *M-x
-       org2blog-post-buffer-as-page*  or *C-c D* 
-     - to publish buffer as page - *C-u M-x
-       org2blog-post-buffer-as-page*  or *C-c P*
+** Publishing 
+ | post buffer as draft      | *C-c d* | *M-x     org2blog-post-buffer*         |
+ | publish buffer            | *C-c p* | *C-u M-x org2blog-post-buffer*         |
+ | post buffer as page draft | *C-c D* | *M-x     org2blog-post-buffer-as-page* |
+ | publish buffer as page    | *C-c P* | *C-u M-x org2blog-post-buffer-as-page* |
 
-  4. You can post your existing org-files too. 
-      - Add =#+TITLE=, =#+OPTIONS=, =#+TAGS=, =#+CATEGORY=,
-        =#+DESCRIPTION=, =#+DATE=, to your file.  (All of these are
-        Optional)
-      - If you wish to edit an existing post, add a =#+POSTID=.
-      - Post buffer using the function names, as above. 
-      - Alternatively, you could enable org2blog-mode using *M-x
-        org2blog-mode*.  This provides the key-bindings *C-c p*, *C-c
-        d* and *C-c t*. 
 
-  5. You can also post a subtree, with *M-x
-     org2blog-post-subtree*. Tags of the subtree will be used for 
-     tags. Other properties can be set using a property drawer. 
+** Post your existing org-files too
+   - Add =#+TITLE=, =#+OPTIONS=, =#+TAGS=, =#+CATEGORY=,
+         =#+DESCRIPTION=, =#+DATE=, to your file.  (All of these are
+     Optional)
+   - Add a =#+POSTID= to edit an existing post.
+   - Post buffer using the function names, as above. 
+   
+** Posting a subtree
+   - Use *M-x   org2blog-post-subtree*.
+   - Tags of the subtree will be used for tags. Other properties can be set using a property drawer. 
 
-  6. To delete an entry or a page -
-     - If you are in the buffer of the entry/page, with =#+POSTID=
-       present on the page, use *M-x org2blog-delete-entry* or *M-x
-       org2blog-delete-page*  
-     - If you want to delete a particular post (whose post-id is
-       known) from any buffer, use *C-u post-id M-x
-       org2blog-delete-entry*. Similarly, for a page. 
+** Delete an entry or a page
+   - If you are in the buffer of the entry/page, with =#+POSTID=
+     present on the page, use :\\
+       *M-x org2blog-delete-entry* or *M-x  org2blog-delete-page*
+   - If you want to delete a particular post (whose post-id is
+       known) from any buffer, use\\ 
+       *C-u post-id   M-x org2blog-delete-entry*.  
+     
+   Similarly, for a page.
+
+** Enabling org2blog mode (defines key-bindings)
+   - use *M-x org2blog-mode*.  
+     This defines the following the key-bindings:
+       | *C-c p* | publish buffer                   |
+       | *C-c d* | post as draft                    |
+       | *C-c t* | complete tag or parent page name |
 
 * Miscellaneous 
   1. You may want to look at the [[http://orgmode.org/manual/Export-options.html#Export-options][Export options]] and [[http://orgmode.org/manual/HTML-export.html#HTML-export][HTML export]]
