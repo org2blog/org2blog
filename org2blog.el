@@ -620,7 +620,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                "Draft (%s): %s")
              post-id
              (cdr (assoc "title" post)))
-    (when (y-or-n-p "View post in browser? ")
+    (when (y-or-n-p "[For drafts, ensure you log-in] View post in browser? y/n")
       (if (cdr (assoc "subtree" post))
           (org2blog-preview-subtree-post)
         (org2blog-preview-buffer-post)))))))
