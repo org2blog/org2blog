@@ -26,7 +26,11 @@
   to your dot emacs.  
 
 *** Dependencies
-   org2blog depends on /xml-rpc/ available at [[http://launchpad.net/xml-rpc-el][Launchpad]].  Add it to your /load-path/ before using org2blog.
+    1. org2blog depends on /xml-rpc/ available at [[http://launchpad.net/xml-rpc-el][Launchpad]].  Add it
+       to your /load-path/ before using org2blog.
+
+    2. Make sure you have the latest org-mode installed. org2blog may
+       not work with older versions of org. 
 
 * Usage
 *** Defining your blog setup
