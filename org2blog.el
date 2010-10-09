@@ -501,9 +501,9 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
               (setq post-title (or (org-entry-get (point) "Title")
                                    (nth 4 (org-heading-components))))
               (setq excerpt (org-entry-get (point) "DESCRIPTION"))
-              (setq post-id (org-entry-get (point) "Post ID"))
+              (setq post-id (org-entry-get (point) "POST_ID"))
               ;; Set post-date to the Post Date property or look for timestamp
-              (setq post-date (or (org-entry-get (point) "Post Date")
+              (setq post-date (or (org-entry-get (point) "POST_DATE")
                                   (org-entry-get (point) "SCHEDULED")
                                   (org-entry-get (point) "DEADLINE")
                                   (org-entry-get (point) "TIMESTAMP_IA")
@@ -537,7 +537,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                                       (apply 'encode-time (org-parse-time-string post-date))
                                     (current-time)
                                     (if narrow-p
-                                        (org-entry-put (point) "Post Date" cur-time)
+                                        (org-entry-put (point) "POST_DATE" cur-time)
                                       (save-excursion
                                         (goto-char (point-min))
                                         (insert (concat "#+DATE: " cur-time "\n"))))) 
@@ -610,7 +610,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                                              post
                                              publish))
           (if (cdr (assoc "subtree" post))
-              (org-entry-put (point) "Post ID" post-id)
+              (org-entry-put (point) "POST_ID" post-id)
             (goto-char (point-min))
             (insert (concat "#+POSTID: " post-id "\n"))))
     (if org2blog-track-posts
@@ -669,7 +669,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
 					 org2blog-server-pass
 					 org2blog-server-weblog-id)))
           (if (cdr (assoc "subtree" post))
-              (org-entry-put (point) "Post ID" post-id)
+              (org-entry-put (point) "POST_ID" post-id)
             (goto-char (point-min))
             (insert (concat "#+POSTID: " post-id "\n"))))
     (if org2blog-track-posts
@@ -733,8 +733,8 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                     (concat "[[" o2b-id "][%s]]")
                   (concat "[[file:" o2b-id "][%s]]"))
                 (cdr (assoc "title" post))))
-              (org-entry-put (point) "Post ID" (or pid ""))
-              (org-entry-put (point) "Post Date" (cdr (assoc "date" post)))
+              (org-entry-put (point) "POST_ID" (or pid ""))
+              (org-entry-put (point) "POST_DATE" (cdr (assoc "date" post)))
               (org-entry-put (point) "Published" (if pub "Yes" "No")))
             (save-buffer)))))))
 
@@ -814,7 +814,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
 (defun org2blog-preview-subtree-post ()
   (interactive)
   "Preview the present subtree in browser, if posted."
-  (let* ((postid (org-entry-get (point) "Post ID"))
+  (let* ((postid (org-entry-get (point) "POST_ID"))
          (url org2blog-server-xmlrpc-url))
     (if (not postid)
         (message "This subtree hasn't been posted, yet.")
