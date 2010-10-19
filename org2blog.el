@@ -347,9 +347,8 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                 (setq post-par (substring post-par 0 -2)))
             (setq post-par (cdr (assoc post-par org2blog-pages-list)))
             (if (not post-par)
-                (setq post-par 0)))
-        (setq post-par 0)))
-    (setq post-par (number-to-string post-par))
+                (setq post-par "0")))
+        (setq post-par "0")))
     post-par))
 
 (defun org2blog-strip-new-lines (html)
