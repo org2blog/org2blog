@@ -36,16 +36,21 @@
 *** Defining your blog setup
     You can optionally save the xmlrpc url of your blog and the username.
 
-    : (setq org2blog-server-url "http://username.wordpress.com/xmlrpc.php"
-    :       org2blog-server-user "username"
-    :       org2blog-server-weblog-id "")
+    : (setq org2blog-blog-alist
+    :       '(("wordpress"
+    :          :url "http://username.wordpress.com/xmlrpc.php"
+    :          :username "username"   
+    :          :default-title "Hello World"
+    :          :default-categories ("org2blog" "emacs")
+    :          :tags-as-categories nil)
+    :         ("my-blog"             
+    :          :url "http://username.server.com/xmlrpc.php"
+    :          :username "admin")))
     
-    You can set org2blog-server-url to be a list of blogs to post to.
-    You can then choose the blog to post to, when logging in.
-    
-    : (setq org2blog-server-url (list "http://user1.wordpress.com/xmlrpc.php"
-    :                                 "http://user2.wordpress.com/xmlrpc.php"))
-    
+    The variables in the =plist= set for each blog over-ride the
+    global values of the corresponding variables. =url= and =username=
+    are mandatory variables. Others are optional.
+
     If you use only categories, set the org2blog-use-tags-as-categories
     variable. 
 
