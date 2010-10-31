@@ -126,6 +126,12 @@ Set to nil if you don't wish to track posts."
   :group 'org2blog
   :type 'string)
 
+(defvar org2blog-blog nil
+  "Parameters of the currently selected blog.")
+
+(defvar org2blog-blog-name nil
+  "Name of the blog, to pick from `org2blog-blog-alist'")
+
 (defvar org2blog-categories-list nil 
   "List of weblog categories")
 
@@ -150,7 +156,7 @@ Set to nil if you don't wish to track posts."
 (defvar org2blog-logged-in nil 
   "Flag whether user is logged-in or not")
 
-(defvar org2blog-buffer-name "*org2blog*" 
+(defvar org2blog-buffer-name "*org2blog-%s*"
   "Name of the blog buffer")
 
 (defvar org2blog-buffer-kill-prompt t
@@ -279,7 +285,8 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
   (if (and (not org2blog-logged-in)
            (y-or-n-p "You are not logged in. Login?"))
       (org2blog-login))
-  (let ((org2blog-buffer (generate-new-buffer org2blog-buffer-name)))
+  (let ((org2blog-buffer (generate-new-buffer 
+                          (format org2blog-buffer-name org2blog-blog-name))))
     (switch-to-buffer org2blog-buffer)
     (add-hook 'kill-buffer-hook 'org2blog-kill-buffer-hook nil 'local)
     (org-mode)
