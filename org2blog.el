@@ -73,8 +73,11 @@ All the other properties are optional.
                            Use a list of categories.
                            (\"category1\" \"category2\" ...)
   :tags-as-categories      Non-nil means tags are used as categories.
-  :confirm                 Prompt before posting?"
-
+  :confirm                 Prompt before posting?
+  :keep-new-lines          Non-nil means donot strip new lines.
+  :wp-latex                Non-nil means convert LaTeX to WP latex blocks.
+  :wp-code                 Non-nil converts <pre> tags to WP sourcecode blocks.
+"
   :group 'org2blog
   :type 'alist)
 
@@ -521,7 +524,17 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
 (defun org2blog-parse-entry (&optional publish)
   "Parse an org2blog buffer."
   (interactive "P")
-  (let* (html-text post-title post-id post-date tags categories narrow-p cur-time post-par)
+  (let* ((keep-new-lines (if (plist-member (cdr org2blog-blog) :keep-new-lines)
+                             (plist-get (cdr org2blog-blog) :keep-new-lines)
+                           org2blog-keep-new-lines))
+         (wp-latex (if (plist-member (cdr org2blog-blog) :wp-latex)
+                       (plist-get (cdr org2blog-blog) :wp-latex)
+                     org2blog-use-wp-latex))
+         (sourcecode-shortcode (if (plist-member (cdr org2blog-blog) :wp-code)
+                             (plist-get (cdr org2blog-blog) :wp-code)
+                           org2blog-use-sourcecode-shortcode))
+         html-text post-title post-id post-date tags categories narrow-p 
+         cur-time post-par)
     (save-restriction
       (save-excursion
         (if (not org2blog-mode)
@@ -592,11 +605,11 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                    t 'string)))
           (setq html-text (org-no-properties html-text)))
         (setq html-text (org2blog-upload-images-replace-urls html-text))
-        (unless org2blog-keep-new-lines
+        (unless keep-new-lines
           (setq html-text (org2blog-strip-new-lines html-text)))
-        (when org2blog-use-sourcecode-shortcode
+        (when sourcecode-shortcode
           (setq html-text (org2blog-replace-pre html-text)))
-        (when org2blog-use-wp-latex
+        (when wp-latex
           (setq html-text (org2blog-latex-to-wp html-text)))))
 
     (list
