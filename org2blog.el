@@ -66,17 +66,18 @@ Most properties are optional, but some should always be set:
   :url                     xmlrpc url of the blog.
   :username                username to be used.
 
-All the other properties are optional.
+All the other properties are optional. They over-ride the global variables.
   
-  :default-title           Default title to use for new posts
-  :default-categories      Default categories to use for new posts
+  :default-title           `org2blog-default-title'
+  :default-categories      `org2blog-default-categories'
                            Use a list of categories.
                            (\"category1\" \"category2\" ...)
-  :tags-as-categories      Non-nil means tags are used as categories.
-  :confirm                 Prompt before posting?
-  :keep-new-lines          Non-nil means donot strip new lines.
-  :wp-latex                Non-nil means convert LaTeX to WP latex blocks.
-  :wp-code                 Non-nil converts <pre> tags to WP sourcecode blocks.
+  :tags-as-categories      `org2blog-use-tags-as-categories'
+  :confirm                 `org2blog-confirm-post'
+  :keep-new-lines          `org2blog-keep-new-lines'
+  :wp-latex                `org2blog-use-wp-latex'
+  :wp-code                 `org2blog-use-sourcecode-shortcode'
+  :track-posts             `org2blog-track-posts'
 "
   :group 'org2blog
   :type 'alist)
@@ -142,11 +143,12 @@ All the other properties are optional.
   :group 'org2blog
   :type 'list)
 
-(defcustom org2blog-track-posts ".org2blog.org"
+(defcustom org2blog-track-posts 
+  (list ".org2blog.org" "Posts")
   "File where to save logs about posts. 
 Set to nil if you don't wish to track posts."
   :group 'org2blog
-  :type 'string)
+  :type 'list)
 
 (defvar org2blog-blog nil
   "Parameters of the currently selected blog.")
@@ -757,40 +759,57 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
 
 (defun org2blog-save-details (post pid pub)
   "Save the details of posting, to a file."
-  (let (o2b-id log-file)
-    (save-excursion
-      (if (cdr (assoc "subtree" post))
-          (setq o2b-id (and (org-id-get nil t "o2b") (org-id-store-link)))
-        (setq o2b-id (buffer-file-name)))
-      (with-current-buffer (or (find-buffer-visiting org2blog-track-posts)
-                               (find-file-noselect 
-                                (if (file-name-absolute-p org2blog-track-posts)
-                                    org2blog-track-posts
-                                  (expand-file-name 
-                                   org2blog-track-posts 
-                                   org-directory))))
-        (save-excursion
-          (save-restriction
-            (goto-char (point-min))
-            (if (not o2b-id)
-                ()
-              (if (search-forward o2b-id nil t 1) 
+  (save-excursion
+    (let* ((o2b-id 
+            (if (cdr (assoc "subtree" post))
+                (and (org-id-get nil t "o2b") (org-id-store-link))
+              (buffer-file-name)))
+           (log-file (if (plist-member (cdr org2blog-blog) :track-posts)
+                         (car (plist-get (cdr org2blog-blog) :track-posts))
+                       (car org2blog-track-posts)))
+           (log-file (if (file-name-absolute-p log-file)
+                         log-file
+                       (if org-directory
+                           (expand-file-name log-file org-directory)
+                         (message "org-track-posts: filename is ambiguous 
+use absolute path or set org-directory")
+                         log-file)))
+           (headline (if (plist-member (cdr org2blog-blog) :track-posts)
+                         (cadr (plist-get (cdr org2blog-blog) :track-posts))
+                       (cadr org2blog-track-posts)))
+           p)
+      (when o2b-id
+        (with-current-buffer (or (find-buffer-visiting log-file)
+                                 (find-file-noselect log-file))
+          (save-excursion
+            (save-restriction
+              (widen)
+              (setq p (org-find-exact-headline-in-buffer headline))
+              (if p
+                  (progn (goto-char p) (org-narrow-to-subtree) (end-of-line))
+                (goto-char (point-max))
+                (if (y-or-n-p (format "No heading - %s. Create?" headline))
+                    (progn (org-insert-heading t) (insert headline " ")
+                           (org-narrow-to-subtree))))
+              (if (search-forward o2b-id nil t 1)
                   (progn
                     (org-back-to-heading)
                     (forward-thing 'whitespace)
                     (kill-line))
-                (goto-char (point-max))
-                (org-insert-heading-respect-content))
-              (insert 
-               (format
-                (if (cdr (assoc "subtree" post))
-                    (concat "[[" o2b-id "][%s]]")
-                  (concat "[[file:" o2b-id "][%s]]"))
-                (cdr (assoc "title" post))))
-              (org-entry-put (point) "POST_ID" (or pid ""))
-              (org-entry-put (point) "POST_DATE" (cdr (assoc "date" post)))
-              (org-entry-put (point) "Published" (if pub "Yes" "No")))
-            (save-buffer)))))))
+                (org-insert-subheading t)))
+            (org2blog-update-details post o2b-id pid pub)))
+          (save-buffer)))))
+
+(defun org2blog-update-details (post o2b-id pid pub)
+  "Inserts details of a new post or updates details."
+  (insert (format "[[%s][%s]]" 
+                  (if (cdr (assoc "subtree" post))
+                      o2b-id
+                    (concat "file:" o2b-id))
+                  (cdr (assoc "title" post))))
+  (org-entry-put (point) "POST_ID" (or pid ""))
+  (org-entry-put (point) "POST_DATE" (cdr (assoc "date" post)))
+  (org-entry-put (point) "Published" (if pub "Yes" "No")))
 
 (defun org2blog-complete-category()
   "Provides completion for categories and tags."
