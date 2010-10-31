@@ -76,6 +76,18 @@ All the other properties are optional."
   :group 'org2blog 
   :type '(repeat string))
 
+(defcustom org2blog-buffer-template
+  "#+DATE: %s
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil 
+#+CATEGORY: 
+#+TAGS: 
+#+DESCRIPTION: 
+#+TITLE: %s
+\n\n"
+  "The default template to be inserted in a new post buffer."
+  :group 'org2blog
+  :type 'string)
+
 (defcustom org2blog-default-title "Hello, World" 
   "Title of the new post" 
   :group 'org2blog 
@@ -290,14 +302,11 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
     (switch-to-buffer org2blog-buffer)
     (add-hook 'kill-buffer-hook 'org2blog-kill-buffer-hook nil 'local)
     (org-mode)
-    (insert "#+DATE: ")
-    (insert (format-time-string "[%Y-%m-%d %a %H:%M]\n" (current-time)))
-    (insert "#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil \n")
-    (insert "#+CATEGORY: \n")
-    (insert "#+TAGS: \n")
-    (insert "#+DESCRIPTION: \n")
-    (insert "#+TITLE: <Enter Title Here>")
-    (newline)
+    (insert 
+     (format org2blog-buffer-template
+             (format-time-string "[%Y-%m-%d %a %H:%M]" (current-time))
+             (or (plist-get (cdr org2blog-blog) :default-title)
+                 org2blog-default-title)))
     (use-local-map org2blog-entry-mode-map)))
 
 (defun org2blog-upload-images-replace-urls (text)
