@@ -63,15 +63,22 @@ variable (if any) during publishing.
 
 Most properties are optional, but some should always be set:
 
-  :url        xmlrpc url of the blog.
-  :username   username to be used.
+  :url                     xmlrpc url of the blog.
+  :username                username to be used.
 
-All the other properties are optional."
+All the other properties are optional.
+  
+  :default-title           Default title to use for new posts
+  :default-categories      Default categories to use for new posts
+                           Use a list of categories.
+                           (\"category1\" \"category2\" ...)
+  :tags-as-categories      Non-nil means tags are used as categories.
+  :confirm                 Prompt before posting?"
 
   :group 'org2blog
   :type 'alist)
 
-(defcustom org2blog-default-categories '("Uncategorized") 
+(defcustom org2blog-default-categories '("Uncategorized" "Hello") 
   "Default list of categories" 
   :group 'org2blog 
   :type '(repeat string))
@@ -79,11 +86,11 @@ All the other properties are optional."
 (defcustom org2blog-buffer-template
   "#+DATE: %s
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil 
-#+CATEGORY: 
+#+CATEGORY: %s
 #+TAGS: 
 #+DESCRIPTION: 
 #+TITLE: %s
-\n\n"
+\n"
   "The default template to be inserted in a new post buffer."
   :group 'org2blog
   :type 'string)
@@ -305,9 +312,14 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
     (insert 
      (format org2blog-buffer-template
              (format-time-string "[%Y-%m-%d %a %H:%M]" (current-time))
+             (mapconcat
+              (lambda (cat) cat)
+              (or (plist-get (cdr org2blog-blog) :default-categories)
+                  org2blog-default-categories)
+              ", ")
              (or (plist-get (cdr org2blog-blog) :default-title)
                  org2blog-default-title)))
-    (use-local-map org2blog-entry-mode-map)))
+    (org2blog-mode)))
 
 (defun org2blog-upload-images-replace-urls (text)
   "Uploads images if any in the html, and changes their links"
@@ -564,7 +576,10 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                                         (insert (concat "#+DATE: " cur-time "\n"))))) 
                                   t))
         
-        (if org2blog-use-tags-as-categories
+        (if 
+            (if (plist-member (cdr org2blog-blog) :tags-as-categories)
+                (plist-get (cdr org2blog-blog) :tags-as-categories)
+              org2blog-use-tags-as-categories)
             (setq categories tags
                   tags nil))
         (save-excursion
@@ -610,10 +625,15 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
   (save-excursion
     (save-restriction
       (let ((post (org2blog-parse-entry))
-            post-id)
+            post-id
+            confirm (and 
+                     (if (plist-member (cdr org2blog-blog) :confirm)
+                        (plist-member (cdr org2blog-blog) :confirm)
+                      org2blog-confirm-post) 
+                     publish))
         (org2blog-create-categories (cdr (assoc "categories" post)))
         (setq post-id (cdr (assoc "post-id" post)))
-        (unless (not (and org2blog-confirm-post publish))
+        (unless (not confirm)
           (if (not (y-or-n-p (format "Publish %s ?" 
                                      (cdr (assoc "title" post)))))
               (error "Post cancelled.")))
