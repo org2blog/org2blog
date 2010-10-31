@@ -47,25 +47,29 @@
   "Post to weblogs from Emacs" 
   :group 'org2blog)
 
-(defcustom org2blog-server-url nil 
-  "Weblog XML-RPC URL" 
+(defcustom org2blog-blog-alist nil
+  "Association list to set information for each blog.
+Each element of the alist is a blog name.  The CAR of each
+element is a string, uniquely identifying the project.  The CDR
+of each element is a well-formed property list with an even
+number of elements, alternating keys and values, specifying
+parameters for the blog.
+
+     (:property value :property value ... )
+
+When a property is given a value in org2blog-blog-alist, its
+setting overrides the value of the corresponding user
+variable (if any) during publishing.
+
+Most properties are optional, but some should always be set:
+
+  :url        xmlrpc url of the blog.
+  :username   username to be used.
+
+All the other properties are optional."
+
   :group 'org2blog
-  :type 'string)
-
-(defcustom org2blog-server-user nil 
-  "Weblog server username" 
-  :group 'org2blog 
-  :type 'string)
-
-(defcustom org2blog-server-pass nil 
-  "Weblog server password. If this is nil you'll be prompted." 
-  :group 'org2blog 
-  :type 'string) 
-
-(defcustom org2blog-server-weblog-id nil 
-  "Weblog ID" 
-  :group 'org2blog 
-  :type 'string)
+  :type 'alist)
 
 (defcustom org2blog-default-categories '("Uncategorized") 
   "Default list of categories" 
@@ -223,34 +227,32 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
   "Logs into the blog. Initializes the internal data structures."
   (interactive)
   (let ()
-    (setq org2blog-server-xmlrpc-url (or org2blog-server-url
-					 (read-no-blanks-input 
-					  "Weblog XML-RPC URL ? ")))
-    (if (listp org2blog-server-xmlrpc-url)
-        (setq org2blog-server-xmlrpc-url 
-              (completing-read "Blog ? " org2blog-server-url nil t )))
-    (setq org2blog-server-userid (or org2blog-server-user
-				     (read-no-blanks-input 
-				      "Weblog User ID ? ")))
-    (setq org2blog-server-blogid (or org2blog-server-weblog-id
-				     (read-no-blanks-input "Weblog ID ? ")))
-    (setq org2blog-server-pass (or org2blog-server-pass
-                                   (read-passwd "Weblog password? ")))
-    (setq org2blog-categories-list
+    (setq org2blog-blog-name (completing-read "Blog ? " 
+                                              (mapcar 'car 
+                                                      org2blog-blog-alist))
+          org2blog-blog (assoc org2blog-blog-name org2blog-blog-alist)
+          org2blog-server-xmlrpc-url (plist-get (cdr org2blog-blog) :url)
+          org2blog-server-userid (plist-get (cdr org2blog-blog) :username)
+          org2blog-server-blogid (or (plist-get (cdr org2blog-blog) :id) "1")
+          org2blog-server-pass (or 
+                                (plist-get (cdr org2blog-blog) :password)
+                                (read-passwd "Weblog password? "))
+          org2blog-categories-list
 	  (mapcar (lambda (category) (cdr (assoc "categoryName" category)))
 		  (metaweblog-get-categories org2blog-server-xmlrpc-url
 					     org2blog-server-userid
                                              org2blog-server-pass
-					     org2blog-server-weblog-id)))
-    (setq org2blog-tags-list
+					     org2blog-server-weblog-id))
+          org2blog-tags-list
 	  (mapcar (lambda (tag) (cdr (assoc "slug" tag)))
 		  (wp-get-tags org2blog-server-xmlrpc-url
 			       org2blog-server-userid
                                org2blog-server-pass
-			       org2blog-server-weblog-id)))
-    (setq org2blog-pages-list
+			       org2blog-server-weblog-id))
+          org2blog-pages-list
 	  (mapcar (lambda (pg) 
-                    (cons (cdr (assoc "page_title" pg)) (cdr (assoc "page_id" pg))))
+                    (cons (cdr (assoc "page_title" pg)) 
+                          (cdr (assoc "page_id" pg))))
 		  (wp-get-pagelist org2blog-server-xmlrpc-url
 				   org2blog-server-userid
 				   org2blog-server-pass
@@ -264,6 +266,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
   (setq org2blog-server-xmlrpc-url nil
 	org2blog-server-userid nil
 	org2blog-server-blogid nil
+	org2blog-server-pass nil
 	org2blog-categories-list nil
 	org2blog-tags-list nil
 	org2blog-pages-list nil
