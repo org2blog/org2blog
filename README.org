@@ -31,11 +31,14 @@
 
     2. Make sure you have the latest org-mode installed. org2blog may
        not work with older versions of org. 
-
+       
 * Usage
 *** Defining your blog setup
-    You can optionally save the xmlrpc url of your blog and the username.
+    You can (should) tell org2blog where your blogs are and optionally
+    specify different values for some options. This is done by
+    customising the variable =org2blog-blog-alist=.
 
+    For example:
     : (setq org2blog-blog-alist
     :       '(("wordpress"
     :          :url "http://username.wordpress.com/xmlrpc.php"
@@ -47,9 +50,14 @@
     :          :url "http://username.server.com/xmlrpc.php"
     :          :username "admin")))
     
+    This defines two blogs identified by the terms =wordpress= and
+    =my-blog=.
+    
     The variables in the =plist= set for each blog over-ride the
     global values of the corresponding variables. =url= and =username=
-    are mandatory variables. Others are optional.
+    are mandatory variables. Others are optional. If you customize the
+    variable =org2blog-blog-alist= there is detail information about the
+    meaning of each property.
 
     If you use only categories, set the org2blog-use-tags-as-categories
     variable. 
@@ -65,9 +73,11 @@
     : M-x customize-group org2blog RET
 
 *** Logging In 
-    Use *M-x org2blog-login*.  Provide xmlrpc url, username, password
-    and blog-id. (blog-id isn't really being used.)  Optionally, you
-    could set these in your .emacs.
+    Use *M-x org2blog-login*.  This function ask you for the name of one
+    of the blogs you have configured in the org2blog-blog-alist
+    variable described above and will ask for your password. The
+    counterpart of this function is *M-x org2blog-logout*, which will
+    log you out of the active blog.
      
 *** Writing a new post 
     Use *M-x org2blog-new-entry*. 
@@ -112,7 +122,7 @@
       | *C-c p* | publish buffer                   |
       | *C-c d* | post as draft                    |
       | *C-c t* | complete tag or parent page name |
-
+      
 * Miscellaneous 
   1. You may want to look at the [[http://orgmode.org/manual/Export-options.html#Export-options][Export options]] and [[http://orgmode.org/manual/HTML-export.html#HTML-export][HTML export]]
      sections of the org-manual.
