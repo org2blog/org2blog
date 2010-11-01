@@ -789,7 +789,7 @@ use absolute path or set org-directory")
                   (progn (goto-char p) (org-narrow-to-subtree) (end-of-line))
                 (goto-char (point-max))
                 (if (y-or-n-p (format "No heading - %s. Create?" headline))
-                    (progn (org-insert-heading t) (insert headline " ")
+                    (progn (org-insert-heading t) (insert headline)
                            (org-narrow-to-subtree))))
               (if (search-forward o2b-id nil t 1)
                   (progn

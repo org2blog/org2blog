@@ -408,7 +408,10 @@ no. of posts that should be returned."
 					 (base64 nil ,image-bits))
 				 (member nil
 					 (name nil "type")
-					 (value nil ,image-type)))))
+					 (value nil ,image-type))
+                                 (member nil
+					 (name nil "overwrite")
+					 (value nil "t")))))
 	      )))))))
 
 
