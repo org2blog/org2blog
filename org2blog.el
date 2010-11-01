@@ -640,12 +640,12 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
   (save-excursion
     (save-restriction
       (let ((post (org2blog-parse-entry))
-            post-id
-            confirm (and 
+            (confirm (and 
                      (if (plist-member (cdr org2blog-blog) :confirm)
                         (plist-member (cdr org2blog-blog) :confirm)
                       org2blog-confirm-post) 
                      publish))
+            post-id)
         (org2blog-create-categories (cdr (assoc "categories" post)))
         (setq post-id (cdr (assoc "post-id" post)))
         (unless (not confirm)
