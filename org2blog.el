@@ -200,9 +200,8 @@ Set to nil if you don't wish to track posts."
     (if (y-or-n-p "Save entry?")
         (progn
           (save-buffer)
-          (if org2blog-track-posts
-              (org2blog-save-details (org2blog-parse-entry) nil 
-                                     (y-or-n-p "Published?")))))))
+          (org2blog-save-details (org2blog-parse-entry) nil 
+                                 (y-or-n-p "Published?"))))))
 
 (unless org2blog-entry-mode-map
   (setq org2blog-entry-mode-map
@@ -672,17 +671,16 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
               (org-entry-put (point) "POST_ID" post-id)
             (goto-char (point-min))
             (insert (concat "#+POSTID: " post-id "\n"))))
-    (if org2blog-track-posts
-        (org2blog-save-details post post-id publish))
-    (message (if publish
-                 "Published (%s): %s"
-               "Draft (%s): %s")
-             post-id
-             (cdr (assoc "title" post)))
-    (when (y-or-n-p "[For drafts, ensure you log-in] View post in browser? y/n")
-      (if (cdr (assoc "subtree" post))
-          (org2blog-preview-subtree-post)
-        (org2blog-preview-buffer-post)))))))
+        (org2blog-save-details post post-id publish)
+        (message (if publish
+                     "Published (%s): %s"
+                   "Draft (%s): %s")
+                 post-id
+                 (cdr (assoc "title" post)))
+        (when (y-or-n-p "[For drafts, ensure you login] View in browser? y/n")
+          (if (cdr (assoc "subtree" post))
+              (org2blog-preview-subtree-post)
+            (org2blog-preview-buffer-post)))))))
 
 (defun org2blog-post-buffer-as-page-and-publish ()
   "Alias to post buffer and mark it as published"
@@ -731,13 +729,12 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
               (org-entry-put (point) "POST_ID" post-id)
             (goto-char (point-min))
             (insert (concat "#+POSTID: " post-id "\n"))))
-    (if org2blog-track-posts
-        (org2blog-save-details post post-id publish))
-    (message (if publish
-                 "Published (%s): %s"
-               "Draft (%s): %s")
-             post-id
-             (cdr (assoc "title" post)))))))
+        (org2blog-save-details post post-id publish)
+        (message (if publish
+                     "Published (%s): %s"
+                   "Draft (%s): %s")
+                 post-id
+                 (cdr (assoc "title" post)))))))
 
 (defun org2blog-delete-entry (&optional post-id)
   (interactive "P")
@@ -763,45 +760,47 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
 (defun org2blog-save-details (post pid pub)
   "Save the details of posting, to a file."
   (save-excursion
-    (let* ((o2b-id 
-            (if (cdr (assoc "subtree" post))
-                (and (org-id-get nil t "o2b") (org-id-store-link))
-              (buffer-file-name)))
-           (log-file (if (plist-member (cdr org2blog-blog) :track-posts)
-                         (car (plist-get (cdr org2blog-blog) :track-posts))
-                       (car org2blog-track-posts)))
-           (log-file (if (file-name-absolute-p log-file)
-                         log-file
-                       (if org-directory
-                           (expand-file-name log-file org-directory)
-                         (message "org-track-posts: filename is ambiguous 
+    (when (or (car (plist-get (cdr org2blog-blog) :track-posts))
+              (car org2blog-track-posts))
+      (let* ((o2b-id 
+              (if (cdr (assoc "subtree" post))
+                  (and (org-id-get nil t "o2b") (org-id-store-link))
+                (buffer-file-name)))
+             (log-file (if (plist-member (cdr org2blog-blog) :track-posts)
+                           (car (plist-get (cdr org2blog-blog) :track-posts))
+                         (car org2blog-track-posts)))
+             (log-file (if (file-name-absolute-p log-file)
+                           log-file
+                         (if org-directory
+                             (expand-file-name log-file org-directory)
+                           (message "org-track-posts: filename is ambiguous 
 use absolute path or set org-directory")
-                         log-file)))
-           (headline (if (plist-member (cdr org2blog-blog) :track-posts)
-                         (cadr (plist-get (cdr org2blog-blog) :track-posts))
-                       (cadr org2blog-track-posts)))
-           p)
-      (when o2b-id
-        (with-current-buffer (or (find-buffer-visiting log-file)
-                                 (find-file-noselect log-file))
-          (save-excursion
-            (save-restriction
-              (widen)
-              (setq p (org-find-exact-headline-in-buffer headline))
-              (if p
-                  (progn (goto-char p) (org-narrow-to-subtree) (end-of-line))
-                (goto-char (point-max))
-                (if (y-or-n-p (format "No heading - %s. Create?" headline))
-                    (progn (org-insert-heading t) (insert headline)
-                           (org-narrow-to-subtree))))
-              (if (search-forward o2b-id nil t 1)
-                  (progn
-                    (org-back-to-heading)
-                    (forward-thing 'whitespace)
-                    (kill-line))
-                (org-insert-subheading t)))
-            (org2blog-update-details post o2b-id pid pub)))
-          (save-buffer)))))
+                           log-file)))
+             (headline (if (plist-member (cdr org2blog-blog) :track-posts)
+                           (cadr (plist-get (cdr org2blog-blog) :track-posts))
+                         (cadr org2blog-track-posts)))
+             p)
+        (when o2b-id
+          (with-current-buffer (or (find-buffer-visiting log-file)
+                                   (find-file-noselect log-file))
+            (save-excursion
+              (save-restriction
+                (widen)
+                (setq p (org-find-exact-headline-in-buffer headline))
+                (if p
+                    (progn (goto-char p) (org-narrow-to-subtree) (end-of-line))
+                  (goto-char (point-max))
+                  (if (y-or-n-p (format "No heading - %s. Create?" headline))
+                      (progn (org-insert-heading t) (insert headline)
+                             (org-narrow-to-subtree))))
+                (if (search-forward o2b-id nil t 1)
+                    (progn
+                      (org-back-to-heading)
+                      (forward-thing 'whitespace)
+                      (kill-line))
+                  (org-insert-subheading t)))
+              (org2blog-update-details post o2b-id pid pub)))
+          (save-buffer))))))
 
 (defun org2blog-update-details (post o2b-id pid pub)
   "Inserts details of a new post or updates details."
