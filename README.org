@@ -108,6 +108,16 @@
       | *C-c d* | post as draft                    |
       | *C-c t* | complete tag or parent page name |
 
+*** Uploading Images
+    In-line images and linked images with file:// urls (e.g.,
+    [[file:///path.to.jpeg]] or [[file:///path.to.jpeg][this is an image link]] will be uploaded to
+    the media library and the links will be updated. Captions and
+    attributes as [[http://orgmode.org/manual/Images-in-HTML-export.html][defined]] in org-mode will be preserved, but at
+    present these attributes are not saved with the image to the
+    library itself. [Information about uploaded files are added as a
+    comment to the post itself, to prevent repeated uploads, but this
+    isn't as stable as I would like it.]
+
 * Miscellaneous 
   1. You may want to look at the [[http://orgmode.org/manual/Export-options.html#Export-options][Export options]] and [[http://orgmode.org/manual/HTML-export.html#HTML-export][HTML export]]
      sections of the org-manual.
