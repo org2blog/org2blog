@@ -334,6 +334,9 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
     (save-excursion
       (while (string-match image-regexp text beg)
         (setq file-name (substring text (match-beginning 1) (match-end 1)))
+        (setq file-name (save-match-data (if (string-match "^file:" file-name)
+                                             (substring file-name 7)
+                                           file-name)))
         (setq beg (match-end 0))
         (if (save-match-data (not (string-match org-plain-link-re file-name)))
             (progn
