@@ -125,7 +125,7 @@
 
 *** Uploading Images
     In-line images and linked images with file:// urls (e.g.,
-    [[file:///path.to.jpeg]] or [[file:///path.to.jpeg][this is an image link]] will be uploaded to
+    ~[[file:///path.to.jpeg]]~ or ~[[file:///path.to.jpeg][this is an image link]]~ will be uploaded to
     the media library and the links will be updated. Captions and
     attributes as [[http://orgmode.org/manual/Images-in-HTML-export.html][defined]] in org-mode will be preserved, but at
     present these attributes are not saved with the image to the
