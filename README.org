@@ -153,4 +153,8 @@
   4. If you haven't found a bug/issue, but have tried out and/or are
      using org2blog to post to your blog, post me a line on how you
      use it and on what blog. I'd love to hear from you!
+
+  5. Now, that org2blog does have a bunch of users, I'd like to keep
+     track of the blogs it's being used on. :) Feel free to add your
+     site to the list of sites using org2blog, on the wiki at github. 
      
