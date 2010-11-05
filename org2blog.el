@@ -187,7 +187,7 @@ Set to nil if you don't wish to track posts."
   "Ask before killing buffer")
 (make-variable-buffer-local 'org2blog-buffer-kill-prompt)
 
-(defconst org2blog-version "0.2" 
+(defconst org2blog-version "0.3" 
   "Current version of blog.el")
 
 (defvar org2blog-mode-hook nil

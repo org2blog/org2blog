@@ -34,6 +34,11 @@
        
 * Usage
 *** Defining your blog setup
+    
+    *Note* - This setup works only for org2blog version >=0.3. For
+     lower versions of org2blog check an README from the commit
+     e37126eec24ffdd785d2 
+   
     You can (should) tell org2blog where your blogs are and optionally
     specify different values for some options. This is done by
     customising the variable =org2blog-blog-alist=.
