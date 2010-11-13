@@ -271,13 +271,13 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
 		  (metaweblog-get-categories org2blog-server-xmlrpc-url
 					     org2blog-server-userid
                                              org2blog-server-pass
-					     org2blog-server-weblog-id))
+					     org2blog-server-blogid))
           org2blog-tags-list
 	  (mapcar (lambda (tag) (cdr (assoc "slug" tag)))
 		  (wp-get-tags org2blog-server-xmlrpc-url
 			       org2blog-server-userid
                                org2blog-server-pass
-			       org2blog-server-weblog-id))
+			       org2blog-server-blogid))
           org2blog-pages-list
 	  (mapcar (lambda (pg) 
                     (cons (cdr (assoc "page_title" pg)) 
@@ -285,7 +285,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
 		  (wp-get-pagelist org2blog-server-xmlrpc-url
 				   org2blog-server-userid
 				   org2blog-server-pass
-				   org2blog-server-weblog-id)))
+				   org2blog-server-blogid)))
     (setq org2blog-logged-in t)
     (message "Logged in")))
 
@@ -351,7 +351,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                                   (metaweblog-upload-image org2blog-server-xmlrpc-url
                                                            org2blog-server-userid
                                                            org2blog-server-pass
-                                                           org2blog-server-weblog-id
+                                                           org2blog-server-blogid
                                                            (get-image-properties file-name)))))
                 (goto-char (point-max))
                 (newline)
@@ -724,7 +724,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                         (wp-get-pagelist org2blog-server-xmlrpc-url
 					 org2blog-server-userid
 					 org2blog-server-pass
-					 org2blog-server-weblog-id)))
+					 org2blog-server-blogid)))
           (if (cdr (assoc "subtree" post))
               (org-entry-put (point) "POST_ID" post-id)
             (goto-char (point-min))
