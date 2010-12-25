@@ -760,12 +760,12 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
 (defun org2blog-save-details (post pid pub)
   "Save the details of posting, to a file."
   (save-excursion
-    (when (or (car (plist-get (cdr org2blog-blog) :track-posts))
-              (car org2blog-track-posts))
-      (let* ((o2b-id 
-              (if (cdr (assoc "subtree" post))
-                  (and (org-id-get nil t "o2b") (org-id-store-link))
-                (buffer-file-name)))
+    (when (if (plist-member (cdr org2blog-blog) :track-posts)
+              (car (plist-get (cdr org2blog-blog) :track-posts))
+            (car org2blog-track-posts))
+      (let* ((o2b-id (if (cdr (assoc "subtree" post))
+                         (concat "id:" (org-id-get nil))
+                       (buffer-file-name)))
              (log-file (if (plist-member (cdr org2blog-blog) :track-posts)
                            (car (plist-get (cdr org2blog-blog) :track-posts))
                          (car org2blog-track-posts)))
@@ -799,8 +799,8 @@ use absolute path or set org-directory")
                       (forward-thing 'whitespace)
                       (kill-line))
                   (org-insert-subheading t)))
-              (org2blog-update-details post o2b-id pid pub)))
-          (save-buffer))))))
+              (org2blog-update-details post o2b-id pid pub))
+            (save-buffer)))))))
 
 (defun org2blog-update-details (post o2b-id pid pub)
   "Inserts details of a new post or updates details."
@@ -851,6 +851,7 @@ use absolute path or set org-directory")
   (save-restriction
     (save-excursion
       (org-narrow-to-subtree)
+      (org-id-get nil t "o2b")
       (org-insert-heading-after-current)
       (org-backward-same-level 1)
       (let ((level (1- (org-reduced-level (org-outline-level))))
