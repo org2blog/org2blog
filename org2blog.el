@@ -416,11 +416,12 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
     (let* ((pos (point))
            (s-count 0)
            (e-count 0))
-      (while (re-search-backward "\\[sourcecode.*\\]" nil t)
-        (setq s-count (1+ s-count)))
-      (goto-char pos)
-      (while (re-search-backward "\\[/sourcecode\\]" nil t)
-        (setq e-count (1+ e-count)))
+      (save-match-data
+        (while (re-search-backward "\\[sourcecode.*\\]" nil t)
+          (setq s-count (1+ s-count)))
+        (goto-char pos)
+        (while (re-search-backward "\\[/sourcecode\\]" nil t)
+          (setq e-count (1+ e-count))))
       (> (- s-count e-count) 0))))
 
 (defun org2blog-latex-to-wp (html)
