@@ -626,7 +626,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
      (cons "categories" categories)
      (cons "post-id" post-id)
      (cons "parent" post-par)
-     (cons "excerpt" (org-html-do-expand excerpt))
+     (cons "excerpt" (org-html-do-expand (or excerpt "")))
      (cons "description" html-text))))
 
 
