@@ -621,12 +621,12 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
      (cons "point" (point))
      (cons "subtree" narrow-p)
      (cons "date" post-date)
-     (cons "title" post-title)
+     (cons "title" (org-html-do-expand post-title))
      (cons "tags" tags)
      (cons "categories" categories)
      (cons "post-id" post-id)
      (cons "parent" post-par)
-     (cons "excerpt" excerpt)
+     (cons "excerpt" (org-html-do-expand excerpt))
      (cons "description" html-text))))
 
 
