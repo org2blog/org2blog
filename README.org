@@ -4,10 +4,11 @@
 #+Style: <style> h1,h2,h3 {font-family: arial, helvetica, sans-serif} </style>
 
 * Overview
-  org2blog is a tool to publish directly from Emacs' org-mode to
-  [[http://wordpress.org/][WordPress]] blogs.  
+  org2blog/wp is a tool to publish directly from Emacs' org-mode to
+  [[http://wordpress.org/][WordPress]] blogs.  org2blog/wp is one of the two packages named
+  org2blog.  The other is [[http://repo.or.cz/r/org2blog.git/][org2blog/atom]] by [[http://tehom-blog.blogspot.com/][Tom Breton]]. 
 
-  It is inspired by and based on a [[http://paste.lisp.org/display/69993][wordpress posting client for
+  org2blog was inspired by and based on a [[http://paste.lisp.org/display/69993][wordpress posting client for
   muse-mode]] written by [[http://www.emacswiki.org/emacs/AshishShukla][Ashish Shukla]].  
 
   org2blog is licensed under GPLv3
@@ -41,10 +42,10 @@
    
     You can (should) tell org2blog where your blogs are and optionally
     specify different values for some options. This is done by
-    customising the variable =org2blog-blog-alist=.
+    customising the variable =org2blog/wp-blog-alist=.
 
     For example:
-    : (setq org2blog-blog-alist
+    : (setq org2blog/wp-blog-alist
     :       '(("wordpress"
     :          :url "http://username.wordpress.com/xmlrpc.php"
     :          :username "username"   
@@ -61,16 +62,16 @@
     The variables in the =plist= set for each blog over-ride the
     global values of the corresponding variables. =url= and =username=
     are mandatory variables. Others are optional. If you customize the
-    variable =org2blog-blog-alist= there is detail information about the
+    variable =org2blog/wp-blog-alist= there is detail information about the
     meaning of each property.
 
-    If you use only categories, set the org2blog-use-tags-as-categories
+    If you use only categories, set the org2blog/wp-use-tags-as-categories
     variable. 
 
-    : (setq org2blog-use-tags-as-categories t)
+    : (setq org2blog/wp-use-tags-as-categories t)
 
     If you wish to be asked for confirmation before publishing a post,
-    set the variable =org2blog-confirm-post=. 
+    set the variable =org2blog/wp-confirm-post=. 
    
     To browse or customize other variables use the customize group
     function.
@@ -78,14 +79,14 @@
     : M-x customize-group org2blog RET
 
 *** Logging In 
-    Use *M-x org2blog-login*.  This function ask you for the name of one
-    of the blogs you have configured in the org2blog-blog-alist
+    Use *M-x org2blog/wp-login*.  This function ask you for the name of one
+    of the blogs you have configured in the org2blog/wp-blog-alist
     variable described above and will ask for your password. The
-    counterpart of this function is *M-x org2blog-logout*, which will
+    counterpart of this function is *M-x org2blog/wp-logout*, which will
     log you out of the active blog.
      
 *** Writing a new post 
-    Use *M-x org2blog-new-entry*. 
+    Use *M-x org2blog/wp-new-entry*. 
      - Tags and Categories are comma or space separated values.
        Completion (for both) is triggered using *C-c t*.  If a new
        category is used you will be prompted before adding it.  
@@ -94,10 +95,10 @@
        t* again provides completion for the page name.
 
 *** Publishing 
-    | post buffer as draft      | *C-c d* | *M-x     org2blog-post-buffer*         |
-    | publish buffer            | *C-c p* | *C-u M-x org2blog-post-buffer*         |
-    | post buffer as page draft | *C-c D* | *M-x     org2blog-post-buffer-as-page* |
-    | publish buffer as page    | *C-c P* | *C-u M-x org2blog-post-buffer-as-page* |
+    | post buffer as draft      | *C-c d* | *M-x     org2blog/wp-post-buffer*         |
+    | publish buffer            | *C-c p* | *C-u M-x org2blog/wp-post-buffer*         |
+    | post buffer as page draft | *C-c D* | *M-x     org2blog/wp-post-buffer-as-page* |
+    | publish buffer as page    | *C-c P* | *C-u M-x org2blog/wp-post-buffer-as-page* |
 
 *** Post your existing org-files too
     - Add =#+TITLE=, =#+OPTIONS=, =#+TAGS=, =#+CATEGORY=,
@@ -107,22 +108,22 @@
     - Post buffer using the function names, as above. 
     
 *** Posting a subtree
-    - Use *M-x   org2blog-post-subtree*.
+    - Use *M-x   org2blog/wp-post-subtree*.
     - Tags of the subtree will be used for tags. Other properties can
       be set using a property drawer.
 
 *** Delete an entry or a page
     - If you are in the buffer of the entry/page, with =#+POSTID=
       present on the page, use :\\
-        *M-x org2blog-delete-entry* or *M-x  org2blog-delete-page*
+        *M-x org2blog/wp-delete-entry* or *M-x  org2blog/wp-delete-page*
     - If you want to delete a particular post (whose post-id is
         known) from any buffer, use\\ 
-        *C-u post-id   M-x org2blog-delete-entry*.  
+        *C-u post-id   M-x org2blog/wp-delete-entry*.  
       
     Similarly, for a page.
 
 *** Enabling org2blog mode (defines key-bindings)
-    - use *M-x org2blog-mode*.  
+    - use *M-x org2blog/wp-mode*.  
       This defines the following the key-bindings:
       | *C-c p* | publish buffer                   |
       | *C-c d* | post as draft                    |
@@ -144,7 +145,7 @@
 
   2. If you wish to post to blogger from org-mode, look at -
 
-     + [[http://code.google.com/p/emacspeak/source/browse/trunk/lisp/g-client/org2blogger.el][g-client extension]] by [[http://tehom-blog.blogspot.com/][Tom Breton]]
+     + [[http://repo.or.cz/r/org2blog.git/][org2blog/atom]], a g-client extension by [[http://tehom-blog.blogspot.com/][Tom Breton]]
      + [[http://github.com/rileyrg/org-googlecl][org-googlecl]] by Richard Riley -- uses [[http://code.google.com/p/googlecl/][googlecl]]
 
   3. If you have an issue/bug/feature request, use the issue tracker

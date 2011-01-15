@@ -43,11 +43,11 @@
 (require 'xml-rpc)
 (require 'metaweblog)
 
-(defgroup org2blog nil 
+(defgroup org2blog/wp nil 
   "Post to weblogs from Emacs" 
-  :group 'org2blog)
+  :group 'org2blog/wp)
 
-(defcustom org2blog-blog-alist nil
+(defcustom org2blog/wp-blog-alist nil
   "Association list to set information for each blog.
 Each element of the alist is a blog name.  The CAR of each
 element is a string, uniquely identifying the project.  The CDR
@@ -57,7 +57,7 @@ parameters for the blog.
 
      (:property value :property value ... )
 
-When a property is given a value in org2blog-blog-alist, its
+When a property is given a value in org2blog/wp-blog-alist, its
 setting overrides the value of the corresponding user
 variable (if any) during publishing.
 
@@ -68,26 +68,26 @@ Most properties are optional, but some should always be set:
 
 All the other properties are optional. They over-ride the global variables.
   
-  :default-title           `org2blog-default-title'
-  :default-categories      `org2blog-default-categories'
+  :default-title           `org2blog/wp-default-title'
+  :default-categories      `org2blog/wp-default-categories'
                            Use a list of categories.
                            (\"category1\" \"category2\" ...)
-  :tags-as-categories      `org2blog-use-tags-as-categories'
-  :confirm                 `org2blog-confirm-post'
-  :keep-new-lines          `org2blog-keep-new-lines'
-  :wp-latex                `org2blog-use-wp-latex'
-  :wp-code                 `org2blog-use-sourcecode-shortcode'
-  :track-posts             `org2blog-track-posts'
+  :tags-as-categories      `org2blog/wp-use-tags-as-categories'
+  :confirm                 `org2blog/wp-confirm-post'
+  :keep-new-lines          `org2blog/wp-keep-new-lines'
+  :wp-latex                `org2blog/wp-use-wp-latex'
+  :wp-code                 `org2blog/wp-use-sourcecode-shortcode'
+  :track-posts             `org2blog/wp-track-posts'
 "
-  :group 'org2blog
+  :group 'org2blog/wp
   :type 'alist)
 
-(defcustom org2blog-default-categories '("Uncategorized" "Hello") 
+(defcustom org2blog/wp-default-categories '("Uncategorized" "Hello") 
   "Default list of categories" 
-  :group 'org2blog 
+  :group 'org2blog/wp 
   :type '(repeat string))
 
-(defcustom org2blog-buffer-template
+(defcustom org2blog/wp-buffer-template
   "#+DATE: %s
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil 
 #+CATEGORY: %s
@@ -96,236 +96,236 @@ All the other properties are optional. They over-ride the global variables.
 #+TITLE: %s
 \n"
   "The default template to be inserted in a new post buffer."
-  :group 'org2blog
+  :group 'org2blog/wp
   :type 'string)
 
-(defcustom org2blog-default-title "Hello, World" 
+(defcustom org2blog/wp-default-title "Hello, World" 
   "Title of the new post" 
-  :group 'org2blog 
+  :group 'org2blog/wp 
   :type 'string)
 
-(defcustom org2blog-use-tags-as-categories nil
+(defcustom org2blog/wp-use-tags-as-categories nil
   "Non-nil means assign :tags: to Wordpress categories instead."
-  :group 'org2blog
+  :group 'org2blog/wp
   :type 'boolean)
 
-(defcustom org2blog-confirm-post nil
+(defcustom org2blog/wp-confirm-post nil
   "Non-nil means confirm before Publishing a post."
-  :group 'org2blog
+  :group 'org2blog/wp
   :type 'boolean)
 
-(defcustom org2blog-keep-new-lines nil
+(defcustom org2blog/wp-keep-new-lines nil
   "Non-nil means do not strip newlines."
-  :group 'org2blog
+  :group 'org2blog/wp
   :type 'boolean)
 
-(defcustom org2blog-use-sourcecode-shortcode nil
+(defcustom org2blog/wp-use-sourcecode-shortcode nil
   "Non-nil means convert <pre> tags to WP sourcecode blocks."
-  :group 'org2blog
+  :group 'org2blog/wp
   :type 'boolean)
 
-(defcustom org2blog-use-wp-latex t
+(defcustom org2blog/wp-use-wp-latex t
   "Non-nil means convert LaTeX to WP latex blocks."
-  :group 'org2blog
+  :group 'org2blog/wp
   :type 'boolean)
 
-(defcustom org2blog-sourcecode-default-params "light=\"true\""
+(defcustom org2blog/wp-sourcecode-default-params "light=\"true\""
   "Default arguments to pass to WP syntaxhighlighter."
-  :group 'org2blog
+  :group 'org2blog/wp
   :type 'string)
 
-(defcustom org2blog-sourcecode-langs 
+(defcustom org2blog/wp-sourcecode-langs 
   (list "actionscript3" "bash" "coldfusion" "cpp" "csharp" "css" "delphi" 
         "erlang" "fsharp" "diff" "groovy" "javascript" "java" "javafx" "matlab"
         "objc" "perl" "php" "text" "powershell" "python" "ruby" "scala" "sql" 
         "vb" "xml")
   "List of languages supported by sourcecode shortcode of WP."
-  :group 'org2blog
+  :group 'org2blog/wp
   :type 'list)
 
-(defcustom org2blog-track-posts 
-  (list ".org2blog.org" "Posts")
+(defcustom org2blog/wp-track-posts 
+  (list ".org2blog/wp.org" "Posts")
   "File where to save logs about posts. 
 Set to nil if you don't wish to track posts."
-  :group 'org2blog
+  :group 'org2blog/wp
   :type 'list)
 
-(defvar org2blog-blog nil
+(defvar org2blog/wp-blog nil
   "Parameters of the currently selected blog.")
 
-(defvar org2blog-blog-name nil
-  "Name of the blog, to pick from `org2blog-blog-alist'")
+(defvar org2blog/wp-blog-name nil
+  "Name of the blog, to pick from `org2blog/wp-blog-alist'")
 
-(defvar org2blog-categories-list nil 
+(defvar org2blog/wp-categories-list nil 
   "List of weblog categories")
 
-(defvar org2blog-tags-list nil 
+(defvar org2blog/wp-tags-list nil 
   "List of weblog tags")
 
-(defvar org2blog-pages-list nil 
+(defvar org2blog/wp-pages-list nil 
   "List of WP pages.")
 
-(defvar org2blog-server-xmlrpc-url nil 
+(defvar org2blog/wp-server-xmlrpc-url nil 
   "Weblog server XML-RPC URL")
 
-(defvar org2blog-server-userid nil 
+(defvar org2blog/wp-server-userid nil 
   "Weblog server user id")
 
-(defvar org2blog-server-blogid nil 
+(defvar org2blog/wp-server-blogid nil 
   "Weblog ID")
 
-(defvar org2blog-entry-mode-map nil 
+(defvar org2blog/wp-entry-mode-map nil 
   "Keymap for blog entry buffer")
 
-(defvar org2blog-logged-in nil 
+(defvar org2blog/wp-logged-in nil 
   "Flag whether user is logged-in or not")
 
-(defvar org2blog-buffer-name "*org2blog-%s*"
+(defvar org2blog/wp-buffer-name "*org2blog/wp-%s*"
   "Name of the blog buffer")
 
-(defvar org2blog-buffer-kill-prompt t
+(defvar org2blog/wp-buffer-kill-prompt t
   "Ask before killing buffer")
-(make-variable-buffer-local 'org2blog-buffer-kill-prompt)
+(make-variable-buffer-local 'org2blog/wp-buffer-kill-prompt)
 
-(defconst org2blog-version "0.3" 
+(defconst org2blog/wp-version "0.4" 
   "Current version of blog.el")
 
-(defvar org2blog-mode-hook nil
+(defvar org2blog/wp-mode-hook nil
   "Hook to run upon entry into mode.")
 
-(defun org2blog-kill-buffer-hook ()
+(defun org2blog/wp-kill-buffer-hook ()
   "Prompt before killing buffer."
-  (if (and org2blog-buffer-kill-prompt
+  (if (and org2blog/wp-buffer-kill-prompt
 	   (not (buffer-file-name)))
     (if (y-or-n-p "Save entry?")
         (progn
           (save-buffer)
-          (org2blog-save-details (org2blog-parse-entry) nil 
+          (org2blog/wp-save-details (org2blog/wp-parse-entry) nil 
                                  (y-or-n-p "Published?"))))))
 
-(unless org2blog-entry-mode-map
-  (setq org2blog-entry-mode-map
-	(let ((org2blog-map (make-sparse-keymap)))
-	  (set-keymap-parent org2blog-map org-mode-map)
-	  (define-key org2blog-map (kbd "C-c p") 'org2blog-post-buffer-and-publish)
-	  (define-key org2blog-map (kbd "C-c P") 'org2blog-post-buffer-as-page-and-publish)
-	  (define-key org2blog-map (kbd "C-c d") 'org2blog-post-buffer)
-	  (define-key org2blog-map (kbd "C-c D") 'org2blog-post-buffer-as-page)
-	  (define-key org2blog-map (kbd "C-c t") 'org2blog-complete-category)
-	  org2blog-map)))
+(unless org2blog/wp-entry-mode-map
+  (setq org2blog/wp-entry-mode-map
+	(let ((org2blog/wp-map (make-sparse-keymap)))
+	  (set-keymap-parent org2blog/wp-map org-mode-map)
+	  (define-key org2blog/wp-map (kbd "C-c p") 'org2blog/wp-post-buffer-and-publish)
+	  (define-key org2blog/wp-map (kbd "C-c P") 'org2blog/wp-post-buffer-as-page-and-publish)
+	  (define-key org2blog/wp-map (kbd "C-c d") 'org2blog/wp-post-buffer)
+	  (define-key org2blog/wp-map (kbd "C-c D") 'org2blog/wp-post-buffer-as-page)
+	  (define-key org2blog/wp-map (kbd "C-c t") 'org2blog/wp-complete-category)
+	  org2blog/wp-map)))
 
-(define-minor-mode org2blog-mode
-  "Toggle org2blog mode.
+(define-minor-mode org2blog/wp-mode
+  "Toggle org2blog/wp mode.
 With no argument, the mode is toggled on/off.  
 Non-nil argument turns mode on. 
 Nil argument turns mode off.
 
 Commands:
-\\{org2blog-entry-mode-map}
+\\{org2blog/wp-entry-mode-map}
 
-Entry to this mode calls the value of `org2blog-mode-hook'."
+Entry to this mode calls the value of `org2blog/wp-mode-hook'."
 
   :init-value nil
   :lighter " o2b"
-  :group 'org2blog
-  :keymap org2blog-entry-mode-map
+  :group 'org2blog/wp
+  :keymap org2blog/wp-entry-mode-map
 
-  (if org2blog-mode
-      (run-mode-hooks 'org2blog-mode-hook)))
+  (if org2blog/wp-mode
+      (run-mode-hooks 'org2blog/wp-mode-hook)))
 
-(defun org2blog-create-categories (categories)
+(defun org2blog/wp-create-categories (categories)
   "Create unknown categories."
   (mapcar
    (lambda (cat)
-     (if (and (not (member cat org2blog-categories-list))
+     (if (and (not (member cat org2blog/wp-categories-list))
               (y-or-n-p (format "Create %s category? " cat)))
-         (wp-new-category org2blog-server-xmlrpc-url
-                          org2blog-server-userid
-                          org2blog-server-pass
-                          org2blog-server-blogid
+         (wp-new-category org2blog/wp-server-xmlrpc-url
+                          org2blog/wp-server-userid
+                          org2blog/wp-server-pass
+                          org2blog/wp-server-blogid
                           cat))
-     (add-to-list 'org2blog-categories-list cat))
+     (add-to-list 'org2blog/wp-categories-list cat))
    categories))
 
-(defun org2blog-password ()
+(defun org2blog/wp-password ()
   "Set password."
   (interactive)
-  (setq org2blog-server-pass (read-passwd "Weblog password? ")))
+  (setq org2blog/wp-server-pass (read-passwd "Weblog password? ")))
 
-(defun org2blog-login()
+(defun org2blog/wp-login()
   "Logs into the blog. Initializes the internal data structures."
   (interactive)
   (let ()
-    (setq org2blog-blog-name (completing-read "Blog ? " 
+    (setq org2blog/wp-blog-name (completing-read "Blog ? " 
                                               (mapcar 'car 
-                                                      org2blog-blog-alist))
-          org2blog-blog (assoc org2blog-blog-name org2blog-blog-alist)
-          org2blog-server-xmlrpc-url (plist-get (cdr org2blog-blog) :url)
-          org2blog-server-userid (plist-get (cdr org2blog-blog) :username)
-          org2blog-server-blogid (or (plist-get (cdr org2blog-blog) :id) "1")
-          org2blog-server-pass (or 
-                                (plist-get (cdr org2blog-blog) :password)
+                                                      org2blog/wp-blog-alist))
+          org2blog/wp-blog (assoc org2blog/wp-blog-name org2blog/wp-blog-alist)
+          org2blog/wp-server-xmlrpc-url (plist-get (cdr org2blog/wp-blog) :url)
+          org2blog/wp-server-userid (plist-get (cdr org2blog/wp-blog) :username)
+          org2blog/wp-server-blogid (or (plist-get (cdr org2blog/wp-blog) :id) "1")
+          org2blog/wp-server-pass (or 
+                                (plist-get (cdr org2blog/wp-blog) :password)
                                 (read-passwd "Weblog password? "))
-          org2blog-categories-list
+          org2blog/wp-categories-list
 	  (mapcar (lambda (category) (cdr (assoc "categoryName" category)))
-		  (metaweblog-get-categories org2blog-server-xmlrpc-url
-					     org2blog-server-userid
-                                             org2blog-server-pass
-					     org2blog-server-blogid))
-          org2blog-tags-list
+		  (metaweblog-get-categories org2blog/wp-server-xmlrpc-url
+					     org2blog/wp-server-userid
+                                             org2blog/wp-server-pass
+					     org2blog/wp-server-blogid))
+          org2blog/wp-tags-list
 	  (mapcar (lambda (tag) (cdr (assoc "slug" tag)))
-		  (wp-get-tags org2blog-server-xmlrpc-url
-			       org2blog-server-userid
-                               org2blog-server-pass
-			       org2blog-server-blogid))
-          org2blog-pages-list
+		  (wp-get-tags org2blog/wp-server-xmlrpc-url
+			       org2blog/wp-server-userid
+                               org2blog/wp-server-pass
+			       org2blog/wp-server-blogid))
+          org2blog/wp-pages-list
 	  (mapcar (lambda (pg) 
                     (cons (cdr (assoc "page_title" pg)) 
                           (cdr (assoc "page_id" pg))))
-		  (wp-get-pagelist org2blog-server-xmlrpc-url
-				   org2blog-server-userid
-				   org2blog-server-pass
-				   org2blog-server-blogid)))
-    (setq org2blog-logged-in t)
+		  (wp-get-pagelist org2blog/wp-server-xmlrpc-url
+				   org2blog/wp-server-userid
+				   org2blog/wp-server-pass
+				   org2blog/wp-server-blogid)))
+    (setq org2blog/wp-logged-in t)
     (message "Logged in")))
 
-(defun org2blog-logout()
+(defun org2blog/wp-logout()
   "Logs out from the blog and clears. Clears the internal data structures."
   (interactive)
-  (setq org2blog-server-xmlrpc-url nil
-	org2blog-server-userid nil
-	org2blog-server-blogid nil
-	org2blog-server-pass nil
-	org2blog-categories-list nil
-	org2blog-tags-list nil
-	org2blog-pages-list nil
-	org2blog-logged-in nil)
+  (setq org2blog/wp-server-xmlrpc-url nil
+	org2blog/wp-server-userid nil
+	org2blog/wp-server-blogid nil
+	org2blog/wp-server-pass nil
+	org2blog/wp-categories-list nil
+	org2blog/wp-tags-list nil
+	org2blog/wp-pages-list nil
+	org2blog/wp-logged-in nil)
   (message "Logged out"))
 
-(defun org2blog-new-entry()
+(defun org2blog/wp-new-entry()
   "Creates a new blog entry."
   (interactive)
-  (if (and (not org2blog-logged-in)
+  (if (and (not org2blog/wp-logged-in)
            (y-or-n-p "You are not logged in. Login?"))
-      (org2blog-login))
-  (let ((org2blog-buffer (generate-new-buffer 
-                          (format org2blog-buffer-name org2blog-blog-name))))
-    (switch-to-buffer org2blog-buffer)
-    (add-hook 'kill-buffer-hook 'org2blog-kill-buffer-hook nil 'local)
+      (org2blog/wp-login))
+  (let ((org2blog/wp-buffer (generate-new-buffer 
+                          (format org2blog/wp-buffer-name org2blog/wp-blog-name))))
+    (switch-to-buffer org2blog/wp-buffer)
+    (add-hook 'kill-buffer-hook 'org2blog/wp-kill-buffer-hook nil 'local)
     (org-mode)
     (insert 
-     (format org2blog-buffer-template
+     (format org2blog/wp-buffer-template
              (format-time-string "[%Y-%m-%d %a %H:%M]" (current-time))
              (mapconcat
               (lambda (cat) cat)
-              (or (plist-get (cdr org2blog-blog) :default-categories)
-                  org2blog-default-categories)
+              (or (plist-get (cdr org2blog/wp-blog) :default-categories)
+                  org2blog/wp-default-categories)
               ", ")
-             (or (plist-get (cdr org2blog-blog) :default-title)
-                 org2blog-default-title)))
-    (org2blog-mode)))
+             (or (plist-get (cdr org2blog/wp-blog) :default-title)
+                 org2blog/wp-default-title)))
+    (org2blog/wp-mode)))
 
-(defun org2blog-upload-images-replace-urls (text)
+(defun org2blog/wp-upload-images-replace-urls (text)
   "Uploads images if any in the html, and changes their links"
   (let ((file-all-urls nil)
         file-name file-web-url beg
@@ -348,10 +348,10 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                                       (or (end-of-line) (point))))
                 (setq file-web-url
                       (cdr (assoc "url" 
-                                  (metaweblog-upload-image org2blog-server-xmlrpc-url
-                                                           org2blog-server-userid
-                                                           org2blog-server-pass
-                                                           org2blog-server-blogid
+                                  (metaweblog-upload-image org2blog/wp-server-xmlrpc-url
+                                                           org2blog/wp-server-userid
+                                                           org2blog/wp-server-pass
+                                                           org2blog/wp-server-blogid
                                                            (get-image-properties file-name)))))
                 (goto-char (point-max))
                 (newline)
@@ -363,7 +363,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                          (regexp-quote (car image)) (cdr image) text))))
     text))
 
-(defun org2blog-get-post-id ()
+(defun org2blog/wp-get-post-id ()
   "Gets the post-id from a buffer."
   (let (post-id)
     (save-excursion 
@@ -372,7 +372,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
           (setq post-id (match-string-no-properties 1))))
     post-id))
 
-(defun org2blog-get-post-parent ()
+(defun org2blog/wp-get-post-parent ()
   "Gets the post's parent from a buffer."
   (let (post-par)
     (save-excursion 
@@ -383,13 +383,13 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
             (if (and post-par
                      (> (length post-par) 1))
                 (setq post-par (substring post-par 0 -2)))
-            (setq post-par (cdr (assoc post-par org2blog-pages-list)))
+            (setq post-par (cdr (assoc post-par org2blog/wp-pages-list)))
             (if (not post-par)
                 (setq post-par "0")))
         (setq post-par "0")))
     post-par))
 
-(defun org2blog-strip-new-lines (html)
+(defun org2blog/wp-strip-new-lines (html)
   "Strip the new lines from the html, except in pre and blockquote tags."
   (save-excursion
     (with-temp-buffer
@@ -408,7 +408,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
         (replace-regexp "\\\n" " " nil start-pos end-pos)
         (buffer-substring-no-properties (point-min) (point-max))))))
 
-(defun org2blog-point-in-wp-sc ()
+(defun org2blog/wp-point-in-wp-sc ()
   "Return True when point in sourcecode block."
   (save-excursion
     (let* ((pos (point))
@@ -422,7 +422,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
           (setq e-count (1+ e-count))))
       (> (- s-count e-count) 0))))
 
-(defun org2blog-latex-to-wp (html)
+(defun org2blog/wp-latex-to-wp (html)
   "Change inline LaTeX to wp latex blocks."
   (save-excursion
     (with-temp-buffer
@@ -438,7 +438,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
             (save-match-data
               (while (and
                       (re-search-forward re nil t)
-                      (not (org2blog-point-in-wp-sc)))
+                      (not (org2blog/wp-point-in-wp-sc)))
                 (cond
                  ((equal m "$")
                   (unless (string-match "^latex" (match-string 4))
@@ -470,7 +470,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                                              "$") nil t)))))))))
       (buffer-substring-no-properties (point-min) (point-max)))))
 
-(defun org2blog-replace-pre (html)
+(defun org2blog/wp-replace-pre (html)
   "Replace pre blocks with sourcecode shortcode blocks."
   (save-excursion
     (let (pos code lang info params src-re code-re)
@@ -487,13 +487,13 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                 (setq lang "text")
               (setq lang (substring 
                           (match-string-no-properties 1) 16 -1))
-              (unless (member lang org2blog-sourcecode-langs)
+              (unless (member lang org2blog/wp-sourcecode-langs)
                 (setq lang "text"))
               (save-match-data
                 (setq code (replace-regexp-in-string "<.*?>" "" code))))
             (replace-match 
              (concat "\n[sourcecode language=\"" lang  "\"" 
-                     org2blog-sourcecode-default-params "]\n" code 
+                     org2blog/wp-sourcecode-default-params "]\n" code 
                      "\n[/sourcecode]\n") 
              nil t)))
         (setq html (buffer-substring-no-properties (point-min) (point-max))))
@@ -524,26 +524,26 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
             (setq html (buffer-substring-no-properties (point-min) (point-max))))))))
   html)
 
-(defun org2blog-parse-entry (&optional publish)
-  "Parse an org2blog buffer."
+(defun org2blog/wp-parse-entry (&optional publish)
+  "Parse an org2blog/wp buffer."
   (interactive "P")
-  (let* ((keep-new-lines (if (plist-member (cdr org2blog-blog) :keep-new-lines)
-                             (plist-get (cdr org2blog-blog) :keep-new-lines)
-                           org2blog-keep-new-lines))
-         (wp-latex (if (plist-member (cdr org2blog-blog) :wp-latex)
-                       (plist-get (cdr org2blog-blog) :wp-latex)
-                     org2blog-use-wp-latex))
-         (sourcecode-shortcode (if (plist-member (cdr org2blog-blog) :wp-code)
-                             (plist-get (cdr org2blog-blog) :wp-code)
-                           org2blog-use-sourcecode-shortcode))
+  (let* ((keep-new-lines (if (plist-member (cdr org2blog/wp-blog) :keep-new-lines)
+                             (plist-get (cdr org2blog/wp-blog) :keep-new-lines)
+                           org2blog/wp-keep-new-lines))
+         (wp-latex (if (plist-member (cdr org2blog/wp-blog) :wp-latex)
+                       (plist-get (cdr org2blog/wp-blog) :wp-latex)
+                     org2blog/wp-use-wp-latex))
+         (sourcecode-shortcode (if (plist-member (cdr org2blog/wp-blog) :wp-code)
+                             (plist-get (cdr org2blog/wp-blog) :wp-code)
+                           org2blog/wp-use-sourcecode-shortcode))
          html-text post-title post-id post-date tags categories narrow-p 
          cur-time post-par)
     (save-restriction
       (save-excursion
-        (if (not org2blog-mode)
+        (if (not org2blog/wp-mode)
             (org-save-outline-visibility 'use-markers (org-mode-restart))
           (org-save-outline-visibility 'use-markers (org-mode-restart))
-          (org2blog-mode))
+          (org2blog/wp-mode))
         (setq narrow-p (not (equal (- (point-max) (point-min)) (buffer-size))))
         (if narrow-p
             (progn
@@ -563,8 +563,8 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
           (setq post-title (or (plist-get (org-infile-export-plist) :title) 
                                "No Title"))
           (setq excerpt (plist-get (org-infile-export-plist) :description))
-          (setq post-id (org2blog-get-post-id))
-          (setq post-par (org2blog-get-post-parent))
+          (setq post-id (org2blog/wp-get-post-id))
+          (setq post-par (org2blog/wp-get-post-parent))
           (setq post-date (plist-get (org-infile-export-plist) :date))
           (setq tags (or 
                       (mapcar (lambda (f) (car (split-string (car f) ",")))
@@ -593,9 +593,9 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                                   t))
         
         (if 
-            (if (plist-member (cdr org2blog-blog) :tags-as-categories)
-                (plist-get (cdr org2blog-blog) :tags-as-categories)
-              org2blog-use-tags-as-categories)
+            (if (plist-member (cdr org2blog/wp-blog) :tags-as-categories)
+                (plist-get (cdr org2blog/wp-blog) :tags-as-categories)
+              org2blog/wp-use-tags-as-categories)
             (setq categories tags
                   tags nil))
         (save-excursion
@@ -607,13 +607,13 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                    (org-end-of-subtree)
                    t 'string)))
           (setq html-text (org-no-properties html-text)))
-        (setq html-text (org2blog-upload-images-replace-urls html-text))
+        (setq html-text (org2blog/wp-upload-images-replace-urls html-text))
         (unless keep-new-lines
-          (setq html-text (org2blog-strip-new-lines html-text)))
+          (setq html-text (org2blog/wp-strip-new-lines html-text)))
         (when sourcecode-shortcode
-          (setq html-text (org2blog-replace-pre html-text)))
+          (setq html-text (org2blog/wp-replace-pre html-text)))
         (when wp-latex
-          (setq html-text (org2blog-latex-to-wp html-text)))))
+          (setq html-text (org2blog/wp-latex-to-wp html-text)))))
 
     (list
      (cons "point" (point))
@@ -628,49 +628,49 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
      (cons "description" html-text))))
 
 
-(defun org2blog-post-buffer-and-publish ()
+(defun org2blog/wp-post-buffer-and-publish ()
   "Post buffer and mark it as published"
   (interactive)
-  (org2blog-post-buffer t))
+  (org2blog/wp-post-buffer t))
 
-(defun org2blog-post-buffer (&optional publish)
+(defun org2blog/wp-post-buffer (&optional publish)
   "Posts new blog entry to the blog or edits an existing entry."
   (interactive "P")
-  (unless org2blog-logged-in 
-    (org2blog-login))
+  (unless org2blog/wp-logged-in 
+    (org2blog/wp-login))
   (save-excursion
     (save-restriction
-      (let ((post (org2blog-parse-entry))
+      (let ((post (org2blog/wp-parse-entry))
             (confirm (and 
-                     (if (plist-member (cdr org2blog-blog) :confirm)
-                        (plist-member (cdr org2blog-blog) :confirm)
-                      org2blog-confirm-post) 
+                     (if (plist-member (cdr org2blog/wp-blog) :confirm)
+                        (plist-member (cdr org2blog/wp-blog) :confirm)
+                      org2blog/wp-confirm-post) 
                      publish))
             post-id)
-        (org2blog-create-categories (cdr (assoc "categories" post)))
+        (org2blog/wp-create-categories (cdr (assoc "categories" post)))
         (setq post-id (cdr (assoc "post-id" post)))
         (unless (not confirm)
           (if (not (y-or-n-p (format "Publish %s ?" 
                                      (cdr (assoc "title" post)))))
               (error "Post cancelled.")))
         (if post-id
-            (metaweblog-edit-post org2blog-server-xmlrpc-url
-                                  org2blog-server-userid
-                                  org2blog-server-pass
+            (metaweblog-edit-post org2blog/wp-server-xmlrpc-url
+                                  org2blog/wp-server-userid
+                                  org2blog/wp-server-pass
                                   post-id
                                   post
                                   publish)
-          (setq post-id (metaweblog-new-post org2blog-server-xmlrpc-url
-                                             org2blog-server-userid
-                                             org2blog-server-pass
-                                             org2blog-server-blogid
+          (setq post-id (metaweblog-new-post org2blog/wp-server-xmlrpc-url
+                                             org2blog/wp-server-userid
+                                             org2blog/wp-server-pass
+                                             org2blog/wp-server-blogid
                                              post
                                              publish))
           (if (cdr (assoc "subtree" post))
               (org-entry-put (point) "POST_ID" post-id)
             (goto-char (point-min))
             (insert (concat "#+POSTID: " post-id "\n"))))
-        (org2blog-save-details post post-id publish)
+        (org2blog/wp-save-details post post-id publish)
         (message (if publish
                      "Published (%s): %s"
                    "Draft (%s): %s")
@@ -678,96 +678,96 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                  (cdr (assoc "title" post)))
         (when (y-or-n-p "[For drafts, ensure you login] View in browser? y/n")
           (if (cdr (assoc "subtree" post))
-              (org2blog-preview-subtree-post)
-            (org2blog-preview-buffer-post)))))))
+              (org2blog/wp-preview-subtree-post)
+            (org2blog/wp-preview-buffer-post)))))))
 
-(defun org2blog-post-buffer-as-page-and-publish ()
+(defun org2blog/wp-post-buffer-as-page-and-publish ()
   "Alias to post buffer and mark it as published"
   (interactive)
-  (org2blog-post-buffer-as-page t))
+  (org2blog/wp-post-buffer-as-page t))
 
-(defun org2blog-post-buffer-as-page (&optional publish)
+(defun org2blog/wp-post-buffer-as-page (&optional publish)
   "Posts new page to the blog or edits an existing page."
   (interactive "P")
-  (unless org2blog-logged-in 
-    (org2blog-login))
+  (unless org2blog/wp-logged-in 
+    (org2blog/wp-login))
   (save-excursion
     (save-restriction
       (widen)
-      (let ((post (org2blog-parse-entry))
+      (let ((post (org2blog/wp-parse-entry))
             post-id)
-        (org2blog-create-categories (cdr (assoc "categories" post)))
+        (org2blog/wp-create-categories (cdr (assoc "categories" post)))
         (setq post-id (cdr (assoc "post-id" post)))
-        (unless (not (and org2blog-confirm-post publish))
+        (unless (not (and org2blog/wp-confirm-post publish))
           (if (not (y-or-n-p (format "Publish %s ?" 
                                      (cdr (assoc "title" post)))))
               (error "Post cancelled.")))
         (if post-id
-            (wp-edit-page org2blog-server-xmlrpc-url
-                          org2blog-server-userid
-                          org2blog-server-pass
-                          org2blog-server-blogid
+            (wp-edit-page org2blog/wp-server-xmlrpc-url
+                          org2blog/wp-server-userid
+                          org2blog/wp-server-pass
+                          org2blog/wp-server-blogid
                           post-id
                           post
                           publish)
-          (setq post-id (wp-new-page org2blog-server-xmlrpc-url
-                                     org2blog-server-userid
-                                     org2blog-server-pass
-                                     org2blog-server-blogid
+          (setq post-id (wp-new-page org2blog/wp-server-xmlrpc-url
+                                     org2blog/wp-server-userid
+                                     org2blog/wp-server-pass
+                                     org2blog/wp-server-blogid
                                      post
                                      publish))
-          (setq org2blog-pages-list
+          (setq org2blog/wp-pages-list
                 (mapcar (lambda (pg) 
                           (cons (cdr (assoc "title" pg)) 
                                 (cdr (assoc "page_id" pg))))
-                        (wp-get-pagelist org2blog-server-xmlrpc-url
-					 org2blog-server-userid
-					 org2blog-server-pass
-					 org2blog-server-blogid)))
+                        (wp-get-pagelist org2blog/wp-server-xmlrpc-url
+					 org2blog/wp-server-userid
+					 org2blog/wp-server-pass
+					 org2blog/wp-server-blogid)))
           (if (cdr (assoc "subtree" post))
               (org-entry-put (point) "POST_ID" post-id)
             (goto-char (point-min))
             (insert (concat "#+POSTID: " post-id "\n"))))
-        (org2blog-save-details post post-id publish)
+        (org2blog/wp-save-details post post-id publish)
         (message (if publish
                      "Published (%s): %s"
                    "Draft (%s): %s")
                  post-id
                  (cdr (assoc "title" post)))))))
 
-(defun org2blog-delete-entry (&optional post-id)
+(defun org2blog/wp-delete-entry (&optional post-id)
   (interactive "P")
   (if (null post-id)
-      (setq post-id (org2blog-get-post-id)))
-  (metaweblog-delete-post org2blog-server-xmlrpc-url
-                                org2blog-server-userid
-                                org2blog-server-pass
+      (setq post-id (org2blog/wp-get-post-id)))
+  (metaweblog-delete-post org2blog/wp-server-xmlrpc-url
+                                org2blog/wp-server-userid
+                                org2blog/wp-server-pass
                                 post-id)
   (message "Post Deleted"))
 
-(defun org2blog-delete-page (&optional page-id)
+(defun org2blog/wp-delete-page (&optional page-id)
   (interactive "P")
   (if (null page-id)
-      (setq page-id (org2blog-get-post-id)))
-  (wp-delete-page org2blog-server-xmlrpc-url
-                  org2blog-server-blogid
-                  org2blog-server-userid
-                  org2blog-server-pass
+      (setq page-id (org2blog/wp-get-post-id)))
+  (wp-delete-page org2blog/wp-server-xmlrpc-url
+                  org2blog/wp-server-blogid
+                  org2blog/wp-server-userid
+                  org2blog/wp-server-pass
                   page-id)
    (message "Page Deleted"))
 
-(defun org2blog-save-details (post pid pub)
+(defun org2blog/wp-save-details (post pid pub)
   "Save the details of posting, to a file."
   (save-excursion
-    (when (if (plist-member (cdr org2blog-blog) :track-posts)
-              (car (plist-get (cdr org2blog-blog) :track-posts))
-            (car org2blog-track-posts))
+    (when (if (plist-member (cdr org2blog/wp-blog) :track-posts)
+              (car (plist-get (cdr org2blog/wp-blog) :track-posts))
+            (car org2blog/wp-track-posts))
       (let* ((o2b-id (if (cdr (assoc "subtree" post))
                          (concat "id:" (org-id-get nil))
                        (buffer-file-name)))
-             (log-file (if (plist-member (cdr org2blog-blog) :track-posts)
-                           (car (plist-get (cdr org2blog-blog) :track-posts))
-                         (car org2blog-track-posts)))
+             (log-file (if (plist-member (cdr org2blog/wp-blog) :track-posts)
+                           (car (plist-get (cdr org2blog/wp-blog) :track-posts))
+                         (car org2blog/wp-track-posts)))
              (log-file (if (file-name-absolute-p log-file)
                            log-file
                          (if org-directory
@@ -775,9 +775,9 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
                            (message "org-track-posts: filename is ambiguous 
 use absolute path or set org-directory")
                            log-file)))
-             (headline (if (plist-member (cdr org2blog-blog) :track-posts)
-                           (cadr (plist-get (cdr org2blog-blog) :track-posts))
-                         (cadr org2blog-track-posts)))
+             (headline (if (plist-member (cdr org2blog/wp-blog) :track-posts)
+                           (cadr (plist-get (cdr org2blog/wp-blog) :track-posts))
+                         (cadr org2blog/wp-track-posts)))
              p)
         (when o2b-id
           (with-current-buffer (or (find-buffer-visiting log-file)
@@ -798,10 +798,10 @@ use absolute path or set org-directory")
                       (forward-thing 'whitespace)
                       (kill-line))
                   (org-insert-subheading t)))
-              (org2blog-update-details post o2b-id pid pub))
+              (org2blog/wp-update-details post o2b-id pid pub))
             (save-buffer)))))))
 
-(defun org2blog-update-details (post o2b-id pid pub)
+(defun org2blog/wp-update-details (post o2b-id pid pub)
   "Inserts details of a new post or updates details."
   (insert (format "[[%s][%s]]" 
                   (if (cdr (assoc "subtree" post))
@@ -812,7 +812,7 @@ use absolute path or set org-directory")
   (org-entry-put (point) "POST_DATE" (cdr (assoc "date" post)))
   (org-entry-put (point) "Published" (if pub "Yes" "No")))
 
-(defun org2blog-complete-category()
+(defun org2blog/wp-complete-category()
   "Provides completion for categories and tags."
   (interactive)
   (let* (current-pos tag-or-category-list)
@@ -824,13 +824,13 @@ use absolute path or set org-directory")
         (progn
           (cond
            ((looking-at "TAGS: ")
-            (setq tag-or-cat-list org2blog-tags-list)
+            (setq tag-or-cat-list org2blog/wp-tags-list)
 	    (setq tag-or-cat-prompt "Tag ?"))
            ((looking-at "CATEGORY: ")
-            (setq tag-or-cat-list org2blog-categories-list)
+            (setq tag-or-cat-list org2blog/wp-categories-list)
 	    (setq tag-or-cat-prompt "Category ?"))
            ((looking-at "PARENT: ")
-            (setq tag-or-cat-list org2blog-pages-list)
+            (setq tag-or-cat-list org2blog/wp-pages-list)
 	    (setq tag-or-cat-prompt "Parent ?")))
           (goto-char current-pos)
       	  (let ((word-match (or (current-word t) ""))
@@ -844,7 +844,7 @@ use absolute path or set org-directory")
       	(goto-char current-pos)
       	(command-execute (lookup-key org-mode-map (kbd "C-c t")))))))
 
-(defun org2blog-post-subtree (&optional publish)
+(defun org2blog/wp-post-subtree (&optional publish)
   "Post the current entry as a draft. Publish if PUBLISH is non-nil."
   (interactive "P")
   (save-restriction
@@ -862,42 +862,42 @@ use absolute path or set org-directory")
             (goto-char (point-min))
             (org-narrow-to-subtree)
             (dotimes (n level nil) (org-promote-subtree))
-            (org2blog-post-buffer publish)
+            (org2blog/wp-post-buffer publish)
             (dotimes (n level nil) (org-demote-subtree))
             (setq contents (buffer-string))))
         (delete-region (point-min) (point-max))
         (insert contents))
       (widen))))
 
-(defun org2blog-mark-subtree-as-draft ()
+(defun org2blog/wp-mark-subtree-as-draft ()
   "Post the current subtree as a draft. Saves details in tracking file."
   (interactive)
   (save-restriction
     (save-excursion
       (org-narrow-to-subtree)
-      (org2blog-save-details (org2blog-parse-entry) "" nil)
+      (org2blog/wp-save-details (org2blog/wp-parse-entry) "" nil)
       (widen))))
 
-(defun org2blog-preview-buffer-post ()
+(defun org2blog/wp-preview-buffer-post ()
   (interactive)
   "Preview the present buffer in browser, if posted."
-  (let* ((postid (org2blog-get-post-id))
-         (url org2blog-server-xmlrpc-url))
+  (let* ((postid (org2blog/wp-get-post-id))
+         (url org2blog/wp-server-xmlrpc-url))
     (if (not postid)
         (message "This buffer hasn't been posted, yet.")
       (setq url (substring url 0 -10))
       (setq url (concat url "?p=" postid "&preview=true"))
       (browse-url url))))
 
-(defun org2blog-preview-subtree-post ()
+(defun org2blog/wp-preview-subtree-post ()
   (interactive)
   "Preview the present subtree in browser, if posted."
   (let* ((postid (org-entry-get (point) "POST_ID"))
-         (url org2blog-server-xmlrpc-url))
+         (url org2blog/wp-server-xmlrpc-url))
     (if (not postid)
         (message "This subtree hasn't been posted, yet.")
       (setq url (substring url 0 -10))
       (setq url (concat url "?p=" postid "&preview=true"))
       (browse-url url))))
 
-(provide 'org2blog)
+(provide 'org2blog/wp)
