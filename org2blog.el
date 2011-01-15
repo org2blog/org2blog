@@ -900,4 +900,4 @@ use absolute path or set org-directory")
       (setq url (concat url "?p=" postid "&preview=true"))
       (browse-url url))))
 
-(provide 'org2blog/wp)
+(provide 'org2blog)
