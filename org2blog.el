@@ -187,7 +187,7 @@ Set to nil if you don't wish to track posts."
   "Ask before killing buffer")
 (make-variable-buffer-local 'org2blog/wp-buffer-kill-prompt)
 
-(defconst org2blog/wp-version "0.3" 
+(defconst org2blog/wp-version "0.4" 
   "Current version of blog.el")
 
 (defvar org2blog/wp-mode-hook nil
