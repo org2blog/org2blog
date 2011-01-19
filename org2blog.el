@@ -238,7 +238,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
   (mapcar
    (lambda (cat)
      (if (and (not (member cat org2blog/wp-categories-list))
-              (y-or-n-p (format "Create %s category? " cat)))
+              (y-or-n-p (format "Create '%s' category? " cat)))
          (wp-new-category org2blog/wp-server-xmlrpc-url
                           org2blog/wp-server-userid
                           org2blog/wp-server-pass
@@ -575,7 +575,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
                     (symbol-name org-category)
                   ""))
           (setq categories
-                (or (split-string categories "[ ,]+" t) "")))
+                (or (split-string categories "\\( *, *\\)" t) "")))
 
         ;; Convert post date to ISO timestamp
         ;;add the date of posting to the post. otherwise edits will change it
