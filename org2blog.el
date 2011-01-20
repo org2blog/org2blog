@@ -503,8 +503,8 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
         (backward-word)
         (setq info (org-babel-get-src-block-info))
         (setq params (nth 2 info))
-        (setq code (org-html-protect (nth 1 info)))
-        (setq code-re (regexp-quote code))
+        (setq code (nth 1 info))
+        (setq code-re (regexp-quote (org-html-protect code)))
         (setq src-re (concat "\\[sourcecode language=\"\\(.*?\\)\".*?\\]\n"
                              code-re "\\(\n\\)*\\[/sourcecode\\]"))
         (save-excursion
@@ -515,12 +515,13 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
               (re-search-forward src-re nil t 1)
               (setq pos (point))
               (setq lang (match-string-no-properties 1))
-              (when (assoc :syntaxhl params)
-                (replace-match 
-                 (concat "\n[sourcecode language=\"" lang  "\" " 
-                         (cdr (assoc :syntaxhl params))
-                         "]\n" code "[/sourcecode]\n")
-                 nil t)))
+              (replace-match 
+               (concat "\n[sourcecode language=\"" lang  "\" " 
+                       (if (assoc :syntaxhl params)
+                           (cdr (assoc :syntaxhl params))
+                         org2blog/wp-sourcecode-default-params)      
+                       "]\n" code "[/sourcecode]\n")
+                 nil t))
             (setq html (buffer-substring-no-properties (point-min) (point-max))))))))
   html)
 
