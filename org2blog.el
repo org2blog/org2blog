@@ -144,7 +144,7 @@ All the other properties are optional. They over-ride the global variables.
   :type 'list)
 
 (defcustom org2blog/wp-track-posts 
-  (list ".org2blog/wp.org" "Posts")
+  (list ".org2blog.org" "Posts")
   "File where to save logs about posts. 
 Set to nil if you don't wish to track posts."
   :group 'org2blog/wp
