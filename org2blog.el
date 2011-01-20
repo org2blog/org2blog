@@ -482,20 +482,17 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
                   "<pre\\(.*?\\)>\\(\\(.\\|[[:space:]]\\|\\\n\\)*?\\)</pre.*?>"
                   nil t 1)
             (setq code (match-string-no-properties 2))
-            (if (save-match-data 
-                  (string-match "example" (match-string-no-properties 1)))
-                (setq lang "text")
-              (setq lang (substring 
-                          (match-string-no-properties 1) 16 -1))
-              (unless (member lang org2blog/wp-sourcecode-langs)
-                (setq lang "text"))
+            ;; When the codeblock is a src_block
+            (unless (save-match-data 
+                      (string-match "example" (match-string-no-properties 1)))
+              ;; Stripping out all the code highlighting done by htmlize
               (save-match-data
-                (setq code (replace-regexp-in-string "<.*?>" "" code))))
-            (replace-match 
-             (concat "\n[sourcecode language=\"" lang  "\"" 
-                     org2blog/wp-sourcecode-default-params "]\n" code 
-                     "\n[/sourcecode]\n") 
-             nil t)))
+                (setq code (replace-regexp-in-string "<.*?>" "" code)))
+              (replace-match 
+               (concat "\n[sourcecode]\n"
+                       code 
+                       "\n[/sourcecode]\n") 
+               nil t))))
         (setq html (buffer-substring-no-properties (point-min) (point-max))))
       (goto-char (point-min))
       (setq pos 1)
@@ -504,8 +501,11 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
         (setq info (org-babel-get-src-block-info))
         (setq params (nth 2 info))
         (setq code (nth 1 info))
+        (setq lang (nth 0 info))
+        (unless (member lang org2blog/wp-sourcecode-langs)
+          (setq lang "text"))
         (setq code-re (regexp-quote (org-html-protect code)))
-        (setq src-re (concat "\\[sourcecode language=\"\\(.*?\\)\".*?\\]\n"
+        (setq src-re (concat "\\[sourcecode\\]\n"
                              code-re "\\(\n\\)*\\[/sourcecode\\]"))
         (save-excursion
           (with-temp-buffer
@@ -514,7 +514,6 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
             (save-match-data
               (re-search-forward src-re nil t 1)
               (setq pos (point))
-              (setq lang (match-string-no-properties 1))
               (replace-match 
                (concat "\n[sourcecode language=\"" lang  "\" " 
                        (if (assoc :syntaxhl params)
