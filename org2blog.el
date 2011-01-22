@@ -363,31 +363,24 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
                          (regexp-quote (car image)) (cdr image) text))))
     text))
 
-(defun org2blog/wp-get-post-id ()
-  "Gets the post-id from a buffer."
-  (let (post-id)
+(defun org2blog/wp-get-option (opt)
+  "Gets an the value of the option OP from a buffer."
+  (let* ((r (org-make-options-regexp (list (upcase opt) (downcase opt)))))
     (save-excursion 
       (goto-char (point-min))
-      (if (re-search-forward "^#\\+POSTID: \\(.*\\)" nil t 1)
-          (setq post-id (match-string-no-properties 1))))
-    post-id))
+      (if (re-search-forward r nil t 1)
+          (match-string-no-properties 2)))))
 
 (defun org2blog/wp-get-post-parent ()
   "Gets the post's parent from a buffer."
-  (let (post-par)
-    (save-excursion 
-      (goto-char (point-min))
-      (if (re-search-forward "^#\\+PARENT: \\(.*\\)" nil t 1)
-          (progn
-            (setq post-par (match-string-no-properties 1))
-            (if (and post-par
-                     (> (length post-par) 1))
-                (setq post-par (substring post-par 0 -2)))
-            (setq post-par (cdr (assoc post-par org2blog/wp-pages-list)))
-            (if (not post-par)
-                (setq post-par "0")))
-        (setq post-par "0")))
-    post-par))
+  (let* ((post-par (org2blog/wp-get-option "PARENT")))
+    (when post-par
+      (setq post-par (cdr (assoc 
+                           (car (split-string post-par "\\( *, *\\)" t))
+                           org2blog/wp-pages-list))))
+    (unless post-par
+      (setq post-par "0"))
+  post-par))
 
 (defun org2blog/wp-strip-new-lines (html)
   "Strip the new lines from the html, except in pre and blockquote tags."
@@ -563,17 +556,13 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
           (setq post-title (or (plist-get (org-infile-export-plist) :title) 
                                "No Title"))
           (setq excerpt (plist-get (org-infile-export-plist) :description))
-          (setq post-id (org2blog/wp-get-post-id))
+          (setq post-id (org2blog/wp-get-option "POSTID"))
           (setq post-par (org2blog/wp-get-post-parent))
           (setq post-date (plist-get (org-infile-export-plist) :date))
-          (setq tags (or 
-                      (mapcar (lambda (f) (car (split-string (car f) ",")))
-                              org-tag-alist)
-                      ""))
-          (setq categories 
-                (if org-category
-                    (symbol-name org-category)
-                  ""))
+          (setq tags (org2blog/wp-get-option "TAGS"))
+	  (setq tags
+                (or (split-string tags "\\( *, *\\)" t) ""))
+          (setq categories (org2blog/wp-get-option "CATEGORY"))
           (setq categories
                 (or (split-string categories "\\( *, *\\)" t) "")))
 
@@ -738,7 +727,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
 (defun org2blog/wp-delete-entry (&optional post-id)
   (interactive "P")
   (if (null post-id)
-      (setq post-id (org2blog/wp-get-post-id)))
+      (setq post-id (org2blog/wp-get-option "POSTID")))
   (metaweblog-delete-post org2blog/wp-server-xmlrpc-url
                                 org2blog/wp-server-userid
                                 org2blog/wp-server-pass
@@ -748,7 +737,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
 (defun org2blog/wp-delete-page (&optional page-id)
   (interactive "P")
   (if (null page-id)
-      (setq page-id (org2blog/wp-get-post-id)))
+      (setq page-id (org2blog/wp-get-option "POSTID")))
   (wp-delete-page org2blog/wp-server-xmlrpc-url
                   org2blog/wp-server-blogid
                   org2blog/wp-server-userid
@@ -881,7 +870,7 @@ use absolute path or set org-directory")
 (defun org2blog/wp-preview-buffer-post ()
   (interactive)
   "Preview the present buffer in browser, if posted."
-  (let* ((postid (org2blog/wp-get-post-id))
+  (let* ((postid (org2blog/wp-get-option "POSTID"))
          (url org2blog/wp-server-xmlrpc-url))
     (if (not postid)
         (message "This buffer hasn't been posted, yet.")
