@@ -726,6 +726,8 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
 
 (defun org2blog/wp-delete-entry (&optional post-id)
   (interactive "P")
+  (unless org2blog/wp-logged-in 
+    (org2blog/wp-login))
   (if (null post-id)
       (setq post-id (org2blog/wp-get-option "POSTID")))
   (metaweblog-delete-post org2blog/wp-server-xmlrpc-url
@@ -736,6 +738,8 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
 
 (defun org2blog/wp-delete-page (&optional page-id)
   (interactive "P")
+  (unless org2blog/wp-logged-in 
+    (org2blog/wp-login))
   (if (null page-id)
       (setq page-id (org2blog/wp-get-option "POSTID")))
   (wp-delete-page org2blog/wp-server-xmlrpc-url
@@ -861,6 +865,8 @@ use absolute path or set org-directory")
 (defun org2blog/wp-mark-subtree-as-draft ()
   "Post the current subtree as a draft. Saves details in tracking file."
   (interactive)
+  (unless org2blog/wp-logged-in 
+    (org2blog/wp-login))
   (save-restriction
     (save-excursion
       (org-narrow-to-subtree)
@@ -868,8 +874,10 @@ use absolute path or set org-directory")
       (widen))))
 
 (defun org2blog/wp-preview-buffer-post ()
-  (interactive)
   "Preview the present buffer in browser, if posted."
+  (interactive)
+  (unless org2blog/wp-logged-in 
+    (org2blog/wp-login))
   (let* ((postid (org2blog/wp-get-option "POSTID"))
          (url org2blog/wp-server-xmlrpc-url))
     (if (not postid)
@@ -879,8 +887,10 @@ use absolute path or set org-directory")
       (browse-url url))))
 
 (defun org2blog/wp-preview-subtree-post ()
-  (interactive)
   "Preview the present subtree in browser, if posted."
+  (interactive)
+  (unless org2blog/wp-logged-in 
+    (org2blog/wp-login))
   (let* ((postid (org-entry-get (point) "POST_ID"))
          (url org2blog/wp-server-xmlrpc-url))
     (if (not postid)
