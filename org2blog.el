@@ -67,7 +67,8 @@ Most properties are optional, but some should always be set:
   :username                username to be used.
 
 All the other properties are optional. They over-ride the global variables.
-  
+
+  :password                password to be used
   :default-title           `org2blog/wp-default-title'
   :default-categories      `org2blog/wp-default-categories'
                            Use a list of categories.
