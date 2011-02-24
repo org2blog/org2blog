@@ -1,5 +1,6 @@
 ;;; org2blog.el --- blog from Org mode to wordpress
 ;; Copyright (C) 2010 Puneeth Chaganti
+;; Copyright (C) 2011 Mykola Nikishov <mn@mn.com.ua>
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog at gmail dot com>
 
@@ -215,6 +216,7 @@ Set to nil if you don't wish to track posts."
 	  (define-key org2blog/wp-map (kbd "C-c t") 'org2blog/wp-complete-category)
 	  org2blog/wp-map)))
 
+;;;###autoload
 (define-minor-mode org2blog/wp-mode
   "Toggle org2blog/wp mode.
 With no argument, the mode is toggled on/off.  
@@ -303,6 +305,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
 	org2blog/wp-logged-in nil)
   (message "Logged out"))
 
+;;;###autoload
 (defun org2blog/wp-new-entry()
   "Creates a new blog entry."
   (interactive)
@@ -838,6 +841,7 @@ use absolute path or set org-directory")
       	(goto-char current-pos)
       	(command-execute (lookup-key org-mode-map (kbd "C-c t")))))))
 
+;;;###autoload
 (defun org2blog/wp-post-subtree (&optional publish)
   "Post the current entry as a draft. Publish if PUBLISH is non-nil."
   (interactive "P")
@@ -863,6 +867,7 @@ use absolute path or set org-directory")
         (insert contents))
       (widen))))
 
+;;;###autoload
 (defun org2blog/wp-mark-subtree-as-draft ()
   "Post the current subtree as a draft. Saves details in tracking file."
   (interactive)
@@ -874,6 +879,7 @@ use absolute path or set org-directory")
       (org2blog/wp-save-details (org2blog/wp-parse-entry) "" nil)
       (widen))))
 
+;;;###autoload
 (defun org2blog/wp-preview-buffer-post ()
   "Preview the present buffer in browser, if posted."
   (interactive)
@@ -887,6 +893,7 @@ use absolute path or set org-directory")
       (setq url (concat url "?p=" postid "&preview=true"))
       (browse-url url))))
 
+;;;###autoload
 (defun org2blog/wp-preview-subtree-post ()
   "Preview the present subtree in browser, if posted."
   (interactive)
