@@ -1,8 +1,15 @@
 ;;; org2blog.el --- blog from Org mode to wordpress
-;; Copyright (C) 2010 Puneeth Chaganti
-;; Copyright (C) 2011 Mykola Nikishov <mn@mn.com.ua>
 
-;; Author: Puneeth Chaganti <punchagan+org2blog at gmail dot com>
+;; Copyright (C) 2010 Benjamin Beckwith <bnbeckwith@gmail.com>
+;; Copyright (C) 2010 Marcel van der Boom <marcel@hsdev.com>
+;; Copyright (C) 2010,2011 Puneeth Chaganti <punchagan+org2blog@gmail.com>
+;; Copyright (C) 2010 Sacha Chua <sacha@sachachua.com>
+;; Copyright (C) 2010 Giovanni Moretti <Giovanni@reflections.co.nz>
+;; Copyright (C) 2011 Mykola Nikishov <mn@mn.com.ua>
+;; Copyright (C) 2010 Matt Price <matt@roke.mercey.dyndns.org>
+
+
+;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
