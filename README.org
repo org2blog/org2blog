@@ -25,7 +25,7 @@
   Add the org2blog directory to your load path and then add
 
   : (setq load-path (cons "~/.emacs.d/org2blog/" load-path))
-  : (require 'org2blog)
+  : (require 'org2blog-autoloads)
 
   to your dot emacs.  
 
