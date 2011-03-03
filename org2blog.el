@@ -89,7 +89,7 @@ All the other properties are optional. They over-ride the global variables.
   :track-posts             `org2blog/wp-track-posts'
 "
   :group 'org2blog/wp
-  :type 'alist)
+  :type '(alist :value-type plist))
 
 (defcustom org2blog/wp-default-categories '("Uncategorized" "Hello") 
   "Default list of categories" 
