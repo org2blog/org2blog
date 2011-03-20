@@ -1,4 +1,4 @@
-;; metaweblog.el -- an emacs library to access metaweblog based weblogs
+;;; metaweblog.el --- an emacs library to access metaweblog based weblogs
 ;; Copyright (C) 2008 Ashish Shukla
 ;; Copyright (C) 2010 Puneeth Chaganti
 
