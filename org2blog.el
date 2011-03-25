@@ -571,11 +571,12 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
           (setq post-par (org2blog/wp-get-post-parent))
           (setq post-date (plist-get (org-infile-export-plist) :date))
           (setq tags (org2blog/wp-get-option "TAGS"))
-	  (setq tags
-                (or (split-string tags "\\( *, *\\)" t) ""))
+          (setq tags (if tags (split-string tags "\\( *, *\\)" t) ""))
+
           (setq categories (org2blog/wp-get-option "CATEGORY"))
-          (setq categories
-                (or (split-string categories "\\( *, *\\)" t) "")))
+          (setq categories (if categories
+                               (split-string categories "\\( *, *\\)" t) 
+                             "")))
 
         ;; Convert post date to ISO timestamp
         ;;add the date of posting to the post. otherwise edits will change it
