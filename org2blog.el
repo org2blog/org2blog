@@ -262,6 +262,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
   (interactive)
   (setq org2blog/wp-server-pass (read-passwd "Weblog password? ")))
 
+;;;###autoload
 (defun org2blog/wp-login()
   "Logs into the blog. Initializes the internal data structures."
   (interactive)

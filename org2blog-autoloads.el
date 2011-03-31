@@ -1,8 +1,8 @@
 
 ;;;### (autoloads (org2blog/wp-preview-subtree-post org2blog/wp-preview-buffer-post
 ;;;;;;  org2blog/wp-mark-subtree-as-draft org2blog/wp-post-subtree
-;;;;;;  org2blog/wp-new-entry org2blog/wp-mode) "org2blog" "org2blog.el"
-;;;;;;  (19813 43966))
+;;;;;;  org2blog/wp-new-entry org2blog/wp-login org2blog/wp-mode)
+;;;;;;  "org2blog" "org2blog.el" (19859 17639))
 ;;; Generated autoloads from org2blog.el
 
 (autoload 'org2blog/wp-mode "org2blog" "\
@@ -17,6 +17,11 @@ Commands:
 Entry to this mode calls the value of `org2blog/wp-mode-hook'.
 
 \(fn &optional ARG)" t nil)
+
+(autoload 'org2blog/wp-login "org2blog" "\
+Logs into the blog. Initializes the internal data structures.
+
+\(fn)" t nil)
 
 (autoload 'org2blog/wp-new-entry "org2blog" "\
 Creates a new blog entry.
