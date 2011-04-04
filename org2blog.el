@@ -794,11 +794,14 @@ use absolute path or set org-directory")
             (save-excursion
               (save-restriction
                 (widen)
+                (goto-char (point-min))
+                (show-all)
                 (setq p (org-find-exact-headline-in-buffer headline))
                 (if p
                     (progn (goto-char p) (org-narrow-to-subtree) (end-of-line))
                   (goto-char (point-max))
-                  (if (y-or-n-p (format "No heading - %s. Create?" headline))
+                  (if (y-or-n-p (format "Heading '%s' not in '%s'; Create?" 
+                                        headline log-file))
                       (progn (org-insert-heading t) (insert headline)
                              (org-narrow-to-subtree))))
                 (if (search-forward o2b-id nil t 1)
