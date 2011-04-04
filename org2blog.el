@@ -883,11 +883,18 @@ use absolute path or set org-directory")
       (widen))))
 
 ;;;###autoload
-(defun org2blog/wp-mark-subtree-as-draft ()
-  "Post the current subtree as a draft. Saves details in tracking file."
+(defun org2blog/wp-mark-buffer-as-draft ()
+  "Save details of current buffer in the tracking file."
   (interactive)
-  (unless org2blog/wp-logged-in 
-    (org2blog/wp-login))
+  (save-restriction
+    (save-excursion
+      (widen)
+      (org2blog/wp-save-details (org2blog/wp-parse-entry) "" nil))))
+
+;;;###autoload
+(defun org2blog/wp-mark-subtree-as-draft ()
+  "Save details of current subtree in the tracking file."
+  (interactive)
   (save-restriction
     (save-excursion
       (org-narrow-to-subtree)
