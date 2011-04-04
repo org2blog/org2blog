@@ -772,7 +772,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
               (car (plist-get (cdr org2blog/wp-blog) :track-posts))
             (car org2blog/wp-track-posts))
       (let* ((o2b-id (if (cdr (assoc "subtree" post))
-                         (concat "id:" (org-id-get nil))
+                         (concat "id:" (org-id-get nil t))
                        (buffer-file-name)))
              (log-file (if (plist-member (cdr org2blog/wp-blog) :track-posts)
                            (car (plist-get (cdr org2blog/wp-blog) :track-posts))
