@@ -70,6 +70,7 @@ title of the post, post contents, list of categories, and date respectively."
 	(post-categories (cdr (assoc "categories" content)))
 	(post-tags (cdr (assoc "tags" content)))
 	(post-excerpt (cdr (assoc "excerpt" content)))
+        (post-permalink (cdr (assoc "permalink" content)))
 	(post-date (cdr (assoc "date" content))))
   ;;; since xml-rpc-method-call entitifies the HTML text in the post
   ;;; we've to use raw
@@ -94,6 +95,9 @@ title of the post, post contents, list of categories, and date respectively."
 				 (member nil
 					 (name nil "mt_excerpt")
 					 (value nil ,post-excerpt))
+                                 (member nil
+					 (name nil "wp_slug")
+					 (value nil ,post-permalink))
 				 (member nil
 					 (name nil "dateCreated")
 					 (dateTime.iso8601 nil ,post-date))
@@ -134,6 +138,7 @@ title of the post, post contents, list of categories, and date respectively."
 	(post-categories (cdr (assoc "categories" content)))
 	(post-tags (cdr (assoc "tags" content)))
 	(post-excerpt (cdr (assoc "excerpt" content)))
+        (post-permalink (cdr (assoc "permalink" content)))
         (post-parent (cdr (assoc "parent" content)))        
 	(post-date (cdr (assoc "date" content))))
   ;;; since xml-rpc-method-call entitifies the HTML text in the post
@@ -159,6 +164,9 @@ title of the post, post contents, list of categories, and date respectively."
 				 (member nil
 					 (name nil "mt_excerpt")
 					 (value nil ,post-excerpt))
+                                 (member nil
+					 (name nil "wp_slug")
+					 (value nil ,post-permalink))
                                  (member nil
 					 (name nil "wp_page_parent_id")
 					 (value nil ,post-parent))
@@ -203,6 +211,7 @@ contents, list of categories, and date respectively."
 	(post-categories (cdr (assoc "categories" content)))
 	(post-tags (cdr (assoc "tags" content)))
 	(post-excerpt (cdr (assoc "excerpt" content)))
+        (post-permalink (cdr (assoc "permalink" content)))
         (post-parent (cdr (assoc "parent" content)))
 	(post-date (cdr (assoc "date" content))))
     (message post-date)
@@ -231,6 +240,9 @@ contents, list of categories, and date respectively."
                                     (member nil
                                             (name nil "mt_excerpt")
                                             (value nil ,post-excerpt))
+                                    (member nil
+					 (name nil "wp_slug")
+					 (value nil ,post-permalink))
                                     (member nil
                                             (name nil "wp_page_parent_id")
                                             (value nil ,post-parent))
@@ -274,6 +286,7 @@ title of the post, post contents, list of categories, and date respectively."
 	(post-categories (cdr (assoc "categories" content)))
 	(post-tags (cdr (assoc "tags" content)))
 	(post-excerpt (cdr (assoc "excerpt" content)))
+        (post-permalink (cdr (assoc "permalink" content)))
 	(post-date (cdr (assoc "date" content))))
     (message post-date)
   ;;; since xml-rpc-method-call entitifies the HTML text in the post
@@ -299,6 +312,9 @@ title of the post, post contents, list of categories, and date respectively."
 				 (member nil
 					 (name nil "mt_excerpt")
 					 (value nil ,post-excerpt))
+                                 (member nil
+					 (name nil "wp_slug")
+					 (value nil ,post-permalink))
 				 (member nil
 				 	 (name nil "dateCreated")
 				 	 (dateTime.iso8601 nil ,post-date))
@@ -328,7 +344,7 @@ title of the post, post contents, list of categories, and date respectively."
 							post-categories)))))))))
 	      (param nil (value nil (boolean nil ,(if publish "1" "0")))))))))))
 
-(defun metaweblog-get-post(blog-xmlrpc user-name password post-id)
+(defun metaweblog-get-post (blog-xmlrpc user-name password post-id)
   "Retrieves a post from the weblog. POST-ID is the id of the post
 which is to be returned"
   (xml-rpc-method-call blog-xmlrpc

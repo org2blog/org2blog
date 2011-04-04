@@ -94,6 +94,7 @@
        Completion (for both) is triggered using *C-c t*.  If a new
        category is used you will be prompted before adding it.  
      - The excerpt for a post can be written as =#+DESCRIPTION=.
+     - The Permalink of a post can be set using =#+PERMALINK=.
      - The parent for a page can be specified using =#+PARENT=.\\ *C-c
        t* again provides completion for the page name.
 

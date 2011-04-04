@@ -555,6 +555,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
               (setq post-title (or (org-entry-get (point) "Title")
                                    (nth 4 (org-heading-components))))
               (setq excerpt (org-entry-get (point) "DESCRIPTION"))
+              (setq permalink (org-entry-get (point) "PERMALINK"))
               (setq post-id (org-entry-get (point) "POST_ID"))
               ;; Set post-date to the Post Date property or look for timestamp
               (setq post-date (or (org-entry-get (point) "POST_DATE")
@@ -568,6 +569,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
           (setq post-title (or (plist-get (org-infile-export-plist) :title) 
                                "No Title"))
           (setq excerpt (plist-get (org-infile-export-plist) :description))
+          (setq permalink (org2blog/wp-get-option "PERMALINK"))
           (setq post-id (org2blog/wp-get-option "POSTID"))
           (setq post-par (org2blog/wp-get-post-parent))
           (setq post-date (plist-get (org-infile-export-plist) :date))
@@ -627,6 +629,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
      (cons "post-id" post-id)
      (cons "parent" post-par)
      (cons "excerpt" (org-html-do-expand (or excerpt "")))
+     (cons "permalink" (or permalink ""))
      (cons "description" html-text))))
 
 
