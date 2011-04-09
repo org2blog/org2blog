@@ -61,7 +61,23 @@
     
     This defines two blogs identified by the terms =wordpress= and
     =my-blog=.
+
+    You can also use =.netrc= file to save your usernames and
+    passwords. 
     
+    Your =.netrc= should look like this
+    
+    : machine myblog login myusername password myrealpassword
+    
+    Then, use these details, as shown below. 
+    
+    : (setq blog (netrc-machine (netrc-parse "~/.netrc") "myblog" t))
+    : (setq org2blog/wp-blog-alist
+    :       '(("my-blog"             
+    :          :url "http://username.server.com/xmlrpc.php"
+    :          :username (netrc-get blog "login")
+    :          :password (netrc-get blog "password"))))
+
     The variables in the =plist= set for each blog over-ride the
     global values of the corresponding variables. =url= and =username=
     are mandatory variables. Others are optional. If you customize the

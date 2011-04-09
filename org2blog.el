@@ -272,11 +272,11 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
                                                       org2blog/wp-blog-alist))
           org2blog/wp-blog (assoc org2blog/wp-blog-name org2blog/wp-blog-alist)
           org2blog/wp-server-xmlrpc-url (plist-get (cdr org2blog/wp-blog) :url)
-          org2blog/wp-server-userid (plist-get (cdr org2blog/wp-blog) :username)
+          org2blog/wp-server-userid (eval (plist-get (cdr org2blog/wp-blog) :username))
           org2blog/wp-server-blogid (or (plist-get (cdr org2blog/wp-blog) :id) "1")
           org2blog/wp-server-pass (or 
-                                (plist-get (cdr org2blog/wp-blog) :password)
-                                (read-passwd "Weblog password? "))
+                                   (eval (plist-get (cdr org2blog/wp-blog) :password))
+                                   (read-passwd "Weblog password? "))
           org2blog/wp-categories-list
 	  (mapcar (lambda (category) (cdr (assoc "categoryName" category)))
 		  (metaweblog-get-categories org2blog/wp-server-xmlrpc-url
