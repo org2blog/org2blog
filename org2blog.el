@@ -556,7 +556,8 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
                                    (nth 4 (org-heading-components))))
               (setq excerpt (org-entry-get (point) "DESCRIPTION"))
               (setq permalink (org-entry-get (point) "PERMALINK"))
-              (setq post-id (org-entry-get (point) "POST_ID"))
+              (setq post-id (or (org-entry-get (point) "POSTID") 
+                                (org-entry-get (point) "POST_ID")))
               ;; Set post-date to the Post Date property or look for timestamp
               (setq post-date (or (org-entry-get (point) "POST_DATE")
                                   (org-entry-get (point) "SCHEDULED")
@@ -564,8 +565,10 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
                                   (org-entry-get (point) "TIMESTAMP_IA")
                                   (org-entry-get (point) "TIMESTAMP")))
               (setq tags (mapcar 'org-no-properties (org-get-tags-at (point) nil)))
-              (setq categories (org-split-string 
-                                (or (org-entry-get (point) "CATEGORY") "") ":")))
+              (setq categories (org-entry-get (point) "CATEGORY"))
+              (setq categories (if categories
+                                   (split-string categories "\\( *, *\\)" t) 
+                                 "")))
           (setq post-title (or (plist-get (org-infile-export-plist) :title) 
                                "No Title"))
           (setq excerpt (plist-get (org-infile-export-plist) :description))
@@ -672,7 +675,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
                                              post
                                              publish))
           (if (cdr (assoc "subtree" post))
-              (org-entry-put (point) "POST_ID" post-id)
+              (org-entry-put (point) "POSTID" post-id)
             (goto-char (point-min))
             (insert (concat "#+POSTID: " post-id "\n"))))
         (org2blog/wp-save-details post post-id publish)
@@ -730,7 +733,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
 					 org2blog/wp-server-pass
 					 org2blog/wp-server-blogid)))
           (if (cdr (assoc "subtree" post))
-              (org-entry-put (point) "POST_ID" post-id)
+              (org-entry-put (point) "POSTID" post-id)
             (goto-char (point-min))
             (insert (concat "#+POSTID: " post-id "\n"))))
         (org2blog/wp-save-details post post-id publish)
@@ -820,7 +823,7 @@ use absolute path or set org-directory")
                       o2b-id
                     (concat "file:" o2b-id))
                   (cdr (assoc "title" post))))
-  (org-entry-put (point) "POST_ID" (or pid ""))
+  (org-entry-put (point) "POSTID" (or pid ""))
   (org-entry-put (point) "POST_DATE" (cdr (assoc "date" post)))
   (org-entry-put (point) "Published" (if pub "Yes" "No")))
 
@@ -921,7 +924,8 @@ use absolute path or set org-directory")
   (interactive)
   (unless org2blog/wp-logged-in 
     (org2blog/wp-login))
-  (let* ((postid (org-entry-get (point) "POST_ID"))
+  (let* ((postid (or (org-entry-get (point) "POSTID")
+                     (org-entry-get (point) "POST_ID")))
          (url org2blog/wp-server-xmlrpc-url))
     (if (not postid)
         (message "This subtree hasn't been posted, yet.")
