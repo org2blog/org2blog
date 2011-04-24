@@ -383,16 +383,14 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
       (if (re-search-forward r nil t 1)
           (match-string-no-properties 2)))))
 
-(defun org2blog/wp-get-post-parent ()
+(defun org2blog/wp-get-post-parent (post-par)
   "Gets the post's parent from a buffer."
-  (let* ((post-par (org2blog/wp-get-option "PARENT")))
-    (when post-par
-      (setq post-par (cdr (assoc 
-                           (car (split-string post-par "\\( *, *\\)" t))
-                           org2blog/wp-pages-list))))
-    (unless post-par
-      (setq post-par "0"))
-  post-par))
+  (if post-par
+      (or (cdr (assoc 
+            (car (split-string post-par "\\( *, *\\)" t))
+            org2blog/wp-pages-list))
+          "0")
+    "0"))
 
 (defun org2blog/wp-strip-new-lines (html)
   "Strip the new lines from the html, except in pre and blockquote tags."
@@ -552,12 +550,14 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
         (setq narrow-p (not (equal (- (point-max) (point-min)) (buffer-size))))
         (if narrow-p
             (progn
-              (setq post-title (or (org-entry-get (point) "Title")
+              (setq post-title (or (org-entry-get (point) "TITLE")
                                    (nth 4 (org-heading-components))))
               (setq excerpt (org-entry-get (point) "DESCRIPTION"))
               (setq permalink (org-entry-get (point) "PERMALINK"))
               (setq post-id (or (org-entry-get (point) "POSTID") 
                                 (org-entry-get (point) "POST_ID")))
+              (setq post-par (org2blog/wp-get-post-parent 
+                              (org-entry-get (point) "PARENT")))
               ;; Set post-date to the Post Date property or look for timestamp
               (setq post-date (or (org-entry-get (point) "POST_DATE")
                                   (org-entry-get (point) "SCHEDULED")
@@ -574,7 +574,8 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
           (setq excerpt (plist-get (org-infile-export-plist) :description))
           (setq permalink (org2blog/wp-get-option "PERMALINK"))
           (setq post-id (org2blog/wp-get-option "POSTID"))
-          (setq post-par (org2blog/wp-get-post-parent))
+          (setq post-par (org2blog/wp-get-post-parent 
+                          (org2blog/wp-get-option "PARENT")))
           (setq post-date (plist-get (org-infile-export-plist) :date))
           (setq tags (org2blog/wp-get-option "TAGS"))
           (setq tags (if tags (split-string tags "\\( *, *\\)" t) ""))
