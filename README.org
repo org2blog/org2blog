@@ -40,8 +40,8 @@
 *** Defining your blog setup
     
     *Note* - This setup works only for org2blog version >=0.3. For
-     lower versions of org2blog check an README from the commit
-     e37126eec24ffdd785d2 
+     lower versions of org2blog check the README from the commit
+     e37126e
    
     You can (should) tell org2blog where your blogs are and optionally
     specify different values for some options. This is done by
@@ -60,7 +60,13 @@
     :          :username "admin")))
     
     This defines two blogs identified by the terms =wordpress= and
-    =my-blog=.
+    =my-blog=. 
+
+    The variables in the =plist= set for each blog over-ride the
+    global values of the corresponding variables. =url= and =username=
+    are mandatory variables. Others are optional. If you customize the
+    variable =org2blog/wp-blog-alist= there is detail information about the
+    meaning of each property.
 
     You can also use =.netrc= file to save your usernames and
     passwords. 
@@ -78,14 +84,9 @@
     :          :username (netrc-get blog "login")
     :          :password (netrc-get blog "password"))))
 
-    The variables in the =plist= set for each blog over-ride the
-    global values of the corresponding variables. =url= and =username=
-    are mandatory variables. Others are optional. If you customize the
-    variable =org2blog/wp-blog-alist= there is detail information about the
-    meaning of each property.
 
     If you use only categories, set the org2blog/wp-use-tags-as-categories
-    variable. 
+    variable or set the per-blog variable. 
 
     : (setq org2blog/wp-use-tags-as-categories t)
 
@@ -111,7 +112,7 @@
        category is used you will be prompted before adding it.  
      - The excerpt for a post can be written as =#+DESCRIPTION=.
      - The Permalink of a post can be set using =#+PERMALINK=.
-     - The parent for a page can be specified using =#+PARENT=.\\ *C-c
+     - The parent for a page can be specified using =#+PARENT=.  *C-c
        t* again provides completion for the page name.
 
 *** Publishing 
@@ -129,16 +130,24 @@
     
 *** Posting a subtree
     - Use *M-x   org2blog/wp-post-subtree*.
-    - Tags of the subtree will be used for tags. Other properties can
-      be set using a property drawer.
-
+    - Tags of the subtree will be used for tags.
+    - Other properties can be set using a property drawer.  The
+      properties use the same names as the buffer variables.
+    - =POST_DATE= sets the date to be used for the post. If it is not
+      present, =SCHEDULED=, =DEADLINE= or any other active or inactive
+      time-stamps are used.
+    - The headline is used as the title of the post. But, =TITLE= can
+      be used to use a different title. 
 *** Delete an entry or a page
     - If you are in the buffer of the entry/page, with =#+POSTID=
-      present on the page, use :\\
-        *M-x org2blog/wp-delete-entry* or *M-x  org2blog/wp-delete-page*
-    - If you want to delete a particular post (whose post-id is
-        known) from any buffer, use\\ 
-        *C-u post-id   M-x org2blog/wp-delete-entry*.  
+      present on the page, use:
+
+      *M-x org2blog/wp-delete-entry* or *M-x  org2blog/wp-delete-page*
+
+    - If you want to delete a particular post (whose post-id is known)
+      from any buffer, use
+
+      *C-u post-id M-x org2blog/wp-delete-entry*.
       
     Similarly, for a page.
 
