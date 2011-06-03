@@ -372,7 +372,8 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
                                                                file-name file-web-url)))))))
       (dolist (image file-all-urls)
         (setq text (replace-regexp-in-string 
-                         (regexp-quote (car image)) (cdr image) text))))
+                         (concat "\\(file://\\)*" (regexp-quote (car image)))
+                         (cdr image) text))))
     text))
 
 (defun org2blog/wp-get-option (opt)
