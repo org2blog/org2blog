@@ -85,18 +85,10 @@
     :          :password (netrc-get blog "password"))))
 
 
-    If you use only categories, set the org2blog/wp-use-tags-as-categories
-    variable or set the per-blog variable. 
-
-    : (setq org2blog/wp-use-tags-as-categories t)
-
-    If you wish to be asked for confirmation before publishing a post,
-    set the variable =org2blog/wp-confirm-post=. 
-   
     To browse or customize other variables use the customize group
     function.
 
-    : M-x customize-group org2blog RET
+    : M-x customize-group org2blog/wp RET
 
 *** Logging In 
     Use *M-x org2blog/wp-login*.  This function ask you for the name of one
@@ -191,5 +183,56 @@
 
   6. The [[http://www.doclear.net/][Dotclear]] weblog engine [[https://github.com/punchagan/org2blog/issues/issue/37][also works]] with org2blog
      
+* FAQ
+  - How many blogs can I configure with org2blog?
+    
+    You can configure and use any number of blogs with org2blog/wp.
+    Use the ~org2blog/wp-blog-alist~ variable to configure each blog.
+    Look at the [[Defining your blog setup]] section, in the README.  But,
+    note that you can be logged in, to just one blog at a time. 
 
+  - How do I change the default title of a new post?
+
+    : (setq org2blog/wp-default-title "My New Title")
+
+  - How do I change the default title for one blog alone?
+    
+    Set the relevant (~:default-title~) variable in the
+    ~org2blog/wp-blog-alist~ variable.
+
+  - I donot use tags. I wish to use them as categories. How?
+
+    Setting the ~org2blog/wp-use-tags-as-categories~ variable will do
+    that for all the blogs. 
+
+    : (setq org2blog/wp-use-tags-as-categories t)
+
+    Instead, you can set the corresponding variable for each blog that
+    you are using.
+
+  - Can I configure org2blog to confirm before publishing a post? 
+
+    : (setq org2blog/wp-confirm-post t)
+
+  - I wish to customize the default template of a new post. How do I
+    do it? 
+
+    Customize the variable =org2blog/wp-buffer-template=.
+
+  - New-lines are not handled properly. Why?
+
+    The behaviour of new-lines has been working since a little before
+    version 0.3.  It is highly recommended that you use the latest git
+    version of org2blog. 
+
+    By default, new lines are stripped off from the org buffer.  To
+    retain new-lines, unset the =org2blog/wp-keep-new-lines=
+    variable.
+
+  - Why aren't my SRC blocks not enclosed in =[sourcecode]
+    [/sourcecode]=  block?
+
+    Set the =org2blog/wp-use-sourcecode-shortcode= variable to turn on
+    this behaviour.  You may also set it at a per-blog level, if you
+    choose. 
 
