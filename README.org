@@ -170,19 +170,18 @@
 
      2. [[http://github.com/rileyrg/org-googlecl][org-googlecl]] by Richard Riley -- uses [[http://code.google.com/p/googlecl/][googlecl]]
 
-  3. If you have an issue/bug/feature request, use the issue tracker
-     on git or drop a mail to punchagan+org2blog[at]gmail[dot]com.  
+  3. Please go through the README and the FAQ, before writing to me.
+     Also, looking at =M-x customize-group org2blog-wp= might help.
 
-  4. If you haven't found a bug/issue, but have tried out and/or are
-     using org2blog to post to your blog, post me a line on how you
-     use it and on what blog. I'd love to hear from you!
+  4. If you have an issue/bug/feature request, use the issue tracker
+     on git or drop a mail to punchagan+org2blog[at]gmail[dot]com.
+     I'd also appreciate patches/suggestions to improve the
+     documentation.  Feel free to drop in with general comments, too.
+     I'd love to hear from you!
 
-  5. Now, that org2blog does have a bunch of users, I'd like to keep
-     track of the blogs it's being used on. :) Feel free to add your
-     site to the list of sites using org2blog, on the [[https://github.com/punchagan/org2blog/wiki/Blogs-using-org2blog][wiki]] at github.
+  5. Feel free to add your site to the list of sites using org2blog,
+     on the [[https://github.com/punchagan/org2blog/wiki/Blogs-using-org2blog][wiki]] at github.
 
-  6. The [[http://www.doclear.net/][Dotclear]] weblog engine [[https://github.com/punchagan/org2blog/issues/issue/37][also works]] with org2blog
-     
 * FAQ
   - How many blogs can I configure with org2blog?
     
@@ -234,5 +233,12 @@
 
     Set the =org2blog/wp-use-sourcecode-shortcode= variable to turn on
     this behaviour.  You may also set it at a per-blog level, if you
-    choose. 
+    choose.
 
+  - Is wordpress the only CMS/Blog-engine that org2blog/wp supports?
+
+    Any blog engine using the metaweblog API should work,
+    theoretically.  But, it is not tested with other blog engines. 
+
+    One happy user reports that org2blog [[https://github.com/punchagan/org2blog/issues/issue/37][also works]] with the [[http://www.doclear.net/][Dotclear]]
+    weblog engine. 
