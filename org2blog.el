@@ -659,7 +659,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
             post-id)
         (org2blog/wp-create-categories (cdr (assoc "categories" post)))
         (setq post-id (cdr (assoc "post-id" post)))
-        (unless (not confirm)
+        (when confirm
           (if (not (y-or-n-p (format "Publish %s ?" 
                                      (cdr (assoc "title" post)))))
               (error "Post cancelled.")))
@@ -705,10 +705,15 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
     (save-restriction
       (widen)
       (let ((post (org2blog/wp-parse-entry))
+            (confirm (and 
+                     (if (plist-member (cdr org2blog/wp-blog) :confirm)
+                        (plist-member (cdr org2blog/wp-blog) :confirm)
+                      org2blog/wp-confirm-post) 
+                     publish))
             post-id)
         (org2blog/wp-create-categories (cdr (assoc "categories" post)))
         (setq post-id (cdr (assoc "post-id" post)))
-        (unless (not (and org2blog/wp-confirm-post publish))
+        (when confirm 
           (if (not (y-or-n-p (format "Publish %s ?" 
                                      (cdr (assoc "title" post)))))
               (error "Post cancelled.")))
