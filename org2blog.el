@@ -83,6 +83,7 @@ All the other properties are optional. They over-ride the global variables.
                            (\"category1\" \"category2\" ...)
   :tags-as-categories      `org2blog/wp-use-tags-as-categories'
   :confirm                 `org2blog/wp-confirm-post'
+  :show                    `org2blog/wp-show-post-in-browser'
   :keep-new-lines          `org2blog/wp-keep-new-lines'
   :wp-latex                `org2blog/wp-use-wp-latex'
   :wp-code                 `org2blog/wp-use-sourcecode-shortcode'
@@ -120,6 +121,15 @@ All the other properties are optional. They over-ride the global variables.
 
 (defcustom org2blog/wp-confirm-post nil
   "Non-nil means confirm before Publishing a post."
+  :group 'org2blog/wp
+  :type 'boolean)
+
+(defcustom org2blog/wp-show-post-in-browser 'ask
+  "A variable to configure if you want to view your post/draft in
+the browser.  Setting it to 'ask will prompt you before opening
+it in the browser.  Setting it to 'show will show it without
+prompting.  Set it to nil, to turn off viewing posts in the
+browser."
   :group 'org2blog/wp
   :type 'boolean)
 
@@ -656,6 +666,8 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
                         (plist-member (cdr org2blog/wp-blog) :confirm)
                       org2blog/wp-confirm-post) 
                      publish))
+            (show (or (plist-member (cdr org2blog/wp-blog) :show)
+                      org2blog/wp-show-post-in-browser))
             post-id)
         (org2blog/wp-create-categories (cdr (assoc "categories" post)))
         (setq post-id (cdr (assoc "post-id" post)))
@@ -686,10 +698,15 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
                    "Draft (%s): %s")
                  post-id
                  (cdr (assoc "title" post)))
-        (when (y-or-n-p "[For drafts, ensure you login] View in browser? y/n")
+        (when (or (equal show 'show)
+                  (and 
+                   (equal show 'ask)
+                   (y-or-n-p 
+                    "[For drafts, ensure you login] View in browser? y/n")))
           (if (cdr (assoc "subtree" post))
               (org2blog/wp-preview-subtree-post)
             (org2blog/wp-preview-buffer-post)))))))
+        
 
 (defun org2blog/wp-post-buffer-as-page-and-publish ()
   "Alias to post buffer and mark it as published"
@@ -710,6 +727,8 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
                         (plist-member (cdr org2blog/wp-blog) :confirm)
                       org2blog/wp-confirm-post) 
                      publish))
+            (show (or (plist-member (cdr org2blog/wp-blog) :show)
+                      org2blog/wp-show-post-in-browser))
             post-id)
         (org2blog/wp-create-categories (cdr (assoc "categories" post)))
         (setq post-id (cdr (assoc "post-id" post)))
@@ -748,7 +767,15 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
                      "Published (%s): %s"
                    "Draft (%s): %s")
                  post-id
-                 (cdr (assoc "title" post)))))))
+                 (cdr (assoc "title" post)))
+        (when (or (equal show 'show)
+                  (and 
+                   (equal show 'ask)
+                   (y-or-n-p 
+                    "[For drafts, ensure you login] View in browser? y/n")))
+          (if (cdr (assoc "subtree" post))
+              (org2blog/wp-preview-subtree-post)
+            (org2blog/wp-preview-buffer-post)))))))
 
 (defun org2blog/wp-delete-entry (&optional post-id)
   (interactive "P")
