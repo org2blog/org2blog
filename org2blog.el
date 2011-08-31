@@ -470,18 +470,18 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
                                          (substring (match-string 0) 2 -2)
                                          "$") nil t))
                  ((equal m "\\[")
-                  (replace-match (concat "$latex \\displaystyle "
+                  (replace-match (concat "<p style=\"text-align:center\"> $latex \\displaystyle "
                                          (substring (match-string 0) 2 -2)
-                                         "$") nil t))
+                                         "$ </p>") nil t))
                  ((equal m "$$")
-                  (replace-match (concat "$latex \\displaystyle "
+                  (replace-match (concat "<p style=\"text-align:center\"> $latex \\displaystyle "
                                          (substring (match-string 0) 2 -2)
-                                         "$") nil t))
+                                         "$ </p>") nil t))
                  ((equal m "begin")
                   (if (equal (match-string 2) "equation")
-                      (replace-match (concat "$latex \\displaystyle "
+                      (replace-match (concat "<p style=\"text-align:center\"> $latex \\displaystyle "
                                              (substring (match-string 1) 16 -14)
-                                             "$") nil t)))))))))
+                                             "$ </p>") nil t)))))))))
       (buffer-substring-no-properties (point-min) (point-max)))))
 
 (defun org2blog/wp-replace-pre (html)
