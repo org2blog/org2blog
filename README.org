@@ -6,13 +6,13 @@
 * Overview
   org2blog/wp is a tool to publish directly from Emacs' org-mode to
   [[http://wordpress.org/][WordPress]] blogs.  org2blog/wp is one of the two packages named
-  org2blog.  The other is [[http://repo.or.cz/r/org2blog.git/][org2blog/atom]] by [[http://tehom-blog.blogspot.com/][Tom Breton]]. 
+  org2blog.  The other is [[http://repo.or.cz/r/org2blog.git/][org2blog/atom]] by [[http://tehom-blog.blogspot.com/][Tom Breton]].
 
   org2blog/wp should, /ideally/, work with any platform that supports
   xml-rpc but some of wordpress specific features may not work.
 
   org2blog was inspired by and based on a [[http://paste.lisp.org/display/69993][wordpress posting client for
-  muse-mode]] written by [[http://www.emacswiki.org/emacs/AshishShukla][Ashish Shukla]].  
+  muse-mode]] written by [[http://www.emacswiki.org/emacs/AshishShukla][Ashish Shukla]].
 
   org2blog is licensed under GPLv3
 
@@ -21,28 +21,28 @@
   Download org2blog from github
 
   : git clone http://github.com/punchagan/org2blog.git
-  
+
   Add the org2blog directory to your load path and then add
 
   : (setq load-path (cons "~/.emacs.d/org2blog/" load-path))
   : (require 'org2blog-autoloads)
 
-  to your dot emacs.  
+  to your dot emacs.
 
 *** Dependencies
     1. org2blog depends on /xml-rpc/ available at [[http://launchpad.net/xml-rpc-el][Launchpad]].  Add it
        to your /load-path/ before using org2blog.
 
     2. Make sure you have the latest org-mode installed. org2blog may
-       not work with older versions of org. 
-       
+       not work with older versions of org.
+
 * Usage
 *** Defining your blog setup
-    
+
     *Note* - This setup works only for org2blog version >=0.3. For
      lower versions of org2blog check the README from the commit
      e37126e
-   
+
     You can (should) tell org2blog where your blogs are and optionally
     specify different values for some options. This is done by
     customising the variable =org2blog/wp-blog-alist=.
@@ -51,16 +51,16 @@
     : (setq org2blog/wp-blog-alist
     :       '(("wordpress"
     :          :url "http://username.wordpress.com/xmlrpc.php"
-    :          :username "username"   
+    :          :username "username"
     :          :default-title "Hello World"
     :          :default-categories ("org2blog" "emacs")
     :          :tags-as-categories nil)
-    :         ("my-blog"             
+    :         ("my-blog"
     :          :url "http://username.server.com/xmlrpc.php"
     :          :username "admin")))
-    
+
     This defines two blogs identified by the terms =wordpress= and
-    =my-blog=. 
+    =my-blog=.
 
     The variables in the =plist= set for each blog over-ride the
     global values of the corresponding variables. =url= and =username=
@@ -69,17 +69,17 @@
     meaning of each property.
 
     You can also use =.netrc= file to save your usernames and
-    passwords. 
-    
+    passwords.
+
     Your =.netrc= should look like this
-    
+
     : machine myblog login myusername password myrealpassword
-    
-    Then, use these details, as shown below. 
-    
+
+    Then, use these details, as shown below.
+
     : (setq blog (netrc-machine (netrc-parse "~/.netrc") "myblog" t))
     : (setq org2blog/wp-blog-alist
-    :       '(("my-blog"             
+    :       '(("my-blog"
     :          :url "http://username.server.com/xmlrpc.php"
     :          :username (netrc-get blog "login")
     :          :password (netrc-get blog "password"))))
@@ -90,24 +90,24 @@
 
     : M-x customize-group org2blog/wp RET
 
-*** Logging In 
+*** Logging In
     Use *M-x org2blog/wp-login*.  This function ask you for the name of one
     of the blogs you have configured in the org2blog/wp-blog-alist
     variable described above and will ask for your password. The
     counterpart of this function is *M-x org2blog/wp-logout*, which will
     log you out of the active blog.
-     
-*** Writing a new post 
-    Use *M-x org2blog/wp-new-entry*. 
+
+*** Writing a new post
+    Use *M-x org2blog/wp-new-entry*.
      - Tags and Categories are comma or space separated values.
        Completion (for both) is triggered using *C-c t*.  If a new
-       category is used you will be prompted before adding it.  
+       category is used you will be prompted before adding it.
      - The excerpt for a post can be written as =#+DESCRIPTION=.
      - The Permalink of a post can be set using =#+PERMALINK=.
      - The parent for a page can be specified using =#+PARENT=.  *C-c
        t* again provides completion for the page name.
 
-*** Publishing 
+*** Publishing
     | post buffer as draft      | *C-c d* | *M-x     org2blog/wp-post-buffer*         |
     | publish buffer            | *C-c p* | *C-u M-x org2blog/wp-post-buffer*         |
     | post buffer as page draft | *C-c D* | *M-x     org2blog/wp-post-buffer-as-page* |
@@ -118,8 +118,8 @@
           =#+DESCRIPTION=, =#+DATE=, to your file.  (All of these are
       Optional)
     - Add a =#+POSTID= to edit an existing post.
-    - Post buffer using the function names, as above. 
-    
+    - Post buffer using the function names, as above.
+
 *** Posting a subtree
     - Use *M-x   org2blog/wp-post-subtree*.
     - Tags of the subtree will be used for tags.
@@ -129,7 +129,7 @@
       present, =SCHEDULED=, =DEADLINE= or any other active or inactive
       time-stamps are used.
     - The headline is used as the title of the post. But, =TITLE= can
-      be used to use a different title. 
+      be used to use a different title.
 *** Delete an entry or a page
     - If you are in the buffer of the entry/page, with =#+POSTID=
       present on the page, use:
@@ -140,11 +140,11 @@
       from any buffer, use
 
       *C-u post-id M-x org2blog/wp-delete-entry*.
-      
+
     Similarly, for a page.
 
 *** Enabling org2blog mode (defines key-bindings)
-    - use *M-x org2blog/wp-mode*.  
+    - use *M-x org2blog/wp-mode*.
       This defines the following the key-bindings:
       | *C-c p* | publish buffer                   |
       | *C-c d* | post as draft                    |
@@ -160,7 +160,7 @@
     comment to the post itself, to prevent repeated uploads, but this
     isn't as stable as I would like it.]
 
-* Miscellaneous 
+* Miscellaneous
   1. You may want to look at the [[http://orgmode.org/manual/Export-options.html#Export-options][Export options]] and [[http://orgmode.org/manual/HTML-export.html#HTML-export][HTML export]]
      sections of the org-manual.
 
@@ -184,37 +184,37 @@
 
 * FAQ
   - How many blogs can I configure with org2blog?
-    
+
     You can configure and use any number of blogs with org2blog/wp.
     Use the ~org2blog/wp-blog-alist~ variable to configure each blog.
     Look at the [[Defining your blog setup]] section, in the README.  But,
-    note that you can be logged in, to just one blog at a time. 
+    note that you can be logged in, to just one blog at a time.
 
   - How do I change the default title of a new post?
 
     : (setq org2blog/wp-default-title "My New Title")
 
   - How do I change the default title for one blog alone?
-    
+
     Set the relevant (~:default-title~) variable in the
     ~org2blog/wp-blog-alist~ variable.
 
   - I donot use tags. I wish to use them as categories. How?
 
     Setting the ~org2blog/wp-use-tags-as-categories~ variable will do
-    that for all the blogs. 
+    that for all the blogs.
 
     : (setq org2blog/wp-use-tags-as-categories t)
 
     Instead, you can set the corresponding variable for each blog that
     you are using.
 
-  - Can I configure org2blog to confirm before publishing a post? 
+  - Can I configure org2blog to confirm before publishing a post?
 
     : (setq org2blog/wp-confirm-post t)
 
   - I wish to customize the default template of a new post. How do I
-    do it? 
+    do it?
 
     Customize the variable =org2blog/wp-buffer-template=.
 
@@ -222,7 +222,7 @@
 
     The behaviour of new-lines has been working since a little before
     version 0.3.  It is highly recommended that you use the latest git
-    version of org2blog. 
+    version of org2blog.
 
     By default, new lines are stripped off from the org buffer.  To
     retain new-lines, unset the =org2blog/wp-keep-new-lines=
@@ -238,7 +238,7 @@
   - Is wordpress the only CMS/Blog-engine that org2blog/wp supports?
 
     Any blog engine using the metaweblog API should work,
-    theoretically.  But, it is not tested with other blog engines. 
+    theoretically.  But, it is not tested with other blog engines.
 
     One happy user reports that org2blog [[https://github.com/punchagan/org2blog/issues/issue/37][also works]] with the [[http://www.doclear.net/][Dotclear]]
-    weblog engine. 
+    weblog engine.

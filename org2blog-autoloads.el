@@ -7,8 +7,8 @@
 
 (autoload 'org2blog/wp-mode "org2blog" "\
 Toggle org2blog/wp mode.
-With no argument, the mode is toggled on/off.  
-Non-nil argument turns mode on. 
+With no argument, the mode is toggled on/off.
+Non-nil argument turns mode on.
 Nil argument turns mode off.
 
 Commands:
