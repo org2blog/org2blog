@@ -656,6 +656,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
 (defun org2blog/wp-post-buffer (&optional publish)
   "Posts new blog entry to the blog or edits an existing entry."
   (interactive "P")
+  (org2blog/wp-mode) ;; turn on org2blog-wp-mode
   (unless org2blog/wp-logged-in
     (org2blog/wp-login))
   (save-excursion
