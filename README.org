@@ -242,3 +242,10 @@
 
     One happy user reports that org2blog [[https://github.com/punchagan/org2blog/issues/issue/37][also works]] with the [[http://www.doclear.net/][Dotclear]]
     weblog engine.
+
+  - Is there a way to import from wordpress or other blogs into the
+    org2blog post format?
+
+    I've a simple [[https://github.com/punchagan/org2blog-importers/blob/master/wp_to_org2blog.py][python script]] that uses ~pandoc~ to convert from
+    Wordpress export xml to org2blog posts.  It could easily be
+    tweaked to write importers for other kinds of blogs.
