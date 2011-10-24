@@ -347,14 +347,17 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
                  org2blog/wp-default-title)))
     (org2blog/wp-mode)))
 
-(defun org2blog/wp-upload-images-replace-urls (text)
-  "Uploads images if any in the html, and changes their links"
+(defun org2blog/wp-upload-files-replace-urls (text)
+  "Uploads files, if any in the html, and changes their links"
   (let ((file-all-urls nil)
         file-name file-web-url beg
-        (image-regexp "<img src=\"\\(.*?\\)\""))
+        (file-regexp "<a href=\"\\(.?*\\)\"\\|<img src=\"\\(.*?\\)\""))
     (save-excursion
-      (while (string-match image-regexp text beg)
-        (setq file-name (substring text (match-beginning 1) (match-end 1)))
+      (while (string-match file-regexp text beg)
+        (setq file-name
+              (if (match-beginning 1)
+                  (substring text (match-beginning 1) (match-end 1))
+                (substring text (match-beginning 2) (match-end 2))))
         (setq file-name (save-match-data (if (string-match "^file:" file-name)
                                              (substring file-name 7)
                                            file-name)))
@@ -370,20 +373,22 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
                                       (or (end-of-line) (point))))
                 (setq file-web-url
                       (cdr (assoc "url"
-                                  (metaweblog-upload-image org2blog/wp-server-xmlrpc-url
-                                                           org2blog/wp-server-userid
-                                                           org2blog/wp-server-pass
-                                                           org2blog/wp-server-blogid
-                                                           (get-image-properties file-name)))))
+                                  (metaweblog-upload-file
+                                   org2blog/wp-server-xmlrpc-url
+                                   org2blog/wp-server-userid
+                                   org2blog/wp-server-pass
+                                   org2blog/wp-server-blogid
+                                   (get-file-properties file-name)))))
                 (goto-char (point-max))
                 (newline)
                 (insert (concat "#+" file-name " " file-web-url)))
-              (setq file-all-urls (append file-all-urls (list (cons
-                                                               file-name file-web-url)))))))
-      (dolist (image file-all-urls)
+              (setq file-all-urls
+                    (append file-all-urls (list (cons
+                                                 file-name file-web-url)))))))
+      (dolist (file file-all-urls)
         (setq text (replace-regexp-in-string
-                         (concat "\\(file://\\)*" (regexp-quote (car image)))
-                         (cdr image) text))))
+                    (concat "\\(file://\\)*" (regexp-quote (car file)))
+                    (cdr file) text))))
     text))
 
 (defun org2blog/wp-get-option (opt)
@@ -626,7 +631,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
                    (org-end-of-subtree)
                    t 'string)))
           (setq html-text (org-no-properties html-text)))
-        (setq html-text (org2blog/wp-upload-images-replace-urls html-text))
+        (setq html-text (org2blog/wp-upload-files-replace-urls html-text))
         (unless keep-new-lines
           (setq html-text (org2blog/wp-strip-new-lines html-text)))
         (when sourcecode-shortcode

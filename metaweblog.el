@@ -382,53 +382,56 @@ no. of posts that should be returned."
 		       password
 		       number-of-posts))
 
-(defun get-image-properties (file)
-"Gets the properties of an image file."
-  (let* (image-base64 type name)
+(defun get-file-properties (file)
+  "Gets the properties of a file."
+  (let* (base64-str type name)
     (save-excursion
       (save-restriction
 	(with-current-buffer
             (find-file-noselect file)
 	  (setq name (file-name-nondirectory file))
-	  (setq image-base64 (base64-encode-string (buffer-string)))
-	  (setq type (symbol-name (image-type file)))
+	  (setq base64-str (base64-encode-string (buffer-string)))
+	  (setq type (mailcap-extension-to-mime (file-name-extension file)))
           (kill-buffer)
-	  (setq fff-image `(("name" . ,name)
-			    ("bits" . ,image-base64)
-			    ("type" . ,(concat "image/" type)))))))
-  fff-image))
+	  (setq file-props `(("name" . ,name)
+                             ("bits" . ,base64-str)
+                             ("type" . ,type))))))
+    file-props))
 
-(defun metaweblog-upload-image (blog-xmlrpc user-name password blog-id image)
-  "Uploads an image to the blog. IMAGE will be an alist name, type, bits, as keys mapped to name of the image, mime type of the image, image data in base 64, respectively."
-  (let ((image-name (cdr (assoc "name" image)))
-	(image-type (cdr (assoc "type" image)))
-	(image-bits (cdr (assoc "bits" image))))
+(defun metaweblog-upload-file (blog-xmlrpc user-name password blog-id file)
+  "Uploads file to the blog. FILE will be an alist name, type,
+bits, as keys mapped to name of the file, mime type and the
+data."
+  (let ((file-name (cdr (assoc "name" file)))
+	(file-type (cdr (assoc "type" file)))
+	(file-bits (cdr (assoc "bits" file))))
 
-  (xml-rpc-xml-to-response (xml-rpc-request
-   blog-xmlrpc
-   `((methodCall
-      nil
-      (methodName nil "metaWeblog.newMediaObject")
-      (params nil
-	      (param nil (value nil (string nil ,blog-id)))
-	      (param nil (value nil (string nil ,user-name)))
-	      (param nil (value nil (string nil ,password)))
-	      (param nil (value nil
-				(struct
-				 nil
-				 (member nil
-					 (name nil "name")
-					 (value nil ,image-name))
-				 (member nil
-					 (name nil "bits")
-					 (base64 nil ,image-bits))
-				 (member nil
-					 (name nil "type")
-					 (value nil ,image-type))
-                                 (member nil
-					 (name nil "overwrite")
-					 (value nil "t")))))
-	      )))))))
+    (xml-rpc-xml-to-response
+     (xml-rpc-request
+      blog-xmlrpc
+      `((methodCall
+         nil
+         (methodName nil "metaWeblog.newMediaObject")
+         (params nil
+                 (param nil (value nil (string nil ,blog-id)))
+                 (param nil (value nil (string nil ,user-name)))
+                 (param nil (value nil (string nil ,password)))
+                 (param nil (value nil
+                                   (struct
+                                    nil
+                                    (member nil
+                                            (name nil "name")
+                                            (value nil ,file-name))
+                                    (member nil
+                                            (name nil "bits")
+                                            (base64 nil ,file-bits))
+                                    (member nil
+                                            (name nil "type")
+                                            (value nil ,file-type))
+                                    (member nil
+                                            (name nil "overwrite")
+                                            (value nil "t")))))
+                 )))))))
 
 
 (provide 'metaweblog)
