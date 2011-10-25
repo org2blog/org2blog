@@ -387,8 +387,8 @@ no. of posts that should be returned."
   (let* (base64-str type name)
     (save-excursion
       (save-restriction
-	(with-current-buffer
-            (find-file-noselect file)
+	(with-current-buffer (find-file-noselect file)
+          (fundamental-mode)
 	  (setq name (file-name-nondirectory file))
 	  (setq base64-str (base64-encode-string (buffer-string)))
 	  (setq type (mailcap-extension-to-mime (file-name-extension file)))
