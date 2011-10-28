@@ -107,6 +107,12 @@
      - The parent for a page can be specified using =#+PARENT=.  *C-c
        t* again provides completion for the page name.
 
+*** Updating an existing post
+    To update a blog post, you can simply edit the content of the org
+    file and republish using ~org2blog~.  The =POSTID= saved in the
+    file, ensures that the same blog post is updated, and a new post
+    is not made.
+
 *** Publishing
     | post buffer as draft      | *C-c d* | *M-x     org2blog/wp-post-buffer*         |
     | publish buffer            | *C-c p* | *C-u M-x org2blog/wp-post-buffer*         |
@@ -119,7 +125,6 @@
       Optional)
     - Add a =#+POSTID= to edit an existing post.
     - Post buffer using the function names, as above.
-
 *** Posting a subtree
     - Use *M-x   org2blog/wp-post-subtree*.
     - Tags of the subtree will be used for tags.
@@ -150,16 +155,21 @@
       | *C-c d* | post as draft                    |
       | *C-c t* | complete tag or parent page name |
 
-*** Uploading Images
-    In-line images and linked images with file:// urls (e.g.,
-    ~[[file:///path.to.jpeg]]~ or ~[[file:///path.to.jpeg][this is an image link]]~ will be uploaded to
-    the media library and the links will be updated. Captions and
-    attributes as [[http://orgmode.org/manual/Images-in-HTML-export.html][defined]] in org-mode will be preserved, but at
-    present these attributes are not saved with the image to the
-    library itself. [Information about uploaded files are added as a
-    comment to the post itself, to prevent repeated uploads, but this
-    isn't as stable as I would like it.]
+*** Uploading Images or Files
+    In-line images and linked images (or files) with file:// urls will
+    be uploaded to the media library and the links will be updated.
+    Information about uploaded files is added as a comment to the post
+    itself.
 
+    Captions and attributes as [[http://orgmode.org/manual/Images-in-HTML-export.html][defined]] in org-mode will be preserved,
+    but these attributes are not saved with the image to the library
+    itself.
+
+*** "Dashboard" of all posts
+    ~org2blog~ makes it easy to manage your blog-posts by actually
+    keeping track of all the posts you make from it, in a simple
+    org-table.  By default it is saved in a file ~.org2blog.org~ in
+    the ~org-directory~.  This is meant to be a dashboard of sorts.
 * Miscellaneous
   1. You may want to look at the [[http://orgmode.org/manual/Export-options.html#Export-options][Export options]] and [[http://orgmode.org/manual/HTML-export.html#HTML-export][HTML export]]
      sections of the org-manual.
