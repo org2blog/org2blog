@@ -169,7 +169,8 @@
     ~org2blog~ makes it easy to manage your blog-posts by actually
     keeping track of all the posts you make from it, in a simple
     org-table.  By default it is saved in a file ~.org2blog.org~ in
-    the ~org-directory~.  This is meant to be a dashboard of sorts.
+    the ~org-directory~.  This is meant to be a dashboard of sorts,
+    and is an optional feature that can be turned off.
 * Miscellaneous
   1. You may want to look at the [[http://orgmode.org/manual/Export-options.html#Export-options][Export options]] and [[http://orgmode.org/manual/HTML-export.html#HTML-export][HTML export]]
      sections of the org-manual.
