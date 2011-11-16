@@ -8,8 +8,9 @@
 ;; Copyright (C) 2011 Mykola Nikishov <mn@mn.com.ua>
 ;; Copyright (C) 2010 Matt Price <matt@roke.mercey.dyndns.org>
 
-
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
+;; Version: 0.4
+;; Keywords: orgmode, wordpress, blog
 
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
