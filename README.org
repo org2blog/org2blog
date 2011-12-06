@@ -48,16 +48,19 @@
     customising the variable =org2blog/wp-blog-alist=.
 
     For example:
-    : (setq org2blog/wp-blog-alist
-    :       '(("wordpress"
-    :          :url "http://username.wordpress.com/xmlrpc.php"
-    :          :username "username"
-    :          :default-title "Hello World"
-    :          :default-categories ("org2blog" "emacs")
-    :          :tags-as-categories nil)
-    :         ("my-blog"
-    :          :url "http://username.server.com/xmlrpc.php"
-    :          :username "admin")))
+
+    #+begin_src emacs-lisp
+      (setq org2blog/wp-blog-alist
+            '(("wordpress"
+               :url "http://username.wordpress.com/xmlrpc.php"
+               :username "username"
+               :default-title "Hello World"
+               :default-categories ("org2blog" "emacs")
+               :tags-as-categories nil)
+              ("my-blog"
+               :url "http://username.server.com/xmlrpc.php"
+               :username "admin")))
+    #+end_src
 
     This defines two blogs identified by the terms =wordpress= and
     =my-blog=.
@@ -77,13 +80,14 @@
 
     Then, use these details, as shown below.
 
-    : (setq blog (netrc-machine (netrc-parse "~/.netrc") "myblog" t))
-    : (setq org2blog/wp-blog-alist
-    :       '(("my-blog"
-    :          :url "http://username.server.com/xmlrpc.php"
-    :          :username (netrc-get blog "login")
-    :          :password (netrc-get blog "password"))))
-
+    #+begin_src emacs-lisp
+      (setq blog (netrc-machine (netrc-parse "~/.netrc") "myblog" t))
+      (setq org2blog/wp-blog-alist
+            '(("my-blog"
+               :url "http://username.server.com/xmlrpc.php"
+               :username (netrc-get blog "login")
+               :password (netrc-get blog "password"))))
+    #+end_src
 
     To browse or customize other variables use the customize group
     function.
