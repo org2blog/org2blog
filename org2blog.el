@@ -279,6 +279,8 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
   (interactive)
   (let ()
     (setq org2blog/wp-blog-name (completing-read "Blog ? "
+      (if (plist-get (cdr org2blog/wp-blog) :url)
+        (error "Bad URL. Check your configuration and verify blog name")
                                               (mapcar 'car
                                                       org2blog/wp-blog-alist))
           org2blog/wp-blog (assoc org2blog/wp-blog-name org2blog/wp-blog-alist)
@@ -309,7 +311,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
 				   org2blog/wp-server-pass
 				   org2blog/wp-server-blogid)))
     (setq org2blog/wp-logged-in t)
-    (message "Logged in")))
+    (message "Logged in"))))
 
 (defun org2blog/wp-logout()
   "Logs out from the blog and clears. Clears the internal data structures."
