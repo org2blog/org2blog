@@ -18,9 +18,11 @@
 
 * Installation
 
-  Download org2blog from github
+  Download org2blog from GitHub or Marmalade
 
   : git clone http://github.com/punchagan/org2blog.git
+
+  : http://marmalade-repo.org/packages/org2blog
 
   Add the org2blog directory to your load path and then add
 
@@ -33,8 +35,10 @@
     1. org2blog depends on /xml-rpc/ available at [[http://launchpad.net/xml-rpc-el][Launchpad]].  Add it
        to your /load-path/ before using org2blog.
 
-    2. Make sure you have the latest org-mode installed. org2blog may
-       not work with older versions of org.
+    2. Make sure you have the latest org-mode installed. It may work
+       with versions > 7, but it is best to have the latest org-mode
+       if you can.
+
 
 * Usage
 *** Defining your blog setup

@@ -277,10 +277,13 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
 (defun org2blog/wp-login()
   "Logs into the blog. Initializes the internal data structures."
   (interactive)
+  (if (not org2blog/wp-blog-alist)
+      (error "Set `org2blog/wp-blog-alist' to be able to use org2blog."))
   (let ()
-    (setq org2blog/wp-blog-name (completing-read "Blog ? "
-                                              (mapcar 'car
-                                                      org2blog/wp-blog-alist))
+    (setq org2blog/wp-blog-name (completing-read
+                                 "Blog to login into? ([Tab] to see list): "
+                                 (mapcar 'car
+                                         org2blog/wp-blog-alist))
           org2blog/wp-blog (assoc org2blog/wp-blog-name org2blog/wp-blog-alist)
           org2blog/wp-server-xmlrpc-url (plist-get (cdr org2blog/wp-blog) :url)
           org2blog/wp-server-userid (eval (plist-get (cdr org2blog/wp-blog) :username))
