@@ -110,6 +110,11 @@ All the other properties are optional. They over-ride the global variables.
   :group 'org2blog/wp
   :type 'string)
 
+(defcustom org2blog/wp-buffer-template-prefix nil
+  "A prefix to the default template used for a new post buffer."
+  :group 'org2blog/wp
+  :type 'string)
+
 (defcustom org2blog/wp-default-title "Hello, World"
   "Title of the new post"
   :group 'org2blog/wp
@@ -340,6 +345,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
     (add-hook 'kill-buffer-hook 'org2blog/wp-kill-buffer-hook nil 'local)
     (org-mode)
     (insert
+     (or org2blog/wp-buffer-template-prefix "")
      (format org2blog/wp-buffer-template
              (format-time-string "[%Y-%m-%d %a %H:%M]" (current-time))
              (mapconcat
