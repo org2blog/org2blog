@@ -355,7 +355,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
               ", ")
              (or (plist-get (cdr org2blog/wp-blog) :default-title)
                  org2blog/wp-default-title)))
-    (org2blog/wp-mode)))
+    (org2blog/wp-mode t)))
 
 (defun org2blog/wp-upload-files-replace-urls (text)
   "Uploads files, if any in the html, and changes their links"
@@ -575,7 +575,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
         (if (not org2blog/wp-mode)
             (org-save-outline-visibility 'use-markers (org-mode-restart))
           (org-save-outline-visibility 'use-markers (org-mode-restart))
-          (org2blog/wp-mode))
+          (org2blog/wp-mode t))
         (setq narrow-p (not (equal (- (point-max) (point-min)) (buffer-size))))
         (if narrow-p
             (progn
@@ -674,7 +674,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
 (defun org2blog/wp-post-buffer (&optional publish)
   "Posts new blog entry to the blog or edits an existing entry."
   (interactive "P")
-  (org2blog/wp-mode) ;; turn on org2blog-wp-mode
+  (org2blog/wp-mode t) ;; turn on org2blog-wp-mode
   (unless org2blog/wp-logged-in
     (org2blog/wp-login))
   (save-excursion
