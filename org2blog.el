@@ -374,7 +374,8 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
         (setq beg (match-end 0))
         (if (save-match-data (not (or
                                    (string-match org-plain-link-re file-name)
-                                   (string-match "^#" file-name))))
+                                   (string-match "^#" file-name)
+                                   (string-equal (file-name-nondirectory file-name) ""))))
 
             (progn
               (goto-char (point-min))
