@@ -139,6 +139,17 @@
       time-stamps are used.
     - The headline is used as the title of the post. But, =TITLE= can
       be used to use a different title.
+*** Posting source code blocks
+    Babel source blocks or example code is automatically posted in
+    =<pre>= tags.  You can ask =org2blog= to use Wordpress's
+    sourcecode shortcode blocks.  To use this, you need to set the
+    variable =org2blog/wp-use-sourcecode-shortcode=.  Wordpress's
+    sourcecode shortcode blocks can be given various [[http://en.support.wordpress.com/code/posting-source-code/#configuration-parameters][configuration
+    parameters]].  These can be passed to the exported sourcecode
+    shortcode blocks, by passing them to the babel blocks using
+    =:syntaxhl= parameter.  You could also modify the default
+    arguments passed to sourcecode shortcode blocks by customizing the
+    =org2blog/wp-sourcecode-default-params= variable.
 *** Delete an entry or a page
     - If you are in the buffer of the entry/page, with =#+POSTID=
       present on the page, use:
