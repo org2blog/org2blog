@@ -264,3 +264,12 @@
     I've a simple [[https://github.com/punchagan/org2blog-importers/blob/master/wp_to_org2blog.py][python script]] that uses ~pandoc~ to convert from
     Wordpress export xml to org2blog posts.  It could easily be
     tweaked to write importers for other kinds of blogs.
+
+  - How do I split a post into an introductory paragraph and a full
+    view.
+
+    Just put in
+
+    : #+HTML: <!--more-->
+
+    at the location where you wish to split the post.
