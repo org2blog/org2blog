@@ -9,7 +9,7 @@
 ;; Copyright (C) 2010 Matt Price <matt@roke.mercey.dyndns.org>
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
-;; Version: 0.4
+;; Version: 0.5
 ;; Keywords: orgmode, wordpress, blog
 
 ;; This program is free software: you can redistribute it and/or modify
@@ -212,7 +212,7 @@ Set to nil if you don't wish to track posts."
   "Ask before killing buffer")
 (make-variable-buffer-local 'org2blog/wp-buffer-kill-prompt)
 
-(defconst org2blog/wp-version "0.4"
+(defconst org2blog/wp-version "0.5"
   "Current version of blog.el")
 
 (defvar org2blog/wp-mode-hook nil
