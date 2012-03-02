@@ -203,7 +203,9 @@
      on git or drop a mail to punchagan+org2blog[at]gmail[dot]com.
      I'd also appreciate patches/suggestions to improve the
      documentation.  Feel free to drop in with general comments, too.
-     I'd love to hear from you!
+     I'd love to hear from you!  NOTE: If you are using the package
+     from ELPA/Marmalade, please try using the latest =git= version
+     before filing a bug report.
 
   5. Feel free to add your site to the list of sites using org2blog,
      on the [[https://github.com/punchagan/org2blog/wiki/Blogs-using-org2blog][wiki]] at github.
