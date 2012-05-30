@@ -168,6 +168,20 @@ browser."
   :group 'org2blog/wp
   :type 'list)
 
+
+(defcustom org2blog/wp-shortcode-langs-map 
+  (list '("R" . "r")
+	'("emacs-lisp" . "lisp")
+	)
+  "Association list for source code languages supported by Org
+and by SyntaxHighlighter.  Each element of the list maps the
+orgmode source code language (key) to the language spec that
+should be used for syntax highlighting in shortcode blocks.  The
+target languages need to be in 'org2blog/wp-sourcecode-langs ."
+  :group 'org2blog/wp
+  :type '(alist :key-type string :value-type string)
+  )
+
 (defcustom org2blog/wp-track-posts
   (list ".org2blog.org" "Posts")
   "File where to save logs about posts.
@@ -536,9 +550,15 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
         (setq info (org-babel-get-src-block-info))
         (setq params (nth 2 info))
         (setq code (nth 1 info))
-        (setq lang (nth 0 info))
-        (unless (member lang org2blog/wp-sourcecode-langs)
-          (setq lang "text"))
+	(let* ((org-src-lang (nth 0 info))
+	       (wp-src-lang (or (cdr (assoc org-src-lang org2blog/wp-shortcode-langs-map))
+				org-src-lang
+				)
+			    ))
+	  (setq lang (or (car (member wp-src-lang org2blog/wp-sourcecode-langs))
+			 "text"
+			 ))
+		)
         (setq code-re (regexp-quote (org-html-protect code)))
         (setq src-re (concat "\\[sourcecode\\]\n"
                              code-re "\\(\n\\)*\\[/sourcecode\\]"))
