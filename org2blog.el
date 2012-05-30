@@ -169,18 +169,17 @@ browser."
   :type 'list)
 
 
-(defcustom org2blog/wp-shortcode-langs-map 
-  (list '("R" . "r")
-	'("emacs-lisp" . "lisp")
-	)
+(defcustom org2blog/wp-shortcode-langs-map
+  (list
+   '("R" . "r")
+   '("emacs-lisp" . "lisp"))
   "Association list for source code languages supported by Org
 and by SyntaxHighlighter.  Each element of the list maps the
 orgmode source code language (key) to the language spec that
 should be used for syntax highlighting in shortcode blocks.  The
 target languages need to be in 'org2blog/wp-sourcecode-langs ."
   :group 'org2blog/wp
-  :type '(alist :key-type string :value-type string)
-  )
+  :type '(alist :key-type string :value-type string))
 
 (defcustom org2blog/wp-track-posts
   (list ".org2blog.org" "Posts")
@@ -547,36 +546,33 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
       (setq pos 1)
       (while (re-search-forward org-babel-src-block-regexp nil t 1)
         (backward-word)
-        (setq info (org-babel-get-src-block-info))
-        (setq params (nth 2 info))
-        (setq code (nth 1 info))
-	(let* ((org-src-lang (nth 0 info))
-	       (wp-src-lang (or (cdr (assoc org-src-lang org2blog/wp-shortcode-langs-map))
-				org-src-lang
-				)
-			    ))
-	  (setq lang (or (car (member wp-src-lang org2blog/wp-sourcecode-langs))
-			 "text"
-			 ))
-		)
-        (setq code-re (regexp-quote (org-html-protect code)))
-        (setq src-re (concat "\\[sourcecode\\]\n"
-                             code-re "\\(\n\\)*\\[/sourcecode\\]"))
-        (save-excursion
-          (with-temp-buffer
-            (insert html)
-            (goto-char pos)
-            (save-match-data
-              (re-search-forward src-re nil t 1)
-              (setq pos (point))
-              (replace-match
-               (concat "\n[sourcecode language=\"" lang  "\" "
-                       (if (assoc :syntaxhl params)
-                           (cdr (assoc :syntaxhl params))
-                         org2blog/wp-sourcecode-default-params)
-                       "]\n" code "[/sourcecode]\n")
+        (let* ((info (org-babel-get-src-block-info))
+               (params (nth 2 info))
+               (code (nth 1 info))
+               (org-src-lang
+                 (or (cdr (assoc (nth 0 info) org2blog/wp-shortcode-langs-map))
+                     (nth 0 info)))
+               (code-re (regexp-quote (org-html-protect code)))
+               (src-re (concat "\\[sourcecode\\]\n"
+                               code-re "\\(\n\\)*\\[/sourcecode\\]"))
+               (lang (or (car
+                          (member org-src-lang org2blog/wp-sourcecode-langs))
+                         "text")))
+          (save-excursion
+            (with-temp-buffer
+              (insert html)
+              (goto-char pos)
+              (save-match-data
+                (re-search-forward src-re nil t 1)
+                (setq pos (point))
+                (replace-match
+                 (concat "\n[sourcecode language=\"" lang  "\" "
+                         (if (assoc :syntaxhl params)
+                             (cdr (assoc :syntaxhl params))
+                           org2blog/wp-sourcecode-default-params)
+                         "]\n" code "[/sourcecode]\n")
                  nil t))
-            (setq html (buffer-substring-no-properties (point-min) (point-max))))))))
+              (setq html (buffer-substring-no-properties (point-min) (point-max)))))))))
   html)
 
 (defun org2blog/wp-parse-entry (&optional publish)
