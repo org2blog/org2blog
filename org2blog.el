@@ -145,7 +145,9 @@ browser."
   :type 'boolean)
 
 (defcustom org2blog/wp-use-sourcecode-shortcode nil
-  "Non-nil means convert <pre> tags to WP sourcecode blocks."
+  "Non-nil means convert <pre> tags to WP sourcecode blocks.
+NOTE: htmlize.el available in org-mode's contrib directory should
+be on your emacs load-path for this to work."
   :group 'org2blog/wp
   :type 'boolean)
 
