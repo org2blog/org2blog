@@ -228,7 +228,7 @@
     Set the relevant (~:default-title~) variable in the
     ~org2blog/wp-blog-alist~ variable.
 
-  - I donot use tags. I wish to use them as categories. How?
+  - I do not use tags. I wish to use them as categories. How?
 
     Setting the ~org2blog/wp-use-tags-as-categories~ variable will do
     that for all the blogs.
