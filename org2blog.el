@@ -115,6 +115,11 @@ All the other properties are optional. They over-ride the global variables.
   :group 'org2blog/wp
   :type 'string)
 
+(defcustom org2blog/wp-buffer-format-function 'org2blog-wp-format-buffer
+  "Function formatting a buffer according to `org2blog/wp-buffer-template'."
+  :group 'org2blog/wp
+  :type 'function)
+
 (defcustom org2blog/wp-default-title "Hello, World"
   "Title of the new post"
   :group 'org2blog/wp
@@ -363,16 +368,21 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
     (org-mode)
     (insert
      (or org2blog/wp-buffer-template-prefix "")
-     (format org2blog/wp-buffer-template
-             (format-time-string "[%Y-%m-%d %a %H:%M]" (current-time))
-             (mapconcat
-              (lambda (cat) cat)
-              (or (plist-get (cdr org2blog/wp-blog) :default-categories)
-                  org2blog/wp-default-categories)
-              ", ")
-             (or (plist-get (cdr org2blog/wp-blog) :default-title)
-                 org2blog/wp-default-title)))
+     (funcall org2blog/wp-buffer-format-function
+              org2blog/wp-buffer-template))
     (org2blog/wp-mode t)))
+
+(defun org2blog/wp-format-buffer (buffer-template)
+  "Default buffer formatting function."
+  (format buffer-template
+     (format-time-string "[%Y-%m-%d %a %H:%M]" (current-time))
+     (mapconcat
+        (lambda (cat) cat)
+          (or (plist-get (cdr org2blog/wp-blog) :default-categories)
+              org2blog/wp-default-categories)
+        ", ")
+     (or (plist-get (cdr org2blog/wp-blog) :default-title)
+          org2blog/wp-default-title)))
 
 (defun org2blog/wp-upload-files-replace-urls (text)
   "Uploads files, if any in the html, and changes their links"
