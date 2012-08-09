@@ -111,6 +111,27 @@
      - The parent for a page can be specified using =#+PARENT=.  *C-c
        t* again provides completion for the page name.
 
+*** Using post templates
+    Custom post templates can be specified by modifying variables
+    =org2blog/wp-buffer-template= and =org2blog/wp-buffer-format-function=.
+
+    For example:
+
+    : (setq org2blog/wp-buffer-template
+    :  "-----------------------
+    : #+TITLE: %s
+    : #+DATE: %s
+    : -----------------------\n")
+    :
+    : (defun my-format-function (format-string)
+    :    (format format-string
+    :            org2blog/wp-default-title
+    :            (format-time-string "%d-%m-%Y" (current-time)))))
+    : (setq org2blog/wp-buffer-format-function 'my-format-function)
+
+    =org2blog/wp-new-entry= will now create buffers begining with a default
+    title and the current date.
+
 *** Updating an existing post
     To update a blog post, you can simply edit the content of the org
     file and republish using ~org2blog~.  The =POSTID= saved in the
