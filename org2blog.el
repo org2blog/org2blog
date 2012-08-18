@@ -115,7 +115,7 @@ All the other properties are optional. They over-ride the global variables.
   :group 'org2blog/wp
   :type 'string)
 
-(defcustom org2blog/wp-buffer-format-function 'org2blog-wp-format-buffer
+(defcustom org2blog/wp-buffer-format-function 'org2blog/wp-format-buffer
   "Function formatting a buffer according to `org2blog/wp-buffer-template'."
   :group 'org2blog/wp
   :type 'function)
