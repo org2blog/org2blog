@@ -346,7 +346,7 @@ title of the post, post contents, list of categories, and date respectively."
 
 (defun metaweblog-get-post (blog-xmlrpc user-name password post-id)
   "Retrieves a post from the weblog. POST-ID is the id of the post
-which is to be returned"
+which is to be returned.  Can be used with pages as well."
   (xml-rpc-method-call blog-xmlrpc
 		       "metaWeblog.getPost"
 		       post-id
