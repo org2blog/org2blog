@@ -383,7 +383,10 @@ no. of posts that should be returned."
 		       number-of-posts))
 
 (defun get-file-properties (file)
-  "Gets the properties of a file."
+  "Gets the properties of a file. Returns an assoc list with
+name - file name
+bits - data of the file as a base64 encoded string
+type - mimetype of file deduced from extension."
   (let* (base64-str type name)
     (save-excursion
       (save-restriction
