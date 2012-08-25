@@ -252,6 +252,7 @@ Set to nil if you don't wish to track posts."
           (org2blog/wp-save-details (org2blog/wp-parse-entry) nil
                                  (y-or-n-p "Published?"))))))
 
+;; Set the mode map for org2blog.
 (unless org2blog/wp-entry-mode-map
   (setq org2blog/wp-entry-mode-map
 	(let ((org2blog/wp-map (make-sparse-keymap)))
@@ -284,7 +285,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
       (run-mode-hooks 'org2blog/wp-mode-hook)))
 
 (defun org2blog/wp-create-categories (categories)
-  "Create unknown categories."
+  "Prompt and create new categories on WordPress."
   (mapcar
    (lambda (cat)
      (if (and (not (member cat org2blog/wp-categories-list))
@@ -298,12 +299,13 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
    categories))
 
 (defun org2blog/wp-password ()
-  "Set password."
+  "Prompt for, and set password."
   (interactive)
   (setq org2blog/wp-server-pass (read-passwd "Weblog password? ")))
 
 (defun org2blog/wp-get-blog-name ()
-  "Get the blog name from a post."
+  "Get the blog name from a post -- buffer or subtree.
+NOTE: Checks for subtree only when buffer is narrowed."
   (let ((blog-name
          (if (org2blog/wp-is-narrow-p)
              (or (org-entry-get (point) "BLOG") "")
@@ -312,7 +314,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
 
 (defun org2blog/wp-correctly-login ()
   "Relogin to correct blog, if blog-name is found and different
-  from currently logged in."
+from currently logged in."
   (let ((blog-name (org2blog/wp-get-blog-name)))
     (when (and blog-name (not (equal blog-name org2blog/wp-blog-name)))
       (org2blog/wp-logout))
@@ -327,12 +329,16 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
       (error "Set `org2blog/wp-blog-alist' to be able to use org2blog."))
   (let ()
     (setq org2blog/wp-blog-name
-          (or blog-name
-              (and (equal (length org2blog/wp-blog-alist) 1)
-                   (car (car org2blog/wp-blog-alist)))
-              (completing-read
-               "Blog to login into? ([Tab] to see list): "
-               (mapcar 'car org2blog/wp-blog-alist) nil t)))
+          (or
+           ;; Use the provided name
+           blog-name
+           ;; OR Use the only entry in alist
+           (and (equal (length org2blog/wp-blog-alist) 1)
+                (car (car org2blog/wp-blog-alist)))
+           ;; OR Prompt user
+           (completing-read
+            "Blog to login into? ([Tab] to see list): "
+            (mapcar 'car org2blog/wp-blog-alist) nil t)))
     (unless (> (length org2blog/wp-blog-name) 1)
       (error "Invalid blog name"))
     (setq org2blog/wp-blog (assoc org2blog/wp-blog-name org2blog/wp-blog-alist)
@@ -343,18 +349,21 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
           (or
            (eval (plist-get (cdr org2blog/wp-blog) :password))
            (read-passwd (format "%s Weblog password? " org2blog/wp-blog-name)))
+          ;; Fetch and save category list
           org2blog/wp-categories-list
 	  (mapcar (lambda (category) (cdr (assoc "categoryName" category)))
 		  (metaweblog-get-categories org2blog/wp-server-xmlrpc-url
 					     org2blog/wp-server-userid
                                              org2blog/wp-server-pass
 					     org2blog/wp-server-blogid))
+          ;; Fetch and save tag list
           org2blog/wp-tags-list
 	  (mapcar (lambda (tag) (cdr (assoc "slug" tag)))
 		  (wp-get-tags org2blog/wp-server-xmlrpc-url
 			       org2blog/wp-server-userid
                                org2blog/wp-server-pass
 			       org2blog/wp-server-blogid))
+          ;; Fetch and save page list
           org2blog/wp-pages-list
 	  (mapcar (lambda (pg)
                     (cons (cdr (assoc "page_title" pg))
@@ -380,17 +389,21 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
   (message "Logged out"))
 
 ;;;###autoload
-(defun org2blog/wp-new-entry()
-  "Creates a new blog entry."
+(defun org2blog/wp-new-entry ()
+  "Creates a new buffer for a blog entry."
   (interactive)
+  ;; Prompt for login
   (if (and (not org2blog/wp-logged-in)
            (y-or-n-p "You are not logged in. Login?"))
       (org2blog/wp-login))
+
+  ;; Generate new buffer
   (let ((org2blog/wp-buffer (generate-new-buffer
                           (format org2blog/wp-buffer-name org2blog/wp-blog-name))))
     (switch-to-buffer org2blog/wp-buffer)
     (add-hook 'kill-buffer-hook 'org2blog/wp-kill-buffer-hook nil 'local)
     (org-mode)
+    ;; Insert the post template
     (insert
      (or org2blog/wp-buffer-template-prefix "")
      (funcall org2blog/wp-buffer-format-function
@@ -596,9 +609,13 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
       (setq pos (point-min))
       (goto-char (point-min))
       (while
+          ;; Search for code blocks in the buffer from where publish
+          ;; was done, and get the syntaxhl params if any, and put
+          ;; them in the right place in the html, using a temp-buffer.
           (save-match-data
             (re-search-forward org-babel-src-block-regexp nil t 1))
         (backward-word)
+        ;; Get the syntaxhl params and other info about the src_block
         (let* ((info (org-babel-get-src-block-info))
                (params (nth 2 info))
                (code (org-html-protect (nth 1 info)))
@@ -613,6 +630,8 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
                                    (cdr (assoc :syntaxhl params))
                                  org2blog/wp-sourcecode-default-params)
                                "]")))
+
+          ;; Change the html by inserting the syntaxhl in the right place.
           (save-excursion
             (with-temp-buffer
               (insert html)
@@ -650,6 +669,8 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
           (org-save-outline-visibility 'use-markers (org-mode-restart))
           (org2blog/wp-mode t))
         (setq narrow-p (org2blog/wp-is-narrow-p))
+
+        ;; Get the required parameters for posting the blog-post
         (if narrow-p
             (progn
               (setq post-title (or (org-entry-get (point) "TITLE")
@@ -708,6 +729,8 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
               org2blog/wp-use-tags-as-categories)
             (setq categories tags
                   tags nil))
+
+        ;; Get the exported html
         (save-excursion
           (if (not narrow-p)
               (setq html-text (org-export-as-html nil nil nil 'string t nil))
@@ -717,6 +740,8 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
                    (org-end-of-subtree)
                    t 'string)))
           (setq html-text (org-no-properties html-text)))
+
+        ;; Post-process as required.
         (setq html-text (org2blog/wp-upload-files-replace-urls html-text))
         (unless keep-new-lines
           (setq html-text (org2blog/wp-strip-new-lines html-text)))
