@@ -453,15 +453,20 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
   "Strip the new lines from the html, except in pre and blockquote tags."
   (save-excursion
     (with-temp-buffer
-      (let* (start-pos end-pos)
+      (let* (start-pos end-pos html-tag)
         (insert html)
         (setq start-pos (point-min))
         (goto-char start-pos)
+        ;; Search for pre or blockquote start
         (while (re-search-forward
-                "\\(<\\(pre\\|blockquote\\).*?>\\(.\\|[[:space:]]\\)*?</\\2.*?>\\)"
+                "<\\(pre\\|blockquote\\).*?>"
                 nil t 1)
           (setq end-pos (match-beginning 0))
+          (setq html-tag (match-string-no-properties 1))
+          ;; Replace all new lines before the start
           (replace-regexp "\\\n" " " nil start-pos end-pos)
+          ;; Go to the end of the pre or blockquote block, and start again
+          (re-search-forward (format "</%s.*?>" html-tag) nil t 1)
           (setq start-pos (match-end 0))
           (goto-char start-pos))
         (setq end-pos (point-max))
@@ -533,57 +538,69 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
 (defun org2blog/wp-replace-pre (html)
   "Replace pre blocks with sourcecode shortcode blocks."
   (save-excursion
-    (let (pos code lang info params src-re code-re)
+    (let (pos code lang info params header code-start code-end html-attrs)
       (with-temp-buffer
         (insert html)
         (goto-char (point-min))
         (save-match-data
-          (while (re-search-forward
-                  "<pre\\(.*?\\)>\\(\\(.\\|[[:space:]]\\|\\\n\\)*?\\)</pre.*?>"
-                  nil t 1)
-            (setq code (match-string-no-properties 2))
+          (while (re-search-forward "<pre\\(.*?\\)>" nil t 1)
+
             ;; When the codeblock is a src_block
-            (unless (save-match-data
-                      (string-match "example" (match-string-no-properties 1)))
+            (unless
+                (save-match-data
+                  (string-match "example" (match-string-no-properties 1)))
+              ;; Replace the <pre...> text
+              (replace-match "")
+              (setq code-start (point))
+
+              ;; Go to end of code and remove </pre>
+              (re-search-forward "</pre.*?>" nil t 1)
+              (replace-match "")
+              (setq code-end (point))
+              (setq code (buffer-substring-no-properties code-start code-end))
+
+              ;; Delete the code
+              (delete-region code-start code-end)
               ;; Stripping out all the code highlighting done by htmlize
-              (save-match-data
-                (setq code (replace-regexp-in-string "<.*?>" "" code)))
-              (replace-match
-               (concat "\n[sourcecode]\n"
-                       code
-                       "\n[/sourcecode]\n")
-               nil t))))
+              (setq code (replace-regexp-in-string "<.*?>" "" code))
+              (insert (concat "\n[sourcecode]\n" code "[/sourcecode]\n")))))
+
+        ;; Get the new html!
         (setq html (buffer-substring-no-properties (point-min) (point-max))))
+
+      (setq pos (point-min))
       (goto-char (point-min))
-      (setq pos 1)
-      (while (re-search-forward org-babel-src-block-regexp nil t 1)
+      (while
+          (save-match-data
+            (re-search-forward org-babel-src-block-regexp nil t 1))
         (backward-word)
         (let* ((info (org-babel-get-src-block-info))
                (params (nth 2 info))
-               (code (nth 1 info))
+               (code (org-html-protect (nth 1 info)))
                (org-src-lang
                  (or (cdr (assoc (nth 0 info) org2blog/wp-shortcode-langs-map))
                      (nth 0 info)))
-               (code-re (regexp-quote (org-html-protect code)))
-               (src-re (concat "\\[sourcecode\\]\n"
-                               code-re "\\(\n\\)*\\[/sourcecode\\]"))
                (lang (or (car
                           (member org-src-lang org2blog/wp-sourcecode-langs))
-                         "text")))
+                         "text"))
+               (header (concat "[sourcecode language=\"" lang  "\" "
+                               (if (assoc :syntaxhl params)
+                                   (cdr (assoc :syntaxhl params))
+                                 org2blog/wp-sourcecode-default-params)
+                               "]")))
           (save-excursion
             (with-temp-buffer
               (insert html)
               (goto-char pos)
+              ;; Search for code
               (save-match-data
-                (re-search-forward src-re nil t 1)
-                (setq pos (point))
-                (replace-match
-                 (concat "\n[sourcecode language=\"" lang  "\" "
-                         (if (assoc :syntaxhl params)
-                             (cdr (assoc :syntaxhl params))
-                           org2blog/wp-sourcecode-default-params)
-                         "]\n" code "[/sourcecode]\n")
-                 nil t))
+                (search-forward code nil t 1)
+                (setq pos (match-end 0))
+                (goto-char (match-beginning 0))
+                ;; Search for a header line --
+                (search-backward "[sourcecode]" nil t 1)
+                ;; Replace the text with our new header
+                (replace-match header nil t))
               (setq html (buffer-substring-no-properties (point-min) (point-max)))))))))
   html)
 
