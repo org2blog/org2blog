@@ -238,6 +238,10 @@ Set to nil if you don't wish to track posts."
 (defvar org2blog/wp-mode-hook nil
   "Hook to run upon entry into mode.")
 
+(defun org2blog/wp-is-narrow-p nil
+  "Return t if a buffer is narrowed"
+  (not (equal (- (point-max) (point-min)) (buffer-size))))
+
 (defun org2blog/wp-kill-buffer-hook ()
   "Prompt before killing buffer."
   (if (and org2blog/wp-buffer-kill-prompt
@@ -298,26 +302,47 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
   (interactive)
   (setq org2blog/wp-server-pass (read-passwd "Weblog password? ")))
 
+(defun org2blog/wp-get-blog-name ()
+  "Get the blog name from a post."
+  (let ((blog-name
+         (if (org2blog/wp-is-narrow-p)
+             (or (org-entry-get (point) "BLOG") "")
+           (or (org2blog/wp-get-option "blog") ""))))
+    (or (and (assoc blog-name org2blog/wp-blog-alist) blog-name) nil)))
+
+(defun org2blog/wp-correctly-login ()
+  "Relogin to correct blog, if blog-name is found and different
+  from currently logged in."
+  (let ((blog-name (org2blog/wp-get-blog-name)))
+    (when (and blog-name (not (equal blog-name org2blog/wp-blog-name)))
+      (org2blog/wp-logout))
+    (unless org2blog/wp-logged-in
+      (org2blog/wp-login blog-name))))
+
 ;;;###autoload
-(defun org2blog/wp-login()
+(defun org2blog/wp-login (&optional blog-name)
   "Logs into the blog. Initializes the internal data structures."
   (interactive)
   (if (not org2blog/wp-blog-alist)
       (error "Set `org2blog/wp-blog-alist' to be able to use org2blog."))
   (let ()
-    (setq org2blog/wp-blog-name (if (equal (length org2blog/wp-blog-alist) 1)
-                                    (car (car org2blog/wp-blog-alist))
-                                  (completing-read
-                                   "Blog to login into? ([Tab] to see list): "
-                                   (mapcar 'car
-                                           org2blog/wp-blog-alist)))
-          org2blog/wp-blog (assoc org2blog/wp-blog-name org2blog/wp-blog-alist)
+    (setq org2blog/wp-blog-name
+          (or blog-name
+              (and (equal (length org2blog/wp-blog-alist) 1)
+                   (car (car org2blog/wp-blog-alist)))
+              (completing-read
+               "Blog to login into? ([Tab] to see list): "
+               (mapcar 'car org2blog/wp-blog-alist) nil t)))
+    (unless (> (length org2blog/wp-blog-name) 1)
+      (error "Invalid blog name"))
+    (setq org2blog/wp-blog (assoc org2blog/wp-blog-name org2blog/wp-blog-alist)
           org2blog/wp-server-xmlrpc-url (plist-get (cdr org2blog/wp-blog) :url)
           org2blog/wp-server-userid (eval (plist-get (cdr org2blog/wp-blog) :username))
           org2blog/wp-server-blogid (or (plist-get (cdr org2blog/wp-blog) :id) "1")
-          org2blog/wp-server-pass (or
-                                   (eval (plist-get (cdr org2blog/wp-blog) :password))
-                                   (read-passwd "Weblog password? "))
+          org2blog/wp-server-pass
+          (or
+           (eval (plist-get (cdr org2blog/wp-blog) :password))
+           (read-passwd (format "%s Weblog password? " org2blog/wp-blog-name)))
           org2blog/wp-categories-list
 	  (mapcar (lambda (category) (cdr (assoc "categoryName" category)))
 		  (metaweblog-get-categories org2blog/wp-server-xmlrpc-url
@@ -624,7 +649,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
             (org-save-outline-visibility 'use-markers (org-mode-restart))
           (org-save-outline-visibility 'use-markers (org-mode-restart))
           (org2blog/wp-mode t))
-        (setq narrow-p (not (equal (- (point-max) (point-min)) (buffer-size))))
+        (setq narrow-p (org2blog/wp-is-narrow-p))
         (if narrow-p
             (progn
               (setq post-title (or (org-entry-get (point) "TITLE")
@@ -723,8 +748,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
   "Posts new blog entry to the blog or edits an existing entry."
   (interactive "P")
   (org2blog/wp-mode t) ;; turn on org2blog-wp-mode
-  (unless org2blog/wp-logged-in
-    (org2blog/wp-login))
+  (org2blog/wp-correctly-login)
   (save-excursion
     (save-restriction
       (let ((post (org2blog/wp-parse-entry))
@@ -756,8 +780,11 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
                                              post
                                              publish))
           (if (cdr (assoc "subtree" post))
-              (org-entry-put (point) "POSTID" post-id)
+              (progn
+                (org-entry-put (point) "POSTID" post-id)
+                (org-entry-put (point) "BLOG" org2blog/wp-blog-name))
             (goto-char (point-min))
+            (insert (concat "#+BLOG: " org2blog/wp-blog-name "\n"))
             (insert (concat "#+POSTID: " post-id "\n"))))
         (org2blog/wp-save-details post post-id publish)
         (message (if publish
@@ -783,8 +810,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
 (defun org2blog/wp-post-buffer-as-page (&optional publish)
   "Posts new page to the blog or edits an existing page."
   (interactive "P")
-  (unless org2blog/wp-logged-in
-    (org2blog/wp-login))
+  (org2blog/wp-correctly-login)
   (save-excursion
     (save-restriction
       (widen)
@@ -846,8 +872,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
 
 (defun org2blog/wp-delete-entry (&optional post-id)
   (interactive "P")
-  (unless org2blog/wp-logged-in
-    (org2blog/wp-login))
+  (org2blog/wp-correctly-login)
   (if (null post-id)
       (setq post-id (org2blog/wp-get-option "POSTID")))
   (metaweblog-delete-post org2blog/wp-server-xmlrpc-url
@@ -858,8 +883,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
 
 (defun org2blog/wp-delete-page (&optional page-id)
   (interactive "P")
-  (unless org2blog/wp-logged-in
-    (org2blog/wp-login))
+  (org2blog/wp-correctly-login)
   (if (null page-id)
       (setq page-id (org2blog/wp-get-option "POSTID")))
   (wp-delete-page org2blog/wp-server-xmlrpc-url
@@ -1004,8 +1028,7 @@ use absolute path or set org-directory")
 (defun org2blog/wp-preview-buffer-post ()
   "Preview the present buffer in browser, if posted."
   (interactive)
-  (unless org2blog/wp-logged-in
-    (org2blog/wp-login))
+  (org2blog/wp-correctly-login)
   (let* ((postid (org2blog/wp-get-option "POSTID"))
          (url org2blog/wp-server-xmlrpc-url))
     (if (not postid)
@@ -1018,8 +1041,9 @@ use absolute path or set org-directory")
 (defun org2blog/wp-preview-subtree-post ()
   "Preview the present subtree in browser, if posted."
   (interactive)
-  (unless org2blog/wp-logged-in
-    (org2blog/wp-login))
+  (org-narrow-to-subtree)
+  (org2blog/wp-correctly-login)
+  (widen)
   (let* ((postid (or (org-entry-get (point) "POSTID")
                      (org-entry-get (point) "POST_ID")))
          (url org2blog/wp-server-xmlrpc-url))
