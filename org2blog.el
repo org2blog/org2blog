@@ -1082,37 +1082,37 @@ use absolute path or set org-directory")
       (setq url (concat url "?p=" postid "&preview=true"))
       (browse-url url))))
 
-(defun org2blog/wp-insert-link-to-post (&optional post-id)
-  "Insert a link to the post with the given id, with the title of the post as description."
-  (interactive)
-  ;; FIXME
-  ;; -----
-  ;; 1. Add option to add pages, as well.
-  ;; 2. Use org-mode's link abbreviation to make this easier?
-  (let* ((post-list (metaweblog-get-recent-posts org2blog/wp-server-xmlrpc-url
-                                                 org2blog/wp-server-blogid
-                                                 org2blog/wp-server-userid
-                                                 org2blog/wp-server-pass
-                                                 1000))
+(defun org2blog/wp-insert-post-or-page-link (&optional is-page)
+  "Insert a link to the post (or page) with the given id, with
+the title of the post (or page) as description."
+  (interactive "P")
+  (org2blog/wp-correctly-login)
+  (let* ((post-list (if is-page
+                        (wp-get-pagelist org2blog/wp-server-xmlrpc-url
+                                         org2blog/wp-server-userid
+                                         org2blog/wp-server-pass
+                                         org2blog/wp-server-blogid)
+                      (metaweblog-get-recent-posts org2blog/wp-server-xmlrpc-url
+                                                   org2blog/wp-server-blogid
+                                                   org2blog/wp-server-userid
+                                                   org2blog/wp-server-pass
+                                                   1000)))
          post-title url title-id-map)
-    (if post-id
-        ;; Search for title given the post-id
-        (dolist (post post-list)
-          (when (equal (cdr (assoc "postid" post)) post-id)
-            (setq post-title (cdr (assoc "title" post)))))
-      ;; Create a title to id map, used for completion
-      (dolist (post post-list)
+    (dolist (post post-list)
         (setq title-id-map (cons
                             (cons (cdr (assoc "title" post)) (cdr (assoc "postid" post)))
                             title-id-map)))
-      ;; Ask user to select the title
-      (setq post-title (completing-read "Select post: " title-id-map nil t)
-            post-id (cdr (assoc post-title title-id-map))))
-    ;; "Generate" the actual url of the post
-    (setq url (concat
-               (replace-regexp-in-string "xmlrpc\\.php$" "?p=" org2blog/wp-server-xmlrpc-url)
-               post-id))
-    ;; Insert!
-    (insert (format "[[%s][%s]]" url post-title))))
+    ;; Ask user to select the title
+    (setq post-title (completing-read
+                      (if is-page "Select page: " "Select post: ")
+                      title-id-map nil t)
+          post-id (cdr (assoc post-title title-id-map)))
+    (if post-title
+        ;; "Generate" the actual url of the post
+        (setq url (concat
+                   (replace-regexp-in-string "xmlrpc\\.php$" "?p=" org2blog/wp-server-xmlrpc-url)
+                   post-id))
+      ;; Insert!
+      (insert (format "[[%s][%s]]" url post-title)))))
 
 (provide 'org2blog)
