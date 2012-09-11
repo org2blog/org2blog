@@ -466,8 +466,8 @@ from currently logged in."
                                                  file-name file-web-url)))))))
       (dolist (file file-all-urls)
         (setq text (replace-regexp-in-string
-                    (concat "\\(file://\\)*" (regexp-quote (car file)))
-                    (cdr file) text))))
+                    (concat "\\(<a href=\"\\|<img src=\"\\)\\(file://\\)*" (regexp-quote (car file)))
+                    (concat "\\1" (cdr file)) text))))
     text))
 
 (defun org2blog/wp-get-option (opt)
