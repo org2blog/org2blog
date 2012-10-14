@@ -393,7 +393,7 @@ type - mimetype of file deduced from extension."
 	(with-current-buffer (find-file-noselect file)
           (fundamental-mode)
 	  (setq name (file-name-nondirectory file))
-	  (setq base64-str (base64-encode-string (buffer-string)))
+	  (setq base64-str (base64-encode-string (encode-coding-string (buffer-string) 'binary)))
 	  (setq type (mailcap-extension-to-mime (file-name-extension file)))
           (kill-buffer)
 	  (setq file-props `(("name" . ,name)
