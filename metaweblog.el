@@ -390,7 +390,7 @@ type - mimetype of file deduced from extension."
   (let* (base64-str type name)
     (save-excursion
       (save-restriction
-	(with-current-buffer (find-file-noselect file)
+	(with-current-buffer (find-file-noselect file nil t)
           (fundamental-mode)
 	  (setq name (file-name-nondirectory file))
 	  (setq base64-str (base64-encode-string (encode-coding-string (buffer-string) 'binary)))
