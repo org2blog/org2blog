@@ -699,7 +699,7 @@ from currently logged in."
           (setq post-id (org2blog/wp-get-option "POSTID"))
           (setq post-par (org2blog/wp-get-post-parent
                           (org2blog/wp-get-option "PARENT")))
-          (setq post-date (plist-get (org-infile-export-plist) :date))
+          (setq post-date (org2blog/wp-get-option "DATE"))
           (setq tags (org2blog/wp-get-option "TAGS"))
           (setq tags (if tags (split-string tags "\\( *, *\\)" t) ""))
 
