@@ -81,6 +81,7 @@
 
     Then, use these details, as shown below.
 
+    : (require 'netrc) ;; or nothing if already in the load-path
     : (setq blog (netrc-machine (netrc-parse "~/.netrc") "myblog" t))
     : (setq org2blog/wp-blog-alist
     :       '(("my-blog"
