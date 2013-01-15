@@ -733,7 +733,13 @@ from currently logged in."
         ;; Get the exported html
         (save-excursion
           (if (not narrow-p)
-              (setq html-text (org-export-as-html nil nil nil 'string t nil))
+              (setq html-text
+                    ;;Starting with org-mode 7.9.3, org-export-as-html
+                    ;;takes 4 optional args instead of 5.
+                    (condition-case nil
+                        (org-export-as-html nil nil nil 'string t nil)
+                      (wrong-number-of-arguments
+                       (org-export-as-html nil nil 'string t nil))))
             (setq html-text
                   (org-export-region-as-html
                    (1+ (and (org-back-to-heading) (line-end-position)))
