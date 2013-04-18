@@ -49,6 +49,7 @@
 
 
 (require 'org)
+(require 'ox)
 (require 'xml-rpc)
 (require 'metaweblog)
 
@@ -692,9 +693,20 @@ from currently logged in."
               (setq categories (if categories
                                    (split-string categories "\\( *, *\\)" t)
                                  "")))
-          (setq post-title (or (plist-get (org-infile-export-plist) :title)
+          (setq post-title (or (plist-get 
+                                ;; In org 8 this has been replaced by
+                                ;; org-export-get-enviroment
+                                (condition-case nil
+                                    (org-infile-export-plist)
+                                  (void-function
+                                   (org-export-get-environment))
+                                  ) :title)
                                "No Title"))
-          (setq excerpt (plist-get (org-infile-export-plist) :description))
+          (setq excerpt (plist-get (condition-case nil
+                                       (org-infile-export-plist)
+                                     (void-function
+                                      (org-export-get-environment))
+                                     ) :description))
           (setq permalink (org2blog/wp-get-option "PERMALINK"))
           (setq post-id (org2blog/wp-get-option "POSTID"))
           (setq post-par (org2blog/wp-get-post-parent
@@ -739,7 +751,10 @@ from currently logged in."
                     (condition-case nil
                         (org-export-as-html nil nil nil 'string t nil)
                       (wrong-number-of-arguments
-                       (org-export-as-html nil nil 'string t nil))))
+                       (org-export-as-html nil nil 'string t nil))
+                      ;; In org 8 this function has ben renamed
+                      (void-function
+                       (org-export-as 'html nil nil t nil))))
             (setq html-text
                   (org-export-region-as-html
                    (1+ (and (org-back-to-heading) (line-end-position)))
@@ -760,12 +775,20 @@ from currently logged in."
      (cons "point" (point))
      (cons "subtree" narrow-p)
      (cons "date" post-date)
-     (cons "title" (org-html-do-expand post-title))
+     (cons "title" (condition-case nil
+                       ;; Fix api change in Org 8
+                       (org-html-do-expand post-title)
+                     (void-function
+                      (car post-title))))
      (cons "tags" tags)
      (cons "categories" categories)
      (cons "post-id" post-id)
      (cons "parent" post-par)
-     (cons "excerpt" (org-html-do-expand (or excerpt "")))
+     (cons "excerpt" (condition-case nil
+                         ;; Fix api change in Org 8
+                         (org-html-do-expand (or excerpt ""))
+                       (void-function
+                        (or excerpt ""))))
      (cons "permalink" (or permalink ""))
      (cons "description" html-text))))
 
