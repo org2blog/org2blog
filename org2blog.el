@@ -696,17 +696,15 @@ from currently logged in."
           (setq post-title (or (plist-get
                                 ;; In org 8 this has been replaced by
                                 ;; org-export-get-enviroment
-                                (condition-case nil
+                                (if (version-list-< (version-to-list (org-version)) '(8 0 0))
                                     (org-infile-export-plist)
-                                  (void-function
-                                   (org-export-get-environment))
-                                  ) :title)
+                                  (org-export-get-environment))
+                                :title)
                                "No Title"))
-          (setq excerpt (plist-get (condition-case nil
+          (setq excerpt (plist-get (if (version-list-< (version-to-list (org-version)) '(8 0 0))
                                        (org-infile-export-plist)
-                                     (void-function
-                                      (org-export-get-environment))
-                                     ) :description))
+                                     (org-export-get-environment))
+                                   :description))
           (setq permalink (org2blog/wp-get-option "PERMALINK"))
           (setq post-id (org2blog/wp-get-option "POSTID"))
           (setq post-par (org2blog/wp-get-post-parent
@@ -748,21 +746,21 @@ from currently logged in."
               (setq html-text
                     ;;Starting with org-mode 7.9.3, org-export-as-html
                     ;;takes 4 optional args instead of 5.
-                    (condition-case nil
-                        (org-export-as-html nil nil nil 'string t nil)
-                      (wrong-number-of-arguments
-                       (org-export-as-html nil nil 'string t nil))
-                      ;; In org 8 this function has ben renamed
-                      (void-function
-                       (org-export-as 'html nil nil t nil))))
+                    (cond
+                     ((version-list-< (version-to-list (org-version)) '(7 9 3))
+                      (org-export-as-html nil nil nil 'string t nil))
+                     ((and (version-list-< (version-to-list (org-version)) '(7 9 3))
+                           (version-list-< (version-to-list (org-version)) '(8 0 0)))
+                      (org-export-as-html nil nil 'string t nil))
+                     ((not (version-list-< (version-to-list (org-version)) '(8 0 0)))
+                      (org-export-as 'html nil nil t nil))))
             (setq html-text
-                  (condition-case nil
+                  (if (version-list-< (version-to-list (org-version)) '(8 0 0))
                       (org-export-region-as-html
                        (1+ (and (org-back-to-heading) (line-end-position)))
                        (org-end-of-subtree)
                        t 'string)
-                    (void-function
-                     (org-export-as 'html nil nil t)))))
+                    (org-export-as 'html nil nil t))))
           (setq html-text (org-no-properties html-text)))
 
         ;; Post-process as required.
@@ -778,20 +776,16 @@ from currently logged in."
      (cons "point" (point))
      (cons "subtree" narrow-p)
      (cons "date" post-date)
-     (cons "title" (condition-case nil
-                       ;; Fix api change in Org 8
+     (cons "title" (if (version-list-< (version-to-list (org-version)) '(8 0 0))
                        (org-html-do-expand post-title)
-                     (void-function
-                      (org-element-interpret-data post-title))))
+                     (org-element-interpret-data post-title)))
      (cons "tags" tags)
      (cons "categories" categories)
      (cons "post-id" post-id)
      (cons "parent" post-par)
-     (cons "excerpt" (condition-case nil
-                         ;; Fix api change in Org 8
+     (cons "excerpt" (if (version-list-< (version-to-list (org-version)) '(8 0 0))
                          (org-html-do-expand (or excerpt ""))
-                       (void-function
-                        (org-element-interpret-data (or excerpt "")))))
+                       (org-element-interpret-data (or excerpt ""))))
      (cons "permalink" (or permalink ""))
      (cons "description" html-text))))
 
