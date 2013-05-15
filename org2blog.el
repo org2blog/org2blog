@@ -749,7 +749,7 @@ from currently logged in."
                     (cond
                      ((version-list-< (version-to-list (org-version)) '(7 9 3))
                       (org-export-as-html nil nil nil 'string t nil))
-                     ((and (version-list-< (version-to-list (org-version)) '(7 9 3))
+                     ((and (not (version-list-< (version-to-list (org-version)) '(7 9 3)))
                            (version-list-< (version-to-list (org-version)) '(8 0 0)))
                       (org-export-as-html nil nil 'string t nil))
                      ((not (version-list-< (version-to-list (org-version)) '(8 0 0)))
