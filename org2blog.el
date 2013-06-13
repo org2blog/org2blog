@@ -619,7 +619,9 @@ from currently logged in."
         ;; Get the syntaxhl params and other info about the src_block
         (let* ((info (org-babel-get-src-block-info))
                (params (nth 2 info))
-               (code (org-html-protect (nth 1 info)))
+               (code (if (version-list-< (version-to-list (org-version)) '(8 0 0))
+                         (org-html-protect (nth 1 info))
+                       (org-html-encode-plain-text (nth 1 info))))
                (org-src-lang
                  (or (cdr (assoc (nth 0 info) org2blog/wp-shortcode-langs-map))
                      (nth 0 info)))
