@@ -762,7 +762,7 @@ from currently logged in."
                        (1+ (and (org-back-to-heading) (line-end-position)))
                        (org-end-of-subtree)
                        t 'string)
-                    (org-export-as 'html nil nil t))))
+                    (org-export-as 'html t nil t))))
           (setq html-text (org-no-properties html-text)))
 
         ;; Post-process as required.
