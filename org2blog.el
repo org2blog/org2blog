@@ -7,6 +7,7 @@
 ;; Copyright (C) 2010 Giovanni Moretti <Giovanni@reflections.co.nz>
 ;; Copyright (C) 2011 Mykola Nikishov <mn@mn.com.ua>
 ;; Copyright (C) 2010 Matt Price <matt@roke.mercey.dyndns.org>
+;; Copyright (C) 2013 Peter Vasil <mail@petervasil.net>
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Version: 0.5
