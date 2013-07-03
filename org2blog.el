@@ -50,9 +50,11 @@
 
 
 (require 'org)
-(require 'ox)
 (require 'xml-rpc)
 (require 'metaweblog)
+
+(unless (version-list-< (version-to-list (org-version)) '(8 0 0))
+  (require 'ox))
 
 (defgroup org2blog/wp nil
   "Post to weblogs from Emacs"
