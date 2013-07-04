@@ -7,6 +7,7 @@
 ;; Copyright (C) 2010 Giovanni Moretti <Giovanni@reflections.co.nz>
 ;; Copyright (C) 2011 Mykola Nikishov <mn@mn.com.ua>
 ;; Copyright (C) 2010 Matt Price <matt@roke.mercey.dyndns.org>
+;; Copyright (C) 2013 Peter Vasil <mail@petervasil.net>
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Version: 0.5
@@ -51,6 +52,9 @@
 (require 'org)
 (require 'xml-rpc)
 (require 'metaweblog)
+
+(unless (version-list-< (version-to-list (org-version)) '(8 0 0))
+  (require 'ox))
 
 (defgroup org2blog/wp nil
   "Post to weblogs from Emacs"
@@ -618,7 +622,9 @@ from currently logged in."
         ;; Get the syntaxhl params and other info about the src_block
         (let* ((info (org-babel-get-src-block-info))
                (params (nth 2 info))
-               (code (org-html-protect (nth 1 info)))
+               (code (if (version-list-< (version-to-list (org-version)) '(8 0 0))
+                         (org-html-protect (nth 1 info))
+                       (org-html-encode-plain-text (nth 1 info))))
                (org-src-lang
                  (or (cdr (assoc (nth 0 info) org2blog/wp-shortcode-langs-map))
                      (nth 0 info)))
@@ -692,9 +698,18 @@ from currently logged in."
               (setq categories (if categories
                                    (split-string categories "\\( *, *\\)" t)
                                  "")))
-          (setq post-title (or (plist-get (org-infile-export-plist) :title)
+          (setq post-title (or (plist-get
+                                ;; In org 8 this has been replaced by
+                                ;; org-export-get-enviroment
+                                (if (version-list-< (version-to-list (org-version)) '(8 0 0))
+                                    (org-infile-export-plist)
+                                  (org-export-get-environment))
+                                :title)
                                "No Title"))
-          (setq excerpt (plist-get (org-infile-export-plist) :description))
+          (setq excerpt (plist-get (if (version-list-< (version-to-list (org-version)) '(8 0 0))
+                                       (org-infile-export-plist)
+                                     (org-export-get-environment))
+                                   :description))
           (setq permalink (org2blog/wp-get-option "PERMALINK"))
           (setq post-id (org2blog/wp-get-option "POSTID"))
           (setq post-par (org2blog/wp-get-post-parent
@@ -736,15 +751,21 @@ from currently logged in."
               (setq html-text
                     ;;Starting with org-mode 7.9.3, org-export-as-html
                     ;;takes 4 optional args instead of 5.
-                    (condition-case nil
-                        (org-export-as-html nil nil nil 'string t nil)
-                      (wrong-number-of-arguments
-                       (org-export-as-html nil nil 'string t nil))))
+                    (cond
+                     ((version-list-< (version-to-list (org-version)) '(7 9 3))
+                      (org-export-as-html nil nil nil 'string t nil))
+                     ((and (not (version-list-< (version-to-list (org-version)) '(7 9 3)))
+                           (version-list-< (version-to-list (org-version)) '(8 0 0)))
+                      (org-export-as-html nil nil 'string t nil))
+                     ((not (version-list-< (version-to-list (org-version)) '(8 0 0)))
+                      (org-export-as 'html nil nil t nil))))
             (setq html-text
-                  (org-export-region-as-html
-                   (1+ (and (org-back-to-heading) (line-end-position)))
-                   (org-end-of-subtree)
-                   t 'string)))
+                  (if (version-list-< (version-to-list (org-version)) '(8 0 0))
+                      (org-export-region-as-html
+                       (1+ (and (org-back-to-heading) (line-end-position)))
+                       (org-end-of-subtree)
+                       t 'string)
+                    (org-export-as 'html t nil t))))
           (setq html-text (org-no-properties html-text)))
 
         ;; Post-process as required.
@@ -760,12 +781,16 @@ from currently logged in."
      (cons "point" (point))
      (cons "subtree" narrow-p)
      (cons "date" post-date)
-     (cons "title" (org-html-do-expand post-title))
+     (cons "title" (if (version-list-< (version-to-list (org-version)) '(8 0 0))
+                       (org-html-do-expand post-title)
+                     (org-element-interpret-data post-title)))
      (cons "tags" tags)
      (cons "categories" categories)
      (cons "post-id" post-id)
      (cons "parent" post-par)
-     (cons "excerpt" (org-html-do-expand (or excerpt "")))
+     (cons "excerpt" (if (version-list-< (version-to-list (org-version)) '(8 0 0))
+                         (org-html-do-expand (or excerpt ""))
+                       (org-element-interpret-data (or excerpt ""))))
      (cons "permalink" (or permalink ""))
      (cons "description" html-text))))
 
