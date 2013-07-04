@@ -56,3 +56,8 @@ Preview the present subtree in browser, if posted.
 ;;;***
 
 (provide 'org2blog-autoloads)
+
+;; Local Variables:
+;; no-byte-compile: t
+;; coding: utf-8
+;; End:
