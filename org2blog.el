@@ -489,7 +489,7 @@ from currently logged in."
           "0")
     "0"))
 
-(defun org2blog/wp-parse-entry (&optional publish)
+(defun org2blog/wp-parse-entry (&optional subtree-p)
   "Parse an org2blog/wp buffer."
   (interactive "P")
   (let* ((keep-new-lines (if (plist-member (cdr org2blog/wp-blog) :keep-new-lines)
@@ -499,10 +499,10 @@ from currently logged in."
                        (plist-get (cdr org2blog/wp-blog) :wp-latex)
                      org2blog/wp-use-wp-latex))
          (sourcecode-shortcode (if (plist-member (cdr org2blog/wp-blog) :wp-code)
-                (plist-get (cdr org2blog/wp-blog) :wp-code)
-                org2blog/wp-use-sourcecode-shortcode))
+                                   (plist-get (cdr org2blog/wp-blog) :wp-code)
+                                 org2blog/wp-use-sourcecode-shortcode))
          (option-plist '())
-         html-text post-title post-id post-date tags categories narrow-p
+         html-text post-title post-id post-date tags categories
          cur-time post-par)
     (setq option-plist (plist-put option-plist :wp-keep-new-lines keep-new-lines))
     (setq option-plist (plist-put option-plist :wp-latex wp-latex))
@@ -513,10 +513,9 @@ from currently logged in."
             (org-save-outline-visibility 'use-markers (org-mode-restart))
           (org-save-outline-visibility 'use-markers (org-mode-restart))
           (org2blog/wp-mode t))
-        (setq narrow-p (org2blog/wp-is-narrow-p))
 
         ;; Get the required parameters for posting the blog-post
-        (if narrow-p
+        (if subtree-p
             (progn
               (setq post-title (or (org-entry-get (point) "TITLE")
                                    (nth 4 (org-heading-components))))
@@ -570,7 +569,7 @@ from currently logged in."
                                   (if post-date
                                       (apply 'encode-time (org-parse-time-string post-date))
                                     (current-time)
-                                    (if narrow-p
+                                    (if subtree-p
                                         (org-entry-put (point) "POST_DATE" cur-time)
                                       (save-excursion
                                         (goto-char (point-min))
@@ -586,7 +585,7 @@ from currently logged in."
 
         ;; Get the exported html
         (save-excursion
-          (setq html-text (org-wp-export-as-string nil narrow-p option-plist))
+          (setq html-text (org-wp-export-as-string nil subtree-p option-plist))
           (setq html-text (org-no-properties html-text)))
 
         ;; Post-process as required.
@@ -595,7 +594,6 @@ from currently logged in."
     ;; Return value
     (list
      (cons "point" (point))
-     (cons "subtree" narrow-p)
      (cons "date" post-date)
      (cons "title" (if (version-list-< (version-to-list (org-version)) '(8 0 0))
                        (org-html-do-expand post-title)
@@ -616,19 +614,19 @@ from currently logged in."
   (interactive)
   (org2blog/wp-post-buffer t))
 
-(defun org2blog/wp-post-buffer (&optional publish)
+(defun org2blog/wp-post-buffer (&optional publish subtree-p)
   "Posts new blog entry to the blog or edits an existing entry."
   (interactive "P")
   (org2blog/wp-mode t) ;; turn on org2blog-wp-mode
   (org2blog/wp-correctly-login)
   (save-excursion
     (save-restriction
-      (let ((post (org2blog/wp-parse-entry))
+      (let ((post (org2blog/wp-parse-entry subtree-p))
             (confirm (and
-                     (if (plist-member (cdr org2blog/wp-blog) :confirm)
-                        (plist-member (cdr org2blog/wp-blog) :confirm)
-                      org2blog/wp-confirm-post)
-                     publish))
+                      (if (plist-member (cdr org2blog/wp-blog) :confirm)
+                          (plist-member (cdr org2blog/wp-blog) :confirm)
+                        org2blog/wp-confirm-post)
+                      publish))
             (show (or (plist-member (cdr org2blog/wp-blog) :show)
                       org2blog/wp-show-post-in-browser))
             post-id)
@@ -651,14 +649,14 @@ from currently logged in."
                                              org2blog/wp-server-blogid
                                              post
                                              publish))
-          (if (cdr (assoc "subtree" post))
+          (if subtree-p
               (progn
                 (org-entry-put (point) "POSTID" post-id)
                 (org-entry-put (point) "BLOG" org2blog/wp-blog-name))
             (goto-char (point-min))
             (insert (concat "#+BLOG: " org2blog/wp-blog-name "\n"))
             (insert (concat "#+POSTID: " post-id "\n"))))
-        (org2blog/wp-save-details post post-id publish)
+        (org2blog/wp-save-details post post-id publish subtree-p)
         (message (if publish
                      "Published (%s): %s"
                    "Draft (%s): %s")
@@ -669,7 +667,7 @@ from currently logged in."
                    (equal show 'ask)
                    (y-or-n-p
                     "[For drafts, ensure you login] View in browser? y/n")))
-          (if (cdr (assoc "subtree" post))
+          (if subtree-p
               (org2blog/wp-preview-subtree-post)
             (org2blog/wp-preview-buffer-post)))))))
 
@@ -679,14 +677,14 @@ from currently logged in."
   (interactive)
   (org2blog/wp-post-buffer-as-page t))
 
-(defun org2blog/wp-post-buffer-as-page (&optional publish)
+(defun org2blog/wp-post-buffer-as-page (&optional publish subtree-p)
   "Posts new page to the blog or edits an existing page."
   (interactive "P")
   (org2blog/wp-correctly-login)
   (save-excursion
     (save-restriction
       (widen)
-      (let ((post (org2blog/wp-parse-entry))
+      (let ((post (org2blog/wp-parse-entry subtree-p))
             (confirm (and
                      (if (plist-member (cdr org2blog/wp-blog) :confirm)
                         (plist-member (cdr org2blog/wp-blog) :confirm)
@@ -723,11 +721,11 @@ from currently logged in."
 					 org2blog/wp-server-userid
 					 org2blog/wp-server-pass
 					 org2blog/wp-server-blogid)))
-          (if (cdr (assoc "subtree" post))
+          (if subtree-p
               (org-entry-put (point) "POSTID" post-id)
             (goto-char (point-min))
             (insert (concat "#+POSTID: " post-id "\n"))))
-        (org2blog/wp-save-details post post-id publish)
+        (org2blog/wp-save-details post post-id publish subtree-p)
         (message (if publish
                      "Published (%s): %s"
                    "Draft (%s): %s")
@@ -738,7 +736,7 @@ from currently logged in."
                    (equal show 'ask)
                    (y-or-n-p
                     "[For drafts, ensure you login] View in browser? y/n")))
-          (if (cdr (assoc "subtree" post))
+          (if subtree-p
               (org2blog/wp-preview-subtree-post)
             (org2blog/wp-preview-buffer-post)))))))
 
@@ -765,13 +763,13 @@ from currently logged in."
                   page-id)
    (message "Page Deleted"))
 
-(defun org2blog/wp-save-details (post pid pub)
+(defun org2blog/wp-save-details (post pid pub subtree-p)
   "Save the details of posting, to a file."
   (save-excursion
     (when (if (plist-member (cdr org2blog/wp-blog) :track-posts)
               (car (plist-get (cdr org2blog/wp-blog) :track-posts))
             (car org2blog/wp-track-posts))
-      (let* ((o2b-id (if (cdr (assoc "subtree" post))
+      (let* ((o2b-id (if subtree-p
                          (concat "id:" (org-id-get nil t))
                        (buffer-file-name)))
              (log-file (if (plist-member (cdr org2blog/wp-blog) :track-posts)
@@ -862,24 +860,11 @@ use absolute path or set org-directory")
   (interactive "P")
   (save-restriction
     (save-excursion
-      (org-insert-heading-after-current)
-      (if (fboundp 'org-backward-heading-same-level)
-          (org-backward-heading-same-level 1)
-        (org-backward-same-level 1))
       (org-narrow-to-subtree)
       (org-id-get nil t "o2b")
-      (goto-char (point-min))
-      (setq level (1- (org-reduced-level (org-outline-level))))
-      (dotimes (n level nil) (org-promote-subtree))
-      (org2blog/wp-post-buffer publish)
-      (dotimes (n level nil) (org-demote-subtree))
+      (org2blog/wp-post-buffer publish t)
       (widen)
-      (if (fboundp 'org-forward-heading-same-level)
-          (org-forward-heading-same-level 1)
-        (org-forward-same-level 1))
-      (delete-region (or (beginning-of-line) (point))
-                     (1+ (or (end-of-line) (point))))
-      (save-buffer))))
+      (when-buffer-file-name (save-buffer)))))
 
 ;;;###autoload
 (defun org2blog/wp-track-buffer ()
@@ -897,7 +882,7 @@ use absolute path or set org-directory")
   (save-restriction
     (save-excursion
       (org-narrow-to-subtree)
-      (org2blog/wp-save-details (org2blog/wp-parse-entry) "" nil)
+      (org2blog/wp-save-details (org2blog/wp-parse-entry t) "" nil t)
       (widen))))
 
 ;;;###autoload
