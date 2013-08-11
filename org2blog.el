@@ -52,9 +52,7 @@
 (require 'org)
 (require 'xml-rpc)
 (require 'metaweblog)
-
-(unless (version-list-< (version-to-list (org-version)) '(8 0 0))
-  (require 'ox))
+(require 'ox-wp)
 
 (defgroup org2blog/wp nil
   "Post to weblogs from Emacs"
@@ -104,7 +102,7 @@ All the other properties are optional. They over-ride the global variables.
 
 (defcustom org2blog/wp-buffer-template
   "#+DATE: %s
-#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
 #+CATEGORY: %s
 #+TAGS:
 #+DESCRIPTION:
@@ -448,7 +446,7 @@ from currently logged in."
 
             (progn
               (goto-char (point-min))
-              (if (re-search-forward (concat "^#\\+"
+              (if (re-search-forward (concat "^# "
                                              (regexp-quote file-name)
                                              " ") nil t 1)
                   (setq file-web-url (buffer-substring-no-properties
@@ -464,7 +462,7 @@ from currently logged in."
                                    (get-file-properties file-name)))))
                 (goto-char (point-max))
                 (newline)
-                (insert (concat "#+" file-name " " file-web-url)))
+                (insert (concat "# " file-name " " file-web-url)))
               (setq file-all-urls
                     (append file-all-urls (list (cons
                                                  file-name file-web-url)))))))
@@ -491,169 +489,6 @@ from currently logged in."
           "0")
     "0"))
 
-(defun org2blog/wp-strip-new-lines (html)
-  "Strip the new lines from the html, except in pre and blockquote tags."
-  (save-excursion
-    (with-temp-buffer
-      (let* (start-pos end-pos html-tag)
-        (insert html)
-        (setq start-pos (point-min))
-        (goto-char start-pos)
-        ;; Search for pre or blockquote start
-        (while (re-search-forward
-                "<\\(pre\\|blockquote\\).*?>"
-                nil t 1)
-          (setq end-pos (match-beginning 0))
-          (setq html-tag (match-string-no-properties 1))
-          ;; Replace all new lines before the start
-          (replace-regexp "\\\n" " " nil start-pos end-pos)
-          ;; Go to the end of the pre or blockquote block, and start again
-          (re-search-forward (format "</%s.*?>" html-tag) nil t 1)
-          (setq start-pos (match-end 0))
-          (goto-char start-pos))
-        (setq end-pos (point-max))
-        (replace-regexp "\\\n" " " nil start-pos end-pos)
-        (buffer-substring-no-properties (point-min) (point-max))))))
-
-(defun org2blog/wp-point-in-wp-sc ()
-  "Return True when point in sourcecode block."
-  (save-excursion
-    (let* ((pos (point))
-           (s-count 0)
-           (e-count 0))
-      (save-match-data
-        (while (re-search-backward "\\[sourcecode.*\\]" nil t)
-          (setq s-count (1+ s-count)))
-        (goto-char pos)
-        (while (re-search-backward "\\[/sourcecode\\]" nil t)
-          (setq e-count (1+ e-count))))
-      (> (- s-count e-count) 0))))
-
-(defun org2blog/wp-latex-to-wp (html)
-  "Change inline LaTeX to wp latex blocks."
-  (save-excursion
-    (with-temp-buffer
-      (insert html)
-      (let* ((matchers (plist-get org-format-latex-options :matchers))
-             (re-list org-latex-regexps)
-             beg end re e m n block off)
-        (while (setq e (pop re-list))
-          (setq m (car e) re (nth 1 e) n (nth 2 e)
-                block (if (nth 3 e) "\n\n" ""))
-          (when (member m matchers)
-            (goto-char (point-min))
-            (save-match-data
-              (while (and
-                      (re-search-forward re nil t)
-                      (not (org2blog/wp-point-in-wp-sc)))
-                (cond
-                 ((equal m "$")
-                  (unless (string-match "^latex" (match-string 4))
-                    (replace-match (concat (match-string 1) "$latex "
-                                           (match-string 4) "$"
-                                           (match-string 6))
-                                   nil t)))
-                 ((equal m "$1")
-                  (replace-match (concat (match-string 1) "$latex "
-                                         (substring (match-string 2) 1 -1)
-                                         "$" (match-string 3))
-                                   nil t))
-                 ((equal m "\\(")
-                  (replace-match (concat "$latex "
-                                         (substring (match-string 0) 2 -2)
-                                         "$") nil t))
-                 ((equal m "\\[")
-                  (replace-match (concat "<p style=\"text-align:center\"> $latex \\displaystyle "
-                                         (substring (match-string 0) 2 -2)
-                                         "$ </p>") nil t))
-                 ((equal m "$$")
-                  (replace-match (concat "<p style=\"text-align:center\"> $latex \\displaystyle "
-                                         (substring (match-string 0) 2 -2)
-                                         "$ </p>") nil t))
-                 ((equal m "begin")
-                  (if (equal (match-string 2) "equation")
-                      (replace-match (concat "<p style=\"text-align:center\"> $latex \\displaystyle "
-                                             (substring (match-string 1) 16 -14)
-                                             "$ </p>") nil t)))))))))
-      (buffer-substring-no-properties (point-min) (point-max)))))
-
-(defun org2blog/wp-replace-pre (html)
-  "Replace pre blocks with sourcecode shortcode blocks."
-  (save-excursion
-    (let (pos code lang info params header code-start code-end html-attrs)
-      (with-temp-buffer
-        (insert html)
-        (goto-char (point-min))
-        (save-match-data
-          (while (re-search-forward "<pre\\(.*?\\)>" nil t 1)
-
-            ;; When the codeblock is a src_block
-            (unless
-                (save-match-data
-                  (string-match "example" (match-string-no-properties 1)))
-              ;; Replace the <pre...> text
-              (replace-match "")
-              (setq code-start (point))
-
-              ;; Go to end of code and remove </pre>
-              (re-search-forward "</pre.*?>" nil t 1)
-              (replace-match "")
-              (setq code-end (point))
-              (setq code (buffer-substring-no-properties code-start code-end))
-
-              ;; Delete the code
-              (delete-region code-start code-end)
-              ;; Stripping out all the code highlighting done by htmlize
-              (setq code (replace-regexp-in-string "<.*?>" "" code))
-              (insert (concat "\n[sourcecode]\n" code "[/sourcecode]\n")))))
-
-        ;; Get the new html!
-        (setq html (buffer-substring-no-properties (point-min) (point-max))))
-
-      (setq pos (point-min))
-      (goto-char (point-min))
-      (while
-          ;; Search for code blocks in the buffer from where publish
-          ;; was done, and get the syntaxhl params if any, and put
-          ;; them in the right place in the html, using a temp-buffer.
-          (save-match-data
-            (re-search-forward org-babel-src-block-regexp nil t 1))
-        (backward-word)
-        ;; Get the syntaxhl params and other info about the src_block
-        (let* ((info (org-babel-get-src-block-info))
-               (params (nth 2 info))
-               (code (if (version-list-< (version-to-list (org-version)) '(8 0 0))
-                         (org-html-protect (nth 1 info))
-                       (org-html-encode-plain-text (nth 1 info))))
-               (org-src-lang
-                 (or (cdr (assoc (nth 0 info) org2blog/wp-shortcode-langs-map))
-                     (nth 0 info)))
-               (lang (or (car
-                          (member org-src-lang org2blog/wp-sourcecode-langs))
-                         "text"))
-               (header (concat "[sourcecode language=\"" lang  "\" "
-                               (if (assoc :syntaxhl params)
-                                   (cdr (assoc :syntaxhl params))
-                                 org2blog/wp-sourcecode-default-params)
-                               "]")))
-
-          ;; Change the html by inserting the syntaxhl in the right place.
-          (save-excursion
-            (with-temp-buffer
-              (insert html)
-              (goto-char pos)
-              ;; Search for code
-              (save-match-data
-                (search-forward code nil t 1)
-                (setq pos (match-end 0))
-                (goto-char (match-beginning 0))
-                ;; Search for a header line --
-                (search-backward "[sourcecode]" nil t 1)
-                ;; Replace the text with our new header
-                (replace-match header nil t))
-              (setq html (buffer-substring-no-properties (point-min) (point-max)))))))))
-  html)
-
 (defun org2blog/wp-parse-entry (&optional publish)
   "Parse an org2blog/wp buffer."
   (interactive "P")
@@ -664,10 +499,14 @@ from currently logged in."
                        (plist-get (cdr org2blog/wp-blog) :wp-latex)
                      org2blog/wp-use-wp-latex))
          (sourcecode-shortcode (if (plist-member (cdr org2blog/wp-blog) :wp-code)
-                             (plist-get (cdr org2blog/wp-blog) :wp-code)
-                           org2blog/wp-use-sourcecode-shortcode))
+                (plist-get (cdr org2blog/wp-blog) :wp-code)
+                org2blog/wp-use-sourcecode-shortcode))
+         (option-plist '())
          html-text post-title post-id post-date tags categories narrow-p
          cur-time post-par)
+    (setq option-plist (plist-put option-plist :wp-keep-new-lines keep-new-lines))
+    (setq option-plist (plist-put option-plist :wp-latex wp-latex))
+    (setq option-plist (plist-put option-plist :wp-sourcecode-shortcode sourcecode-shortcode))
     (save-restriction
       (save-excursion
         (if (not org2blog/wp-mode)
@@ -747,36 +586,13 @@ from currently logged in."
 
         ;; Get the exported html
         (save-excursion
-          (if (not narrow-p)
-              (setq html-text
-                    ;;Starting with org-mode 7.9.3, org-export-as-html
-                    ;;takes 4 optional args instead of 5.
-                    (cond
-                     ((version-list-< (version-to-list (org-version)) '(7 9 3))
-                      (org-export-as-html nil nil nil 'string t nil))
-                     ((and (not (version-list-< (version-to-list (org-version)) '(7 9 3)))
-                           (version-list-< (version-to-list (org-version)) '(8 0 0)))
-                      (org-export-as-html nil nil 'string t nil))
-                     ((not (version-list-< (version-to-list (org-version)) '(8 0 0)))
-                      (org-export-as 'html nil nil t nil))))
-            (setq html-text
-                  (if (version-list-< (version-to-list (org-version)) '(8 0 0))
-                      (org-export-region-as-html
-                       (1+ (and (org-back-to-heading) (line-end-position)))
-                       (org-end-of-subtree)
-                       t 'string)
-                    (org-export-as 'html t nil t))))
+          (setq html-text (org-wp-export-as-string nil narrow-p option-plist))
           (setq html-text (org-no-properties html-text)))
 
         ;; Post-process as required.
-        (setq html-text (org2blog/wp-upload-files-replace-urls html-text))
-        (unless keep-new-lines
-          (setq html-text (org2blog/wp-strip-new-lines html-text)))
-        (when sourcecode-shortcode
-          (setq html-text (org2blog/wp-replace-pre html-text)))
-        (when wp-latex
-          (setq html-text (org2blog/wp-latex-to-wp html-text)))))
+        (setq html-text (org2blog/wp-upload-files-replace-urls html-text))))
 
+    ;; Return value
     (list
      (cons "point" (point))
      (cons "subtree" narrow-p)
