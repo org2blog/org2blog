@@ -50,17 +50,21 @@ contextual information."
                  (if (not lbl) ""
                    (format " id=\"%s\""
                            (org-export-solidify-link-text lbl)))))
-        (sc (plist-get info :wp-sourcecode-shortcode))
+        (sc (plist-get info :wp-shortcode))
+        (langs (plist-get info :wp-shortcode-langs))
+        (lang-map (plist-get info :wp-shortcode-lang-map))
         (syntaxhl (org-element-property :syntaxhl src-block)))
 
     ;; Set back the language that we reset
     (org-element-put-property src-block :language lang)
 
-    ;; FIXME: Change language name based on what wp-shortcode can handle.
-    (if sc
-        (format "[sourcecode language=\"%s\" title=\"%s\" %s]\n%s[/sourcecode]"
-                (or lang "text") (or caption "") (or syntaxhl "") raw-code)
-      (org-html-src-block src-block contents info))))
+    (if (not sc)
+        (org-html-src-block src-block contents info)
+      (format "[sourcecode language=\"%s\" title=\"%s\" %s]\n%s[/sourcecode]"
+              (or (plist-get lang-map lang) (car (member lang langs)) "text")
+              (or caption "")
+              (or syntaxhl "")
+              raw-code))))
 
 (defun org-wp-latex-environment (latex-environment contents info)
   "Transcode a LATEX-ENVIRONMENT element from Org to WP HTML.

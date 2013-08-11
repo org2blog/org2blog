@@ -177,16 +177,14 @@ be on your emacs load-path for this to work."
   :group 'org2blog/wp
   :type 'list)
 
-
-(defcustom org2blog/wp-shortcode-langs-map
-  (list
-   '("R" . "r")
-   '("emacs-lisp" . "lisp"))
+(defcustom org2blog/wp-shortcode-langs-map nil
   "Association list for source code languages supported by Org
 and by SyntaxHighlighter.  Each element of the list maps the
 orgmode source code language (key) to the language spec that
-should be used for syntax highlighting in shortcode blocks.  The
-target languages need to be in 'org2blog/wp-sourcecode-langs ."
+should be used for syntax highlighting in shortcode blocks. The
+list of target languages complements the list of languages in
+ineed not be in 'org2blog/wp-sourcecode-langs and they already
+need NOT be present in 'org2blog/wp-sourcecode-langs."
   :group 'org2blog/wp
   :type '(alist :key-type string :value-type string))
 
@@ -506,7 +504,9 @@ from currently logged in."
          cur-time post-par)
     (setq option-plist (plist-put option-plist :wp-keep-new-lines keep-new-lines))
     (setq option-plist (plist-put option-plist :wp-latex wp-latex))
-    (setq option-plist (plist-put option-plist :wp-sourcecode-shortcode sourcecode-shortcode))
+    (setq option-plist (plist-put option-plist :wp-shortcode sourcecode-shortcode))
+    (setq option-plist (plist-put option-plist :wp-shortcode-langs org2blog/wp-sourcecode-langs))
+    (setq option-plist (plist-put option-plist :wp-shortcode-lang-map org2blog/wp-shortcode-langs-map))
     (save-restriction
       (save-excursion
         (if (not org2blog/wp-mode)
