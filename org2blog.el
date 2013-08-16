@@ -238,6 +238,20 @@ Set to nil if you don't wish to track posts."
 (defvar org2blog/wp-mode-hook nil
   "Hook to run upon entry into mode.")
 
+(defvar org2blog/wp-export-options
+  '(
+    :section-numbers nil
+    :with-priority nil
+    :with-sub-superscript nil
+    :with-toc nil
+    :with-tags nil
+    :with-todo-keywords nil
+    )
+  "Export options to be used when exporting buffers and subtrees.
+Look at `org-export-options-alist' for the available options.
+Also, note that these options are over-ridden by in-file
+options.")
+
 (defun org2blog/wp-is-narrow-p nil
   "Return t if a buffer is narrowed"
   (not (equal (- (point-max) (point-min)) (buffer-size))))
@@ -499,14 +513,14 @@ from currently logged in."
          (sourcecode-shortcode (if (plist-member (cdr org2blog/wp-blog) :wp-code)
                                    (plist-get (cdr org2blog/wp-blog) :wp-code)
                                  org2blog/wp-use-sourcecode-shortcode))
-         (option-plist '())
+         (option-plist org2blog/wp-export-options)
          html-text post-title post-id post-date tags categories
          cur-time post-par)
-    (setq option-plist (plist-put option-plist :wp-keep-new-lines keep-new-lines))
-    (setq option-plist (plist-put option-plist :wp-latex wp-latex))
-    (setq option-plist (plist-put option-plist :wp-shortcode sourcecode-shortcode))
-    (setq option-plist (plist-put option-plist :wp-shortcode-langs org2blog/wp-sourcecode-langs))
-    (setq option-plist (plist-put option-plist :wp-shortcode-lang-map org2blog/wp-shortcode-langs-map))
+    (plist-put option-plist :wp-keep-new-lines keep-new-lines)
+    (plist-put option-plist :wp-latex wp-latex)
+    (plist-put option-plist :wp-shortcode sourcecode-shortcode)
+    (plist-put option-plist :wp-shortcode-langs org2blog/wp-sourcecode-langs)
+    (plist-put option-plist :wp-shortcode-lang-map org2blog/wp-shortcode-langs-map)
     (save-restriction
       (save-excursion
         (if (not org2blog/wp-mode)
