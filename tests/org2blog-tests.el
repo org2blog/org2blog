@@ -104,3 +104,12 @@ SRC-NAME and evaluage BODY there."
               (org-shifttab 4)
               (goto-char (point-max))
               (cdr (assoc "description" (org2blog/wp-parse-entry nil))))))))
+
+(ert-deftest o2b-test-post-buffer-hangs ()
+  "Testing if posting a specific source hangs emacs."
+  (should (string-equal
+           (o2b-test-fetch-src-block "o2b-test-post-buffer-hangs")
+           (o2b-test-buffer-with-block
+             "o2b-test-post-buffer-hangs-input"
+            (let ()
+              (cdr (assoc "description" (org2blog/wp-parse-entry nil))))))))
