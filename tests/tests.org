@@ -17,7 +17,7 @@
        - Bar
        - Baz
   #+END_SRC
-  
+
   #+NAME: o2b-test-post-subtree-output
   #+BEGIN_SRC html
     <p> This is a subtree that we are testing </p>
@@ -34,7 +34,7 @@
     </ul>
     </div>
     </div>
-    
+
   #+END_SRC
 
   #+NAME: o2b-test-post-subtree-toc
@@ -61,7 +61,7 @@
     </ul>
     </div>
     </div>
-    
+
   #+END_SRC
 
 * Buffer Issues                                                   :o2b:parse:
@@ -153,19 +153,19 @@
   #+NAME: o2b-test-parse-latex-input
   #+BEGIN_SRC org
     ,* LaTeX issues
-    
+
     ,** Superscripts don't work correctly
-    
+
        $f^{-1}$
-    
+
     ,** The equations should be centered
-    
+
        $$\alpha + \beta = \gamma$$
   #+END_SRC
 
   #+NAME: o2b-test-parse-latex-output-plain
   #+BEGIN_SRC html
-    
+
     <div id="outline-container-sec-1" class="outline-2">
     <h2 id="sec-1">Superscripts don't work correctly</h2>
     <div class="outline-text-2" id="text-1">
@@ -178,12 +178,12 @@
     <p> $$\alpha + \beta = \gamma$$</p>
     </div>
     </div>
-    
+
   #+END_SRC
 
   #+NAME: o2b-test-parse-latex-output-wp
   #+BEGIN_SRC html
-    
+
     <div id="outline-container-sec-1" class="outline-2">
     <h2 id="sec-1">Superscripts don't work correctly</h2>
     <div class="outline-text-2" id="text-1">
@@ -196,8 +196,14 @@
     <p> <p style="text-align:center"> $latex \alpha + \beta = \gamma$ </p></p>
     </div>
     </div>
-    
+
   #+END_SRC
+
+* Won't Test
+** #26 FR: on draft preview, try to prevent opening new tabs/windows
+
+   https://github.com/punchagan/org2blog/issues/26
+
 
 * #5 Publish update required for org2blog-post-buffer-as-page   :o2b:publish:
 
@@ -211,7 +217,6 @@
 
   https://github.com/punchagan/org2blog/issues/8
 
-
 * #13 Feature request: open draft in browser.
 
   https://github.com/punchagan/org2blog/issues/13
@@ -222,7 +227,7 @@
 
 * #15 Password no longer works when set in .emacs
 
-  
+
   https://github.com/punchagan/org2blog/issues/15
 
 * #16 Symbol's function definition is void: org-save-outline-visibility
@@ -256,10 +261,6 @@
 * #25 Login problem
 
   https://github.com/punchagan/org2blog/issues/25
-
-* #26 FR: on draft preview, try to prevent opening new tabs/windows
-
-  https://github.com/punchagan/org2blog/issues/26
 
 * #27 Adapt prompt for tag/cat/parent completion.
 
@@ -389,7 +390,7 @@
 
   https://github.com/punchagan/org2blog/issues/65
 
-* #66 org-mode source examples 
+* #66 org-mode source examples
 
   https://github.com/punchagan/org2blog/issues/66
 
@@ -401,7 +402,7 @@
 
   https://github.com/punchagan/org2blog/issues/68
 
-* #69 I am probably just doing this wrong, but setup not working 
+* #69 I am probably just doing this wrong, but setup not working
 
   https://github.com/punchagan/org2blog/issues/69
 
@@ -489,7 +490,7 @@
 
   https://github.com/punchagan/org2blog/issues/90
 
-* #91 M-x org2blog/wp-post-subtree and got Debugger entered--Lisp error: (error "Stack overflow in regexp matcher") 
+* #91 M-x org2blog/wp-post-subtree and got Debugger entered--Lisp error: (error "Stack overflow in regexp matcher")
 
   https://github.com/punchagan/org2blog/issues/91
 
@@ -525,7 +526,7 @@
 
   https://github.com/punchagan/org2blog/issues/99
 
-* #100 [doc] added the (require 'netrc) for the netrc setup 
+* #100 [doc] added the (require 'netrc) for the netrc setup
 
   https://github.com/punchagan/org2blog/issues/100
 
@@ -589,7 +590,7 @@
 
   https://github.com/punchagan/org2blog/issues/116
 
-* #117 you should mention the seperated metaweblog.el 
+* #117 you should mention the seperated metaweblog.el
 
   https://github.com/punchagan/org2blog/issues/117
 
@@ -644,5 +645,3 @@
 * #130 suggestions on track-posts
 
   https://github.com/punchagan/org2blog/issues/130
-
-
