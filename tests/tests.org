@@ -4,9 +4,10 @@
     https://github.com/punchagan/org2blog/issues/2
   - [X] #10 org2blog not always creating lists
     https://github.com/punchagan/org2blog/issues/10
+  - [X] #19 allow toc creation
+    https://github.com/punchagan/org2blog/issues/19
   - [X] #112 How to insert table of contents
     https://github.com/punchagan/org2blog/issues/112
-
 
   #+NAME: o2b-test-post-subtree-input
   #+BEGIN_SRC org
@@ -365,12 +366,72 @@
 ** #127 org-export-backend-options accessing a non-org-export-backend
    https://github.com/punchagan/org2blog/issues/127
 
-
 ** #126 Org 8 support
 
    https://github.com/punchagan/org2blog/issues/126
 
+** #101 org2blog does not work with pretest emacs
 
+   https://github.com/punchagan/org2blog/issues/101
+
+** #115 Fix api change in Org 8
+
+   https://github.com/punchagan/org2blog/issues/115
+
+** #109 Rewrite org2blog as an export backend derived from html
+
+   https://github.com/punchagan/org2blog/issues/109
+
+** #110 display section numbers
+
+   https://github.com/punchagan/org2blog/issues/110
+
+** #111 remove bundled metaweblog.el
+
+   https://github.com/punchagan/org2blog/issues/111
+
+** #113 error with newest org-mode
+
+   https://github.com/punchagan/org2blog/issues/113
+
+** #114 Symbol's function definition is void: metaweblog-upload-file
+
+   https://github.com/punchagan/org2blog/issues/114
+
+** #107 Please stop bundling third-party libraries
+
+   https://github.com/punchagan/org2blog/issues/107
+
+** #106 Displaying section number in posts
+
+   https://github.com/punchagan/org2blog/issues/106
+
+** #102 publish post does not work with org-mode 7.9.3
+
+   https://github.com/punchagan/org2blog/issues/102
+
+** #103 Fix compatibility with org-mode >= 7.9.3
+
+   https://github.com/punchagan/org2blog/issues/103
+
+** #100 [doc] added the (require 'netrc) for the netrc setup
+
+   https://github.com/punchagan/org2blog/issues/100
+
+** #73 Shortcode based export is broken
+
+   https://github.com/punchagan/org2blog/issues/73
+
+
+** #49 wp-post-subtree will insert extra </div> at the end of input on wordpress.com
+
+   https://github.com/punchagan/org2blog/issues/49
+
+** #98 org2blog-pkg.el:update org-mode version
+
+   https://github.com/punchagan/org2blog/issues/98
+
+* Pending Issues
 * #5 Publish update required for org2blog-post-buffer-as-page   :o2b:publish:
 
   https://github.com/punchagan/org2blog/issues/5
@@ -383,11 +444,9 @@
 
   https://github.com/punchagan/org2blog/issues/8
 
-
 * #14 Feature request: choose from a list of blogs
 
   https://github.com/punchagan/org2blog/issues/14
-
 
 * #17 org2blog-mode does not stick after publishing (draft)
 
@@ -396,10 +455,6 @@
 * #18 FR: Allow specifying an org header under which to track org2blog entries
 
   https://github.com/punchagan/org2blog/issues/18
-
-* #19 allow toc creation
-
-  https://github.com/punchagan/org2blog/issues/19
 
 * #20 enhancement:  keybindings to navigate to header fields
 
@@ -485,10 +540,6 @@
 
   https://github.com/punchagan/org2blog/issues/48
 
-* #49 wp-post-subtree will insert extra </div> at the end of input on wordpress.com
-
-  https://github.com/punchagan/org2blog/issues/49
-
 * #50 the table-of-contents will publish when post a subtree after git at May 24
 
   https://github.com/punchagan/org2blog/issues/50
@@ -564,10 +615,6 @@
 * #72 Posting draft causes org2blog mode to turn off
 
   https://github.com/punchagan/org2blog/issues/72
-
-* #73 Shortcode based export is broken
-
-  https://github.com/punchagan/org2blog/issues/73
 
 * #74 Error with org2blog/wp-post-buffer-as-page
 
@@ -661,29 +708,9 @@
 
   https://github.com/punchagan/org2blog/issues/97
 
-* #98 org2blog-pkg.el:update org-mode version
-
-  https://github.com/punchagan/org2blog/issues/98
-
 * #99 #+STYLE: lines getting stripped on upload to Wordpress
 
   https://github.com/punchagan/org2blog/issues/99
-
-* #100 [doc] added the (require 'netrc) for the netrc setup
-
-  https://github.com/punchagan/org2blog/issues/100
-
-* #101 org2blog does not work with pretest emacs
-
-  https://github.com/punchagan/org2blog/issues/101
-
-* #102 publish post does not work with org-mode 7.9.3
-
-  https://github.com/punchagan/org2blog/issues/102
-
-* #103 Fix compatibility with org-mode >= 7.9.3
-
-  https://github.com/punchagan/org2blog/issues/103
 
 * #104 Request integration with org-id for link support
 
@@ -693,41 +720,9 @@
 
   https://github.com/punchagan/org2blog/issues/105
 
-* #106 Displaying section number in posts
-
-  https://github.com/punchagan/org2blog/issues/106
-
-* #107 Please stop bundling third-party libraries
-
-  https://github.com/punchagan/org2blog/issues/107
-
 * #108 font and color of code chunk outputs
 
   https://github.com/punchagan/org2blog/issues/108
-
-* #109 Rewrite org2blog as an export backend derived from html
-
-  https://github.com/punchagan/org2blog/issues/109
-
-* #110 display section numbers
-
-  https://github.com/punchagan/org2blog/issues/110
-
-* #111 remove bundled metaweblog.el
-
-  https://github.com/punchagan/org2blog/issues/111
-
-* #113 error with newest org-mode
-
-  https://github.com/punchagan/org2blog/issues/113
-
-* #114 Symbol's function definition is void: metaweblog-upload-file
-
-  https://github.com/punchagan/org2blog/issues/114
-
-* #115 Fix api change in Org 8
-
-  https://github.com/punchagan/org2blog/issues/115
 
 * #116 when post succeeded, I need a hook
 
