@@ -93,3 +93,14 @@ SRC-NAME and evaluage BODY there."
               (plist-put org2blog/wp-export-options :with-toc t)
               (cdr (assoc "description" (org2blog/wp-parse-entry t))))))))
 
+
+(ert-deftest o2b-test-post-buffer-non-visible ()
+  "Testing if posting buffer posts non visible content."
+  (should (string-equal
+           (o2b-test-fetch-src-block "o2b-test-post-buffer-non-visible")
+           (o2b-test-buffer-with-block
+            "o2b-test-post-buffer-non-visible-input"
+            (let ()
+              (org-shifttab 4)
+              (goto-char (point-max))
+              (cdr (assoc "description" (org2blog/wp-parse-entry nil))))))))
