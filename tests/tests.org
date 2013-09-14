@@ -203,11 +203,12 @@
 
   #+END_SRC
 * Source code block tests
-  - [ ] #124 htmlize python code failed
-    https://github.com/punchagan/org2blog/issues/124
 
-  - [ ] #125 bug for posting source code
+  - [X] #125 bug for posting source code
     https://github.com/punchagan/org2blog/issues/125
+
+  - [X] #120 org2blog/export
+    https://github.com/punchagan/org2blog/issues/120
 
   #+NAME: o2b-test-regexp-source-becomes-latex-input
   #+BEGIN_SRC org
@@ -233,6 +234,104 @@
     [sourcecode language="text" title="" ]
     (concat "- State \"\\(" (regexp-opt org-done-keywords)"\\)\"\\s-*\\\([^]\n]+\\)\$ ")))
     [/sourcecode]
+
+  #+END_SRC
+
+  #+NAME: o2b-test-source-subtree-error-input
+  #+BEGIN_SRC org
+    ,* How to use keyboard to navigate feedly.com                                    :en:keysnail:emacs:
+      :PROPERTIES:
+      :ID:       o2b:efc2e27e-8a71-4950-9b64-ad4aa5269ce9
+      :POST_DATE: [2013-05-06 一 23:59]
+      :END:
+    Here is the detailed steps,
+    1. Install [[https://github.com/mooz/keysnail][keysnail]] (a firefox addon)
+    2. Install [[https://github.com/mooz/keysnail/wiki/plugin][HoK]] (no less than version 1.3.9) through keysnail
+    3. Add below code into .keysnail.js
+    ,#+BEGIN_SRC javascript
+    key.setViewKey('e', function (aEvent, aArg) {
+            ext.exec("hok-start-foreground-mode", aArg);
+    }, 'Hok - Foreground hint mode', true);
+
+    key.setViewKey('E', function (aEvent, aArg) {
+            ext.exec("hok-start-background-mode", aArg);
+    }, 'HoK - Background hint mode', true);
+
+    key.setViewKey(';', function (aEvent, aArg) {
+            ext.exec("hok-start-extended-mode", aArg);
+    }, 'HoK - Extented hint mode', true);
+
+    key.setViewKey(['C-c', 'C-e'], function (aEvent, aArg) {
+            ext.exec("hok-start-continuous-mode", aArg);
+    }, 'Start continuous HaH', true);
+
+    hook.addToHook('PluginLoaded', function () {
+      if (!plugins.hok)
+        return;
+
+      /* HoK 1.3.9+ requried */
+      plugins.hok.pOptions.selector = plugins.hok.pOptions.selector
+        /* feedly */
+        + ", *[data-uri]"
+        + ", *[data-selector-toggle]"
+        + ", *[data-page-action]"
+        + ", *[data-app-action]"
+      ;
+    });
+    ,#+END_SRC
+    4. Restart Firefox, logged into [[http://www.feedly.com]] and press hot key "e"
+    5. Enjoy!
+  #+END_SRC
+
+  #+NAME: o2b-test-source-subtree-error
+  #+BEGIN_SRC html
+    <p> Here is the detailed steps, </p>
+
+    <ol class="org-ol">
+    <li>Install <a href="https://github.com/mooz/keysnail">keysnail</a> (a firefox addon)
+    </li>
+    <li>Install <a href="https://github.com/mooz/keysnail/wiki/plugin">HoK</a> (no less than version 1.3.9) through keysnail
+    </li>
+    <li>Add below code into .keysnail.js
+    </li>
+    </ol>
+    [sourcecode language="javascript" title="" ]
+    key.setViewKey('e', function (aEvent, aArg) {
+            ext.exec("hok-start-foreground-mode", aArg);
+    }, 'Hok - Foreground hint mode', true);
+
+    key.setViewKey('E', function (aEvent, aArg) {
+            ext.exec("hok-start-background-mode", aArg);
+    }, 'HoK - Background hint mode', true);
+
+    key.setViewKey(';', function (aEvent, aArg) {
+            ext.exec("hok-start-extended-mode", aArg);
+    }, 'HoK - Extented hint mode', true);
+
+    key.setViewKey(['C-c', 'C-e'], function (aEvent, aArg) {
+            ext.exec("hok-start-continuous-mode", aArg);
+    }, 'Start continuous HaH', true);
+
+    hook.addToHook('PluginLoaded', function () {
+      if (!plugins.hok)
+        return;
+
+      /* HoK 1.3.9+ requried */
+      plugins.hok.pOptions.selector = plugins.hok.pOptions.selector
+        /* feedly */
+        + ", *[data-uri]"
+        + ", *[data-selector-toggle]"
+        + ", *[data-page-action]"
+        + ", *[data-app-action]"
+      ;
+    });
+    [/sourcecode]
+    <ol class="org-ol">
+    <li>Restart Firefox, logged into <a href="http://www.feedly.com">http://www.feedly.com</a> and press hot key "e"
+    </li>
+    <li>Enjoy!
+    </li>
+    </ol>
 
   #+END_SRC
 
@@ -646,10 +745,6 @@
 
   https://github.com/punchagan/org2blog/issues/119
 
-* #120 org2blog/export
-
-  https://github.com/punchagan/org2blog/issues/120
-
 * #121 when embed a image in org-mode, uploaded succeeded but I got 503 error
 
   https://github.com/punchagan/org2blog/issues/121
@@ -661,6 +756,8 @@
 * #123 function for org2blog/retrieve posted articles
 
   https://github.com/punchagan/org2blog/issues/123
+* #124 htmlize python code failed
+  https://github.com/punchagan/org2blog/issues/124
 
 * #128 failed to post blog when blog containing gif image
 
