@@ -37,10 +37,10 @@ SRC-NAME and evaluage BODY there."
   (declare (indent 0) (debug t))
   `(let ()
      (with-temp-buffer
-           (org-mode)
-           (insert (o2b-test-fetch-src-block ,src-name))
-           (goto-char (point-min))
-           (progn ,@body))))
+       (org-mode)
+       (insert (o2b-test-fetch-src-block ,src-name))
+       (goto-char (point-min))
+       (progn ,@body))))
 
 
 ;; Tests
@@ -88,10 +88,10 @@ SRC-NAME and evaluage BODY there."
   (should (string-equal
            (o2b-test-fetch-src-block "o2b-test-post-subtree-toc")
            (o2b-test-buffer-with-block
-            "o2b-test-post-subtree-input"
-            (let ((org2blog/wp-export-options (copy-sequence org2blog/wp-export-options)))
-              (plist-put org2blog/wp-export-options :with-toc t)
-              (cdr (assoc "description" (org2blog/wp-parse-entry t))))))))
+             "o2b-test-post-subtree-input"
+             (let ((org2blog/wp-export-options (copy-sequence org2blog/wp-export-options)))
+               (plist-put org2blog/wp-export-options :with-toc t)
+               (cdr (assoc "description" (org2blog/wp-parse-entry t))))))))
 
 
 (ert-deftest o2b-test-post-buffer-non-visible ()
@@ -99,11 +99,11 @@ SRC-NAME and evaluage BODY there."
   (should (string-equal
            (o2b-test-fetch-src-block "o2b-test-post-buffer-non-visible")
            (o2b-test-buffer-with-block
-            "o2b-test-post-buffer-non-visible-input"
-            (let ()
-              (org-shifttab 4)
-              (goto-char (point-max))
-              (cdr (assoc "description" (org2blog/wp-parse-entry nil))))))))
+             "o2b-test-post-buffer-non-visible-input"
+             (let ()
+               (org-shifttab 4)
+               (goto-char (point-max))
+               (cdr (assoc "description" (org2blog/wp-parse-entry nil))))))))
 
 (ert-deftest o2b-test-post-buffer-hangs ()
   "Testing if posting a specific source hangs emacs."
@@ -111,5 +111,15 @@ SRC-NAME and evaluage BODY there."
            (o2b-test-fetch-src-block "o2b-test-post-buffer-hangs")
            (o2b-test-buffer-with-block
              "o2b-test-post-buffer-hangs-input"
-            (let ()
-              (cdr (assoc "description" (org2blog/wp-parse-entry nil))))))))
+             (let ()
+               (cdr (assoc "description" (org2blog/wp-parse-entry nil))))))))
+
+
+(ert-deftest o2b-test-post-regexp-latex ()
+  "Testing if a source block with \[ is treated as LaTeX."
+  (should (string-equal
+           (o2b-test-fetch-src-block "o2b-test-regexp-source-becomes-latex")
+           (o2b-test-buffer-with-block
+             "o2b-test-regexp-source-becomes-latex-input"
+             (let ()
+               (cdr (assoc "description" (org2blog/wp-parse-entry nil))))))))

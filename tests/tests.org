@@ -1,4 +1,4 @@
-* Sub-tree Issues                                                 :o2b:parse:
+* Sub-tree Tests                                                  :o2b:parse:
 
   - [X] #2 output is dependent on indent level
     https://github.com/punchagan/org2blog/issues/2
@@ -64,12 +64,16 @@
 
   #+END_SRC
 
-* Buffer Issues                                                   :o2b:parse:
+* Buffer Tests                                                    :o2b:parse:
   - [ ] #12 still having trouble with #+PARENT
     https://github.com/punchagan/org2blog/issues/12
 
   - [X] #133 experimental branch exports only sparse subtree
     https://github.com/punchagan/org2blog/issues/133
+
+  - [X] #31 org2blog-post-subtree causing Emacs to hang
+    https://github.com/punchagan/org2blog/issues/31
+
 
   #+NAME: o2b-test-post-buffer-non-visible-input
   #+BEGIN_SRC org
@@ -143,7 +147,7 @@
     </div>
 
   #+END_SRC
-* LaTeX issues
+* LaTeX Tests
   - [X] #9 another error in latex
     https://github.com/punchagan/org2blog/issues/9
 
@@ -198,11 +202,74 @@
     </div>
 
   #+END_SRC
+* Source code block tests
+  - [ ] #124 htmlize python code failed
+    https://github.com/punchagan/org2blog/issues/124
 
+  - [ ] #125 bug for posting source code
+    https://github.com/punchagan/org2blog/issues/125
+
+  #+NAME: o2b-test-regexp-source-becomes-latex-input
+  #+BEGIN_SRC org
+    ,#+BLOG: localhost
+    ,#+POSTID: 127
+    ,#+DATE: [2013-09-14 Sat 20:14]
+    ,#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
+    ,#+CATEGORY: org2blog, emacs
+    ,#+TAGS:
+    ,#+DESCRIPTION:
+    ,#+TITLE: Test source regexp becomes LaTeX
+    Test source code
+    ,#+BEGIN_SRC emacs-lisp
+    (concat "- State \"\\(" (regexp-opt org-done-keywords)"\\)\"\\s-*\\\([^]\n]+\\)\$ ")))
+    ,#+END_SRC
+
+  #+END_SRC
+
+  #+NAME: o2b-test-regexp-source-becomes-latex
+  #+BEGIN_SRC html
+    <p> Test source code </p>
+
+    [sourcecode language="text" title="" ]
+    (concat "- State \"\\(" (regexp-opt org-done-keywords)"\\)\"\\s-*\\\([^]\n]+\\)\$ ")))
+    [/sourcecode]
+
+  #+END_SRC
+
+* Publish tests
 * Won't Test
+** #16 Symbol's function definition is void: org-save-outline-visibility
+
+   https://github.com/punchagan/org2blog/issues/16
+
+** #15 Password no longer works when set in .emacs
+
+
+   https://github.com/punchagan/org2blog/issues/15
+
+** #13 Feature request: open draft in browser.
+
+   https://github.com/punchagan/org2blog/issues/13
+
 ** #26 FR: on draft preview, try to prevent opening new tabs/windows
 
    https://github.com/punchagan/org2blog/issues/26
+
+** #88 Fix minor typo
+
+   https://github.com/punchagan/org2blog/issues/88
+
+** #52 Extract MetaWeblog into separate repo
+
+   https://github.com/punchagan/org2blog/issues/52
+
+** #127 org-export-backend-options accessing a non-org-export-backend
+   https://github.com/punchagan/org2blog/issues/127
+
+
+** #126 Org 8 support
+
+   https://github.com/punchagan/org2blog/issues/126
 
 
 * #5 Publish update required for org2blog-post-buffer-as-page   :o2b:publish:
@@ -217,22 +284,11 @@
 
   https://github.com/punchagan/org2blog/issues/8
 
-* #13 Feature request: open draft in browser.
-
-  https://github.com/punchagan/org2blog/issues/13
 
 * #14 Feature request: choose from a list of blogs
 
   https://github.com/punchagan/org2blog/issues/14
 
-* #15 Password no longer works when set in .emacs
-
-
-  https://github.com/punchagan/org2blog/issues/15
-
-* #16 Symbol's function definition is void: org-save-outline-visibility
-
-  https://github.com/punchagan/org2blog/issues/16
 
 * #17 org2blog-mode does not stick after publishing (draft)
 
@@ -277,10 +333,6 @@
 * #30 Links between pages
 
   https://github.com/punchagan/org2blog/issues/30
-
-* #31 org2blog-post-subtree causing Emacs to hang
-
-  https://github.com/punchagan/org2blog/issues/31
 
 * #32 Can't use category names with spaces in them (?)
 
@@ -345,10 +397,6 @@
 * #51 Image uploads prepend file:// (WP issue?)
 
   https://github.com/punchagan/org2blog/issues/51
-
-* #52 Extract MetaWeblog into separate repo
-
-  https://github.com/punchagan/org2blog/issues/52
 
 * #53 Posting existing org file doesn't activate org2blog mode
 
@@ -477,10 +525,6 @@
 * #87 Got HTTP 500 error when using org2blog/wp-login
 
   https://github.com/punchagan/org2blog/issues/87
-
-* #88 Fix minor typo
-
-  https://github.com/punchagan/org2blog/issues/88
 
 * #89 XML-RPC fault `parse error. not well formed'
 
@@ -617,22 +661,6 @@
 * #123 function for org2blog/retrieve posted articles
 
   https://github.com/punchagan/org2blog/issues/123
-
-* #124 htmlize python code failed
-
-  https://github.com/punchagan/org2blog/issues/124
-
-* #125 bug for posting source code
-
-  https://github.com/punchagan/org2blog/issues/125
-
-* #126 Org 8 support
-
-  https://github.com/punchagan/org2blog/issues/126
-
-* #127 org-export-backend-options accessing a non-org-export-backend
-
-  https://github.com/punchagan/org2blog/issues/127
 
 * #128 failed to post blog when blog containing gif image
 
