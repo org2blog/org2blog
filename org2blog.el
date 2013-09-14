@@ -523,11 +523,6 @@ from currently logged in."
     (plist-put option-plist :wp-shortcode-lang-map org2blog/wp-shortcode-langs-map)
     (save-restriction
       (save-excursion
-        (if (not org2blog/wp-mode)
-            (org-save-outline-visibility 'use-markers (org-mode-restart))
-          (org-save-outline-visibility 'use-markers (org-mode-restart))
-          (org2blog/wp-mode t))
-
         ;; Get the required parameters for posting the blog-post
         (if subtree-p
             (progn
