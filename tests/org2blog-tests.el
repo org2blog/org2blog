@@ -123,3 +123,12 @@ SRC-NAME and evaluage BODY there."
              "o2b-test-regexp-source-becomes-latex-input"
              (let ()
                (cdr (assoc "description" (org2blog/wp-parse-entry nil))))))))
+
+(ert-deftest o2b-test-post-source-subtree ()
+  "Testing if posting a subtree with a source block works."
+  (should (string-equal
+           (o2b-test-fetch-src-block "o2b-test-source-subtree-error")
+           (o2b-test-buffer-with-block
+             "o2b-test-source-subtree-error-input"
+             (let ()
+               (cdr (assoc "description" (org2blog/wp-parse-entry t))))))))
