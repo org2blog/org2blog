@@ -422,7 +422,6 @@
 
    https://github.com/punchagan/org2blog/issues/73
 
-
 ** #49 wp-post-subtree will insert extra </div> at the end of input on wordpress.com
 
    https://github.com/punchagan/org2blog/issues/49
@@ -431,337 +430,337 @@
 
    https://github.com/punchagan/org2blog/issues/98
 
-* Pending Issues
-* #5 Publish update required for org2blog-post-buffer-as-page   :o2b:publish:
+** #77 Add a hint about splitting posts to README
 
-  https://github.com/punchagan/org2blog/issues/5
+   https://github.com/punchagan/org2blog/issues/77
 
-* #7 org-directory inexistant                                   :o2b:publish:
+** #18 FR: Allow specifying an org header under which to track org2blog entries
 
-  https://github.com/punchagan/org2blog/issues/7
+   https://github.com/punchagan/org2blog/issues/18
 
-* #8 changing tags                                              :o2b:publish:
+** #17 org2blog-mode does not stick after publishing (draft)
 
-  https://github.com/punchagan/org2blog/issues/8
+   https://github.com/punchagan/org2blog/issues/17
+** #14 Feature request: choose from a list of blogs
 
-* #14 Feature request: choose from a list of blogs
+   https://github.com/punchagan/org2blog/issues/14
+** #72 Posting draft causes org2blog mode to turn off
 
-  https://github.com/punchagan/org2blog/issues/14
+   https://github.com/punchagan/org2blog/issues/72
 
-* #17 org2blog-mode does not stick after publishing (draft)
+* Pending Issues to test
+** #5 Publish update required for org2blog-post-buffer-as-page  :o2b:publish:
 
-  https://github.com/punchagan/org2blog/issues/17
+   https://github.com/punchagan/org2blog/issues/5
 
-* #18 FR: Allow specifying an org header under which to track org2blog entries
+** #7 org-directory inexistant                                  :o2b:publish:
 
-  https://github.com/punchagan/org2blog/issues/18
+   https://github.com/punchagan/org2blog/issues/7
 
-* #20 enhancement:  keybindings to navigate to header fields
+** #8 changing tags                                             :o2b:publish:
 
-  https://github.com/punchagan/org2blog/issues/20
+   https://github.com/punchagan/org2blog/issues/8
 
-* #23 metaweblog freezes when it can't connect
+** #20 enhancement:  keybindings to navigate to header fields
 
-  https://github.com/punchagan/org2blog/issues/23
+   https://github.com/punchagan/org2blog/issues/20
 
-* #24 mapcar: Symbol's value as variable is void: org2blog-server-weblog-id
+** #23 metaweblog freezes when it can't connect
 
-  https://github.com/punchagan/org2blog/issues/24
+   https://github.com/punchagan/org2blog/issues/23
 
-* #25 Login problem
+** #24 mapcar: Symbol's value as variable is void: org2blog-server-weblog-id
 
-  https://github.com/punchagan/org2blog/issues/25
+   https://github.com/punchagan/org2blog/issues/24
 
-* #27 Adapt prompt for tag/cat/parent completion.
+** #25 Login problem
 
-  https://github.com/punchagan/org2blog/issues/27
+   https://github.com/punchagan/org2blog/issues/25
 
-* #28 theorems and such (feature request)
+** #27 Adapt prompt for tag/cat/parent completion.
 
-  https://github.com/punchagan/org2blog/issues/28
+   https://github.com/punchagan/org2blog/issues/27
 
-* #29 Nice display of sourcecode no longer works for me
+** #28 theorems and such (feature request)
 
-  https://github.com/punchagan/org2blog/issues/29
+   https://github.com/punchagan/org2blog/issues/28
 
-* #30 Links between pages
+** #29 Nice display of sourcecode no longer works for me
 
-  https://github.com/punchagan/org2blog/issues/30
+   https://github.com/punchagan/org2blog/issues/29
 
-* #32 Can't use category names with spaces in them (?)
+** #30 Links between pages
 
-  https://github.com/punchagan/org2blog/issues/32
+   https://github.com/punchagan/org2blog/issues/30
 
-* #33 authinfo support?
+** #32 Can't use category names with spaces in them (?)
 
-  https://github.com/punchagan/org2blog/issues/33
+   https://github.com/punchagan/org2blog/issues/32
 
-* #34 How to post literal < and > ?
+** #33 authinfo support?
 
-  https://github.com/punchagan/org2blog/issues/34
+   https://github.com/punchagan/org2blog/issues/33
 
-* #35 tags need to be separated by , and space
+** #34 How to post literal < and > ?
 
-  https://github.com/punchagan/org2blog/issues/35
+   https://github.com/punchagan/org2blog/issues/34
 
-* #36 wp-preview-buffer-post uses nil wp-server-xmlrpc-url
+** #35 tags need to be separated by , and space
 
-  https://github.com/punchagan/org2blog/issues/36
+   https://github.com/punchagan/org2blog/issues/35
 
-* #41 Make org2blog/wp-blog-alist more customize-variable-friendly
+** #36 wp-preview-buffer-post uses nil wp-server-xmlrpc-url
 
-  https://github.com/punchagan/org2blog/issues/41
+   https://github.com/punchagan/org2blog/issues/36
 
-* #42 split-string: Wrong type argument: stringp, nil
+** #41 Make org2blog/wp-blog-alist more customize-variable-friendly
 
-  https://github.com/punchagan/org2blog/issues/42
+   https://github.com/punchagan/org2blog/issues/41
 
-* #43 error during request: 500
+** #42 split-string: Wrong type argument: stringp, nil
 
-  https://github.com/punchagan/org2blog/issues/43
+   https://github.com/punchagan/org2blog/issues/42
 
-* #44 Allow to set permlinks(feature request)
+** #43 error during request: 500
 
-  https://github.com/punchagan/org2blog/issues/44
+   https://github.com/punchagan/org2blog/issues/43
 
-* #45 FR: Option to create entries in the tracking file earlier
+** #44 Allow to set permlinks(feature request)
 
-  https://github.com/punchagan/org2blog/issues/45
+   https://github.com/punchagan/org2blog/issues/44
 
-* #46 org2blog adding ending </body></html>
+** #45 FR: Option to create entries in the tracking file earlier
 
-  https://github.com/punchagan/org2blog/issues/46
+   https://github.com/punchagan/org2blog/issues/45
 
-* #47 There always a div_body_html tag at post's tail
+** #46 org2blog adding ending </body></html>
 
-  https://github.com/punchagan/org2blog/issues/47
+   https://github.com/punchagan/org2blog/issues/46
 
-* #48 Posting subtrees with ditaa blocks
+** #47 There always a div_body_html tag at post's tail
 
-  https://github.com/punchagan/org2blog/issues/48
+   https://github.com/punchagan/org2blog/issues/47
 
-* #50 the table-of-contents will publish when post a subtree after git at May 24
+** #48 Posting subtrees with ditaa blocks
 
-  https://github.com/punchagan/org2blog/issues/50
+   https://github.com/punchagan/org2blog/issues/48
 
-* #51 Image uploads prepend file:// (WP issue?)
+** #50 the table-of-contents will publish when post a subtree after git at May 24
 
-  https://github.com/punchagan/org2blog/issues/51
+   https://github.com/punchagan/org2blog/issues/50
 
-* #53 Posting existing org file doesn't activate org2blog mode
+** #51 Image uploads prepend file:// (WP issue?)
 
-  https://github.com/punchagan/org2blog/issues/53
+   https://github.com/punchagan/org2blog/issues/51
 
-* #54 #+PARENT no longer working on wordpress 3.2?
+** #53 Posting existing org file doesn't activate org2blog mode
 
-  https://github.com/punchagan/org2blog/issues/54
+   https://github.com/punchagan/org2blog/issues/53
 
-* #57 Not able to add wordpress tags
+** #54 #+PARENT no longer working on wordpress 3.2?
 
-  https://github.com/punchagan/org2blog/issues/57
+   https://github.com/punchagan/org2blog/issues/54
 
-* #58 FR: Setting an featured image for a post
+** #57 Not able to add wordpress tags
 
-  https://github.com/punchagan/org2blog/issues/58
+   https://github.com/punchagan/org2blog/issues/57
 
-* #59 wp-post-subtree can't work
+** #58 FR: Setting an featured image for a post
 
-  https://github.com/punchagan/org2blog/issues/59
+   https://github.com/punchagan/org2blog/issues/58
 
-* #60 post-buffer can't work on Emacs24
+** #59 wp-post-subtree can't work
 
-  https://github.com/punchagan/org2blog/issues/60
+   https://github.com/punchagan/org2blog/issues/59
 
-* #61 export wordpress posts to org-mode files?
+** #60 post-buffer can't work on Emacs24
 
-  https://github.com/punchagan/org2blog/issues/61
+   https://github.com/punchagan/org2blog/issues/60
 
-* #62 source blocks and latex (mathjax) not exported to html?
+** #61 export wordpress posts to org-mode files?
 
-  https://github.com/punchagan/org2blog/issues/62
+   https://github.com/punchagan/org2blog/issues/61
 
-* #64 fail to post if my blog has local links
+** #62 source blocks and latex (mathjax) not exported to html?
 
-  https://github.com/punchagan/org2blog/issues/64
+   https://github.com/punchagan/org2blog/issues/62
 
-* #65 Added package version info
+** #64 fail to post if my blog has local links
 
-  https://github.com/punchagan/org2blog/issues/65
+   https://github.com/punchagan/org2blog/issues/64
 
-* #66 org-mode source examples
+** #65 Added package version info
 
-  https://github.com/punchagan/org2blog/issues/66
+   https://github.com/punchagan/org2blog/issues/65
 
-* #67 org2blog Bug? "Bad url" traceback in emacs24
+** #66 org-mode source examples
 
-  https://github.com/punchagan/org2blog/issues/67
+   https://github.com/punchagan/org2blog/issues/66
 
-* #68 Handle "Bad URL" gracefully
+** #67 org2blog Bug? "Bad url" traceback in emacs24
 
-  https://github.com/punchagan/org2blog/issues/68
+   https://github.com/punchagan/org2blog/issues/67
 
-* #69 I am probably just doing this wrong, but setup not working
+** #68 Handle "Bad URL" gracefully
 
-  https://github.com/punchagan/org2blog/issues/69
+   https://github.com/punchagan/org2blog/issues/68
 
-* #70 post-buffer not working 100%  CPU occupation
+** #69 I am probably just doing this wrong, but setup not working
 
-  https://github.com/punchagan/org2blog/issues/70
+   https://github.com/punchagan/org2blog/issues/69
 
-* #71 Enable also visual line mode on the default template FEATURE_REQUEST
+** #70 post-buffer not working 100%  CPU occupation
 
-  https://github.com/punchagan/org2blog/issues/71
+   https://github.com/punchagan/org2blog/issues/70
 
-* #72 Posting draft causes org2blog mode to turn off
+** #71 Enable also visual line mode on the default template FEATURE_REQUEST
 
-  https://github.com/punchagan/org2blog/issues/72
+   https://github.com/punchagan/org2blog/issues/71
 
-* #74 Error with org2blog/wp-post-buffer-as-page
+** #74 Error with org2blog/wp-post-buffer-as-page
 
-  https://github.com/punchagan/org2blog/issues/74
+   https://github.com/punchagan/org2blog/issues/74
 
-* #75 I cannot figure out uploading image
+** #75 I cannot figure out uploading image
 
-  https://github.com/punchagan/org2blog/issues/75
+   https://github.com/punchagan/org2blog/issues/75
 
-* #76 Feature request: #+ keyword that automatically picks the right blog to log into
+** #76 Feature request: #+ keyword that automatically picks the right blog to log into
 
-  https://github.com/punchagan/org2blog/issues/76
+   https://github.com/punchagan/org2blog/issues/76
 
-* #77 Add a hint about splitting posts to README
+** #78 shortcode to make modified date and author name part of the post
 
-  https://github.com/punchagan/org2blog/issues/77
+   https://github.com/punchagan/org2blog/issues/78
 
-* #78 shortcode to make modified date and author name part of the post
+** #79 failed to wp-post-subtree
 
-  https://github.com/punchagan/org2blog/issues/78
+   https://github.com/punchagan/org2blog/issues/79
 
-* #79 failed to wp-post-subtree
+** #80 Can't upload posts with large images
 
-  https://github.com/punchagan/org2blog/issues/79
+   https://github.com/punchagan/org2blog/issues/80
 
-* #80 Can't upload posts with large images
+** #81 bad url occurs Emacs24
 
-  https://github.com/punchagan/org2blog/issues/80
+   https://github.com/punchagan/org2blog/issues/81
 
-* #81 bad url occurs Emacs24
+** #82 unable to upload posts with images
 
-  https://github.com/punchagan/org2blog/issues/81
+   https://github.com/punchagan/org2blog/issues/82
 
-* #82 unable to upload posts with images
+** #83 Wordpress Template
 
-  https://github.com/punchagan/org2blog/issues/82
+   https://github.com/punchagan/org2blog/issues/83
 
-* #83 Wordpress Template
+** #84 translation from org-mode src block languages to SyntaxHighlighter
 
-  https://github.com/punchagan/org2blog/issues/83
+   https://github.com/punchagan/org2blog/issues/84
 
-* #84 translation from org-mode src block languages to SyntaxHighlighter
+** #85 Added a defcustom alist and functionality to map org SRC blocks to WP code blocks
 
-  https://github.com/punchagan/org2blog/issues/84
+   https://github.com/punchagan/org2blog/issues/85
 
-* #85 Added a defcustom alist and functionality to map org SRC blocks to WP code blocks
+** #86 Src codes have not been colored.
 
-  https://github.com/punchagan/org2blog/issues/85
+   https://github.com/punchagan/org2blog/issues/86
 
-* #86 Src codes have not been colored.
+** #87 Got HTTP 500 error when using org2blog/wp-login
 
-  https://github.com/punchagan/org2blog/issues/86
+   https://github.com/punchagan/org2blog/issues/87
 
-* #87 Got HTTP 500 error when using org2blog/wp-login
+** #89 XML-RPC fault `parse error. not well formed'
 
-  https://github.com/punchagan/org2blog/issues/87
+   https://github.com/punchagan/org2blog/issues/89
 
-* #89 XML-RPC fault `parse error. not well formed'
+** #90 Added a defcustom to format the new entry buffer
 
-  https://github.com/punchagan/org2blog/issues/89
+   https://github.com/punchagan/org2blog/issues/90
 
-* #90 Added a defcustom to format the new entry buffer
+** #91 M-x org2blog/wp-post-subtree and got Debugger entered--Lisp error: (error "Stack overflow in regexp matcher")
 
-  https://github.com/punchagan/org2blog/issues/90
+   https://github.com/punchagan/org2blog/issues/91
 
-* #91 M-x org2blog/wp-post-subtree and got Debugger entered--Lisp error: (error "Stack overflow in regexp matcher")
+** #92 XML-RPC fault 'xml-debug-print-internal: Invalid XML tree'
 
-  https://github.com/punchagan/org2blog/issues/91
+   https://github.com/punchagan/org2blog/issues/92
 
-* #92 XML-RPC fault 'xml-debug-print-internal: Invalid XML tree'
+** #93 wp-upload-files-replace-urls will eat up every occurrence of file name.
 
-  https://github.com/punchagan/org2blog/issues/92
+   https://github.com/punchagan/org2blog/issues/93
 
-* #93 wp-upload-files-replace-urls will eat up every occurrence of file name.
+** #94 fix #93 : wp-upload-files-replace-urls will eat up every occurrences.
 
-  https://github.com/punchagan/org2blog/issues/93
+   https://github.com/punchagan/org2blog/issues/94
 
-* #94 fix #93 : wp-upload-files-replace-urls will eat up every occurrences.
+** #95 Problem in post-subtree
 
-  https://github.com/punchagan/org2blog/issues/94
+   https://github.com/punchagan/org2blog/issues/95
 
-* #95 Problem in post-subtree
+** #96 #+DATE not parsed properly by wordpress
 
-  https://github.com/punchagan/org2blog/issues/95
+   https://github.com/punchagan/org2blog/issues/96
 
-* #96 #+DATE not parsed properly by wordpress
+** #97 Error while uploading .png or .jpg images
 
-  https://github.com/punchagan/org2blog/issues/96
+   https://github.com/punchagan/org2blog/issues/97
 
-* #97 Error while uploading .png or .jpg images
+** #99 #+STYLE: lines getting stripped on upload to Wordpress
 
-  https://github.com/punchagan/org2blog/issues/97
+   https://github.com/punchagan/org2blog/issues/99
 
-* #99 #+STYLE: lines getting stripped on upload to Wordpress
+** #104 Request integration with org-id for link support
 
-  https://github.com/punchagan/org2blog/issues/99
+   https://github.com/punchagan/org2blog/issues/104
 
-* #104 Request integration with org-id for link support
+** #105 XML-RPC fault: Could not write ... Invalid file type
 
-  https://github.com/punchagan/org2blog/issues/104
+   https://github.com/punchagan/org2blog/issues/105
 
-* #105 XML-RPC fault: Could not write ... Invalid file type
+** #108 font and color of code chunk outputs
 
-  https://github.com/punchagan/org2blog/issues/105
+   https://github.com/punchagan/org2blog/issues/108
 
-* #108 font and color of code chunk outputs
+** #116 when post succeeded, I need a hook
 
-  https://github.com/punchagan/org2blog/issues/108
+   https://github.com/punchagan/org2blog/issues/116
 
-* #116 when post succeeded, I need a hook
+** #117 you should mention the seperated metaweblog.el
 
-  https://github.com/punchagan/org2blog/issues/116
+   https://github.com/punchagan/org2blog/issues/117
 
-* #117 you should mention the seperated metaweblog.el
+** #118 Compatibility with org-mode 8.0 (org-export-as-html)
 
-  https://github.com/punchagan/org2blog/issues/117
+   https://github.com/punchagan/org2blog/issues/118
 
-* #118 Compatibility with org-mode 8.0 (org-export-as-html)
+** #119 may i ask a question about the command?
 
-  https://github.com/punchagan/org2blog/issues/118
+   https://github.com/punchagan/org2blog/issues/119
 
-* #119 may i ask a question about the command?
+** #121 when embed a image in org-mode, uploaded succeeded but I got 503 error
 
-  https://github.com/punchagan/org2blog/issues/119
+   https://github.com/punchagan/org2blog/issues/121
 
-* #121 when embed a image in org-mode, uploaded succeeded but I got 503 error
+** #122 Oauth for wordpress
 
-  https://github.com/punchagan/org2blog/issues/121
+   https://github.com/punchagan/org2blog/issues/122
 
-* #122 Oauth for wordpress
+** #123 function for org2blog/retrieve posted articles
 
-  https://github.com/punchagan/org2blog/issues/122
+   https://github.com/punchagan/org2blog/issues/123
+** #124 htmlize python code failed
+   https://github.com/punchagan/org2blog/issues/124
 
-* #123 function for org2blog/retrieve posted articles
+** #128 failed to post blog when blog containing gif image
 
-  https://github.com/punchagan/org2blog/issues/123
-* #124 htmlize python code failed
-  https://github.com/punchagan/org2blog/issues/124
+   https://github.com/punchagan/org2blog/issues/128
 
-* #128 failed to post blog when blog containing gif image
+** #129 '>' is converted to '&gt;'
 
-  https://github.com/punchagan/org2blog/issues/128
+   https://github.com/punchagan/org2blog/issues/129
 
-* #129 '>' is converted to '&gt;'
+** #130 suggestions on track-posts
 
-  https://github.com/punchagan/org2blog/issues/129
+   https://github.com/punchagan/org2blog/issues/130
 
-* #130 suggestions on track-posts
-
-  https://github.com/punchagan/org2blog/issues/130
+* Open Issues
