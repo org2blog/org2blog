@@ -211,6 +211,26 @@
   - [X] #120 org2blog/export
     https://github.com/punchagan/org2blog/issues/120
 
+  - [X] failed to wp-post-subtree
+    https://github.com/punchagan/org2blog/issues/79
+
+  #+NAME: o2b-test-post-awk-source-input
+  #+BEGIN_SRC org
+    ,* one liner of awk                                            :linux:awk:en:
+    ,#+begin_src sh
+    echo "hello:world"| awk -F ":" '{printf("{\"%s\",\"%s\"},\n",$1,$2) }'
+    ,#+end_src
+
+  #+END_SRC
+
+  #+NAME: o2b-test-post-awk-source
+  #+BEGIN_SRC html
+    [sourcecode language="text" title="" ]
+    echo "hello:world"| awk -F ":" '{printf("{\"%s\",\"%s\"},\n",$1,$2) }'
+    [/sourcecode]
+
+  #+END_SRC
+
   #+NAME: o2b-test-regexp-source-becomes-latex-input
   #+BEGIN_SRC org
     ,#+BLOG: localhost
@@ -338,45 +358,104 @@
 
 * Publish tests
 * Won't Test
-** #16 Symbol's function definition is void: org-save-outline-visibility
+** #13 Feature request: open draft in browser.
 
-   https://github.com/punchagan/org2blog/issues/16
+   https://github.com/punchagan/org2blog/issues/13
 
+** #14 Feature request: choose from a list of blogs
+
+   https://github.com/punchagan/org2blog/issues/14
 ** #15 Password no longer works when set in .emacs
 
 
    https://github.com/punchagan/org2blog/issues/15
 
-** #13 Feature request: open draft in browser.
+** #16 Symbol's function definition is void: org-save-outline-visibility
 
-   https://github.com/punchagan/org2blog/issues/13
+   https://github.com/punchagan/org2blog/issues/16
+
+** #17 org2blog-mode does not stick after publishing (draft)
+
+   https://github.com/punchagan/org2blog/issues/17
+** #18 FR: Allow specifying an org header under which to track org2blog entries
+
+   https://github.com/punchagan/org2blog/issues/18
 
 ** #26 FR: on draft preview, try to prevent opening new tabs/windows
 
    https://github.com/punchagan/org2blog/issues/26
 
-** #88 Fix minor typo
+** #49 wp-post-subtree will insert extra </div> at the end of input on wordpress.com
 
-   https://github.com/punchagan/org2blog/issues/88
+   https://github.com/punchagan/org2blog/issues/49
 
 ** #52 Extract MetaWeblog into separate repo
 
    https://github.com/punchagan/org2blog/issues/52
 
-** #127 org-export-backend-options accessing a non-org-export-backend
-   https://github.com/punchagan/org2blog/issues/127
+** #59 wp-post-subtree can't work
 
-** #126 Org 8 support
+   https://github.com/punchagan/org2blog/issues/59
 
-   https://github.com/punchagan/org2blog/issues/126
+** #60 post-buffer can't work on Emacs24
+
+   https://github.com/punchagan/org2blog/issues/60
+** #69 I am probably just doing this wrong, but setup not working
+
+   https://github.com/punchagan/org2blog/issues/69
+
+** #72 Posting draft causes org2blog mode to turn off
+
+   https://github.com/punchagan/org2blog/issues/72
+
+** #73 Shortcode based export is broken
+
+   https://github.com/punchagan/org2blog/issues/73
+
+** #77 Add a hint about splitting posts to README
+
+   https://github.com/punchagan/org2blog/issues/77
+
+** #88 Fix minor typo
+
+   https://github.com/punchagan/org2blog/issues/88
+
+** #96 #+DATE not parsed properly by wordpress
+
+   https://github.com/punchagan/org2blog/issues/96
+
+** #98 org2blog-pkg.el:update org-mode version
+
+   https://github.com/punchagan/org2blog/issues/98
+
+
+** #100 [doc] added the (require 'netrc) for the netrc setup
+
+   https://github.com/punchagan/org2blog/issues/100
 
 ** #101 org2blog does not work with pretest emacs
 
    https://github.com/punchagan/org2blog/issues/101
 
-** #115 Fix api change in Org 8
+** #102 publish post does not work with org-mode 7.9.3
 
-   https://github.com/punchagan/org2blog/issues/115
+   https://github.com/punchagan/org2blog/issues/102
+
+** #103 Fix compatibility with org-mode >= 7.9.3
+
+   https://github.com/punchagan/org2blog/issues/103
+
+** #106 Displaying section number in posts
+
+   https://github.com/punchagan/org2blog/issues/106
+
+** #107 Please stop bundling third-party libraries
+
+   https://github.com/punchagan/org2blog/issues/107
+
+** #108 font and color of code chunk outputs
+
+   https://github.com/punchagan/org2blog/issues/108
 
 ** #109 Rewrite org2blog as an export backend derived from html
 
@@ -398,76 +477,54 @@
 
    https://github.com/punchagan/org2blog/issues/114
 
-** #107 Please stop bundling third-party libraries
+** #115 Fix api change in Org 8
 
-   https://github.com/punchagan/org2blog/issues/107
+   https://github.com/punchagan/org2blog/issues/115
 
-** #106 Displaying section number in posts
+** #117 you should mention the seperated metaweblog.el
 
-   https://github.com/punchagan/org2blog/issues/106
+   https://github.com/punchagan/org2blog/issues/117
 
-** #102 publish post does not work with org-mode 7.9.3
+** #118 Compatibility with org-mode 8.0 (org-export-as-html)
 
-   https://github.com/punchagan/org2blog/issues/102
+   https://github.com/punchagan/org2blog/issues/118
 
-** #103 Fix compatibility with org-mode >= 7.9.3
+** #119 may i ask a question about the command?
 
-   https://github.com/punchagan/org2blog/issues/103
+   https://github.com/punchagan/org2blog/issues/119
 
-** #100 [doc] added the (require 'netrc) for the netrc setup
+** #121 when embed a image in org-mode, uploaded succeeded but I got 503 error
 
-   https://github.com/punchagan/org2blog/issues/100
+   https://github.com/punchagan/org2blog/issues/121
 
-** #73 Shortcode based export is broken
+** #126 Org 8 support
 
-   https://github.com/punchagan/org2blog/issues/73
+   https://github.com/punchagan/org2blog/issues/126
 
-** #49 wp-post-subtree will insert extra </div> at the end of input on wordpress.com
+** #127 org-export-backend-options accessing a non-org-export-backend
+   https://github.com/punchagan/org2blog/issues/127
 
-   https://github.com/punchagan/org2blog/issues/49
+** #128 failed to post blog when blog containing gif image
 
-** #98 org2blog-pkg.el:update org-mode version
+   https://github.com/punchagan/org2blog/issues/128
 
-   https://github.com/punchagan/org2blog/issues/98
-
-** #77 Add a hint about splitting posts to README
-
-   https://github.com/punchagan/org2blog/issues/77
-
-** #18 FR: Allow specifying an org header under which to track org2blog entries
-
-   https://github.com/punchagan/org2blog/issues/18
-
-** #17 org2blog-mode does not stick after publishing (draft)
-
-   https://github.com/punchagan/org2blog/issues/17
-** #14 Feature request: choose from a list of blogs
-
-   https://github.com/punchagan/org2blog/issues/14
-** #72 Posting draft causes org2blog mode to turn off
-
-   https://github.com/punchagan/org2blog/issues/72
 
 * Pending Issues to test
-** #5 Publish update required for org2blog-post-buffer-as-page  :o2b:publish:
+** #5 Publish update required for org2blog-post-buffer-as-page
 
    https://github.com/punchagan/org2blog/issues/5
 
-** #7 org-directory inexistant                                  :o2b:publish:
+** #7 org-directory inexistant
 
    https://github.com/punchagan/org2blog/issues/7
 
-** #8 changing tags                                             :o2b:publish:
+** #8 changing tags
 
    https://github.com/punchagan/org2blog/issues/8
 
 ** #20 enhancement:  keybindings to navigate to header fields
 
    https://github.com/punchagan/org2blog/issues/20
-
-** #23 metaweblog freezes when it can't connect
-
-   https://github.com/punchagan/org2blog/issues/23
 
 ** #24 mapcar: Symbol's value as variable is void: org2blog-server-weblog-id
 
@@ -569,14 +626,6 @@
 
    https://github.com/punchagan/org2blog/issues/58
 
-** #59 wp-post-subtree can't work
-
-   https://github.com/punchagan/org2blog/issues/59
-
-** #60 post-buffer can't work on Emacs24
-
-   https://github.com/punchagan/org2blog/issues/60
-
 ** #61 export wordpress posts to org-mode files?
 
    https://github.com/punchagan/org2blog/issues/61
@@ -605,10 +654,6 @@
 
    https://github.com/punchagan/org2blog/issues/68
 
-** #69 I am probably just doing this wrong, but setup not working
-
-   https://github.com/punchagan/org2blog/issues/69
-
 ** #70 post-buffer not working 100%  CPU occupation
 
    https://github.com/punchagan/org2blog/issues/70
@@ -632,10 +677,6 @@
 ** #78 shortcode to make modified date and author name part of the post
 
    https://github.com/punchagan/org2blog/issues/78
-
-** #79 failed to wp-post-subtree
-
-   https://github.com/punchagan/org2blog/issues/79
 
 ** #80 Can't upload posts with large images
 
@@ -697,10 +738,6 @@
 
    https://github.com/punchagan/org2blog/issues/95
 
-** #96 #+DATE not parsed properly by wordpress
-
-   https://github.com/punchagan/org2blog/issues/96
-
 ** #97 Error while uploading .png or .jpg images
 
    https://github.com/punchagan/org2blog/issues/97
@@ -713,33 +750,9 @@
 
    https://github.com/punchagan/org2blog/issues/104
 
-** #105 XML-RPC fault: Could not write ... Invalid file type
-
-   https://github.com/punchagan/org2blog/issues/105
-
-** #108 font and color of code chunk outputs
-
-   https://github.com/punchagan/org2blog/issues/108
-
 ** #116 when post succeeded, I need a hook
 
    https://github.com/punchagan/org2blog/issues/116
-
-** #117 you should mention the seperated metaweblog.el
-
-   https://github.com/punchagan/org2blog/issues/117
-
-** #118 Compatibility with org-mode 8.0 (org-export-as-html)
-
-   https://github.com/punchagan/org2blog/issues/118
-
-** #119 may i ask a question about the command?
-
-   https://github.com/punchagan/org2blog/issues/119
-
-** #121 when embed a image in org-mode, uploaded succeeded but I got 503 error
-
-   https://github.com/punchagan/org2blog/issues/121
 
 ** #122 Oauth for wordpress
 
@@ -751,9 +764,14 @@
 ** #124 htmlize python code failed
    https://github.com/punchagan/org2blog/issues/124
 
-** #128 failed to post blog when blog containing gif image
+* Open Issues
+** #23 metaweblog freezes when it can't connect
 
-   https://github.com/punchagan/org2blog/issues/128
+   https://github.com/punchagan/org2blog/issues/23
+
+** #105 XML-RPC fault: Could not write ... Invalid file type
+
+   https://github.com/punchagan/org2blog/issues/105
 
 ** #129 '>' is converted to '&gt;'
 
@@ -762,5 +780,3 @@
 ** #130 suggestions on track-posts
 
    https://github.com/punchagan/org2blog/issues/130
-
-* Open Issues
