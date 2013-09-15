@@ -154,22 +154,8 @@ Export is done in a buffer named \"*Org WP Export*\", which will
 be displayed when `org-export-show-temporary-export-buffer' is
 non-nil."
   (interactive)
-  (if async
-      (org-export-async-start
-	  (lambda (output)
-	    (with-current-buffer (get-buffer-create "*Org WP Export*")
-	      (erase-buffer)
-	      (insert output)
-	      (goto-char (point-min))
-	      (text-mode)
-	      (org-export-add-to-stack (current-buffer) 'wp)))
-	`(org-export-as 'wp ,subtreep nil t ext-plist))
-    (let ((outbuf (org-export-to-buffer
-		   'wp "*Org WP Export*" subtreep nil t ext-plist)))
-      (with-current-buffer outbuf (text-mode))
-      (when org-export-show-temporary-export-buffer
-	(switch-to-buffer-other-window outbuf)))))
-
+  (org-export-to-buffer 'wp "*Org WP Export*"
+    async subtreep nil t ext-plist (lambda () (html-mode))))
 
 (defun org-wp-export-as-string (&optional async subtreep ext-plist)
   "Just calls the `org-wp-export-as-wordpress' function and
