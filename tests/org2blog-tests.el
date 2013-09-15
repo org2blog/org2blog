@@ -132,3 +132,12 @@ SRC-NAME and evaluage BODY there."
              "o2b-test-source-subtree-error-input"
              (let ()
                (cdr (assoc "description" (org2blog/wp-parse-entry t))))))))
+
+(ert-deftest o2b-test-post-source-subtree-with-awk ()
+  "Test posting a particular src block"
+  (should (string-equal
+           (o2b-test-fetch-src-block "o2b-test-post-awk-source")
+           (o2b-test-buffer-with-block
+             "o2b-test-post-awk-source-input"
+             (let ()
+               (cdr (assoc "description" (org2blog/wp-parse-entry t))))))))
