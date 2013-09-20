@@ -195,6 +195,15 @@ Set to nil if you don't wish to track posts."
   :group 'org2blog/wp
   :type 'list)
 
+(defcustom org2blog/wp-keymap-prefix
+  "C-c M-p"
+  "Key sequence which forms the common prefix for key-bindings in
+this mode.  If this is changed,
+`org2blog/wp-reload-entry-mode-map' must be called before it
+takes effect."
+  :group 'org2blog/wp
+  :type 'string)
+
 (defvar org2blog/wp-blog nil
   "Parameters of the currently selected blog.")
 
@@ -266,17 +275,36 @@ options.")
           (org2blog/wp-save-details (org2blog/wp-parse-entry) nil
                                  (y-or-n-p "Published?"))))))
 
-;; Set the mode map for org2blog.
-(unless org2blog/wp-entry-mode-map
+(defun org2blog/wp-define-key (suffix function)
+  "Define a key sequence in the mode's key map with the prefix
+given by `org2blog/wp-keymap-prefix', and the given suffix."
+  (let ((keyseq (read-kbd-macro (concat org2blog/wp-keymap-prefix " " suffix))))
+    (define-key org2blog/wp-map keyseq function)))
+
+(defun org2blog/wp-init-entry-mode-map ()
+  "Initialize `org2blog/wp-entry-mode-map' based on the prefix
+key sequence defined by `org2blog/wp-keymap-prefix'."
   (setq org2blog/wp-entry-mode-map
 	(let ((org2blog/wp-map (make-sparse-keymap)))
 	  (set-keymap-parent org2blog/wp-map org-mode-map)
-	  (define-key org2blog/wp-map (kbd "C-c p") 'org2blog/wp-post-buffer-and-publish)
-	  (define-key org2blog/wp-map (kbd "C-c P") 'org2blog/wp-post-buffer-as-page-and-publish)
-	  (define-key org2blog/wp-map (kbd "C-c d") 'org2blog/wp-post-buffer)
-	  (define-key org2blog/wp-map (kbd "C-c D") 'org2blog/wp-post-buffer-as-page)
-	  (define-key org2blog/wp-map (kbd "C-c t") 'org2blog/wp-complete-category)
+	  (org2blog/wp-define-key "p" 'org2blog/wp-post-buffer-and-publish)
+	  (org2blog/wp-define-key "P" 'org2blog/wp-post-buffer-as-page-and-publish)
+	  (org2blog/wp-define-key "d" 'org2blog/wp-post-buffer)
+	  (org2blog/wp-define-key "D" 'org2blog/wp-post-buffer-as-page)
+	  (org2blog/wp-define-key "t" 'org2blog/wp-complete-category)
 	  org2blog/wp-map)))
+
+(defun org2blog/wp-reload-entry-mode-map ()
+  "Re-initialize `org2blog/wp-entry-mode-map' based on the prefix
+key sequence defined by `org2blog/wp-keymap-prefix' and update
+`minor-mode-map-alist' accordingly."
+  (interactive)
+  (org2blog/wp-init-entry-mode-map)
+  (let ((keymap (assoc 'org2blog/wp-mode minor-mode-map-alist)))
+    (setcdr keymap org2blog/wp-entry-mode-map)))
+
+;; Set the mode map for org2blog.
+(unless org2blog/wp-entry-mode-map org2blog/wp-init-entry-mode-map)
 
 ;;;###autoload
 (define-minor-mode org2blog/wp-mode
