@@ -165,7 +165,7 @@ non-nil."
 	      (org-export-add-to-stack (current-buffer) 'wp)))
 	`(org-export-as 'wp ,subtreep nil t ext-plist))
     (let ((outbuf (org-export-to-buffer
-		   'wp "*Org WP Export*" subtreep nil t ext-plist)))
+		   'wp "*Org WP Export*" nil subtreep nil t ext-plist)))
       (with-current-buffer outbuf (text-mode))
       (when org-export-show-temporary-export-buffer
 	(switch-to-buffer-other-window outbuf)))))
