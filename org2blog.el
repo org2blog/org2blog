@@ -621,21 +621,23 @@ from currently logged in."
         (backward-word)
         ;; Get the syntaxhl params and other info about the src_block
         (let* ((info (org-babel-get-src-block-info))
+               (lang (nth 0 info))
+               (code (nth 1 info))
                (params (nth 2 info))
-               (code (if (version-list-< (version-to-list (org-version)) '(8 0 0))
-                         (org-html-protect (nth 1 info))
-                       (org-html-encode-plain-text (nth 1 info))))
+               (encoded (if (version-list-< (version-to-list (org-version)) '(8 0 0))
+                            (org-html-protect code)
+                          (org-html-encode-plain-text code)))
                (org-src-lang
-                 (or (cdr (assoc (nth 0 info) org2blog/wp-shortcode-langs-map))
-                     (nth 0 info)))
-               (lang (or (car
-                          (member org-src-lang org2blog/wp-sourcecode-langs))
-                         "text"))
-               (header (concat "[sourcecode language=\"" lang  "\" "
-                               (if (assoc :syntaxhl params)
-                                   (cdr (assoc :syntaxhl params))
-                                 org2blog/wp-sourcecode-default-params)
-                               "]")))
+                 (or (cdr (assoc lang org2blog/wp-shortcode-langs-map))
+                     lang))
+               (language (or
+                          (car (member org-src-lang org2blog/wp-sourcecode-langs))
+                          "text"))
+               (syntaxhl-params (if (assoc :syntaxhl params)
+                                    (cdr (assoc :syntaxhl params))
+                                  org2blog/wp-sourcecode-default-params))
+               (header (concat "[sourcecode language=\"" language  "\" "
+                               syntaxhl-params "]")))
 
           ;; Change the html by inserting the syntaxhl in the right place.
           (save-excursion
@@ -644,7 +646,7 @@ from currently logged in."
               (goto-char pos)
               ;; Search for code
               (save-match-data
-                (search-forward code nil t 1)
+                (search-forward encoded nil t 1)
                 (setq pos (match-end 0))
                 (goto-char (match-beginning 0))
                 ;; Search for a header line --
