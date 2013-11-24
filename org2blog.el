@@ -873,7 +873,7 @@ use absolute path or set org-directory")
       (org-id-get nil t "o2b")
       (org2blog/wp-post-buffer publish t)
       (widen)
-      (when-buffer-file-name (save-buffer)))))
+      (when (buffer-file-name) (save-buffer)))))
 
 ;;;###autoload
 (defun org2blog/wp-post-subtree-as-page (&optional publish)
@@ -885,7 +885,7 @@ use absolute path or set org-directory")
       (org-id-get nil t "o2b")
       (org2blog/wp-post-buffer-as-page publish t)
       (widen)
-      (when-buffer-file-name (save-buffer)))))
+      (when (buffer-file-name) (save-buffer)))))
 
 ;;;###autoload
 (defun org2blog/wp-post-subtree-as-page-and-publish ()
