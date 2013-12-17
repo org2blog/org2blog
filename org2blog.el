@@ -528,23 +528,26 @@ from currently logged in."
             (progn
               (setq post-title (or (org-entry-get (point) "TITLE")
                                    (nth 4 (org-heading-components))))
-              (setq excerpt (org-entry-get (point) "DESCRIPTION"))
-              (setq permalink (org-entry-get (point) "PERMALINK"))
-              (setq post-id (or (org-entry-get (point) "POSTID")
-                                (org-entry-get (point) "POST_ID")))
+              (org-narrow-to-subtree)
+              (setq excerpt (org2blog/wp-get-option "DESCRIPTION"))
+              (setq permalink (org2blog/wp-get-option "PERMALINK"))
+              (setq post-id (or (org2blog/wp-get-option "POSTID")
+                                (org2blog/wp-get-option "POST_ID")))
               (setq post-par (org2blog/wp-get-post-parent
-                              (org-entry-get (point) "PARENT")))
+                              (org2blog/wp-get-option "PARENT")))
               ;; Set post-date to the Post Date property or look for timestamp
-              (setq post-date (or (org-entry-get (point) "POST_DATE")
-                                  (org-entry-get (point) "SCHEDULED")
-                                  (org-entry-get (point) "DEADLINE")
-                                  (org-entry-get (point) "TIMESTAMP_IA")
-                                  (org-entry-get (point) "TIMESTAMP")))
+              (setq post-date (or (org2blog/wp-get-option "POST_DATE")
+                                  (org2blog/wp-get-option "SCHEDULED")
+                                  (org2blog/wp-get-option "DEADLINE")
+                                  (org2blog/wp-get-option "TIMESTAMP_IA")
+                                  (org2blog/wp-get-option "TIMESTAMP")))
               (setq tags (mapcar 'org-no-properties (org-get-tags-at (point) nil)))
-              (setq categories (org-entry-get (point) "CATEGORY"))
+              (setq categories (org2blog/wp-get-option "CATEGORY"))
               (setq categories (if categories
                                    (split-string categories "\\( *, *\\)" t)
-                                 "")))
+                                 ""))
+              (widen)
+             ) 
           (setq post-title (or (plist-get
                                 ;; In org 8 this has been replaced by
                                 ;; org-export-get-enviroment
