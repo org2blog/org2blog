@@ -304,7 +304,7 @@ key sequence defined by `org2blog/wp-keymap-prefix' and update
     (setcdr keymap org2blog/wp-entry-mode-map)))
 
 ;; Set the mode map for org2blog.
-(unless org2blog/wp-entry-mode-map org2blog/wp-init-entry-mode-map)
+(unless org2blog/wp-entry-mode-map (org2blog/wp-init-entry-mode-map))
 
 ;;;###autoload
 (define-minor-mode org2blog/wp-mode

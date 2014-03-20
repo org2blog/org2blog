@@ -96,7 +96,15 @@
     function.
 
     : M-x customize-group org2blog/wp RET
+*** Key bindings
+In order to conform to Emacs standards, the keybindings for org2blog/wp have been changed.  The old prefix of =C-c= now defaults to =C-c M-p=.  This can now be changed by calling =M-x customize-variable RET org2blog/wp-keymap-prefix=.  To restore the old behaviour, change the value from =C-c M-p+ to =C-c=.  Here's a table of the old and new keybindings, for reference:
+| Old   | New       | Function                                      |
+| C-c d | C-c M-p d | =org2blog/wp-post-buffer=                     |
+| C-c D | C-c M-p D | =org2blog/wp-post-buffer-s-page=              |
+| C-c p | C-c M-p p | =org2blog/wp-post-buffer-and-publish=         |
+| C-c P | C-c M-p P | =org2blog/wp-post-buffer-as-page-and-publish= |
 
+#+TBLFM: $3=org2blog/wp-post-buffer
 *** Logging In
     Use *M-x org2blog/wp-login*.  This function ask you for the name of one
     of the blogs you have configured in the org2blog/wp-blog-alist
