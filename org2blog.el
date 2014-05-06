@@ -448,7 +448,7 @@ from currently logged in."
 
             (progn
               (goto-char (point-min))
-              (if (re-search-forward (concat "^#\\+"
+              (if (re-search-forward (concat "^# \\+"
                                              (regexp-quote file-name)
                                              " ") nil t 1)
                   (setq file-web-url (buffer-substring-no-properties
@@ -464,7 +464,7 @@ from currently logged in."
                                    (get-file-properties file-name)))))
                 (goto-char (point-max))
                 (newline)
-                (insert (concat "#+" file-name " " file-web-url)))
+                (insert (concat "# +" file-name " " file-web-url)))
               (setq file-all-urls
                     (append file-all-urls (list (cons
                                                  file-name file-web-url)))))))
