@@ -199,6 +199,15 @@ Set to nil if you don't wish to track posts."
   :group 'org2blog/wp
   :type 'list)
 
+(defcustom org2blog/wp-keymap-prefix
+  "C-c M-p"
+  "Key sequence which forms the common prefix for key-bindings in
+this mode.  If this is changed,
+`org2blog/wp-reload-entry-mode-map' must be called before it
+takes effect."
+  :group 'org2blog/wp
+  :type 'string)
+
 (defvar org2blog/wp-blog nil
   "Parameters of the currently selected blog.")
 
@@ -256,17 +265,36 @@ Set to nil if you don't wish to track posts."
           (org2blog/wp-save-details (org2blog/wp-parse-entry) nil
                                  (y-or-n-p "Published?"))))))
 
-;; Set the mode map for org2blog.
-(unless org2blog/wp-entry-mode-map
+(defun org2blog/wp-define-key (suffix function)
+  "Define a key sequence in the mode's key map with the prefix
+given by `org2blog/wp-keymap-prefix', and the given suffix."
+  (let ((keyseq (read-kbd-macro (concat org2blog/wp-keymap-prefix " " suffix))))
+    (define-key org2blog/wp-map keyseq function)))
+
+(defun org2blog/wp-init-entry-mode-map ()
+  "Initialize `org2blog/wp-entry-mode-map' based on the prefix
+key sequence defined by `org2blog/wp-keymap-prefix'."
   (setq org2blog/wp-entry-mode-map
 	(let ((org2blog/wp-map (make-sparse-keymap)))
 	  (set-keymap-parent org2blog/wp-map org-mode-map)
-	  (define-key org2blog/wp-map (kbd "C-c p") 'org2blog/wp-post-buffer-and-publish)
-	  (define-key org2blog/wp-map (kbd "C-c P") 'org2blog/wp-post-buffer-as-page-and-publish)
-	  (define-key org2blog/wp-map (kbd "C-c d") 'org2blog/wp-post-buffer)
-	  (define-key org2blog/wp-map (kbd "C-c D") 'org2blog/wp-post-buffer-as-page)
-	  (define-key org2blog/wp-map (kbd "C-c t") 'org2blog/wp-complete-category)
+	  (org2blog/wp-define-key "p" 'org2blog/wp-post-buffer-and-publish)
+	  (org2blog/wp-define-key "P" 'org2blog/wp-post-buffer-as-page-and-publish)
+	  (org2blog/wp-define-key "d" 'org2blog/wp-post-buffer)
+	  (org2blog/wp-define-key "D" 'org2blog/wp-post-buffer-as-page)
+	  (org2blog/wp-define-key "t" 'org2blog/wp-complete-category)
 	  org2blog/wp-map)))
+
+(defun org2blog/wp-reload-entry-mode-map ()
+  "Re-initialize `org2blog/wp-entry-mode-map' based on the prefix
+key sequence defined by `org2blog/wp-keymap-prefix' and update
+`minor-mode-map-alist' accordingly."
+  (interactive)
+  (org2blog/wp-init-entry-mode-map)
+  (let ((keymap (assoc 'org2blog/wp-mode minor-mode-map-alist)))
+    (setcdr keymap org2blog/wp-entry-mode-map)))
+
+;; Set the mode map for org2blog.
+(unless org2blog/wp-entry-mode-map org2blog/wp-init-entry-mode-map)
 
 ;;;###autoload
 (define-minor-mode org2blog/wp-mode
@@ -621,21 +649,23 @@ from currently logged in."
         (backward-word)
         ;; Get the syntaxhl params and other info about the src_block
         (let* ((info (org-babel-get-src-block-info))
+               (lang (nth 0 info))
+               (code (nth 1 info))
                (params (nth 2 info))
-               (code (if (version-list-< (version-to-list (org-version)) '(8 0 0))
-                         (org-html-protect (nth 1 info))
-                       (org-html-encode-plain-text (nth 1 info))))
+               (encoded (if (version-list-< (version-to-list (org-version)) '(8 0 0))
+                            (org-html-protect code)
+                          (org-html-encode-plain-text code)))
                (org-src-lang
-                 (or (cdr (assoc (nth 0 info) org2blog/wp-shortcode-langs-map))
-                     (nth 0 info)))
-               (lang (or (car
-                          (member org-src-lang org2blog/wp-sourcecode-langs))
-                         "text"))
-               (header (concat "[sourcecode language=\"" lang  "\" "
-                               (if (assoc :syntaxhl params)
-                                   (cdr (assoc :syntaxhl params))
-                                 org2blog/wp-sourcecode-default-params)
-                               "]")))
+                 (or (cdr (assoc lang org2blog/wp-shortcode-langs-map))
+                     lang))
+               (language (or
+                          (car (member org-src-lang org2blog/wp-sourcecode-langs))
+                          "text"))
+               (syntaxhl-params (if (assoc :syntaxhl params)
+                                    (cdr (assoc :syntaxhl params))
+                                  org2blog/wp-sourcecode-default-params))
+               (header (concat "[sourcecode language=\"" language  "\" "
+                               syntaxhl-params "]")))
 
           ;; Change the html by inserting the syntaxhl in the right place.
           (save-excursion
@@ -644,7 +674,7 @@ from currently logged in."
               (goto-char pos)
               ;; Search for code
               (save-match-data
-                (search-forward code nil t 1)
+                (search-forward encoded nil t 1)
                 (setq pos (match-end 0))
                 (goto-char (match-beginning 0))
                 ;; Search for a header line --
