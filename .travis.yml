@@ -45,8 +45,7 @@ env:
 matrix:
   allow_failures:
 #   - env: EMACS=xemacs21
-    - env: EMACS=emacs22
-    - env: EMACS=emacs-snapshot
+    - env: EMACS=emacs23
 
 ###
 ### limit build attempts to defined branches
