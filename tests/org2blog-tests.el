@@ -43,6 +43,9 @@ SRC-NAME and evaluage BODY there."
        (progn ,@body))))
 
 
+;; Global configuration for tests
+(setq org2blog/wp-use-sourcecode-shortcode t)
+
 ;; Tests
 (ert-deftest o2b-test-post-subtree ()
   "Test whether posting a subtree works correctly"
