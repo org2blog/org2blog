@@ -49,7 +49,9 @@ download-deps : download-xml-rpc download-metaweblog download-org download-ert d
 test :
 	@cd $(TEST_DIR)                                   && \
 	(for test_lib in *-tests.el; do                       \
-	    $(EMACS) $(EMACS_BATCH) -L . -L .. -L ../org-mode/lisp -L ../org-mode/contrib/lisp -l $(XML_RPC) -l cl-lib -l $(ERT) -l $(METAWEBLOG) -l $$test_lib --eval \
+	    $(EMACS) $(EMACS_BATCH) -L . -L .. -L ../org-mode/lisp  \
+	    -L ../org-mode/contrib/lisp -l $(XML_RPC) -l cl-lib -l cl \
+	    -l $(ERT) -l $(METAWEBLOG) -l $$test_lib --eval \
 	    "(progn                                          \
 	      (fset 'ert--print-backtrace 'ignore)           \
 	      (ert-run-tests-batch-and-exit '(and \"$(TESTS)\" (not (tag :interactive)))))" || exit 1; \
