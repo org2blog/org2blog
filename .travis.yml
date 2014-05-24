@@ -130,7 +130,8 @@ install:
     fi
 
 before_script:
-    make download-deps;
+    make download-deps
+    $EMACS --version
 
 
 ###
@@ -141,7 +142,7 @@ before_script:
 ###
 
 script:
-  $EMACS --version && (make test EMACS="$EMACS" )
+  make test EMACS="$EMACS"
 
 ###
 ### settings
