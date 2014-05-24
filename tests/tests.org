@@ -177,6 +177,7 @@
     <p> \(f^{-1}\) </p>
     </div>
     </div>
+
     <div id="outline-container-sec-2" class="outline-2">
     <h2 id="sec-2">The equations should be centered</h2>
     <div class="outline-text-2" id="text-2">
@@ -195,6 +196,7 @@
     <p> $latex f^{-1}$ </p>
     </div>
     </div>
+
     <div id="outline-container-sec-2" class="outline-2">
     <h2 id="sec-2">The equations should be centered</h2>
     <div class="outline-text-2" id="text-2">
@@ -270,21 +272,10 @@
     2. Install [[https://github.com/mooz/keysnail/wiki/plugin][HoK]] (no less than version 1.3.9) through keysnail
     3. Add below code into .keysnail.js
     ,#+BEGIN_SRC javascript
-    key.setViewKey('e', function (aEvent, aArg) {
-            ext.exec("hok-start-foreground-mode", aArg);
-    }, 'Hok - Foreground hint mode', true);
-
-    key.setViewKey('E', function (aEvent, aArg) {
-            ext.exec("hok-start-background-mode", aArg);
-    }, 'HoK - Background hint mode', true);
-
-    key.setViewKey(';', function (aEvent, aArg) {
-            ext.exec("hok-start-extended-mode", aArg);
-    }, 'HoK - Extented hint mode', true);
-
-    key.setViewKey(['C-c', 'C-e'], function (aEvent, aArg) {
-            ext.exec("hok-start-continuous-mode", aArg);
-    }, 'Start continuous HaH', true);
+    key.setViewKey('e', function (aEvent, aArg) {ext.exec("hok-start-foreground-mode", aArg);}, 'Hok - Foreground hint mode', true);
+    key.setViewKey('E', function (aEvent, aArg) {ext.exec("hok-start-background-mode", aArg);}, 'HoK - Background hint mode', true);
+    key.setViewKey(';', function (aEvent, aArg) {ext.exec("hok-start-extended-mode", aArg);}, 'HoK - Extented hint mode', true);
+    key.setViewKey(['C-c', 'C-e'], function (aEvent, aArg) {ext.exec("hok-start-continuous-mode", aArg);}, 'Start continuous HaH', true);
 
     hook.addToHook('PluginLoaded', function () {
       if (!plugins.hok)
@@ -317,21 +308,10 @@
     </li>
     </ol>
     [sourcecode language="javascript" title="" ]
-    key.setViewKey('e', function (aEvent, aArg) {
-            ext.exec("hok-start-foreground-mode", aArg);
-    }, 'Hok - Foreground hint mode', true);
-
-    key.setViewKey('E', function (aEvent, aArg) {
-            ext.exec("hok-start-background-mode", aArg);
-    }, 'HoK - Background hint mode', true);
-
-    key.setViewKey(';', function (aEvent, aArg) {
-            ext.exec("hok-start-extended-mode", aArg);
-    }, 'HoK - Extented hint mode', true);
-
-    key.setViewKey(['C-c', 'C-e'], function (aEvent, aArg) {
-            ext.exec("hok-start-continuous-mode", aArg);
-    }, 'Start continuous HaH', true);
+    key.setViewKey('e', function (aEvent, aArg) {ext.exec("hok-start-foreground-mode", aArg);}, 'Hok - Foreground hint mode', true);
+    key.setViewKey('E', function (aEvent, aArg) {ext.exec("hok-start-background-mode", aArg);}, 'HoK - Background hint mode', true);
+    key.setViewKey(';', function (aEvent, aArg) {ext.exec("hok-start-extended-mode", aArg);}, 'HoK - Extented hint mode', true);
+    key.setViewKey(['C-c', 'C-e'], function (aEvent, aArg) {ext.exec("hok-start-continuous-mode", aArg);}, 'Start continuous HaH', true);
 
     hook.addToHook('PluginLoaded', function () {
       if (!plugins.hok)
@@ -348,7 +328,7 @@
     });
     [/sourcecode]
     <ol class="org-ol">
-    <li>Restart Firefox, logged into <a href="http://www.feedly.com">http://www.feedly.com</a> and press hot key "e"
+    <li>Restart Firefox, logged into <a href="http://www.feedly.com/">http://www.feedly.com/</a> and press hot key "e"
     </li>
     <li>Enjoy!
     </li>
