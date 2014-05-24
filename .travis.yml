@@ -15,7 +15,7 @@
 ### language
 ###
 
-language: emacs-lisp
+language: python
 
 ###
 ### defining the build matrix
@@ -86,8 +86,8 @@ matrix:
 ### of all test dependencies are also used.
 ###
 
-before_install:
-  - git submodule --quiet update --init --recursive
+# before_install:
+#   - git submodule --quiet update --init --recursive
 
 install:
 # - if [ "$EMACS" = 'xemacs21' ]; then
@@ -130,11 +130,8 @@ install:
     fi
 
 before_script:
-  - if [ "$EMACS" = 'emacs-snapshot' ]; then
-        make downloads-latest;
-    else
-        make downloads;
-    fi
+    make download-deps;
+
 
 ###
 ### the actual build/test command
@@ -144,7 +141,7 @@ before_script:
 ###
 
 script:
-  $EMACS --version && ( test "$EMACS" != 'emacs22' && make test EMACS="$EMACS" || make test-batch EMACS="$EMACS" )
+  $EMACS --version && (make test EMACS="$EMACS" )
 
 ###
 ### settings
