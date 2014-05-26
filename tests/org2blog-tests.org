@@ -346,6 +346,26 @@
                  (cdr (assoc "description" (org2blog/wp-parse-entry nil))))))))
 #+END_SRC
 
+#+BEGIN_SRC emacs-lisp
+  (ert-deftest should-not-escape-html-in-wp-src-blocks ()
+    (should (string-equal
+             (o2b-test-fetch-src-block "o2b-test-greater-than-should-not-be-escaped-output")
+             (o2b-test-buffer-with-block
+              "o2b-test-greater-than-should-not-be-escaped"
+              (let ()
+                (cdr (assoc "description" (org2blog/wp-parse-entry nil))))))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (ert-deftest should-escape-html-in-plain-src-blocks ()
+    (should (string-equal
+             (o2b-test-fetch-src-block "o2b-test-greater-than-should-be-escaped-plain-output")
+             (o2b-test-buffer-with-block
+              "o2b-test-greater-than-should-not-be-escaped"
+              (let ((org2blog/wp-use-sourcecode-shortcode nil))
+                (cdr (assoc "description" (org2blog/wp-parse-entry nil))))))))
+#+END_SRC
+
 *** Data
 
 #+NAME: o2b-test-post-awk-source-input
@@ -467,6 +487,43 @@
   [/sourcecode]
 
 #+END_SRC
+
+#+NAME: o2b-test-greater-than-should-not-be-escaped
+#+BEGIN_SRC org
+  ,#+BLOG: localhost
+  ,#+POSTID: 127
+  ,#+DATE: [2013-09-14 Sat 20:14]
+  ,#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
+  ,#+CATEGORY: org2blog, emacs
+  ,#+TAGS:
+  ,#+DESCRIPTION:
+  ,#+TITLE: Test > becomes &gt;
+  ,#+BEGIN_SRC sh
+  echo hello > world
+  ,#+END_SRC
+  Test source code
+#+END_SRC
+
+#+NAME: o2b-test-greater-than-should-not-be-escaped-output
+#+BEGIN_SRC html
+  [sourcecode language="text" title="" ]
+  echo hello > world
+  [/sourcecode]
+  <p> Test source code</p>
+
+#+END_SRC
+
+#+NAME: o2b-test-greater-than-should-be-escaped-plain-output
+#+BEGIN_SRC html
+  <div class="org-src-container">
+
+  <pre class="src src-sh"><span style="font-weight: bold;">echo</span> hello &gt; world
+  </pre>
+  </div>
+  <p> Test source code</p>
+
+#+END_SRC
+
 
 ** Login
 #+BEGIN_SRC emacs-lisp

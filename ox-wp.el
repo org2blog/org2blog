@@ -44,8 +44,6 @@ CONTENTS holds the contents of the item.  INFO is a plist holding
 contextual information."
   (let ((lang (org-element-property :language src-block))
         (caption (org-export-get-caption src-block))
-        ;; Set language to nil, to avoid htmlizing the code
-        (raw-code (org-html-format-code (org-element-put-property src-block :language nil) info))
         (label (let ((lbl (org-element-property :name src-block)))
                  (if (not lbl) ""
                    (format " id=\"%s\""
@@ -64,7 +62,7 @@ contextual information."
               (or (plist-get lang-map lang) (car (member lang langs)) "text")
               (or caption "")
               (or syntaxhl "")
-              raw-code))))
+              (org-export-format-code-default src-block info)))))
 
 (defun org-wp-latex-environment (latex-environment contents info)
   "Transcode a LATEX-ENVIRONMENT element from Org to WP HTML.
