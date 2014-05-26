@@ -46,13 +46,16 @@ download-cl:
 
 download-deps : download-xml-rpc download-metaweblog download-org download-ert download-cl
 
-test :
+test:
 	@cd $(TEST_DIR)                                   && \
-	(for test_lib in *-tests.el; do                       \
+	(for test_lib in *-tests.org; do                       \
 	    $(EMACS) $(EMACS_BATCH) -L . -L .. -L ../org-mode/lisp  \
 	    -L ../org-mode/contrib/lisp -l $(XML_RPC) -l cl-lib -l cl \
-	    -l $(ERT) -l $(METAWEBLOG) -l $$test_lib --eval \
+	    -l $(ERT) -l $(METAWEBLOG) --eval \
 	    "(progn                                          \
+              (org-babel-do-load-languages 'org-babel-load-languages  '((emacs-lisp . t) (python . t))) \
+              (setq org-confirm-babel-evaluate nil)          \
+	      (org-babel-load-file \"$$test_lib\")           \
 	      (fset 'ert--print-backtrace 'ignore)           \
 	      (ert-run-tests-batch-and-exit '(and \"$(TESTS)\" (not (tag :interactive)))))" || exit 1; \
 	done)
