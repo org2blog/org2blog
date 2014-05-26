@@ -10,7 +10,7 @@
 ;; Copyright (C) 2013 Peter Vasil <mail@petervasil.net>
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
-;; Version: 0.5
+;; Version: 0.8.1
 ;; Keywords: orgmode, wordpress, blog
 
 ;; This program is free software: you can redistribute it and/or modify
@@ -52,9 +52,7 @@
 (require 'org)
 (require 'xml-rpc)
 (require 'metaweblog)
-
-(unless (version-list-< (version-to-list (org-version)) '(8 0 0))
-  (require 'ox))
+(require 'ox-wp)
 
 (defgroup org2blog/wp nil
   "Post to weblogs from Emacs"
@@ -104,7 +102,7 @@ All the other properties are optional. They over-ride the global variables.
 
 (defcustom org2blog/wp-buffer-template
   "#+DATE: %s
-#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil TeX:nil
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
 #+CATEGORY: %s
 #+TAGS:
 #+DESCRIPTION:
@@ -179,16 +177,14 @@ be on your emacs load-path for this to work."
   :group 'org2blog/wp
   :type 'list)
 
-
-(defcustom org2blog/wp-shortcode-langs-map
-  (list
-   '("R" . "r")
-   '("emacs-lisp" . "lisp"))
+(defcustom org2blog/wp-shortcode-langs-map nil
   "Association list for source code languages supported by Org
 and by SyntaxHighlighter.  Each element of the list maps the
 orgmode source code language (key) to the language spec that
-should be used for syntax highlighting in shortcode blocks.  The
-target languages need to be in 'org2blog/wp-sourcecode-langs ."
+should be used for syntax highlighting in shortcode blocks. The
+list of target languages complements the list of languages in
+ineed not be in 'org2blog/wp-sourcecode-langs and they already
+need NOT be present in 'org2blog/wp-sourcecode-langs."
   :group 'org2blog/wp
   :type '(alist :key-type string :value-type string))
 
@@ -241,6 +237,20 @@ Set to nil if you don't wish to track posts."
 
 (defvar org2blog/wp-mode-hook nil
   "Hook to run upon entry into mode.")
+
+(defvar org2blog/wp-export-options
+  '(
+    :section-numbers nil
+    :with-priority nil
+    :with-sub-superscript nil
+    :with-toc nil
+    :with-tags nil
+    :with-todo-keywords nil
+    )
+  "Export options to be used when exporting buffers and subtrees.
+Look at `org-export-options-alist' for the available options.
+Also, note that these options are over-ridden by in-file
+options.")
 
 (defun org2blog/wp-is-narrow-p nil
   "Return t if a buffer is narrowed"
@@ -448,7 +458,7 @@ from currently logged in."
 
             (progn
               (goto-char (point-min))
-              (if (re-search-forward (concat "^# \\+"
+              (if (re-search-forward (concat "^# "
                                              (regexp-quote file-name)
                                              " ") nil t 1)
                   (setq file-web-url (buffer-substring-no-properties
@@ -464,7 +474,7 @@ from currently logged in."
                                    (get-file-properties file-name)))))
                 (goto-char (point-max))
                 (newline)
-                (insert (concat "# +" file-name " " file-web-url)))
+                (insert (concat "# " file-name " " file-web-url)))
               (setq file-all-urls
                     (append file-all-urls (list (cons
                                                  file-name file-web-url)))))))
@@ -491,170 +501,7 @@ from currently logged in."
           "0")
     "0"))
 
-(defun org2blog/wp-strip-new-lines (html)
-  "Strip the new lines from the html, except in pre and blockquote tags."
-  (save-excursion
-    (with-temp-buffer
-      (let* (start-pos end-pos html-tag)
-        (insert html)
-        (setq start-pos (point-min))
-        (goto-char start-pos)
-        ;; Search for pre or blockquote start
-        (while (re-search-forward
-                "<\\(pre\\|blockquote\\).*?>"
-                nil t 1)
-          (setq end-pos (match-beginning 0))
-          (setq html-tag (match-string-no-properties 1))
-          ;; Replace all new lines before the start
-          (replace-regexp "\\\n" " " nil start-pos end-pos)
-          ;; Go to the end of the pre or blockquote block, and start again
-          (re-search-forward (format "</%s.*?>" html-tag) nil t 1)
-          (setq start-pos (match-end 0))
-          (goto-char start-pos))
-        (setq end-pos (point-max))
-        (replace-regexp "\\\n" " " nil start-pos end-pos)
-        (buffer-substring-no-properties (point-min) (point-max))))))
-
-(defun org2blog/wp-point-in-wp-sc ()
-  "Return True when point in sourcecode block."
-  (save-excursion
-    (let* ((pos (point))
-           (s-count 0)
-           (e-count 0))
-      (save-match-data
-        (while (re-search-backward "\\[sourcecode.*\\]" nil t)
-          (setq s-count (1+ s-count)))
-        (goto-char pos)
-        (while (re-search-backward "\\[/sourcecode\\]" nil t)
-          (setq e-count (1+ e-count))))
-      (> (- s-count e-count) 0))))
-
-(defun org2blog/wp-latex-to-wp (html)
-  "Change inline LaTeX to wp latex blocks."
-  (save-excursion
-    (with-temp-buffer
-      (insert html)
-      (let* ((matchers (plist-get org-format-latex-options :matchers))
-             (re-list org-latex-regexps)
-             beg end re e m n block off)
-        (while (setq e (pop re-list))
-          (setq m (car e) re (nth 1 e) n (nth 2 e)
-                block (if (nth 3 e) "\n\n" ""))
-          (when (member m matchers)
-            (goto-char (point-min))
-            (save-match-data
-              (while (and
-                      (re-search-forward re nil t)
-                      (not (org2blog/wp-point-in-wp-sc)))
-                (cond
-                 ((equal m "$")
-                  (unless (string-match "^latex" (match-string 4))
-                    (replace-match (concat (match-string 1) "$latex "
-                                           (match-string 4) "$"
-                                           (match-string 6))
-                                   nil t)))
-                 ((equal m "$1")
-                  (replace-match (concat (match-string 1) "$latex "
-                                         (substring (match-string 2) 1 -1)
-                                         "$" (match-string 3))
-                                   nil t))
-                 ((equal m "\\(")
-                  (replace-match (concat "$latex "
-                                         (substring (match-string 0) 2 -2)
-                                         "$") nil t))
-                 ((equal m "\\[")
-                  (replace-match (concat "<p style=\"text-align:center\"> $latex \\displaystyle "
-                                         (substring (match-string 0) 2 -2)
-                                         "$ </p>") nil t))
-                 ((equal m "$$")
-                  (replace-match (concat "<p style=\"text-align:center\"> $latex \\displaystyle "
-                                         (substring (match-string 0) 2 -2)
-                                         "$ </p>") nil t))
-                 ((equal m "begin")
-                  (if (equal (match-string 2) "equation")
-                      (replace-match (concat "<p style=\"text-align:center\"> $latex \\displaystyle "
-                                             (substring (match-string 1) 16 -14)
-                                             "$ </p>") nil t)))))))))
-      (buffer-substring-no-properties (point-min) (point-max)))))
-
-(defun org2blog/wp-replace-pre (html)
-  "Replace pre blocks with sourcecode shortcode blocks."
-  (save-excursion
-    (let (pos code lang info params header code-start code-end html-attrs)
-      (with-temp-buffer
-        (insert html)
-        (goto-char (point-min))
-        (save-match-data
-          (while (re-search-forward "<pre\\(.*?\\)>" nil t 1)
-
-            ;; When the codeblock is a src_block
-            (unless
-                (save-match-data
-                  (string-match "example" (match-string-no-properties 1)))
-              ;; Replace the <pre...> text
-              (replace-match "")
-              (setq code-start (point))
-
-              ;; Go to end of code and remove </pre>
-              (re-search-forward "</pre.*?>" nil t 1)
-              (replace-match "")
-              (setq code-end (point))
-              (setq code (buffer-substring-no-properties code-start code-end))
-
-              ;; Delete the code
-              (delete-region code-start code-end)
-              ;; Stripping out all the code highlighting done by htmlize
-              (setq code (replace-regexp-in-string "<.*?>" "" code))
-              (insert (concat "\n[sourcecode]\n" code "[/sourcecode]\n")))))
-
-        ;; Get the new html!
-        (setq html (buffer-substring-no-properties (point-min) (point-max))))
-
-      (setq pos (point-min))
-      (goto-char (point-min))
-      (while
-          ;; Search for code blocks in the buffer from where publish
-          ;; was done, and get the syntaxhl params if any, and put
-          ;; them in the right place in the html, using a temp-buffer.
-          (save-match-data
-            (re-search-forward org-babel-src-block-regexp nil t 1))
-        (backward-word)
-        ;; Get the syntaxhl params and other info about the src_block
-        (let* ((info (org-babel-get-src-block-info))
-               (params (nth 2 info))
-               (code (if (version-list-< (version-to-list (org-version)) '(8 0 0))
-                         (org-html-protect (nth 1 info))
-                       (org-html-encode-plain-text (nth 1 info))))
-               (org-src-lang
-                 (or (cdr (assoc (nth 0 info) org2blog/wp-shortcode-langs-map))
-                     (nth 0 info)))
-               (lang (or (car
-                          (member org-src-lang org2blog/wp-sourcecode-langs))
-                         "text"))
-               (header (concat "[sourcecode language=\"" lang  "\" "
-                               (if (assoc :syntaxhl params)
-                                   (cdr (assoc :syntaxhl params))
-                                 org2blog/wp-sourcecode-default-params)
-                               "]")))
-
-          ;; Change the html by inserting the syntaxhl in the right place.
-          (save-excursion
-            (with-temp-buffer
-              (insert html)
-              (goto-char pos)
-              ;; Search for code
-              (save-match-data
-                (search-forward code nil t 1)
-                (setq pos (match-end 0))
-                (goto-char (match-beginning 0))
-                ;; Search for a header line --
-                (search-backward "[sourcecode]" nil t 1)
-                ;; Replace the text with our new header
-                (replace-match header nil t))
-              (setq html (buffer-substring-no-properties (point-min) (point-max)))))))))
-  html)
-
-(defun org2blog/wp-parse-entry (&optional publish)
+(defun org2blog/wp-parse-entry (&optional subtree-p)
   "Parse an org2blog/wp buffer."
   (interactive "P")
   (let* ((keep-new-lines (if (plist-member (cdr org2blog/wp-blog) :keep-new-lines)
@@ -664,20 +511,20 @@ from currently logged in."
                        (plist-get (cdr org2blog/wp-blog) :wp-latex)
                      org2blog/wp-use-wp-latex))
          (sourcecode-shortcode (if (plist-member (cdr org2blog/wp-blog) :wp-code)
-                             (plist-get (cdr org2blog/wp-blog) :wp-code)
-                           org2blog/wp-use-sourcecode-shortcode))
-         html-text post-title post-id post-date tags categories narrow-p
+                                   (plist-get (cdr org2blog/wp-blog) :wp-code)
+                                 org2blog/wp-use-sourcecode-shortcode))
+         (option-plist org2blog/wp-export-options)
+         html-text post-title post-id post-date tags categories
          cur-time post-par)
+    (plist-put option-plist :wp-keep-new-lines keep-new-lines)
+    (plist-put option-plist :wp-latex wp-latex)
+    (plist-put option-plist :wp-shortcode sourcecode-shortcode)
+    (plist-put option-plist :wp-shortcode-langs org2blog/wp-sourcecode-langs)
+    (plist-put option-plist :wp-shortcode-lang-map org2blog/wp-shortcode-langs-map)
     (save-restriction
       (save-excursion
-        (if (not org2blog/wp-mode)
-            (org-save-outline-visibility 'use-markers (org-mode-restart))
-          (org-save-outline-visibility 'use-markers (org-mode-restart))
-          (org2blog/wp-mode t))
-        (setq narrow-p (org2blog/wp-is-narrow-p))
-
         ;; Get the required parameters for posting the blog-post
-        (if narrow-p
+        (if subtree-p
             (progn
               (setq post-title (or (org-entry-get (point) "TITLE")
                                    (nth 4 (org-heading-components))))
@@ -731,7 +578,7 @@ from currently logged in."
                                   (if post-date
                                       (apply 'encode-time (org-parse-time-string post-date))
                                     (current-time)
-                                    (if narrow-p
+                                    (if subtree-p
                                         (org-entry-put (point) "POST_DATE" cur-time)
                                       (save-excursion
                                         (goto-char (point-min))
@@ -747,39 +594,15 @@ from currently logged in."
 
         ;; Get the exported html
         (save-excursion
-          (if (not narrow-p)
-              (setq html-text
-                    ;;Starting with org-mode 7.9.3, org-export-as-html
-                    ;;takes 4 optional args instead of 5.
-                    (cond
-                     ((version-list-< (version-to-list (org-version)) '(7 9 3))
-                      (org-export-as-html nil nil nil 'string t nil))
-                     ((and (not (version-list-< (version-to-list (org-version)) '(7 9 3)))
-                           (version-list-< (version-to-list (org-version)) '(8 0 0)))
-                      (org-export-as-html nil nil 'string t nil))
-                     ((not (version-list-< (version-to-list (org-version)) '(8 0 0)))
-                      (org-export-as 'html nil nil t nil))))
-            (setq html-text
-                  (if (version-list-< (version-to-list (org-version)) '(8 0 0))
-                      (org-export-region-as-html
-                       (1+ (and (org-back-to-heading) (line-end-position)))
-                       (org-end-of-subtree)
-                       t 'string)
-                    (org-export-as 'html t nil t))))
+          (setq html-text (org-wp-export-as-string nil subtree-p option-plist))
           (setq html-text (org-no-properties html-text)))
 
         ;; Post-process as required.
-        (setq html-text (org2blog/wp-upload-files-replace-urls html-text))
-        (unless keep-new-lines
-          (setq html-text (org2blog/wp-strip-new-lines html-text)))
-        (when sourcecode-shortcode
-          (setq html-text (org2blog/wp-replace-pre html-text)))
-        (when wp-latex
-          (setq html-text (org2blog/wp-latex-to-wp html-text)))))
+        (setq html-text (org2blog/wp-upload-files-replace-urls html-text))))
 
+    ;; Return value
     (list
      (cons "point" (point))
-     (cons "subtree" narrow-p)
      (cons "date" post-date)
      (cons "title" (if (version-list-< (version-to-list (org-version)) '(8 0 0))
                        (org-html-do-expand post-title)
@@ -800,19 +623,19 @@ from currently logged in."
   (interactive)
   (org2blog/wp-post-buffer t))
 
-(defun org2blog/wp-post-buffer (&optional publish)
+(defun org2blog/wp-post-buffer (&optional publish subtree-p)
   "Posts new blog entry to the blog or edits an existing entry."
   (interactive "P")
   (org2blog/wp-mode t) ;; turn on org2blog-wp-mode
   (org2blog/wp-correctly-login)
   (save-excursion
     (save-restriction
-      (let ((post (org2blog/wp-parse-entry))
+      (let ((post (org2blog/wp-parse-entry subtree-p))
             (confirm (and
-                     (if (plist-member (cdr org2blog/wp-blog) :confirm)
-                        (plist-member (cdr org2blog/wp-blog) :confirm)
-                      org2blog/wp-confirm-post)
-                     publish))
+                      (if (plist-member (cdr org2blog/wp-blog) :confirm)
+                          (plist-member (cdr org2blog/wp-blog) :confirm)
+                        org2blog/wp-confirm-post)
+                      publish))
             (show (or (plist-member (cdr org2blog/wp-blog) :show)
                       org2blog/wp-show-post-in-browser))
             post-id)
@@ -835,14 +658,14 @@ from currently logged in."
                                              org2blog/wp-server-blogid
                                              post
                                              publish))
-          (if (cdr (assoc "subtree" post))
+          (if subtree-p
               (progn
                 (org-entry-put (point) "POSTID" post-id)
                 (org-entry-put (point) "BLOG" org2blog/wp-blog-name))
             (goto-char (point-min))
             (insert (concat "#+BLOG: " org2blog/wp-blog-name "\n"))
             (insert (concat "#+POSTID: " post-id "\n"))))
-        (org2blog/wp-save-details post post-id publish)
+        (org2blog/wp-save-details post post-id publish subtree-p)
         (message (if publish
                      "Published (%s): %s"
                    "Draft (%s): %s")
@@ -853,7 +676,7 @@ from currently logged in."
                    (equal show 'ask)
                    (y-or-n-p
                     "[For drafts, ensure you login] View in browser? y/n")))
-          (if (cdr (assoc "subtree" post))
+          (if subtree-p
               (org2blog/wp-preview-subtree-post)
             (org2blog/wp-preview-buffer-post)))))))
 
@@ -863,14 +686,14 @@ from currently logged in."
   (interactive)
   (org2blog/wp-post-buffer-as-page t))
 
-(defun org2blog/wp-post-buffer-as-page (&optional publish)
+(defun org2blog/wp-post-buffer-as-page (&optional publish subtree-p)
   "Posts new page to the blog or edits an existing page."
   (interactive "P")
   (org2blog/wp-correctly-login)
   (save-excursion
     (save-restriction
       (widen)
-      (let ((post (org2blog/wp-parse-entry))
+      (let ((post (org2blog/wp-parse-entry subtree-p))
             (confirm (and
                      (if (plist-member (cdr org2blog/wp-blog) :confirm)
                         (plist-member (cdr org2blog/wp-blog) :confirm)
@@ -907,11 +730,11 @@ from currently logged in."
 					 org2blog/wp-server-userid
 					 org2blog/wp-server-pass
 					 org2blog/wp-server-blogid)))
-          (if (cdr (assoc "subtree" post))
+          (if subtree-p
               (org-entry-put (point) "POSTID" post-id)
             (goto-char (point-min))
             (insert (concat "#+POSTID: " post-id "\n"))))
-        (org2blog/wp-save-details post post-id publish)
+        (org2blog/wp-save-details post post-id publish subtree-p)
         (message (if publish
                      "Published (%s): %s"
                    "Draft (%s): %s")
@@ -922,7 +745,7 @@ from currently logged in."
                    (equal show 'ask)
                    (y-or-n-p
                     "[For drafts, ensure you login] View in browser? y/n")))
-          (if (cdr (assoc "subtree" post))
+          (if subtree-p
               (org2blog/wp-preview-subtree-post)
             (org2blog/wp-preview-buffer-post)))))))
 
@@ -949,13 +772,13 @@ from currently logged in."
                   page-id)
    (message "Page Deleted"))
 
-(defun org2blog/wp-save-details (post pid pub)
+(defun org2blog/wp-save-details (post pid pub subtree-p)
   "Save the details of posting, to a file."
   (save-excursion
     (when (if (plist-member (cdr org2blog/wp-blog) :track-posts)
               (car (plist-get (cdr org2blog/wp-blog) :track-posts))
             (car org2blog/wp-track-posts))
-      (let* ((o2b-id (if (cdr (assoc "subtree" post))
+      (let* ((o2b-id (if subtree-p
                          (concat "id:" (org-id-get nil t))
                        (buffer-file-name)))
              (log-file (if (plist-member (cdr org2blog/wp-blog) :track-posts)
@@ -1046,24 +869,30 @@ use absolute path or set org-directory")
   (interactive "P")
   (save-restriction
     (save-excursion
-      (org-insert-heading-after-current)
-      (if (fboundp 'org-backward-heading-same-level)
-          (org-backward-heading-same-level 1)
-        (org-backward-same-level 1))
       (org-narrow-to-subtree)
       (org-id-get nil t "o2b")
-      (goto-char (point-min))
-      (setq level (1- (org-reduced-level (org-outline-level))))
-      (dotimes (n level nil) (org-promote-subtree))
-      (org2blog/wp-post-buffer publish)
-      (dotimes (n level nil) (org-demote-subtree))
+      (org2blog/wp-post-buffer publish t)
       (widen)
-      (if (fboundp 'org-forward-heading-same-level)
-          (org-forward-heading-same-level 1)
-        (org-forward-same-level 1))
-      (delete-region (or (beginning-of-line) (point))
-                     (1+ (or (end-of-line) (point))))
-      (save-buffer))))
+      (when (buffer-file-name) (save-buffer)))))
+
+;;;###autoload
+(defun org2blog/wp-post-subtree-as-page (&optional publish)
+  "Post the current entry as a draft. Publish if PUBLISH is non-nil."
+  (interactive "P")
+  (save-restriction
+    (save-excursion
+      (org-narrow-to-subtree)
+      (org-id-get nil t "o2b")
+      (org2blog/wp-post-buffer-as-page publish t)
+      (widen)
+      (when (buffer-file-name) (save-buffer)))))
+
+;;;###autoload
+(defun org2blog/wp-post-subtree-as-page-and-publish ()
+  "Publish the current subtree as a page."
+  (interactive)
+  (org2blog/wp-post-subtree-as-page t))
+
 
 ;;;###autoload
 (defun org2blog/wp-track-buffer ()
@@ -1081,7 +910,7 @@ use absolute path or set org-directory")
   (save-restriction
     (save-excursion
       (org-narrow-to-subtree)
-      (org2blog/wp-save-details (org2blog/wp-parse-entry) "" nil)
+      (org2blog/wp-save-details (org2blog/wp-parse-entry t) "" nil t)
       (widen))))
 
 ;;;###autoload
