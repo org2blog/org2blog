@@ -36,7 +36,7 @@ env:
     - EMACS=emacs24
 #   - EMACS=emacs-snapshot
   global:
-    - SOME_TOKEN=some_value
+    - secure: G2+8j6mXLKWN6qa/wT7lHg9xxuKj1YFflaqN+rsSo36i3x9OljGNcCnsegnU/nzvcX1cfO/MJ9cjIt9Ly1cCBqs4ExQtO8qvF+fz9+CvCiVT9k+ZPZcEeV+XhPPbtBT0ZHuBpmtq/9U/MNqHLqTdl16RLtPGgHsMnbWKe3qKb7I=
 
 ###
 ### allowing build failures

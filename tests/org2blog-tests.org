@@ -6,8 +6,16 @@
 
   ;; Global configuration for tests
   (setq org2blog/wp-use-sourcecode-shortcode t)
-  (org-babel-do-load-languages 'org-babel-load-languages  '((emacs-lisp . t) (python . t)))
 
+  (setq org2blog/wp-blog-alist
+        '(("test"
+            :url "http://testorg2blog.wordpress.com/xmlrpc.php"
+            :username "org2blog"
+            :password (getenv "org2blog_password")
+            :default-title "Hello World"
+            :default-categories ("org2blog")
+            :tags-as-categories nil)
+          ))
 #+END_SRC
 
 * Utility code
@@ -458,4 +466,11 @@
   (concat "- State \"\\(" (regexp-opt org-done-keywords)"\\)\"\\s-*\\\([^]\n]+\\)\$ ")))
   [/sourcecode]
 
+#+END_SRC
+
+** Login
+#+BEGIN_SRC emacs-lisp
+  (ert-deftest should-login ()
+    (org2blog/wp-login "test")
+    (should org2blog/wp-logged-in))
 #+END_SRC
