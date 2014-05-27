@@ -531,3 +531,19 @@
     (org2blog/wp-login "test")
     (should org2blog/wp-logged-in))
 #+END_SRC
+
+** Tracking posts
+#+BEGIN_SRC emacs-lisp
+  (ert-deftest should-save-post-details-when-org-directory-doesn-not-exist ()
+    (let* ((org-directory (expand-file-name (make-temp-name temporary-file-directory))))
+      (o2b-test-buffer-with-block
+       "o2b-test-post-awk-source-input"
+       (let ((post (org2blog/wp-parse-entry t))
+             (dashboard (expand-file-name (car org2blog/wp-track-posts) org-directory)))
+         (org2blog/wp-save-details post "" nil t)
+         (should (file-exists-p dashboard))
+         (should
+          (with-temp-buffer
+            (find-file-read-only dashboard)
+            (search-forward (cdr (assoc "title" post)) nil t nil)))))))
+#+END_SRC

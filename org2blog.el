@@ -793,6 +793,10 @@ use absolute path or set org-directory")
                            (cadr (plist-get (cdr org2blog/wp-blog) :track-posts))
                          (cadr org2blog/wp-track-posts)))
              p)
+
+        ;; Create the directory to place the log-file, if it doesn't exist.
+        (make-directory (file-name-directory log-file) t)
+
         (when o2b-id
           (with-current-buffer (or (find-buffer-visiting log-file)
                                    (find-file-noselect log-file))
@@ -805,10 +809,9 @@ use absolute path or set org-directory")
                 (if p
                     (progn (goto-char p) (org-narrow-to-subtree) (end-of-line))
                   (goto-char (point-max))
-                  (if (y-or-n-p (format "Heading '%s' not in '%s'; Create?"
-                                        headline log-file))
-                      (progn (org-insert-heading t) (insert headline)
-                             (org-narrow-to-subtree))))
+                  (progn (org-insert-heading t)
+                         (insert headline)
+                         (org-narrow-to-subtree)))
                 (if (search-forward o2b-id nil t 1)
                     (progn
                       (org-back-to-heading)
