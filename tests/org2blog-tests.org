@@ -517,7 +517,7 @@
 #+BEGIN_SRC html
   <div class="org-src-container">
 
-  <pre class="src src-sh"><span style="font-weight: bold;">echo</span> hello &gt; world
+  <pre class="src src-sh">echo hello &gt; world
   </pre>
   </div>
   <p> Test source code</p>

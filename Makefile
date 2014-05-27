@@ -50,8 +50,7 @@ test:
 	@cd $(TEST_DIR)                                   && \
 	(for test_lib in *-tests.org; do                       \
 	    $(EMACS) $(EMACS_BATCH) -L . -L .. -L ../org-mode/lisp  \
-	    -L ../org-mode/contrib/lisp -l $(XML_RPC) -l cl-lib -l cl \
-	    -l $(ERT) -l $(METAWEBLOG) --eval \
+	    -l $(XML_RPC) -l cl-lib -l cl -l $(ERT) -l $(METAWEBLOG) --eval \
 	    "(progn                                          \
               (org-babel-do-load-languages 'org-babel-load-languages  '((emacs-lisp . t) (python . t))) \
               (setq org-confirm-babel-evaluate nil)          \
