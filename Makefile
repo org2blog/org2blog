@@ -54,4 +54,4 @@ download-cl:
 download-deps : download-xml-rpc download-metaweblog download-org download-ert download-cl
 
 clean :
-	rm $(TEST_DIR)/*.el
+	rm -rf $(TEST_DIR)/*.el
