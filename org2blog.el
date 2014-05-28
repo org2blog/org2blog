@@ -906,55 +906,6 @@ various export options."
     (org2blog/wp-upload-files-replace-urls
      (org-no-properties (org-wp-export-as-string nil subtree-p export-options)))))
 
-(defun org2blog/wp--insert-current-time (subtree-p time)
-  "Insert current time into the post, if no timestamp exists."
-  (or time
-      (let ((current-time
-             (format-time-string (org-time-stamp-format t t)
-                                 (org-current-time))))
-        (save-excursion
-          (if subtree-p
-              (org-entry-put (point) "POST_DATE" current-time)
-            (goto-char (point-min))
-            (insert (concat "#+DATE: " current-time "\n"))))
-
-        current-time)))
-
-(defun org2blog/wp--parse-buffer-entry ()
-  "Parse an org2blog buffer entry.
-
-The post object returned does not contain the exported html.
-This post needs to be further processed by the
-`org2blog/wp--export-as-post' function, to add the export html and
-munge it a little to make it suitable to use with the `ox-wp'
-functions. "
-
-  (let*
-      ((parsed-entry
-        (list
-         (cons "point" (point))
-         (cons "date" (org2blog/wp-get-option "DATE"))
-         (cons "title" (org-element-interpret-data
-                        (or (plist-get (org-export-get-environment) :title)
-                            "No Title")))
-         (cons "description" nil)
-         (cons "tags"
-               (split-string (or (org2blog/wp-get-option "TAGS") "")
-                             "\\( *, *\\)" t))
-         (cons "categories"
-               (split-string (or (org2blog/wp-get-option "CATEGORY") "")
-                             "\\( *, *\\)" t))
-         (cons "post-id" (org2blog/wp-get-option "POSTID"))
-         (cons "parent" (org2blog/wp-get-post-parent
-                         (org2blog/wp-get-option "PARENT")))
-         (cons "excerpt" (org-element-interpret-data
-                          (or (plist-get (org-export-get-environment)
-                                         :description) "")))
-         (cons "permalink" (or (org2blog/wp-get-option "PERMALINK") "")))))
-
-    ;; Return value
-    parsed-entry))
-
 (defun org2blog/wp--export-as-post (&optional subtree-p)
   "Parse an org2blog post (subtree or buffer)."
 
@@ -984,14 +935,63 @@ functions. "
         ;; Return value
         post))))
 
+(defun org2blog/wp--insert-current-time (subtree-p time)
+  "Insert current time into the post, if no timestamp exists."
+  (or time
+      (let ((current-time
+             (format-time-string (org-time-stamp-format t t)
+                                 (org-current-time))))
+        (save-excursion
+          (if subtree-p
+              (org-entry-put (point) "POST_DATE" current-time)
+            (goto-char (point-min))
+            (insert (concat "#+DATE: " current-time "\n"))))
+
+        current-time)))
+
+(defun org2blog/wp--parse-buffer-entry ()
+  "Parse an org2blog buffer entry.
+
+The post object returned does not contain the exported html.
+This post needs to be further processed by the
+`org2blog/wp--export-as-post' function, to add the export html
+and munge it a little to make it suitable to use with the
+`metaweblog' functions. "
+
+  (let*
+      ((parsed-entry
+        (list
+         (cons "point" (point))
+         (cons "date" (org2blog/wp-get-option "DATE"))
+         (cons "title" (org-element-interpret-data
+                        (or (plist-get (org-export-get-environment) :title)
+                            "No Title")))
+         (cons "description" nil)
+         (cons "tags"
+               (split-string (or (org2blog/wp-get-option "TAGS") "")
+                             "\\( *, *\\)" t))
+         (cons "categories"
+               (split-string (or (org2blog/wp-get-option "CATEGORY") "")
+                             "\\( *, *\\)" t))
+         (cons "post-id" (org2blog/wp-get-option "POSTID"))
+         (cons "parent" (org2blog/wp-get-post-parent
+                         (org2blog/wp-get-option "PARENT")))
+         (cons "excerpt" (org-element-interpret-data
+                          (or (plist-get (org-export-get-environment)
+                                         :description) "")))
+         (cons "permalink" (or (org2blog/wp-get-option "PERMALINK") "")))))
+
+    ;; Return value
+    parsed-entry))
+
 (defun org2blog/wp--parse-subtree-entry ()
   "Parse an org2blog subtree entry.
 
 The post object returned does not contain the exported html.
 This post needs to be further processed by the
-`org2blog/wp--export-as-post' function, to add the export html and
-munge it a little to make it suitable to use with the `ox-wp'
-functions. "
+`org2blog/wp--export-as-post' function, to add the export html
+and munge it a little to make it suitable to use with the
+`metaweblog' functions. "
 
   (let*
       ((parsed-entry
