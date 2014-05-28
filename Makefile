@@ -21,11 +21,18 @@ ERT=ert
 CL_URL=https://raw.githubusercontent.com/emacsmirror/cl-lib/master/cl-lib.el
 CL=cl-lib
 
-build :
-	$(EMACS) $(EMACS_BATCH) --eval             \
-	    "(progn                                \
-	      (setq byte-compile-error-on-warn t)  \
-	      (batch-byte-compile))" *.el
+test: clean
+	@cd $(TEST_DIR)                                   && \
+	(for test_lib in *-tests.org; do                       \
+	    $(EMACS) $(EMACS_BATCH) -L . -L .. -L ../org-mode/lisp  \
+	    -l $(XML_RPC) -l cl-lib -l cl -l $(ERT) -l $(METAWEBLOG) --eval \
+	    "(progn                                          \
+              (org-babel-do-load-languages 'org-babel-load-languages  '((emacs-lisp . t) (python . t))) \
+              (fset 'ert--print-backtrace 'ignore)           \
+              (setq org-confirm-babel-evaluate nil)          \
+              (org-babel-load-file \"$$test_lib\")           \
+              (ert-run-tests-batch-and-exit '(and \"$(TESTS)\" (not (tag :interactive)))))" || exit 1; \
+	done)
 
 download-org :
 	$(CURL) '$(ORG_URL)' > '$(WORK_DIR)/$(ORG_TAR)'
@@ -46,15 +53,5 @@ download-cl:
 
 download-deps : download-xml-rpc download-metaweblog download-org download-ert download-cl
 
-test:
-	@cd $(TEST_DIR)                                   && \
-	(for test_lib in *-tests.org; do                       \
-	    $(EMACS) $(EMACS_BATCH) -L . -L .. -L ../org-mode/lisp  \
-	    -l $(XML_RPC) -l cl-lib -l cl -l $(ERT) -l $(METAWEBLOG) --eval \
-	    "(progn                                          \
-              (org-babel-do-load-languages 'org-babel-load-languages  '((emacs-lisp . t) (python . t))) \
-              (setq org-confirm-babel-evaluate nil)          \
-	      (org-babel-load-file \"$$test_lib\")           \
-	      (fset 'ert--print-backtrace 'ignore)           \
-	      (ert-run-tests-batch-and-exit '(and \"$(TESTS)\" (not (tag :interactive)))))" || exit 1; \
-	done)
+clean :
+	rm $(TEST_DIR)/*.el
