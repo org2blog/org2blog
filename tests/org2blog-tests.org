@@ -13,8 +13,7 @@
             :username "org2blog"
             :password (getenv "org2blog_password")
             :default-title "Hello World"
-            :default-categories ("org2blog")
-            :tags-as-categories nil)
+            :default-categories ("org2blog"))
           ))
 #+END_SRC
 
