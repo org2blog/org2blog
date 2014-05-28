@@ -261,7 +261,7 @@ options.")
     (if (y-or-n-p "Save entry?")
         (progn
           (save-buffer)
-          (org2blog/wp-save-details (org2blog/wp-parse-entry) nil
+          (org2blog/wp-save-details (org2blog/wp--export-as-post) nil
                                  (y-or-n-p "Published?"))))))
 
 ;; Set the mode map for org2blog.
@@ -499,35 +499,6 @@ from currently logged in."
           "0")
     "0"))
 
-(defun org2blog/wp-parse-entry (&optional subtree-p)
-  "Parse an org2blog/wp buffer."
-  (interactive "P")
-  (let* ((export-options (org2blog/wp--collect-export-options))
-         (tags-as-categories (plist-get export-options :tags-as-categories)))
-
-    (save-restriction
-      (save-excursion
-        ;; Get the required parameters for posting the blog-post
-        (setq post (if subtree-p
-                       (org2blog/wp--parse-subtree-entry)
-                     (org2blog/wp--parse-buffer-entry)))
-
-        (when tags-as-categories
-          (setcdr (assoc "categories" post) (cdr (assoc "tags" post)))
-          (setcdr (assoc "tags" post) nil))
-
-        (setcdr (assoc "date" post)
-                ;; Convert post date to ISO timestamp
-                (org2blog/wp--convert-timestamp-to-iso
-                 ;; insert posting timestamp, else edits will change it
-                 (org2blog/wp--insert-current-time subtree-p
-                                                   (cdr (assoc "date" post)))))
-        (setcdr (assoc "description" post)
-                (org2blog/wp--export-as-html subtree-p export-options))
-
-        ;; Return value
-        post))))
-
 (defun org2blog/wp-post-buffer-and-publish ()
   "Post buffer and mark it as published"
   (interactive)
@@ -540,7 +511,7 @@ from currently logged in."
   (org2blog/wp-correctly-login)
   (save-excursion
     (save-restriction
-      (let ((post (org2blog/wp-parse-entry subtree-p))
+      (let ((post (org2blog/wp--export-as-post subtree-p))
             (confirm (and
                       (if (plist-member (cdr org2blog/wp-blog) :confirm)
                           (plist-member (cdr org2blog/wp-blog) :confirm)
@@ -603,7 +574,7 @@ from currently logged in."
   (save-excursion
     (save-restriction
       (widen)
-      (let ((post (org2blog/wp-parse-entry subtree-p))
+      (let ((post (org2blog/wp--export-as-post subtree-p))
             (confirm (and
                      (if (plist-member (cdr org2blog/wp-blog) :confirm)
                         (plist-member (cdr org2blog/wp-blog) :confirm)
@@ -814,7 +785,7 @@ use absolute path or set org-directory")
   (save-restriction
     (save-excursion
       (widen)
-      (org2blog/wp-save-details (org2blog/wp-parse-entry) "" nil))))
+      (org2blog/wp-save-details (org2blog/wp--export-as-post) "" nil))))
 
 ;;;###autoload
 (defun org2blog/wp-track-subtree ()
@@ -823,7 +794,7 @@ use absolute path or set org-directory")
   (save-restriction
     (save-excursion
       (org-narrow-to-subtree)
-      (org2blog/wp-save-details (org2blog/wp-parse-entry t) "" nil t)
+      (org2blog/wp-save-details (org2blog/wp--export-as-post t) "" nil t)
       (widen))))
 
 ;;;###autoload
@@ -890,6 +861,38 @@ the title of the post (or page) as description."
 
 ;;;; Private ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun org2blog/wp--collect-export-options ()
+  "Return a plist of export options.
+
+This can be passed on to the export functions to configure the
+various export options."
+
+  (let ((export-options org2blog/wp-export-options))
+
+    (plist-put export-options :wp-keep-new-lines
+               (if (plist-member (cdr org2blog/wp-blog) :keep-new-lines)
+                   (plist-get (cdr org2blog/wp-blog) :keep-new-lines)
+                 org2blog/wp-keep-new-lines))
+    (plist-put export-options :wp-latex
+               (if (plist-member (cdr org2blog/wp-blog) :wp-latex)
+                   (plist-get (cdr org2blog/wp-blog) :wp-latex)
+                 org2blog/wp-use-wp-latex))
+    (plist-put export-options :wp-shortcode
+               (if (plist-member (cdr org2blog/wp-blog) :wp-code)
+                   (plist-get (cdr org2blog/wp-blog) :wp-code)
+                 org2blog/wp-use-sourcecode-shortcode))
+    (plist-put export-options :tags-as-categories
+               (if (plist-member (cdr org2blog/wp-blog) :tags-as-categories)
+                   (plist-get (cdr org2blog/wp-blog) :tags-as-categories)
+                 org2blog/wp-use-tags-as-categories))
+    (plist-put export-options :wp-shortcode-langs
+               org2blog/wp-sourcecode-langs)
+    (plist-put export-options :wp-shortcode-lang-map
+               org2blog/wp-shortcode-langs-map)
+
+    ;; Return Value
+    export-options))
+
 (defun org2blog/wp--convert-timestamp-to-iso (timestamp)
   "Convert org timestamp to ISO."
   (format-time-string
@@ -903,8 +906,28 @@ the title of the post (or page) as description."
     (org2blog/wp-upload-files-replace-urls
      (org-no-properties (org-wp-export-as-string nil subtree-p export-options)))))
 
+(defun org2blog/wp--insert-current-time (subtree-p time)
+  "Insert current time into the post, if no timestamp exists."
+  (or time
+      (let ((current-time
+             (format-time-string (org-time-stamp-format t t)
+                                 (org-current-time))))
+        (save-excursion
+          (if subtree-p
+              (org-entry-put (point) "POST_DATE" current-time)
+            (goto-char (point-min))
+            (insert (concat "#+DATE: " current-time "\n"))))
+
+        current-time)))
+
 (defun org2blog/wp--parse-buffer-entry ()
-  "Parse an org2blog/wp buffer entry."
+  "Parse an org2blog buffer entry.
+
+The post object returned does not contain the exported html.
+This post needs to be further processed by the
+`org2blog/wp--export-as-post' function, to add the export html and
+munge it a little to make it suitable to use with the `ox-wp'
+functions. "
 
   (let*
       ((parsed-entry
@@ -932,8 +955,44 @@ the title of the post (or page) as description."
     ;; Return value
     parsed-entry))
 
+(defun org2blog/wp--export-as-post (&optional subtree-p)
+  "Parse an org2blog post (subtree or buffer)."
+
+  (let* ((export-options (org2blog/wp--collect-export-options))
+         (tags-as-categories (plist-get export-options :tags-as-categories)))
+
+    (save-restriction
+      (save-excursion
+        ;; Get the required parameters for posting the blog-post
+        (setq post (if subtree-p
+                       (org2blog/wp--parse-subtree-entry)
+                     (org2blog/wp--parse-buffer-entry)))
+
+        (when tags-as-categories
+          (setcdr (assoc "categories" post) (cdr (assoc "tags" post)))
+          (setcdr (assoc "tags" post) nil))
+
+        (setcdr (assoc "date" post)
+                ;; Convert post date to ISO timestamp
+                (org2blog/wp--convert-timestamp-to-iso
+                 ;; insert posting timestamp, else edits will change it
+                 (org2blog/wp--insert-current-time subtree-p
+                                                   (cdr (assoc "date" post)))))
+        (setcdr (assoc "description" post)
+                (org2blog/wp--export-as-html subtree-p export-options))
+
+        ;; Return value
+        post))))
+
 (defun org2blog/wp--parse-subtree-entry ()
-  "Parse an org2blog/wp subtree entry."
+  "Parse an org2blog subtree entry.
+
+The post object returned does not contain the exported html.
+This post needs to be further processed by the
+`org2blog/wp--export-as-post' function, to add the export html and
+munge it a little to make it suitable to use with the `ox-wp'
+functions. "
+
   (let*
       ((parsed-entry
         (list
@@ -959,48 +1018,6 @@ the title of the post (or page) as description."
 
     ;; Return value
     parsed-entry))
-
-(defun org2blog/wp--insert-current-time (subtree-p time)
-  "Insert current time into the post, if it doesn't exist."
-  (or time
-    (let ((current-time
-           (format-time-string (org-time-stamp-format t t)
-                               (org-current-time))))
-      (save-excursion
-        (if subtree-p
-            (org-entry-put (point) "POST_DATE" current-time)
-          (goto-char (point-min))
-          (insert (concat "#+DATE: " current-time "\n"))))
-
-      current-time)))
-
-(defun org2blog/wp--collect-export-options ()
-  "Return a plist that can be passed to the export functions."
-  (let ((export-options org2blog/wp-export-options))
-
-    (plist-put export-options :wp-keep-new-lines
-               (if (plist-member (cdr org2blog/wp-blog) :keep-new-lines)
-                   (plist-get (cdr org2blog/wp-blog) :keep-new-lines)
-                 org2blog/wp-keep-new-lines))
-    (plist-put export-options :wp-latex
-               (if (plist-member (cdr org2blog/wp-blog) :wp-latex)
-                   (plist-get (cdr org2blog/wp-blog) :wp-latex)
-                 org2blog/wp-use-wp-latex))
-    (plist-put export-options :wp-shortcode
-               (if (plist-member (cdr org2blog/wp-blog) :wp-code)
-                   (plist-get (cdr org2blog/wp-blog) :wp-code)
-                 org2blog/wp-use-sourcecode-shortcode))
-    (plist-put export-options :tags-as-categories
-               (if (plist-member (cdr org2blog/wp-blog) :tags-as-categories)
-                   (plist-get (cdr org2blog/wp-blog) :tags-as-categories)
-                 org2blog/wp-use-tags-as-categories))
-    (plist-put export-options :wp-shortcode-langs
-               org2blog/wp-sourcecode-langs)
-    (plist-put export-options :wp-shortcode-lang-map
-               org2blog/wp-shortcode-langs-map)
-
-    ;; Return Value
-    export-options))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
