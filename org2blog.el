@@ -502,119 +502,31 @@ from currently logged in."
 (defun org2blog/wp-parse-entry (&optional subtree-p)
   "Parse an org2blog/wp buffer."
   (interactive "P")
-  (let* ((keep-new-lines (if (plist-member (cdr org2blog/wp-blog) :keep-new-lines)
-                             (plist-get (cdr org2blog/wp-blog) :keep-new-lines)
-                           org2blog/wp-keep-new-lines))
-         (wp-latex (if (plist-member (cdr org2blog/wp-blog) :wp-latex)
-                       (plist-get (cdr org2blog/wp-blog) :wp-latex)
-                     org2blog/wp-use-wp-latex))
-         (sourcecode-shortcode (if (plist-member (cdr org2blog/wp-blog) :wp-code)
-                                   (plist-get (cdr org2blog/wp-blog) :wp-code)
-                                 org2blog/wp-use-sourcecode-shortcode))
-         (option-plist org2blog/wp-export-options)
-         html-text post-title post-id post-date tags categories
-         cur-time post-par)
-    (plist-put option-plist :wp-keep-new-lines keep-new-lines)
-    (plist-put option-plist :wp-latex wp-latex)
-    (plist-put option-plist :wp-shortcode sourcecode-shortcode)
-    (plist-put option-plist :wp-shortcode-langs org2blog/wp-sourcecode-langs)
-    (plist-put option-plist :wp-shortcode-lang-map org2blog/wp-shortcode-langs-map)
+  (let* ((export-options (org2blog/wp--collect-export-options))
+         (tags-as-categories (plist-get export-options :tags-as-categories)))
+
     (save-restriction
       (save-excursion
         ;; Get the required parameters for posting the blog-post
-        (if subtree-p
-            (progn
-              (setq post-title (or (org-entry-get (point) "TITLE")
-                                   (nth 4 (org-heading-components))))
-              (setq excerpt (org-entry-get (point) "DESCRIPTION"))
-              (setq permalink (org-entry-get (point) "PERMALINK"))
-              (setq post-id (or (org-entry-get (point) "POSTID")
-                                (org-entry-get (point) "POST_ID")))
-              (setq post-par (org2blog/wp-get-post-parent
-                              (org-entry-get (point) "PARENT")))
-              ;; Set post-date to the Post Date property or look for timestamp
-              (setq post-date (or (org-entry-get (point) "POST_DATE")
-                                  (org-entry-get (point) "SCHEDULED")
-                                  (org-entry-get (point) "DEADLINE")
-                                  (org-entry-get (point) "TIMESTAMP_IA")
-                                  (org-entry-get (point) "TIMESTAMP")))
-              (setq tags (mapcar 'org-no-properties (org-get-tags-at (point) nil)))
-              (setq categories (org-entry-get (point) "CATEGORY"))
-              (setq categories (if categories
-                                   (split-string categories "\\( *, *\\)" t)
-                                 "")))
-          (setq post-title (or (plist-get
-                                ;; In org 8 this has been replaced by
-                                ;; org-export-get-enviroment
-                                (if (version-list-< (version-to-list (org-version)) '(8 0 0))
-                                    (org-infile-export-plist)
-                                  (org-export-get-environment))
-                                :title)
-                               "No Title"))
-          (setq excerpt (plist-get (if (version-list-< (version-to-list (org-version)) '(8 0 0))
-                                       (org-infile-export-plist)
-                                     (org-export-get-environment))
-                                   :description))
-          (setq permalink (org2blog/wp-get-option "PERMALINK"))
-          (setq post-id (org2blog/wp-get-option "POSTID"))
-          (setq post-par (org2blog/wp-get-post-parent
-                          (org2blog/wp-get-option "PARENT")))
-          (setq post-date (org2blog/wp-get-option "DATE"))
-          (setq tags (org2blog/wp-get-option "TAGS"))
-          (setq tags (if tags (split-string tags "\\( *, *\\)" t) ""))
+        (setq post (if subtree-p
+                       (org2blog/wp--parse-subtree-entry)
+                     (org2blog/wp--parse-buffer-entry)))
 
-          (setq categories (org2blog/wp-get-option "CATEGORY"))
-          (setq categories (if categories
-                               (split-string categories "\\( *, *\\)" t)
-                             "")))
+        (when tags-as-categories
+          (setcdr (assoc "categories" post) (cdr (assoc "tags" post)))
+          (setcdr (assoc "tags" post) nil))
 
-        ;; Convert post date to ISO timestamp
-        ;;add the date of posting to the post. otherwise edits will change it
-        (setq cur-time (format-time-string (org-time-stamp-format t t) (org-current-time)))
-        (setq post-date
-              (format-time-string "%Y%m%dT%T%z"
-                                  (if post-date
-                                      (apply 'encode-time (org-parse-time-string post-date))
-                                    (current-time)
-                                    (if subtree-p
-                                        (org-entry-put (point) "POST_DATE" cur-time)
-                                      (save-excursion
-                                        (goto-char (point-min))
-                                        (insert (concat "#+DATE: " cur-time "\n")))))
-                                  t))
+        (setcdr (assoc "date" post)
+                ;; Convert post date to ISO timestamp
+                (org2blog/wp--convert-timestamp-to-iso
+                 ;; insert posting timestamp, else edits will change it
+                 (org2blog/wp--insert-current-time subtree-p
+                                                   (cdr (assoc "date" post)))))
+        (setcdr (assoc "description" post)
+                (org2blog/wp--export-as-html subtree-p export-options))
 
-        (if
-            (if (plist-member (cdr org2blog/wp-blog) :tags-as-categories)
-                (plist-get (cdr org2blog/wp-blog) :tags-as-categories)
-              org2blog/wp-use-tags-as-categories)
-            (setq categories tags
-                  tags nil))
-
-        ;; Get the exported html
-        (save-excursion
-          (setq html-text (org-wp-export-as-string nil subtree-p option-plist))
-          (setq html-text (org-no-properties html-text)))
-
-        ;; Post-process as required.
-        (setq html-text (org2blog/wp-upload-files-replace-urls html-text))))
-
-    ;; Return value
-    (list
-     (cons "point" (point))
-     (cons "date" post-date)
-     (cons "title" (if (version-list-< (version-to-list (org-version)) '(8 0 0))
-                       (org-html-do-expand post-title)
-                     (org-element-interpret-data post-title)))
-     (cons "tags" tags)
-     (cons "categories" categories)
-     (cons "post-id" post-id)
-     (cons "parent" post-par)
-     (cons "excerpt" (if (version-list-< (version-to-list (org-version)) '(8 0 0))
-                         (org-html-do-expand (or excerpt ""))
-                       (org-element-interpret-data (or excerpt ""))))
-     (cons "permalink" (or permalink ""))
-     (cons "description" html-text))))
-
+        ;; Return value
+        post))))
 
 (defun org2blog/wp-post-buffer-and-publish ()
   "Post buffer and mark it as published"
@@ -975,5 +887,121 @@ the title of the post (or page) as description."
                    post-id))
       ;; Insert!
       (insert (format "[[%s][%s]]" url post-title)))))
+
+;;;; Private ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun org2blog/wp--convert-timestamp-to-iso (timestamp)
+  "Convert org timestamp to ISO."
+  (format-time-string
+   "%Y%m%dT%T%z"
+   (apply 'encode-time (org-parse-time-string timestamp))
+   t))
+
+(defun org2blog/wp--export-as-html (subtree-p export-options)
+  "Return the html for the post."
+  (save-excursion
+    (org2blog/wp-upload-files-replace-urls
+     (org-no-properties (org-wp-export-as-string nil subtree-p export-options)))))
+
+(defun org2blog/wp--parse-buffer-entry ()
+  "Parse an org2blog/wp buffer entry."
+
+  (let*
+      ((parsed-entry
+        (list
+         (cons "point" (point))
+         (cons "date" (org2blog/wp-get-option "DATE"))
+         (cons "title" (org-element-interpret-data
+                        (or (plist-get (org-export-get-environment) :title)
+                            "No Title")))
+         (cons "description" nil)
+         (cons "tags"
+               (split-string (or (org2blog/wp-get-option "TAGS") "")
+                             "\\( *, *\\)" t))
+         (cons "categories"
+               (split-string (or (org2blog/wp-get-option "CATEGORY") "")
+                             "\\( *, *\\)" t))
+         (cons "post-id" (org2blog/wp-get-option "POSTID"))
+         (cons "parent" (org2blog/wp-get-post-parent
+                         (org2blog/wp-get-option "PARENT")))
+         (cons "excerpt" (org-element-interpret-data
+                          (or (plist-get (org-export-get-environment)
+                                         :description) "")))
+         (cons "permalink" (or (org2blog/wp-get-option "PERMALINK") "")))))
+
+    ;; Return value
+    parsed-entry))
+
+(defun org2blog/wp--parse-subtree-entry ()
+  "Parse an org2blog/wp subtree entry."
+  (let*
+      ((parsed-entry
+        (list
+         (cons "point" (point))
+         (cons "date" (or (org-entry-get (point) "POST_DATE")
+                          (org-entry-get (point) "SCHEDULED")
+                          (org-entry-get (point) "DEADLINE")
+                          (org-entry-get (point) "TIMESTAMP_IA")
+                          (org-entry-get (point) "TIMESTAMP")))
+         (cons "title" (or (org-entry-get (point) "TITLE")
+                           (nth 4 (org-heading-components))))
+         (cons "description" nil)
+         (cons "tags" (mapcar 'org-no-properties (org-get-tags-at (point) nil)))
+         (cons "categories"
+               (split-string (or (org-entry-get (point) "CATEGORY") "")
+                             "\\( *, *\\)" t))
+         (cons "post-id" (or (org-entry-get (point) "POSTID")
+                             (org-entry-get (point) "POST_ID")))
+         (cons "parent" (org2blog/wp-get-post-parent
+                         (org-entry-get (point) "PARENT")))
+         (cons "excerpt" (org-entry-get (point) "DESCRIPTION"))
+         (cons "permalink" (org-entry-get (point) "PERMALINK")))))
+
+    ;; Return value
+    parsed-entry))
+
+(defun org2blog/wp--insert-current-time (subtree-p time)
+  "Insert current time into the post, if it doesn't exist."
+  (or time
+    (let ((current-time
+           (format-time-string (org-time-stamp-format t t)
+                               (org-current-time))))
+      (save-excursion
+        (if subtree-p
+            (org-entry-put (point) "POST_DATE" current-time)
+          (goto-char (point-min))
+          (insert (concat "#+DATE: " current-time "\n"))))
+
+      current-time)))
+
+(defun org2blog/wp--collect-export-options ()
+  "Return a plist that can be passed to the export functions."
+  (let ((export-options org2blog/wp-export-options))
+
+    (plist-put export-options :wp-keep-new-lines
+               (if (plist-member (cdr org2blog/wp-blog) :keep-new-lines)
+                   (plist-get (cdr org2blog/wp-blog) :keep-new-lines)
+                 org2blog/wp-keep-new-lines))
+    (plist-put export-options :wp-latex
+               (if (plist-member (cdr org2blog/wp-blog) :wp-latex)
+                   (plist-get (cdr org2blog/wp-blog) :wp-latex)
+                 org2blog/wp-use-wp-latex))
+    (plist-put export-options :wp-shortcode
+               (if (plist-member (cdr org2blog/wp-blog) :wp-code)
+                   (plist-get (cdr org2blog/wp-blog) :wp-code)
+                 org2blog/wp-use-sourcecode-shortcode))
+    (plist-put export-options :tags-as-categories
+               (if (plist-member (cdr org2blog/wp-blog) :tags-as-categories)
+                   (plist-get (cdr org2blog/wp-blog) :tags-as-categories)
+                 org2blog/wp-use-tags-as-categories))
+    (plist-put export-options :wp-shortcode-langs
+               org2blog/wp-sourcecode-langs)
+    (plist-put export-options :wp-shortcode-lang-map
+               org2blog/wp-shortcode-langs-map)
+
+    ;; Return Value
+    export-options))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (provide 'org2blog)

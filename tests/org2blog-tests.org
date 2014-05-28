@@ -169,7 +169,47 @@
                (let ()
                  (cdr (assoc "description" (org2blog/wp-parse-entry nil))))))))
 #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (ert-deftest should-use-tags-as-categories ()
+    (let ((post (o2b-test-buffer-with-block
+                 "o2b-test-tags-as-categories"
+                 (let ((org2blog/wp-use-tags-as-categories t))
+                   (org2blog/wp-parse-entry nil)))))
+
+      (should (equal (cdr (assoc "categories" post)) (list "tags" "sacha")))
+      (should (equal (cdr (assoc "tags" post)) nil))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (ert-deftest should-not-use-tags-as-categories ()
+    (let ((post (o2b-test-buffer-with-block
+                 "o2b-test-tags-as-categories"
+                 (org2blog/wp-parse-entry nil))))
+
+      (should (equal (cdr (assoc "categories" post)) nil))
+      (should (equal (cdr (assoc "tags" post)) (list "tags" "sacha")))))
+#+END_SRC
+
 *** Data
+
+#+NAME: o2b-test-tags-as-categories
+#+BEGIN_SRC org
+  ,#+BLOG: localhost
+  ,#+POSTID: 121
+  ,#+DATE: [2013-09-14 Sat 18:29]
+  ,#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
+  ,#+TAGS: tags, sacha
+  ,#+DESCRIPTION:
+  ,#+TITLE: Hello World
+  ,* Heading 1
+    Text
+
+  ,** Heading 2
+     More text
+
+#+END_SRC
+
 #+NAME: o2b-test-post-buffer-non-visible-input
 #+BEGIN_SRC org
   ,#+BLOG: localhost
@@ -546,4 +586,59 @@
           (with-temp-buffer
             (find-file-read-only dashboard)
             (search-forward (cdr (assoc "title" post)) nil t nil)))))))
+#+END_SRC
+** Post date
+#+BEGIN_SRC emacs-lisp
+  (ert-deftest should-persist-post-date-on-publishing ()
+    (should (string-equal
+             "20130914T12:59:00+0000" ;; converted to UTC
+             (o2b-test-buffer-with-block
+              "o2b-test-persist-date"
+              (cdr (assoc "date" (org2blog/wp-parse-entry nil)))))))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (ert-deftest should-insert-date-on-publishing ()
+    (o2b-test-buffer-with-block
+     "o2b-test-insert-date"
+     (should (string-equal
+              ;; note: order is important since date is written during parse...
+              (cdr (assoc "date" (org2blog/wp-parse-entry nil)))
+              (org2blog/wp--convert-timestamp-to-iso (org2blog/wp-get-option "DATE"))))))
+#+END_SRC
+
+*** Data
+#+NAME: o2b-test-persist-date
+#+BEGIN_SRC org
+  ,#+BLOG: localhost
+  ,#+POSTID: 121
+  ,#+DATE: [2013-09-14 Sat 18:29]
+  ,#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
+  ,#+CATEGORY: org2blog, emacs
+  ,#+TAGS:
+  ,#+DESCRIPTION:
+  ,#+TITLE: Hello World
+  ,* Heading 1
+    Text
+
+  ,** Heading 2
+     More text
+
+#+END_SRC
+
+#+NAME: o2b-test-insert-date
+#+BEGIN_SRC org
+  ,#+BLOG: localhost
+  ,#+POSTID: 121
+  ,#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
+  ,#+CATEGORY: org2blog, emacs
+  ,#+TAGS:
+  ,#+DESCRIPTION:
+  ,#+TITLE: Hello World
+  ,* Heading 1
+    Text
+
+  ,** Heading 2
+     More text
+
 #+END_SRC
