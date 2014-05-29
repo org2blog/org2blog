@@ -490,13 +490,17 @@ from currently logged in."
       (if (re-search-forward r nil t 1)
           (match-string-no-properties 2)))))
 
-(defun org2blog/wp-get-post-parent (post-par)
+(defun org2blog/wp-get-post-parent (parent)
   "Gets the post's parent from a buffer."
-  (if post-par
-      (or (cdr (assoc
-            (car (split-string post-par "\\( *, *\\)" t))
-            org2blog/wp-pages-list))
-          "0")
+  (when (and parent (equal 0 (string-to-number parent)))
+    (org2blog/wp-correctly-login))
+  (if parent
+      (or
+       (number-to-string (string-to-number parent))
+       (cdr (assoc
+             (car (split-string parent "\\( *, *\\)" t))
+             org2blog/wp-pages-list))
+       "0")
     "0"))
 
 (defun org2blog/wp-post-buffer-and-publish ()

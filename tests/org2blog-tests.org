@@ -90,10 +90,22 @@
          (plist-put org2blog/wp-export-options :with-toc t)
          (cdr (assoc "description" (org2blog/wp--export-as-post t))))))))
 #+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+  (ert-deftest should-parse-subtree-parent ()
+    (let ((post (o2b-test-buffer-with-block
+                 "o2b-test-post-subtree-input"
+                 (org2blog/wp--export-as-post t))))
+      (should (equal (cdr (assoc "parent" post)) "20"))))
+#+END_SRC
+
 *** Data
 #+NAME: o2b-test-post-subtree-input
 #+BEGIN_SRC org
   ,* Test Post
+    :PROPERTIES:
+    :PARENT:   20
+    :END:
     This is a subtree that we are testing
   ,** Sub heading 1
      - Foo
@@ -190,6 +202,14 @@
       (should (equal (cdr (assoc "tags" post)) (list "tags" "sacha")))))
 #+END_SRC
 
+#+BEGIN_SRC emacs-lisp
+  (ert-deftest should-parse-parent ()
+    (let ((post (o2b-test-buffer-with-block
+                 "o2b-test-tags-as-categories"
+                 (org2blog/wp--export-as-post nil))))
+      (should (equal (cdr (assoc "parent" post)) "20"))))
+#+END_SRC
+
 *** Data
 
 #+NAME: o2b-test-tags-as-categories
@@ -200,6 +220,7 @@
   ,#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
   ,#+TAGS: tags, sacha
   ,#+DESCRIPTION:
+  ,#+PARENT: 20
   ,#+TITLE: Hello World
   ,* Heading 1
     Text
