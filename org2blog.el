@@ -490,19 +490,6 @@ from currently logged in."
       (if (re-search-forward r nil t 1)
           (match-string-no-properties 2)))))
 
-(defun org2blog/wp-get-post-parent (parent)
-  "Gets the post's parent from a buffer."
-  (when (and parent (equal 0 (string-to-number parent)))
-    (org2blog/wp-correctly-login))
-  (if parent
-      (or
-       (number-to-string (string-to-number parent))
-       (cdr (assoc
-             (car (split-string parent "\\( *, *\\)" t))
-             org2blog/wp-pages-list))
-       "0")
-    "0"))
-
 (defun org2blog/wp-post-buffer-and-publish ()
   "Post buffer and mark it as published"
   (interactive)
@@ -939,6 +926,23 @@ various export options."
         ;; Return value
         post))))
 
+(defun org2blog/wp--get-parent-id (parent)
+  "Return a post's parent id.
+
+If parent is the id of the parent page, the user need not be
+logged in.  Otherwise, the user is prompted to login."
+
+  (when (and parent (equal 0 (string-to-number parent)))
+    (org2blog/wp-correctly-login))
+  (if parent
+      (or
+       (cdr (assoc
+             (car (split-string parent "\\( *, *\\)" t))
+             org2blog/wp-pages-list))
+       (number-to-string (string-to-number parent))
+       "0")
+    "0"))
+
 (defun org2blog/wp--insert-current-time (subtree-p time)
   "Insert current time into the post, if no timestamp exists."
   (or time
@@ -978,7 +982,7 @@ and munge it a little to make it suitable to use with the
                (split-string (or (org2blog/wp-get-option "CATEGORY") "")
                              "\\( *, *\\)" t))
          (cons "post-id" (org2blog/wp-get-option "POSTID"))
-         (cons "parent" (org2blog/wp-get-post-parent
+         (cons "parent" (org2blog/wp--get-parent-id
                          (org2blog/wp-get-option "PARENT")))
          (cons "excerpt" (org-element-interpret-data
                           (or (plist-get (org-export-get-environment)
@@ -1015,7 +1019,7 @@ and munge it a little to make it suitable to use with the
                              "\\( *, *\\)" t))
          (cons "post-id" (or (org-entry-get (point) "POSTID")
                              (org-entry-get (point) "POST_ID")))
-         (cons "parent" (org2blog/wp-get-post-parent
+         (cons "parent" (org2blog/wp--get-parent-id
                          (org-entry-get (point) "PARENT")))
          (cons "excerpt" (org-entry-get (point) "DESCRIPTION"))
          (cons "permalink" (org-entry-get (point) "PERMALINK")))))
