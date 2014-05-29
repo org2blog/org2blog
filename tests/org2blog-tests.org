@@ -589,7 +589,8 @@
 #+BEGIN_SRC emacs-lisp
   (ert-deftest should-persist-post-date-on-publishing ()
     (should (string-equal
-             "20130914T12:59:00+0000" ;; converted to UTC
+             (org2blog/wp--convert-timestamp-to-iso
+              "[2013-09-14 Sat 18:29]")
              (o2b-test-buffer-with-block
               "o2b-test-persist-date"
               (cdr (assoc "date" (org2blog/wp--export-as-post nil)))))))
