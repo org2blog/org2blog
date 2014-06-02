@@ -489,9 +489,15 @@ from currently logged in."
               (if (re-search-forward (concat "^# "
                                              (regexp-quote file-name)
                                              " ") nil t 1)
-                  (setq file-web-url (buffer-substring-no-properties
-                                      (point)
-                                      (or (end-of-line) (point))))
+                  ;; THEN
+                  ;; read from right after filename to get URL + thumbnail
+                  ;; then split-string on space and get the first part, iow URL
+                  (setq file-web-url
+                        (car (split-string (buffer-substring-no-properties
+                                            (point)
+                                            (or (end-of-line) (point))) " ")))
+                
+                ;; ELSE
                 ;; returns alist with id, file, url, type
                 (setq upload-ret (metaweblog-upload-file
                                   org2blog/wp-server-xmlrpc-url
@@ -520,18 +526,24 @@ from currently logged in."
                 ;; we end up with just the basename of the medium thumb in
                 ;; medium-file-name
                 (let ((media-metadata (cdr (assoc "metadata" media-item-info))))
-                     (setq medium-file-name
-                           (cdr (assoc "file"
-                                       (cdr (assoc "medium"
-                                                   (cdr (assoc "sizes" media-metadata))))))))
+                  (setq medium-file-name
+                        (cdr (assoc "file"
+                                    (cdr (assoc "medium"
+                                                (cdr (assoc "sizes" media-metadata))))))))
                 
                 (goto-char (point-max))
                 (newline)
-                (insert (concat "# " file-name " " file-web-url " " medium-file-name))
-                (setq file-all-urls
-                      (append file-all-urls (list (cons
-                                                   file-name file-web-url))))))))
+                (insert (concat "# " file-name " " file-web-url " " medium-file-name)))
+
+              ;; we retrieved file-web-url either via the API or from the org
+              ;; add it to the list of replacements that we'll do.
+              (setq file-all-urls
+                    (append file-all-urls (list (cons
+                                                 file-name file-web-url)))))))
       (dolist (file file-all-urls)
+        ;; replace <a href="file://THEFILENAME"> or <img src="file://THEFILENAME">
+        ;; with <a href="url"> or <img src="url">
+        ;; I don't yet understand the * at the end of the regexp
         (setq text (replace-regexp-in-string
                     (concat "\\(<a href=\"\\|<img src=\"\\)\\(file://\\)*" (regexp-quote (car file)))
                     (concat "\\1" (cdr file)) text))))
