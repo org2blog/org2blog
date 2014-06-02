@@ -491,11 +491,15 @@ from currently logged in."
                                              " ") nil t 1)
                   ;; THEN
                   ;; read from right after filename to get URL + thumbnail
-                  ;; then split-string on space and get the first part, iow URL
-                  (setq file-web-url
-                        (car (split-string (buffer-substring-no-properties
-                                            (point)
-                                            (or (end-of-line) (point))) " ")))
+                  ;; then split-string on space for the web-url and thumbnail
+                  ;; if there is no third part, thumbnail will be nil
+                  (let ((url-thumb-parts (split-string (buffer-substring-no-properties
+                                                        (point)
+                                                        (or (end-of-line) (point))) " ")))
+                    (setq file-web-url (car url-thumb-parts))
+                    ;; we want just the name (cdr gives a list or nil)
+                    ;; nth will give the name or nil if there's nothing
+                    (setq file-thumbnail-name (nth 1 url-thumb-parts)))
                 
                 ;; ELSE
                 ;; returns alist with id, file, url, type
@@ -526,27 +530,54 @@ from currently logged in."
                 ;; we end up with just the basename of the medium thumb in
                 ;; medium-file-name
                 (let ((media-metadata (cdr (assoc "metadata" media-item-info))))
-                  (setq medium-file-name
+                  (setq file-thumbnail-name
                         (cdr (assoc "file"
                                     (cdr (assoc "medium"
                                                 (cdr (assoc "sizes" media-metadata))))))))
                 
                 (goto-char (point-max))
                 (newline)
-                (insert (concat "# " file-name " " file-web-url " " medium-file-name)))
+                (insert (concat "# " file-name " " file-web-url " " file-thumbnail-name)))
 
               ;; we retrieved file-web-url either via the API or from the org
               ;; add it to the list of replacements that we'll do.
+              ;; (list (cons a b)) => ((a . b)) which can then be appended to
+              ;; file-all-urls; cpbotha changed to a list of 3-element lists
               (setq file-all-urls
-                    (append file-all-urls (list (cons
-                                                 file-name file-web-url)))))))
+                    (append file-all-urls 
+                            (list (list file-name 
+                                        file-web-url 
+                                        file-thumbnail-name)))))))
+
       (dolist (file file-all-urls)
         ;; replace <a href="file://THEFILENAME"> or <img src="file://THEFILENAME">
         ;; with <a href="url"> or <img src="url">
-        ;; I don't yet understand the * at the end of the regexp
+        ;; (setq text (replace-regexp-in-string
+        ;;             (concat "\\(<a href=\"\\|<img src=\"\\)\\(file://\\)*" (regexp-quote (car file)))
+        ;;             (concat "\\1" (cdr file)) text))
+
         (setq text (replace-regexp-in-string
-                    (concat "\\(<a href=\"\\|<img src=\"\\)\\(file://\\)*" (regexp-quote (car file)))
-                    (concat "\\1" (cdr file)) text))))
+                    (concat "\\(<a href=\"\\)\\(file://\\)*" (regexp-quote (car file)))
+                    (concat "\\1" (nth 1 file)) text))
+
+        ;; with let*, subsequent bindings can refer to preceding bindings
+        (let*
+            ((file-web-url (nth 1 file))
+             (file-thumbnail-name (nth 2 file))
+             ;; find the position of the last / measured from the end
+             (idx (string-match-p (regexp-quote "/") 
+                                  (concat (reverse (string-to-list file-web-url)))))
+             ;; chop off just the filename, replace with thumbnail name
+             (thumbnail-url (concat (substring file-web-url 0 (- idx)) file-thumbnail-name)))
+
+          ;; replace: <img src="file://./img/blabla.png" alt="volume_cutting.png" />
+          ;; note that after blabla.png" we use non-greedy matching until />
+          (setq text (replace-regexp-in-string
+                      (concat "\\(<img src=\"\\)\\(file://\\)*" (regexp-quote (car file)) "\".*?/>")
+                      (concat "<a href=\"" file-web-url
+                              "\"><img src=\"" thumbnail-url "\"></a>") text)))
+        ))
+
     text))
 
 (defun org2blog/wp-get-option (opt)
