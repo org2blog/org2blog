@@ -202,6 +202,11 @@ takes effect."
   :group 'org2blog/wp
   :type 'string)
 
+(defcustom org2blog/wp-image-thumbnails nil
+  "Non-nil means WordPress thumbnail links to full-size image."
+  :group 'org2blog/wp
+  :type 'boolean)
+
 (defvar org2blog/wp-blog nil
   "Parameters of the currently selected blog.")
 
@@ -513,31 +518,40 @@ from currently logged in."
                 (setq file-web-url
                       (cdr (assoc "url"
                                   upload-ret)))
-                ;; get the attachment_id so we can find the thumbnail
-                (setq attachment-id (cdr (assoc "id" upload-ret)))
-                ;; http://codex.wordpress.org/XML-RPC_WordPress_API/Media
-                ;; get name of thumbnail image, in this case medium at 300px
-                (setq media-item-info
-                      (xml-rpc-method-call org2blog/wp-server-xmlrpc-url
-                                           "wp.getMediaItem"
-                                           org2blog/wp-server-blogid
-                                           org2blog/wp-server-userid
-                                           org2blog/wp-server-pass
-                                           attachment-id))
-                ;; media-item-info -> metadata -> sizes -> medium -> file == basename-300x???.jpg
-                ;; is there no built-in shortcut to access nested alists?
-                ;; https://github.com/nicferrier/emacs-dotassoc
-                ;; we end up with just the basename of the medium thumb in
-                ;; medium-file-name
-                (let ((media-metadata (cdr (assoc "metadata" media-item-info))))
-                  (setq file-thumbnail-name
-                        (cdr (assoc "file"
-                                    (cdr (assoc "medium"
-                                                (cdr (assoc "sizes" media-metadata))))))))
+
+                ;; get tumbnail information if we're going to link to it
+                (if org2blog/wp-image-thumbnails
+                    ;; get the attachment_id so we can find the thumbnail
+                    (progn
+                      (setq attachment-id (cdr (assoc "id" upload-ret)))
+                      ;; http://codex.wordpress.org/XML-RPC_WordPress_API/Media
+                      ;; get name of thumbnail image, in this case medium at 300px
+                      (setq media-item-info
+                            (xml-rpc-method-call org2blog/wp-server-xmlrpc-url
+                                                 "wp.getMediaItem"
+                                                 org2blog/wp-server-blogid
+                                                 org2blog/wp-server-userid
+                                                 org2blog/wp-server-pass
+                                                 attachment-id))
+                      ;; media-item-info -> metadata -> sizes -> medium -> file == basename-300x???.jpg
+                      ;; is there no built-in shortcut to access nested alists?
+                      ;; https://github.com/nicferrier/emacs-dotassoc
+                      ;; we end up with just the basename of the medium thumb in
+                      ;; medium-file-name
+                      (let ((media-metadata (cdr (assoc "metadata" media-item-info))))
+                        (setq file-thumbnail-name
+                              (cdr (assoc "file"
+                                          (cdr (assoc "medium"
+                                                      (cdr (assoc "sizes" media-metadata))))))))
+                      ) ;; progn
+
+                  ;; ELSE
+                  (setq file-thumbnail-name nil))
                 
                 (goto-char (point-max))
                 (newline)
-                (insert (concat "# " file-name " " file-web-url " " file-thumbnail-name)))
+                (insert (concat "# " file-name " " file-web-url
+                                (if file-thumbnail-name (concat  " " file-thumbnail-name)))))
 
               ;; we retrieved file-web-url either via the API or from the org
               ;; add it to the list of replacements that we'll do.
@@ -550,34 +564,46 @@ from currently logged in."
                                         file-thumbnail-name)))))))
 
       (dolist (file file-all-urls)
-        ;; replace <a href="file://THEFILENAME"> or <img src="file://THEFILENAME">
-        ;; with <a href="url"> or <img src="url">
-        ;; (setq text (replace-regexp-in-string
-        ;;             (concat "\\(<a href=\"\\|<img src=\"\\)\\(file://\\)*" (regexp-quote (car file)))
-        ;;             (concat "\\1" (cdr file)) text))
 
-        (setq text (replace-regexp-in-string
-                    (concat "\\(<a href=\"\\)\\(file://\\)*" (regexp-quote (car file)))
-                    (concat "\\1" (nth 1 file)) text))
+        (if (and (nth 2 file) org2blog/wp-image-thumbnails)
+            ;; if thumbnail available AND user said yes, the new
+            ;; image-thumbnail way:
+            ;; 1. first replace normal href as always
+            (progn
+              (setq text (replace-regexp-in-string
+                         (concat "\\(<a href=\"\\)\\(file://\\)*" (regexp-quote (car file)))
+                         (concat "\\1" (nth 1 file)) text))
 
-        ;; with let*, subsequent bindings can refer to preceding bindings
-        (let*
-            ((file-web-url (nth 1 file))
-             (file-thumbnail-name (nth 2 file))
-             ;; find the position of the last / measured from the end
-             (idx (string-match-p (regexp-quote "/") 
-                                  (concat (reverse (string-to-list file-web-url)))))
-             ;; chop off just the filename, replace with thumbnail name
-             (thumbnail-url (concat (substring file-web-url 0 (- idx)) file-thumbnail-name)))
+              ;; 2. but then replace <img> with <a href="full"><img src="thumb">
+              ;; with let*, subsequent bindings can refer to preceding bindings
+              (let*
+                  ((file-web-url (nth 1 file))
+                   (file-thumbnail-name (nth 2 file))
+                   ;; find the position of the last / measured from the end
+                   (idx (string-match-p (regexp-quote "/") 
+                                        (concat (reverse (string-to-list file-web-url)))))
+                   ;; chop off just the filename, replace with thumbnail name
+                   (thumbnail-url (concat (substring file-web-url 0 (- idx)) file-thumbnail-name)))
 
-          ;; replace: <img src="file://./img/blabla.png" alt="volume_cutting.png" />
-          ;; note that after blabla.png" we use non-greedy matching until />
+                ;; replace: <img src="file://./img/blabla.png" alt="volume_cutting.png" />
+                ;; note that after blabla.png" we use non-greedy matching until />
+                (setq text (replace-regexp-in-string
+                            (concat "\\(<img src=\"\\)\\(file://\\)*" (regexp-quote (car file)) "\".*?/>")
+                            (concat "<a href=\"" file-web-url
+                                    "\"><img src=\"" thumbnail-url "\"></a>") text)))
+              ) ;; progn
+
+          ;; ELSE:
+          ;; the straight-forward no-image-thumbnail way:
+          ;; replace <a href="file://THEFILENAME"> or <img src="file://THEFILENAME">
+          ;; with <a href="url"> or <img src="url">
           (setq text (replace-regexp-in-string
-                      (concat "\\(<img src=\"\\)\\(file://\\)*" (regexp-quote (car file)) "\".*?/>")
-                      (concat "<a href=\"" file-web-url
-                              "\"><img src=\"" thumbnail-url "\"></a>") text)))
-        ))
+                      (concat "\\(<a href=\"\\|<img src=\"\\)\\(file://\\)*" (regexp-quote (car file)))
+                      (concat "\\1" (nth 1 file)) text))
+          ) ;; if
+        ) ;; dolist
 
+      ) ;; save-excursion
     text))
 
 (defun org2blog/wp-get-option (opt)
