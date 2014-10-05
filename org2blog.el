@@ -166,23 +166,11 @@ browser."
   :group 'org2blog/wp
   :type 'string)
 
-(defcustom org2blog/wp-sourcecode-langs
-  (list "actionscript3" "bash" "coldfusion" "cpp" "csharp" "css" "delphi"
-        "erlang" "fsharp" "diff" "groovy" "javascript" "java" "javafx" "matlab"
-        "objc" "perl" "php" "text" "powershell" "python" "ruby" "scala" "sql"
-        "vb" "xml")
-  "List of languages supported by sourcecode shortcode of WP."
-  :group 'org2blog/wp
-  :type 'list)
-
 (defcustom org2blog/wp-shortcode-langs-map nil
   "Association list for source code languages supported by Org
 and by SyntaxHighlighter.  Each element of the list maps the
 orgmode source code language (key) to the language spec that
-should be used for syntax highlighting in shortcode blocks. The
-list of target languages complements the list of languages in
-ineed not be in 'org2blog/wp-sourcecode-langs and they already
-need NOT be present in 'org2blog/wp-sourcecode-langs."
+should be used for syntax highlighting in shortcode blocks."
   :group 'org2blog/wp
   :type '(alist :key-type string :value-type string))
 
@@ -904,8 +892,6 @@ various export options."
                (if (plist-member (cdr org2blog/wp-blog) :tags-as-categories)
                    (plist-get (cdr org2blog/wp-blog) :tags-as-categories)
                  org2blog/wp-use-tags-as-categories))
-    (plist-put export-options :wp-shortcode-langs
-               org2blog/wp-sourcecode-langs)
     (plist-put export-options :wp-shortcode-lang-map
                org2blog/wp-shortcode-langs-map)
 
