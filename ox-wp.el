@@ -49,7 +49,6 @@ contextual information."
                    (format " id=\"%s\""
                            (org-export-solidify-link-text lbl)))))
         (sc (plist-get info :wp-shortcode))
-        (langs (plist-get info :wp-shortcode-langs))
         (lang-map (plist-get info :wp-shortcode-lang-map))
         (syntaxhl (org-export-read-attribute :attr_wp src-block :syntaxhl)))
 
@@ -59,7 +58,7 @@ contextual information."
     (if (not sc)
         (org-html-src-block src-block contents info)
       (format "[sourcecode language=\"%s\" title=\"%s\" %s]\n%s[/sourcecode]"
-              (or (plist-get lang-map lang) (car (member lang langs)) "text")
+              (or (plist-get lang-map lang) lang "text")
               (or caption "")
               (or syntaxhl "")
               (org-export-format-code-default src-block info)))))
