@@ -173,7 +173,7 @@ browser."
         "vb" "xml")
   "List of languages supported by sourcecode shortcode of WP."
   :group 'org2blog/wp
-  :type 'list)
+  :type '(repeat string))
 
 (defcustom org2blog/wp-shortcode-langs-map nil
   "Association list for source code languages supported by Org
