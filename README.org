@@ -173,10 +173,14 @@
     =htmlize.el= (available in org-mode's =contrib/lisp=) to your
     =load-path=.  Wordpress's sourcecode shortcode blocks can be given
     various [[http://en.support.wordpress.com/code/posting-source-code/#configuration-parameters][configuration parameters]].  These can be passed to the
-    exported sourcecode shortcode blocks, by passing them to the babel
-    blocks using =:syntaxhl= parameter.  You could also modify the
-    default arguments passed to sourcecode shortcode blocks by
-    customizing the =org2blog/wp-sourcecode-default-params= variable.
+    exported sourcecode shortcode blocks via an =#+ATTR_WP= line
+    immediately preceding the =#+BEGIN_SRC= line, e.g.
+
+    : #+ATTR_WP: :syntaxhl light=true
+
+    You could also modify the default arguments passed to sourcecode
+    shortcode blocks by customizing the
+    =org2blog/wp-sourcecode-default-params= variable.
 *** Delete an entry or a page
     - If you are in the buffer of the entry/page, with =#+POSTID=
       present on the page, use:
