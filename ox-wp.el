@@ -51,7 +51,7 @@ contextual information."
         (sc (plist-get info :wp-shortcode))
         (langs (plist-get info :wp-shortcode-langs))
         (lang-map (plist-get info :wp-shortcode-lang-map))
-        (syntaxhl (org-element-property :syntaxhl src-block)))
+        (syntaxhl (org-export-read-attribute :attr_wp src-block :syntaxhl)))
 
     ;; Set back the language that we reset
     (org-element-put-property src-block :language lang)
