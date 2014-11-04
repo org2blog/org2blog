@@ -80,7 +80,7 @@
     variable =org2blog/wp-blog-alist= there is detail information about the
     meaning of each property.
 
-    You can also use =.netrc= file to save your usernames and
+    You can also use =.netrc= or =.authinfo= files to save your usernames and
     passwords.
 
     Your =.netrc= should look like this
@@ -90,14 +90,17 @@
     Then, use these details, as shown below.
 
     #+BEGIN_SRC emacs-lisp
-      (require 'netrc) ;; or nothing if already in the load-path
+      (require 'auth-source) ;; or nothing if already in the load-path
 
-      (let ((blog (netrc-machine (netrc-parse "~/.netrc") "myblog")))
+      (let (credentials)
+        ;; only required if your auth file is not already in the list of auth-sources
+        (add-to-list 'auth-sources "~/.netrc")
+        (setq credentials (auth-source-user-and-password "myblog"))
         (setq org2blog/wp-blog-alist
               `(("my-blog"
                  :url "http://username.server.com/xmlrpc.php"
-                 :username ,(netrc-get blog "login")
-                 :password ,(netrc-get blog "password")))))
+                 :username ,(car credentials)
+                 :password ,(cadr credentials)))))
 
     #+END_SRC
 
