@@ -52,9 +52,6 @@ contextual information."
         (langs-map (plist-get info :wp-shortcode-langs-map))
         (syntaxhl (org-export-read-attribute :attr_wp src-block :syntaxhl)))
 
-    ;; Set back the language that we reset
-    (org-element-put-property src-block :language lang)
-
     (if (not sc)
         (org-html-src-block src-block contents info)
       (format "[sourcecode language=\"%s\" title=\"%s\" %s]\n%s[/sourcecode]"
