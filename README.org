@@ -85,14 +85,17 @@
 
     Then, use these details, as shown below.
 
-    : (require 'netrc) ;; or nothing if already in the load-path
-    : (setq blog (netrc-machine (netrc-parse "~/.netrc") "myblog" t))
-    : (setq org2blog/wp-blog-alist
-    :       '(("my-blog"
-    :          :url "http://username.server.com/xmlrpc.php"
-    :          :username (netrc-get blog "login")
-    :          :password (netrc-get blog "password"))))
+    #+BEGIN_SRC emacs-lisp
+      (require 'netrc) ;; or nothing if already in the load-path
 
+      (let ((blog (netrc-machine (netrc-parse "~/.netrc") "myblog")))
+        (setq org2blog/wp-blog-alist
+              `(("my-blog"
+                 :url "http://username.server.com/xmlrpc.php"
+                 :username ,(netrc-get blog "login")
+                 :password ,(netrc-get blog "password")))))
+
+    #+END_SRC
 
     To browse or customize other variables use the customize group
     function.

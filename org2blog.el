@@ -376,11 +376,11 @@ from currently logged in."
       (error "Invalid blog name"))
     (setq org2blog/wp-blog (assoc org2blog/wp-blog-name org2blog/wp-blog-alist)
           org2blog/wp-server-xmlrpc-url (plist-get (cdr org2blog/wp-blog) :url)
-          org2blog/wp-server-userid (eval (plist-get (cdr org2blog/wp-blog) :username))
+          org2blog/wp-server-userid (plist-get (cdr org2blog/wp-blog) :username)
           org2blog/wp-server-blogid (or (plist-get (cdr org2blog/wp-blog) :id) "1")
           org2blog/wp-server-pass
           (or
-           (eval (plist-get (cdr org2blog/wp-blog) :password))
+           (plist-get (cdr org2blog/wp-blog) :password)
            (read-passwd (format "%s Weblog password? " org2blog/wp-blog-name)))
           ;; Fetch and save category list
           org2blog/wp-categories-list
