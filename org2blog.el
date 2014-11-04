@@ -988,7 +988,7 @@ various export options."
                (if (plist-member (cdr org2blog/wp-blog) :tags-as-categories)
                    (plist-get (cdr org2blog/wp-blog) :tags-as-categories)
                  org2blog/wp-use-tags-as-categories))
-    (plist-put export-options :wp-shortcode-lang-map
+    (plist-put export-options :wp-shortcode-langs-map
                org2blog/wp-shortcode-langs-map)
 
     ;; Return Value

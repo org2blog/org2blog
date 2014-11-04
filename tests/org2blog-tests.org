@@ -465,6 +465,17 @@
                  (cdr (assoc "description" (org2blog/wp--export-as-post nil))))))))
 #+END_SRC
 
+#+BEGIN_SRC emacs-lisp
+  (ert-deftest should-set-correct-language-from-map ()
+    (should (string-equal
+             (o2b-test-fetch-src-block "o2b-test-post-with-lang-map-output")
+             (o2b-test-buffer-with-block
+               "o2b-test-post-with-lang-map-input"
+               (let ((org2blog/wp-shortcode-langs-map '(("sh" . "bash"))))
+                 (cdr (assoc "description" (org2blog/wp--export-as-post t))))))))
+
+#+END_SRC
+
 *** Data
 
 #+NAME: o2b-test-post-awk-source-input
@@ -479,6 +490,23 @@
 #+NAME: o2b-test-post-awk-source
 #+BEGIN_SRC html
   [sourcecode language="sh" title="" ]
+  echo "hello:world"| awk -F ":" '{printf("{\"%s\",\"%s\"},\n",$1,$2) }'
+  [/sourcecode]
+
+#+END_SRC
+
+#+NAME: o2b-test-post-with-lang-map-input
+#+BEGIN_SRC org
+  ,* one liner of awk                                            :linux:awk:en:
+  ,#+begin_src sh
+  echo "hello:world"| awk -F ":" '{printf("{\"%s\",\"%s\"},\n",$1,$2) }'
+  ,#+end_src
+
+#+END_SRC
+
+#+NAME: o2b-test-post-with-lang-map-output
+#+BEGIN_SRC html
+  [sourcecode language="bash" title="" ]
   echo "hello:world"| awk -F ":" '{printf("{\"%s\",\"%s\"},\n",$1,$2) }'
   [/sourcecode]
 
