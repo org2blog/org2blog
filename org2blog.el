@@ -176,10 +176,10 @@ should be used for syntax highlighting in shortcode blocks."
 
 (defcustom org2blog/wp-track-posts
   (list ".org2blog.org" "Posts")
-  "File where to save logs about posts.
-Set to nil if you don't wish to track posts."
+  ".org file in which to save logs about posts, and corresponding headline
+in file under which the logs should be added."
   :group 'org2blog/wp
-  :type 'list)
+  :type '(list string string))
 
 (defcustom org2blog/wp-keymap-prefix
   "C-c M-p"
