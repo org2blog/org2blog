@@ -3,7 +3,7 @@
 #+STARTUP: odd
 #+Style: <style> h1,h2,h3 {font-family: arial, helvetica, sans-serif} </style>
 
-[[https://gitter.im/punchagan/org2blog?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge][https://badges.gitter.im/Join Chat.svg]]
+[[https://gitter.im/punchagan/org2blog?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge][https://badges.gitter.im/Join%20Chat.svg]] [[https://travis-ci.org/punchagan/org2blog][https://travis-ci.org/punchagan/org2blog.svg]]
 
 * Overview
   org2blog/wp is a tool to publish directly from Emacs' org-mode to
