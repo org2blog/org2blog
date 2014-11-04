@@ -505,7 +505,7 @@ from currently logged in."
                     ;; we want just the name (cdr gives a list or nil)
                     ;; nth will give the name or nil if there's nothing
                     (setq file-thumbnail-name (nth 1 url-thumb-parts)))
-                
+
                 ;; ELSE
                 ;; returns alist with id, file, url, type
                 (setq upload-ret (metaweblog-upload-file
@@ -547,7 +547,7 @@ from currently logged in."
 
                   ;; ELSE
                   (setq file-thumbnail-name nil))
-                
+
                 (goto-char (point-max))
                 (newline)
                 (insert (concat "# " file-name " " file-web-url
@@ -558,9 +558,9 @@ from currently logged in."
               ;; (list (cons a b)) => ((a . b)) which can then be appended to
               ;; file-all-urls; cpbotha changed to a list of 3-element lists
               (setq file-all-urls
-                    (append file-all-urls 
-                            (list (list file-name 
-                                        file-web-url 
+                    (append file-all-urls
+                            (list (list file-name
+                                        file-web-url
                                         file-thumbnail-name)))))))
 
       (dolist (file file-all-urls)
@@ -580,7 +580,7 @@ from currently logged in."
                   ((file-web-url (nth 1 file))
                    (file-thumbnail-name (nth 2 file))
                    ;; find the position of the last / measured from the end
-                   (idx (string-match-p (regexp-quote "/") 
+                   (idx (string-match-p (regexp-quote "/")
                                         (concat (reverse (string-to-list file-web-url)))))
                    ;; chop off just the filename, replace with thumbnail name
                    (thumbnail-url (concat (substring file-web-url 0 (- idx)) file-thumbnail-name)))

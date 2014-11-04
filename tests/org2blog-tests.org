@@ -413,6 +413,7 @@
                (let ()
                  (cdr (assoc "description" (org2blog/wp--export-as-post t))))))))
 #+END_SRC
+
 #+BEGIN_SRC emacs-lisp
   (ert-deftest should-post-subtree-with-source-code ()
     (should (string-equal
@@ -422,6 +423,7 @@
                (let ()
                  (cdr (assoc "description" (org2blog/wp--export-as-post t))))))))
 #+END_SRC
+
 #+BEGIN_SRC emacs-lisp
   (ert-deftest should-not-confuse-regexp-as-latex ()
     "Testing if a source block with \[ is treated as LaTeX."
