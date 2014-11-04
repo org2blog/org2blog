@@ -56,16 +56,20 @@
     customising the variable =org2blog/wp-blog-alist=.
 
     For example:
-    : (setq org2blog/wp-blog-alist
-    :       '(("wordpress"
-    :          :url "http://username.wordpress.com/xmlrpc.php"
-    :          :username "username"
-    :          :default-title "Hello World"
-    :          :default-categories ("org2blog" "emacs")
-    :          :tags-as-categories nil)
-    :         ("my-blog"
-    :          :url "http://username.server.com/xmlrpc.php"
-    :          :username "admin")))
+
+    #+BEGIN_SRC emacs-lisp
+      (setq org2blog/wp-blog-alist
+            '(("wordpress"
+               :url "http://username.wordpress.com/xmlrpc.php"
+               :username "username"
+               :default-title "Hello World"
+               :default-categories ("org2blog" "emacs")
+               :tags-as-categories nil)
+              ("my-blog"
+               :url "http://username.server.com/xmlrpc.php"
+               :username "admin")))
+
+    #+END_SRC
 
     This defines two blogs identified by the terms =wordpress= and
     =my-blog=.
@@ -125,17 +129,20 @@
 
     For example:
 
-    : (setq org2blog/wp-buffer-template
-    :  "-----------------------
-    : #+TITLE: %s
-    : #+DATE: %s
-    : -----------------------\n")
-    :
-    : (defun my-format-function (format-string)
-    :    (format format-string
-    :            org2blog/wp-default-title
-    :            (format-time-string "%d-%m-%Y" (current-time)))))
-    : (setq org2blog/wp-buffer-format-function 'my-format-function)
+    #+BEGIN_SRC emacs-lisp
+      (setq org2blog/wp-buffer-template
+            "-----------------------
+      ,#+TITLE: %s
+      ,#+DATE: %s
+      -----------------------\n")
+      (defun my-format-function (format-string)
+        (format format-string
+                org2blog/wp-default-title
+                (format-time-string "%d-%m-%Y" (current-time)))))
+      (setq org2blog/wp-buffer-format-function 'my-format-function)
+
+
+    #+END_SRC
 
     =org2blog/wp-new-entry= will now create buffers begining with a default
     title and the current date.
