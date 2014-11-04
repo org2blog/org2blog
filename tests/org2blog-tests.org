@@ -478,7 +478,7 @@
 
 #+NAME: o2b-test-post-awk-source
 #+BEGIN_SRC html
-  [sourcecode language="text" title="" ]
+  [sourcecode language="sh" title="" ]
   echo "hello:world"| awk -F ":" '{printf("{\"%s\",\"%s\"},\n",$1,$2) }'
   [/sourcecode]
 
@@ -581,7 +581,7 @@
 #+BEGIN_SRC html
   <p> Test source code </p>
 
-  [sourcecode language="text" title="" ]
+  [sourcecode language="emacs-lisp" title="" ]
   (concat "- State \"\\(" (regexp-opt org-done-keywords)"\\)\"\\s-*\\\([^]\n]+\\)\$ ")))
   [/sourcecode]
 
@@ -605,7 +605,7 @@
 
 #+NAME: o2b-test-greater-than-should-not-be-escaped-output
 #+BEGIN_SRC html
-  [sourcecode language="text" title="" ]
+  [sourcecode language="sh" title="" ]
   echo hello > world
   [/sourcecode]
   <p> Test source code</p>
@@ -639,7 +639,7 @@
   <div id="outline-container-unnumbered-1" class="outline-2">
   <h2 id="unnumbered-1">wp sourcecode shortcode attrs</h2>
   <div class="outline-text-2" id="text-unnumbered-1">
-  [sourcecode language="text" title="" light="true"]
+  [sourcecode language="sh" title="" light="true"]
   echo "hello:world"| awk -F ":" '{printf("{\"%s\",\"%s\"},\n",$1,$2) }'
   [/sourcecode]
   </div>
