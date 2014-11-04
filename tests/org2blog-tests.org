@@ -455,6 +455,16 @@
                 (cdr (assoc "description" (org2blog/wp--export-as-post nil))))))))
 #+END_SRC
 
+#+BEGIN_SRC emacs-lisp
+  (ert-deftest should-set-wp-sourcecode-shortcode-attributes ()
+    (should (string-equal
+             (o2b-test-fetch-src-block "o2b-test-sourcecode-shortcode-attrs-output")
+             (o2b-test-buffer-with-block
+               "o2b-test-sourcecode-shortcode-attrs-input"
+               (let ()
+                 (cdr (assoc "description" (org2blog/wp--export-as-post nil))))))))
+#+END_SRC
+
 *** Data
 
 #+NAME: o2b-test-post-awk-source-input
@@ -610,6 +620,30 @@
   </pre>
   </div>
   <p> Test source code</p>
+
+#+END_SRC
+
+#+NAME: o2b-test-sourcecode-shortcode-attrs-input
+#+BEGIN_SRC org
+  ,* wp sourcecode shortcode attrs                   :wp:
+
+  ,#+attr_wp: :syntaxhl light="true"
+  ,#+begin_src sh
+  echo "hello:world"| awk -F ":" '{printf("{\"%s\",\"%s\"},\n",$1,$2) }'
+  ,#+end_src
+
+#+END_SRC
+
+#+NAME: o2b-test-sourcecode-shortcode-attrs-output
+#+BEGIN_SRC html
+  <div id="outline-container-unnumbered-1" class="outline-2">
+  <h2 id="unnumbered-1">wp sourcecode shortcode attrs</h2>
+  <div class="outline-text-2" id="text-unnumbered-1">
+  [sourcecode language="text" title="" light="true"]
+  echo "hello:world"| awk -F ":" '{printf("{\"%s\",\"%s\"},\n",$1,$2) }'
+  [/sourcecode]
+  </div>
+  </div>
 
 #+END_SRC
 
