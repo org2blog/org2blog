@@ -753,3 +753,41 @@
      More text
 
 #+END_SRC
+
+** Posts with images
+
+#+BEGIN_SRC emacs-lisp
+  (ert-deftest should-not-republish-images-if-url-line-indented ()
+    (should (equal
+             1
+             (o2b-test-buffer-with-block
+               "o2b-test-repost-buffer-with-image"
+               (let ((org2blog/wp-show-post-in-browser nil))
+                 (org2blog/wp-post-buffer-and-publish)
+                 (let ((updated-post (buffer-string)))
+                   (with-temp-buffer
+                     (insert updated-post)
+                     (goto-char (point-min))
+                     (count-matches "# ./test-image.png http"))))))))
+
+#+END_SRC
+
+*** Data
+#+NAME: o2b-test-repost-buffer-with-image
+#+BEGIN_SRC org
+  ,#+BLOG: test
+  ,#+POSTID: 10
+  ,#+DATE: [2014-11-05 Wed 23:21]
+  ,#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
+  ,#+CATEGORY: org2blog, emacs
+  ,#+TAGS:
+  ,#+DESCRIPTION:
+  ,#+TITLE: Hello World
+
+  ,* Heading
+    This is an amazing blog post with an amazing image.
+
+    [[./test-image.png]]
+
+    # ./test-image.png http://testorg2blog.files.wordpress.com/2014/11/wpid-test-image3.png
+#+END_SRC

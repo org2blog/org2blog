@@ -474,12 +474,12 @@ from currently logged in."
         (setq beg (match-end 0))
         (if (save-match-data (not (or
                                    (string-match org-plain-link-re file-name)
-                                   (string-match "^#" file-name)
+                                   (string-match "^.*#" file-name)
                                    (string-equal (file-name-nondirectory file-name) ""))))
 
             (progn
               (goto-char (point-min))
-              (if (re-search-forward (concat "^# "
+              (if (re-search-forward (concat "^.*# "
                                              (regexp-quote file-name)
                                              " ") nil t 1)
                   ;; THEN
