@@ -537,7 +537,7 @@ from currently logged in."
                   (setq file-thumbnail-name nil))
 
                 (goto-char (point-max))
-                (newline)
+                (org2blog/wp--new-line-no-indent)
                 (insert (concat "# " file-name " " file-web-url
                                 (if file-thumbnail-name (concat  " " file-thumbnail-name)))))
 
@@ -963,6 +963,10 @@ the title of the post (or page) as description."
       (insert (format "[[%s][%s]]" url post-title)))))
 
 ;;;; Private ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun org2blog/wp--new-line-no-indent ()
+  "Insert a new line without indenting."
+  (insert (if use-hard-newlines hard-newline "\n")))
 
 (defun org2blog/wp--collect-export-options ()
   "Return a plist of export options.
