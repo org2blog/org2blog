@@ -1127,7 +1127,9 @@ and munge it a little to make it suitable to use with the
          (cons "title" (or (org-entry-get (point) "TITLE")
                            (nth 4 (org-heading-components))))
          (cons "description" nil)
-         (cons "tags" (mapcar 'org-no-properties (org-get-tags-at (point) nil)))
+         (cons "tags" (or
+                       (split-string (or (org-entry-get (point) "POST_TAGS") "") "\\( *, *\\)" t)
+                       (mapcar 'org-no-properties (org-get-tags-at (point) nil))))
          (cons "categories"
                (split-string (or (org-entry-get (point) "CATEGORY") "")
                              "\\( *, *\\)" t))
