@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2010 Benjamin Beckwith <bnbeckwith@gmail.com>
 ;; Copyright (C) 2010 Marcel van der Boom <marcel@hsdev.com>
-;; Copyright (C) 2010,2011 Puneeth Chaganti <punchagan+org2blog@gmail.com>
+;; Copyright (C) 2010-2014 Puneeth Chaganti <punchagan+org2blog@muse-amuse.in>
 ;; Copyright (C) 2010 Sacha Chua <sacha@sachachua.com>
 ;; Copyright (C) 2010 Giovanni Moretti <Giovanni@reflections.co.nz>
 ;; Copyright (C) 2011 Mykola Nikishov <mn@mn.com.ua>
