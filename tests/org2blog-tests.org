@@ -33,12 +33,11 @@
     (let ((src ""))
       (save-excursion
         (save-restriction
-          (with-current-buffer (find-file-read-only o2b-test-case-file)
-            (show-all)
+          (with-temp-buffer
+            (insert-file-contents o2b-test-case-file)
             (goto-char (point-min))
             (unless (org-babel-goto-named-src-block name)
-              (setq src (nth 1 (org-babel-get-src-block-info t))))
-            (kill-buffer))))
+              (setq src (nth 1 (org-babel-get-src-block-info t)))))))
       src))
 
   (defmacro o2b-test-buffer-with-block (src-name &rest body)
@@ -51,8 +50,6 @@
          (insert (o2b-test-fetch-src-block ,src-name))
          (goto-char (point-min))
          (progn ,@body))))
-
-
 #+END_SRC
 
 * Tests
