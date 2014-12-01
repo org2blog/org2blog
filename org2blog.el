@@ -252,10 +252,6 @@ Look at `org-export-options-alist' for the available options.
 Also, note that these options are over-ridden by in-file
 options.")
 
-(defun org2blog/wp-is-narrow-p nil
-  "Return t if a buffer is narrowed"
-  (not (equal (- (point-max) (point-min)) (buffer-size))))
-
 (defun org2blog/wp-kill-buffer-hook ()
   "Prompt before killing buffer."
   (if (and org2blog/wp-buffer-kill-prompt
@@ -340,7 +336,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
   "Get the blog name from a post -- buffer or subtree.
 NOTE: Checks for subtree only when buffer is narrowed."
   (let ((blog-name
-         (if (org2blog/wp-is-narrow-p)
+         (if (org-buffer-narrowed-p)
              (or (org-entry-get (point) "BLOG") "")
            (or (org2blog/wp-get-option "blog") ""))))
     (or (and (assoc blog-name org2blog/wp-blog-alist) blog-name) nil)))
