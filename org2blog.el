@@ -572,9 +572,12 @@ from currently logged in."
                 ;; replace: <img src="file://./img/blabla.png" alt="volume_cutting.png" />
                 ;; note that after blabla.png" we use non-greedy matching until />
                 (setq text (replace-regexp-in-string
-                            (concat "\\(<img src=\"\\)\\(file://\\)*" (regexp-quote (car file)) "\".*?/>")
-                            (concat "<a href=\"" file-web-url
-                                    "\"><img src=\"" thumbnail-url "\"></a>") text)))
+                            (concat "<img src=\"\\(file://\\)?"
+                                    (regexp-quote (car file))
+                                    "\"\\(.*?\\)/>")
+                            (concat "<a href=\"" file-web-url "\">"
+                                    "<img src=\"" thumbnail-url "\"\\2/></a>")
+                            text)))
               ) ;; progn
 
           ;; ELSE:
