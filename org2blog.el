@@ -10,7 +10,7 @@
 ;; Copyright (C) 2013 Peter Vasil <mail@petervasil.net>
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
-;; Version: 0.9.1
+;; Version: 0.9.2
 ;; Keywords: orgmode, wordpress, blog
 
 ;; This program is free software: you can redistribute it and/or modify
