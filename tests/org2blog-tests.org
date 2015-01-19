@@ -9,7 +9,7 @@
 
   (setq org2blog/wp-blog-alist
         `(("test"
-            :url "http://testorg2blog.wordpress.com/xmlrpc.php"
+            :url "https://testorg2blog.wordpress.com/xmlrpc.php"
             :username "org2blog"
             :password ,(getenv "org2blog_password")
             :default-title "Hello World"
