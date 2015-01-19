@@ -128,12 +128,9 @@
   <h2 id="unnumbered-1">Sub heading 1</h2>
   <div class="outline-text-2" id="text-unnumbered-1">
   <ul class="org-ul">
-  <li>Foo
-  </li>
-  <li>Bar
-  </li>
-  <li>Baz
-  </li>
+  <li>Foo</li>
+  <li>Bar</li>
+  <li>Baz</li>
   </ul>
   </div>
   </div>
@@ -155,12 +152,9 @@
   <h2 id="unnumbered-1">Sub heading 1</h2>
   <div class="outline-text-2" id="text-unnumbered-1">
   <ul class="org-ul">
-  <li>Foo
-  </li>
-  <li>Bar
-  </li>
-  <li>Baz
-  </li>
+  <li>Foo</li>
+  <li>Bar</li>
+  <li>Baz</li>
   </ul>
   </div>
   </div>
@@ -560,12 +554,9 @@
   <p> Here is the detailed steps, </p>
 
   <ol class="org-ol">
-  <li>Install <a href="https://github.com/mooz/keysnail">keysnail</a> (a firefox addon)
-  </li>
-  <li>Install <a href="https://github.com/mooz/keysnail/wiki/plugin">HoK</a> (no less than version 1.3.9) through keysnail
-  </li>
-  <li>Add below code into .keysnail.js
-  </li>
+  <li>Install <a href="https://github.com/mooz/keysnail">keysnail</a> (a firefox addon)</li>
+  <li>Install <a href="https://github.com/mooz/keysnail/wiki/plugin">HoK</a> (no less than version 1.3.9) through keysnail</li>
+  <li>Add below code into .keysnail.js</li>
   </ol>
   [sourcecode language="javascript" title="" ]
   key.setViewKey('e', function (aEvent, aArg) {ext.exec("hok-start-foreground-mode", aArg);}, 'Hok - Foreground hint mode', true);
@@ -588,10 +579,8 @@
   });
   [/sourcecode]
   <ol class="org-ol">
-  <li>Restart Firefox, logged into <a href="http://www.feedly.com/">http://www.feedly.com/</a> and press hot key "e"
-  </li>
-  <li>Enjoy!
-  </li>
+  <li>Restart Firefox, logged into <a href="http://www.feedly.com/">http://www.feedly.com/</a> and press hot key "e"</li>
+  <li>Enjoy!</li>
   </ol>
 
 #+END_SRC
