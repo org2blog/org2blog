@@ -1083,12 +1083,13 @@ and munge it a little to make it suitable to use with the
 `metaweblog' functions. "
 
   (let*
-      ((parsed-entry
+      ((export-environment (org-export-with-buffer-copy (org-export-get-environment)))
+       (parsed-entry
         (list
          (cons "point" (point))
          (cons "date" (org2blog/wp-get-option "DATE"))
          (cons "title" (org-element-interpret-data
-                        (or (plist-get (org-export-get-environment) :title)
+                        (or (plist-get export-environment :title)
                             "No Title")))
          (cons "description" nil)
          (cons "tags"
@@ -1101,7 +1102,7 @@ and munge it a little to make it suitable to use with the
          (cons "parent" (org2blog/wp--get-parent-id
                          (org2blog/wp-get-option "PARENT")))
          (cons "excerpt" (org-element-interpret-data
-                          (or (plist-get (org-export-get-environment)
+                          (or (plist-get export-environment
                                          :description) "")))
          (cons "permalink" (or (org2blog/wp-get-option "PERMALINK") "")))))
 
