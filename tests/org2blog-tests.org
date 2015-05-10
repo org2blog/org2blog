@@ -124,9 +124,9 @@
 #+NAME: o2b-test-post-subtree-output
 #+BEGIN_SRC html
   <p> This is a subtree that we are testing </p>
-  <div id="outline-container-unnumbered-1" class="outline-2">
-  <h2 id="unnumbered-1">Sub heading 1</h2>
-  <div class="outline-text-2" id="text-unnumbered-1">
+  <div id="outline-container-orgheadline1" class="outline-2">
+  <h2 id="orgheadline1">Sub heading 1</h2>
+  <div class="outline-text-2" id="text-orgheadline1">
   <ul class="org-ul">
   <li>Foo</li>
   <li>Bar</li>
@@ -143,14 +143,14 @@
   <h2>Table of Contents</h2>
   <div id="text-table-of-contents">
   <ul>
-  <li><a href="#unnumbered-1">Sub heading 1</a></li>
+  <li><a href="#orgheadline1">Sub heading 1</a></li>
   </ul>
   </div>
   </div>
   <p> This is a subtree that we are testing </p>
-  <div id="outline-container-unnumbered-1" class="outline-2">
-  <h2 id="unnumbered-1">Sub heading 1</h2>
-  <div class="outline-text-2" id="text-unnumbered-1">
+  <div id="outline-container-orgheadline1" class="outline-2">
+  <h2 id="orgheadline1">Sub heading 1</h2>
+  <div class="outline-text-2" id="text-orgheadline1">
   <ul class="org-ul">
   <li>Foo</li>
   <li>Bar</li>
@@ -260,15 +260,15 @@
 
 #+NAME: o2b-test-post-buffer-non-visible
 #+BEGIN_SRC html
-  <div id="outline-container-unnumbered-1" class="outline-2">
-  <h2 id="unnumbered-1">Heading 1</h2>
-  <div class="outline-text-2" id="text-unnumbered-1">
+  <div id="outline-container-orgheadline1" class="outline-2">
+  <h2 id="orgheadline1">Heading 1</h2>
+  <div class="outline-text-2" id="text-orgheadline1">
   <p> Text </p>
   </div>
 
-  <div id="outline-container-unnumbered-2" class="outline-3">
-  <h3 id="unnumbered-2">Heading 2</h3>
-  <div class="outline-text-3" id="text-unnumbered-2">
+  <div id="outline-container-orgheadline2" class="outline-3">
+  <h3 id="orgheadline2">Heading 2</h3>
+  <div class="outline-text-3" id="text-orgheadline2">
   <p> More text </p>
   </div>
   </div>
@@ -300,12 +300,12 @@
 
 #+NAME: o2b-test-post-buffer-hangs
 #+BEGIN_SRC html
-  <div id="outline-container-unnumbered-1" class="outline-2">
-  <h2 id="unnumbered-1">Heading</h2>
-  <div class="outline-text-2" id="text-unnumbered-1">
-  </div><div id="outline-container-unnumbered-2" class="outline-3">
-  <h3 id="unnumbered-2">Preparing patches</h3>
-  <div class="outline-text-3" id="text-unnumbered-2">
+  <div id="outline-container-orgheadline2" class="outline-2">
+  <h2 id="orgheadline2">Heading</h2>
+  <div class="outline-text-2" id="text-orgheadline2">
+  </div><div id="outline-container-orgheadline1" class="outline-3">
+  <h3 id="orgheadline1">Preparing patches</h3>
+  <div class="outline-text-3" id="text-orgheadline1">
   <p> The Org-mode mailing list has a <a href="http://patchwork.newartisans.com/project/org-mode/">Patchwork server</a> that looks for patches in messages that contain the string <code>[PATCH]</code> in the subject. Make sure both the <code>master</code> and <code>jasond</code> branches are up-to-date and then type the following to get a diff that can be inserted into the <code>[PATCH]</code> email: </p>
   </div>
   </div>
@@ -369,17 +369,16 @@
 
 #+NAME: o2b-test-parse-latex-output-plain
 #+BEGIN_SRC html
-
-  <div id="outline-container-unnumbered-1" class="outline-2">
-  <h2 id="unnumbered-1">Superscripts don't work correctly</h2>
-  <div class="outline-text-2" id="text-unnumbered-1">
+  <div id="outline-container-orgheadline1" class="outline-2">
+  <h2 id="orgheadline1">Superscripts don't work correctly</h2>
+  <div class="outline-text-2" id="text-orgheadline1">
   <p> \(f^{-1}\) </p>
   </div>
   </div>
 
-  <div id="outline-container-unnumbered-2" class="outline-2">
-  <h2 id="unnumbered-2">The equations should be centered</h2>
-  <div class="outline-text-2" id="text-unnumbered-2">
+  <div id="outline-container-orgheadline2" class="outline-2">
+  <h2 id="orgheadline2">The equations should be centered</h2>
+  <div class="outline-text-2" id="text-orgheadline2">
   <p> \[    \alpha + \beta = \gamma    \]</p>
   </div>
   </div>
@@ -388,17 +387,16 @@
 
 #+NAME: o2b-test-parse-latex-output-wp
 #+BEGIN_SRC html
-
-  <div id="outline-container-unnumbered-1" class="outline-2">
-  <h2 id="unnumbered-1">Superscripts don't work correctly</h2>
-  <div class="outline-text-2" id="text-unnumbered-1">
+  <div id="outline-container-orgheadline1" class="outline-2">
+  <h2 id="orgheadline1">Superscripts don't work correctly</h2>
+  <div class="outline-text-2" id="text-orgheadline1">
   <p> $latex f^{-1}$ </p>
   </div>
   </div>
 
-  <div id="outline-container-unnumbered-2" class="outline-2">
-  <h2 id="unnumbered-2">The equations should be centered</h2>
-  <div class="outline-text-2" id="text-unnumbered-2">
+  <div id="outline-container-orgheadline2" class="outline-2">
+  <h2 id="orgheadline2">The equations should be centered</h2>
+  <div class="outline-text-2" id="text-orgheadline2">
   <p> <p style="text-align:center"> $latex    \alpha + \beta = \gamma    $ </p></p>
   </div>
   </div>
@@ -661,9 +659,9 @@
 
 #+NAME: o2b-test-sourcecode-shortcode-attrs-output
 #+BEGIN_SRC html
-  <div id="outline-container-unnumbered-1" class="outline-2">
-  <h2 id="unnumbered-1">wp sourcecode shortcode attrs</h2>
-  <div class="outline-text-2" id="text-unnumbered-1">
+  <div id="outline-container-orgheadline1" class="outline-2">
+  <h2 id="orgheadline1">wp sourcecode shortcode attrs</h2>
+  <div class="outline-text-2" id="text-orgheadline1">
   [sourcecode language="sh" title="" light="true"]
   echo "hello:world"| awk -F ":" '{printf("{\"%s\",\"%s\"},\n",$1,$2) }'
   [/sourcecode]
