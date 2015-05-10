@@ -16,14 +16,12 @@ XML_RPC_URL=https://launchpad.net/xml-rpc-el/trunk/1.6.8/+download/xml-rpc.el
 XML_RPC=xml-rpc
 METAWEBLOG_URL=https://raw.githubusercontent.com/punchagan/metaweblog/master/metaweblog.el
 METAWEBLOG=metaweblog
-ERT_URL=http://git.savannah.gnu.org/cgit/emacs.git/plain/lisp/emacs-lisp/ert.el?h=emacs-24
-ERT=ert
 
 test: clean
 	@cd $(TEST_DIR)                                   && \
 	(for test_lib in *-tests.org; do                       \
 	    $(EMACS) $(EMACS_BATCH) -L . -L .. -L ../org-mode/lisp  \
-	    -l $(XML_RPC) -l cl -l $(ERT) -l $(METAWEBLOG) --eval \
+	    -l $(XML_RPC) -l cl -l $(METAWEBLOG) --eval \
 	    "(progn                                          \
               (org-babel-do-load-languages 'org-babel-load-languages  '((emacs-lisp . t) (python . t))) \
               (fset 'ert--print-backtrace 'ignore)           \
@@ -43,10 +41,7 @@ download-xml-rpc :
 download-metaweblog :
 	$(CURL) '$(METAWEBLOG_URL)' > '$(WORK_DIR)/$(METAWEBLOG).el'
 
-download-ert:
-	$(CURL) '$(ERT_URL)' > '$(WORK_DIR)/$(ERT).el'
-
-download-deps : download-xml-rpc download-metaweblog download-org download-ert
+download-deps : download-xml-rpc download-metaweblog download-org
 
 clean :
 	rm -rf $(TEST_DIR)/*.el
