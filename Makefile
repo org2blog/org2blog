@@ -18,14 +18,12 @@ METAWEBLOG_URL=https://raw.githubusercontent.com/punchagan/metaweblog/master/met
 METAWEBLOG=metaweblog
 ERT_URL=http://git.savannah.gnu.org/cgit/emacs.git/plain/lisp/emacs-lisp/ert.el?h=emacs-24
 ERT=ert
-CL_URL=https://raw.githubusercontent.com/emacsmirror/cl-lib/master/cl-lib.el
-CL=cl-lib
 
 test: clean
 	@cd $(TEST_DIR)                                   && \
 	(for test_lib in *-tests.org; do                       \
 	    $(EMACS) $(EMACS_BATCH) -L . -L .. -L ../org-mode/lisp  \
-	    -l $(XML_RPC) -l cl-lib -l cl -l $(ERT) -l $(METAWEBLOG) --eval \
+	    -l $(XML_RPC) -l cl -l $(ERT) -l $(METAWEBLOG) --eval \
 	    "(progn                                          \
               (org-babel-do-load-languages 'org-babel-load-languages  '((emacs-lisp . t) (python . t))) \
               (fset 'ert--print-backtrace 'ignore)           \
@@ -48,10 +46,7 @@ download-metaweblog :
 download-ert:
 	$(CURL) '$(ERT_URL)' > '$(WORK_DIR)/$(ERT).el'
 
-download-cl:
-	$(CURL) '$(CL_URL)' > '$(WORK_DIR)/$(CL).el'
-
-download-deps : download-xml-rpc download-metaweblog download-org download-ert download-cl
+download-deps : download-xml-rpc download-metaweblog download-org download-ert
 
 clean :
 	rm -rf $(TEST_DIR)/*.el
