@@ -877,6 +877,12 @@ use absolute path or set org-directory")
       (when (buffer-file-name) (save-buffer)))))
 
 ;;;###autoload
+(defun org2blog/wp-post-subtree-and-publish ()
+  "Publish the current subtree as a page."
+  (interactive)
+  (org2blog/wp-post-subtree t))
+
+;;;###autoload
 (defun org2blog/wp-post-subtree-as-page-and-publish ()
   "Publish the current subtree as a page."
   (interactive)
