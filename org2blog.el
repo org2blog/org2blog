@@ -592,7 +592,7 @@ from currently logged in."
                       (concat "\\1" (nth 1 file)) text))
           ) ;; if
         ) ;; dolist
-
+      (delete-window)
       ) ;; save-excursion
     text))
 
