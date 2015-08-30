@@ -506,7 +506,7 @@ from currently logged in."
                       (cdr (assoc "url"
                                   upload-ret)))
 
-                ;; get tumbnail information if we're going to link to it
+                ;; get thumbnail information if we're going to link to it
                 (if org2blog/wp-image-thumbnails
                     ;; get the attachment_id so we can find the thumbnail
                     (progn
