@@ -47,7 +47,7 @@ contextual information."
         (label (let ((lbl (org-element-property :name src-block)))
                  (if (not lbl) ""
                    (format " id=\"%s\""
-                           (org-export-solidify-link-text lbl)))))
+                           (org-export-get-reference lbl info)))))
         (sc (plist-get info :wp-shortcode))
         (langs-map (plist-get info :wp-shortcode-langs-map))
         (syntaxhl (org-export-read-attribute :attr_wp src-block :syntaxhl)))
