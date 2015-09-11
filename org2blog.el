@@ -258,7 +258,7 @@ options.")
 (defun org2blog/wp-kill-buffer-hook ()
   "Prompt before killing buffer."
   (if (and org2blog/wp-buffer-kill-prompt
-	   (not (buffer-file-name)))
+     (not (buffer-file-name)))
     (if (y-or-n-p "Save entry?")
         (progn
           (save-buffer)
@@ -275,14 +275,14 @@ given by `org2blog/wp-keymap-prefix', and the given suffix."
   "Initialize `org2blog/wp-entry-mode-map' based on the prefix
 key sequence defined by `org2blog/wp-keymap-prefix'."
   (setq org2blog/wp-entry-mode-map
-	(let ((org2blog/wp-map (make-sparse-keymap)))
-	  (set-keymap-parent org2blog/wp-map org-mode-map)
-	  (org2blog/wp-define-key "p" 'org2blog/wp-post-buffer-and-publish)
-	  (org2blog/wp-define-key "P" 'org2blog/wp-post-buffer-as-page-and-publish)
-	  (org2blog/wp-define-key "d" 'org2blog/wp-post-buffer)
-	  (org2blog/wp-define-key "D" 'org2blog/wp-post-buffer-as-page)
-	  (org2blog/wp-define-key "t" 'org2blog/wp-complete-category)
-	  org2blog/wp-map)))
+  (let ((org2blog/wp-map (make-sparse-keymap)))
+    (set-keymap-parent org2blog/wp-map org-mode-map)
+    (org2blog/wp-define-key "p" 'org2blog/wp-post-buffer-and-publish)
+    (org2blog/wp-define-key "P" 'org2blog/wp-post-buffer-as-page-and-publish)
+    (org2blog/wp-define-key "d" 'org2blog/wp-post-buffer)
+    (org2blog/wp-define-key "D" 'org2blog/wp-post-buffer-as-page)
+    (org2blog/wp-define-key "t" 'org2blog/wp-complete-category)
+    org2blog/wp-map)))
 
 (defun org2blog/wp-reload-entry-mode-map ()
   "Re-initialize `org2blog/wp-entry-mode-map' based on the prefix
@@ -383,27 +383,27 @@ from currently logged in."
            (read-passwd (format "%s Weblog password? " org2blog/wp-blog-name)))
           ;; Fetch and save category list
           org2blog/wp-categories-list
-	  (mapcar (lambda (category) (cdr (assoc "categoryName" category)))
-		  (metaweblog-get-categories org2blog/wp-server-xmlrpc-url
-					     org2blog/wp-server-userid
+    (mapcar (lambda (category) (cdr (assoc "categoryName" category)))
+      (metaweblog-get-categories org2blog/wp-server-xmlrpc-url
+               org2blog/wp-server-userid
                                              org2blog/wp-server-pass
-					     org2blog/wp-server-blogid))
+               org2blog/wp-server-blogid))
           ;; Fetch and save tag list
           org2blog/wp-tags-list
-	  (mapcar (lambda (tag) (cdr (assoc "slug" tag)))
-		  (wp-get-tags org2blog/wp-server-xmlrpc-url
-			       org2blog/wp-server-userid
+    (mapcar (lambda (tag) (cdr (assoc "slug" tag)))
+      (wp-get-tags org2blog/wp-server-xmlrpc-url
+             org2blog/wp-server-userid
                                org2blog/wp-server-pass
-			       org2blog/wp-server-blogid))
+             org2blog/wp-server-blogid))
           ;; Fetch and save page list
           org2blog/wp-pages-list
-	  (mapcar (lambda (pg)
+    (mapcar (lambda (pg)
                     (cons (cdr (assoc "page_title" pg))
                           (cdr (assoc "page_id" pg))))
-		  (wp-get-pagelist org2blog/wp-server-xmlrpc-url
-				   org2blog/wp-server-userid
-				   org2blog/wp-server-pass
-				   org2blog/wp-server-blogid)))
+      (wp-get-pagelist org2blog/wp-server-xmlrpc-url
+           org2blog/wp-server-userid
+           org2blog/wp-server-pass
+           org2blog/wp-server-blogid)))
     (setq org2blog/wp-logged-in t)
     (message "Logged in")))
 
@@ -411,13 +411,13 @@ from currently logged in."
   "Logs out from the blog and clears. Clears the internal data structures."
   (interactive)
   (setq org2blog/wp-server-xmlrpc-url nil
-	org2blog/wp-server-userid nil
-	org2blog/wp-server-blogid nil
-	org2blog/wp-server-pass nil
-	org2blog/wp-categories-list nil
-	org2blog/wp-tags-list nil
-	org2blog/wp-pages-list nil
-	org2blog/wp-logged-in nil)
+  org2blog/wp-server-userid nil
+  org2blog/wp-server-blogid nil
+  org2blog/wp-server-pass nil
+  org2blog/wp-categories-list nil
+  org2blog/wp-tags-list nil
+  org2blog/wp-pages-list nil
+  org2blog/wp-logged-in nil)
   (message "Logged out"))
 
 ;;;###autoload
@@ -713,9 +713,9 @@ from currently logged in."
                           (cons (cdr (assoc "title" pg))
                                 (cdr (assoc "page_id" pg))))
                         (wp-get-pagelist org2blog/wp-server-xmlrpc-url
-					 org2blog/wp-server-userid
-					 org2blog/wp-server-pass
-					 org2blog/wp-server-blogid)))
+           org2blog/wp-server-userid
+           org2blog/wp-server-pass
+           org2blog/wp-server-blogid)))
           (if subtree-p
               (org-entry-put (point) "POSTID" post-id)
             (goto-char (point-min))
@@ -833,24 +833,24 @@ use absolute path or set org-directory")
           (cond
            ((looking-at "TAGS: ")
             (setq tag-or-cat-list org2blog/wp-tags-list)
-	    (setq tag-or-cat-prompt "Tag ?"))
+      (setq tag-or-cat-prompt "Tag ?"))
            ((looking-at "CATEGORY: ")
             (setq tag-or-cat-list org2blog/wp-categories-list)
-	    (setq tag-or-cat-prompt "Category ?"))
+      (setq tag-or-cat-prompt "Category ?"))
            ((looking-at "PARENT: ")
             (setq tag-or-cat-list org2blog/wp-pages-list)
-	    (setq tag-or-cat-prompt "Parent ?")))
+      (setq tag-or-cat-prompt "Parent ?")))
           (goto-char current-pos)
-      	  (let ((word-match (or (current-word t) ""))
-      		(completion-match nil))
-      	    (when word-match
-      	      (setq completion-match (completing-read tag-or-cat-prompt tag-or-cat-list nil nil word-match))
-      	      (when (stringp completion-match)
-      		(search-backward word-match nil t)
+          (let ((word-match (or (current-word t) ""))
+          (completion-match nil))
+            (when word-match
+              (setq completion-match (completing-read tag-or-cat-prompt tag-or-cat-list nil nil word-match))
+              (when (stringp completion-match)
+          (search-backward word-match nil t)
                 (replace-match (concat completion-match ", ") nil t)))))
       (progn
-      	(goto-char current-pos)
-      	(command-execute (lookup-key org-mode-map (kbd "C-c t")))))))
+        (goto-char current-pos)
+        (command-execute (lookup-key org-mode-map (kbd "C-c t")))))))
 
 ;;;###autoload
 (defun org2blog/wp-post-subtree (&optional publish)
