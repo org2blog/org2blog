@@ -235,7 +235,7 @@ takes effect."
   "Ask before killing buffer")
 (make-variable-buffer-local 'org2blog/wp-buffer-kill-prompt)
 
-(defconst org2blog/wp-version "0.5"
+(defconst org2blog/wp-version "0.9.2"
   "Current version of blog.el")
 
 (defvar org2blog/wp-mode-hook nil
