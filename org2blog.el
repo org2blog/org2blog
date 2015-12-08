@@ -958,11 +958,11 @@ the title of the post (or page) as description."
                       (if is-page "Select page: " "Select post: ")
                       title-id-map nil t)
           post-id (cdr (assoc post-title title-id-map)))
-    (if post-title
-        ;; "Generate" the actual url of the post
-        (setq url (concat
-                   (replace-regexp-in-string "xmlrpc\\.php$" "?p=" org2blog/wp-server-xmlrpc-url)
-                   post-id))
+    (when post-title
+      ;; "Generate" the actual url of the post
+      (setq url (concat
+                 (replace-regexp-in-string "xmlrpc\\.php$" "?p=" org2blog/wp-server-xmlrpc-url)
+                 post-id))
       ;; Insert!
       (insert (format "[[%s][%s]]" url post-title)))))
 
