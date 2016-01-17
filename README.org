@@ -312,7 +312,7 @@
     Any blog engine using the metaweblog API should work,
     theoretically.  But, it is not tested with other blog engines.
 
-    One happy user reports that org2blog [[https://github.com/punchagan/org2blog/issues/issue/37][also works]] with the [[http://www.doclear.net/][Dotclear]]
+    One happy user reports that org2blog [[https://github.com/punchagan/org2blog/issues/issue/37][also works]] with the [[http://dotclear.org/][Dotclear]]
     weblog engine.
 
   - Is there a way to import from wordpress or other blogs into the
