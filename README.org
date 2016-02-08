@@ -60,7 +60,7 @@
     #+BEGIN_SRC emacs-lisp
       (setq org2blog/wp-blog-alist
             '(("wordpress"
-               :url "http://username.wordpress.com/xmlrpc.php"
+               :url "https://username.wordpress.com/xmlrpc.php"
                :username "username"
                :default-title "Hello World"
                :default-categories ("org2blog" "emacs")
