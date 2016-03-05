@@ -157,10 +157,10 @@
     is not made.
 
 *** Publishing
-    | post buffer as draft      | *C-c d* | *M-x     org2blog/wp-post-buffer*         |
-    | publish buffer            | *C-c p* | *C-u M-x org2blog/wp-post-buffer*         |
-    | post buffer as page draft | *C-c D* | *M-x     org2blog/wp-post-buffer-as-page* |
-    | publish buffer as page    | *C-c P* | *C-u M-x org2blog/wp-post-buffer-as-page* |
+    | post buffer as draft      | *C-c M-p d* | *M-x     org2blog/wp-post-buffer*         |
+    | publish buffer            | *C-c M-p p* | *C-u M-x org2blog/wp-post-buffer*         |
+    | post buffer as page draft | *C-c M-p D* | *M-x     org2blog/wp-post-buffer-as-page* |
+    | publish buffer as page    | *C-c M-p P* | *C-u M-x org2blog/wp-post-buffer-as-page* |
 
 *** Post your existing org-files too
     - Add =#+TITLE=, =#+OPTIONS=, =#+TAGS=, =#+CATEGORY=,
