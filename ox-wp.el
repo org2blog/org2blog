@@ -55,7 +55,7 @@ contextual information."
     (if (not sc)
         (org-html-src-block src-block contents info)
       (format "[sourcecode language=\"%s\" title=\"%s\" %s]\n%s[/sourcecode]"
-              (or (cdr (assoc lang langs-map)) (downcase lang) "text")
+              (or (cdr (assoc lang langs-map)) (when lang (downcase lang)) "text")
               (or caption "")
               (or syntaxhl "")
               (org-export-format-code-default src-block info)))))
