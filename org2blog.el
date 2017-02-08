@@ -198,6 +198,14 @@ takes effect."
   :group 'org2blog/wp
   :type 'boolean)
 
+(defcustom org2blog/wp-image-thumbnail-size "medium_large"
+  "Select which size thumbnail should be used for images.
+
+  Choices are: thumbnail (150px), medium (300px),
+  medium_large (768px) or large (1024px)"
+  :group 'org2blog/wp
+  :type 'string)
+
 (defvar org2blog/wp-blog nil
   "Parameters of the currently selected blog.")
 
@@ -525,12 +533,12 @@ from currently logged in."
                       ;; media-item-info -> metadata -> sizes -> medium -> file == basename-300x???.jpg
                       ;; is there no built-in shortcut to access nested alists?
                       ;; https://github.com/nicferrier/emacs-dotassoc
-                      ;; we end up with just the basename of the medium thumb in
+                      ;; we end up with just the basename of the requested size thumb in
                       ;; medium-file-name
                       (let ((media-metadata (cdr (assoc "metadata" media-item-info))))
                         (setq file-thumbnail-name
                               (cdr (assoc "file"
-                                          (cdr (assoc "medium"
+                                          (cdr (assoc org2blog/wp-image-thumbnail-size
                                                       (cdr (assoc "sizes" media-metadata))))))))
                       ) ;; let*
 
