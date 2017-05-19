@@ -594,7 +594,7 @@ from currently logged in."
                       (concat "\\1" (nth 1 file)) text))
           ) ;; if
         ) ;; dolist
-
+      (delete-window)
       ) ;; save-excursion
     text))
 
@@ -877,6 +877,12 @@ use absolute path or set org-directory")
       (org2blog/wp-post-buffer-as-page publish t)
       (widen)
       (when (buffer-file-name) (save-buffer)))))
+
+;;;###autoload
+(defun org2blog/wp-post-subtree-and-publish ()
+  "Publish the current subtree as a page."
+  (interactive)
+  (org2blog/wp-post-subtree t))
 
 ;;;###autoload
 (defun org2blog/wp-post-subtree-as-page-and-publish ()
