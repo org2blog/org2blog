@@ -50,7 +50,9 @@ contextual information."
                            (org-export-get-reference lbl info)))))
         (sc (plist-get info :wp-shortcode))
         (langs-map (plist-get info :wp-shortcode-langs-map))
-        (syntaxhl (org-export-read-attribute :attr_wp src-block :syntaxhl)))
+        (syntaxhl (concat
+                   (org-export-read-attribute :attr_wp src-block :syntaxhl)
+                   org2blog/wp-sourcecode-default-params)))
 
     (if (not sc)
         (org-html-src-block src-block contents info)
