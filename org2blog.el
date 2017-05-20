@@ -616,6 +616,7 @@ from currently logged in."
   (interactive "P")
   (org2blog/wp-mode t) ;; turn on org2blog-wp-mode
   (org2blog/wp-correctly-login)
+  (deactivate-mark)
   (save-excursion
     (save-restriction
       (let ((post (org2blog/wp--export-as-post subtree-p))
