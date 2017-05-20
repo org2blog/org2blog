@@ -50,8 +50,8 @@
 
 
 (require 'org)
-(when (version< (org-version) "8.0")
-  (error "Require org-version>=8.0; Current version: %s" (org-version)))
+(when (version< (org-version) "8.3")
+  (error "Require org-version>=8.3; Current version: %s" (org-version)))
 
 (require 'xml-rpc)
 (require 'metaweblog)

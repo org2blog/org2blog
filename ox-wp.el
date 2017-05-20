@@ -14,7 +14,7 @@
   :tag "Org Wordpress"
   :group 'org-export
   :version "24.4"
-  :package-version '(Org . "8.0"))
+  :package-version '(Org . "8.3"))
 
 
 ;;; Define Back-End
