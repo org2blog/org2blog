@@ -606,11 +606,13 @@ from currently logged in."
       (if (re-search-forward r nil t 1)
           (match-string-no-properties 2)))))
 
+;;;###autoload
 (defun org2blog/wp-post-buffer-and-publish ()
   "Post buffer and mark it as published"
   (interactive)
   (org2blog/wp-post-buffer t))
 
+;;;###autoload
 (defun org2blog/wp-post-buffer (&optional publish subtree-p)
   "Posts new blog entry to the blog or edits an existing entry."
   (interactive "P")
