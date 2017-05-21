@@ -20,11 +20,9 @@
 
 * Installation
 
-  Download org2blog from GitHub or Marmalade
+  Download org2blog from GitHub
 
   : git clone http://github.com/punchagan/org2blog.git
-
-  : http://marmalade-repo.org/packages/org2blog
 
   Add the org2blog directory to your load path and then add
 
@@ -248,7 +246,7 @@
      I'd also appreciate patches/suggestions to improve the
      documentation.  Feel free to drop in with general comments, too.
      I'd love to hear from you!  NOTE: If you are using the package
-     from ELPA/Marmalade, please try using the latest =git= version
+     from ELPA, please try using the latest =git= version
      before filing a bug report.
 
   5. Feel free to add your site to the list of sites using org2blog,
