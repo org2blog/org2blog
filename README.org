@@ -11,9 +11,9 @@
   org2blog.  The other is [[http://repo.or.cz/r/org2blog.git/][org2blog/atom]] by [[http://tehom-blog.blogspot.com/][Tom Breton]].
 
   org2blog/wp should, /ideally/, work with any platform that supports
-  xml-rpc but some of wordpress specific features may not work.
+  xml-rpc but some of WordPress specific features may not work.
 
-  org2blog was inspired by and based on a [[http://paste.lisp.org/display/69993][wordpress posting client for
+  org2blog was inspired by and based on a [[http://paste.lisp.org/display/69993][WordPress posting client for
   muse-mode]] written by [[http://www.emacswiki.org/emacs/AshishShukla][Ashish Shukla]].
 
   org2blog is licensed under GPLv3
@@ -180,11 +180,11 @@
       be used to use a different title.
 *** Posting source code blocks
     Babel source blocks or example code is automatically posted in
-    =<pre>= tags.  You can ask =org2blog= to use Wordpress's
+    =<pre>= tags.  You can ask =org2blog= to use WordPress's
     sourcecode shortcode blocks.  To use this, you need to set the
     variable =org2blog/wp-use-sourcecode-shortcode= and also add
     =htmlize.el= (available in org-mode's =contrib/lisp=) to your
-    =load-path=.  Wordpress's sourcecode shortcode blocks can be given
+    =load-path=.  WordPress's sourcecode shortcode blocks can be given
     various [[http://en.support.wordpress.com/code/posting-source-code/#configuration-parameters][configuration parameters]].  These can be passed to the
     exported sourcecode shortcode blocks via an =#+ATTR_WP= line
     immediately preceding the =#+BEGIN_SRC= line, e.g.
@@ -315,11 +315,11 @@
     One happy user reports that org2blog [[https://github.com/punchagan/org2blog/issues/issue/37][also works]] with the [[http://dotclear.org/][Dotclear]]
     weblog engine.
 
-  - Is there a way to import from wordpress or other blogs into the
+  - Is there a way to import from WordPress or other blogs into the
     org2blog post format?
 
     I've a simple [[https://github.com/punchagan/org2blog-importers/blob/master/wp_to_org2blog.py][python script]] that uses ~pandoc~ to convert from
-    Wordpress export xml to org2blog posts.  It could easily be
+    WordPress export xml to org2blog posts.  It could easily be
     tweaked to write importers for other kinds of blogs.
 
   - How do I split a post into an introductory paragraph and a full
