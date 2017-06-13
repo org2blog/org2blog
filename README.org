@@ -205,12 +205,22 @@
 
     Similarly, for a page.
 
-*** Enabling org2blog mode (defines key-bindings)
-    - use *M-x org2blog/wp-mode*.
-      This defines the following the key-bindings:
+*** org2blog mode key-bindings and auto loading
+***** Key-Bindings
+    - ~org2blog/wp-mode~ defines the following key-bindings
       | *C-c p* | publish buffer                   |
       | *C-c d* | post as draft                    |
       | *C-c t* | complete tag or parent page name |
+***** Auto Loading org2blog Mode
+    - Add ~org2blog/wp-org-mode-hook-fn~ to ~org-mode-hook~
+    - So that ~org2blog/wp-mode~ is automatically enabled when ~#+ORG2BLOG:~ is
+      present
+    - Add code like this somewhere after you load Org-Mode and org2blog
+      #+BEGIN_SRC emacs-lisp :results output silent
+(add-hook 'org-mode-hook #'org2blog/wp-org-mode-hook-fn)
+      #+END_SRC
+    - Add ~#+ORG2BLOG:~ to your file
+      - When you create a new entry it is automatically created
 
 *** Uploading Images or Files
     In-line images and linked images (or files) with file:// urls will

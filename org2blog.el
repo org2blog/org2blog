@@ -104,7 +104,8 @@ All the other properties are optional. They over-ride the global variables.
   :type '(repeat string))
 
 (defcustom org2blog/wp-buffer-template
-  "#+DATE: %s
+  "#+ORG2BLOG:
+#+DATE: %s
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
 #+CATEGORY: %s
 #+TAGS:
@@ -325,6 +326,14 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
 
   (if org2blog/wp-mode
       (run-mode-hooks 'org2blog/wp-mode-hook)))
+
+;;;###autoload
+(defun org2blog/wp-org-mode-hook-fn ()
+  "Enable `org2blog/wp-mode' when `#+ORG2BLOG:' is present.
+   Add this to `org-mode-hook'."
+  (with-current-buffer (current-buffer)
+    (when (org2blog/wp-get-option "ORG2BLOG")
+      (org2blog/wp-mode t))))
 
 (defun org2blog/wp-create-categories (categories)
   "Prompt and create new categories on WordPress."
