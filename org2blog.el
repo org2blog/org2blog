@@ -165,11 +165,6 @@ browser."
   :group 'org2blog/wp
   :type 'boolean)
 
-(defcustom org2blog/wp-sourcecode-default-params "light=\"true\""
-  "Default arguments to pass to WP syntaxhighlighter."
-  :group 'org2blog/wp
-  :type 'string)
-
 (defcustom org2blog/wp-shortcode-langs-map nil
   "Association list for source code languages supported by Org
 and by SyntaxHighlighter.  Each element of the list maps the

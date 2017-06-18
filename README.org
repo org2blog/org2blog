@@ -189,9 +189,6 @@
 
     : #+ATTR_WP: :syntaxhl light=true
 
-    You could also modify the default arguments passed to sourcecode
-    shortcode blocks by customizing the
-    =org2blog/wp-sourcecode-default-params= variable.
 *** Delete an entry or a page
     - If you are in the buffer of the entry/page, with =#+POSTID=
       present on the page, use:
