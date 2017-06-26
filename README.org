@@ -33,7 +33,7 @@
 
 *** Dependencies
     1. org2blog depends on
-       - /xml-rpc/ available at [[http://launchpad.net/xml-rpc-el][Launchpad]]
+       - /xml-rpc/ available at [[https://github.com/hexmode/xml-rpc-el][GitHub]]
        - /metaweblog.el/ available [[https://github.com/punchagan/metaweblog][here]]
 
        Add them to your /load-path/ before using org2blog.
