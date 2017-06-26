@@ -2,4 +2,4 @@
   "Blog from Org mode to wordpress"
   '((org "8.3")
     (xml-rpc "1.6.8")
-    (metaweblog "0.1")))
+    (metaweblog "1.0.0")))
