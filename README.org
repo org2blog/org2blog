@@ -38,9 +38,7 @@
 
        Add them to your /load-path/ before using org2blog.
 
-    2. Make sure you have the latest org-mode installed. It may work
-       with versions > 7, but it is best to have the latest org-mode
-       if you can.
+    2. Make sure you have org-mode 8.3 or later installed.
 
 * Usage
 *** Defining your blog setup
