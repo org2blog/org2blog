@@ -40,6 +40,15 @@
 
     2. Make sure you have org-mode 8.3 or later installed.
 
+*** Unicode Character Support
+    1. As of <2017-06-26 Mon> if you use Unicode characters in your posts or
+       pages then you need to use [[https://github.com/grettke/xml-rpc-el/blob/master/xml-rpc.el][this]] patched version of ~xml-rpc~
+    2. Installation steps
+       - Back up your local copy of ~xml-rpc.el~
+       - Copy [[https://raw.githubusercontent.com/grettke/xml-rpc-el/master/xml-rpc.el][this]] patched version of ~xml-rpc.el~ to the =xml-rpc= directory
+       - Delete =xml-rpc.elc=
+       - Restart Emacs
+
 * Usage
 *** Defining your blog setup
 
