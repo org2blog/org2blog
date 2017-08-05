@@ -10,7 +10,7 @@
 ;; Copyright (C) 2013 Peter Vasil <mail@petervasil.net>
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
-;; Version: 1.0.0
+;; Version: 1.0.1
 ;; Keywords: orgmode, wordpress, blog
 
 ;; This program is free software: you can redistribute it and/or modify
@@ -239,11 +239,16 @@ takes effect."
   "Ask before killing buffer")
 (make-variable-buffer-local 'org2blog/wp-buffer-kill-prompt)
 
-(defconst org2blog/wp-version "1.0.0"
+(defconst org2blog/wp-version "1.0.1"
   "Current version of blog.el")
 
 (defvar org2blog/wp-mode-hook nil
   "Hook to run upon entry into mode.")
+
+(defvar org2blog/wp-after-new-post-or-page-functions nil
+  "Abnormal hook run after a new post or page is created.
+Each function is called with one argument, the object
+representing the aforementioned post or page.")
 
 (defvar org2blog/wp-export-options
   '(
@@ -624,6 +629,16 @@ from currently logged in."
   (interactive)
   (org2blog/wp-post-buffer t))
 
+(defun org2blog/wp-get-post-or-page (post-or-page-id)
+  "Retrieve a post or page given its `POST-OR-PAGE-ID'. For information about its fields see URL
+  `https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.newPost'"
+  (interactive)
+  (let ((post-or-page (metaweblog-get-post org2blog/wp-server-xmlrpc-url
+                                           org2blog/wp-server-userid
+                                           org2blog/wp-server-pass
+                                           post-or-page-id)))
+    post-or-page))
+
 ;;;###autoload
 (defun org2blog/wp-post-buffer (&optional publish subtree-p)
   "Posts new blog entry to the blog or edits an existing entry."
@@ -654,12 +669,15 @@ from currently logged in."
                                   post-id
                                   post
                                   publish)
-          (setq post-id (metaweblog-new-post org2blog/wp-server-xmlrpc-url
-                                             org2blog/wp-server-userid
-                                             org2blog/wp-server-pass
-                                             org2blog/wp-server-blogid
-                                             post
-                                             publish))
+          (progn (setq post-id (metaweblog-new-post org2blog/wp-server-xmlrpc-url
+                                                    org2blog/wp-server-userid
+                                                    org2blog/wp-server-pass
+                                                    org2blog/wp-server-blogid
+                                                    post
+                                                    publish))
+                 (run-hook-with-args
+                  'org2blog/wp-after-new-post-or-page-functions
+                  (org2blog/wp-get-post-or-page post-id)))
           (if subtree-p
               (progn
                 (org-entry-put (point) "POSTID" post-id)
@@ -718,12 +736,15 @@ from currently logged in."
                           post-id
                           post
                           publish)
-          (setq post-id (wp-new-page org2blog/wp-server-xmlrpc-url
-                                     org2blog/wp-server-userid
-                                     org2blog/wp-server-pass
-                                     org2blog/wp-server-blogid
-                                     post
-                                     publish))
+          (progn (setq post-id (wp-new-page org2blog/wp-server-xmlrpc-url
+                                            org2blog/wp-server-userid
+                                            org2blog/wp-server-pass
+                                            org2blog/wp-server-blogid
+                                            post
+                                            publish))
+                 (run-hook-with-args
+                  'org2blog/wp-after-new-post-or-page-functions
+                  (org2blog/wp-get-post-or-page post-id)))
           (setq org2blog/wp-pages-list
                 (mapcar (lambda (pg)
                           (cons (cdr (assoc "title" pg))
