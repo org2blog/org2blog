@@ -248,12 +248,12 @@ takes effect."
 (defvar org2blog/wp-export-options
   '(
     :section-numbers nil
-    :with-priority nil
-    :with-sub-superscript nil
-    :with-toc nil
-    :with-tags nil
-    :with-todo-keywords nil
-    )
+                     :with-priority nil
+                     :with-sub-superscript nil
+                     :with-toc nil
+                     :with-tags nil
+                     :with-todo-keywords nil
+                     )
   "Export options to be used when exporting buffers and subtrees.
 Look at `org-export-options-alist' for the available options.
 Also, note that these options are over-ridden by in-file
@@ -264,12 +264,12 @@ options.")
 (defun org2blog/wp-kill-buffer-hook ()
   "Prompt before killing buffer."
   (if (and org2blog/wp-buffer-kill-prompt
-     (not (buffer-file-name)))
-    (if (y-or-n-p "Save entry?")
-        (progn
-          (save-buffer)
-          (org2blog/wp-save-details (org2blog/wp--export-as-post) nil
-                                 (y-or-n-p "Published?"))))))
+         (not (buffer-file-name)))
+      (if (y-or-n-p "Save entry?")
+          (progn
+            (save-buffer)
+            (org2blog/wp-save-details (org2blog/wp--export-as-post) nil
+                                      (y-or-n-p "Published?"))))))
 
 (defun org2blog/wp-define-key (suffix function)
   "Define a key sequence in the mode's key map with the prefix
@@ -281,14 +281,14 @@ given by `org2blog/wp-keymap-prefix', and the given suffix."
   "Initialize `org2blog/wp-entry-mode-map' based on the prefix
 key sequence defined by `org2blog/wp-keymap-prefix'."
   (setq org2blog/wp-entry-mode-map
-  (let ((org2blog/wp-map (make-sparse-keymap)))
-    (set-keymap-parent org2blog/wp-map org-mode-map)
-    (org2blog/wp-define-key "p" 'org2blog/wp-post-buffer-and-publish)
-    (org2blog/wp-define-key "P" 'org2blog/wp-post-buffer-as-page-and-publish)
-    (org2blog/wp-define-key "d" 'org2blog/wp-post-buffer)
-    (org2blog/wp-define-key "D" 'org2blog/wp-post-buffer-as-page)
-    (org2blog/wp-define-key "t" 'org2blog/wp-complete-category)
-    org2blog/wp-map)))
+        (let ((org2blog/wp-map (make-sparse-keymap)))
+          (set-keymap-parent org2blog/wp-map org-mode-map)
+          (org2blog/wp-define-key "p" 'org2blog/wp-post-buffer-and-publish)
+          (org2blog/wp-define-key "P" 'org2blog/wp-post-buffer-as-page-and-publish)
+          (org2blog/wp-define-key "d" 'org2blog/wp-post-buffer)
+          (org2blog/wp-define-key "D" 'org2blog/wp-post-buffer-as-page)
+          (org2blog/wp-define-key "t" 'org2blog/wp-complete-category)
+          org2blog/wp-map)))
 
 (defun org2blog/wp-reload-entry-mode-map ()
   "Re-initialize `org2blog/wp-entry-mode-map' based on the prefix
@@ -397,27 +397,27 @@ from currently logged in."
            (read-passwd (format "%s Weblog password? " org2blog/wp-blog-name)))
           ;; Fetch and save category list
           org2blog/wp-categories-list
-    (mapcar (lambda (category) (cdr (assoc "categoryName" category)))
-      (metaweblog-get-categories org2blog/wp-server-xmlrpc-url
-               org2blog/wp-server-userid
+          (mapcar (lambda (category) (cdr (assoc "categoryName" category)))
+                  (metaweblog-get-categories org2blog/wp-server-xmlrpc-url
+                                             org2blog/wp-server-userid
                                              org2blog/wp-server-pass
-               org2blog/wp-server-blogid))
+                                             org2blog/wp-server-blogid))
           ;; Fetch and save tag list
           org2blog/wp-tags-list
-    (mapcar (lambda (tag) (cdr (assoc "slug" tag)))
-      (wp-get-tags org2blog/wp-server-xmlrpc-url
-             org2blog/wp-server-userid
+          (mapcar (lambda (tag) (cdr (assoc "slug" tag)))
+                  (wp-get-tags org2blog/wp-server-xmlrpc-url
+                               org2blog/wp-server-userid
                                org2blog/wp-server-pass
-             org2blog/wp-server-blogid))
+                               org2blog/wp-server-blogid))
           ;; Fetch and save page list
           org2blog/wp-pages-list
-    (mapcar (lambda (pg)
+          (mapcar (lambda (pg)
                     (cons (cdr (assoc "page_title" pg))
                           (cdr (assoc "page_id" pg))))
-      (wp-get-pagelist org2blog/wp-server-xmlrpc-url
-           org2blog/wp-server-userid
-           org2blog/wp-server-pass
-           org2blog/wp-server-blogid)))
+                  (wp-get-pagelist org2blog/wp-server-xmlrpc-url
+                                   org2blog/wp-server-userid
+                                   org2blog/wp-server-pass
+                                   org2blog/wp-server-blogid)))
     (setq org2blog/wp-logged-in t)
     (message "Logged in")))
 
@@ -425,13 +425,13 @@ from currently logged in."
   "Logs out from the blog and clears. Clears the internal data structures."
   (interactive)
   (setq org2blog/wp-server-xmlrpc-url nil
-  org2blog/wp-server-userid nil
-  org2blog/wp-server-blogid nil
-  org2blog/wp-server-pass nil
-  org2blog/wp-categories-list nil
-  org2blog/wp-tags-list nil
-  org2blog/wp-pages-list nil
-  org2blog/wp-logged-in nil)
+        org2blog/wp-server-userid nil
+        org2blog/wp-server-blogid nil
+        org2blog/wp-server-pass nil
+        org2blog/wp-categories-list nil
+        org2blog/wp-tags-list nil
+        org2blog/wp-pages-list nil
+        org2blog/wp-logged-in nil)
   (message "Logged out"))
 
 ;;;###autoload
@@ -445,7 +445,7 @@ from currently logged in."
 
   ;; Generate new buffer
   (let ((org2blog/wp-buffer (generate-new-buffer
-                          (format org2blog/wp-buffer-name org2blog/wp-blog-name))))
+                             (format org2blog/wp-buffer-name org2blog/wp-blog-name))))
     (switch-to-buffer org2blog/wp-buffer)
     (add-hook 'kill-buffer-hook 'org2blog/wp-kill-buffer-hook nil 'local)
     (org-mode)
@@ -459,14 +459,14 @@ from currently logged in."
 (defun org2blog/wp-format-buffer (buffer-template)
   "Default buffer formatting function."
   (format buffer-template
-     (format-time-string "[%Y-%m-%d %a %H:%M]" (current-time))
-     (mapconcat
-        (lambda (cat) cat)
-          (or (plist-get (cdr org2blog/wp-blog) :default-categories)
-              org2blog/wp-default-categories)
-        ", ")
-     (or (plist-get (cdr org2blog/wp-blog) :default-title)
-          org2blog/wp-default-title)))
+          (format-time-string "[%Y-%m-%d %a %H:%M]" (current-time))
+          (mapconcat
+           (lambda (cat) cat)
+           (or (plist-get (cdr org2blog/wp-blog) :default-categories)
+               org2blog/wp-default-categories)
+           ", ")
+          (or (plist-get (cdr org2blog/wp-blog) :default-title)
+              org2blog/wp-default-title)))
 
 (defun org2blog/wp-upload-files-replace-urls (text)
   "Uploads files, if any in the html, and changes their links"
@@ -572,8 +572,8 @@ from currently logged in."
             ;; 1. first replace normal href as always
             (progn
               (setq text (replace-regexp-in-string
-                         (concat "\\(<a href=\"\\)\\(file://\\)*" (regexp-quote (car file)))
-                         (concat "\\1" (nth 1 file)) text))
+                          (concat "\\(<a href=\"\\)\\(file://\\)*" (regexp-quote (car file)))
+                          (concat "\\1" (nth 1 file)) text))
 
               ;; 2. but then replace <img> with <a href="full"><img src="thumb">
               ;; with let*, subsequent bindings can refer to preceding bindings
@@ -697,10 +697,10 @@ from currently logged in."
       (widen)
       (let ((post (org2blog/wp--export-as-post subtree-p))
             (confirm (and
-                     (if (plist-member (cdr org2blog/wp-blog) :confirm)
-                        (plist-member (cdr org2blog/wp-blog) :confirm)
-                      org2blog/wp-confirm-post)
-                     publish))
+                      (if (plist-member (cdr org2blog/wp-blog) :confirm)
+                          (plist-member (cdr org2blog/wp-blog) :confirm)
+                        org2blog/wp-confirm-post)
+                      publish))
             (show (or (plist-member (cdr org2blog/wp-blog) :show)
                       org2blog/wp-show-post-in-browser))
             post-id)
@@ -729,9 +729,9 @@ from currently logged in."
                           (cons (cdr (assoc "title" pg))
                                 (cdr (assoc "page_id" pg))))
                         (wp-get-pagelist org2blog/wp-server-xmlrpc-url
-           org2blog/wp-server-userid
-           org2blog/wp-server-pass
-           org2blog/wp-server-blogid)))
+                                         org2blog/wp-server-userid
+                                         org2blog/wp-server-pass
+                                         org2blog/wp-server-blogid)))
           (if subtree-p
               (org-entry-put (point) "POSTID" post-id)
             (goto-char (point-min))
@@ -757,9 +757,9 @@ from currently logged in."
   (if (null post-id)
       (setq post-id (org2blog/wp-get-option "POSTID")))
   (metaweblog-delete-post org2blog/wp-server-xmlrpc-url
-                                org2blog/wp-server-userid
-                                org2blog/wp-server-pass
-                                post-id)
+                          org2blog/wp-server-userid
+                          org2blog/wp-server-pass
+                          post-id)
   (message "Post Deleted"))
 
 (defun org2blog/wp-delete-page (&optional page-id)
@@ -772,7 +772,7 @@ from currently logged in."
                   org2blog/wp-server-userid
                   org2blog/wp-server-pass
                   page-id)
-   (message "Page Deleted"))
+  (message "Page Deleted"))
 
 (defun org2blog/wp-save-details (post pid pub subtree-p)
   "Save the details of posting, to a file."
@@ -803,7 +803,7 @@ use absolute path or set org-directory")
 
         (when o2b-id
           (with-current-buffer (or (find-buffer-visiting log-file)
-                                   (find-file-noselect log-file))
+                                  (find-file-noselect log-file))
             (save-excursion
               (save-restriction
                 (widen)
@@ -844,25 +844,25 @@ use absolute path or set org-directory")
     (forward-line 0)
     (forward-char 2)
     (if (or (looking-at "CATEGORY: ") (looking-at "TAGS: ")
-            (looking-at "PARENT: "))
+           (looking-at "PARENT: "))
         (progn
           (cond
            ((looking-at "TAGS: ")
             (setq tag-or-cat-list org2blog/wp-tags-list)
-      (setq tag-or-cat-prompt "Tag ?"))
+            (setq tag-or-cat-prompt "Tag ?"))
            ((looking-at "CATEGORY: ")
             (setq tag-or-cat-list org2blog/wp-categories-list)
-      (setq tag-or-cat-prompt "Category ?"))
+            (setq tag-or-cat-prompt "Category ?"))
            ((looking-at "PARENT: ")
             (setq tag-or-cat-list org2blog/wp-pages-list)
-      (setq tag-or-cat-prompt "Parent ?")))
+            (setq tag-or-cat-prompt "Parent ?")))
           (goto-char current-pos)
           (let ((word-match (or (current-word t) ""))
-          (completion-match nil))
+                (completion-match nil))
             (when word-match
               (setq completion-match (completing-read tag-or-cat-prompt tag-or-cat-list nil nil word-match))
               (when (stringp completion-match)
-          (search-backward word-match nil t)
+                (search-backward word-match nil t)
                 (replace-match (concat completion-match ", ") nil t)))))
       (progn
         (goto-char current-pos)
@@ -945,7 +945,7 @@ use absolute path or set org-directory")
   (org2blog/wp-correctly-login)
   (widen)
   (let* ((postid (or (org-entry-get (point) "POSTID")
-                     (org-entry-get (point) "POST_ID")))
+                    (org-entry-get (point) "POST_ID")))
          (url org2blog/wp-server-xmlrpc-url))
     (if (not postid)
         (message "This subtree hasn't been posted, yet.")
@@ -970,9 +970,9 @@ the title of the post (or page) as description."
                                                    1000)))
          post-title post-id url title-id-map)
     (dolist (post post-list)
-        (setq title-id-map (cons
-                            (cons (cdr (assoc "title" post)) (cdr (assoc "postid" post)))
-                            title-id-map)))
+      (setq title-id-map (cons
+                          (cons (cdr (assoc "title" post)) (cdr (assoc "postid" post)))
+                          title-id-map)))
     ;; Ask user to select the title
     (setq post-title (completing-read
                       (if is-page "Select page: " "Select post: ")
@@ -1083,16 +1083,16 @@ logged in.  Otherwise, the user is prompted to login."
 (defun org2blog/wp--insert-current-time (subtree-p time)
   "Insert current time into the post, if no timestamp exists."
   (or time
-      (let ((current-time
-             (format-time-string (org-time-stamp-format t t)
-                                 (org-current-time))))
-        (save-excursion
-          (if subtree-p
-              (org-entry-put (point) "POST_DATE" current-time)
-            (goto-char (point-min))
-            (insert (concat "#+DATE: " current-time "\n"))))
+     (let ((current-time
+            (format-time-string (org-time-stamp-format t t)
+                                (org-current-time))))
+       (save-excursion
+         (if subtree-p
+             (org-entry-put (point) "POST_DATE" current-time)
+           (goto-char (point-min))
+           (insert (concat "#+DATE: " current-time "\n"))))
 
-        current-time)))
+       current-time)))
 
 (defun org2blog/wp--parse-buffer-entry ()
   "Parse an org2blog buffer entry.
@@ -1111,7 +1111,7 @@ and munge it a little to make it suitable to use with the
          (cons "date" (org2blog/wp-get-option "DATE"))
          (cons "title" (org-element-interpret-data
                         (or (plist-get export-environment :title)
-                            "No Title")))
+                           "No Title")))
          (cons "description" nil)
          (cons "tags"
                (split-string (or (org2blog/wp-get-option "TAGS") "")
@@ -1124,7 +1124,7 @@ and munge it a little to make it suitable to use with the
                          (org2blog/wp-get-option "PARENT")))
          (cons "excerpt" (org-element-interpret-data
                           (or (plist-get export-environment
-                                         :description) "")))
+                                        :description) "")))
          (cons "permalink" (or (org2blog/wp-get-option "PERMALINK") "")))))
 
     ;; Return value
@@ -1144,12 +1144,12 @@ and munge it a little to make it suitable to use with the
         (list
          (cons "point" (point))
          (cons "date" (or (org-entry-get (point) "POST_DATE")
-                          (org-entry-get (point) "SCHEDULED")
-                          (org-entry-get (point) "DEADLINE")
-                          (org-entry-get (point) "TIMESTAMP_IA")
-                          (org-entry-get (point) "TIMESTAMP")))
+                         (org-entry-get (point) "SCHEDULED")
+                         (org-entry-get (point) "DEADLINE")
+                         (org-entry-get (point) "TIMESTAMP_IA")
+                         (org-entry-get (point) "TIMESTAMP")))
          (cons "title" (or (org-entry-get (point) "TITLE")
-                           (nth 4 (org-heading-components))))
+                          (nth 4 (org-heading-components))))
          (cons "description" nil)
          (cons "tags" (or
                        (split-string (or (org-entry-get (point) "POST_TAGS") "") "\\( *, *\\)" t)
@@ -1158,7 +1158,7 @@ and munge it a little to make it suitable to use with the
                (split-string (or (org-entry-get (point) "CATEGORY") "")
                              "\\( *, *\\)" t))
          (cons "post-id" (or (org-entry-get (point) "POSTID")
-                             (org-entry-get (point) "POST_ID")))
+                            (org-entry-get (point) "POST_ID")))
          (cons "parent" (org2blog/wp--get-parent-id
                          (org-entry-get (point) "PARENT")))
          (cons "excerpt" (org-entry-get (point) "DESCRIPTION"))
