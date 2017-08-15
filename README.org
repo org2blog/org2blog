@@ -261,6 +261,40 @@ Here is an example that displays your post or page information in the
     org-table.  By default it is saved in a file ~.org2blog.org~ in
     the ~org-directory~.  This is meant to be a dashboard of sorts,
     and is an optional feature that can be turned off.
+*** MathJax Support
+"[[http://docs.mathjax.org/en/latest/mathjax.html][MathJax]] is an open-source JavaScript display engine for LaTeX, MathML, and
+AsciiMath notation that works in all modern browsers."
+
+- Whether you use MathJax with a WordPress plugin, manual inclusion, or any
+  other means you need to be aware of MathJax's [[http://docs.mathjax.org/en/latest/start.html#using-a-content-delivery-network-cdn][CDN]] options
+  - If you want predictibility then reference a specific release number. For
+    example, this configuration uses 2.7.1
+- Disable translation to =wp-latex= syntax
+  - ~(setq org2blog/wp-use-wp-latex nil)~
+- Setup the [[https://wordpress.org/plugins/mathjax-latex/][MathJax-LaTeX]] plugin
+  - Install it
+  - Configure it
+    - Force Load: TRUE
+    - Default [latex] syntax attribute: Inline
+    - Use wp-latex syntax? TRUE
+    - Use MathJax CDN Service? FALSE
+    - Custom MathJax location? =https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js=
+    - MathJax Configuration: default
+- Test it out using these ([[https://math.meta.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference][and more]]) examples
+  #+BEGIN_SRC org
+- The word LaTeX
+  - $\LaTeX$
+- Inline
+  - $\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$
+- Equation
+  - $$\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$$
+  #+END_SRC
+- Test it locally using HTML export settings
+  #+BEGIN_EXAMPLE
+,#+HTML_HEAD: <script type="text/javascript"
+,#+HTML_HEAD:   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js">
+,#+HTML_HEAD: </script>
+  #+END_EXAMPLE
 * Miscellaneous
   1. You may want to look at the [[http://orgmode.org/manual/Export-options.html#Export-options][Export options]] and [[http://orgmode.org/manual/HTML-export.html#HTML-export][HTML export]]
      sections of the org-manual.
