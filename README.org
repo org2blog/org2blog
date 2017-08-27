@@ -204,14 +204,18 @@ Here is an example that displays your post or page information in the
       be used to use a different title.
 *** Posting source code blocks
     Babel source blocks or example code is automatically posted in
-    =<pre>= tags.  You can ask =org2blog= to use WordPress's
-    sourcecode shortcode blocks.  To use this, you need to set the
-    variable =org2blog/wp-use-sourcecode-shortcode= and also add
-    =htmlize.el= (available in org-mode's =contrib/lisp=) to your
-    =load-path=.  WordPress's sourcecode shortcode blocks can be given
-    various [[http://en.support.wordpress.com/code/posting-source-code/#configuration-parameters][configuration parameters]].  These can be passed to the
-    exported sourcecode shortcode blocks via an =#+ATTR_WP= line
-    immediately preceding the =#+BEGIN_SRC= line, e.g.
+    =<pre>= tags.  You can also ask =org2blog= to use WordPress's
+    sourcecode shortcode blocks.
+
+    To use this [[https://en.support.wordpress.com/code/posting-source-code/][this feature]], install a shortcode plugin. For example,
+    [[https://wordpress.org/plugins/syntaxhighlighter/][SyntaxHighlighter Evolved]] seems to work well.
+
+    To use this, you need to set the variable
+    =org2blog/wp-use-sourcecode-shortcode= and also add =htmlize.el= (available in
+    org-mode's =contrib/lisp=) to your =load-path=. WordPress's sourcecode
+    shortcode blocks can be given various [[http://en.support.wordpress.com/code/posting-source-code/#configuration-parameters][configuration parameters]]. These can
+    be passed to the exported sourcecode shortcode blocks via an =#+ATTR_WP=
+    line immediately preceding the =#+BEGIN_SRC= line, e.g.
 
     : #+ATTR_WP: :syntaxhl light=true
 
