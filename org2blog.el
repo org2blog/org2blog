@@ -56,6 +56,7 @@
 (require 'xml-rpc)
 (require 'metaweblog)
 (require 'ox-wp)
+(require 'htmlize)
 
 (defgroup org2blog/wp nil
   "Post to weblogs from Emacs"

@@ -35,6 +35,7 @@
     1. org2blog depends on
        - /xml-rpc/ available at [[https://github.com/hexmode/xml-rpc-el][GitHub]]
        - /metaweblog.el/ available [[https://github.com/punchagan/metaweblog][here]]
+       - /htmlize/ available [[https://github.com/hniksic/emacs-htmlize][here]]
 
        Add them to your /load-path/ before using org2blog.
 
@@ -211,8 +212,7 @@ Here is an example that displays your post or page information in the
     [[https://wordpress.org/plugins/syntaxhighlighter/][SyntaxHighlighter Evolved]] seems to work well.
 
     To use this, you need to set the variable
-    =org2blog/wp-use-sourcecode-shortcode= and also add =htmlize.el= (available in
-    org-mode's =contrib/lisp=) to your =load-path=. WordPress's sourcecode
+    =org2blog/wp-use-sourcecode-shortcode= to ~t~. WordPress's sourcecode
     shortcode blocks can be given various [[http://en.support.wordpress.com/code/posting-source-code/#configuration-parameters][configuration parameters]]. These can
     be passed to the exported sourcecode shortcode blocks via an =#+ATTR_WP=
     line immediately preceding the =#+BEGIN_SRC= line, e.g.
