@@ -401,3 +401,5 @@ AsciiMath notation that works in all modern browsers."
     at the location where you wish to split the post.
 
 * Feature Request List
+
+- Use the WordPress REST API instead of MetaWeblog
