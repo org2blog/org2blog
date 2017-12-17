@@ -10,7 +10,7 @@
 ;; Copyright (C) 2013 Peter Vasil <mail@petervasil.net>
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
-;; Version: 1.0.1
+;; Version: 1.0.2
 ;; Keywords: orgmode, wordpress, blog
 
 ;; This program is free software: you can redistribute it and/or modify
@@ -240,7 +240,7 @@ takes effect."
   "Ask before killing buffer")
 (make-variable-buffer-local 'org2blog/wp-buffer-kill-prompt)
 
-(defconst org2blog/wp-version "1.0.1"
+(defconst org2blog/wp-version "1.0.2"
   "Current version of blog.el")
 
 (defvar org2blog/wp-mode-hook nil
