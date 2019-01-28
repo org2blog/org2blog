@@ -53,10 +53,6 @@
 * Usage
 *** Defining your blog setup
 
-    *Note* - This setup works only for org2blog version >=0.3. For
-     lower versions of org2blog check the README from the commit
-     e37126e
-
     You can (should) tell org2blog where your blogs are and optionally
     specify different values for some options. This is done by
     customising the variable =org2blog/wp-blog-alist=.
@@ -372,10 +368,6 @@ AsciiMath notation that works in all modern browsers."
     Customize the variable =org2blog/wp-buffer-template=.
 
   - New-lines are not handled properly. Why?
-
-    The behaviour of new-lines has been working since a little before
-    version 0.3.  It is highly recommended that you use the latest git
-    version of org2blog.
 
     By default, new lines are stripped off from the org buffer.  To
     retain new-lines, unset the =org2blog/wp-keep-new-lines=
