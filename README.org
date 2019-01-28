@@ -7,67 +7,67 @@
 
 * Overview
 
-  org2blog/wp is a tool to publish directly from Emacs's org-mode to
-  [[http://wordpress.org/][WordPress]] blogs.  org2blog/wp is one of the two packages named
-  org2blog.  The other is [[http://repo.or.cz/r/org2blog.git/][org2blog/atom]] by [[http://tehom-blog.blogspot.com/][Tom Breton]].
+org2blog/wp is a tool to publish directly from Emacs's org-mode to
+WordPress]] blogs.  org2blog/wp is one of the two packages named
+org2blog.  The other is [[http://repo.or.cz/r/org2blog.git/][org2blog/atom]] by [[http://tehom-blog.blogspot.com/][Tom Breton]].
 
-  org2blog/wp should, /ideally/, work with any platform that supports
-  xml-rpc but some of WordPress specific features may not work.
+org2blog/wp should, /ideally/, work with any platform that supports
+xml-rpc but some of WordPress specific features may not work.
 
-  org2blog was inspired by and based on a [[http://paste.lisp.org/display/69993][WordPress posting client for
-  muse-mode]] written by [[http://www.emacswiki.org/emacs/AshishShukla][Ashish Shukla]].
+org2blog was inspired by and based on a [[http://paste.lisp.org/display/69993][WordPress posting client for
+muse-mode]] written by [[http://www.emacswiki.org/emacs/AshishShukla][Ashish Shukla]].
 
-  org2blog is licensed under GPLv3
+org2blog is licensed under GPLv3
 
 * Installation
 
-  Download org2blog from GitHub
+Download org2blog from GitHub
 
-  #+begin_src sh
+#+begin_src sh
 git clone http://github.com/punchagan/org2blog.git
-  #+end_src
+#+end_src
 
-  Add the org2blog directory to your load path and then add
+Add the org2blog directory to your load path and then add
 
-  #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (setq load-path (cons "~/.emacs.d/org2blog/" load-path))
 (require 'org2blog-autoloads)
-  #+end_src
+#+end_src
 
-  to your dot emacs.
+to your dot emacs.
 
 *** Dependencies
 
-    1. org2blog depends on
-       - /xml-rpc/ available at [[https://github.com/hexmode/xml-rpc-el][GitHub]]
-       - /metaweblog.el/ available [[https://github.com/punchagan/metaweblog][here]]
-       - /htmlize/ available [[https://github.com/hniksic/emacs-htmlize][here]]
+1. org2blog depends on
+   - /xml-rpc/ available at [[https://github.com/hexmode/xml-rpc-el][GitHub]]
+   - /metaweblog.el/ available [[https://github.com/punchagan/metaweblog][here]]
+   - /htmlize/ available [[https://github.com/hniksic/emacs-htmlize][here]]
 
-       Add them to your /load-path/ before using org2blog.
+   Add them to your /load-path/ before using org2blog.
 
-    2. Make sure you have org-mode 8.3 or later installed.
+2. Make sure you have org-mode 8.3 or later installed.
 
 *** Unicode Character Support
 
-    1. As of <2017-06-26 Mon> if you use Unicode characters in your posts or
-       pages then you need to use [[https://github.com/grettke/xml-rpc-el/blob/master/xml-rpc.el][this]] patched version of ~xml-rpc~
-    2. Installation steps
-       - Back up your local copy of ~xml-rpc.el~
-       - Copy [[https://raw.githubusercontent.com/grettke/xml-rpc-el/master/xml-rpc.el][this]] patched version of ~xml-rpc.el~ to the =xml-rpc= directory
-       - Delete =xml-rpc.elc=
-       - Restart Emacs
+1. As of <2017-06-26 Mon> if you use Unicode characters in your posts or
+   pages then you need to use [[https://github.com/grettke/xml-rpc-el/blob/master/xml-rpc.el][this]] patched version of ~xml-rpc~
+2. Installation steps
+   - Back up your local copy of ~xml-rpc.el~
+   - Copy [[https://raw.githubusercontent.com/grettke/xml-rpc-el/master/xml-rpc.el][this]] patched version of ~xml-rpc.el~ to the =xml-rpc= directory
+   - Delete =xml-rpc.elc=
+   - Restart Emacs
 
 * Usage
 
 *** Defining your blog setup
 
-    You can (should) tell org2blog where your blogs are and optionally
-    specify different values for some options. This is done by
-    customising the variable =org2blog/wp-blog-alist=.
+You can (should) tell org2blog where your blogs are and optionally
+specify different values for some options. This is done by
+customising the variable =org2blog/wp-blog-alist=.
 
-    For example:
+For example:
 
-    #+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (setq org2blog/wp-blog-alist
       '(("wordpress"
          :url "https://username.wordpress.com/xmlrpc.php"
@@ -78,42 +78,42 @@ git clone http://github.com/punchagan/org2blog.git
         ("my-blog"
          :url "http://username.server.com/xmlrpc.php"
          :username "admin")))
-    #+END_SRC
+#+END_SRC
 
-    This defines two blogs identified by the terms =wordpress= and
-    =my-blog=.
+This defines two blogs identified by the terms =wordpress= and
+my-blog=.
 
-    The variables in the =plist= set for each blog over-ride the
-    global values of the corresponding variables. =url= and =username=
-    are mandatory variables. Others are optional. If you customize the
-    variable =org2blog/wp-blog-alist= there is detail information about the
-    meaning of each property.
+The variables in the =plist= set for each blog over-ride the
+global values of the corresponding variables. =url= and =username=
+are mandatory variables. Others are optional. If you customize the
+variable =org2blog/wp-blog-alist= there is detail information about the
+meaning of each property.
 
 ***** Defining your blog setup to automate the login process
 
-    Org2Blog can automatically log you in if you configure a =.netrc= or
-    =.authinfo= file in your home directory.
+Org2Blog can automatically log you in if you configure a =.netrc= or
+.authinfo= file in your home directory.
 
-    Your configuration should look like this
+Your configuration should look like this
 
-    #+begin_src sh
+#+begin_src sh
 machine ⟪myblog⟫ login ⟪myusername⟫ password ⟪myrealpassword⟫
-    #+end_src
+#+end_src
 
-    or like this
+or like this
 
-    #+begin_src sh
+#+begin_src sh
 machine ⟪myblog⟫
 login ⟪myusername⟫
 password ⟪myrealpassword⟫
-    #+end_src
+#+end_src
 
-    Whatever format you use: first replace the contents of the double angle brackets
-    with the actual values, and finally remove the double brackets themselves.
+Whatever format you use: first replace the contents of the double angle brackets
+with the actual values, and finally remove the double brackets themselves.
 
-    Then, configure your blog using those credentials, as shown below.
+Then, configure your blog using those credentials, as shown below.
 
-    #+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (require 'auth-source)
 (let* ((credentials (auth-source-user-and-password "⟪myblog⟫"))
        (username (nth 0 credentials))
@@ -123,72 +123,70 @@ password ⟪myrealpassword⟫
                  :username ,username
                  :password ,password)))
   (setq org2blog/wp-blog-alist config))
-    #+END_SRC
+#+END_SRC
 
-    To browse or customize other variables use the customize group
-    function.
+To browse or customize other variables use the customize group
+function.
 
-    ~M-x customize-group org2blog/wp RET~
+M-x customize-group org2blog/wp RET~
 
 *** Logging In
 
-    Use *M-x org2blog/wp-login*.  This function ask you for the name of one
-    of the blogs you have configured in the org2blog/wp-blog-alist
-    variable described above and will ask for your password. The
-    counterpart of this function is *M-x org2blog/wp-logout*, which will
-    log you out of the active blog.
+Use *M-x org2blog/wp-login*.  This function ask you for the name of one
+of the blogs you have configured in the org2blog/wp-blog-alist
+variable described above and will ask for your password. The
+counterpart of this function is *M-x org2blog/wp-logout*, which will
+log you out of the active blog.
 
 *** Writing a new post
 
-    Use *M-x org2blog/wp-new-entry*.
-     - Tags and Categories are comma or space separated values.
-       Completion (for both) is triggered using *C-c t*.  If a new
-       category is used you will be prompted before adding it.
-     - The excerpt for a post can be written as =#+DESCRIPTION=.
-     - The Permalink of a post can be set using =#+PERMALINK=.
-     - The parent for a page can be specified using =#+PARENT=.  *C-c
-       t* again provides completion for the page name.
+Use *M-x org2blog/wp-new-entry*.
+ - Tags and Categories are comma or space separated values.
+   Completion (for both) is triggered using *C-c t*.  If a new
+   category is used you will be prompted before adding it.
+ - The excerpt for a post can be written as =#+DESCRIPTION=.
+ - The Permalink of a post can be set using =#+PERMALINK=.
+ - The parent for a page can be specified using =#+PARENT=.  *C-c
+   t* again provides completion for the page name.
 
 *** Using post templates
 
-    Custom post templates can be specified by modifying variables
-    =org2blog/wp-buffer-template= and =org2blog/wp-buffer-format-function=.
+Custom post templates can be specified by modifying variables
+org2blog/wp-buffer-template= and =org2blog/wp-buffer-format-function=.
 
-    For example:
+For example:
 
-    #+BEGIN_SRC emacs-lisp
-      (setq org2blog/wp-buffer-template
-            "-----------------------
+#+BEGIN_SRC emacs-lisp
+(setq org2blog/wp-buffer-template
+      "-----------------------
       ,#+TITLE: %s
       ,#+DATE: %s
       -----------------------\n")
-      (defun my-format-function (format-string)
-        (format format-string
-                org2blog/wp-default-title
-                (format-time-string "%d-%m-%Y" (current-time)))))
+(defun my-format-function (format-string)
+  (format format-string
+          org2blog/wp-default-title
+          (format-time-string "%d-%m-%Y" (current-time)))))
       (setq org2blog/wp-buffer-format-function 'my-format-function)
+#+END_SRC
 
-
-    #+END_SRC
-
-    =org2blog/wp-new-entry= will now create buffers begining with a default
-    title and the current date.
+=org2blog/wp-new-entry= will now create buffers begining with a default
+title and the current date.
 
 *** Updating an existing post
 
-    To update a blog post, you can simply edit the content of the org
-    file and republish using ~org2blog~.  The =POSTID= saved in the
-    file, ensures that the same blog post is updated, and a new post
-    is not made.
+To update a blog post, you can simply edit the content of the org
+file and republish using ~org2blog~.  The =POSTID= saved in the
+file, ensures that the same blog post is updated, and a new post
+is not made.
 
 *** Publishing
 
 ***** Keybindings
 
-    | post buffer as draft      | *C-c M-p d* | *M-x     org2blog/wp-post-buffer*         |
-    | publish buffer            | *C-c M-p p* | *C-u M-x org2blog/wp-post-buffer*         |
-    | post buffer as page draft | *C-c M-p D* | *M-x     org2blog/wp-post-buffer-as-page* |
-    | publish buffer as page    | *C-c M-p P* | *C-u M-x org2blog/wp-post-buffer-as-page* |
+| post buffer as draft      | *C-c M-p d* | *M-x     org2blog/wp-post-buffer*         |
+| publish buffer            | *C-c M-p p* | *C-u M-x org2blog/wp-post-buffer*         |
+| post buffer as page draft | *C-c M-p D* | *M-x     org2blog/wp-post-buffer-as-page* |
+| publish buffer as page    | *C-c M-p P* | *C-u M-x org2blog/wp-post-buffer-as-page* |
 
 ***** After Publishing Access The Metadata
 
@@ -213,96 +211,96 @@ Here is an example that displays your post or page information in the
 
 *** Post your existing org-files too
 
-    - Add =#+TITLE=, =#+OPTIONS=, =#+TAGS=, =#+CATEGORY=,
-          =#+DESCRIPTION=, =#+DATE=, to your file.  (All of these are
-      Optional)
-    - Add a =#+POSTID= to edit an existing post.
-    - Post buffer using the function names, as above.
+- Add =#+TITLE=, =#+OPTIONS=, =#+TAGS=, =#+CATEGORY=,
+      =#+DESCRIPTION=, =#+DATE=, to your file.  (All of these are
+  Optional)
+- Add a =#+POSTID= to edit an existing post.
+- Post buffer using the function names, as above.
 
 *** Posting a subtree
 
-    - Use *M-x   org2blog/wp-post-subtree*.
-    - Tags of the subtree will be used for tags.
-    - Other properties can be set using a property drawer.  The
-      properties use the same names as the buffer variables.
-    - =POST_DATE= sets the date to be used for the post. If it is not
-      present, =SCHEDULED=, =DEADLINE= or any other active or inactive
-      time-stamps are used.
-    - The headline is used as the title of the post. But, =TITLE= can
-      be used to use a different title.
+- Use *M-x   org2blog/wp-post-subtree*.
+- Tags of the subtree will be used for tags.
+- Other properties can be set using a property drawer.  The
+  properties use the same names as the buffer variables.
+- =POST_DATE= sets the date to be used for the post. If it is not
+  present, =SCHEDULED=, =DEADLINE= or any other active or inactive
+  time-stamps are used.
+- The headline is used as the title of the post. But, =TITLE= can
+  be used to use a different title.
 
 *** Posting source code blocks
 
-    Babel source blocks or example code is automatically posted in
-    =<pre>= tags.  You can also ask =org2blog= to use WordPress's
-    sourcecode shortcode blocks.
+Babel source blocks or example code is automatically posted in
+<pre>= tags.  You can also ask =org2blog= to use WordPress's
+sourcecode shortcode blocks.
 
-    To use this [[https://en.support.wordpress.com/code/posting-source-code/][this feature]], install a shortcode plugin. For example,
-    [[https://wordpress.org/plugins/syntaxhighlighter/][SyntaxHighlighter Evolved]] seems to work well.
+To use this [[https://en.support.wordpress.com/code/posting-source-code/][this feature]], install a shortcode plugin. For example,
+SyntaxHighlighter Evolved]] seems to work well.
 
-    To use this, you need to set the variable
-    =org2blog/wp-use-sourcecode-shortcode= to ~t~. WordPress's sourcecode
-    shortcode blocks can be given various [[http://en.support.wordpress.com/code/posting-source-code/#configuration-parameters][configuration parameters]]. These can
-    be passed to the exported sourcecode shortcode blocks via an =#+ATTR_WP=
-    line immediately preceding the =#+BEGIN_SRC= line, e.g.
+To use this, you need to set the variable
+org2blog/wp-use-sourcecode-shortcode= to ~t~. WordPress's sourcecode
+shortcode blocks can be given various [[http://en.support.wordpress.com/code/posting-source-code/#configuration-parameters][configuration parameters]]. These can
+be passed to the exported sourcecode shortcode blocks via an =#+ATTR_WP=
+line immediately preceding the =#+BEGIN_SRC= line, e.g.
 
-    #+begin_src org
+#+begin_src org
 ,#+ATTR_WP: :syntaxhl light=true
-    #+end_src
+#+end_src
 
 *** Delete an entry or a page
 
-    - If you are in the buffer of the entry/page, with =#+POSTID=
-      present on the page, use:
+- If you are in the buffer of the entry/page, with =#+POSTID=
+  present on the page, use:
 
-      *M-x org2blog/wp-delete-entry* or *M-x  org2blog/wp-delete-page*
+  *M-x org2blog/wp-delete-entry* or *M-x  org2blog/wp-delete-page*
 
-    - If you want to delete a particular post (whose post-id is known)
-      from any buffer, use
+- If you want to delete a particular post (whose post-id is known)
+  from any buffer, use
 
-      *C-u post-id M-x org2blog/wp-delete-entry*.
+  *C-u post-id M-x org2blog/wp-delete-entry*.
 
-    Similarly, for a page.
+Similarly, for a page.
 
 *** org2blog mode key-bindings and auto loading
 
 ***** Key-Bindings
 
-    - ~org2blog/wp-mode~ defines the following key-bindings
-      | *C-c p* | publish buffer                   |
-      | *C-c d* | post as draft                    |
-      | *C-c t* | complete tag or parent page name |
+- ~org2blog/wp-mode~ defines the following key-bindings
+  | *C-c p* | publish buffer                   |
+  | *C-c d* | post as draft                    |
+  | *C-c t* | complete tag or parent page name |
 
 ***** Auto Loading org2blog Mode
 
-    - Add ~org2blog/wp-org-mode-hook-fn~ to ~org-mode-hook~
-    - So that ~org2blog/wp-mode~ is automatically enabled when ~#+ORG2BLOG:~ is
-      present
-    - Add code like this somewhere after you load Org-Mode and org2blog
-      #+BEGIN_SRC emacs-lisp :results output silent
+- Add ~org2blog/wp-org-mode-hook-fn~ to ~org-mode-hook~
+- So that ~org2blog/wp-mode~ is automatically enabled when ~#+ORG2BLOG:~ is
+  present
+- Add code like this somewhere after you load Org-Mode and org2blog
+  #+BEGIN_SRC emacs-lisp :results output silent
 (add-hook 'org-mode-hook #'org2blog/wp-org-mode-hook-fn)
-      #+END_SRC
-    - Add ~#+ORG2BLOG:~ to your file
-      - When you create a new entry it is automatically created
+  #+END_SRC
+- Add ~#+ORG2BLOG:~ to your file
+  - When you create a new entry it is automatically created
 
 *** Uploading Images or Files
 
-    Only in-line images and linked images (or files) with file:// URLs are
-    supported. They will be uploaded to the media library and the links will
-    be updated. Information about uploaded files is added as a comment to the
-    post itself.
+Only in-line images and linked images (or files) with file:// URLs are
+supported. They will be uploaded to the media library and the links will
+be updated. Information about uploaded files is added as a comment to the
+post itself.
 
-    Captions and attributes as [[http://orgmode.org/manual/Images-in-HTML-export.html][defined]] in org-mode will be preserved,
-    but these attributes are not saved with the image to the library
-    itself.
+Captions and attributes as [[http://orgmode.org/manual/Images-in-HTML-export.html][defined]] in org-mode will be preserved,
+but these attributes are not saved with the image to the library
+itself.
 
 *** "Dashboard" of all posts
 
-    ~org2blog~ makes it easy to manage your blog-posts by actually
-    keeping track of all the posts you make from it, in a simple
-    org-table.  By default it is saved in a file ~.org2blog.org~ in
-    the ~org-directory~.  This is meant to be a dashboard of sorts,
-    and is an optional feature that can be turned off.
+~org2blog~ makes it easy to manage your blog-posts by actually
+keeping track of all the posts you make from it, in a simple
+org-table.  By default it is saved in a file ~.org2blog.org~ in
+the ~org-directory~.  This is meant to be a dashboard of sorts,
+and is an optional feature that can be turned off.
 
 *** MathJax Support
 
@@ -342,107 +340,107 @@ AsciiMath notation that works in all modern browsers."
 
 * Miscellaneous
 
-  1. You may want to look at the [[http://orgmode.org/manual/Export-options.html#Export-options][Export options]] and [[http://orgmode.org/manual/HTML-export.html#HTML-export][HTML export]]
-     sections of the org-manual.
+1. You may want to look at the [[http://orgmode.org/manual/Export-options.html#Export-options][Export options]] and [[http://orgmode.org/manual/HTML-export.html#HTML-export][HTML export]]
+   sections of the org-manual.
 
-  2. If you wish to post to blogger from org-mode, look at -
+2. If you wish to post to blogger from org-mode, look at -
 
-     1. [[http://repo.or.cz/r/org2blog.git/][org2blog/atom]], a g-client extension by [[http://tehom-blog.blogspot.com/][Tom Breton]]
+   1. [[http://repo.or.cz/r/org2blog.git/][org2blog/atom]], a g-client extension by [[http://tehom-blog.blogspot.com/][Tom Breton]]
 
-     2. [[http://github.com/rileyrg/org-googlecl][org-googlecl]] by Richard Riley -- uses [[http://code.google.com/p/googlecl/][googlecl]]
+   2. [[http://github.com/rileyrg/org-googlecl][org-googlecl]] by Richard Riley -- uses [[http://code.google.com/p/googlecl/][googlecl]]
 
-  3. Please go through the README and the FAQ, before writing to me.
-     Also, looking at =M-x customize-group org2blog-wp= might help.
+3. Please go through the README and the FAQ, before writing to me.
+   Also, looking at =M-x customize-group org2blog-wp= might help.
 
-  4. If you have an issue/bug/feature request, use the issue tracker
-     on git or drop a mail to punchagan+org2blog[at]gmail[dot]com.
-     I'd also appreciate patches/suggestions to improve the
-     documentation.  Feel free to drop in with general comments, too.
-     I'd love to hear from you!  NOTE: If you are using the package
-     from ELPA, please try using the latest =git= version
-     before filing a bug report.
+4. If you have an issue/bug/feature request, use the issue tracker
+   on git or drop a mail to punchagan+org2blog[at]gmail[dot]com.
+   I'd also appreciate patches/suggestions to improve the
+   documentation.  Feel free to drop in with general comments, too.
+   I'd love to hear from you!  NOTE: If you are using the package
+   from ELPA, please try using the latest =git= version
+   before filing a bug report.
 
-  5. Feel free to add your site to the list of sites using org2blog,
-     on the [[https://github.com/punchagan/org2blog/wiki/Blogs-using-org2blog][wiki]] at github.
+5. Feel free to add your site to the list of sites using org2blog,
+   on the [[https://github.com/punchagan/org2blog/wiki/Blogs-using-org2blog][wiki]] at github.
 
 * FAQ
 
-  - How many blogs can I configure with org2blog?
+- How many blogs can I configure with org2blog?
 
-    You can configure and use any number of blogs with org2blog/wp.
-    Use the ~org2blog/wp-blog-alist~ variable to configure each blog.
-    Look at the [[Defining your blog setup]] section, in the README.  But,
-    note that you can be logged in, to just one blog at a time.
+  You can configure and use any number of blogs with org2blog/wp.
+  Use the ~org2blog/wp-blog-alist~ variable to configure each blog.
+  Look at the [[Defining your blog setup]] section, in the README.  But,
+  note that you can be logged in, to just one blog at a time.
 
-  - How do I change the default title of a new post?
+- How do I change the default title of a new post?
 
-    #+begin_src emacs-lisp
+#+begin_src emacs-lisp
 (setq org2blog/wp-default-title "My New Title")
-    #+end_src
+#+end_src
 
-  - How do I change the default title for one blog alone?
+- How do I change the default title for one blog alone?
 
-    Set the relevant (~:default-title~) variable in the
-    ~org2blog/wp-blog-alist~ variable.
+  Set the relevant (~:default-title~) variable in the
+  ~org2blog/wp-blog-alist~ variable.
 
-  - I do not use tags. I wish to use them as categories. How?
+- I do not use tags. I wish to use them as categories. How?
 
-    Setting the ~org2blog/wp-use-tags-as-categories~ variable will do
-    that for all the blogs.
+  Setting the ~org2blog/wp-use-tags-as-categories~ variable will do
+  that for all the blogs.
 
-    #+begin_src emacs-lisp
+  #+begin_src emacs-lisp
 (setq org2blog/wp-use-tags-as-categories t)
-    #+end_src
+  #+end_src
 
-    Instead, you can set the corresponding variable for each blog that
-    you are using.
+  Instead, you can set the corresponding variable for each blog that
+  you are using.
 
-  - Can I configure org2blog to confirm before publishing a post?
+- Can I configure org2blog to confirm before publishing a post?
 
-    #+begin_src emacs-lisp
+  #+begin_src emacs-lisp
 (setq org2blog/wp-confirm-post t)
-    #+end_src
+  #+end_src
 
-  - I wish to customize the default template of a new post. How do I
-    do it?
+- I wish to customize the default template of a new post. How do I
+  do it?
 
-    Customize the variable =org2blog/wp-buffer-template=.
+  Customize the variable =org2blog/wp-buffer-template=.
 
-  - New-lines are not handled properly. Why?
+- New-lines are not handled properly. Why?
 
-    By default, new lines are stripped off from the org buffer.  To
-    retain new-lines, unset the =org2blog/wp-keep-new-lines=
-    variable.
+  By default, new lines are stripped off from the org buffer.  To
+  retain new-lines, unset the =org2blog/wp-keep-new-lines=
+  variable.
 
-  - Why aren't my SRC blocks not enclosed in =[sourcecode]
-    [/sourcecode]=  block?
+- Why aren't my SRC blocks not enclosed in =[sourcecode]
+  [/sourcecode]=  block?
 
-    Set the =org2blog/wp-use-sourcecode-shortcode= variable to turn on
-    this behaviour.  You may also set it at a per-blog level, if you
-    choose.
+  Set the =org2blog/wp-use-sourcecode-shortcode= variable to turn on
+  this behaviour.  You may also set it at a per-blog level, if you
+  choose.
 
-  - Is wordpress the only CMS/Blog-engine that org2blog/wp supports?
+- Is wordpress the only CMS/Blog-engine that org2blog/wp supports?
 
-    Any blog engine using the metaweblog API should work,
-    theoretically.  But, it is not tested with other blog engines.
+  Any blog engine using the metaweblog API should work,
+  theoretically.  But, it is not tested with other blog engines.
 
-    One happy user reports that org2blog [[https://github.com/punchagan/org2blog/issues/issue/37][also works]] with the [[http://dotclear.org/][Dotclear]]
-    weblog engine.
+  One happy user reports that org2blog [[https://github.com/punchagan/org2blog/issues/issue/37][also works]] with the [[http://dotclear.org/][Dotclear]]
+  weblog engine.
 
-  - Is there a way to import from WordPress or other blogs into the
-    org2blog post format?
+- Is there a way to import from WordPress or other blogs into the
+  org2blog post format?
 
-    I've a simple [[https://github.com/punchagan/org2blog-importers/blob/master/wp_to_org2blog.py][python script]] that uses ~pandoc~ to convert from
-    WordPress export xml to org2blog posts.  It could easily be
-    tweaked to write importers for other kinds of blogs.
+  I've a simple [[https://github.com/punchagan/org2blog-importers/blob/master/wp_to_org2blog.py][python script]] that uses ~pandoc~ to convert from
+  WordPress export xml to org2blog posts.  It could easily be
+  tweaked to write importers for other kinds of blogs.
 
-  - How do I split a post into an introductory paragraph and a full
-    view.
+- How do I split a post into an introductory paragraph and a full
+  view.
 
-    Just put in
+  Just put in
 
-    #+begin_src org
+#+begin_src org
 ,#+HTML: <!--more-->
-    #+end_src
+#+end_src
 
-    at the location where you wish to split the post.
+at the location where you wish to split the post.
