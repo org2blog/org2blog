@@ -114,8 +114,8 @@ password ⟪myrealpassword⟫
        (config `("wordpress"
                  :url "http://username.server.com/xmlrpc.php"
                  :username ,username
-                 :password ,password))))
-  (setq org2blog/wp-blog-alist config))
+                 :password ,password)))
+  (setq org2blog/wp-blog-alist config)))
     #+END_SRC
 
     To browse or customize other variables use the customize group
