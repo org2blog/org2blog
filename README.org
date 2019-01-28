@@ -6,6 +6,7 @@
 [[https://gitter.im/punchagan/org2blog?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge][https://badges.gitter.im/Join%20Chat.svg]] [[https://travis-ci.org/punchagan/org2blog][https://travis-ci.org/punchagan/org2blog.svg]]
 
 * Overview
+
   org2blog/wp is a tool to publish directly from Emacs's org-mode to
   [[http://wordpress.org/][WordPress]] blogs.  org2blog/wp is one of the two packages named
   org2blog.  The other is [[http://repo.or.cz/r/org2blog.git/][org2blog/atom]] by [[http://tehom-blog.blogspot.com/][Tom Breton]].
@@ -36,6 +37,7 @@ git clone http://github.com/punchagan/org2blog.git
   to your dot emacs.
 
 *** Dependencies
+
     1. org2blog depends on
        - /xml-rpc/ available at [[https://github.com/hexmode/xml-rpc-el][GitHub]]
        - /metaweblog.el/ available [[https://github.com/punchagan/metaweblog][here]]
@@ -46,6 +48,7 @@ git clone http://github.com/punchagan/org2blog.git
     2. Make sure you have org-mode 8.3 or later installed.
 
 *** Unicode Character Support
+
     1. As of <2017-06-26 Mon> if you use Unicode characters in your posts or
        pages then you need to use [[https://github.com/grettke/xml-rpc-el/blob/master/xml-rpc.el][this]] patched version of ~xml-rpc~
     2. Installation steps
@@ -55,6 +58,7 @@ git clone http://github.com/punchagan/org2blog.git
        - Restart Emacs
 
 * Usage
+
 *** Defining your blog setup
 
     You can (should) tell org2blog where your blogs are and optionally
@@ -127,6 +131,7 @@ password ⟪myrealpassword⟫
     ~M-x customize-group org2blog/wp RET~
 
 *** Logging In
+
     Use *M-x org2blog/wp-login*.  This function ask you for the name of one
     of the blogs you have configured in the org2blog/wp-blog-alist
     variable described above and will ask for your password. The
@@ -134,6 +139,7 @@ password ⟪myrealpassword⟫
     log you out of the active blog.
 
 *** Writing a new post
+
     Use *M-x org2blog/wp-new-entry*.
      - Tags and Categories are comma or space separated values.
        Completion (for both) is triggered using *C-c t*.  If a new
@@ -144,6 +150,7 @@ password ⟪myrealpassword⟫
        t* again provides completion for the page name.
 
 *** Using post templates
+
     Custom post templates can be specified by modifying variables
     =org2blog/wp-buffer-template= and =org2blog/wp-buffer-format-function=.
 
@@ -168,18 +175,23 @@ password ⟪myrealpassword⟫
     title and the current date.
 
 *** Updating an existing post
+
     To update a blog post, you can simply edit the content of the org
     file and republish using ~org2blog~.  The =POSTID= saved in the
     file, ensures that the same blog post is updated, and a new post
     is not made.
 
 *** Publishing
+
 ***** Keybindings
+
     | post buffer as draft      | *C-c M-p d* | *M-x     org2blog/wp-post-buffer*         |
     | publish buffer            | *C-c M-p p* | *C-u M-x org2blog/wp-post-buffer*         |
     | post buffer as page draft | *C-c M-p D* | *M-x     org2blog/wp-post-buffer-as-page* |
     | publish buffer as page    | *C-c M-p P* | *C-u M-x org2blog/wp-post-buffer-as-page* |
+
 ***** After Publishing Access The Metadata
+
 Now your post or page exists both in your Org-Mode file on your computer, and
 also in WordPress itself. That page or post inside of WordPress contains a lot
 of metadata and you might be interested in some of it. [[https://codex.wordpress.org/XML-RPC_MetaWeblog_API][Here]] is documentation
@@ -198,13 +210,17 @@ Here is an example that displays your post or page information in the
 #+BEGIN_SRC emacs-lisp
 (add-hook 'org2blog/wp-after-new-post-or-page-functions (lambda (p) (pp p)))
 #+END_SRC
+
 *** Post your existing org-files too
+
     - Add =#+TITLE=, =#+OPTIONS=, =#+TAGS=, =#+CATEGORY=,
           =#+DESCRIPTION=, =#+DATE=, to your file.  (All of these are
       Optional)
     - Add a =#+POSTID= to edit an existing post.
     - Post buffer using the function names, as above.
+
 *** Posting a subtree
+
     - Use *M-x   org2blog/wp-post-subtree*.
     - Tags of the subtree will be used for tags.
     - Other properties can be set using a property drawer.  The
@@ -214,7 +230,9 @@ Here is an example that displays your post or page information in the
       time-stamps are used.
     - The headline is used as the title of the post. But, =TITLE= can
       be used to use a different title.
+
 *** Posting source code blocks
+
     Babel source blocks or example code is automatically posted in
     =<pre>= tags.  You can also ask =org2blog= to use WordPress's
     sourcecode shortcode blocks.
@@ -233,6 +251,7 @@ Here is an example that displays your post or page information in the
     #+end_src
 
 *** Delete an entry or a page
+
     - If you are in the buffer of the entry/page, with =#+POSTID=
       present on the page, use:
 
@@ -246,12 +265,16 @@ Here is an example that displays your post or page information in the
     Similarly, for a page.
 
 *** org2blog mode key-bindings and auto loading
+
 ***** Key-Bindings
+
     - ~org2blog/wp-mode~ defines the following key-bindings
       | *C-c p* | publish buffer                   |
       | *C-c d* | post as draft                    |
       | *C-c t* | complete tag or parent page name |
+
 ***** Auto Loading org2blog Mode
+
     - Add ~org2blog/wp-org-mode-hook-fn~ to ~org-mode-hook~
     - So that ~org2blog/wp-mode~ is automatically enabled when ~#+ORG2BLOG:~ is
       present
@@ -263,6 +286,7 @@ Here is an example that displays your post or page information in the
       - When you create a new entry it is automatically created
 
 *** Uploading Images or Files
+
     Only in-line images and linked images (or files) with file:// URLs are
     supported. They will be uploaded to the media library and the links will
     be updated. Information about uploaded files is added as a comment to the
@@ -273,12 +297,15 @@ Here is an example that displays your post or page information in the
     itself.
 
 *** "Dashboard" of all posts
+
     ~org2blog~ makes it easy to manage your blog-posts by actually
     keeping track of all the posts you make from it, in a simple
     org-table.  By default it is saved in a file ~.org2blog.org~ in
     the ~org-directory~.  This is meant to be a dashboard of sorts,
     and is an optional feature that can be turned off.
+
 *** MathJax Support
+
 "[[http://docs.mathjax.org/en/latest/mathjax.html][MathJax]] is an open-source JavaScript display engine for LaTeX, MathML, and
 AsciiMath notation that works in all modern browsers."
 
@@ -312,7 +339,9 @@ AsciiMath notation that works in all modern browsers."
 ,#+HTML_HEAD:   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js">
 ,#+HTML_HEAD: </script>
   #+END_EXAMPLE
+
 * Miscellaneous
+
   1. You may want to look at the [[http://orgmode.org/manual/Export-options.html#Export-options][Export options]] and [[http://orgmode.org/manual/HTML-export.html#HTML-export][HTML export]]
      sections of the org-manual.
 
@@ -337,6 +366,7 @@ AsciiMath notation that works in all modern browsers."
      on the [[https://github.com/punchagan/org2blog/wiki/Blogs-using-org2blog][wiki]] at github.
 
 * FAQ
+
   - How many blogs can I configure with org2blog?
 
     You can configure and use any number of blogs with org2blog/wp.
