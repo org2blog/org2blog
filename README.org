@@ -22,12 +22,16 @@
 
   Download org2blog from GitHub
 
-  : git clone http://github.com/punchagan/org2blog.git
+  #+begin_src sh
+git clone http://github.com/punchagan/org2blog.git
+  #+end_src
 
   Add the org2blog directory to your load path and then add
 
-  : (setq load-path (cons "~/.emacs.d/org2blog/" load-path))
-  : (require 'org2blog-autoloads)
+  #+begin_src emacs-lisp
+(setq load-path (cons "~/.emacs.d/org2blog/" load-path))
+(require 'org2blog-autoloads)
+  #+end_src
 
   to your dot emacs.
 
@@ -60,17 +64,16 @@
     For example:
 
     #+BEGIN_SRC emacs-lisp
-      (setq org2blog/wp-blog-alist
-            '(("wordpress"
-               :url "https://username.wordpress.com/xmlrpc.php"
-               :username "username"
-               :default-title "Hello World"
-               :default-categories ("org2blog" "emacs")
-               :tags-as-categories nil)
-              ("my-blog"
-               :url "http://username.server.com/xmlrpc.php"
-               :username "admin")))
-
+(setq org2blog/wp-blog-alist
+      '(("wordpress"
+         :url "https://username.wordpress.com/xmlrpc.php"
+         :username "username"
+         :default-title "Hello World"
+         :default-categories ("org2blog" "emacs")
+         :tags-as-categories nil)
+        ("my-blog"
+         :url "http://username.server.com/xmlrpc.php"
+         :username "admin")))
     #+END_SRC
 
     This defines two blogs identified by the terms =wordpress= and
@@ -121,7 +124,7 @@ password ⟪myrealpassword⟫
     To browse or customize other variables use the customize group
     function.
 
-    : M-x customize-group org2blog/wp RET
+    ~M-x customize-group org2blog/wp RET~
 
 *** Logging In
     Use *M-x org2blog/wp-login*.  This function ask you for the name of one
@@ -225,7 +228,9 @@ Here is an example that displays your post or page information in the
     be passed to the exported sourcecode shortcode blocks via an =#+ATTR_WP=
     line immediately preceding the =#+BEGIN_SRC= line, e.g.
 
-    : #+ATTR_WP: :syntaxhl light=true
+    #+begin_src org
+,#+ATTR_WP: :syntaxhl light=true
+    #+end_src
 
 *** Delete an entry or a page
     - If you are in the buffer of the entry/page, with =#+POSTID=
@@ -341,7 +346,9 @@ AsciiMath notation that works in all modern browsers."
 
   - How do I change the default title of a new post?
 
-    : (setq org2blog/wp-default-title "My New Title")
+    #+begin_src emacs-lisp
+(setq org2blog/wp-default-title "My New Title")
+    #+end_src
 
   - How do I change the default title for one blog alone?
 
@@ -353,14 +360,18 @@ AsciiMath notation that works in all modern browsers."
     Setting the ~org2blog/wp-use-tags-as-categories~ variable will do
     that for all the blogs.
 
-    : (setq org2blog/wp-use-tags-as-categories t)
+    #+begin_src emacs-lisp
+(setq org2blog/wp-use-tags-as-categories t)
+    #+end_src
 
     Instead, you can set the corresponding variable for each blog that
     you are using.
 
   - Can I configure org2blog to confirm before publishing a post?
 
-    : (setq org2blog/wp-confirm-post t)
+    #+begin_src emacs-lisp
+(setq org2blog/wp-confirm-post t)
+    #+end_src
 
   - I wish to customize the default template of a new post. How do I
     do it?
@@ -400,6 +411,8 @@ AsciiMath notation that works in all modern browsers."
 
     Just put in
 
-    : #+HTML: <!--more-->
+    #+begin_src org
+,#+HTML: <!--more-->
+    #+end_src
 
     at the location where you wish to split the post.
