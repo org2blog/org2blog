@@ -374,9 +374,9 @@ AsciiMath notation that works in all modern browsers."
 
 - How do I change the default title of a new post?
 
-#+begin_src emacs-lisp
+  #+begin_src emacs-lisp
 (setq org2blog/wp-default-title "My New Title")
-#+end_src
+  #+end_src
 
 - How do I change the default title for one blog alone?
 
@@ -435,12 +435,12 @@ AsciiMath notation that works in all modern browsers."
   tweaked to write importers for other kinds of blogs.
 
 - How do I split a post into an introductory paragraph and a full
-  view.
+  view?
 
-  Just put in
+  At the location where you wish to split the post, insert
 
-#+begin_src org
+  #+begin_src org
 ,#+HTML: <!--more-->
-#+end_src
+  #+end_src
 
-at the location where you wish to split the post.
+
