@@ -9,7 +9,7 @@
 
 org2blog/wp is a tool to publish directly from Emacs's org-mode to
 WordPress]] blogs.  org2blog/wp is one of the two packages named
-org2blog.  The other is [[http://repo.or.cz/r/org2blog.git/][org2blog/atom]] by [[http://tehom-blog.blogspot.com/][Tom Breton]].
+org2blog.  The other is org2blog/atom by [[http://tehom-blog.blogspot.com/][Tom Breton]].
 
 org2blog/wp should, /ideally/, work with any platform that supports
 xml-rpc but some of WordPress specific features may not work.
