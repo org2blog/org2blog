@@ -345,7 +345,7 @@ AsciiMath notation that works in all modern browsers."
 
 2. If you wish to post to blogger from org-mode, look at -
 
-   1. [[http://repo.or.cz/r/org2blog.git/][org2blog/atom]], a g-client extension by [[http://tehom-blog.blogspot.com/][Tom Breton]]
+   1. org2blog/atom, a g-client extension by [[http://tehom-blog.blogspot.com/][Tom Breton]]
 
    2. [[http://github.com/rileyrg/org-googlecl][org-googlecl]] by Richard Riley -- uses [[http://code.google.com/p/googlecl/][googlecl]]
 
