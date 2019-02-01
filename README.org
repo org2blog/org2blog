@@ -264,12 +264,28 @@ Similarly, for a page.
 
 *** org2blog mode key-bindings and auto loading
 
-***** Key-Bindings
+***** User-Interface Hydra & Key-Bindings
 
-- ~org2blog/wp-mode~ defines the following key-bindings
-  | *C-c p* | publish buffer                   |
-  | *C-c d* | post as draft                    |
-  | *C-c t* | complete tag or parent page name |
+In addition to built-in keybindings (see code for details), org2blog/wp
+also includes a Hydra user-interface. To call the Hydra manually
+type ~M-x org2blog/wp-hydra/body~. It is it better though to load it every time
+your enter an Org2Blog file like this:
+
+#+begin_src emacs-lisp
+(defun my/org2blog/wp-mode-hook-fn ()
+  (local-set-key (kbd "M-9") #'org2blog/wp-hydra/body)
+  (local-set-key (kbd "M-0") #'org2blog/wp-complete-category))
+(add-hook 'org2blog/wp-mode-hook #'my/org2blog/wp-mode-hook-fn)
+#+end_src
+
+You can use whatever key bindings you like, but these seem to be free in the
+Org mode map.
+
+When you run the Hydra it should look something like this:
+
+<p align="center"><img src="./images/org2blog-wp-hydra.png" alt="org2blog/wp-hydra"></p>
+
+Now the rest of this document will explain everything this Hydra provides.
 
 ***** Auto Loading org2blog Mode
 

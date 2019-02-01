@@ -10,7 +10,7 @@
 ;; Copyright (C) 2013 Peter Vasil <mail@petervasil.net>
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
-;; Version: 1.0.2
+;; Version: 1.0.3
 ;; Keywords: orgmode, wordpress, blog
 
 ;; This program is free software: you can redistribute it and/or modify
@@ -57,6 +57,7 @@
 (require 'metaweblog)
 (require 'ox-wp)
 (require 'htmlize)
+(require 'hydra)
 
 (defgroup org2blog/wp nil
   "Post to weblogs from Emacs"
@@ -240,7 +241,7 @@ takes effect."
   "Ask before killing buffer")
 (make-variable-buffer-local 'org2blog/wp-buffer-kill-prompt)
 
-(defconst org2blog/wp-version "1.0.2"
+(defconst org2blog/wp-version "1.0.3"
   "Current version of blog.el")
 
 (defvar org2blog/wp-mode-hook nil
@@ -336,7 +337,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
     (when (org2blog/wp-get-option "ORG2BLOG")
       (org2blog/wp-mode t))))
 
-(defun forg2blog/wp-debug (on)
+(defun org2blog/wp-debug (on)
   "Call with a prefix-argument to enable debugging through the XML-RPC call process and without one to disable debugging.
 
 org2blog/wp operates using the following APIs in the order
@@ -1269,5 +1270,46 @@ and munge it a little to make it suitable to use with the
     parsed-entry))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defhydra org2blog/wp-hydra (:color blue :hint nil)
+  "
+Org2Blog
+^╔══════^═══════════╦═^═══^═════════════════════════╦═^══════════════════════════╗
+^║ Admin^           ║ ^Use^                         ║ ^Do To: Buffer (or Subtree)║
+^╚══════^═══════════╩═^═══^═════════════════════════╩═^══════════════════════════╝
+  _i_: Login          _n_: New Entry                  _h_(_H_): Post It
+  _s_: Set Password   _c_: Complete Category or Tag   _v_(_V_): Preview It
+  _D_: Debug On       ^^                              _t_(_T_): Publish It As Post
+  _d_: Debug Off      ^^                              _e_(_E_): Publish It As Page
+  _o_: Logout         ^^
+  _q_: Quit           ^^
+ "
+
+  ;;; Admin
+  ("i" org2blog/wp-login)
+  ("s" org2blog/wp-password)
+  ("D" (lambda () (interactive)
+         (let ((current-prefix-arg '(4)))
+           (call-interactively 'org2blog/wp-debug))))
+  ("d" org2blog/wp-debug)
+  ("o" org2blog/wp-logout)
+  ("q" nil)
+
+  ;;; Use
+  ("n" org2blog/wp-new-entry)
+  ("c" org2blog/wp-complete-category)
+
+  ;;; Do
+  ("h" org2blog/wp-post-buffer)
+  ("H" org2blog/wp-post-buffer-as-page)
+  ;; Previewing
+  ("v" org2blog/wp-preview-buffer-post)
+  ("V" org2blog/wp-preview-subtree-post)
+  ;; Publishing: Posts
+  ("t" org2blog/wp-post-buffer-and-publish)
+  ("T" org2blog/wp-post-subtree-and-publish)
+  ;; Publishing: Pages
+  ("e" org2blog/wp-post-buffer-as-page-and-publish)
+  ("E" org2blog/wp-post-subtree-as-page-and-publish))
 
 (provide 'org2blog)
