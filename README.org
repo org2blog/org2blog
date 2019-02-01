@@ -57,6 +57,39 @@ to your dot emacs.
    - Delete =xml-rpc.elc=
    - Restart Emacs
 
+*** Auto Loading org2blog Mode
+
+- Add ~org2blog/wp-org-mode-hook-fn~ to ~org-mode-hook~
+- So that ~org2blog/wp-mode~ is automatically enabled when ~#+ORG2BLOG:~ is
+  present
+- Add code like this somewhere after you load Org-Mode and org2blog
+  #+BEGIN_SRC emacs-lisp :results output silent
+(add-hook 'org-mode-hook #'org2blog/wp-org-mode-hook-fn)
+  #+END_SRC
+- Add ~#+ORG2BLOG:~ to your file
+  - When you create a new entry it is automatically created
+
+*** User-Interface Hydra & Key-Bindings
+
+In addition to built-in keybindings (see above & code for details), org2blog/wp
+also includes a Hydra user-interface. To call the Hydra manually
+type ~M-x org2blog/wp-hydra/body~. It is it better though to load it every time
+your enter an Org2Blog file like this:
+
+#+begin_src emacs-lisp
+(defun my/org2blog/wp-mode-hook-fn ()
+  (local-set-key (kbd "M-9") #'org2blog/wp-hydra/body)
+  (local-set-key (kbd "M-0") #'org2blog/wp-complete-category))
+(add-hook 'org2blog/wp-mode-hook #'my/org2blog/wp-mode-hook-fn)
+#+end_src
+
+You can use whatever key bindings you like, but these seem to be free in the
+Org mode map.
+
+When you run the Hydra it should look something like this:
+
+[[file:images/org2blog-wp-hydra.png]]
+
 * Usage
 
 *** Defining your blog setup
@@ -261,41 +294,6 @@ line immediately preceding the =#+BEGIN_SRC= line, e.g.
   *C-u post-id M-x org2blog/wp-delete-entry*.
 
 Similarly, for a page.
-
-*** org2blog mode key-bindings and auto loading
-
-***** User-Interface Hydra & Key-Bindings
-
-In addition to built-in keybindings (see above & code for details), org2blog/wp
-also includes a Hydra user-interface. To call the Hydra manually
-type ~M-x org2blog/wp-hydra/body~. It is it better though to load it every time
-your enter an Org2Blog file like this:
-
-#+begin_src emacs-lisp
-(defun my/org2blog/wp-mode-hook-fn ()
-  (local-set-key (kbd "M-9") #'org2blog/wp-hydra/body)
-  (local-set-key (kbd "M-0") #'org2blog/wp-complete-category))
-(add-hook 'org2blog/wp-mode-hook #'my/org2blog/wp-mode-hook-fn)
-#+end_src
-
-You can use whatever key bindings you like, but these seem to be free in the
-Org mode map.
-
-When you run the Hydra it should look something like this:
-
-[[file:images/org2blog-wp-hydra.png]]
-
-***** Auto Loading org2blog Mode
-
-- Add ~org2blog/wp-org-mode-hook-fn~ to ~org-mode-hook~
-- So that ~org2blog/wp-mode~ is automatically enabled when ~#+ORG2BLOG:~ is
-  present
-- Add code like this somewhere after you load Org-Mode and org2blog
-  #+BEGIN_SRC emacs-lisp :results output silent
-(add-hook 'org-mode-hook #'org2blog/wp-org-mode-hook-fn)
-  #+END_SRC
-- Add ~#+ORG2BLOG:~ to your file
-  - When you create a new entry it is automatically created
 
 *** Uploading Images or Files
 
