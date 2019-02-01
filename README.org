@@ -266,7 +266,7 @@ Similarly, for a page.
 
 ***** User-Interface Hydra & Key-Bindings
 
-In addition to built-in keybindings (see code for details), org2blog/wp
+In addition to built-in keybindings (see above & code for details), org2blog/wp
 also includes a Hydra user-interface. To call the Hydra manually
 type ~M-x org2blog/wp-hydra/body~. It is it better though to load it every time
 your enter an Org2Blog file like this:
@@ -283,9 +283,9 @@ Org mode map.
 
 When you run the Hydra it should look something like this:
 
+#+begin_export html
 <p align="center"><img src="./images/org2blog-wp-hydra.png" alt="org2blog/wp-hydra"></p>
-
-Now the rest of this document will explain everything this Hydra provides.
+#+end_export
 
 ***** Auto Loading org2blog Mode
 
