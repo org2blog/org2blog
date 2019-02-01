@@ -336,12 +336,91 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
     (when (org2blog/wp-get-option "ORG2BLOG")
       (org2blog/wp-mode t))))
 
+(defun forg2blog/wp-debug (on)
+  "Call with a prefix-argument to enable debugging through the XML-RPC call process and without one to disable debugging.
+
+org2blog/wp operates using the following APIs in the order
+listed below, followed by details about their debug output:
+
+- xml-rpc: Message processing layer
+  - The XML content to post the request to the server over
+    HTTP. Useful for testing with cURL and comparing the
+    results to xml-rpc.
+    - View call request data in buffer: request-data
+  - The internal data structure used to make the
+    post call. Useful for a quick view of the call details
+    as an Elisp list.
+    - View xml-rpc method call data in buffer: func-call
+- url-util: Message transfer layer
+  - Debug messages output in buffer: *URL-DEBUG*
+- gnutls: Secure communications layer
+  - Debug messages output in buffer: *Messages*
+
+Investigate by going through layer's messages from top to bottom.
+
+You usually only need to keep track of what is happening between
+two of them because if it is doing what you expect then you
+can move on.
+
+Consider print messages where you need them and also using edebug.
+With virtually no setup, Edebug lets you walk through a function
+and evaluate local variable to see precisely what is happening.
+
+After studying the request body, messages, and control flow and
+things still don't work then the best thing to do is to test the
+call using another tool. Once you've got a copy of the xml request
+body you can test it using cURL. By this point you'll have a
+better sense of where things are happening, or not, and now
+might be the time to move on to the transfer layer.
+
+If you are investigating at the GnuTLS layer it helps to study
+the debug messages side by side with the output of an analysis
+tool like tcpdump or Wireshark. Viewing them side-by-side helps
+to make better sense of the flow and interactions between what
+you expected, the APIs tried to do, and what really happened
+over the wire. If the time comes to dig deeper into the
+communications layer then start by reading more in the variable
+`gnutls-algorithm-priority' and it's referenced GnuTLS
+documentation.
+
+This is beyond the domains of Emacs and into GnuTLS. However,
+it will let you do things like selectively enable and disable
+protocols to help narrow down what works and what doesn't, helping
+you further investigate the issue. The contents of the debug
+buffer include things like certificate version and issuer, public
+key algorithm, and protocol. The protocol information is particularly
+important because when clients connect to a server the protocol
+is often negotiated and it might not be what you expect. For
+example this is why your XML request might work using cURL
+but not using gnutls: the negotiated protocol version might not quite work
+right between your client and the server! A solution here then is to
+force a different method by customizing `gnutls-algorithm-priority'.
+If you get this far, then give yourself a pat on the back for digging
+deeper. It is actually pretty fun to look behind the curtain and what
+is happening on the socket layer. Of course that is only looking
+back at it—at the time it is pretty unpleasant!
+
+Tracking down the unexpected behavior requires no magic–just
+patience and persistence and definitely talking it through
+with others. Before getting overwhelmed, take a break and
+consider reaching out using email or an Issue Request.
+
+Remember: Org2Blog is trying to keep the fun in blogging. So
+enjoy working through your debugging session, it is one step
+closer to doing more blogging!
+"
+  (interactive "P")
+  (setq xml-rpc-debug (if on 3 0))
+  (setq url-debug (if on t nil))
+  (setq gnutls-log-level (if on 2 0))
+  (message "Org2Blog Debug: %s" (if on "Enabled" "Disabled")))
+
 (defun org2blog/wp-create-categories (categories)
   "Prompt and create new categories on WordPress."
   (mapcar
    (lambda (cat)
      (if (and (not (member cat org2blog/wp-categories-list))
-              (y-or-n-p (format "Create '%s' category? " cat)))
+            (y-or-n-p (format "Create '%s' category? " cat)))
          (wp-new-category org2blog/wp-server-xmlrpc-url
                           org2blog/wp-server-userid
                           org2blog/wp-server-pass

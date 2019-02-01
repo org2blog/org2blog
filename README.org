@@ -338,6 +338,36 @@ AsciiMath notation that works in all modern browsers."
 ,#+HTML_HEAD: </script>
   #+END_EXAMPLE
 
+*** When Things Go Wrong: How To Debug
+
+When you can't post then you know that things have gone wrong and you need to
+figure out who, what, when, where, why, and how. It is pretty easy though just
+stick with the basics.
+
+Test everything you can do with a web-browser. Is the server up? Can you reach
+it? Can you log in? Can you hit the XML-RPC port? If all of that works then
+move on looking at your configuration.
+
+Has anything changed? Are your stored credentials still present? Have you
+looked at the ~*Messages*~ buffer? Is your caps-lock key on? If none of these
+resolve it them move on the debugging.
+
+If you have never debugged something before than be at ease because it is
+prety easy. Get started by enabling it by typing ~C-u M-x org2blog/wp-debug~.
+Then read the function documentation for ~org2blog/wp-debug~ by typing ~C-h f
+org2blog/wp-debug~. It is pretty detailed but that is what you need right now.
+
+Debugging is like eating a layer cake from the top to the bottom, taking your
+time to study it and poke around to figure out what is happening where. It
+might not be as sweet as a layer cake, but when you resolve the issue it will
+taste just as good. If you get stuck, reach out ASAP by filing an [[https://github.com/org2blog/org2blog/issues][Issue
+Request]] because the odds are that you are probably not the first to face this
+problem. Whether you are the first or not: know that I am here to help you
+resolve it.
+
+Finally when you are finished disable debugging by typing ~M-x
+org2blog/wp-debug~.
+
 * Miscellaneous
 
 1. You may want to look at the [[http://orgmode.org/manual/Export-options.html#Export-options][Export options]] and [[http://orgmode.org/manual/HTML-export.html#HTML-export][HTML export]]
