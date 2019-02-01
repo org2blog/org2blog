@@ -316,11 +316,15 @@ AsciiMath notation that works in all modern browsers."
 - Setup the [[https://wordpress.org/plugins/mathjax-latex/][MathJax-LaTeX]] plugin
   - Install it
   - Configure it
-    - Force Load: TRUE
-    - Default [latex] syntax attribute: Inline
-    - Use wp-latex syntax? TRUE
-    - Use MathJax CDN Service? FALSE
-    - Custom MathJax location? =https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js=
+    - Force Load: NO
+      - Loading MathJax takes time so unless you are using it for the majority
+        of your posts then you can enable it per-post by adding the [mathjax]
+        shortcode to your post. That means inserting that text =[mathjax]=
+        somewhere before your markup.
+    - default [latex] syntax attribute: Inline
+    - Use wp-latex syntax? YES
+    - Use MathJax CDN Service? YES
+    - Custom MathJax location? NO
     - MathJax Configuration: default
 - Test it out using these ([[https://math.meta.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference][and more]]) examples
   #+BEGIN_SRC org
