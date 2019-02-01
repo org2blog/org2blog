@@ -71,7 +71,7 @@ to your dot emacs.
 
 *** User-Interface Hydra & Key-Bindings
 
-In addition to built-in keybindings (see above & code for details), org2blog/wp
+In addition to built-in keybindings (see below for details), org2blog/wp
 also includes a Hydra user-interface. To call the Hydra manually
 type ~M-x org2blog/wp-hydra/body~. It is it better though to load it every time
 your enter an Org2Blog file like this:
