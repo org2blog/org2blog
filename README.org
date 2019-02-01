@@ -283,9 +283,7 @@ Org mode map.
 
 When you run the Hydra it should look something like this:
 
-#+begin_export html
-<p align="center"><img src="./images/org2blog-wp-hydra.png" alt="org2blog/wp-hydra"></p>
-#+end_export
+[[file:images/org2blog-wp-hydra.png]]
 
 ***** Auto Loading org2blog Mode
 
