@@ -9,6 +9,30 @@
 
 *Start [[https://github.com/org2blog/org2blog/wiki/Usage][here]] for using it!*
 
+* Demo
+
+*** Write It
+
+[[file:/images/01-Write-It.png]]
+
+** Post It
+
+[[file:/images/02-Post-It.png]]
+
+[[file:/images/03-Draft-Posted-With-ID-11659.png]]
+
+** Review Post On Your WordPress
+
+[[file:/images/04-Review-Post-On-Your-WordPress.png]]
+
+** PublishIt
+
+[[file:/images/05-Publish-It.png]]
+
+[[file:/images/06-Published.png]]
+
+[[file:/images/07-Published-On-Blog.png]]
+
 * Overview
 
 - org2blog/wp
