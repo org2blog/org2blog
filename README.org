@@ -33,6 +33,8 @@
 
 [[file:/images/07-Published-On-Blog.png]]
 
+[[https://www.wisdomandwonder.com/emacs/11659/blogging-with-emacs%25F0%259F%2590%2583-from-org2blog%25F0%259F%25A6%2584-to-wordpress][Here]] is the actual post 😄
+
 * Overview
 
 - org2blog/wp
