@@ -7,7 +7,7 @@
 
 *Org2Blog publishes directly from Emacs's Org mode to WordPress blogs.*
 
-*Start it [[https://github.com/org2blog/org2blog/wiki/Usage][here]]!*
+*Start using it [[https://github.com/org2blog/org2blog/wiki/Usage][here]]!*
 
 * Demo
 
@@ -35,7 +35,7 @@
 
 [[https://www.wisdomandwonder.com/emacs/11659/blogging-with-emacs%25F0%259F%2590%2583-from-org2blog%25F0%259F%25A6%2584-to-wordpress][Here]] is the actual post 😄
 
-*Start it [[https://github.com/org2blog/org2blog/wiki/Usage][here]]!*
+*Start using it [[https://github.com/org2blog/org2blog/wiki/Usage][here]]!*
 
 * Overview
 
