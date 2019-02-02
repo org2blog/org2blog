@@ -12,7 +12,7 @@
 * Overview
 
 - org2blog/wp
-  - Keeps everything in addition to the code in it's [[https://github.com/org2blog/org2blog/wiki][Wiki]].
+  - Keeps everything else but the code in it's [[https://github.com/org2blog/org2blog/wiki][Wiki]].
   - Is one of the two packages named org2blog. The other is org2blog/atom by
     [[http://tehom-blog.blogspot.com/][Tom Breton]].
   - Should, /ideally/, work with any platform that supports ~xml-rpc~ but some of
