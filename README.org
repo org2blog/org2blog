@@ -25,7 +25,7 @@
 
 [[file:/images/04-Review-Post-On-Your-WordPress.png]]
 
-** PublishIt
+** Publish It
 
 [[file:/images/05-Publish-It.png]]
 
