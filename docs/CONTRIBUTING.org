@@ -1,0 +1,41 @@
+Nice to meet you 😄.
+
+Wherever we end up going from here:
+
+Thank you for spending your precious time and valued brainpower—it is truly
+appreciated.
+
+This contribution template exists so that you and other contributor will get
+the most out of your effort for the least time and expenditure required. It is
+simple—we are looking for all and everything you view as a contribution.
+
+Some examples:
+
+- Improving documentation.
+- Bug triage.
+- Writing tutorials.
+- Feature ideas.
+- "Simple things" like spelling and grammar fixes, typo correction, white
+  space and formatting changes, and comment clean.
+- Refactoring.
+- Support questions… Yes really! If you are facing it then you can't be the
+  only one. It is an opportunity toe better the documentation, the package
+  itself, or more.
+- Whatever things that /aren't/ listed here that /should be/.
+
+There are some things that will save you and everyone else some time here that
+are expected of you when you do decide to make a contribution:
+
+- Review [[https://github.com/org2blog/org2blog/issues][issues]] you are facing, they might already be filed.
+- Review the [[https://github.com/org2blog/org2blog/wiki][wiki]] to learn more about how the entire package works—you don't
+  need to know all of Org2Blog to get a lot of value out of it. You might be
+  surprised to learn that it already has what you need. This also gives you
+  context for where something me be contributed.
+- Org2Blog is licensed [[https://www.gnu.org/licenses/gpl-3.0.en.html][GPLv3]]: you understand and submit your code under those
+  terms.
+
+That is it. That is everything. If you made it this far then kudos for you to
+sticking around. Looking forward to all of your contributions in what shape or
+form.
+
+Thanks and have a great day.
