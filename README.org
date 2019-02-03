@@ -1,4 +1,4 @@
-#+title: Org2blog Readme
+#+title: Org2Blog Readme
 #+options: num:nil
 #+startup: odd
 #+style: <style> h1,h2,h3 {font-family: arial, helvetica, sans-serif} </style>
