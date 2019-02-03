@@ -33,7 +33,7 @@
 
 [[file:/images/07-Published-On-Blog.png]]
 
-** That is all it takes to post from Emacs to WordPress!
+* That is all it takes to post from Emacs to WordPress!
 
 [[https://www.wisdomandwonder.com/emacs/11659/blogging-with-emacs%25F0%259F%2590%2583-from-org2blog%25F0%259F%25A6%2584-to-wordpress][Here]] is the actual post and it's [[https://raw.githubusercontent.com/grettke/wisdomandwonder/master/post/2019-02-01-01.org][Org mode document]] 😄!
 
