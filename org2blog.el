@@ -10,6 +10,7 @@
 ;; Copyright (C) 2013 Peter Vasil <mail@petervasil.net>
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
+;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
 ;; Version: 1.0.3
 ;; Keywords: orgmode, wordpress, blog
 
