@@ -45,7 +45,8 @@
     [[http://tehom-blog.blogspot.com/][Tom Breton]].
   - Should, /ideally/, work with any platform that supports ~xml-rpc~ but some of
     WordPress specific features may not work.
-  - Was inspired by and based on a [[http://paste.lisp.org/display/69993][WordPress posting client for muse-mode]]
-    written by [[http://www.emacswiki.org/emacs/AshishShukla][Ashish Shukla]].
+  - Was inspired by and based on a WordPress posting client for muse-mode
+    written by [[http://www.emacswiki.org/emacs/AshishShukla][Ashish Shukla]] which unfortunaly no longer seem to be available
+    at any of its links.
   - Is licensed under GPLv3
 
