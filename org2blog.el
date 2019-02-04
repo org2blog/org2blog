@@ -859,7 +859,12 @@ from currently logged in."
   (interactive "P")
   (org2blog/wp-correctly-login)
   (if (null post-id)
-      (setq post-id (org2blog/wp-get-option "POSTID")))
+      (setq post-id (or (org2blog/wp-get-option "POSTID")
+                       (org2blog/wp-get-option "POST_ID")
+                       (progn (org-narrow-to-subtree)
+                              (widen)
+                              (or (org-entry-get (point) "POSTID")
+                                 (org-entry-get (point) "POST_ID"))))))
   (metaweblog-delete-post org2blog/wp-server-xmlrpc-url
                           org2blog/wp-server-userid
                           org2blog/wp-server-pass
