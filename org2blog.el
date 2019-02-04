@@ -574,9 +574,9 @@ from currently logged in."
                                            file-name)))
         (setq beg (match-end 0))
         (if (save-match-data (not (or
-                                   (string-match org-plain-link-re file-name)
-                                   (string-match "^.*#" file-name)
-                                   (string-equal (file-name-nondirectory file-name) ""))))
+                                 (string-match org-plain-link-re file-name)
+                                 (string-match "^.*#" file-name)
+                                 (string-equal (file-name-nondirectory file-name) ""))))
 
             (progn
               (goto-char (point-min))
@@ -875,7 +875,12 @@ from currently logged in."
   (interactive "P")
   (org2blog/wp-correctly-login)
   (if (null page-id)
-      (setq page-id (org2blog/wp-get-option "POSTID")))
+      (setq page-id (or (org2blog/wp-get-option "POSTID")
+                       (org2blog/wp-get-option "POST_ID")
+                       (progn (org-narrow-to-subtree)
+                              (widen)
+                              (or (org-entry-get (point) "POSTID")
+                                 (org-entry-get (point) "POST_ID"))))))
   (wp-delete-page org2blog/wp-server-xmlrpc-url
                   org2blog/wp-server-blogid
                   org2blog/wp-server-userid
@@ -1077,7 +1082,7 @@ the title of the post (or page) as description."
                                                    org2blog/wp-server-userid
                                                    org2blog/wp-server-pass
                                                    1000)))
-         post-title post-id url title-id-map)
+         post-title page-id url title-id-map)
     (dolist (post post-list)
       (setq title-id-map (cons
                           (cons (cdr (assoc "title" post)) (cdr (assoc "postid" post)))
@@ -1086,7 +1091,7 @@ the title of the post (or page) as description."
     (setq post-title (completing-read
                       (if is-page "Select page: " "Select post: ")
                       title-id-map nil t)
-          post-id (cdr (assoc post-title title-id-map)))
+          page-id (cdr (assoc post-title title-id-map)))
     (when post-title
       ;; "Generate" the actual url of the post
       (setq url (concat
