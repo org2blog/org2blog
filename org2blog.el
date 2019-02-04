@@ -1275,42 +1275,47 @@ and munge it a little to make it suitable to use with the
 (defhydra org2blog/wp-hydra (:color blue :hint nil)
   "
 Org2Blog
-^╔══════^═══════════╦═^═══^═════════════════════════╦═^══════════════════════════╗
-^║ Admin^           ║ ^Use^                         ║ ^Do To: Buffer (or Subtree)║
-^╚══════^═══════════╩═^═══^═════════════════════════╩═^══════════════════════════╝
-  _i_: Login          _n_: New Entry                  _h_(_H_): Post It
-  _s_: Set Password   _c_: Complete Category or Tag   _v_(_V_): Preview It
-  _D_: Debug On       ^^                              _t_(_T_): Publish It As Post
-  _d_: Debug Off      ^^                              _e_(_E_): Publish It As Page
-  _o_: Logout         ^^
-  _q_: Quit           ^^
- "
+^╔══════^═══════════╦═^═══^═════════════════════════╦═^══════════════════════════════════╗
+^║ Admin^           ║ ^Use^                         ║ ^Do To: Buffer (or Subtree)        ║
+^╚══════^═══════════╩═^═══^═════════════════════════╩═^══════════════════════════════════╝
+  _r_: Login          _u_: New Entry                  _j_(_J_): Post It
+  _w_: Set Password   _i_: Complete Category or Tag   _k_(_K_): Preview It
+  _c_: Debug On       _m_: Insert More Tag            _l_(_L_): Publish It As Post
+  _v_: Debug Off      _x_: Insert LaTeX Sample        _;_(_:_): Publish It As Page
+  _e_: Logout         ^^                              _x_^   : Delete Post (Same for Both)
+  _q_: Quit           ^^                              _X_^   : Delete Page (Same for Both)
+"
 
-  ;;; Admin
-  ("i" org2blog/wp-login)
-  ("s" org2blog/wp-password)
-  ("D" (lambda () (interactive)
+  ;;; argument
+  ("r" org2blog/wp-login)
+  ("w" org2blog/wp-password)
+  ("c" (lambda () (interactive)
          (let ((current-prefix-arg '(4)))
            (call-interactively 'org2blog/wp-debug))))
-  ("d" org2blog/wp-debug)
-  ("o" org2blog/wp-logout)
+  ("v" org2blog/wp-debug)
+  ("e" org2blog/wp-logout)
   ("q" nil)
 
   ;;; Use
-  ("n" org2blog/wp-new-entry)
-  ("c" org2blog/wp-complete-category)
+  ("u" org2blog/wp-new-entry)
+  ("i" org2blog/wp-complete-category)
+  ("m" (lambda () (interactive) (insert "#+HTML: <!--more-->")))
+  ("x" (lambda () (interactive) (insert "$\\LaTeX$")))
 
   ;;; Do
-  ("h" org2blog/wp-post-buffer)
-  ("H" org2blog/wp-post-buffer-as-page)
+  ("j" org2blog/wp-post-buffer)
+  ("J" org2blog/wp-post-buffer-as-page)
   ;; Previewing
-  ("v" org2blog/wp-preview-buffer-post)
-  ("V" org2blog/wp-preview-subtree-post)
+  ("k" org2blog/wp-preview-buffer-post)
+  ("K" org2blog/wp-preview-subtree-post)
   ;; Publishing: Posts
-  ("t" org2blog/wp-post-buffer-and-publish)
-  ("T" org2blog/wp-post-subtree-and-publish)
+  ("l" org2blog/wp-post-buffer-and-publish)
+  ("L" org2blog/wp-post-subtree-and-publish)
   ;; Publishing: Pages
-  ("e" org2blog/wp-post-buffer-as-page-and-publish)
-  ("E" org2blog/wp-post-subtree-as-page-and-publish))
+  (";" org2blog/wp-post-buffer-as-page-and-publish)
+  (":" org2blog/wp-post-subtree-as-page-)
+  ;; Deleting Pages or Posts
+  ("x" org2blog/wp-delete-entry)
+  ("X" org2blog/wp-delete-page))
 
 (provide 'org2blog)
