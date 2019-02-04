@@ -1304,9 +1304,10 @@ Org2Blog
   ("x" (lambda () (interactive) (insert "$\\LaTeX$")))
 
   ;;; Do
+  ;; Post
   ("j" org2blog/wp-post-buffer)
-  ("J" org2blog/wp-post-buffer-as-page)
-  ;; Previewing
+  ("J" org2blog/wp-post-subtree)
+  ;; Preview
   ("k" org2blog/wp-preview-buffer-post)
   ("K" org2blog/wp-preview-subtree-post)
   ;; Publishing: Posts
@@ -1314,7 +1315,7 @@ Org2Blog
   ("L" org2blog/wp-post-subtree-and-publish)
   ;; Publishing: Pages
   (";" org2blog/wp-post-buffer-as-page-and-publish)
-  (":" org2blog/wp-post-subtree-as-page-)
+  (":" org2blog/wp-post-subtree-as-page-and-publish)
   ;; Deleting Pages or Posts
   ("x" org2blog/wp-delete-entry)
   ("X" org2blog/wp-delete-page))
