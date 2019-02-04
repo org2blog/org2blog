@@ -23,7 +23,7 @@
 
 ** Review Post On Your WordPress
 
-[[file:/images/04-Review-Post-On-Your-WordPress.png]]
+[[https://raw.githubusercontent.com/wiki/org2blog/org2blog/images/org2blog-wp-hydra.png]]
 
 ** Publish It
 
