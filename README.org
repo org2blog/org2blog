@@ -17,13 +17,13 @@
 
 ** Post It
 
-[[file:/images/02-Post-It.png]]
+[[https://raw.githubusercontent.com/wiki/org2blog/org2blog/images/org2blog-wp-hydra.png]]
 
 [[file:/images/03-Draft-Posted-With-ID-11659.png]]
 
 ** Review Post On Your WordPress
 
-[[https://raw.githubusercontent.com/wiki/org2blog/org2blog/images/org2blog-wp-hydra.png]]
+[[file:/images/04-Review-Post-On-Your-WordPress.png]]
 
 ** Publish It
 
