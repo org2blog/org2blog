@@ -1284,50 +1284,61 @@ and munge it a little to make it suitable to use with the
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defhydra org2blog/wp-hydra (:color blue :hint nil)
-  "
-Org2Blog
-^╔══════^═══════════╦═^═══^═════════════════════════╦═^══════════════════════════════════╗
-^║ Admin^           ║ ^Use^                         ║ ^Do To: Buffer (or Subtree)        ║
-^╚══════^═══════════╩═^═══^═════════════════════════╩═^══════════════════════════════════╝
-  _r_: Login          _u_: New Entry                  _j_(_J_): Post It
-  _w_: Set Password   _i_: Complete Category or Tag   _k_(_K_): Preview It
-  _c_: Debug On       _m_: Insert More Tag            _l_(_L_): Publish It As Post
-  _v_: Debug Off      _x_: Insert LaTeX Sample        _;_(_:_): Publish It As Page
-  _e_: Logout         ^^                              _x_^   : Delete Post (Same for Both)
-  _q_: Quit           ^^                              _X_^   : Delete Page (Same for Both)
-"
 
-  ;;; argument
-  ("r" org2blog/wp-login)
-  ("w" org2blog/wp-password)
-  ("c" (lambda () (interactive)
+  "
+╔════════════════════════════════════╗
+║ 🐃 → 🦄 → Org2Blog → WordPress → 🌐 ║
+╠════════════════╦════════════════╦══╩═════════════════════╦═════════════════════════╗
+║ Admin          ║ Use            ║ Buffer                 ║ Subtree                 ║
+╚════════════════╩════════════════╩════════════════════════╩═════════════════════════╝
+ [_4_] Login        [_e_] Make Entry   [_j_] Save As A Post Draft  [_u_] Save As A Post Draft
+ [_5_] Set Password [_c_] Completion   [_k_] Display Post          [_i_] Display Post
+ [_2_] Debug On     [_m_] 'More'⤵      [_l_] Publish Post          [_o_] Publish Post
+ [_1_] Debug Off    [_t_] 'MathJax'⤵   [_;_] Delete Post           [_p_] Delete Post
+ [_3_] Logout       [_x_] 'LaTeX'⤵     [_J_] Save As A Page Draft  [_U_] Save As A Page Draft
+ [_q_] Quit         ^^                 [_K_] Display Page          [_I_] Display Page
+^^                  ^^                 [_L_] Publish Page          [_O_] Publish Page
+^^                  ^^                 [_:_] Delete Page           [_P_] Delete Page
+"
+  ;;;; ADMIN
+  ("4" org2blog/wp-login :exit nil)
+  ("5" org2blog/wp-password :exit nil)
+  ("2" (lambda () (interactive)
          (let ((current-prefix-arg '(4)))
-           (call-interactively 'org2blog/wp-debug))))
-  ("v" org2blog/wp-debug)
-  ("e" org2blog/wp-logout)
+           (call-interactively 'org2blog/wp-debug))) :exit nil)
+  ("1" org2blog/wp-debug :exit nil)
+  ("3" org2blog/wp-logout)
   ("q" nil)
 
-  ;;; Use
-  ("u" org2blog/wp-new-entry)
-  ("i" org2blog/wp-complete-category)
+  ;;;; USE
+  ("e" org2blog/wp-new-entry)
+  ("c" org2blog/wp-complete-category)
   ("m" (lambda () (interactive) (insert "#+HTML: <!--more-->")))
+  ("t" (lambda () (interactive) (insert "[mathjax]")))
   ("x" (lambda () (interactive) (insert "$\\LaTeX$")))
 
-  ;;; Do
-  ;; Post
+  ;;;; BUFFER
+  ;;; POST
   ("j" org2blog/wp-post-buffer)
-  ("J" org2blog/wp-post-subtree)
-  ;; Preview
   ("k" org2blog/wp-preview-buffer-post)
-  ("K" org2blog/wp-preview-subtree-post)
-  ;; Publishing: Posts
   ("l" org2blog/wp-post-buffer-and-publish)
-  ("L" org2blog/wp-post-subtree-and-publish)
-  ;; Publishing: Pages
-  (";" org2blog/wp-post-buffer-as-page-and-publish)
-  (":" org2blog/wp-post-subtree-as-page-and-publish)
-  ;; Deleting Pages or Posts
-  ("x" org2blog/wp-delete-entry)
-  ("X" org2blog/wp-delete-page))
+  (";" org2blog/wp-delete-entry)
+  ;;; PAGE
+  ("J" org2blog/wp-post-buffer-as-page)
+  ("K" org2blog/wp-preview-buffer-post)
+  ("L" org2blog/wp-post-buffer-as-page-and-publish)
+  (":" org2blog/wp-delete-page)
+
+  ;;;; SUBTREE
+  ;;; POST
+  ("u" org2blog/wp-post-subtree)
+  ("i" org2blog/wp-preview-subtree-post)
+  ("o" org2blog/wp-post-subtree-and-publish)
+  ("p" org2blog/wp-delete-entry)
+  ;; PAGE
+  ("U" org2blog/wp-post-subtree-as-page)
+  ("I" org2blog/wp-preview-subtree-post)
+  ("O" org2blog/wp-post-subtree-as-page-and-publish)
+  ("P" org2blog/wp-delete-page))
 
 (provide 'org2blog)
