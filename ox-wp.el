@@ -4,7 +4,7 @@
 
 ;; Author: Grant Rettke <gcr@wisdomandwonder.com>
 ;; Maintainer: Grant Rettke <gcr@wisdomandwonder.com>
-;; Version: 2.0.0
+;; Version: 1.0.3
 ;; Keywords: comm, files
 ;; Homepage: https://github.com/org2blog/org2blog/wiki
 

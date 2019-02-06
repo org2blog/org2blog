@@ -13,7 +13,7 @@
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <gcr@wisdomandwonder.com>
-;; Version: 2.0.0
+;; Version: 1.0.3
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog/wiki
 
