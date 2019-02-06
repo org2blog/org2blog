@@ -267,7 +267,7 @@ options.")
             (org2blog/wp-save-details (org2blog/wp--export-as-post) nil
                                       (y-or-n-p "Published?") nil)))))
 
-(defun org2blog/wp-define-key (suffix function)
+(defun org2blog/wp-define-key (org2blog/wp-map suffix function)
   "Define a key sequence in the mode's key map with the prefix
 given by `org2blog/wp-keymap-prefix', and the given suffix."
   (let ((keyseq (read-kbd-macro (concat org2blog/wp-keymap-prefix " " suffix))))
@@ -279,11 +279,11 @@ key sequence defined by `org2blog/wp-keymap-prefix'."
   (setq org2blog/wp-entry-mode-map
         (let ((org2blog/wp-map (make-sparse-keymap)))
           (set-keymap-parent org2blog/wp-map org-mode-map)
-          (org2blog/wp-define-key "p" 'org2blog/wp-post-buffer-and-publish)
-          (org2blog/wp-define-key "P" 'org2blog/wp-post-buffer-as-page-and-publish)
-          (org2blog/wp-define-key "d" 'org2blog/wp-post-buffer)
-          (org2blog/wp-define-key "D" 'org2blog/wp-post-buffer-as-page)
-          (org2blog/wp-define-key "t" 'org2blog/wp-complete-category)
+          (org2blog/wp-define-key org2blog/wp-map "p" 'org2blog/wp-post-buffer-and-publish)
+          (org2blog/wp-define-key org2blog/wp-map "P" 'org2blog/wp-post-buffer-as-page-and-publish)
+          (org2blog/wp-define-key org2blog/wp-map "d" 'org2blog/wp-post-buffer)
+          (org2blog/wp-define-key org2blog/wp-map "D" 'org2blog/wp-post-buffer-as-page)
+          (org2blog/wp-define-key org2blog/wp-map "t" 'org2blog/wp-complete-category)
           org2blog/wp-map)))
 
 (defun org2blog/wp-reload-entry-mode-map ()
