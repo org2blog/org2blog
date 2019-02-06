@@ -244,12 +244,12 @@ representing the aforementioned post or page.")
 (defvar org2blog/wp-export-options
   '(
     :section-numbers nil
-                     :with-priority nil
-                     :with-sub-superscript nil
-                     :with-toc nil
-                     :with-tags nil
-                     :with-todo-keywords nil
-                     )
+    :with-priority nil
+    :with-sub-superscript nil
+    :with-toc nil
+    :with-tags nil
+    :with-todo-keywords nil
+    )
   "Export options to be used when exporting buffers and subtrees.
 Look at `org-export-options-alist' for the available options.
 Also, note that these options are over-ridden by in-file
@@ -260,7 +260,7 @@ options.")
 (defun org2blog/wp-kill-buffer-hook ()
   "Prompt before killing buffer."
   (if (and org2blog/wp-buffer-kill-prompt
-         (not (buffer-file-name)))
+           (not (buffer-file-name)))
       (if (y-or-n-p "Save entry?")
           (progn
             (save-buffer)
@@ -410,7 +410,7 @@ closer to doing more blogging!
   (mapcar
    (lambda (cat)
      (if (and (not (member cat org2blog/wp-categories-list))
-            (y-or-n-p (format "Create '%s' category? " cat)))
+              (y-or-n-p (format "Create '%s' category? " cat)))
          (wp-new-category org2blog/wp-server-xmlrpc-url
                           org2blog/wp-server-userid
                           org2blog/wp-server-pass
@@ -561,9 +561,9 @@ from currently logged in."
                                            file-name)))
         (setq beg (match-end 0))
         (if (save-match-data (not (or
-                                 (string-match org-plain-link-re file-name)
-                                 (string-match "^.*#" file-name)
-                                 (string-equal (file-name-nondirectory file-name) ""))))
+                                   (string-match org-plain-link-re file-name)
+                                   (string-match "^.*#" file-name)
+                                   (string-equal (file-name-nondirectory file-name) ""))))
 
             (progn
               (goto-char (point-min))
@@ -847,11 +847,11 @@ from currently logged in."
   (org2blog/wp-correctly-login)
   (if (null post-id)
       (setq post-id (or (org2blog/wp-get-option "POSTID")
-                       (org2blog/wp-get-option "POST_ID")
-                       (progn (org-narrow-to-subtree)
-                              (widen)
-                              (or (org-entry-get (point) "POSTID")
-                                 (org-entry-get (point) "POST_ID"))))))
+                        (org2blog/wp-get-option "POST_ID")
+                        (progn (org-narrow-to-subtree)
+                               (widen)
+                               (or (org-entry-get (point) "POSTID")
+                                   (org-entry-get (point) "POST_ID"))))))
   (metaweblog-delete-post org2blog/wp-server-xmlrpc-url
                           org2blog/wp-server-userid
                           org2blog/wp-server-pass
@@ -863,11 +863,11 @@ from currently logged in."
   (org2blog/wp-correctly-login)
   (if (null page-id)
       (setq page-id (or (org2blog/wp-get-option "POSTID")
-                       (org2blog/wp-get-option "POST_ID")
-                       (progn (org-narrow-to-subtree)
-                              (widen)
-                              (or (org-entry-get (point) "POSTID")
-                                 (org-entry-get (point) "POST_ID"))))))
+                        (org2blog/wp-get-option "POST_ID")
+                        (progn (org-narrow-to-subtree)
+                               (widen)
+                               (or (org-entry-get (point) "POSTID")
+                                   (org-entry-get (point) "POST_ID"))))))
   (wp-delete-page org2blog/wp-server-xmlrpc-url
                   org2blog/wp-server-blogid
                   org2blog/wp-server-userid
