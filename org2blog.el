@@ -265,7 +265,7 @@ options.")
           (progn
             (save-buffer)
             (org2blog/wp-save-details (org2blog/wp--export-as-post) nil
-                                      (y-or-n-p "Published?"))))))
+                                      (y-or-n-p "Published?") nil)))))
 
 (defun org2blog/wp-define-key (suffix function)
   "Define a key sequence in the mode's key map with the prefix
