@@ -1,21 +1,23 @@
-;;; org2blog.el --- blog from Org mode to wordpress
+;;; org2blog.el --- Blog from Org mode to WordPress.
 
+;; Copyright (C) 2008 Ashish Shukla
 ;; Copyright (C) 2010 Benjamin Beckwith <bnbeckwith@gmail.com>
 ;; Copyright (C) 2010 Marcel van der Boom <marcel@hsdev.com>
 ;; Copyright (C) 2010-2014 Puneeth Chaganti <punchagan+org2blog@muse-amuse.in>
 ;; Copyright (C) 2010 Sacha Chua <sacha@sachachua.com>
 ;; Copyright (C) 2010 Giovanni Moretti <Giovanni@reflections.co.nz>
-;; Copyright (C) 2011 Mykola Nikishov <mn@mn.com.ua>
 ;; Copyright (C) 2010 Matt Price <matt@roke.mercey.dyndns.org>
+;; Copyright (C) 2011 Mykola Nikishov <mn@mn.com.ua>
 ;; Copyright (C) 2013 Peter Vasil <mail@petervasil.net>
 ;; Copyright (C) 2015-2017, 2019 Grant Rettke <grant@wisdomandwonder.com>
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
-;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Version: 1.0.3
-;; Keywords: orgmode, wordpress, blog
+;; Maintainer: Grant Rettke <gcr@wisdomandwonder.com>
+;; Version: 2.0.0
+;; Keywords: comm, convenience, outlines, wp
+;; Homepage: https://github.com/org2blog/org2blog/wiki
 
-;; This program is free software: you can redistribute it and/or modify
+;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
 ;; the Free Software Foundation, either version 3 of the License, or
 ;; (at your option) any later version.
@@ -26,30 +28,15 @@
 ;; GNU General Public License for more details.
 
 ;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+;;; Commentary:
 
 ;; A portion of the code in this file is based on blog.el posted to
 ;; http://www.mail-archive.com/gnu-emacs-sources@gnu.org/msg01576.html
-;; copyrighted by Ashish Shukla. The Copyright notice from that file is
-;; given below.
+;; copyrighted by Ashish Shukla.
 
-;; blog.el -- a wordpress posting client
-;; Copyright (C) 2008 Ashish Shukla
-
-;; This program is free software; you can redistribute it and/or
-;; modify it under the terms of the GNU General Public License
-;; as published by the Free Software Foundation; either version 2
-;; of the License, or (at your option) any later version.
-
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
-
-;; You should have received a copy of the GNU General Public License
-;; along with this program; if not, write to the Free Software
-;; Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-
+;;; Code:
 
 (require 'org)
 (when (version< (org-version) "8.3")
