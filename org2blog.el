@@ -1013,7 +1013,7 @@ use absolute path or set org-directory")
   (save-restriction
     (save-excursion
       (widen)
-      (org2blog/wp-save-details (org2blog/wp--export-as-post) "" nil))))
+      (org2blog/wp-save-details (org2blog/wp--export-as-post) "" nil nil))))
 
 ;;;###autoload
 (defun org2blog/wp-track-subtree ()
