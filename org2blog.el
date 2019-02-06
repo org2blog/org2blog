@@ -1054,7 +1054,7 @@ use absolute path or set org-directory")
       (setq url (concat url "?p=" postid "&preview=true"))
       (browse-url url))))
 
-(defun org2blog/wp-insert-post-or-page-link (&optional is-page)
+(defun org2blog/wp-insert-post-or-page-link (entryid &optional is-page)
   "Insert a link to the post (or page) with the given id, with
 the title of the post (or page) as description."
   (interactive "P")
@@ -1069,7 +1069,7 @@ the title of the post (or page) as description."
                                                    org2blog/wp-server-userid
                                                    org2blog/wp-server-pass
                                                    1000)))
-         post-title page-id url title-id-map)
+         post-title entryid url title-id-map)
     (dolist (post post-list)
       (setq title-id-map (cons
                           (cons (cdr (assoc "title" post)) (cdr (assoc "postid" post)))
@@ -1078,12 +1078,12 @@ the title of the post (or page) as description."
     (setq post-title (completing-read
                       (if is-page "Select page: " "Select post: ")
                       title-id-map nil t)
-          page-id (cdr (assoc post-title title-id-map)))
+          entryid (cdr (assoc post-title title-id-map)))
     (when post-title
       ;; "Generate" the actual url of the post
       (setq url (concat
                  (replace-regexp-in-string "xmlrpc\\.php$" "?p=" org2blog/wp-server-xmlrpc-url)
-                 post-id))
+                 entryid))
       ;; Insert!
       (insert (format "[[%s][%s]]" url post-title)))))
 
