@@ -1303,7 +1303,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
 ╠════════════════╦════════════════╦══╩═════════════════════╦═════════════════════════╗
 ║ Admin          ║ Use            ║ Buffer                 ║ Subtree                 ║
 ╚════════════════╩════════════════╩════════════════════════╩═════════════════════════╝
- [_4_] Login        [_e_] Make Entry   [_j_] Save As A Post Draft  [_u_] Save As A Post Draft
+ [_4_] Login        [_e_] New Entry    [_j_] Save As A Post Draft  [_u_] Save As A Post Draft
  [_5_] Set Password [_c_] Completion   [_k_] Display Post          [_i_] Display Post
  [_2_] Debug On     [_m_] 'More'⤵      [_l_] Publish Post          [_o_] Publish Post
  [_1_] Debug Off    [_t_] 'MathJax'⤵   [_;_] Delete Post           [_p_] Delete Post
