@@ -203,10 +203,9 @@ takes effect."
   "Number of most recent entries to present for insertion.
 
 function ‘org2blog/wp-insert-post-or-page-link’ inserts an
-Org link for an entry ID. If a prefix-argument is passed
-then a link for that argument is inserted. Otherwise
-retrieve the variable ‘org2blog/link-selection-size' recent
-most recent entries to present to the user for selection."
+Org link for an entry ID. Retrieve the
+variable ‘org2blog/link-selection-size' most recent entries
+to present to the user for selection."
   :group 'org2blog/wp
   :type 'integer)
 
@@ -759,7 +758,7 @@ closer to doing more blogging!
       (browse-url url))))
 
 
-(defun org2blog/wp-insert-post-or-page-link (entryid &optional is-page)
+(defun org2blog/wp-insert-post-or-page-link (is-page)
   "Insert a link to the post (or page) with the given id, with
 the title of the post (or page) as description."
   (interactive "P")
@@ -777,7 +776,9 @@ the title of the post (or page) as description."
          post-title entryid url title-id-map)
     (dolist (post post-list)
       (setq title-id-map (cons
-                          (cons (cdr (assoc "title" post)) (cdr (assoc "postid" post)))
+                          (if is-page
+                              (cons (cdr (assoc "page_title" post)) (cdr (assoc "page_id" post)))
+                            (cons (cdr (assoc "title" post)) (cdr (assoc "postid" post))))
                           title-id-map)))
     ;; Ask user to select the title
     (setq post-title (completing-read
