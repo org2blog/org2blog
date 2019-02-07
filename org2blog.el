@@ -199,6 +199,17 @@ takes effect."
   :group 'org2blog/wp
   :type 'string)
 
+(defcustom org2blog/link-selection-size 100
+  "Number of most recent entries to present for insertion.
+
+function ‘org2blog/wp-insert-post-or-page-link’ inserts an
+Org link for an entry ID. If a prefix-argument is passed
+then a link for that argument is inserted. Otherwise
+retrieve the variable ‘org2blog/link-selection-size' recent
+most recent entries to present to the user for selection."
+  :group 'org2blog/wp
+  :type 'integer)
+
 ;;; Var
 
 (defvar org2blog/wp-blog nil
@@ -762,7 +773,7 @@ the title of the post (or page) as description."
                                                    org2blog/wp-server-blogid
                                                    org2blog/wp-server-userid
                                                    org2blog/wp-server-pass
-                                                   1000)))
+                                                   org2blog/link-selection-size)))
          post-title entryid url title-id-map)
     (dolist (post post-list)
       (setq title-id-map (cons
