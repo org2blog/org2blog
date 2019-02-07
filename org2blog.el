@@ -281,13 +281,12 @@ options.")
 
 (defun org2blog/wp-kill-buffer-hook ()
   "Prompt before killing buffer."
-  (if (and org2blog/wp-buffer-kill-prompt
-         (not (buffer-file-name)))
-      (if (y-or-n-p "Save entry?")
-          (progn
-            (save-buffer)
-            (org2blog/wp-save-details (org2blog/wp--export-as-post) nil
-                                      (y-or-n-p "Published?") nil)))))
+  (when (and org2blog/wp-buffer-kill-prompt
+           (not (buffer-file-name))
+           (y-or-n-p "Save entry?"))
+    (save-buffer)
+    (org2blog/wp-save-details (org2blog/wp--export-as-post) nil
+                              (y-or-n-p "Published?") nil)))
 
 ;;;###autoload
 (defun org2blog/wp-org-mode-hook-fn ()
@@ -572,15 +571,15 @@ closer to doing more blogging!
                           post-id
                           post
                           publish)
-          (progn (setq post-id (wp-new-page org2blog/wp-server-xmlrpc-url
-                                            org2blog/wp-server-userid
-                                            org2blog/wp-server-pass
-                                            org2blog/wp-server-blogid
-                                            post
-                                            publish))
-                 (run-hook-with-args
-                  'org2blog/wp-after-new-post-or-page-functions
-                  (org2blog/wp-get-post-or-page post-id)))
+          (setq post-id (wp-new-page org2blog/wp-server-xmlrpc-url
+                                     org2blog/wp-server-userid
+                                     org2blog/wp-server-pass
+                                     org2blog/wp-server-blogid
+                                     post
+                                     publish))
+          (run-hook-with-args
+           'org2blog/wp-after-new-post-or-page-functions
+           (org2blog/wp-get-post-or-page post-id))
           (setq org2blog/wp-pages-list
                 (mapcar (lambda (pg)
                           (cons (cdr (assoc "title" pg))
@@ -611,13 +610,13 @@ closer to doing more blogging!
 (defun org2blog/wp-delete-entry (&optional post-id)
   (interactive "P")
   (org2blog/wp-correctly-login)
-  (if (null post-id)
-      (setq post-id (or (org2blog/wp-get-option "POSTID")
-                       (org2blog/wp-get-option "POST_ID")
-                       (progn (org-narrow-to-subtree)
-                              (widen)
-                              (or (org-entry-get (point) "POSTID")
-                                 (org-entry-get (point) "POST_ID"))))))
+  (when (null post-id)
+    (setq post-id (or (org2blog/wp-get-option "POSTID")
+                     (org2blog/wp-get-option "POST_ID")
+                     (progn (org-narrow-to-subtree)
+                            (widen)
+                            (or (org-entry-get (point) "POSTID")
+                               (org-entry-get (point) "POST_ID"))))))
   (metaweblog-delete-post org2blog/wp-server-xmlrpc-url
                           org2blog/wp-server-userid
                           org2blog/wp-server-pass
@@ -627,13 +626,13 @@ closer to doing more blogging!
 (defun org2blog/wp-delete-page (&optional page-id)
   (interactive "P")
   (org2blog/wp-correctly-login)
-  (if (null page-id)
-      (setq page-id (or (org2blog/wp-get-option "POSTID")
-                       (org2blog/wp-get-option "POST_ID")
-                       (progn (org-narrow-to-subtree)
-                              (widen)
-                              (or (org-entry-get (point) "POSTID")
-                                 (org-entry-get (point) "POST_ID"))))))
+  (when (null page-id)
+    (setq page-id (or (org2blog/wp-get-option "POSTID")
+                     (org2blog/wp-get-option "POST_ID")
+                     (progn (org-narrow-to-subtree)
+                            (widen)
+                            (or (org-entry-get (point) "POSTID")
+                               (org-entry-get (point) "POST_ID"))))))
   (wp-delete-page org2blog/wp-server-xmlrpc-url
                   org2blog/wp-server-blogid
                   org2blog/wp-server-userid
@@ -669,9 +668,8 @@ closer to doing more blogging!
               (when (stringp completion-match)
                 (search-backward word-match nil t)
                 (replace-match (concat completion-match ", ") nil t)))))
-      (progn
-        (goto-char current-pos)
-        (command-execute (lookup-key org-mode-map (kbd "C-c t")))))))
+      (goto-char current-pos)
+      (command-execute (lookup-key org-mode-map (kbd "C-c t"))))))
 
 ;;;###autoload
 (defun org2blog/wp-post-subtree (&optional publish)
@@ -887,84 +885,82 @@ from currently logged in."
                                              (substring file-name 7)
                                            file-name)))
         (setq beg (match-end 0))
-        (if (save-match-data (not (or
-                                 (string-match org-plain-link-re file-name)
-                                 (string-match "^.*#" file-name)
-                                 (string-equal (file-name-nondirectory file-name) ""))))
+        (when (save-match-data (not (or
+                                   (string-match org-plain-link-re file-name)
+                                   (string-match "^.*#" file-name)
+                                   (string-equal (file-name-nondirectory file-name) ""))))
+          (goto-char (point-min))
+          (if (re-search-forward (concat "^.*# "
+                                         (regexp-quote file-name)
+                                         " ") nil t 1)
+              ;; THEN
+              ;; read from right after filename to get URL + thumbnail
+              ;; then split-string on space for the web-url and thumbnail
+              ;; if there is no third part, thumbnail will be nil
+              (let ((url-thumb-parts (split-string (buffer-substring-no-properties
+                                                    (point)
+                                                    (or (end-of-line) (point))) " ")))
+                (setq file-web-url (car url-thumb-parts))
+                ;; we want just the name (cdr gives a list or nil)
+                ;; nth will give the name or nil if there's nothing
+                (setq file-thumbnail-name (nth 1 url-thumb-parts)))
 
-            (progn
-              (goto-char (point-min))
-              (if (re-search-forward (concat "^.*# "
-                                             (regexp-quote file-name)
-                                             " ") nil t 1)
-                  ;; THEN
-                  ;; read from right after filename to get URL + thumbnail
-                  ;; then split-string on space for the web-url and thumbnail
-                  ;; if there is no third part, thumbnail will be nil
-                  (let ((url-thumb-parts (split-string (buffer-substring-no-properties
-                                                        (point)
-                                                        (or (end-of-line) (point))) " ")))
-                    (setq file-web-url (car url-thumb-parts))
-                    ;; we want just the name (cdr gives a list or nil)
-                    ;; nth will give the name or nil if there's nothing
-                    (setq file-thumbnail-name (nth 1 url-thumb-parts)))
+            ;; ELSE
+            ;; returns alist with id, file, url, type
+            (setq upload-ret (metaweblog-upload-file
+                              org2blog/wp-server-xmlrpc-url
+                              org2blog/wp-server-userid
+                              org2blog/wp-server-pass
+                              org2blog/wp-server-blogid
+                              (get-file-properties file-name)))
+            ;; grab url from returned alist
+            (setq file-web-url
+                  (cdr (assoc "url"
+                              upload-ret)))
 
-                ;; ELSE
-                ;; returns alist with id, file, url, type
-                (setq upload-ret (metaweblog-upload-file
-                                  org2blog/wp-server-xmlrpc-url
-                                  org2blog/wp-server-userid
-                                  org2blog/wp-server-pass
-                                  org2blog/wp-server-blogid
-                                  (get-file-properties file-name)))
-                ;; grab url from returned alist
-                (setq file-web-url
-                      (cdr (assoc "url"
-                                  upload-ret)))
+            ;; get thumbnail information if we're going to link to it
+            (if org2blog/wp-image-thumbnails
+                ;; get the attachment_id so we can find the thumbnail
+                (let* ((attachment-id (cdr (assoc "id" upload-ret)))
+                       ;; http://codex.wordpress.org/XML-RPC_WordPress_API/Media
+                       ;; get name of thumbnail image, in this case medium at 300px
+                       (media-item-info
+                        (xml-rpc-method-call org2blog/wp-server-xmlrpc-url
+                                             "wp.getMediaItem"
+                                             org2blog/wp-server-blogid
+                                             org2blog/wp-server-userid
+                                             org2blog/wp-server-pass
+                                             attachment-id)))
 
-                ;; get thumbnail information if we're going to link to it
-                (if org2blog/wp-image-thumbnails
-                    ;; get the attachment_id so we can find the thumbnail
-                    (let* ((attachment-id (cdr (assoc "id" upload-ret)))
-                           ;; http://codex.wordpress.org/XML-RPC_WordPress_API/Media
-                           ;; get name of thumbnail image, in this case medium at 300px
-                           (media-item-info
-                            (xml-rpc-method-call org2blog/wp-server-xmlrpc-url
-                                                 "wp.getMediaItem"
-                                                 org2blog/wp-server-blogid
-                                                 org2blog/wp-server-userid
-                                                 org2blog/wp-server-pass
-                                                 attachment-id)))
+                  ;; media-item-info -> metadata -> sizes -> medium -> file == basename-300x???.jpg
+                  ;; is there no built-in shortcut to access nested alists?
+                  ;; https://github.com/nicferrier/emacs-dotassoc
+                  ;; we end up with just the basename of the requested size thumb in
+                  ;; medium-file-name
+                  (let ((media-metadata (cdr (assoc "metadata" media-item-info))))
+                    (setq file-thumbnail-name
+                          (cdr (assoc "file"
+                                      (cdr (assoc org2blog/wp-image-thumbnail-size
+                                                  (cdr (assoc "sizes" media-metadata))))))))
+                  ) ;; let*
 
-                      ;; media-item-info -> metadata -> sizes -> medium -> file == basename-300x???.jpg
-                      ;; is there no built-in shortcut to access nested alists?
-                      ;; https://github.com/nicferrier/emacs-dotassoc
-                      ;; we end up with just the basename of the requested size thumb in
-                      ;; medium-file-name
-                      (let ((media-metadata (cdr (assoc "metadata" media-item-info))))
-                        (setq file-thumbnail-name
-                              (cdr (assoc "file"
-                                          (cdr (assoc org2blog/wp-image-thumbnail-size
-                                                      (cdr (assoc "sizes" media-metadata))))))))
-                      ) ;; let*
+              ;; ELSE
+              (setq file-thumbnail-name nil))
 
-                  ;; ELSE
-                  (setq file-thumbnail-name nil))
+            (goto-char (point-max))
+            (org2blog/wp--new-line-no-indent)
+            (insert (concat "# " file-name " " file-web-url
+                            (if file-thumbnail-name (concat  " " file-thumbnail-name)))))
 
-                (goto-char (point-max))
-                (org2blog/wp--new-line-no-indent)
-                (insert (concat "# " file-name " " file-web-url
-                                (if file-thumbnail-name (concat  " " file-thumbnail-name)))))
-
-              ;; we retrieved file-web-url either via the API or from the org
-              ;; add it to the list of replacements that we'll do.
-              ;; (list (cons a b)) => ((a . b)) which can then be appended to
-              ;; file-all-urls; cpbotha changed to a list of 3-element lists
-              (setq file-all-urls
-                    (append file-all-urls
-                            (list (list file-name
-                                        file-web-url
-                                        file-thumbnail-name)))))))
+          ;; we retrieved file-web-url either via the API or from the org
+          ;; add it to the list of replacements that we'll do.
+          ;; (list (cons a b)) => ((a . b)) which can then be appended to
+          ;; file-all-urls; cpbotha changed to a list of 3-element lists
+          (setq file-all-urls
+                (append file-all-urls
+                        (list (list file-name
+                                    file-web-url
+                                    file-thumbnail-name))))))
 
       (dolist (file file-all-urls)
 
@@ -1070,7 +1066,7 @@ use absolute path or set org-directory")
 
         (when o2b-id
           (with-current-buffer (or (find-buffer-visiting log-file)
-                                  (find-file-noselect log-file))
+                                   (find-file-noselect log-file))
             (save-excursion
               (save-restriction
                 (widen)
@@ -1080,9 +1076,9 @@ use absolute path or set org-directory")
                 (if p
                     (progn (goto-char p) (org-narrow-to-subtree) (end-of-line))
                   (goto-char (point-max))
-                  (progn (org-insert-heading t)
-                         (insert headline)
-                         (org-narrow-to-subtree)))
+                  (org-insert-heading t)
+                  (insert headline)
+                  (org-narrow-to-subtree))
                 (if (search-forward o2b-id nil t 1)
                     (progn
                       (org-back-to-heading)
