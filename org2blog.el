@@ -755,7 +755,6 @@ closer to doing more blogging!
       (setq url (concat url "?p=" postid "&preview=true"))
       (browse-url url))))
 
-
 (defun org2blog/wp-insert-post-or-page-link (is-page)
   "Insert a link to the post (or page) with the given id, with
 the title of the post (or page) as description."
