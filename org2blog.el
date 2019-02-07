@@ -1296,7 +1296,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
  [_2_] Debug On     [_m_] 'More'⤵      [_l_] Publish Post          [_o_] Publish Post
  [_1_] Debug Off    [_t_] 'MathJax'⤵   [_;_] Delete Post           [_p_] Delete Post
  [_3_] Logout       [_x_] 'LaTeX'⤵     [_J_] Save As A Page Draft  [_U_] Save As A Page Draft
- [_q_] Quit         ^^                 [_K_] Display Page          [_I_] Display Page
+ [_q_] Quit         [_r_] 🔎 Link ⤵    [_K_] Display Page          [_I_] Display Page
 ^^                  ^^                 [_L_] Publish Page          [_O_] Publish Page
 ^^                  ^^                 [_:_] Delete Page           [_P_] Delete Page
 "
@@ -1316,6 +1316,7 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
   ("m" (lambda () (interactive) (insert "#+HTML: <!--more-->")))
   ("t" (lambda () (interactive) (insert "[mathjax]")))
   ("x" (lambda () (interactive) (insert "$\\LaTeX$")))
+  ("r" org2blog/wp-insert-post-or-page-link)
 
   ;;;; BUFFER
   ;;; POST
