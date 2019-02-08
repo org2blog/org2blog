@@ -12,7 +12,7 @@
 ;; Copyright (C) 2015-2017, 2019 Grant Rettke <grant@wisdomandwonder.com>
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
-;; Maintainer: Grant Rettke <gcr@wisdomandwonder.com>
+;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
 ;; Version: 1.0.3
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog/wiki
