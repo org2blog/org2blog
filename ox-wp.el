@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2014 Puneeth Chaganti <punchagan@muse-amuse.in>
 
-;; Author: Grant Rettke <gcr@wisdomandwonder.com>
+;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <gcr@wisdomandwonder.com>
 ;; Version: 1.0.3
 ;; Keywords: comm, files
