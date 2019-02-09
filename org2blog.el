@@ -147,12 +147,33 @@ All the other properties are optional. They over-ride the global variables.
   :group 'org2blog/wp
   :type 'boolean)
 
-(defcustom org2blog/wp-show-post-in-browser 'ask
-  "A variable to configure if you want to view your post/draft in
-the browser.  Setting it to 'ask will prompt you before opening
-it in the browser.  Setting it to 'show will show it without
-prompting.  Set it to nil, to turn off viewing posts in the
-browser."
+(defcustom org2blog/wp-show-post-in-browser 'dont
+  "How to automatically display an entry after save or post.
+
+Before configuring this think a little bit about your
+personal blogging workflow. This option should reflect your
+workflow preference.
+
+This variable is a symbol with options:
+
+- ‘ask ::  Ask you whether to display it or not.
+           This is useful when your workflow is to make
+           continuous changes that you just don’t know
+           whether or not you want to display it each time.
+- ‘show :: Show it immediately.
+           This is useful your workflow is to write your post
+           once and basically have it be perfect on the first
+           try. That way you save it, review it, see that
+           it looks good, publish it, and you are done.
+- ’dont :: Don’t show it at all.
+           This is useful when your workflow is to display
+           your entry once and manually refresh the page
+           yourself after saving or publishing. If you’ve
+           blogged before then this is the easiest and least
+           surprising approach.
+
+If you want to configure this value per-blog then use the option :SHOW.
+"
   :group 'org2blog/wp
   :type 'boolean)
 
@@ -541,11 +562,11 @@ closer to doing more blogging!
                      "Published your post: “%s”. Its ID is “%s”."
                    "Saved your post as a draft: “%s”. Its ID is “%s”.")
                  (cdr (assoc "title" post)) post-id)
-        (when (or (equal show 'show)
+        (when (or (equal (cadadr show) 'show)
                  (and
-                  (equal show 'ask)
+                  (equal (cadadr show) 'ask)
                   (y-or-n-p
-                   "If you are saving, then be sure then login right now. Are you ready to display your post: “%s” (ID “%s”)?")))
+                   (format "If you are saving, then be sure then login right now. Are you ready to display your post: “%s” (ID “%s”)?" (cdr (assoc "title" post)) post-id))))
           (if subtree-p
               (org2blog/wp-preview-subtree-post)
             (org2blog/wp-preview-buffer-post)))))))
@@ -611,11 +632,11 @@ closer to doing more blogging!
                      "Published your page: “%s”. Its ID is “%s”."
                    "Saved your page as a draft: “%s”. Its ID is “%s”.")
                  (cdr (assoc "title" post)) post-id)
-        (when (or (equal show 'show)
+        (when (or (equal (cadadr show) 'show)
                  (and
-                  (equal show 'ask)
+                  (equal (cadadr show) 'ask)
                   (y-or-n-p
-                   "If you are saving, then be sure then login right now. Are you ready to display your page: “%s” (ID “%s”)?")))
+                   (format "If you are saving, then be sure then login right now. Are you ready to display your page: “%s” (ID “%s”)?" (cdr (assoc "title" post)) post-id))))
           (if subtree-p
               (org2blog/wp-preview-subtree-post)
             (org2blog/wp-preview-buffer-post)))))))
