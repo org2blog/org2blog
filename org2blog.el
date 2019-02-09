@@ -386,7 +386,9 @@ closer to doing more blogging!
   (setq xml-rpc-debug (if on 3 0))
   (setq url-debug (if on t nil))
   (setq gnutls-log-level (if on 2 0))
-  (message "Org2Blog Debug: %s" (if on "Enabled" "Disabled")))
+  (message "%s detailed reporting about *everything* that I am doing. %s"
+           (if on "Enabling" "Disabling")
+           (if on "Hold onto your seat 🎢!" "Enjoy the silence 🧘.")))
 
 (defun org2blog/wp-password ()
   "Prompt for, and set password."
@@ -445,7 +447,7 @@ closer to doing more blogging!
                                    org2blog/wp-server-pass
                                    org2blog/wp-server-blogid)))
     (setq org2blog/wp-logged-in t)
-    (message "Logged in")))
+    (message "You are now logged in to your blog “%s”." org2blog/wp-blog-name)))
 
 (defun org2blog/wp-logout()
   "Logs out from the blog and clears. Clears the internal data structures."
@@ -458,7 +460,7 @@ closer to doing more blogging!
         org2blog/wp-tags-list nil
         org2blog/wp-pages-list nil
         org2blog/wp-logged-in nil)
-  (message "Logged out"))
+  (message "You are now logged out of your blog “%s”." org2blog/wp-blog-name))
 
 ;;;###autoload
 (defun org2blog/wp-new-entry ()
@@ -466,7 +468,7 @@ closer to doing more blogging!
   (interactive)
   ;; Prompt for login
   (if (and (not org2blog/wp-logged-in)
-         (y-or-n-p "It looks like you are not logged in right now. Would you like me to help you login before composing this new entry?"))
+         (y-or-n-p "It looks like you are not logged in right now. Would you like to login before composing this new entry?"))
       (org2blog/wp-login))
 
   ;; Generate new buffer
@@ -508,9 +510,9 @@ closer to doing more blogging!
         (org2blog/wp-create-categories (cdr (assoc "categories" post)))
         (setq post-id (cdr (assoc "post-id" post)))
         (when confirm
-          (if (not (y-or-n-p (format "Would you like to publish your post: “%s”?"
-                                   (cdr (assoc "title" post)))))
-              (error "Canceled publishing your post: “%s”." (cdr (assoc "title" post)))))
+          (if (not (y-or-n-p (format "Would you like to publish your post: “%s” (ID “%s”)?"
+                                   (cdr (assoc "title" post)) post-id)))
+              (error "Canceled publishing your post: “%s” (ID “%s”)." (cdr (assoc "title" post)) post-id)))
         (if post-id
             (metaweblog-edit-post org2blog/wp-server-xmlrpc-url
                                   org2blog/wp-server-userid
@@ -536,15 +538,14 @@ closer to doing more blogging!
             (insert (concat "#+POSTID: " post-id "\n"))))
         (org2blog/wp-save-details post post-id publish subtree-p)
         (message (if publish
-                     "Published (%s): %s"
-                   "Draft (%s): %s")
-                 post-id
-                 (cdr (assoc "title" post)))
+                     "Published your post: “%s”. Its ID is “%s”."
+                   "Saved your post as a draft: “%s”. Its ID is “%s”.")
+                 (cdr (assoc "title" post)) post-id)
         (when (or (equal show 'show)
                  (and
                   (equal show 'ask)
                   (y-or-n-p
-                   "[For drafts, ensure you login] View in browser? y/n")))
+                   "If you are saving, then be sure then login right now. Are you ready to display your post: “%s” (ID “%s”)?")))
           (if subtree-p
               (org2blog/wp-preview-subtree-post)
             (org2blog/wp-preview-buffer-post)))))))
@@ -573,8 +574,8 @@ closer to doing more blogging!
         (org2blog/wp-create-categories (cdr (assoc "categories" post)))
         (setq post-id (cdr (assoc "post-id" post)))
         (when confirm
-          (if (not (y-or-n-p (format "Would you like to publish your page: “%s”?"
-                                   (cdr (assoc "title" post)))))
+          (if (not (y-or-n-p (format "Would you like to publish your page: “%s” (ID “%s”)?"
+                                   (cdr (assoc "title" post)) post-id)))
               (error "Canceled publishing your page: “%s”." (cdr (assoc "title" post)))))
         (if post-id
             (wp-edit-page org2blog/wp-server-xmlrpc-url
@@ -607,15 +608,14 @@ closer to doing more blogging!
             (insert (concat "#+POSTID: " post-id "\n"))))
         (org2blog/wp-save-details post post-id publish subtree-p)
         (message (if publish
-                     "Published (%s): %s"
-                   "Draft (%s): %s")
-                 post-id
-                 (cdr (assoc "title" post)))
+                     "Published your page: “%s”. Its ID is “%s”."
+                   "Saved your page as a draft: “%s”. Its ID is “%s”.")
+                 (cdr (assoc "title" post)) post-id)
         (when (or (equal show 'show)
                  (and
                   (equal show 'ask)
                   (y-or-n-p
-                   "[For drafts, ensure you login] View in browser? y/n")))
+                   "If you are saving, then be sure then login right now. Are you ready to display your page: “%s” (ID “%s”)?")))
           (if subtree-p
               (org2blog/wp-preview-subtree-post)
             (org2blog/wp-preview-buffer-post)))))))
@@ -634,7 +634,7 @@ closer to doing more blogging!
                           org2blog/wp-server-userid
                           org2blog/wp-server-pass
                           post-id)
-  (message "Post Deleted"))
+  (message "Deleted your post with ID: “%s”" post-id))
 
 (defun org2blog/wp-delete-page (&optional page-id)
   (interactive "P")
@@ -651,7 +651,7 @@ closer to doing more blogging!
                   org2blog/wp-server-userid
                   org2blog/wp-server-pass
                   page-id)
-  (message "Page Deleted"))
+  (message "Deleted your page with ID: “%s”" page-id))
 
 (defun org2blog/wp-complete-category()
   "Provides completion for categories and tags."
@@ -747,7 +747,7 @@ closer to doing more blogging!
   (let* ((postid (org2blog/wp-get-option "POSTID"))
          (url org2blog/wp-server-xmlrpc-url))
     (if (not postid)
-        (message "This buffer hasn't been posted, yet.")
+        (message "Sorry I can’t display this buffer because it hasn’t been saved or published yet. Please do either and try again.")
       (setq url (substring url 0 -10))
       (setq url (concat url "?p=" postid "&preview=true"))
       (browse-url url))))
@@ -763,7 +763,7 @@ closer to doing more blogging!
                     (org-entry-get (point) "POST_ID")))
          (url org2blog/wp-server-xmlrpc-url))
     (if (not postid)
-        (message "This subtree hasn't been posted, yet.")
+        (message "Sorry I can’t display this subtree because it hasn’t been saved or published yet. Please do either and try again.")
       (setq url (substring url 0 -10))
       (setq url (concat url "?p=" postid "&preview=true"))
       (browse-url url))))
@@ -1067,8 +1067,7 @@ from currently logged in."
                            log-file
                          (if org-directory
                              (expand-file-name log-file org-directory)
-                           (message "org-track-posts: filename is ambiguous
-use absolute path or set org-directory")
+                           (message "Sorry I had a problem creating your post tracking file. The problem is that the  filename is ambiguous. The solution is to either use an absolute path or to set the variable ‘org-directory’, then try tracking your post again.")
                            log-file)))
              (headline (if (plist-member (cdr org2blog/wp-blog) :track-posts)
                            (cadr (plist-get (cdr org2blog/wp-blog) :track-posts))
@@ -1080,7 +1079,7 @@ use absolute path or set org-directory")
 
         (when o2b-id
           (with-current-buffer (or (find-buffer-visiting log-file)
-                                   (find-file-noselect log-file))
+                                  (find-file-noselect log-file))
             (save-excursion
               (save-restriction
                 (widen)
