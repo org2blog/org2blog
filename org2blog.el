@@ -42,9 +42,12 @@
 
 ;;; Require
 
+(defconst org2blog/wp-required-org-version "8.3"
+  "Minimum variable ‘org-version’ required to run this package.")
 (require 'org)
-(when (version< (org-version) "8.3")
-  (error "Require org-version>=8.3; Current version: %s" (org-version)))
+(when (version< org-version org2blog/wp-required-org-version)
+  (error "Sorry, I can’t run right now! It looks like version %s of Org mode is installed, but I need at least version %s of Org mode to run. Please install at least version %s of Org mode and run me again. See you soon!"
+         org-version org2blog/wp-required-org-version org2blog/wp-required-org-version))
 
 (require 'xml-rpc)
 (require 'metaweblog)
