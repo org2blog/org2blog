@@ -38,6 +38,8 @@
 
 ;;; Code:
 
+
+
 ;;; Require
 
 (require 'org)
@@ -50,11 +52,15 @@
 (require 'htmlize)
 (require 'hydra)
 
+
+
 ;;; Group
 
 (defgroup org2blog/wp nil
   "Post to weblogs from Emacs"
   :group 'org2blog/wp)
+
+
 
 ;;; Custom
 
@@ -209,6 +215,8 @@ to present to the user for selection."
   :group 'org2blog/wp
   :type 'integer)
 
+
+
 ;;; Var
 
 (defvar org2blog/wp-blog nil
@@ -276,6 +284,8 @@ options.")
 
 (defconst org2blog/wp-version "1.0.3"
   "Current version of blog.el")
+
+
 
 ;;; Fun - Public
 
@@ -790,6 +800,8 @@ the title of the post (or page) as description."
       ;; Insert!
       (insert (format "[[%s][%s]]" url post-title)))))
 
+
+
 ;;; Fun - Private
 
 (defun org2blog/wp-define-key (org2blog/wp-map suffix function)
@@ -1266,6 +1278,8 @@ and munge it a little to make it suitable to use with the
     ;; Return value
     parsed-entry))
 
+
+
 ;;; Mode
 
 ;;;###autoload
@@ -1287,6 +1301,8 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
 
   (if org2blog/wp-mode
       (run-mode-hooks 'org2blog/wp-mode-hook)))
+
+
 
 ;;; Hydra
 
