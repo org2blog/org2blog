@@ -1,4 +1,4 @@
-;;; org2blog.el --- Blog from Org mode to WordPress.
+;;; org2blog.el --- Blog from Org mode to WordPress. -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2008 Ashish Shukla
 ;; Copyright (C) 2010 Benjamin Beckwith <bnbeckwith@gmail.com>
@@ -643,7 +643,7 @@ closer to doing more blogging!
 (defun org2blog/wp-complete-category()
   "Provides completion for categories and tags."
   (interactive)
-  (let* (current-pos tag-or-category-list tag-or-cat-list tag-or-cat-prompt)
+  (let* (current-pos tag-or-cat-list tag-or-cat-prompt)
     (setq current-pos (point))
     (forward-line 0)
     (forward-char 2)
