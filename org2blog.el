@@ -296,10 +296,10 @@ options.")
   "Prompt before killing buffer."
   (when (and org2blog/wp-buffer-kill-prompt
            (not (buffer-file-name))
-           (y-or-n-p "Save entry?"))
+           (y-or-n-p "This entry hasn’t been saved to a file yet. Should I save it to a file?"))
     (save-buffer)
     (org2blog/wp-save-details (org2blog/wp--export-as-post) nil
-                              (y-or-n-p "Published?") nil)))
+                              (y-or-n-p "I’m about to save the details, and I need to know… Has it already been published?") nil)))
 
 ;;;###autoload
 (defun org2blog/wp-org-mode-hook-fn ()
@@ -466,7 +466,7 @@ closer to doing more blogging!
   (interactive)
   ;; Prompt for login
   (if (and (not org2blog/wp-logged-in)
-         (y-or-n-p "You are not logged in. Login?"))
+         (y-or-n-p "It looks like you are not logged in right now. Would you like me to help you login before composing this new entry?"))
       (org2blog/wp-login))
 
   ;; Generate new buffer
@@ -508,9 +508,9 @@ closer to doing more blogging!
         (org2blog/wp-create-categories (cdr (assoc "categories" post)))
         (setq post-id (cdr (assoc "post-id" post)))
         (when confirm
-          (if (not (y-or-n-p (format "Publish %s ?"
+          (if (not (y-or-n-p (format "Would you like to publish your post: “%s”?"
                                    (cdr (assoc "title" post)))))
-              (error "Canceled publishing post “%s”." (cdr (assoc "title" post)))))
+              (error "Canceled publishing your post: “%s”." (cdr (assoc "title" post)))))
         (if post-id
             (metaweblog-edit-post org2blog/wp-server-xmlrpc-url
                                   org2blog/wp-server-userid
@@ -573,9 +573,9 @@ closer to doing more blogging!
         (org2blog/wp-create-categories (cdr (assoc "categories" post)))
         (setq post-id (cdr (assoc "post-id" post)))
         (when confirm
-          (if (not (y-or-n-p (format "Publish %s ?"
+          (if (not (y-or-n-p (format "Would you like to publish your page: “%s”?"
                                    (cdr (assoc "title" post)))))
-              (error "Canceled publishing page: “%s”." (cdr (assoc "title" post)))))
+              (error "Canceled publishing your page: “%s”." (cdr (assoc "title" post)))))
         (if post-id
             (wp-edit-page org2blog/wp-server-xmlrpc-url
                           org2blog/wp-server-userid
@@ -843,7 +843,7 @@ key sequence defined by `org2blog/wp-keymap-prefix' and update
   (mapcar
    (lambda (cat)
      (if (and (not (member cat org2blog/wp-categories-list))
-            (y-or-n-p (format "Create '%s' category? " cat)))
+            (y-or-n-p (format "Would you like to create the a new category named: “%s”?" cat)))
          (wp-new-category org2blog/wp-server-xmlrpc-url
                           org2blog/wp-server-userid
                           org2blog/wp-server-pass
