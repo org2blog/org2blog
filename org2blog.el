@@ -398,7 +398,7 @@ closer to doing more blogging!
   "Logs into the blog. Initializes the internal data structures."
   (interactive)
   (if (not org2blog/wp-blog-alist)
-      (error "Set `org2blog/wp-blog-alist' to be able to use org2blog."))
+      (error "Sorry, I can’t find any blogs for you to login to. Please add your blog to ‘org2blog/wp-blog-alist’ and try logging in again."))
   (let ()
     (setq org2blog/wp-blog-name
           (or
@@ -412,7 +412,7 @@ closer to doing more blogging!
             "Blog to login into? ([Tab] to see list): "
             (mapcar 'car org2blog/wp-blog-alist) nil t)))
     (unless (> (length org2blog/wp-blog-name) 1)
-      (error "Invalid blog name"))
+      (error "Sorry, I can’t log in to blogs with names less than 2 characters long! It is weird, but I just can’t! Please run me again and tell me about a blog with a name at least 2 characters long. There are 3 ways to do it: tell me inside \"this call\", configure ‘org2blog/wp-blog-alist’, or choose a different blog from the list you are presented."))
     (setq org2blog/wp-blog (assoc org2blog/wp-blog-name org2blog/wp-blog-alist)
           org2blog/wp-server-xmlrpc-url (plist-get (cdr org2blog/wp-blog) :url)
           org2blog/wp-server-userid (plist-get (cdr org2blog/wp-blog) :username)
@@ -510,7 +510,7 @@ closer to doing more blogging!
         (when confirm
           (if (not (y-or-n-p (format "Publish %s ?"
                                    (cdr (assoc "title" post)))))
-              (error "Post cancelled.")))
+              (error "Canceled publishing post “%s”." (cdr (assoc "title" post)))))
         (if post-id
             (metaweblog-edit-post org2blog/wp-server-xmlrpc-url
                                   org2blog/wp-server-userid
@@ -575,7 +575,7 @@ closer to doing more blogging!
         (when confirm
           (if (not (y-or-n-p (format "Publish %s ?"
                                    (cdr (assoc "title" post)))))
-              (error "Post cancelled.")))
+              (error "Canceled publishing page: “%s”." (cdr (assoc "title" post)))))
         (if post-id
             (wp-edit-page org2blog/wp-server-xmlrpc-url
                           org2blog/wp-server-userid
