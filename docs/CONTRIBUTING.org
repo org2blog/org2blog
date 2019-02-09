@@ -33,9 +33,14 @@ are expected of you when you do decide to make a contribution:
   context for where something me be contributed.
 - Org2Blog is licensed [[https://www.gnu.org/licenses/gpl-3.0.en.html][GPLv3]]: you understand and submit your code under those
   terms.
+- If the change is a minor change and you don't think that it needs copyright
+  assignment then the commit message should also contain the cookie
+  TINYCHANGE. Otherwise add a copyright statement to the modifie
+  file, in the form of:
+    ;; Copyright (C) 1979 Ellen Ripley <ellen@ripley.com>
 
 That is it. That is everything. If you made it this far then kudos for you to
 sticking around. Thank you for spending your time here. Hope you keep blogging
-and having fun with Org2Blog. 
+and having fun with Org2Blog.
 
 Thanks and have a great day.
