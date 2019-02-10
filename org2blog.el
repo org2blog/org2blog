@@ -95,6 +95,7 @@ All the other properties are optional. They over-ride the global variables.
                            (\"category1\" \"category2\" ...)
   :tags-as-categories      `org2blog/wp-use-tags-as-categories'
   :confirm                 `org2blog/wp-confirm-post'
+  :safe-delete             `org2blog/wp-safe-delete'
   :show                    `org2blog/wp-show-post-in-browser'
   :keep-new-lines          `org2blog/wp-keep-new-lines'
   :wp-latex                `org2blog/wp-use-wp-latex'
@@ -144,6 +145,11 @@ All the other properties are optional. They over-ride the global variables.
 
 (defcustom org2blog/wp-confirm-post nil
   "Non-nil means confirm before Publishing a post."
+  :group 'org2blog/wp
+  :type 'boolean)
+
+(defcustom org2blog/wp-safe-delete t
+  "Non-nil means confirm before Deleting a post."
   :group 'org2blog/wp
   :type 'boolean)
 
@@ -667,11 +673,18 @@ blog. Please log in to your blog and try doing this again."))
                             (widen)
                             (or (org-entry-get (point) "POSTID")
                                (org-entry-get (point) "POST_ID"))))))
-  (metaweblog-delete-post org2blog/wp-server-xmlrpc-url
+  (let* ((safedelete (or (if (plist-member (cdr org2blog/wp-blog) :safe-delete)
+                          (plist-member (cdr org2blog/wp-blog) :safe-delete))
+                        org2blog/wp-safe-delete))
+         (doit (or (not safedelete)
+                  (y-or-n-p (format "Would you like to delete your post with ID: “%s”?" post-id)))))
+    (if (not doit)
+        (message "You chose not to delete your post with ID: “%s”, so I did not." post-id)
+      (metaweblog-delete-post org2blog/wp-server-xmlrpc-url
                           org2blog/wp-server-userid
                           org2blog/wp-server-pass
                           post-id)
-  (message "Deleted your post with ID: “%s”" post-id))
+      (message "Deleted your post with ID: “%s”." post-id))))
 
 (defun org2blog/wp-delete-page (&optional page-id)
   (interactive "P")
@@ -683,12 +696,19 @@ blog. Please log in to your blog and try doing this again."))
                             (widen)
                             (or (org-entry-get (point) "POSTID")
                                (org-entry-get (point) "POST_ID"))))))
-  (wp-delete-page org2blog/wp-server-xmlrpc-url
+  (let* ((safedelete (or (if (plist-member (cdr org2blog/wp-blog) :safe-delete)
+                          (plist-member (cdr org2blog/wp-blog) :safe-delete))
+                        org2blog/wp-safe-delete))
+         (doit (or (not safedelete)
+                  (y-or-n-p (format "Would you like to delete your page with ID: “%s”?" page-id)))))
+    (if (not doit)
+        (message "You chose not to delete your page with ID: “%s”, so I did not." page-id)
+      (wp-delete-page org2blog/wp-server-xmlrpc-url
                   org2blog/wp-server-blogid
                   org2blog/wp-server-userid
                   org2blog/wp-server-pass
                   page-id)
-  (message "Deleted your page with ID: “%s”" page-id))
+  (message "Deleted your page with ID: “%s”." page-id))))
 
 (defun org2blog/wp-complete-category()
   "Provides completion for categories and tags."
