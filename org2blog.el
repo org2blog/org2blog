@@ -156,26 +156,26 @@ workflow preference.
 
 This variable is a symbol with options:
 
-- ‘ask ::  Ask you whether to display it or not.
-           This is useful when your workflow is to make
-           continuous changes that you just don’t know
-           whether or not you want to display it each time.
-- ‘show :: Show it immediately.
-           This is useful your workflow is to write your post
-           once and basically have it be perfect on the first
-           try. That way you save it, review it, see that
-           it looks good, publish it, and you are done.
-- ’dont :: Don’t show it at all.
-           This is useful when your workflow is to display
-           your entry once and manually refresh the page
-           yourself after saving or publishing. If you’ve
-           blogged before then this is the easiest and least
-           surprising approach.
+- ask ::  Ask you whether to display it or not.
+          This is useful when your workflow is to make
+          continuous changes that you just don’t know
+          whether or not you want to display it each time.
+- show :: Show it immediately.
+          This is useful your workflow is to write your post
+          once and basically have it be perfect on the first
+          try. That way you save it, review it, see that
+          it looks good, publish it, and you are done.
+- dont :: Don’t show it at all.
+          This is useful when your workflow is to display
+          your entry once and manually refresh the page
+          yourself after saving or publishing. If you’ve
+          blogged before then this is the easiest and least
+          surprising approach.
 
 If you want to configure this value per-blog then use the option :SHOW.
 "
   :group 'org2blog/wp
-  :type 'boolean)
+  :type 'symbol)
 
 (defcustom org2blog/wp-keep-new-lines nil
   "Non-nil means do not strip newlines."
@@ -562,14 +562,23 @@ closer to doing more blogging!
                      "Published your post: “%s”. Its ID is “%s”."
                    "Saved your post as a draft: “%s”. Its ID is “%s”.")
                  (cdr (assoc "title" post)) post-id)
-        (when (or (equal (cadadr show) 'show)
-                 (and
-                  (equal (cadadr show) 'ask)
-                  (y-or-n-p
-                   (format "If you are saving, then be sure then login right now. Are you ready to display your post: “%s” (ID “%s”)?" (cdr (assoc "title" post)) post-id))))
-          (if subtree-p
-              (org2blog/wp-preview-subtree-post)
-            (org2blog/wp-preview-buffer-post)))))))
+        (let* ((showit (or (and (atom show) (symbolp show) (not (listp show)) show) (cadr show)))
+               (dont (equal showit 'dont))
+               (show (equal showit 'show))
+               (ask (equal showit 'ask)))
+          (cond (dont (message "It looks like you decided not to automatically display your post, so I won’t. If you ever want to change that then try customizing “org2blog/wp-show-post-in-browser”."))
+                ((not org2blog/wp-logged-in) (message "It looks like you wanted
+to display your post, but I couldn’t because you are not logged in to your
+blog. Please log in to your blog and try doing this again."))
+                (show (if subtree-p
+                    (org2blog/wp-preview-subtree-post)
+                  (org2blog/wp-preview-buffer-post)))
+                ((and ask (y-or-n-p
+                         (format "Would you like to display your post: “%s” (ID “%s”)?" (cdr (assoc "title" post)) post-id)))
+                (if subtree-p
+                    (org2blog/wp-preview-subtree-post)
+                  (org2blog/wp-preview-buffer-post)))
+                (t "Your entry is posted.")))))))
 
 (defun org2blog/wp-post-buffer-as-page-and-publish ()
   "Alias to post buffer and mark it as published"
@@ -632,14 +641,21 @@ closer to doing more blogging!
                      "Published your page: “%s”. Its ID is “%s”."
                    "Saved your page as a draft: “%s”. Its ID is “%s”.")
                  (cdr (assoc "title" post)) post-id)
-        (when (or (equal (cadadr show) 'show)
-                 (and
-                  (equal (cadadr show) 'ask)
-                  (y-or-n-p
-                   (format "If you are saving, then be sure then login right now. Are you ready to display your page: “%s” (ID “%s”)?" (cdr (assoc "title" post)) post-id))))
-          (if subtree-p
-              (org2blog/wp-preview-subtree-post)
-            (org2blog/wp-preview-buffer-post)))))))
+        (let* ((showit (or (and (atom show) (symbolp show) (not (listp show)) show) (cadr show)))
+               (dont (equal showit 'dont))
+               (show (equal showit 'show))
+               (ask (equal showit 'ask)))
+          (cond (dont (message "It looks like you decided not to automatically display your page, so I won’t. If you ever want to change that then try customizing “org2blog/wp-show-post-in-browser”."))
+                ((not org2blog/wp-logged-in) (message "It looks like you wanted to display your page, but I couldn’t because you are not logged in to your blog. Please log in to your blog and try doing this again."))
+                (show (if subtree-p
+                    (org2blog/wp-preview-subtree-post)
+                  (org2blog/wp-preview-buffer-post)))
+                ((and ask (y-or-n-p
+                         (format "Would you like to display your post: “%s” (ID “%s”)?" (cdr (assoc "title" post)) post-id)))
+                (if subtree-p
+                    (org2blog/wp-preview-subtree-post)
+                  (org2blog/wp-preview-buffer-post)))
+                (t "Your page is posted.")))))))
 
 (defun org2blog/wp-delete-entry (&optional post-id)
   (interactive "P")
