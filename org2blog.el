@@ -1368,19 +1368,20 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
 (defhydra org2blog/wp-hydra (:color blue :hint nil)
 
   "
-╔════════════════════════════════════╗
-║ 🐃 → 🦄 → Org2Blog → WordPress → 🌐 ║
-╠════════════════╦════════════════╦══╩═════════════════════╦═════════════════════════╗
-║ Admin          ║ Use            ║ Buffer                 ║ Subtree                 ║
-╚════════════════╩════════════════╩════════════════════════╩═════════════════════════╝
- [_4_] Login        [_e_] New Entry    [_j_] Save As A Post Draft  [_u_] Save As A Post Draft
- [_5_] Set Password [_c_] Completion   [_k_] Display Post          [_i_] Display Post
- [_2_] Debug On     [_m_] 'More'⤵      [_l_] Publish Post          [_o_] Publish Post
- [_1_] Debug Off    [_t_] 'MathJax'⤵   [_;_] Delete Post           [_p_] Delete Post
- [_3_] Logout       [_x_] 'LaTeX'⤵     [_J_] Save As A Page Draft  [_U_] Save As A Page Draft
- [_q_] Quit         [_r_] 🔎 Link ⤵    [_K_] Display Page          [_I_] Display Page
-^^                  ^^                 [_L_] Publish Page          [_O_] Publish Page
-^^                  ^^                 [_:_] Delete Page           [_P_] Delete Page
+╔══════════════════════════════════════╗
+║ 🐃 → 🦄 → Org2Blog → WordPress → 🌐   ║
+╠════════════════╦══════════════════╦══╩═════════════════════╦═════════════════════════╗
+║ Admin          ║ Use              ║ Buffer                 ║ Subtree                 ║
+╚════════════════╩══════════════════╩════════════════════════╩═════════════════════════╝
+ [_4_] Login        [_e_] New Entry      [_j_] Save As A Post Draft  [_u_] Save As A Post Draft
+ [_5_] Set Password [_c_] Completion     [_k_] Display Post          [_i_] Display Post
+ [_2_] Debug On     [_m_] 'More'⤵        [_l_] Publish Post          [_o_] Publish Post
+ [_1_] Debug Off    [_t_] 'MathJax'⤵     [_;_] Delete Post           [_p_] Delete Post
+ [_3_] Logout       [_x_] 'LaTeX'⤵       [_a_] Track Post            [_A_] Track Post
+ [_q_] Quit         [_r_] 🔎 Link ⤵      [_J_] Save As A Page Draft  [_U_] Save As A Page Draft
+^^                  ^^                   [_K_] Display Page          [_I_] Display Page
+^^                  ^^                   [_L_] Publish Page          [_O_] Publish Page
+^^                  ^^                   [_:_] Delete Page           [_P_] Delete Page
 "
   ;;;; ADMIN
   ("4" org2blog/wp-login :exit nil)
@@ -1399,6 +1400,8 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
   ("t" (lambda () (interactive) (insert "[mathjax]")))
   ("x" (lambda () (interactive) (insert "$\\LaTeX$")))
   ("r" org2blog/wp-insert-post-or-page-link)
+  ("a" org2blog/wp-track-buffer)
+  ("A" org2blog/wp-track-subtree)
 
   ;;;; BUFFER
   ;;; POST
