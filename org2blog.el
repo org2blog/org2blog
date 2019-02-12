@@ -540,10 +540,10 @@ closer to doing more blogging!
   (interactive)
   (catch 'return
     (when (not org2blog/wp-blog-alist)
-      (message (concat "Sorry, I can’t find any blogs for you to "
-                       "login to. Please add your blog to "
-                       " ‘org2blog/wp-blog-alist’ and try "
-                       "logging in again."))
+      (message "%s" (concat "Sorry, I can’t find any blogs for you to "
+                            "login to. Please add your blog to "
+                            " ‘org2blog/wp-blog-alist’ and try "
+                            "logging in again."))
       (throw 'return))
     (let ()
       (setq org2blog/wp-blog-name
