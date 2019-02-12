@@ -577,13 +577,13 @@ closer to doing more blogging!
 to display your post, but I couldn’t because you are not logged in to your
 blog. Please log in to your blog and try doing this again."))
                 (show (if subtree-p
-                    (org2blog/wp-preview-subtree-post)
-                  (org2blog/wp-preview-buffer-post)))
+                          (org2blog/wp-preview-subtree-post)
+                        (org2blog/wp-preview-buffer-post)))
                 ((and ask (y-or-n-p
                          (format "Would you like to display your post: “%s” (ID “%s”)?" (cdr (assoc "title" post)) post-id)))
-                (if subtree-p
-                    (org2blog/wp-preview-subtree-post)
-                  (org2blog/wp-preview-buffer-post)))
+                 (if subtree-p
+                     (org2blog/wp-preview-subtree-post)
+                   (org2blog/wp-preview-buffer-post)))
                 (t "Your entry is posted.")))))))
 
 (defun org2blog/wp-post-buffer-as-page-and-publish ()
@@ -654,13 +654,13 @@ blog. Please log in to your blog and try doing this again."))
           (cond (dont (message "It looks like you decided not to automatically display your page, so I won’t. If you ever want to change that then try customizing “org2blog/wp-show-post-in-browser”."))
                 ((not org2blog/wp-logged-in) (message "It looks like you wanted to display your page, but I couldn’t because you are not logged in to your blog. Please log in to your blog and try doing this again."))
                 (show (if subtree-p
-                    (org2blog/wp-preview-subtree-post)
-                  (org2blog/wp-preview-buffer-post)))
+                          (org2blog/wp-preview-subtree-post)
+                        (org2blog/wp-preview-buffer-post)))
                 ((and ask (y-or-n-p
-                         (format "Would you like to display your post: “%s” (ID “%s”)?" (cdr (assoc "title" post)) post-id)))
-                (if subtree-p
-                    (org2blog/wp-preview-subtree-post)
-                  (org2blog/wp-preview-buffer-post)))
+                           (format "Would you like to display your post: “%s” (ID “%s”)?" (cdr (assoc "title" post)) post-id)))
+                 (if subtree-p
+                     (org2blog/wp-preview-subtree-post)
+                   (org2blog/wp-preview-buffer-post)))
                 (t "Your page is posted.")))))))
 
 (defun org2blog/wp-delete-entry (&optional post-id)
@@ -674,16 +674,16 @@ blog. Please log in to your blog and try doing this again."))
                             (or (org-entry-get (point) "POSTID")
                                (org-entry-get (point) "POST_ID"))))))
   (let* ((safedelete (or (if (plist-member (cdr org2blog/wp-blog) :safe-delete)
-                          (plist-member (cdr org2blog/wp-blog) :safe-delete))
+                            (plist-member (cdr org2blog/wp-blog) :safe-delete))
                         org2blog/wp-safe-delete))
          (doit (or (not safedelete)
                   (y-or-n-p (format "Would you like to delete your post with ID: “%s”?" post-id)))))
     (if (not doit)
         (message "You chose not to delete your post with ID: “%s”, so I did not." post-id)
       (metaweblog-delete-post org2blog/wp-server-xmlrpc-url
-                          org2blog/wp-server-userid
-                          org2blog/wp-server-pass
-                          post-id)
+                              org2blog/wp-server-userid
+                              org2blog/wp-server-pass
+                              post-id)
       (message "Deleted your post with ID: “%s”." post-id))))
 
 (defun org2blog/wp-delete-page (&optional page-id)
@@ -697,18 +697,18 @@ blog. Please log in to your blog and try doing this again."))
                             (or (org-entry-get (point) "POSTID")
                                (org-entry-get (point) "POST_ID"))))))
   (let* ((safedelete (or (if (plist-member (cdr org2blog/wp-blog) :safe-delete)
-                          (plist-member (cdr org2blog/wp-blog) :safe-delete))
+                            (plist-member (cdr org2blog/wp-blog) :safe-delete))
                         org2blog/wp-safe-delete))
          (doit (or (not safedelete)
                   (y-or-n-p (format "Would you like to delete your page with ID: “%s”?" page-id)))))
     (if (not doit)
         (message "You chose not to delete your page with ID: “%s”, so I did not." page-id)
       (wp-delete-page org2blog/wp-server-xmlrpc-url
-                  org2blog/wp-server-blogid
-                  org2blog/wp-server-userid
-                  org2blog/wp-server-pass
-                  page-id)
-  (message "Deleted your page with ID: “%s”." page-id))))
+                      org2blog/wp-server-blogid
+                      org2blog/wp-server-userid
+                      org2blog/wp-server-pass
+                      page-id)
+      (message "Deleted your page with ID: “%s”." page-id))))
 
 (defun org2blog/wp-complete-category()
   "Provides completion for categories and tags."
