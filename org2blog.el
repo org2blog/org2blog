@@ -435,7 +435,7 @@ options.")
 (defun o2b-report (on)
   "Enable debugging through entire XML-RPC call process
 
-Call with a prefix-argument to enable, a nd without one
+Call with a prefix-argument to enable, and without one
 to disable debugging.
 
 org2blog/wp operates using the following APIs in the order
