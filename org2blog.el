@@ -109,8 +109,8 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
   ("5" org2blog/wp-password :exit nil)
   ("2" (lambda () (interactive)
          (let ((current-prefix-arg '(4)))
-           (call-interactively 'org2blog/wp-debug))) :exit nil)
-  ("1" org2blog/wp-debug :exit nil)
+           (call-interactively 'o2b-report))) :exit nil)
+  ("1" o2b-report :exit nil)
   ("3" org2blog/wp-logout)
   ("q" nil)
 
@@ -432,8 +432,11 @@ options.")
     (when (org2blog/wp-get-option "ORG2BLOG")
       (org2blog/wp-mode t))))
 
-(defun org2blog/wp-debug (on)
-  "Call with a prefix-argument to enable debugging through the XML-RPC call process and without one to disable debugging.
+(defun o2b-report (on)
+  "Enable debugging through entire XML-RPC call process
+
+Call with a prefix-argument to enable, a nd without one
+to disable debugging. 
 
 org2blog/wp operates using the following APIs in the order
 listed below, followed by details about their debug output:
