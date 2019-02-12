@@ -1018,6 +1018,15 @@ the title of the post (or page) as description."
       ;; Insert!
       (insert (format "[[%s][%s]]" url post-title)))))
 
+(defun org2blog/wp-reload-entry-mode-map ()
+  "Re-initialize `org2blog/wp-entry-mode-map' based on the prefix
+key sequence defined by `org2blog/wp-keymap-prefix' and update
+`minor-mode-map-alist' accordingly."
+  (interactive)
+  (org2blog/wp-init-entry-mode-map)
+  (let ((keymap (assoc 'org2blog/wp-mode minor-mode-map-alist)))
+    (setcdr keymap org2blog/wp-entry-mode-map)))
+
 
 
 ;;; Fun - Private
@@ -1040,15 +1049,6 @@ key sequence defined by `org2blog/wp-keymap-prefix'."
           (org2blog/wp-define-key org2blog/wp-map "D" 'org2blog/wp-post-buffer-as-page)
           (org2blog/wp-define-key org2blog/wp-map "t" 'org2blog/wp-complete-category)
           org2blog/wp-map)))
-
-(defun org2blog/wp-reload-entry-mode-map ()
-  "Re-initialize `org2blog/wp-entry-mode-map' based on the prefix
-key sequence defined by `org2blog/wp-keymap-prefix' and update
-`minor-mode-map-alist' accordingly."
-  (interactive)
-  (org2blog/wp-init-entry-mode-map)
-  (let ((keymap (assoc 'org2blog/wp-mode minor-mode-map-alist)))
-    (setcdr keymap org2blog/wp-entry-mode-map)))
 
 ;; Set the mode map for org2blog.
 (unless org2blog/wp-entry-mode-map (org2blog/wp-init-entry-mode-map))
