@@ -221,7 +221,7 @@ All the other properties are optional. They over-ride the global variables.
   :group 'org2blog/wp
   :type 'string)
 
-(defcustom org2blog/wp-buffer-format-function 'org2blog/wp-format-buffer
+(defcustom org2blog/wp-buffer-format-function 'o2b--format-buffer
   "Function formatting a buffer according to `org2blog/wp-buffer-template'."
   :group 'org2blog/wp
   :type 'function)
@@ -647,7 +647,7 @@ closer to doing more blogging!
   "Posts new blog entry to the blog or edits an existing entry."
   (interactive "P")
   (org2blog/wp-mode t) ;; turn on org2blog-wp-mode
-  (org2blog/wp-correctly-login)
+  (o2b--correctly-login)
   (save-excursion
     (save-restriction
       (let ((post (org2blog/wp--export-as-post subtree-p))
@@ -659,7 +659,7 @@ closer to doing more blogging!
             (show (or (plist-member (cdr org2blog/wp-blog) :show)
                      org2blog/wp-show-post-in-browser))
             post-id)
-        (org2blog/wp-create-categories (cdr (assoc "categories" post)))
+        (o2b--create-categories (cdr (assoc "categories" post)))
         (setq post-id (cdr (assoc "post-id" post)))
         (when confirm
           (when (not (y-or-n-p
@@ -730,7 +730,7 @@ closer to doing more blogging!
 (defun org2blog/wp-post-buffer-as-page (&optional publish subtree-p)
   "Posts new page to the blog or edits an existing page."
   (interactive "P")
-  (org2blog/wp-correctly-login)
+  (o2b--correctly-login)
   (save-excursion
     (save-restriction
       (widen)
@@ -743,7 +743,7 @@ closer to doing more blogging!
             (show (or (plist-member (cdr org2blog/wp-blog) :show)
                      org2blog/wp-show-post-in-browser))
             post-id)
-        (org2blog/wp-create-categories (cdr (assoc "categories" post)))
+        (o2b--create-categories (cdr (assoc "categories" post)))
         (setq post-id (cdr (assoc "post-id" post)))
         (when confirm
           (when (not (y-or-n-p
@@ -816,7 +816,7 @@ closer to doing more blogging!
 
 (defun org2blog/wp-delete-entry (&optional post-id)
   (interactive "P")
-  (org2blog/wp-correctly-login)
+  (o2b--correctly-login)
   (when (null post-id)
     (setq post-id (or (org2blog/wp-get-option "POSTID")
                      (org2blog/wp-get-option "POST_ID")
@@ -841,7 +841,7 @@ closer to doing more blogging!
 
 (defun org2blog/wp-delete-page (&optional page-id)
   (interactive "P")
-  (org2blog/wp-correctly-login)
+  (o2b--correctly-login)
   (when (null page-id)
     (setq page-id (or (org2blog/wp-get-option "POSTID")
                      (org2blog/wp-get-option "POST_ID")
@@ -954,7 +954,7 @@ closer to doing more blogging!
 (defun org2blog/wp-preview-buffer-post ()
   "Preview the present buffer in browser, if posted."
   (interactive)
-  (org2blog/wp-correctly-login)
+  (o2b--correctly-login)
   (let* ((postid (org2blog/wp-get-option "POSTID"))
          (url org2blog/wp-server-xmlrpc-url))
     (if (not postid)
@@ -970,7 +970,7 @@ closer to doing more blogging!
   "Preview the present subtree in browser, if posted."
   (interactive)
   (org-narrow-to-subtree)
-  (org2blog/wp-correctly-login)
+  (o2b--correctly-login)
   (widen)
   (let* ((postid (or (org-entry-get (point) "POSTID")
                     (org-entry-get (point) "POST_ID")))
@@ -987,7 +987,7 @@ closer to doing more blogging!
   "Insert a link to the post (or page) with the given id, with
 the title of the post (or page) as description."
   (interactive "P")
-  (org2blog/wp-correctly-login)
+  (o2b--correctly-login)
   (let* ((post-list (if is-page
                         (wp-get-pagelist org2blog/wp-server-xmlrpc-url
                                          org2blog/wp-server-userid
@@ -1023,7 +1023,7 @@ the title of the post (or page) as description."
 key sequence defined by `org2blog/wp-keymap-prefix' and update
 `minor-mode-map-alist' accordingly."
   (interactive)
-  (org2blog/wp-init-entry-mode-map)
+  (o2b--init-entry-mode-map)
   (let ((keymap (assoc 'org2blog/wp-mode minor-mode-map-alist)))
     (setcdr keymap org2blog/wp-entry-mode-map)))
 
@@ -1031,29 +1031,29 @@ key sequence defined by `org2blog/wp-keymap-prefix' and update
 
 ;;; Fun - Private
 
-(defun org2blog/wp-define-key (org2blog/wp-map suffix function)
+(defun o2b--define-key (org2blog/wp-map suffix function)
   "Define a key sequence in the mode's key map with the prefix
 given by `org2blog/wp-keymap-prefix', and the given suffix."
   (let ((keyseq (read-kbd-macro (concat org2blog/wp-keymap-prefix " " suffix))))
     (define-key org2blog/wp-map keyseq function)))
 
-(defun org2blog/wp-init-entry-mode-map ()
+(defun o2b--init-entry-mode-map ()
   "Initialize `org2blog/wp-entry-mode-map' based on the prefix
 key sequence defined by `org2blog/wp-keymap-prefix'."
   (setq org2blog/wp-entry-mode-map
         (let ((org2blog/wp-map (make-sparse-keymap)))
           (set-keymap-parent org2blog/wp-map org-mode-map)
-          (org2blog/wp-define-key org2blog/wp-map "p" 'org2blog/wp-post-buffer-and-publish)
-          (org2blog/wp-define-key org2blog/wp-map "P" 'org2blog/wp-post-buffer-as-page-and-publish)
-          (org2blog/wp-define-key org2blog/wp-map "d" 'org2blog/wp-post-buffer)
-          (org2blog/wp-define-key org2blog/wp-map "D" 'org2blog/wp-post-buffer-as-page)
-          (org2blog/wp-define-key org2blog/wp-map "t" 'org2blog/wp-complete-category)
+          (o2b--define-key org2blog/wp-map "p" 'org2blog/wp-post-buffer-and-publish)
+          (o2b--define-key org2blog/wp-map "P" 'org2blog/wp-post-buffer-as-page-and-publish)
+          (o2b--define-key org2blog/wp-map "d" 'org2blog/wp-post-buffer)
+          (o2b--define-key org2blog/wp-map "D" 'org2blog/wp-post-buffer-as-page)
+          (o2b--define-key org2blog/wp-map "t" 'org2blog/wp-complete-category)
           org2blog/wp-map)))
 
 ;; Set the mode map for org2blog.
-(unless org2blog/wp-entry-mode-map (org2blog/wp-init-entry-mode-map))
+(unless org2blog/wp-entry-mode-map (o2b--init-entry-mode-map))
 
-(defun org2blog/wp-create-categories (categories)
+(defun o2b--create-categories (categories)
   "Prompt and create new categories on WordPress."
   (mapcar
    (lambda (cat)
@@ -1067,7 +1067,7 @@ key sequence defined by `org2blog/wp-keymap-prefix'."
      (add-to-list 'org2blog/wp-categories-list cat))
    categories))
 
-(defun org2blog/wp-get-blog-name ()
+(defun o2b--get-blog-name ()
   "Get the blog name from a post -- buffer or subtree.
 NOTE: Checks for subtree only when buffer is narrowed."
   (let ((blog-name
@@ -1076,16 +1076,16 @@ NOTE: Checks for subtree only when buffer is narrowed."
            (or (org2blog/wp-get-option "blog") ""))))
     (or (and (assoc blog-name org2blog/wp-blog-alist) blog-name) nil)))
 
-(defun org2blog/wp-correctly-login ()
+(defun o2b--correctly-login ()
   "Relogin to correct blog, if blog-name is found and different
 from currently logged in."
-  (let ((blog-name (org2blog/wp-get-blog-name)))
+  (let ((blog-name (o2b--get-blog-name)))
     (when (and blog-name (not (equal blog-name org2blog/wp-blog-name)))
       (org2blog/wp-logout))
     (unless org2blog/wp-logged-in
       (org2blog/wp-login blog-name))))
 
-(defun org2blog/wp-format-buffer (buffer-template)
+(defun o2b--format-buffer (buffer-template)
   "Default buffer formatting function."
   (format buffer-template
           (format-time-string "[%Y-%m-%d %a %H:%M]" (current-time))
@@ -1097,7 +1097,7 @@ from currently logged in."
           (or (plist-get (cdr org2blog/wp-blog) :default-title)
              org2blog/wp-default-title)))
 
-(defun org2blog/wp-upload-files-replace-urls (text)
+(defun o2b--upload-files-replace-urls (text)
   "Uploads files, if any in the html, and changes their links"
   ;; text is the html as generated by orgmode HTML export
   (let ((file-all-urls nil)
@@ -1369,7 +1369,7 @@ various export options."
 (defun org2blog/wp--export-as-html (subtree-p export-options)
   "Return the html for the post."
   (save-excursion
-    (org2blog/wp-upload-files-replace-urls
+    (o2b--upload-files-replace-urls
      (org-no-properties (org-wp-export-as-string nil subtree-p export-options)))))
 
 (defun org2blog/wp--export-as-post (&optional subtree-p)
@@ -1382,8 +1382,8 @@ various export options."
       (save-excursion
         ;; Get the required parameters for posting the blog-post
         (let ((post (if subtree-p
-                        (org2blog/wp--parse-subtree-entry)
-                      (org2blog/wp--parse-buffer-entry))))
+                        (o2b--parse-subtree-entry)
+                      (o2b--parse-buffer-entry))))
           (when tags-as-categories
             (setcdr (assoc "categories" post) (cdr (assoc "tags" post)))
             (setcdr (assoc "tags" post) nil))
@@ -1407,7 +1407,7 @@ If parent is the id of the parent page, the user need not be
 logged in.  Otherwise, the user is prompted to login."
 
   (when (and parent (equal 0 (string-to-number parent)))
-    (org2blog/wp-correctly-login))
+    (o2b--correctly-login))
   (if parent
       (or
        (cdr (assoc
@@ -1431,7 +1431,7 @@ logged in.  Otherwise, the user is prompted to login."
 
        current-time)))
 
-(defun org2blog/wp--parse-buffer-entry ()
+(defun o2b--parse-buffer-entry ()
   "Parse an org2blog buffer entry.
 
 The post object returned does not contain the exported html.
@@ -1467,7 +1467,7 @@ and munge it a little to make it suitable to use with the
     ;; Return value
     parsed-entry))
 
-(defun org2blog/wp--parse-subtree-entry ()
+(defun o2b--parse-subtree-entry ()
   "Parse an org2blog subtree entry.
 
 The post object returned does not contain the exported html.
