@@ -474,7 +474,8 @@ closer to doing more blogging!
                                    org2blog/wp-server-pass
                                    org2blog/wp-server-blogid)))
     (setq org2blog/wp-logged-in t)
-    (message "You are now logged in to your blog “%s”." org2blog/wp-blog-name)))
+    (message "You are now logged in to your blog “%s”."
+             org2blog/wp-blog-name)))
 
 (defun org2blog/wp-logout()
   "Logs out from the blog and clears. Clears the internal data structures."
@@ -572,10 +573,17 @@ closer to doing more blogging!
                (dont (equal showit 'dont))
                (show (equal showit 'show))
                (ask (equal showit 'ask)))
-          (cond (dont (message "It looks like you decided not to automatically display your post, so I won’t. If you ever want to change that then try customizing “org2blog/wp-show-post-in-browser”."))
-                ((not org2blog/wp-logged-in) (message "It looks like you wanted
-to display your post, but I couldn’t because you are not logged in to your
-blog. Please log in to your blog and try doing this again."))
+          (cond (dont (message
+                       (concat "It looks like you decided not to automatically display "
+                               "your post, so I won’t. If you ever want to change  "
+                               "it then try customizing "
+                               "“org2blog/wp-show-post-in-browser”.")))
+                ((not org2blog/wp-logged-in)
+                 (message
+                  (concat "It looks like you wanted to display your post, but "
+                          "I couldn’t  because you are not logged in to your "
+                          "blog. Please log in to your blog and try doing "
+                          "this again. ")))
                 (show (if subtree-p
                           (org2blog/wp-preview-subtree-post)
                         (org2blog/wp-preview-buffer-post)))
@@ -651,13 +659,22 @@ blog. Please log in to your blog and try doing this again."))
                (dont (equal showit 'dont))
                (show (equal showit 'show))
                (ask (equal showit 'ask)))
-          (cond (dont (message "It looks like you decided not to automatically display your page, so I won’t. If you ever want to change that then try customizing “org2blog/wp-show-post-in-browser”."))
-                ((not org2blog/wp-logged-in) (message "It looks like you wanted to display your page, but I couldn’t because you are not logged in to your blog. Please log in to your blog and try doing this again."))
+          (cond (dont
+                 (message
+                  (concat "It looks like you decided not to automatically "
+                          "display your page, so I won’t. If you ever want "
+                          "to change that then try customizing "
+                          "“org2blog/wp-show-post-in-browser”.")))
+                ((not org2blog/wp-logged-in)
+                 (message (concat "It looks like you wanted to display your "
+                                  "page, but I couldn’t because you are not "
+                                  "logged in to your blog. Please log in to "
+                                  "your blog and try doing this again.")))
                 (show (if subtree-p
                           (org2blog/wp-preview-subtree-post)
                         (org2blog/wp-preview-buffer-post)))
                 ((and ask (y-or-n-p
-                           (format "Would you like to display your post: “%s” (ID “%s”)?" (cdr (assoc "title" post)) post-id)))
+                         (format "Would you like to display your post: “%s” (ID “%s”)?" (cdr (assoc "title" post)) post-id)))
                  (if subtree-p
                      (org2blog/wp-preview-subtree-post)
                    (org2blog/wp-preview-buffer-post)))
@@ -679,7 +696,9 @@ blog. Please log in to your blog and try doing this again."))
          (doit (or (not safedelete)
                   (y-or-n-p (format "Would you like to delete your post with ID: “%s”?" post-id)))))
     (if (not doit)
-        (message "You chose not to delete your post with ID: “%s”, so I did not." post-id)
+        (message
+         "You chose not to delete your post with ID: “%s”, so I did not."
+         post-id)
       (metaweblog-delete-post org2blog/wp-server-xmlrpc-url
                               org2blog/wp-server-userid
                               org2blog/wp-server-pass
@@ -700,9 +719,10 @@ blog. Please log in to your blog and try doing this again."))
                             (plist-member (cdr org2blog/wp-blog) :safe-delete))
                         org2blog/wp-safe-delete))
          (doit (or (not safedelete)
-                  (y-or-n-p (format "Would you like to delete your page with ID: “%s”?" page-id)))))
+                   (y-or-n-p (format "Would you like to delete your page with ID: “%s”?" page-id)))))
     (if (not doit)
-        (message "You chose not to delete your page with ID: “%s”, so I did not." page-id)
+        (message (concat "You chose not to delete your page with ID: “%s” "
+                         ", so I did not.")   page-id)
       (wp-delete-page org2blog/wp-server-xmlrpc-url
                       org2blog/wp-server-blogid
                       org2blog/wp-server-userid
@@ -804,7 +824,9 @@ blog. Please log in to your blog and try doing this again."))
   (let* ((postid (org2blog/wp-get-option "POSTID"))
          (url org2blog/wp-server-xmlrpc-url))
     (if (not postid)
-        (message "Sorry I can’t display this buffer because it hasn’t been saved or published yet. Please do either and try again.")
+        (message (concat "Sorry I can’t display this buffer because it "
+                         "hasn’t been saved or  published yet. Please do "
+                         "either and try again."))
       (setq url (substring url 0 -10))
       (setq url (concat url "?p=" postid "&preview=true"))
       (browse-url url))))
@@ -820,7 +842,9 @@ blog. Please log in to your blog and try doing this again."))
                     (org-entry-get (point) "POST_ID")))
          (url org2blog/wp-server-xmlrpc-url))
     (if (not postid)
-        (message "Sorry I can’t display this subtree because it hasn’t been saved or published yet. Please do either and try again.")
+        (message (concat "Sorry I can’t display this subtree because it "
+                         "hasn’t been saved or published yet. Please do "
+                         "either and try again."))
       (setq url (substring url 0 -10))
       (setq url (concat url "?p=" postid "&preview=true"))
       (browse-url url))))
@@ -1124,7 +1148,14 @@ from currently logged in."
                            log-file
                          (if org-directory
                              (expand-file-name log-file org-directory)
-                           (message "Sorry I had a problem creating your post tracking file. The problem is that the  filename is ambiguous. The solution is to either use an absolute path or to set the variable ‘org-directory’, then try tracking your post again.")
+                           (message
+                            (concat
+                             "Sorry I had a problem creating your post "
+                             "tracking file. The problem is that the "
+                             "filename is ambiguous. The solution is to "
+                             "either use an absolute path or to set "
+                             "the variable ‘org-directory’, then try "
+                             "tracking your post again."))
                            log-file)))
              (headline (if (plist-member (cdr org2blog/wp-blog) :track-posts)
                            (cadr (plist-get (cdr org2blog/wp-blog) :track-posts))
