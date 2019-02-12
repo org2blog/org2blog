@@ -456,6 +456,7 @@ listed below, followed by details about their debug output:
   - Debug messages output in buffer: *Messages*
 
 Investigate by going through layer's messages from top to bottom.
+Call function “org2blog-info” to see all library version numbers.
 
 You usually only need to keep track of what is happening between
 two of them because if it is doing what you expect then you
