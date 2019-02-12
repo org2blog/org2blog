@@ -418,8 +418,8 @@ options.")
 (defun org2blog/wp-kill-buffer-hook ()
   "Prompt before killing buffer."
   (when (and org2blog/wp-buffer-kill-prompt
-             (not (buffer-file-name))
-             (y-or-n-p "This entry hasn’t been saved to a file yet. Should I save it to a file?"))
+           (not (buffer-file-name))
+           (y-or-n-p "This entry hasn’t been saved to a file yet. Should I save it to a file?"))
     (save-buffer)
     (org2blog/wp-save-details (org2blog/wp--export-as-post) nil
                               (y-or-n-p "I’m about to save the details, and I need to know… Has it already been published?") nil)))
@@ -538,56 +538,68 @@ closer to doing more blogging!
 (defun org2blog/wp-login (&optional blog-name)
   "Logs into the blog. Initializes the internal data structures."
   (interactive)
-  (when (not org2blog/wp-blog-alist)
-    (error "Sorry, I can’t find any blogs for you to login to. Please add your blog to ‘org2blog/wp-blog-alist’ and try logging in again."))
-  (let ()
-    (setq org2blog/wp-blog-name
-          (or
-           ;; Use the provided name
-           blog-name
-           ;; OR Use the only entry in alist
-           (and (equal (length org2blog/wp-blog-alist) 1)
-              (car (car org2blog/wp-blog-alist)))
-           ;; OR Prompt user
-           (completing-read
-            "Blog to login into? ([Tab] to see list): "
-            (mapcar 'car org2blog/wp-blog-alist) nil t)))
-    (unless (> (length org2blog/wp-blog-name) 1)
-      (error "Sorry, I can’t log in to blogs with names less than 2 characters long! It is weird, but I just can’t! Please run me again and tell me about a blog with a name at least 2 characters long. There are 3 ways to do it: tell me inside \"this call\", configure ‘org2blog/wp-blog-alist’, or choose a different blog from the list you are presented."))
-    (setq org2blog/wp-blog (assoc org2blog/wp-blog-name org2blog/wp-blog-alist)
-          org2blog/wp-server-xmlrpc-url (plist-get (cdr org2blog/wp-blog) :url)
-          org2blog/wp-server-userid (plist-get (cdr org2blog/wp-blog) :username)
-          org2blog/wp-server-blogid (or (plist-get (cdr org2blog/wp-blog) :id) "1")
-          org2blog/wp-server-pass
-          (or
-           (plist-get (cdr org2blog/wp-blog) :password)
-           (read-passwd (format "%s Weblog password? " org2blog/wp-blog-name)))
-          ;; Fetch and save category list
-          org2blog/wp-categories-list
-          (mapcar (lambda (category) (cdr (assoc "categoryName" category)))
-                  (metaweblog-get-categories org2blog/wp-server-xmlrpc-url
-                                             org2blog/wp-server-userid
-                                             org2blog/wp-server-pass
-                                             org2blog/wp-server-blogid))
-          ;; Fetch and save tag list
-          org2blog/wp-tags-list
-          (mapcar (lambda (tag) (cdr (assoc "slug" tag)))
-                  (wp-get-tags org2blog/wp-server-xmlrpc-url
-                               org2blog/wp-server-userid
-                               org2blog/wp-server-pass
-                               org2blog/wp-server-blogid))
-          ;; Fetch and save page list
-          org2blog/wp-pages-list
-          (mapcar (lambda (pg)
-                    (cons (cdr (assoc "page_title" pg))
-                          (cdr (assoc "page_id" pg))))
-                  (wp-get-pagelist org2blog/wp-server-xmlrpc-url
-                                   org2blog/wp-server-userid
-                                   org2blog/wp-server-pass
-                                   org2blog/wp-server-blogid)))
-    (setq org2blog/wp-logged-in t)
-    (message "You are now logged in to your blog “%s”."
-             org2blog/wp-blog-name)))
+  (catch 'return
+    (when (not org2blog/wp-blog-alist)
+      (message (concat "Sorry, I can’t find any blogs for you to "
+                       "login to. Please add your blog to "
+                       " ‘org2blog/wp-blog-alist’ and try "
+                       "logging in again."))
+      (throw 'return))
+    (let ()
+      (setq org2blog/wp-blog-name
+            (or
+             ;; Use the provided name
+             blog-name
+             ;; OR Use the only entry in alist
+             (and (equal (length org2blog/wp-blog-alist) 1)
+                (car (car org2blog/wp-blog-alist)))
+             ;; OR Prompt user
+             (completing-read
+              "Blog to login into? ([Tab] to see list): "
+              (mapcar 'car org2blog/wp-blog-alist) nil t)))
+      (unless (> (length org2blog/wp-blog-name) 1)
+        (concat "Sorry, I can’t log in to blogs with names less than 2 "
+                "characters long! It is weird, but I just can’t! Please "
+                "run me again and tell  me about a blog with a name at "
+                "least 2 characters long. There are 3 ways to do it: "
+                "tell me inside \"this call\", configure "
+                "‘org2blog/wp-blog-alist’, or choose a different blog from "
+                "the list you are presented.")
+        (throw 'return))
+      (setq org2blog/wp-blog (assoc org2blog/wp-blog-name org2blog/wp-blog-alist)
+            org2blog/wp-server-xmlrpc-url (plist-get (cdr org2blog/wp-blog) :url)
+            org2blog/wp-server-userid (plist-get (cdr org2blog/wp-blog) :username)
+            org2blog/wp-server-blogid (or (plist-get (cdr org2blog/wp-blog) :id) "1")
+            org2blog/wp-server-pass
+            (or
+             (plist-get (cdr org2blog/wp-blog) :password)
+             (read-passwd (format "%s Weblog password? " org2blog/wp-blog-name)))
+            ;; Fetch and save category list
+            org2blog/wp-categories-list
+            (mapcar (lambda (category) (cdr (assoc "categoryName" category)))
+                    (metaweblog-get-categories org2blog/wp-server-xmlrpc-url
+                                               org2blog/wp-server-userid
+                                               org2blog/wp-server-pass
+                                               org2blog/wp-server-blogid))
+            ;; Fetch and save tag list
+            org2blog/wp-tags-list
+            (mapcar (lambda (tag) (cdr (assoc "slug" tag)))
+                    (wp-get-tags org2blog/wp-server-xmlrpc-url
+                                 org2blog/wp-server-userid
+                                 org2blog/wp-server-pass
+                                 org2blog/wp-server-blogid))
+            ;; Fetch and save page list
+            org2blog/wp-pages-list
+            (mapcar (lambda (pg)
+                      (cons (cdr (assoc "page_title" pg))
+                            (cdr (assoc "page_id" pg))))
+                    (wp-get-pagelist org2blog/wp-server-xmlrpc-url
+                                     org2blog/wp-server-userid
+                                     org2blog/wp-server-pass
+                                     org2blog/wp-server-blogid)))
+      (setq org2blog/wp-logged-in t)
+      (message "You are now logged in to your blog “%s”."
+               org2blog/wp-blog-name))))
 
 (defun org2blog/wp-logout()
   "Logs out from the blog and clears. Clears the internal data structures."
@@ -608,8 +620,8 @@ closer to doing more blogging!
   (interactive)
   ;; Prompt for login
   (when (and (not org2blog/wp-logged-in)
-         (y-or-n-p "It looks like you are not logged in right now. Would you like to login before composing this new entry?"))
-      (org2blog/wp-login))
+           (y-or-n-p "It looks like you are not logged in right now. Would you like to login before composing this new entry?"))
+    (org2blog/wp-login))
 
   ;; Generate new buffer
   (let ((org2blog/wp-buffer (generate-new-buffer
@@ -645,14 +657,18 @@ closer to doing more blogging!
                         org2blog/wp-confirm-post)
                       publish))
             (show (or (plist-member (cdr org2blog/wp-blog) :show)
-                      org2blog/wp-show-post-in-browser))
+                     org2blog/wp-show-post-in-browser))
             post-id)
         (org2blog/wp-create-categories (cdr (assoc "categories" post)))
         (setq post-id (cdr (assoc "post-id" post)))
         (when confirm
-          (when (not (y-or-n-p (format "Would you like to publish your post: “%s” (ID “%s”)?"
-                                   (cdr (assoc "title" post)) post-id)))
-              (error "Canceled publishing your post: “%s” (ID “%s”)." (cdr (assoc "title" post)) post-id)))
+          (when (not (y-or-n-p
+                    (format "Would you like to publish your post: “%s” (ID “%s”)?"
+                            (cdr (assoc "title" post)) post-id)))
+            (message (concat "Canceled publishing your post: “%s” (ID “%s”)."
+                    (cdr (assoc "title" post))
+                    post-id))
+            (throw 'return)))
         (if post-id
             (metaweblog-edit-post org2blog/wp-server-xmlrpc-url
                                   org2blog/wp-server-userid
@@ -700,7 +716,7 @@ closer to doing more blogging!
                           (org2blog/wp-preview-subtree-post)
                         (org2blog/wp-preview-buffer-post)))
                 ((and ask (y-or-n-p
-                           (format "Would you like to display your post: “%s” (ID “%s”)?" (cdr (assoc "title" post)) post-id)))
+                         (format "Would you like to display your post: “%s” (ID “%s”)?" (cdr (assoc "title" post)) post-id)))
                  (if subtree-p
                      (org2blog/wp-preview-subtree-post)
                    (org2blog/wp-preview-buffer-post)))
@@ -725,14 +741,20 @@ closer to doing more blogging!
                         org2blog/wp-confirm-post)
                       publish))
             (show (or (plist-member (cdr org2blog/wp-blog) :show)
-                      org2blog/wp-show-post-in-browser))
+                     org2blog/wp-show-post-in-browser))
             post-id)
         (org2blog/wp-create-categories (cdr (assoc "categories" post)))
         (setq post-id (cdr (assoc "post-id" post)))
         (when confirm
-          (when (not (y-or-n-p (format "Would you like to publish your page: “%s” (ID “%s”)?"
-                                   (cdr (assoc "title" post)) post-id)))
-              (error "Canceled publishing your page: “%s”." (cdr (assoc "title" post)))))
+          (when (not (y-or-n-p
+                    (format
+                     (concat
+                      "Would you like to publish your page: “%s” "
+                      "(ID “%s”)?")
+                     (cdr (assoc "title" post)) post-id)))
+            (message "Canceled publishing your page: “%s”."
+                     (cdr (assoc "title" post)))
+            (throw 'return)))
         (if post-id
             (wp-edit-page org2blog/wp-server-xmlrpc-url
                           org2blog/wp-server-userid
@@ -786,7 +808,7 @@ closer to doing more blogging!
                           (org2blog/wp-preview-subtree-post)
                         (org2blog/wp-preview-buffer-post)))
                 ((and ask (y-or-n-p
-                           (format "Would you like to display your post: “%s” (ID “%s”)?" (cdr (assoc "title" post)) post-id)))
+                         (format "Would you like to display your post: “%s” (ID “%s”)?" (cdr (assoc "title" post)) post-id)))
                  (if subtree-p
                      (org2blog/wp-preview-subtree-post)
                    (org2blog/wp-preview-buffer-post)))
@@ -797,16 +819,16 @@ closer to doing more blogging!
   (org2blog/wp-correctly-login)
   (when (null post-id)
     (setq post-id (or (org2blog/wp-get-option "POSTID")
-                      (org2blog/wp-get-option "POST_ID")
-                      (progn (org-narrow-to-subtree)
-                             (widen)
-                             (or (org-entry-get (point) "POSTID")
-                                 (org-entry-get (point) "POST_ID"))))))
+                     (org2blog/wp-get-option "POST_ID")
+                     (progn (org-narrow-to-subtree)
+                            (widen)
+                            (or (org-entry-get (point) "POSTID")
+                               (org-entry-get (point) "POST_ID"))))))
   (let* ((safedelete (or (if (plist-member (cdr org2blog/wp-blog) :safe-delete)
                             (plist-member (cdr org2blog/wp-blog) :safe-delete))
                         org2blog/wp-safe-delete))
          (doit (or (not safedelete)
-                   (y-or-n-p (format "Would you like to delete your post with ID: “%s”?" post-id)))))
+                  (y-or-n-p (format "Would you like to delete your post with ID: “%s”?" post-id)))))
     (if (not doit)
         (message
          "You chose not to delete your post with ID: “%s”, so I did not."
@@ -822,16 +844,16 @@ closer to doing more blogging!
   (org2blog/wp-correctly-login)
   (when (null page-id)
     (setq page-id (or (org2blog/wp-get-option "POSTID")
-                      (org2blog/wp-get-option "POST_ID")
-                      (progn (org-narrow-to-subtree)
-                             (widen)
-                             (or (org-entry-get (point) "POSTID")
-                                 (org-entry-get (point) "POST_ID"))))))
+                     (org2blog/wp-get-option "POST_ID")
+                     (progn (org-narrow-to-subtree)
+                            (widen)
+                            (or (org-entry-get (point) "POSTID")
+                               (org-entry-get (point) "POST_ID"))))))
   (let* ((safedelete (or (if (plist-member (cdr org2blog/wp-blog) :safe-delete)
                             (plist-member (cdr org2blog/wp-blog) :safe-delete))
                         org2blog/wp-safe-delete))
          (doit (or (not safedelete)
-                   (y-or-n-p (format "Would you like to delete your page with ID: “%s”?" page-id)))))
+                  (y-or-n-p (format "Would you like to delete your page with ID: “%s”?" page-id)))))
     (if (not doit)
         (message (concat "You chose not to delete your page with ID: “%s” "
                          ", so I did not.")   page-id)
@@ -1223,7 +1245,7 @@ from currently logged in."
     (save-excursion
       (goto-char (point-min))
       (when (re-search-forward r nil t 1)
-          (match-string-no-properties 2)))))
+        (match-string-no-properties 2)))))
 
 (defun org2blog/wp-get-post-or-page (post-or-page-id)
   "Retrieve a post or page given its `POST-OR-PAGE-ID'. For information about its fields see URL
