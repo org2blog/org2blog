@@ -51,6 +51,105 @@
 
 
 
+;;; Mode
+
+;;;###autoload
+(define-minor-mode org2blog/wp-mode
+  "Toggle org2blog/wp mode.
+With no argument, the mode is toggled on/off.
+Non-nil argument turns mode on.
+Nil argument turns mode off.
+
+Commands:
+\\{org2blog/wp-entry-mode-map}
+
+Entry to this mode calls the value of `org2blog/wp-mode-hook'."
+
+  :init-value nil
+  :lighter " o2b"
+  :group 'org2blog/wp
+  :keymap org2blog/wp-entry-mode-map
+
+  (when (version< org-version org2blog/wp-required-org-version)
+    (message
+     (concat "Sorry, I might have problems running right now. It looks like "
+             "version %s of Org mode is installed, but I need "
+             "at least version %s of Org mode to run. You might not run "
+             "into problems, but please install at "
+             "least version %s of Org mode and run me again. See you soon!")
+     org-version org2blog/wp-required-org-version org2blog/wp-required-org-version))
+
+  (if org2blog/wp-mode
+      (run-mode-hooks 'org2blog/wp-mode-hook)))
+
+
+
+;;; Hydra
+
+(defhydra org2blog/wp-hydra (:color blue :hint nil)
+
+  "
+╔═══════════════════════════════════════╗
+║ 🐃 → 🦄 → Org2Blog → WordPress → 🌐    ║
+╠═════════════════╦══════════════════╦══╩═════════════════════╦═════════════════════════╗
+║ Admin           ║ Use              ║ Buffer                 ║ Subtree                 ║
+╚═════════════════╩══════════════════╩════════════════════════╩═════════════════════════╝
+ [_4_] Login         [_e_] New Entry      [_j_] Save As A Post Draft  [_u_] Save As A Post Draft
+ [_5_] Set Password  [_c_] Completion     [_k_] Display Post          [_i_] Display Post
+ [_2_] Reporting On  [_m_] 'More'⤵        [_l_] Publish Post          [_o_] Publish Post
+ [_1_] Reporting Off [_t_] 'MathJax'⤵     [_;_] Delete Post           [_p_] Delete Post
+ [_3_] Logout        [_x_] 'LaTeX'⤵       [_a_] Track Post            [_A_] Track Post
+ [_q_] Quit          [_r_] 🔎 Link ⤵      [_J_] Save As A Page Draft  [_U_] Save As A Page Draft
+^^                   ^^                   [_K_] Display Page          [_I_] Display Page
+^^                   ^^                   [_L_] Publish Page          [_O_] Publish Page
+^^                   ^^                   [_:_] Delete Page           [_P_] Delete Page
+"
+  ;;;; ADMIN
+  ("4" org2blog/wp-login :exit nil)
+  ("5" org2blog/wp-password :exit nil)
+  ("2" (lambda () (interactive)
+         (let ((current-prefix-arg '(4)))
+           (call-interactively 'org2blog/wp-debug))) :exit nil)
+  ("1" org2blog/wp-debug :exit nil)
+  ("3" org2blog/wp-logout)
+  ("q" nil)
+
+  ;;;; USE
+  ("e" org2blog/wp-new-entry)
+  ("c" org2blog/wp-complete-category)
+  ("m" (lambda () (interactive) (insert "#+HTML: <!--more-->")))
+  ("t" (lambda () (interactive) (insert "[mathjax]")))
+  ("x" (lambda () (interactive) (insert "$\\LaTeX$")))
+  ("r" org2blog/wp-insert-post-or-page-link)
+  ("a" org2blog/wp-track-buffer)
+  ("A" org2blog/wp-track-subtree)
+
+  ;;;; BUFFER
+  ;;; POST
+  ("j" org2blog/wp-post-buffer)
+  ("k" org2blog/wp-preview-buffer-post)
+  ("l" org2blog/wp-post-buffer-and-publish)
+  (";" org2blog/wp-delete-entry)
+  ;;; PAGE
+  ("J" org2blog/wp-post-buffer-as-page)
+  ("K" org2blog/wp-preview-buffer-post)
+  ("L" org2blog/wp-post-buffer-as-page-and-publish)
+  (":" org2blog/wp-delete-page)
+
+  ;;;; SUBTREE
+  ;;; POST
+  ("u" org2blog/wp-post-subtree)
+  ("i" org2blog/wp-preview-subtree-post)
+  ("o" org2blog/wp-post-subtree-and-publish)
+  ("p" org2blog/wp-delete-entry)
+  ;; PAGE
+  ("U" org2blog/wp-post-subtree-as-page)
+  ("I" org2blog/wp-preview-subtree-post)
+  ("O" org2blog/wp-post-subtree-as-page-and-publish)
+  ("P" org2blog/wp-delete-page))
+
+
+
 ;;; Group
 
 (defgroup org2blog/wp nil
@@ -1364,104 +1463,5 @@ and munge it a little to make it suitable to use with the
 
     ;; Return value
     parsed-entry))
-
-
-
-;;; Mode
-
-;;;###autoload
-(define-minor-mode org2blog/wp-mode
-  "Toggle org2blog/wp mode.
-With no argument, the mode is toggled on/off.
-Non-nil argument turns mode on.
-Nil argument turns mode off.
-
-Commands:
-\\{org2blog/wp-entry-mode-map}
-
-Entry to this mode calls the value of `org2blog/wp-mode-hook'."
-
-  :init-value nil
-  :lighter " o2b"
-  :group 'org2blog/wp
-  :keymap org2blog/wp-entry-mode-map
-
-  (when (version< org-version org2blog/wp-required-org-version)
-    (message
-     (concat "Sorry, I might have problems running right now. It looks like "
-             "version %s of Org mode is installed, but I need "
-             "at least version %s of Org mode to run. You might not run "
-             "into problems, but please install at "
-             "least version %s of Org mode and run me again. See you soon!")
-     org-version org2blog/wp-required-org-version org2blog/wp-required-org-version))
-
-  (if org2blog/wp-mode
-      (run-mode-hooks 'org2blog/wp-mode-hook)))
-
-
-
-;;; Hydra
-
-(defhydra org2blog/wp-hydra (:color blue :hint nil)
-
-  "
-╔═══════════════════════════════════════╗
-║ 🐃 → 🦄 → Org2Blog → WordPress → 🌐    ║
-╠═════════════════╦══════════════════╦══╩═════════════════════╦═════════════════════════╗
-║ Admin           ║ Use              ║ Buffer                 ║ Subtree                 ║
-╚═════════════════╩══════════════════╩════════════════════════╩═════════════════════════╝
- [_4_] Login         [_e_] New Entry      [_j_] Save As A Post Draft  [_u_] Save As A Post Draft
- [_5_] Set Password  [_c_] Completion     [_k_] Display Post          [_i_] Display Post
- [_2_] Reporting On  [_m_] 'More'⤵        [_l_] Publish Post          [_o_] Publish Post
- [_1_] Reporting Off [_t_] 'MathJax'⤵     [_;_] Delete Post           [_p_] Delete Post
- [_3_] Logout        [_x_] 'LaTeX'⤵       [_a_] Track Post            [_A_] Track Post
- [_q_] Quit          [_r_] 🔎 Link ⤵      [_J_] Save As A Page Draft  [_U_] Save As A Page Draft
-^^                   ^^                   [_K_] Display Page          [_I_] Display Page
-^^                   ^^                   [_L_] Publish Page          [_O_] Publish Page
-^^                   ^^                   [_:_] Delete Page           [_P_] Delete Page
-"
-  ;;;; ADMIN
-  ("4" org2blog/wp-login :exit nil)
-  ("5" org2blog/wp-password :exit nil)
-  ("2" (lambda () (interactive)
-         (let ((current-prefix-arg '(4)))
-           (call-interactively 'org2blog/wp-debug))) :exit nil)
-  ("1" org2blog/wp-debug :exit nil)
-  ("3" org2blog/wp-logout)
-  ("q" nil)
-
-  ;;;; USE
-  ("e" org2blog/wp-new-entry)
-  ("c" org2blog/wp-complete-category)
-  ("m" (lambda () (interactive) (insert "#+HTML: <!--more-->")))
-  ("t" (lambda () (interactive) (insert "[mathjax]")))
-  ("x" (lambda () (interactive) (insert "$\\LaTeX$")))
-  ("r" org2blog/wp-insert-post-or-page-link)
-  ("a" org2blog/wp-track-buffer)
-  ("A" org2blog/wp-track-subtree)
-
-  ;;;; BUFFER
-  ;;; POST
-  ("j" org2blog/wp-post-buffer)
-  ("k" org2blog/wp-preview-buffer-post)
-  ("l" org2blog/wp-post-buffer-and-publish)
-  (";" org2blog/wp-delete-entry)
-  ;;; PAGE
-  ("J" org2blog/wp-post-buffer-as-page)
-  ("K" org2blog/wp-preview-buffer-post)
-  ("L" org2blog/wp-post-buffer-as-page-and-publish)
-  (":" org2blog/wp-delete-page)
-
-  ;;;; SUBTREE
-  ;;; POST
-  ("u" org2blog/wp-post-subtree)
-  ("i" org2blog/wp-preview-subtree-post)
-  ("o" org2blog/wp-post-subtree-and-publish)
-  ("p" org2blog/wp-delete-entry)
-  ;; PAGE
-  ("U" org2blog/wp-post-subtree-as-page)
-  ("I" org2blog/wp-preview-subtree-post)
-  ("O" org2blog/wp-post-subtree-as-page-and-publish)
-  ("P" org2blog/wp-delete-page))
 
 (provide 'org2blog)
