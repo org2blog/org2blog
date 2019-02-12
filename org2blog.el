@@ -79,8 +79,8 @@ Entry to this mode calls the value of `org2blog/wp-mode-hook'."
              "least version %s of Org mode and run me again. See you soon!")
      org-version org2blog/wp-required-org-version org2blog/wp-required-org-version))
 
-  (if org2blog/wp-mode
-      (run-mode-hooks 'org2blog/wp-mode-hook)))
+  (when org2blog/wp-mode
+    (run-mode-hooks 'org2blog/wp-mode-hook)))
 
 
 
@@ -418,8 +418,8 @@ options.")
 (defun org2blog/wp-kill-buffer-hook ()
   "Prompt before killing buffer."
   (when (and org2blog/wp-buffer-kill-prompt
-           (not (buffer-file-name))
-           (y-or-n-p "This entry hasn’t been saved to a file yet. Should I save it to a file?"))
+             (not (buffer-file-name))
+             (y-or-n-p "This entry hasn’t been saved to a file yet. Should I save it to a file?"))
     (save-buffer)
     (org2blog/wp-save-details (org2blog/wp--export-as-post) nil
                               (y-or-n-p "I’m about to save the details, and I need to know… Has it already been published?") nil)))
@@ -436,7 +436,7 @@ options.")
   "Enable debugging through entire XML-RPC call process
 
 Call with a prefix-argument to enable, a nd without one
-to disable debugging. 
+to disable debugging.
 
 org2blog/wp operates using the following APIs in the order
 listed below, followed by details about their debug output:
@@ -538,8 +538,8 @@ closer to doing more blogging!
 (defun org2blog/wp-login (&optional blog-name)
   "Logs into the blog. Initializes the internal data structures."
   (interactive)
-  (if (not org2blog/wp-blog-alist)
-      (error "Sorry, I can’t find any blogs for you to login to. Please add your blog to ‘org2blog/wp-blog-alist’ and try logging in again."))
+  (when (not org2blog/wp-blog-alist)
+    (error "Sorry, I can’t find any blogs for you to login to. Please add your blog to ‘org2blog/wp-blog-alist’ and try logging in again."))
   (let ()
     (setq org2blog/wp-blog-name
           (or
@@ -607,7 +607,7 @@ closer to doing more blogging!
   "Creates a new buffer for a blog entry."
   (interactive)
   ;; Prompt for login
-  (if (and (not org2blog/wp-logged-in)
+  (when (and (not org2blog/wp-logged-in)
          (y-or-n-p "It looks like you are not logged in right now. Would you like to login before composing this new entry?"))
       (org2blog/wp-login))
 
@@ -645,12 +645,12 @@ closer to doing more blogging!
                         org2blog/wp-confirm-post)
                       publish))
             (show (or (plist-member (cdr org2blog/wp-blog) :show)
-                     org2blog/wp-show-post-in-browser))
+                      org2blog/wp-show-post-in-browser))
             post-id)
         (org2blog/wp-create-categories (cdr (assoc "categories" post)))
         (setq post-id (cdr (assoc "post-id" post)))
         (when confirm
-          (if (not (y-or-n-p (format "Would you like to publish your post: “%s” (ID “%s”)?"
+          (when (not (y-or-n-p (format "Would you like to publish your post: “%s” (ID “%s”)?"
                                    (cdr (assoc "title" post)) post-id)))
               (error "Canceled publishing your post: “%s” (ID “%s”)." (cdr (assoc "title" post)) post-id)))
         (if post-id
@@ -700,7 +700,7 @@ closer to doing more blogging!
                           (org2blog/wp-preview-subtree-post)
                         (org2blog/wp-preview-buffer-post)))
                 ((and ask (y-or-n-p
-                         (format "Would you like to display your post: “%s” (ID “%s”)?" (cdr (assoc "title" post)) post-id)))
+                           (format "Would you like to display your post: “%s” (ID “%s”)?" (cdr (assoc "title" post)) post-id)))
                  (if subtree-p
                      (org2blog/wp-preview-subtree-post)
                    (org2blog/wp-preview-buffer-post)))
@@ -725,12 +725,12 @@ closer to doing more blogging!
                         org2blog/wp-confirm-post)
                       publish))
             (show (or (plist-member (cdr org2blog/wp-blog) :show)
-                     org2blog/wp-show-post-in-browser))
+                      org2blog/wp-show-post-in-browser))
             post-id)
         (org2blog/wp-create-categories (cdr (assoc "categories" post)))
         (setq post-id (cdr (assoc "post-id" post)))
         (when confirm
-          (if (not (y-or-n-p (format "Would you like to publish your page: “%s” (ID “%s”)?"
+          (when (not (y-or-n-p (format "Would you like to publish your page: “%s” (ID “%s”)?"
                                    (cdr (assoc "title" post)) post-id)))
               (error "Canceled publishing your page: “%s”." (cdr (assoc "title" post)))))
         (if post-id
@@ -786,7 +786,7 @@ closer to doing more blogging!
                           (org2blog/wp-preview-subtree-post)
                         (org2blog/wp-preview-buffer-post)))
                 ((and ask (y-or-n-p
-                         (format "Would you like to display your post: “%s” (ID “%s”)?" (cdr (assoc "title" post)) post-id)))
+                           (format "Would you like to display your post: “%s” (ID “%s”)?" (cdr (assoc "title" post)) post-id)))
                  (if subtree-p
                      (org2blog/wp-preview-subtree-post)
                    (org2blog/wp-preview-buffer-post)))
@@ -797,16 +797,16 @@ closer to doing more blogging!
   (org2blog/wp-correctly-login)
   (when (null post-id)
     (setq post-id (or (org2blog/wp-get-option "POSTID")
-                     (org2blog/wp-get-option "POST_ID")
-                     (progn (org-narrow-to-subtree)
-                            (widen)
-                            (or (org-entry-get (point) "POSTID")
-                               (org-entry-get (point) "POST_ID"))))))
+                      (org2blog/wp-get-option "POST_ID")
+                      (progn (org-narrow-to-subtree)
+                             (widen)
+                             (or (org-entry-get (point) "POSTID")
+                                 (org-entry-get (point) "POST_ID"))))))
   (let* ((safedelete (or (if (plist-member (cdr org2blog/wp-blog) :safe-delete)
                             (plist-member (cdr org2blog/wp-blog) :safe-delete))
                         org2blog/wp-safe-delete))
          (doit (or (not safedelete)
-                  (y-or-n-p (format "Would you like to delete your post with ID: “%s”?" post-id)))))
+                   (y-or-n-p (format "Would you like to delete your post with ID: “%s”?" post-id)))))
     (if (not doit)
         (message
          "You chose not to delete your post with ID: “%s”, so I did not."
@@ -822,11 +822,11 @@ closer to doing more blogging!
   (org2blog/wp-correctly-login)
   (when (null page-id)
     (setq page-id (or (org2blog/wp-get-option "POSTID")
-                     (org2blog/wp-get-option "POST_ID")
-                     (progn (org-narrow-to-subtree)
-                            (widen)
-                            (or (org-entry-get (point) "POSTID")
-                               (org-entry-get (point) "POST_ID"))))))
+                      (org2blog/wp-get-option "POST_ID")
+                      (progn (org-narrow-to-subtree)
+                             (widen)
+                             (or (org-entry-get (point) "POSTID")
+                                 (org-entry-get (point) "POST_ID"))))))
   (let* ((safedelete (or (if (plist-member (cdr org2blog/wp-blog) :safe-delete)
                             (plist-member (cdr org2blog/wp-blog) :safe-delete))
                         org2blog/wp-safe-delete))
@@ -1157,7 +1157,9 @@ from currently logged in."
             (goto-char (point-max))
             (org2blog/wp--new-line-no-indent)
             (insert (concat "# " file-name " " file-web-url
-                            (if file-thumbnail-name (concat  " " file-thumbnail-name)))))
+                            (if file-thumbnail-name
+                                (concat  " " file-thumbnail-name)
+                              ""))))
 
           ;; we retrieved file-web-url either via the API or from the org
           ;; add it to the list of replacements that we'll do.
@@ -1220,7 +1222,7 @@ from currently logged in."
   (let* ((r (org-make-options-regexp (list (upcase opt) (downcase opt)))))
     (save-excursion
       (goto-char (point-min))
-      (if (re-search-forward r nil t 1)
+      (when (re-search-forward r nil t 1)
           (match-string-no-properties 2)))))
 
 (defun org2blog/wp-get-post-or-page (post-or-page-id)
