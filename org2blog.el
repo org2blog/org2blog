@@ -516,6 +516,18 @@ closer to doing more blogging!
            (if on "Enabling" "Disabling")
            (if on "Hold onto your seat 🎢!" "Enjoy the silence 🧘.")))
 
+(defun o2b-info ()
+  "Display library version numbers."
+  (interactive)
+  (message
+   (format
+    (concat "Org2Blog Library Information:"
+            "o2b: %s\n"
+            "org-mode: %s\n"
+            "metaweblog: %s\n"
+            "xml-rpc: %s ")
+    org2blog/wp-version org-version metaweblog-version xml-rpc-version)))
+
 (defun org2blog/wp-password ()
   "Prompt for, and set password."
   (interactive)
