@@ -51,39 +51,6 @@
 
 
 
-;;; Mode
-
-;;;###autoload
-(define-minor-mode org2blog/wp-mode
-  "Toggle org2blog/wp mode.
-With no argument, the mode is toggled on/off.
-Non-nil argument turns mode on.
-Nil argument turns mode off.
-
-Commands:
-\\{org2blog/wp-entry-mode-map}
-
-Entry to this mode calls the value of `org2blog/wp-mode-hook'."
-
-  :init-value nil
-  :lighter " o2b"
-  :group 'org2blog/wp
-  :keymap org2blog/wp-entry-mode-map
-
-  (when (version< org-version org2blog/wp-required-org-version)
-    (message
-     (concat "Sorry, I might have problems running right now. It looks like "
-             "version %s of Org mode is installed, but I need "
-             "at least version %s of Org mode to run. You might not run "
-             "into problems, but please install at "
-             "least version %s of Org mode and run me again. See you soon!")
-     org-version org2blog/wp-required-org-version org2blog/wp-required-org-version))
-
-  (when org2blog/wp-mode
-    (run-mode-hooks 'org2blog/wp-mode-hook)))
-
-
-
 ;;; Hydra
 
 (defhydra org2blog/wp-hydra (:color blue :hint nil)
@@ -1503,5 +1470,38 @@ and munge it a little to make it suitable to use with the
 
     ;; Return value
     parsed-entry))
+
+
+
+;;; Mode
+
+;;;###autoload
+(define-minor-mode org2blog/wp-mode
+  "Toggle org2blog/wp mode.
+With no argument, the mode is toggled on/off.
+Non-nil argument turns mode on.
+Nil argument turns mode off.
+
+Commands:
+\\{org2blog/wp-entry-mode-map}
+
+Entry to this mode calls the value of `org2blog/wp-mode-hook'."
+
+  :init-value nil
+  :lighter " o2b"
+  :group 'org2blog/wp
+  :keymap org2blog/wp-entry-mode-map
+
+  (when (version< org-version org2blog/wp-required-org-version)
+    (message
+     (concat "Sorry, I might have problems running right now. It looks like "
+             "version %s of Org mode is installed, but I need "
+             "at least version %s of Org mode to run. You might not run "
+             "into problems, but please install at "
+             "least version %s of Org mode and run me again. See you soon!")
+     org-version org2blog/wp-required-org-version org2blog/wp-required-org-version))
+
+  (when org2blog/wp-mode
+    (run-mode-hooks 'org2blog/wp-mode-hook)))
 
 (provide 'org2blog)
