@@ -154,6 +154,7 @@ git clone https://github.com/org2blog/org2blog.git
 git clone https://github.com/magnars/dash.el.git
 git clone https://github.com/rejeep/f.el.git
 git clone https://github.com/Wilfred/helpful.git
+git clone https://github.com/Wilfred/ht.el.git
 git clone https://github.com/hniksic/emacs-htmlize.git
 git clone https://github.com/abo-abo/hydra.git
 git clone https://github.com/org2blog/metaweblog.git

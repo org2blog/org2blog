@@ -4,6 +4,7 @@
     (dash-functional "2.15.0")
     (f "0.20.0")
     (helpful "0.15")
+    (ht "2.2")
     (htmlize "1.55")
     (hydra "0.14.0")
     (metaweblog "1.0.1")

@@ -14,7 +14,7 @@
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
 ;; Version: 1.1.0
-;; Package-Requires: ((dash "2.15.0") (dash-functional "2.15.0") (emacs "26.1") (f "0.20.0") (helpful "0.15") (htmlize "1.55") (hydra "0.14.0") (metaweblog "1.0.1") (org "9.2.1") (s "1.12.0") (xml-rpc "1.6.12"))
+;; Package-Requires: ((dash "2.15.0") (dash-functional "2.15.0") (emacs "26.1") (f "0.20.0") (helpful "0.15") (ht "2.2") (htmlize "1.55") (hydra "0.14.0") (metaweblog "1.0.1") (org "9.2.1") (s "1.12.0") (xml-rpc "1.6.12"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
 
@@ -49,6 +49,7 @@
 (require 'dash-functional)
 (require 'f)
 (require 'helpful)
+(require 'ht)
 (require 'htmlize)
 (require 'hydra)
 (require 'metaweblog)
