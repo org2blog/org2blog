@@ -8,6 +8,8 @@
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:B5FB31EA-EA25-4675-90B0-AE0167BAE092
 :end:
 
+Blog from Org mode to WordPress.
+
 [[https://www.gnu.org/philosophy/free-sw.html][https://img.shields.io/badge/Libre%20Software-GPLv3-orange.svg]]
 
 [[https://www.gnu.org/software/emacs/][https://img.shields.io/badge/Emacs-%3E%3D%2026.1-brightgreen.svg]] [[https://orgmode.org/][https://img.shields.io/badge/Org%20mode-%3E%3D%209.2-brightgreen.svg]] [[https://wordpress.org/about/][https://img.shields.io/badge/WordPress-XML--RPC-brightgreen.svg]]
