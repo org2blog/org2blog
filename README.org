@@ -12,6 +12,8 @@
 
 [[https://github.com/org2blog/org2blog/releases][https://img.shields.io/github/commits-since/org2blog/org2blog/v1.1.0.svg]] [[https://github.com/org2blog/org2blog/commits][https://img.shields.io/github/last-commit/org2blog/org2blog.svg]] [[https://github.com/org2blog/org2blog/issues][https://img.shields.io/github/issues-closed-raw/org2blog/org2blog.svg]] [[https://github.com/org2blog/org2blog/issues][https://img.shields.io/github/issues-raw/org2blog/org2blog.svg]]
 
+[[https://melpa.org/#/org2blog][https://melpa.org/packages/org2blog-badge.svg]]
+
 Blog from Org mode to WordPress.
 
 ** Demo
