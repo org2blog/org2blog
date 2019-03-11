@@ -122,6 +122,9 @@ in regards to your package installation.
 Org2Blog's dependencies are defined [[./org2blog-pkg.el][here]] in the form of =(package name=
 =version)=.
 
+If you want to build it yourself for example for testing the package then see
+[[./build.sh][build.sh]]. 
+
 ** Setting Up The Source Code By Hand
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:3386D277-56FD-4D2F-BE0C-56553541CD25
