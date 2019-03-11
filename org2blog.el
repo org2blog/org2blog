@@ -1023,11 +1023,11 @@ See messages below for details."
     (message "Loading page list…")
     (sit-for owp-step-time)
     (condition-case-unless-debug err
-        (setq owp-pages (owp--load-pages))
+        (setq owp-pages (owp--load-pages 'summaries))
       (error
        (owp--error
-        (format (concat "I’m sorry I ran into a problem trying to load pages "
-                        "inside of ‘owp-user-login’."))
+        (format (concat "I’m sorry I ran into a problem trying to load page "
+                        "summaries inside of ‘owp-user-login’."))
         (format "%s" err))
        (throw 'return nil)))
     (setq owp-logged-in t)
@@ -1275,7 +1275,7 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
              (owp--get-post-or-page post-id))
             (when to-page
               (condition-case-unless-debug err
-                  (setq owp-pages (owp--load-pages))
+                  (setq owp-pages (owp--load-pages 'summaries))
                 (error
                  (owp--error
                   (format (concat "I just saved your new page, "
@@ -1673,10 +1673,7 @@ instead of posts."
     (let* ((post-list
             (condition-case-unless-debug err
                 (if is-page
-                    (wp-get-pagelist owp-xmlrpc
-                                     owp-username
-                                     owp-password
-                                     owp-blogid)
+                    (owp--load-pages)
                   (metaweblog-get-recent-posts owp-xmlrpc
                                                owp-blogid
                                                owp-username
@@ -1883,20 +1880,23 @@ Caller must handle any errors."
                 raw)))
     tags))
 
-(defun owp--load-pages ()
-  "Load pages from server.
+(defun owp--load-pages (&optional summaries)
+  "Load raw pages from server or SUMMARIES if non-nil.
 Caller must handle any errors."
-  (let* ((raw (wp-get-pagelist
-               owp-xmlrpc
-               owp-username
-               owp-password
-               owp-blogid))
-         (pages
+  (let* ((pages (wp-get-pagelist
+                 owp-xmlrpc
+                 owp-username
+                 owp-password
+                 owp-blogid))
+         (page-summaries
           (-map (lambda (pg)
-                  (cons (cdr (assoc "title" pg))
+                  (cons (cdr (assoc "page_title" pg))
                         (cdr (assoc "page_id" pg))))
-                raw)))
-    pages))
+                pages))
+         (result (if summaries
+                     page-summaries
+                   pages)))
+    result))
 
 (defun owp--in-subtree-check ()
   "Generate error unless cursor is within a subtree."
