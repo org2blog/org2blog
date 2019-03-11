@@ -57,15 +57,32 @@ Blog from Org mode to WordPress.
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:8CEE033C-3D3A-422A-A15A-358D7BE5A224
 :end:
 
-** Package
+** Using A Package
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:22F68132-BA47-4DAB-8F71-900C639CCDC2
 :END:
 
-The easiest way to install Org2Blog is using a [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Packages.html][package]]. 
+The easiest way to install Org2Blog is using a [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Packages.html][package]]. There are two good
+ways to do it. 
 
-For example you can use [[https://melpa.org/#/org2blog][MELPA]] or download the package and install it
-manually. 
+*** Use-Package & MELPA
+
+[[https://github.com/jwiegley/use-package][Use-Package]] brings ease and order to your init file. It manages your packages
+in a predictable and simple way. It is the easiest way to use Org2Blog because
+it will download Org2Blog for you along with all of its dependencies. Before
+using Use-Package, configure to use [[https://melpa.org/#/org2blog][MELPA]]. MELPA contains the development
+branch of Org2Blog so you'll get the most current version right when it
+becomes available. Here is how to load Org2Blog:
+
+#+name: org_gcr_2019-03-09T22-18-17-06-00_cosmicality_64768F79-602C-4D7D-B537-C82BC3402F09
+#+begin_src emacs-lisp 
+(use-package org2blog
+  :ensure t)
+#+end_src
+
+Take some time to read more about Use-Package. You can use as little or as
+much as you find helpful: it accommodate just about any Init style you can
+throw at it. 
 
 ** Setting Up The Source Code By Hand
 :PROPERTIES:
