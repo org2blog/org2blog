@@ -1,10 +1,10 @@
-;;; ox-wp.el --- Org mode exporter for WordPress.
+;;; ox-wp.el --- Org mode exporter for WordPress. -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2014 Puneeth Chaganti <punchagan@muse-amuse.in>
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Version: 1.0.3
+;; Version: 1.0.4
 ;; Keywords: comm, files
 ;; Homepage: https://github.com/org2blog/org2blog/wiki
 
@@ -23,66 +23,139 @@
 
 ;;; Commentary:
 
-;;
+;; Read about how this exporter works here URL ‘https://orgmode.org/manual/Adding-export-back_002dends.html/’
 
 ;;; Code:
+
+
+
+;;; Require
 
 (eval-when-compile (require 'cl))
 (require 'ox-html)
 
 
-;;; User-Configurable Variables
+
+;;; Group
 
 (defgroup org-export-wp nil
-  "Options specific to Wordpress export back-end."
-  :tag "Org Wordpress"
+  "WordPress specific export options."
+  :tag "Org WordPress"
   :group 'org-export
-  :version "24.4"
-  :package-version '(Org . "8.3"))
+  :version "26.0"
+  :package-version '(Org . "9.2"))
 
 
-;;; Define Back-End
+
+;;; Fun - Public
+
+;;;###autoload
+(defun org-wp-export-as-wordpress (&optional async subtreep ext-plist)
+  "Export current buffer to a text buffer delegating ASYNC, SUTREEP, and EXT-PLIST.
+
+If narrowing is active in the current buffer, only export its
+narrowed part.
+
+If a region is active, export that region.
+
+A non-nil optional argument ASYNC means the process should happen
+asynchronously.  The resulting buffer should be accessible
+through the `org-export-stack' interface.
+
+When optional argument SUBTREEP is non-nil, export the sub-tree
+at point, extracting information from the headline properties
+first.
+
+When `org-export-show-temporary-export-buffer' is non-nil
+display a buffer with the export value."
+  (interactive)
+  (org-export-to-buffer 'wp "*Org WordPress Export*"
+    async subtreep nil t ext-plist (lambda () (html-mode))))
+
+(defun org-wp-export-as-string (&optional async subtreep ext-plist)
+  "Get exported buffer text as a string delegating ASYNC, SUBTREEP, and EXT-PLIST.
+
+Delegateswork to `org-wp-export-as-wordpress'."
+  (interactive)
+  (with-current-buffer (org-wp-export-as-wordpress async subtreep ext-plist)
+    (let ((text (buffer-string)))
+      (kill-buffer)
+      text)))
+
+
+
+;;;; Fun - Private
+
+
+
+;;; Back-End
+
 (org-export-define-derived-backend 'wp 'html
   :translate-alist '((src-block . org-wp-src-block)
                      (example-block . org-wp-src-block)
                      (latex-environment . org-wp-latex-environment)
                      (latex-fragment . org-wp-latex-fragment))
-  :filters-alist '(
-                   (:filter-paragraph . org-wp-filter-paragraph)
-                   ))
+  :filters-alist '((:filter-paragraph . org-wp-filter-paragraph)))
 
 
 
+
 ;;; Filters
-(defun org-wp-filter-paragraph (paragraph backend info)
-  "Function to filter out the new lines from PARAGRAPH unless
-user explicitly configures otherwise."
+
+(defun org-wp-filter-paragraph (paragraph _backend info)
+  "When INFO, filter newlines from PARAGRAPH."
   (let ((keep-new-lines (plist-get info :wp-keep-new-lines)))
     (if keep-new-lines paragraph
       (format "%s\n\n"
               (org-trim (replace-regexp-in-string "\s*\n" " " paragraph))))))
 
 (defun org-wp-src-block (src-block contents info)
-  "Transcode a SRC-BLOCK element from Org to WP HTML.
-CONTENTS holds the contents of the item.  INFO is a plist holding
-contextual information."
+  "Delegate transcoding of SRC-BLOCK, CONTENTS, and INFO."
+  (let ((sc (plist-get info :wp-shortcode)))
+    (if sc
+        (org-wp-src-block-shortcode src-block contents info)
+      (org-wp-src-block-html src-block contents info))))
+
+(defun org-wp-src-block-shortcode (src-block _contents info)
+  "Transcode SRC-BLOCK, CONTENTS, and INFO to WordPress Shortcode."
   (let ((lang (org-element-property :language src-block))
         (caption (org-export-get-caption src-block))
-        (label (let ((lbl (org-element-property :name src-block)))
-                 (if (not lbl) ""
-                   (format " id=\"%s\""
-                           (org-export-get-reference lbl info)))))
-        (sc (plist-get info :wp-shortcode))
         (langs-map (plist-get info :wp-shortcode-langs-map))
         (syntaxhl (org-export-read-attribute :attr_wp src-block :syntaxhl)))
+    (format "[sourcecode language=\"%s\" title=\"%s\" %s]\n%s[/sourcecode]"
+            (or (cdr (assoc lang langs-map)) (when lang (downcase lang)) "text")
+            (or caption "")
+            (or syntaxhl "")
+            (org-export-format-code-default src-block info))))
 
-    (if (not sc)
-        (org-html-src-block src-block contents info)
-      (format "[sourcecode language=\"%s\" title=\"%s\" %s]\n%s[/sourcecode]"
-              (or (cdr (assoc lang langs-map)) (when lang (downcase lang)) "text")
-              (or caption "")
-              (or syntaxhl "")
-              (org-export-format-code-default src-block info)))))
+(defun org-wp-src-block-html (src-block _contents info)
+  "Transcode SRC-BLOCK, CONTENTS, and INFO to HTML."
+  (if (org-export-read-attribute :attr_html src-block :textarea)
+      (org-html--textarea-block src-block)
+    (let* ((lang (org-element-property :language src-block))
+           (code (org-html-format-code src-block info))
+           (label (let ((lbl (or (org-element-property :name src-block)
+                                (org-export-get-reference src-block info))))
+                    (if lbl (format " id=\"%s\"" lbl) ""))))
+      (if (not lang)
+          (format "<pre class=\"example\"%s>\n%s</pre>" label code)
+        (format "<div class=\"org-src-container\">\n%s%s\n</div>"
+                ;; Build caption.
+                (let ((caption (org-export-get-caption src-block)))
+                  (if (not caption) ""
+                    (let ((listing-number
+                           (format
+                            "<span class=\"listing-number\">%s </span>"
+                            (format
+                             (org-html--translate "Listing %d:" info)
+                             (org-export-get-ordinal
+                              src-block info nil #'org-html--has-caption-p)))))
+                      (format "<label class=\"org-src-name\">%s%s</label>"
+                              listing-number
+                              (org-trim (org-export-data caption info))))))
+                ;; Contents.
+                (format "<pre class=\"src src-%s\"%s>%s</pre>"
+                        lang label code))))))
 
 (defun org-wp-latex-environment (latex-environment contents info)
   "Transcode a LATEX-ENVIRONMENT element from Org to WP HTML.
@@ -102,19 +175,21 @@ contextual information."
     (let ((latex-frag (org-element-property :value latex-fragment)))
       (org-wp-latex-to-wp latex-frag))))
 
-;; Misc helpers
+
+
+;; Misc
+
 (defun org-wp-latex-to-wp (text)
-  "Helper to convert latex fragments or environments to WP LaTeX
-blocks."
+  "Convert latex fragments or environments in TEXT to WP LaTeX blocks."
   (let* ((matchers (plist-get org-format-latex-options :matchers))
          (re-list org-latex-regexps)
-         beg end re e m n block off)
+         re e m)
     (with-temp-buffer
       (insert text)
       (goto-char (point-min))
       (while (setq e (pop re-list))
-        (setq m (car e) re (nth 1 e) n (nth 2 e)
-              block (if (nth 3 e) "\n\n" ""))
+        (setq m (car e)
+              re (nth 1 e))
         (when (member m matchers)
           (save-match-data
             (when (re-search-forward re nil t)
@@ -141,48 +216,12 @@ blocks."
                 (replace-match (concat "<p style=\"text-align:center\"> $latex "
                                        (substring (match-string 0) 2 -2)
                                        "$ </p>") nil t))
-               ((equal m "begin")
+               ((equal m )
                 (if (equal (match-string 2) "equation")
                     (replace-match (concat "<p style=\"text-align:center\"> $latex "
                                            (substring (match-string 1) 16 -14)
                                            "$ </p>") nil t))))))))
       (replace-regexp-in-string "\s*\n" " " (buffer-string)))))
-
-
-;;; Interactive function
-
-;;;###autoload
-(defun org-wp-export-as-wordpress (&optional async subtreep ext-plist)
-  "Export current buffer to a text buffer.
-
-If narrowing is active in the current buffer, only export its
-narrowed part.
-
-If a region is active, export that region.
-
-A non-nil optional argument ASYNC means the process should happen
-asynchronously.  The resulting buffer should be accessible
-through the `org-export-stack' interface.
-
-When optional argument SUBTREEP is non-nil, export the sub-tree
-at point, extracting information from the headline properties
-first.
-
-Export is done in a buffer named \"*Org WP Export*\", which will
-be displayed when `org-export-show-temporary-export-buffer' is
-non-nil."
-  (interactive)
-  (org-export-to-buffer 'wp "*Org WP Export*"
-    async subtreep nil t ext-plist (lambda () (html-mode))))
-
-(defun org-wp-export-as-string (&optional async subtreep ext-plist)
-  "Just calls the `org-wp-export-as-wordpress' function and
-  returns the exported buffer text as a string"
-  (interactive)
-  (with-current-buffer (org-wp-export-as-wordpress async subtreep ext-plist)
-    (let ((text (buffer-string)))
-      (kill-buffer)
-      text)))
 
 (provide 'ox-wp)
 

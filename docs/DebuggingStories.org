@@ -1,0 +1,50 @@
+* Debugging Stories
+
+Over the years various issues have surfaced. Most of them weren't worth
+mentioning because they were to small. But some of them were big that they
+deserved getting written down here!
+
+After studying how debugging works you might enjoy seeing the outcome of an
+example or two.
+
+** Can't Post Unicode
+
+Suddenly Org2Blog couldn't post any content that contained Unicode characters.
+The problem was that when Emacs 26 came out its HTTP request library began
+enforcing correct byte usage for Unicode. The library itself worked fine.
+However clients of the library had to change. The solution was nearly a
+[[https://github.com/hexmode/xml-rpc-el/commit/8ee416cb7644eef4ca8edda5ea79b1c670555ad0][one line fix]].
+
+** Inexplicably Can't Login Or Do Anything
+
+For years everything was fine using Org2Blog, it just worked on my box. Then
+once in a while it didn't. And then it only worked one time out of ten. This
+was a major issue.
+
+After testing every combination of every library nothing obvious jumps out.
+Finally I pull out WireShark and curl to see what is happening.
+
+Take a look—
+
+Here is what it looks like when it /doesn't/ work using Org2Blog:
+
+[[file:../images/WireSharpTLSV1Dot3Dump.png]]
+
+Here is what it looks like when it /does/ work using curl:
+
+[[file:../images/WireSharpTLSV1Dot2Dump.png]]
+
+Debugging at the communications layer was an absolute last resort—and it
+payed off. Unbeknownst to me the TLS version used is negotiated between the client
+and the server. For some reason my GnuTLS was negotiating v1.3 with the server
+and puked resulting it sending everything unencrypted over HTTP instead of
+encrypted over HTTPS!
+
+The solution was pretty simple: forbid GnuTLS from using TLSv1.3 this as
+seen in the README
+
+What caused the problem by who where? I don't know. What I can tell you though
+is that the timing of when issue presented itself was pretty close to when
+TLSv1.3 was nearly standardized and a lot of servers were switching over to
+using it. Maybe the host I was using was slowly cutting sites over to it? I'm
+just happy it works correctly now.

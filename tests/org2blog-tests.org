@@ -17,6 +17,11 @@
           ))
 #+END_SRC
 
+#+RESULTS:
+#+begin_EXAMPLE
+(("test" :url "https://testorg2blog.wordpress.com/xmlrpc.php" :username "org2blog" :password nil :default-title "Hello World" :default-categories ("org2blog")))
+#+end_EXAMPLE
+
 * Utility code
 
 #+BEGIN_SRC emacs-lisp :var filename=(buffer-file-name)

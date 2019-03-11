@@ -1,0 +1,168 @@
+* Introduction
+
+This is an informal test plan for Org2Blog. It only includes commands.
+Reviewing each of them will give you a sense of how the system works. Perhaps
+reviewing the smallest units of functionality is a better way to learn the
+system compared to studying it all once. In service of those goals, just
+enough detail is provided here to make sense of testing, becoming mind
+numbingly painful.
+
+The tests are split up logically and informally. The preequisites are obvious.
+For example you need a blog before you can post, and you need a user before
+you can log in. Each test has /some/ notes about what will happen and should
+happen, maybe along with a reference. All of the commands are also accessible
+by the UI if that is easier for you. Ideally you test the command directly and
+also via the UI.
+
+The easiest way to use this is to copy this file to your computer and cross
+off items as you go. Please submit improvements and corrections. Have a
+pleasant test run!
+
+* Information
+
+These are user facing system information commands.
+
+- [ ] Commands
+  - [ ] ~owp-user-interface~
+    - [ ] Main Menu
+    - [ ] Insert Menu
+    - [ ] Variables Menu
+  - [ ] ~owp-readme~
+    - All URLs open to live links
+  - [ ] ~owp-version-info~
+    - Version numbers display
+
+* Setup
+
+- [ ] Commands
+  - [ ] ~owp-reload-entry-mode-map~
+
+* General Entries
+
+These are commands that insert markup into your post.
+
+- [ ] Commands
+  - [ ] ~owp-insert-latex~
+    - Inserts a [[https://orgmode.org/manual/LaTeX-fragments.html][LaTeX fragment]] for the name LaTeX
+  - [ ] ~owp-insert-mathjax~
+    - Inserts a [[https://codex.wordpress.org/Shortcode_API][WordPress Shortcode]] for [[https://wordpress.org/plugins/mathjax-latex/][MathJax-LaTeX]]
+  - [ ] ~owp-insert-more~
+    - Inserts a [[https://en.support.wordpress.com/more-tag/][WordPress More tag]]
+  - [ ] ~owp-insert-link~
+    - Insert a link to your blog
+    - [ ] Post
+    - [ ] Page
+  - [ ] ~owp-org2blog-keyword-check~
+    - Inserts the #+ORG2BLOG keyword in the first open line it finds to test a
+      few out. It works the same in buffer and subtree pages
+  - [ ] ~owp-complete~
+    - Completes categories, tags, and [[https://en.support.wordpress.com/pages/page-options/#parent-page][parent]].
+    - Position cursor all over the line
+    - Use empty and populated lines: one place it won't complete is at the
+      keword closing colon, so read the error message there
+    - [ ] Buffer
+      - [ ] Post
+      - [ ] Page
+      - [ ] Parent
+    - [ ] Subtree
+      - [ ] Post
+      - [ ] Page
+      - [ ] Parent
+  - [ ] ~owp-entry-trash-prompt~
+    - Trash both a post and a page
+  - [ ] Image Attachments
+    - [ ] Single file
+    - [ ] Two files
+
+* Tracking
+
+- [ ] Handle when no tracking is configured
+- [ ] Buffer
+  - [ ] Post
+  - [ ] Page
+- [ ] Subtree
+  - [ ] Post
+  - [ ] Page
+
+* Buffers
+
+- [ ] Commands
+  - [ ] ~owp-buffer-new~
+  - [ ] ~owp-buffer-post-save~
+  - [ ] ~owp-buffer-post--view~
+  - [ ] ~owp-buffer-post-publish~
+  - [ ] ~owp-buffer-post-trash~
+  - [ ] ~owp-buffer-page-save~
+  - [ ] ~owp-buffer-page-view~
+  - [ ] ~owp-buffer-page-publish~
+  - [ ] ~owp-buffer-page-trash~
+
+* Subtrees
+
+- [ ] Commands
+  - [ ] ~owp-subtree-new~
+  - [ ] ~owp-subtree-post-save~
+  - [ ] ~owp-subtree-post-view~
+  - [ ] ~owp-subtree-post-publish~
+  - [ ] ~owp-subtree-post-trash~
+  - [ ] ~owp-subtree-page-save~
+  - [ ] ~owp-subtree-page-view~
+  - [ ] ~owp-subtree-page-publish~
+  - [ ] ~owp-subtree-page-trash~
+
+* User
+
+- [ ] Commands
+  - [ ] ~owp-user-login~
+    - Area above UI shows login status
+    - Messages shows statistics
+  - [ ] ~owp-user-logout~
+    - Area above UI shows logout status
+  - [ ] ~owp-user-report~
+    - When enabled there are a lot of SSL messages happening
+    - Disable it and they are not
+- [ ] Hooks
+  - ~owp-mode-hook~
+    - A good place to create keybindings, check that they are set
+  - ~owp-buffer-entry-save-hook~
+    - Add the sample hook from the docsring and verity that it works.
+  - ~owp-maybe-start~
+    - Open an ORG2BLOG file verify mode starts
+
+* Terminal
+
+- [ ] Run in terminal
+  - Set browser to ~eww~
+  - Do typical things including viewing a post
+
+* Versioning and Libraries
+
+- [ ] Update version number and dependent libraries in
+  - [ ] org2blog-pkg.el
+  - [ ] MELPA recipe
+  - [ ] Github Shields
+
+* Installation
+
+- [ ] Download source and use that
+- [ ] Create a package and install it
+- [ ] Install from MELPA
+
+* Documents
+
+- [ ] Spell check
+- [ ] Link check
+
+** README
+
+- [ ] Standard
+- [ ] Badges
+  - [ ] Verions
+  - [ ] Links
+
+** Other
+
+- [ ] Contributing
+  - [ ] Standard
+- [ ] ISSUE_TEMPLATE
+  - [ ] Standard
