@@ -396,7 +396,9 @@ Then, configure your blog using those credentials, as shown below.
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:CF77828B-1078-4A5E-A9A4-25C5D554EF70
 :END:
 
-With your configuration ready, start creating the entry. 
+***** Your Second Buffer Post
+
+With your configuration ready, start creating the post. 
 
 Start by creating a =UI [New Buffer]=. A template is used to populate your
 entry. When you =UI [Login]= Org2Blog learns about your Categories, Tags, and
@@ -416,18 +418,22 @@ Org2Blog includes some helpers for inserting content into your entry under the
 - =UI [#+ORG2BLOG]=: If your entry doesn't have the special tag, then it will
   insert it. 
 
-When you are ready to Save/View/Publish then choose from the source (buffer or
-subtree) and destination (post or page) and choose the menu item. When you are
-ready to delete it, it is just as easy.
+When you are ready to Save your new post open the main menu by calling
+~owp-user-interface~. Since you just created a buffer entry look at the menu
+items under the Buffers column and find the operation that you want to
+perform. Your first step here is =UI [Save Post Draft]=. This Saves your post on
+your blog. Next do =UI [View Post]= to bring up a web browser so you can read
+and review your post. From here you can iterate through your writing process
+until you finally =UI [Publish Post]=. 
 
-The steps are the same: position your cursor in the entry, decide whether it
-is a page or a post, and =UI [Trash]= it. Org2Blog uses the =POST_ID= it finds
-there. If you want to delete an entry on the server and you don't have have
-the entry for it then use =UI [Trash ID]= to manually specify the =POST_ID= to
-delete.
+***** Your First Buffer Page
 
-That is (and maybe was) your second and much richer post. When you are ready
-for more then please read on. 
+Working with pages is virtually identical to working with posts for a good
+reason: WordPress sees them as nearly the same thing and Org2Blog does to.
+The only difference is in one place: when you work with your page use the
+functions that have Page in the name.
+
+In the walk-through here that means using =UI [Save Page Draft]= and so on.
 
 *** Use Subtrees To Store Multiple Posts In One File
 :PROPERTIES:
