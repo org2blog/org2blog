@@ -88,6 +88,40 @@ Take some time to read more about Use-Package. You can use as little or as
 much as you find helpful: it accommodate just about any Init style you can
 throw at it. 
 
+*** Using This Project's Package
+
+This project self-publishes its package [[file:/package][here]].
+
+Self-publishing has two benefits:
+
+- Another copy is available if your favorite package repository (like MELPA)
+  is not available
+- It provides the as intended by this project: it only includes the absolutely
+  minimum of what you need and how
+
+To use it:
+
+- Download the [[https://github.com/org2blog/org2blog/releases][release]] you want given the version number appended to the file
+- Run the command ~package-install-file~
+- Choose the file
+
+The Emacs package manager will add it's artifacts to the load path, generate
+the =autoloads=, and might store a note in your =custom= file depending on your
+configuration. You do however meed to take a few more steps.
+
+Technicall you only need ot take one more step, only multiple times. The Emacs
+package manager doesn't install dependencies, it just makes sure that they are
+present before you can use the package. This means that you somehow have to install
+all of Org2Blog's dependencies.
+
+Some people do it by hand. Others do it using one of the many /other/ package
+management tools listed [[https://github.com/emacs-tw/awesome-emacs#package-manager][here]]. Either way you do it, it does take a little
+effort but the benefit is that you know everything that is happening, and how,
+in regards to your package installation.
+
+Org2Blog's dependencies are defined [[./org2blog-pkg.el][here]] in the form of =(package name=
+=version)=.
+
 ** Setting Up The Source Code By Hand
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:3386D277-56FD-4D2F-BE0C-56553541CD25
@@ -107,7 +141,9 @@ Install [[./org2blog-pkg.el][these]] required packages at the version stated. Ad
 (require 'org2blog-autoloads)
 #+end_src
 
-Here are the Git URLs for all of the dependencies (as of 2019-03-09). 
+Here are the Git URLs for all of the dependencies (as of 2019-03-09). Use a
+keyboard macro to generate require statements for your install directory and
+you will be all set in no time.
 
 #+name: org_gcr_2019-03-09T01-36-47-06-00_cosmicality_1B0CEA47-1759-4ED4-8D9F-68552968CBC1
 #+begin_src sh :eval no
