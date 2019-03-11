@@ -104,7 +104,7 @@ Install [[./org2blog-pkg.el][these]] required packages at the version stated. Ad
 
 #+name: org_gcr_2019-03-01T15-03-54-06-00_cosmicality_581239EE-185A-4687-A062-11C76252EDAA
 #+begin_src emacs-lisp :eval no
-(require 'org2blog)
+(require 'org2blog-autoloads)
 #+end_src
 
 Here are the Git URLs for all of the dependencies (as of 2019-03-09). 
