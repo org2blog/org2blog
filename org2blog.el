@@ -14,7 +14,7 @@
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
 ;; Version: 1.1.0
-;; Package-Requires: ((dash "2.15.0") (dash-functional "2.15.0") (emacs "26.1") (f "0.20.0") (helpful "0.15") (ht "2.2") (htmlize "1.55") (hydra "0.14.0") (metaweblog "1.0.1") (org "9.2.1") (s "1.12.0") (xml-rpc "1.6.12"))
+;; Package-Requires: ((emacs "26.1") (dash "2.15.0") (dash-functional "2.15.0") (f "0.20.0") (helpful "0.15") (ht "2.2") (htmlize "1.55") (hydra "0.14.0") (metaweblog "1.0.1") (org "9.2.1") (s "1.12.0") (xml-rpc "1.6.12"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
 
@@ -65,13 +65,42 @@
 
 ;;; Constant
 
-(defconst org2blog/wp-version "1.1.0"
+(defconst owp--package
+  (let ((p (ht-create)))
+    (ht-set! p "name" "org2blog")
+    (ht-set! p "version" "1.1.0")
+    (ht-set! p "doc" "Blog from Org mode to WordPress")
+    (ht-set! p "emacs" "26.1")
+    (ht-set! p "requirements"
+             '((dash "2.15.0" "https://github.com/magnars/dash.el.git")
+               (dash-functional "2.15.0" "https://github.com/magnars/dash.el.git")
+               (f "0.20.0" "https://github.com/rejeep/f.el.git")
+               (helpful "0.15" "https://github.com/Wilfred/helpful.git")
+               (ht "2.2" "https://github.com/Wilfred/ht.el.git")
+               (htmlize "1.55" "https://github.com/hniksic/emacs-htmlize.git")
+               (hydra "0.14.0" "https://github.com/abo-abo/hydra.git")
+               (metaweblog "1.0.1" "https://github.com/org2blog/metaweblog.git")
+               (org "9.2.1" "https://code.orgmode.org/bzg/org-mode")
+               (s "1.12.0" "https://github.com/magnars/s.el.git")
+               (xml-rpc "1.6.12" "https://github.com/hexmode/xml-rpc-el.git")))
+    (ht-set! p "keywords" '("comm" "convenience" "outlines" "wp"))
+    (ht-set! p "authors" '(("Puneeth Chaganti" . "punchagan+org2blog@gmail.com")))
+    (ht-set! p "maintainer" '("Grant Rettke" . "grant@wisdomandwonder.com"))
+    (ht-set! p "homepage" "https://github.com/org2blog/org2blog")
+    p)
+  "Internal package definition.")
+
+(defun owp--pkg (key)
+  "Get KEY from ‘owp--package’."
+  (ht-get owp--package key))
+
+(defconst org2blog/wp-version (owp--pkg "version")
   "Current version of org2blog.el.")
 
-(defconst org2blog/wp-required-org-version "9.2"
+(defconst org2blog/wp-required-org-version (cadr (assoc 'org (owp--pkg "requirements")))
   "Minimum variable ‘org-version’ required to run this package.")
 
-(defconst owp--minimal-emacs "26.1"
+(defconst owp--minimal-emacs (owp--pkg "emacs")
   "Minimum variable ‘emacs-version’ required to run this package.")
 
 (defconst owp--default-blogid "1"
@@ -2503,6 +2532,63 @@ and munge it a little to make it suitable to use with the
          (timestamp (concat timestamp-without-timezone
                             timezone-utf-offset)))
     timestamp))
+
+(defun owp--contact-info (contact)
+  "Create string from CONTACT info."
+  (let ((result (concat (car contact) " <" (cdr contact) ">")))
+    result))
+
+(defun owp--contacts-info (contacts)
+  "Create string from CONTACTS info."
+  (let* ((contacts (-map
+                    'owp--contact-info
+                    contacts))
+         (separated (-interpose ", " contacts))
+         (all (apply 's-concat separated)))
+    all))
+
+(defun owp--packaging ()
+  "Create packaging artifacts."
+  (interactive)
+  (save-buffer)
+  (save-excursion
+    (with-current-buffer (find-file "org2blog-pkg.el")
+      (erase-buffer)
+      (pp
+       `(define-package ,(owp--pkg "name") ,(owp--pkg "version") ,(owp--pkg "doc")
+          ',(owp--pkg "requirements")
+          :authors
+          ',(owp--pkg "authors")
+          :maintainer
+          ',(owp--pkg "maintainer")
+          :keywords
+          ',(owp--pkg "keywords")
+          :homepage
+          ,(owp--pkg "homepage"))
+       (current-buffer))
+      (save-buffer)))
+  (find-file "org2blog.el")
+  (save-excursion
+    (goto-char (point-min))
+    (re-search-forward "^;; Author: ")
+    (kill-whole-line 6)
+    (insert (format ";; Author: %s\n" (owp--contacts-info (owp--pkg "authors"))))
+    (insert (format ";; Maintainer: %s\n" (owp--contact-info
+                                           (owp--pkg "maintainer"))))
+    (insert (format ";; Version: %s\n" (owp--pkg "version")))
+    (insert (format ";; Package-Requires: (%s)\n"
+                    (let* ((ls (cons (cons 'emacs (list (owp--pkg "emacs")))
+                                     (owp--pkg "requirements")))
+                           (defs (-map (lambda (req)
+                                         (format "(%s \"%s\")" (car req) (cadr req)))
+                                       ls))
+                           (spcd (-interpose " " defs))
+                           (result (apply 's-concat spcd)))
+                      result)))
+    (insert (format ";; Keywords: %s\n"
+                    (apply 's-concat (-interpose ", " (owp--pkg "keywords")))))
+    (insert (format ";; Homepage: %s\n" (owp--pkg "homepage")))))
+
 
 
 ;;; Mode
