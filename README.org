@@ -18,8 +18,6 @@ Blog from Org mode to WordPress.
 
 [[https://github.com/org2blog/org2blog/releases][https://img.shields.io/github/commits-since/org2blog/org2blog/v1.1.0.svg]] [[https://melpa.org/#/org2blog][https://melpa.org/packages/org2blog-badge.svg]]
 
-Blog from Org mode to WordPress.
-
 ** Demo
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:BFAFCCD4-6489-4AEB-B29A-E4B61B4C0132
