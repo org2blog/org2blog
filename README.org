@@ -868,6 +868,7 @@ v0.9.1          Bump up version to 0.9.1.
 - This package was inspired by [[http://www.mail-archive.com/gnu-emacs-sources@gnu.org/msg01576.html][Ashish Shukla]] and created by [[https://github.com/punchagan][Puneeth Chaganti]].
 - [[./docs/Org2Bloggers.org][The Hundreds Of Org2Bloggers Out There]].
   - Be sure to add /your/ or /your friends/ or /anybody's/ blog to the list!
+- Org2Blog Is Lovingly Maintained By Grant Rettke
 
 * When Things Go Wrong
 
