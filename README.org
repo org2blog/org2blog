@@ -31,7 +31,7 @@ Blog from Org mode to WordPress.
   -  [[#installation][Installation]]
   -  [[#usage][Usage]]
     -  [[#make-your-first-post-in-less-5-minutes][Make Your First Post In Less 5 Minutes]]
-    -  [[#the-top-6-most-popular-next-steps-with-org2blog][The Top 6 Most Popular Next Steps With Org2Blog]]
+    -  [[#the-top-6-most-important-next-steps-with-org2blog][The Top 6 Most Important Next Steps With Org2Blog]]
       -  [[#helping-yourself-to-the-basics][Helping Yourself To The Basics]]
       -  [[#tying-it-together][Tying It Together]]
       -  [[#writing-real-entries][Writing "Real" Entries]]
@@ -226,7 +226,7 @@ the perfect blogging tool for you. Work through usage sections at your own
 pace. Take the time to invest in Org2Blog and your personal blogging workflow.
 It is not a race, it is a journey: so take your time and have fun!
 
-** The Top 6 Most Popular Next Steps With Org2Blog
+** The Top 6 Most Important Next Steps With Org2Blog
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:DA51A3B2-9218-4673-B1E4-C68ADDD33366
 :END:
