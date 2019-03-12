@@ -207,7 +207,7 @@ Add them to your load path,
 #+begin_src emacs-lisp :exports both
 (apply 's-concat
        ((lambda (install-dir)
-          (mapcar
+          (-map
            (lambda (req)
              (format "(add-to-list 'load-path %s/%s)\n(require '%s)\n"
                      install-dir (car req) (car req)))
