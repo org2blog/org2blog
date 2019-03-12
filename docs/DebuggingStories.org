@@ -40,7 +40,7 @@ and the server. For some reason my GnuTLS was negotiating v1.3 with the server
 and puked resulting it sending everything unencrypted over HTTP instead of
 encrypted over HTTPS!
 
-The solution was pretty simple: forbid GnuTLS from using TLSv1.3 this as
+The solution was pretty simple: forbid GnuTLS from using TLSv1.3 as
 seen in the README
 
 What caused the problem by who where? I don't know. What I can tell you though
