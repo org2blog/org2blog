@@ -74,9 +74,9 @@ ways to do it.
 [[https://github.com/jwiegley/use-package][Use-Package]] brings ease and order to your init file. It manages your packages
 in a predictable and simple way. It is the easiest way to use Org2Blog because
 it will download Org2Blog for you along with all of its dependencies. Before
-using Use-Package, configure to use [[https://melpa.org/#/org2blog][MELPA]]. MELPA contains the development
-branch of Org2Blog so you'll get the most current version right when it
-becomes available. Here is how to load Org2Blog:
+using it, configure [[https://melpa.org/#/org2blog][MELPA]]. MELPA contains the development branch of Org2Blog
+so you'll get the most current version right when it becomes available. Here
+is how to load Org2Blog:
 
 #+name: org_gcr_2019-03-09T22-18-17-06-00_cosmicality_64768F79-602C-4D7D-B537-C82BC3402F09
 #+begin_src emacs-lisp 
@@ -85,7 +85,7 @@ becomes available. Here is how to load Org2Blog:
 #+end_src
 
 Take some time to read more about Use-Package. You can use as little or as
-much as you find helpful: it accommodate just about any Init style you can
+much as you find helpful: it accommodates just about any Init style you can
 throw at it. 
 
 *** Using This Project's Package
@@ -94,36 +94,65 @@ This project self-publishes its package [[file:/package][here]].
 
 Self-publishing has two benefits:
 
+- It provides the package as-intended: it only includes what you need
 - Another copy is available if your favorite package repository (like MELPA)
   is not available
-- It provides the as intended by this project: it only includes the absolutely
-  minimum of what you need and how
 
 To use it:
 
 - Download the [[https://github.com/org2blog/org2blog/releases][release]] you want given the version number appended to the file
+  - If you want to build it yourself for example for testing the package then
+    see [[./build.sh][build.sh]].
+- Now the simplest next step is to use Use-Package and MELPA to install
+  Org2Blog. Then delete the Org2Blog that got installed (probably under
+  ~/.emacs.d/elpa and install this one instead.
 - Run the command ~package-install-file~
 - Choose the file
 
 The Emacs package manager will add it's artifacts to the load path, generate
 the =autoloads=, and might store a note in your =custom= file depending on your
-configuration. You do however meed to take a few more steps.
+configuration. There are also other ways to do this if you don't want to use
+Use-Package but you still want to use packages (sic). 
 
-Technicall you only need ot take one more step, only multiple times. The Emacs
-package manager doesn't install dependencies, it just makes sure that they are
-present before you can use the package. This means that you somehow have to install
-all of Org2Blog's dependencies.
+The simplest way to install packages is by calling ~list-packages~ and choosing
+the packages that you need. You will only have to do it once and be done with
+it more or less forever. You can also install the packages programaticaly. 
 
-Some people do it by hand. Others do it using one of the many /other/ package
-management tools listed [[https://github.com/emacs-tw/awesome-emacs#package-manager][here]]. Either way you do it, it does take a little
-effort but the benefit is that you know everything that is happening, and how,
-in regards to your package installation.
+⚠ Are you sure that you know what you are doing this approach?
 
-Org2Blog's dependencies are defined [[./org2blog-pkg.el][here]] in the form of =(package name=
-=version)=.
+If you do then you are familiar with packages, =.custom=, the ~load-path~, and
+=Elisp=. If you are not, the please stick with the Use-package approach.
+Otherwise, read on. 
 
-If you want to build it yourself for example for testing the package then see
-[[./build.sh][build.sh]]. 
+Org2Blog's dependencies are defined in ~owp--package~.
+
+Here is an [[https://stackoverflow.com/questions/10092322/how-to-automatically-install-emacs-packages-by-specifying-a-list-of-package-name][example]] of pragmatically installing the packages using Org2Blogs
+dependencies:
+
+#+name: org_gcr_2019-03-09T22-18-17-06-00_cosmicality_493DC2C6-1455-4865-ACF8-78715243E065
+#+begin_src emacs-lisp 
+(defun maybe-install (&rest packages)
+  (-map
+   (lambda (package)
+     (catch 'return
+       (when (package-installed-p package)
+         (message (format "Package ‘%s’ is already installed." package))
+         (throw 'return nil))
+       (let ((install?
+              (y-or-n-p
+               (format "Package %s is missing. Install it? "
+                       package))))
+         (when install?
+           (package-install package)))))
+   packages))
+
+(or (file-exists-p package-user-dir)
+   (package-refresh-contents))
+
+(apply 'maybe-install (-map 'car (owp--pkg "requirements")))               
+
+(package-initialize)
+#+end_src
 
 ** Setting Up The Source Code By Hand
 :PROPERTIES:
