@@ -165,6 +165,10 @@ If you do then you are familiar with library versions, the ~load-path~, =Elisp=,
 and =Git=. If you are not, the please stick with the Package approach.
 Otherwise, read on.
 
+You can even utilize Use-Package in addition to running from source. That is
+the best combination of ease when you want to work on Org2Blog itself without
+making changes to it's dependencies. 
+
 Org2Blog's dependencies are defined in ~owp--package~ and you can use them to
 progratically create the code you need to set up your development environment.
 
