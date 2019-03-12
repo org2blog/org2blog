@@ -1003,6 +1003,12 @@ In addition to using to [[https://github.com/org2blog/org2blog/issues][reporting
 
 - [[./docs/CONTRIBUTING.org][Contributing]].
 - [[./docs/TestPlan.org][Test Plan]].
+- Building
+  - The Package
+    - Use ~build.sh~
+  - Versioning
+    - Update ~owp--package~ and call ~owp--packaging~ to update files that use
+      these values then commit them
 - [[https://alphapapa.github.io/dont-tread-on-emacs/][Don't Tread On Emacs]].
 - [[./.github/CODE_OF_CONDUCT.org][Code of Conduct]].
   
