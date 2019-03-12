@@ -130,7 +130,7 @@ Here is an [[https://stackoverflow.com/questions/10092322/how-to-automatically-i
 dependencies:
 
 #+name: org_gcr_2019-03-09T22-18-17-06-00_cosmicality_493DC2C6-1455-4865-ACF8-78715243E065
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp :eval no
 (defun maybe-install (&rest packages)
   (-map
    (lambda (package)
@@ -161,35 +161,89 @@ dependencies:
 
 ⚠ Are you sure that you want to set this up by hand?
 
-If you do then you are familiar with library versions, the ~load-path~, and
-probably =Git=. If you are not, the please stick with the Package approach.
-Otherwise, read on. 
+If you do then you are familiar with library versions, the ~load-path~, =Elisp=,
+and =Git=. If you are not, the please stick with the Package approach.
+Otherwise, read on.
 
-Install [[./org2blog-pkg.el][these]] required packages at the version stated. Add them to your
-~load-path~. Put this in your [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Init-File.html][Init File]]:
+Org2Blog's dependencies are defined in ~owp--package~ and you can use them to
+progratically create the code you need to set up your development environment.
+
+Here is a simple way to do it:
+
+For example you can copy and paste the Git clone commands intto a terminal, 
+
+#+name: clones
+#+begin_src emacs-lisp
+((lambda (install-dir)
+   (print
+    (apply 's-concat
+           (-interpose "\n"
+                       (-map
+                        (lambda (req)
+                          (message (format "git clone %s %s/%s"
+                                           (caddr req) install-dir (car req))))
+                        (owp--pkg "requirements"))))))
+ "~/src")
+#+end_src
+
+#+RESULTS: clones
+#+begin_EXAMPLE
+"git clone https://github.com/magnars/dash.el.git ~/src/dash
+git clone https://github.com/magnars/dash.el.git ~/src/dash-functional
+git clone https://github.com/rejeep/f.el.git ~/src/f
+git clone https://github.com/Wilfred/helpful.git ~/src/helpful
+git clone https://github.com/Wilfred/ht.el.git ~/src/ht
+git clone https://github.com/hniksic/emacs-htmlize.git ~/src/htmlize
+git clone https://github.com/abo-abo/hydra.git ~/src/hydra
+git clone https://github.com/org2blog/metaweblog.git ~/src/metaweblog
+git clone https://code.orgmode.org/bzg/org-mode ~/src/org
+git clone https://github.com/magnars/s.el.git ~/src/s
+git clone https://github.com/hexmode/xml-rpc-el.git ~/src/xml-rpc"
+#+end_EXAMPLE
+
+Add them to your load path,
+
+#+name: org_gcr_2019-03-09T22-18-17-06-00_cosmicality_A4D95252-60ED-4DE0-BB7D-E828E64652B7
+#+begin_src emacs-lisp
+((lambda (install-dir)
+   (mapcar
+    (lambda (req)
+      (print (format "(add-to-list 'load-path %s/%s)\n(require '%s)\n"
+                     install-dir (car req) (car req))))
+    (owp--pkg "requirements")))
+ "~/src")
+#+end_src
+
+#+RESULTS: org_gcr_2019-03-09T22-18-17-06-00_cosmicality_A4D95252-60ED-4DE0-BB7D-E828E64652B7
+#+begin_EXAMPLE
+("(add-to-list 'load-path ~/src/dash)
+(require 'dash)
+" "(add-to-list 'load-path ~/src/dash-functional)
+(require 'dash-functional)
+" "(add-to-list 'load-path ~/src/f)
+(require 'f)
+" "(add-to-list 'load-path ~/src/helpful)
+(require 'helpful)
+" "(add-to-list 'load-path ~/src/ht)
+(require 'ht)
+" "(add-to-list 'load-path ~/src/htmlize)
+(require 'htmlize)
+" "(add-to-list 'load-path ~/src/hydra)
+(require 'hydra)
+" "(add-to-list 'load-path ~/src/metaweblog)
+(require 'metaweblog)
+" "(add-to-list 'load-path ~/src/org)
+(require 'org)
+" "(add-to-list 'load-path ~/src/s)
+(require 's)
+" "(add-to-list 'load-path ~/src/xml-rpc)
+(require 'xml-rpc)
+")
+#+end_EXAMPLE
 
 #+name: org_gcr_2019-03-01T15-03-54-06-00_cosmicality_581239EE-185A-4687-A062-11C76252EDAA
 #+begin_src emacs-lisp :eval no
 (require 'org2blog-autoloads)
-#+end_src
-
-Here are the Git URLs for all of the dependencies (as of 2019-03-09). Use a
-keyboard macro to generate require statements for your install directory and
-you will be all set in no time.
-
-#+name: org_gcr_2019-03-09T01-36-47-06-00_cosmicality_1B0CEA47-1759-4ED4-8D9F-68552968CBC1
-#+begin_src sh :eval no
-git clone https://github.com/org2blog/org2blog.git
-git clone https://github.com/magnars/dash.el.git
-git clone https://github.com/rejeep/f.el.git
-git clone https://github.com/Wilfred/helpful.git
-git clone https://github.com/Wilfred/ht.el.git
-git clone https://github.com/hniksic/emacs-htmlize.git
-git clone https://github.com/abo-abo/hydra.git
-git clone https://github.com/org2blog/metaweblog.git
-git clone https://code.orgmode.org/bzg/org-mode
-git clone https://github.com/magnars/s.el.git
-git clone https://github.com/hexmode/xml-rpc-el.git
 #+end_src
 
 * Usage
