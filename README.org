@@ -159,7 +159,7 @@ dependencies:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:3386D277-56FD-4D2F-BE0C-56553541CD25
 :END:
 
-⚠ Are you sure that you want to set this up by hand?
+🛑 Are you sure that you want to set this up by hand?
 
 If you do then you are familiar with library versions, the ~load-path~, =Elisp=,
 and =Git=. If you are not, the please stick with the Package approach.
