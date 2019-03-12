@@ -242,8 +242,16 @@ Add them to your load path,
 "
 #+end_EXAMPLE
 
+Download Org2Blog and load it. 
+
+#+name: org_gcr_2019-03-09T22-18-17-06-00_cosmicality_516D8334-B63F-4D13-A1F8-610C6B41FCB0
+#+begin_src sh :eval no
+git clone https://github.com/org2blog/org2blog.git ~/src
+
+#+end_src
 #+name: org_gcr_2019-03-01T15-03-54-06-00_cosmicality_581239EE-185A-4687-A062-11C76252EDAA
 #+begin_src emacs-lisp :eval no
+(add-to-list 'load-path "~/src/org2blog")
 (require 'org2blog-autoloads)
 #+end_src
 
