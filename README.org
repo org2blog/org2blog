@@ -205,40 +205,41 @@ Add them to your load path,
 
 #+name: org_gcr_2019-03-09T22-18-17-06-00_cosmicality_A4D95252-60ED-4DE0-BB7D-E828E64652B7
 #+begin_src emacs-lisp :exports both
-((lambda (install-dir)
-   (mapcar
-    (lambda (req)
-      (print (format "(add-to-list 'load-path %s/%s)\n(require '%s)\n"
-                     install-dir (car req) (car req))))
-    (owp--pkg "requirements")))
- "~/src")
+(apply 's-concat
+       ((lambda (install-dir)
+          (mapcar
+           (lambda (req)
+             (format "(add-to-list 'load-path %s/%s)\n(require '%s)\n"
+                     install-dir (car req) (car req)))
+           (owp--pkg "requirements")))
+        "~/src"))
 #+end_src
 
 #+RESULTS: org_gcr_2019-03-09T22-18-17-06-00_cosmicality_A4D95252-60ED-4DE0-BB7D-E828E64652B7
 #+begin_EXAMPLE
-("(add-to-list 'load-path ~/src/dash)
+"(add-to-list 'load-path ~/src/dash)
 (require 'dash)
-" "(add-to-list 'load-path ~/src/dash-functional)
+(add-to-list 'load-path ~/src/dash-functional)
 (require 'dash-functional)
-" "(add-to-list 'load-path ~/src/f)
+(add-to-list 'load-path ~/src/f)
 (require 'f)
-" "(add-to-list 'load-path ~/src/helpful)
+(add-to-list 'load-path ~/src/helpful)
 (require 'helpful)
-" "(add-to-list 'load-path ~/src/ht)
+(add-to-list 'load-path ~/src/ht)
 (require 'ht)
-" "(add-to-list 'load-path ~/src/htmlize)
+(add-to-list 'load-path ~/src/htmlize)
 (require 'htmlize)
-" "(add-to-list 'load-path ~/src/hydra)
+(add-to-list 'load-path ~/src/hydra)
 (require 'hydra)
-" "(add-to-list 'load-path ~/src/metaweblog)
+(add-to-list 'load-path ~/src/metaweblog)
 (require 'metaweblog)
-" "(add-to-list 'load-path ~/src/org)
+(add-to-list 'load-path ~/src/org)
 (require 'org)
-" "(add-to-list 'load-path ~/src/s)
+(add-to-list 'load-path ~/src/s)
 (require 's)
-" "(add-to-list 'load-path ~/src/xml-rpc)
+(add-to-list 'load-path ~/src/xml-rpc)
 (require 'xml-rpc)
-")
+"
 #+end_EXAMPLE
 
 #+name: org_gcr_2019-03-01T15-03-54-06-00_cosmicality_581239EE-185A-4687-A062-11C76252EDAA
