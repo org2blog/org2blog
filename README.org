@@ -476,7 +476,7 @@ following are some key points that will tie everything together:
     item just open the menu, choose =UI [Help]=, select the menu item, and you
     will be presented with the function that does the actual work. Take that
     function name and bind it to a key within this mode. See
-    ~sample-function~ at the beginning of this document for an example how.
+    ~sample-keybindings~ at the beginning of this document for an example how.
   - See ~owp-mode-map~ or ~org2blog/wp-keymap-prefix~ for details of the default
     keymap and prefix key.
   - You may find it just as easy to find a convenient key binding
@@ -515,10 +515,10 @@ bindings.
 
 #+name: org_gcr_2019-03-04T08-22-32-06-00_cosmicality_8F0B6AC9-C081-48A2-8D57-EA164C30D32A
 #+begin_src emacs-lisp 
-(defun sample-function ()
+(defun sample-keybindings ()
   (local-set-key (kbd "s-(") #'owp-user-interface)
   (local-set-key (kbd "s-)") #'owp-complete))
-(add-hook 'org2blog/wp-mode-hook #'sample-function)
+(add-hook 'org2blog/wp-mode-hook #'sample-keybindings)
 #+end_src
 
 **** Logging In Faster
