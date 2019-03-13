@@ -1048,6 +1048,13 @@ In addition to using to [[https://github.com/org2blog/org2blog/issues][reporting
     - Versioning
       - Update ~owp--package~ and call ~owp--packaging~ to update files that use
         these values then commit them
+  - Naming Things
+    - Org2Blog's package was named ~org2blog/wp~ to prevent a namespace
+      collision with Org2BlogAtom. In the interest of brevity Org2Blog's
+      namespace is getting renamed to ~owp~. ~owp~ is short, simple, and a clear
+      reference to one thing: Org WordPress. For backward compatibility the
+      mode name and variable names retain the original namespace. That said the name of this
+      software remains Org2Blog.
 - Rules
   - [[https://alphapapa.github.io/dont-tread-on-emacs/][Don't Tread On Emacs]].
   - [[./.github/CODE_OF_CONDUCT.org][Code of Conduct]].
