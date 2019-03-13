@@ -937,6 +937,26 @@ is pretty easy to fix anyway though).
 Although Org2Blog is implemented how WordPress works, it can surprising to see
 these words used. However you'll get used to it pretty quickly.
 
+*** What Is Up With The Package Name?
+
+Org2Blog's technical name, its /package name/, is ~org2blog/wp~, /not/ ~org2blog~.
+There is another package out there named Org2BlogAtom, and its package name is
+~org2blog/atom~. It didn't start out that way though, they started out having
+the same package name ~org2blog~.
+
+These unforeseen naming conflicts do happen more than you might thing and it
+had to be resolved.  Since they both had the same package name they needed some way
+to differentiate themselves from each other and the slash/suffix approach was
+chosen. So why doesn't /this/ package say 'Org2Blog/WP' all over the place?
+
+That is another historical accident. This package became known simply as
+Org2Blog without the /WP, and the name stuck. Part of the reason might be that
+Org2BlogAtom seems [[https://repo.or.cz/r/org2blog.git/][unavailable]] and no longer maintained, it's [[https://www.emacswiki.org/emacs/Org2BlogAtom][wiki]] page hasn't
+had any updates on the topic either.
+
+That is the story of the naming. If you are curious about naming things moving
+forward them please see the Development section of this document.
+
 * Changelog
 :properties:
 :toc:      0
