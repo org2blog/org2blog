@@ -67,7 +67,7 @@ Blog from Org mode to WordPress.
 :END:
 
 The easiest way to install Org2Blog is using a [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Packages.html][package]]. There are two good
-ways to do it. 
+ways to do it.
 
 *** Use-Package & MELPA
 
@@ -79,14 +79,14 @@ so you'll get the most current version right when it becomes available. Here
 is how to load Org2Blog:
 
 #+name: org_gcr_2019-03-09T22-18-17-06-00_cosmicality_64768F79-602C-4D7D-B537-C82BC3402F09
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
 (use-package org2blog
   :ensure t)
 #+end_src
 
 Take some time to read more about Use-Package. You can use as little or as
 much as you find helpful: it accommodates just about any Init style you can
-throw at it. 
+throw at it.
 
 *** Using This Project's Package
 
@@ -112,17 +112,17 @@ To use it:
 The Emacs package manager will add it's artifacts to the load path, generate
 the =autoloads=, and might store a note in your =custom= file depending on your
 configuration. There are also other ways to do this if you don't want to use
-Use-Package but you still want to use packages (sic). 
+Use-Package but you still want to use packages (sic).
 
 The simplest way to install packages is by calling ~list-packages~ and choosing
 the packages that you need. You will only have to do it once and be done with
-it more or less forever. You can also install the packages programaticaly. 
+it more or less forever. You can also install the packages programaticaly.
 
 ⚠ Are you sure that you know what you are doing this approach?
 
 If you do then you are familiar with packages, =.custom=, the ~load-path~, and
 =Elisp=. If you are not, the please stick with the Use-package approach.
-Otherwise, read on. 
+Otherwise, read on.
 
 Org2Blog's dependencies are defined in ~owp--package~.
 
@@ -149,7 +149,7 @@ dependencies:
 (or (file-exists-p package-user-dir)
    (package-refresh-contents))
 
-(apply 'maybe-install (-map 'car (owp--pkg "requirements")))               
+(apply 'maybe-install (-map 'car (owp--pkg "requirements")))
 
 (package-initialize)
 #+end_src
@@ -167,14 +167,14 @@ Otherwise, read on.
 
 You can even utilize Use-Package in addition to running from source. That is
 the best combination of ease when you want to work on Org2Blog itself without
-making changes to it's dependencies. 
+making changes to it's dependencies.
 
 Org2Blog's dependencies are defined in ~owp--package~ and you can use them to
 progratically create the code you need to set up your development environment.
 
 Here is a simple way to do it:
 
-For example you can copy and paste the Git clone commands intto a terminal, 
+For example you can copy and paste the Git clone commands intto a terminal,
 
 #+name: clones
 #+begin_src emacs-lisp :exports both
@@ -246,7 +246,7 @@ Add them to your load path,
 "
 #+end_EXAMPLE
 
-Download Org2Blog and load it. 
+Download Org2Blog and load it.
 
 #+name: org_gcr_2019-03-09T22-18-17-06-00_cosmicality_516D8334-B63F-4D13-A1F8-610C6B41FCB0
 #+begin_src sh :eval no
@@ -266,7 +266,7 @@ git clone https://github.com/org2blog/org2blog.git ~/src
 :END:
 
 Note: For a better experience try reading this document inside of Emacs and Org
-mode. An easy way to do it is to call ~owp-readme~. 
+mode. An easy way to do it is to call ~owp-readme~.
 
 ** Make Your First Post In Less 5 Minutes
 :PROPERTIES:
@@ -310,7 +310,7 @@ in the Screenshots section so you know it is easy to do. Here is how!
   with test data for with title, category, and tags. Org mode requires you to
   keep a space in between the keyword and the value: that is the only way that
   it can read them. If you accidentally omit the space then Org2Blog will
-  report it to you and suggest a resolution. 
+  report it to you and suggest a resolution.
 - Save it as a post draft on the blog: =UI [Save Post Draft]=
   - Watch for messages in the minibuffer letting you know what is happening.
   - =#+POSTID= is populated now.
@@ -367,7 +367,7 @@ destination (post or page). Here is the workflow:
 - =UI [Save It]=:
 - =UI [View It]=:
 - =UI [Publish It]=:
-- Make changes as you iterate over the entry  
+- Make changes as you iterate over the entry
 - =UI [Save It]=:
 - =UI [View It]=:
 - =UI [Publish It]=:
@@ -393,7 +393,7 @@ all. The important thing right now is to have atleast seen them once so they
 get stored in the back of your mind. One of the best things about customize is
 that you can configure variables right along with their definition. That tight
 integration of system and document make the whole thing easier to use and
-understand. 
+understand.
 
 You have probably noticed by now, there aren't a ton of function names listed
 in this documented. That is by design. Org2Blog has a lot of functions and a
@@ -401,7 +401,7 @@ lot of configuration option. So many that it would overwhelm a lot of us. On
 top of that, the document would probably get either wrong or just out of date
 pretty quickly. However, you /do/ need to know the details at some point, so,
 what is the happy medium? It is simple: let Org2Blog each you everything that
-/you/ want to know exactly when you want to know it. 
+/you/ want to know exactly when you want to know it.
 
 One of the selling posts about Emacs Lisp computer programs is that not only do they
 come with the Libre Software source code but they also include all of the
@@ -424,7 +424,7 @@ to read the documentation and customize the values.
 This combination of easy to use menus and direct access to the code is the
 best way to get started. Find something that looks interesting, read about it,
 do it, or both and more. Whatever keeps you having the most fun is the right
-way to do it. 
+way to do it.
 
 *** Writing "Real" Entries
 :PROPERTIES:
@@ -446,7 +446,7 @@ it then it loads it's minor mode. To make this happen set it up in the Org
 mode hook:
 
 #+name: org_gcr_2019-03-04T08-22-32-06-00_cosmicality_C837C334-C25F-460E-B54B-D2825B38FA39
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
 (add-hook 'org-mode-hook #'owp-maybe-start)
 #+end_src
 
@@ -455,10 +455,10 @@ Org2Blog functions. Here is an example:
 
 The first thing you may do is to configure your personal keybindings. This sample
 uses the =super= name-space because it is /supposed/ to be 100% free for user key
-bindings. 
+bindings.
 
 #+name: org_gcr_2019-03-04T08-22-32-06-00_cosmicality_8F0B6AC9-C081-48A2-8D57-EA164C30D32A
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
 (defun sample-keybindings ()
   (local-set-key (kbd "s-(") #'owp-user-interface)
   (local-set-key (kbd "s-)") #'owp-complete))
@@ -513,25 +513,25 @@ Then, configure your blog using those credentials, as shown below.
 
 ***** Your Second Buffer Post
 
-With your configuration ready, start creating the post. 
+With your configuration ready, start creating the post.
 
 Start by creating a =UI [New Buffer]=. A template is used to populate your
 entry. When you =UI [Login]= Org2Blog learns about your Categories, Tags, and
 Pages. Position the cursor on one of those lines and =UI [Complete]= to either
 choose a value or complete a value that you began typing. If you want one you
-can add a =#+DESCRIPTION= and a =#+PERMALINK= too. 
+can add a =#+DESCRIPTION= and a =#+PERMALINK= too.
 
-Org2Blog includes some helpers for inserting content into your entry under the 
+Org2Blog includes some helpers for inserting content into your entry under the
 =UI [“Insert A”]= menu:
 
 - =UI [More Tag]=: The WordPress "Read More" tag. Org2Blog will ask if you want
-  to use a message inside of it, too. 
+  to use a message inside of it, too.
 - =UI [MathJax Shortcode]=: If you want to use [[https://www.mathjax.org/][MathJax]], this lets you do it.
-- =UI [“LaTeX” Name]=: Prove that MathJax is working. 
-- =UI [Link To Post]=: Insert a link to a post from a list of posts on /your blog/. 
-- =UI [Link To Page]=: Insert a link to a page from a list of posts on /your blog/. 
+- =UI [“LaTeX” Name]=: Prove that MathJax is working.
+- =UI [Link To Post]=: Insert a link to a post from a list of posts on /your blog/.
+- =UI [Link To Page]=: Insert a link to a page from a list of posts on /your blog/.
 - =UI [#+ORG2BLOG]=: If your entry doesn't have the special tag, then it will
-  insert it. 
+  insert it.
 
 When you are ready to Save your new post open the main menu by calling
 ~owp-user-interface~. Since you just created a buffer entry look at the menu
@@ -539,7 +539,7 @@ items under the Buffers column and find the operation that you want to
 perform. Your first step here is =UI [Save Post Draft]=. This Saves your post on
 your blog. Next do =UI [View Post]= to bring up a web browser so you can read
 and review your post. From here you can iterate through your writing process
-until you finally =UI [Publish Post]=. 
+until you finally =UI [Publish Post]=.
 
 ***** Your First Buffer Page
 
@@ -566,7 +566,7 @@ entry. There are only two (but very important) differences:
 
 - Use =UI [New Subtree]= to get started.
 - Review the properties
-  - They go in a drawer like any other subtree. 
+  - They go in a drawer like any other subtree.
   - The headlines is used for =TITLE= unless you set an option for it
   - Unlike a buffer entry: Tags are stored in =POST_TAGS=. Org mode already uses
     =TAGS= as a fundamental concept for subtrees. So we had to choose a
@@ -577,7 +577,7 @@ a buffer function, Org2Blog will not perform the actions and give you a
 warning. This is to prevent unpleasant situations.
 
 You can either save your subtree entry in a file, or copy and paste it into an
-existing file for example with related posts. 
+existing file for example with related posts.
 
 *** Uploading Images
 :PROPERTIES:
@@ -590,7 +590,7 @@ get it /just right/.
 
 Org2Blog will push images to your blog just once, and add a comment to your
 entry so it remembers. If you remove that comment then Org2Blog will push it
-again. 
+again.
 
 Captions and attributes as [[http://orgmode.org/manual/Images-in-HTML-export.html][defined]] in Org mode will be preserved,
 but these attributes are not saved with the image to the library
@@ -600,7 +600,7 @@ After the attachment is uploaded a note is stored inside of your entry so that
 Org2Blog remembers that it already uploaded the file. Here is an example:
 
 #+name: org_gcr_2019-03-06T17-15-24-06-00_cosmicality_1151E8D9-CA15-4F73-A5B8-961C3A37E7F9
-#+begin_src org 
+#+begin_src org
 [[file:testimage1.png]]
 
 [[file:testimage2.png]]
@@ -611,7 +611,7 @@ Org2Blog remembers that it already uploaded the file. Here is an example:
 
 Org2Blog automatically inserts the correct URL of the file out on your blog
 for you just like you had done it yourself. Remember that if you trash your
-post the attachment will still be in your blog. 
+post the attachment will still be in your blog.
 
 *** Supported Properties
 :PROPERTIES:
@@ -619,7 +619,7 @@ post the attachment will still be in your blog.
 :END:
 
 Since they are plain old Org mode properties: be sure to keep a space between
-the property name and its value. 
+the property name and its value.
 
 - Entry
   - =DATE=
@@ -661,11 +661,11 @@ following are some key points that will tie everything together:
   you maybe a conservative workflow on your work blog, but be more easy going
   on your personal so your "confirm before doing things" will be totally
   different. Additionally the default categories and tags would be very
-  different too. See ~org2blog/wp-blog-alist~ for details. 
+  different too. See ~org2blog/wp-blog-alist~ for details.
 - You only have to =UI [Login]= when you want to save or publish your post.
   However, you won't have code completion for your Categories, Tags, or Parent
   pages until you do. Org2Blog will ask you which blog to log into. If there
-  is only one, then it won't ask. If there are none then it will warn you. 
+  is only one, then it won't ask. If there are none then it will warn you.
 - You only have to =UI [Logout]= if you are going to start blogging to a
   different server than you began. All it does is clear out the local
   variables used to customize your experience.
@@ -673,7 +673,7 @@ following are some key points that will tie everything together:
   that entry into a Draft. If you have never though about it before, now is
   the time. Sometimes it results in surprises when you forget to either
   publish or trash your draft because there is a mysterious draft just sitting
-  out there. 
+  out there.
 - Whenever Org2Blog can't do what you asked, and it understands why, then it
   will show you a message in the minibuffer and the Messages buffer. If it
   doesn't understand why then it gives you a warning in the minibuffer and
@@ -684,7 +684,7 @@ following are some key points that will tie everything together:
   probably something we have all faced before and talking about it will
   usually get it resolved pretty quickly.
 - You can store a single entry in a file (a Buffer Post). You can store
-  multiple entries in a Subtree Post. See more below. 
+  multiple entries in a Subtree Post. See more below.
 - Custom Key Bindings
   - When you use the menu you will quickly find that you use 20% or the
     commands 80% of the time. For example you may only ever use buffer posts
@@ -700,14 +700,14 @@ following are some key points that will tie everything together:
   - See ~owp-mode-map~ or ~org2blog/wp-keymap-prefix~ for details of the default
     keymap and prefix key.
   - You may find it just as easy to find a convenient key binding
-    ~owp-user-interface~ and use that for a kind of [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Prefix-Keymaps.html][Prefix Keymap]] instead. 
+    ~owp-user-interface~ and use that for a kind of [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Prefix-Keymaps.html][Prefix Keymap]] instead.
 
 ** Additional Functionality
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:C0921E46-3AB2-4A86-8E1C-88B00C36D90D
 :END:
 
-Org2Blog helps you do many good things. They are listed here. 
+Org2Blog helps you do many good things. They are listed here.
 
 *** Inserting Things
 
@@ -737,7 +737,7 @@ blocks via a [[https://codex.wordpress.org/Shortcode][shortcode]].
 
 To use this first you need to set the variable
 ~org2blog/wp-use-sourcecode-shortcode~ to ~t~. You don't need to do anyting
-differently to the contents 
+differently to the contents
 your source blocks. However in order to configure them with plugin properties
 you need to configure them using [[http://en.support.wordpress.com/code/posting-source-code/#configuration-parameters][configuration parameters]]. These can
 be passed to the exported sourcecode shortcode blocks via an =#+ATTR_WP=
@@ -758,18 +758,18 @@ AsciiMath notation that works in all modern browsers."
 
 Whether you use MathJax with a WordPress plugin, manual inclusion, or any
 other means you need to be aware of MathJax's [[http://docs.mathjax.org/en/latest/start.html#using-a-content-delivery-network-cdn][CDN]] options: you need to get it
-from somewhere. 
+from somewhere.
 
 Tell Org2Blog to disable translation to =wp-latex= syntax
 
 #+name: org_gcr_2019-03-08T01-25-08-06-00_cosmicality_E94F1F13-48FA-46DB-A1A6-6DFE135F8538
-#+begin_src emacs-lisp 
+#+begin_src emacs-lisp
 (setq org2blog/wp-use-wp-latex nil)
 #+end_src
 
 The easiest way to use MathJax with WordPress is to set up this [[https://wordpress.org/plugins/mathjax-latex/][MathJax-LaTeX]]
-plugin. 
-  
+plugin.
+
 - Steps
   - Install it
   - Configure it
@@ -778,11 +778,11 @@ plugin.
         imperceptible but you probably want page loads to be as fast as
         possible. If you plan to use MathJax a lot, or you don't mind the
         nearly imperceptible load time even if you are not using it, then
-        enable this setting: MathJax will get loaded on every post. 
+        enable this setting: MathJax will get loaded on every post.
       - If you are not going to use it frequently or want to manually require
         it when you need it then use =UI [“Insert A”]= followed by
         =UI [MathJax Shortcode]= to insert the MathJax shortcode. When WordPress
-        sees it, then MathJax will get loaded for the page. 
+        sees it, then MathJax will get loaded for the page.
     - Default [latex] syntax attribute: =Inline=
     - Use WP-Latex syntax? =YES=
     - Use MathJax CDN Service? =YES=
@@ -833,8 +833,8 @@ you only insert the required properties. Here is the easiest way how:
 Once you start using Org2Blog for all of your /new/ posts you you will want to
 starting using it for all of your /old/ posts too. The easiest way for that is
 to export your WordPress database to Org files. [[https://github.com/org2blog/org2blog-importers][This]] project performs such an
-export. Reports of successful exports of 2000+ entries are common. 
-  
+export. Reports of successful exports of 2000+ entries are common.
+
 *** Using Entry Templates
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:AF693199-1147-4491-859E-72B1400D6197
@@ -846,7 +846,7 @@ a template. If you want to change it you can configure
 
 The former takes some reading and study of the code to utilize. It will be
 simplified in a future release. The latter is a template that is inserted
-without any value substitution. 
+without any value substitution.
 
 *** A Post Dashboard
 :PROPERTIES:
@@ -855,10 +855,10 @@ without any value substitution.
 
 Out of the box Org2Blog will keep a record of all of your posts. Think of it
 as more of a personal dashboard. It work both for buffer entries and subtree
-entries. It only works for posts (it wouldn't make sense for a page). 
+entries. It only works for posts (it wouldn't make sense for a page).
 
 By default it is enabled and configured with ~org2blog/wp-track-posts~. When it
-is nil it is disabled. 
+is nil it is disabled.
 
 *** Doing Things After Saving And Publishing
 :PROPERTIES:
@@ -885,7 +885,7 @@ Here is an example that displays your post or page information in the
 (add-hook 'org2blog/wp-after-new-post-or-page-functions (lambda (p) (pp p)))
 #+end_src
 
-** Clarifications
+** Some Questions And Some Answers
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:D0ECB4B0-5922-4BE5-BCE8-904EAB930CDD
 :END:
@@ -912,7 +912,7 @@ They are also used because they reflect the natural workflow of working with
 WordPress that looks like this:
 
 #+begin_example
-⮎Save → View → Publish⮌ Trash⁉ 
+⮎Save → View → Publish⮌ Trash⁉
 #+end_example
 
 Blogging with WordPress is an iterative workflow, going through the cycle as
@@ -935,7 +935,7 @@ comfortable situations where you accidentally publish one thing as another (it
 is pretty easy to fix anyway though).
 
 Although Org2Blog is implemented how WordPress works, it can surprising to see
-these words used. However you'll get used to it pretty quickly. 
+these words used. However you'll get used to it pretty quickly.
 
 * Changelog
 :properties:
@@ -988,7 +988,7 @@ Plan on staying positive even when things don't go as planned!
 It probably isn't unique to you, and it is probably something easy to fix.
 Most of the surprised faced have to do with defects in the code, blog issues,
 and personal configuration together. Together we will figure out what isn't
-going quite right and things right again. 
+going quite right and things right again.
 
 In addition to using to [[https://github.com/org2blog/org2blog/issues][reporting]] it right away, the following links can help too:
 
@@ -1029,7 +1029,7 @@ In addition to using to [[https://github.com/org2blog/org2blog/issues][reporting
       these values then commit them
 - [[https://alphapapa.github.io/dont-tread-on-emacs/][Don't Tread On Emacs]].
 - [[./.github/CODE_OF_CONDUCT.org][Code of Conduct]].
-  
+
 * License
 :properties:
 :toc:      ignore
