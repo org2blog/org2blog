@@ -463,11 +463,24 @@ following are some key points that will tie everything together:
   [[https://github.com/org2blog/org2blog/issues][issue tracker]]. Be sure to post issues before you start to get upset. It is
   probably something we have all faced before and talking about it will
   usually get it resolved pretty quickly.
-- If you understandable want to use keybindings for any of the user actions
-  then show the help for that menu item and you will see the function name
-  for it. See ~owp-mode-map~ or ~org2blog/wp-keymap-prefix~ for details. 
 - You can store a single entry in a file (a Buffer Post). You can store
   multiple entries in a Subtree Post. See more below. 
+- Custom Key Bindings
+  - When you use the menu you will quickly find that you use 20% or the
+    commands 80% of the time. For example you may only ever use buffer posts
+    and never us any other menu item than =UI [Publish Post]=: in that case you
+    only ever need to call one function! The menu item(s) to do what you want
+    most of the time will quickly become "muscle memory". At that point it is
+    will be easy for you to configure your own custom keybindings for the
+    functions that back up the menu item. To find the function for the menu
+    item just open the menu, choose =UI [Help]=, select the menu item, and you
+    will be presented with the function that does the actual work. Take that
+    function name and bind it to a key within this mode. See
+    ~sample-function~ at the beginning of this document for an example how.
+  - See ~owp-mode-map~ or ~org2blog/wp-keymap-prefix~ for details of the default
+    keymap and prefix key.
+  - You may find it just as easy to find a convenient key binding
+    ~owp-user-interface~ and use that for a kind of [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Prefix-Keymaps.html][Prefix Keymap]] instead. 
 
 *** Writing "Real" Entries
 :PROPERTIES:
@@ -496,14 +509,15 @@ mode hook:
 In addition to using the menu, you might enjoy some personal keybindings for
 Org2Blog functions. Here is an example:
 
-The first thing I do is to configure personal keybindings. For me they look
-like this:
+The first thing you may do is to configure your personal keybindings. This sample
+uses the =super= name-space because it is /supposed/ to be 100% free for user key
+bindings. 
 
 #+name: org_gcr_2019-03-04T08-22-32-06-00_cosmicality_8F0B6AC9-C081-48A2-8D57-EA164C30D32A
 #+begin_src emacs-lisp 
 (defun sample-function ()
-  (local-set-key (kbd "M-9") #'owp-user-interface)
-  (local-set-key (kbd "M-0") #'owp-complete))
+  (local-set-key (kbd "s-(") #'owp-user-interface)
+  (local-set-key (kbd "s-)") #'owp-complete))
 (add-hook 'org2blog/wp-mode-hook #'sample-function)
 #+end_src
 
