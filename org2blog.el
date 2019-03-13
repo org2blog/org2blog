@@ -1322,28 +1322,32 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
               (when to-post (org-entry-put (point) "BLOG" owp-blog-key))
               (org-entry-put (point) "POSTID" post-id)))
           (owp--save-details post post-id publish from-subtree)
-          (message (if publish
-                       "Published your %s: “%s”. Its ID is “%s”."
-                     "Saved your %s as a draft: “%s”. Its ID is “%s”.")
-                   thing (cdr (assoc "title" post)) post-id)
-          (let* ((showit (or (and (atom show) (symbolp show) (not (listp show)) show) (cadr show)))
+          (let* ((did (format
+                       (if publish
+                           "Published your %s: “%s”. Its ID is “%s”. "
+                         "Saved your %s as a draft: “%s”. Its ID is “%s”. ")
+                       thing (cdr (assoc "title" post)) post-id))
+                 (showit (or (and (atom show) (symbolp show) (not (listp show)) show) (cadr show)))
                  (dont (equal showit 'dont))
                  (show (equal showit 'show))
                  (ask (equal showit 'ask)))
             (cond (dont (message
-                         (concat "It looks like you decided not to automatically display "
+                         (concat did
+                                 "It looks like you decided not to automatically display "
                                  "your %s, so I won’t. If you ever want to change "
                                  "it then try customizing "
                                  "‘org2blog/wp-show-post-in-browser’.")
                          thing))
                   ((not owp-logged-in)
                    (message
-                    (concat "It looks like you wanted to display your %s, but "
+                    (concat did
+                            "It looks like you wanted to display your %s, but "
                             "I couldn’t because you are not logged in to your "
                             "blog. Please log in to your blog and try doing "
                             "this again.")
                     thing))
-                  (show (cond ((and from-buffer to-post)
+                  (show (message "%s" did)
+                        (cond ((and from-buffer to-post)
                                (owp-buffer-post-or-page-view))
                               ((and from-buffer to-page)
                                (owp-buffer-post-or-page-view))
@@ -1353,7 +1357,8 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
                                (owp-subtree-post-or-page-view))))
                   ((and ask (y-or-n-p
                            (format
-                            (concat "Would you like to display "
+                            (concat did
+                                    "Would you like to display "
                                     "your %s: “%s” (ID “%s”)? ")
                             thing (cdr (assoc "title" post)) post-id)))
                    (cond ((and from-buffer to-post)
