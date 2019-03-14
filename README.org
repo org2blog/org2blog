@@ -728,32 +728,36 @@ surprised as how often you end up using them:
 Literate Programmers you will be happy to know that Org2Blog has first-class
 source block support! It works two different ways.
 
+**** Org Mode
+
 Out of the box source blocks are converted into =<pre>= tags. This is the most
-simple and durable approach: it is plain HTML and doesn't have any external
-dependencies. Another option is to use a shortcode and SyntaxHighlighter
-Evolved. 
+simple and durable approach: it is plain old HTML. 
+
+Another option is to SyntaxHighlighter Evolved.
+
+**** SyntaxHighlighter Evolved
 
 [[https://wordpress.org/plugins/syntaxhighlighter/][SyntaxHighlighter Evolved]] is an extremely popular plugin for rendering source
-code. It supports a bunch of languages and options (see [[https://en.support.wordpress.com/code/posting-source-code/][here]]) in addition to
-open-source custom plugins for other language. You can use it for source
-blocks via a [[https://codex.wordpress.org/Shortcode][shortcode]].
-
-Configure it however you wish. There is even an Emacs color theme too. 
+code. It supports a bunch of languages and configuration parameters (see [[https://en.support.wordpress.com/code/posting-source-code/][here]])
+in addition to open-source custom plugins for other language.
 
 To use this first you need to set the variable
 ~org2blog/wp-use-sourcecode-shortcode~ to ~t~.
 
-SyntaxHighlighter Evolved does use optional source block attributes in its
-HTML. For example when you want to highlight a particular line of code to
-demonstrate some point you can specify that using a configuration parameter.
-[[https://en.support.wordpress.com/code/posting-source-code/][This is how]] those parameters work and here is an example of how to add them to
-your source block using an =#+ATTR_WP= line immediately preceding the
-=#+BEGIN_SRC= line, e.g.
+Configure your source blocks for SyntaxHighlighter like this:
 
 #+NAME: org_gcr_2019-03-06T17-15-24-06-00_cosmicality_97FBBAF4-3169-4F86-9E52-E085EF9A9BD4
 #+begin_src org
-,#+ATTR_WP: :syntaxhl light=true
+,#+attr_wp: :syntaxhl light=true
+,#+begin_src shell
+echo hi
+,#+end_src
 #+end_src
+
+The =:syntaxhl= property tells Org2Blog that everything following it is a
+configuration parameter for SyntaxHighlighter. Those values get passed on.
+
+The =#+ATTR_WP= line immediately *must* immediately precede the =#+BEGIN_SRC= line. 
 
 *** MathJax Support
 :PROPERTIES:
