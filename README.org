@@ -785,11 +785,16 @@ plugin.
         sees it, then MathJax will get loaded for the page.
     - Default [latex] syntax attribute: =Inline=
     - Use WP-Latex syntax? =YES=
-    - Use MathJax CDN Service? =YES=
-      - You already read about options. Make sure that this one works for you
-        (it probably does)
-    - Custom MathJax location? =NO=
-    - MathJax Configuration: =default=
+    - Use MathJax CDN Service? =NO=
+      - MathJax no longer hosts their own CDN but there are [[https://docs.mathjax.org/en/latest/start.html#mathjax-cdn][many alternatives]].
+        That document recommends of them so that seems like a good choice.
+    - Custom MathJax location? =YES=
+      - [[https://docs.mathjax.org/en/v1.1-latest/configuration.html#loading][This]] explains how to load and configure the library manually. Please
+        read it so you know what the plugin is doing.
+      - Copy the CDN URL up to and including the ~MathJax.js~. Everything /after/
+        that are configuration options, and you will specify those in the next
+        setting.
+    - MathJax Configuration: =TeX-AMS-MML_HTMLorMML=
 
 Now test your installation:
 
@@ -803,12 +808,10 @@ Now test your installation:
 - Equation
   - $$\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$$
   #+END_SRC
-- Test it locally using HTML export settings
-  #+BEGIN_EXAMPLE
-,#+HTML_HEAD: <script type="text/javascript"
-,#+HTML_HEAD:   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js">
-,#+HTML_HEAD: </script>
-  #+END_EXAMPLE
+
+You should see something like this:
+
+
 
 *** Importing Org Mode Files
 :PROPERTIES:
@@ -908,8 +911,20 @@ about Saving, Viewing, Pubishing, and Trashing. Org2Blog chose to use the
 WordPress language: it is less surprising and makes it easier to keep the idea
 that Org2Blog fits into your WordPress workflow in your mind.
 
-They are also used because they reflect the natural workflow of working with
-WordPress that looks like this:
+Take time to learn that workflow /outside/ of Org2Blog. It will save you from
+uncomfortable situations where your entry enters a /weird/ state. At least it
+can feel weird. For example when you make changes to an entry and save it, it
+will enter the Status of =Draft=. From here you only have two options to move it
+back to a Published state: Save the changes you made, or Save it without any
+changes. If you've never encountered this before it can be upsetting when the
+URL for your entry always says ~preview=true~. Whenever you get into a confusing
+situation be sure to access your blog inside of the WordPress menu to find out
+more about what is happening. Usually it is something really simple. Watch for
+how the works you already learned are used and it will start to make sense
+very quickly.
+
+Those words are also used because they reflect the natural workflow of working
+with WordPress that looks like this:
 
 #+begin_example
 ⮎Save → View → Publish⮌ Trash⁉
