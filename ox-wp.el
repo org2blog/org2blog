@@ -117,35 +117,67 @@ Delegateswork to `org-wp-export-as-wordpress'."
       (org-wp-src-block-html src-block contents info))))
 
 (defun org-wp-src-block-shortcode (src-block _contents info)
-  "Transcode SRC-BLOCK, CONTENTS, and INFO to WordPress Shortcode."
+  "Create the SyntaxHighlighter Evolved sourceblock with SRC-BLOCK, CONTENTS, and INFO.
+
+Here is how this function maps an Org mode source block to
+a SyntaxHighlighter Evolved (SHE) source block. The list items
+(the part before the ‘:’) are the SHE field names. The list
+defintions (the part after the ‘:’) refer to the Org mode source
+block and its properties:
+
+- ‘language’: If non-nil use ‘language’, otherwise default to \"text\"
+- ‘title’: Try to get both the ‘name’ and ‘caption’. Prepare a title
+           using both elements, one element, or default to an
+           empty string.
+- ‘syntaxhl’: When an “#+attr_wp: :syntaxhl ...” document property appears
+            directly above a source block, then everything after
+            “:syntaxhl” is inserted directly into the shortcode."
   (let* ((lang (org-element-property :language src-block))
          (name (or (org-element-property :name src-block)
-                  (org-export-get-reference src-block info)
                   ""))
-         (caption (and (org-export-get-caption src-block)
-                     (org-trim (org-export-data
-                                (org-export-get-caption
-                                 src-block)
-                                info))))
+         (caption (or (and (org-export-get-caption src-block)
+                        (org-trim (org-export-data
+                                   (org-export-get-caption
+                                    src-block)
+                                   info)))
+                     ""))
+         (title (format "%s%s%s" name (if (and name caption) ": " "") caption))
          (langs-map (plist-get info :wp-shortcode-langs-map))
-         (syntaxhl (org-export-read-attribute :attr_wp src-block :syntaxhl)))
-    (format "[sourcecode language=\"%s\" title=\"%s\" %s]\n%s[/sourcecode]"
-            (or (cdr (assoc lang langs-map)) (when lang (downcase lang)) "text")
-            (or caption "")
-            (or syntaxhl "")
-            (org-export-format-code-default src-block info))))
+         (syntaxhl (org-export-read-attribute :attr_wp src-block :syntaxhl))
+         (result
+          (format
+           "[sourcecode language=\"%s\" title=\"%s\" %s]\n%s[/sourcecode]"
+           (or (cdr (assoc lang langs-map)) (when lang (downcase lang)) "text")
+           (or title "")
+           (or syntaxhl "")
+           (org-export-format-code-default src-block info))))
+    result))
 
 (defun org-wp-src-block-html (src-block _contents info)
-  "Transcode SRC-BLOCK, CONTENTS, and INFO to HTML."
+  "Create the HTML sourceblock with SRC-BLOCK, CONTENTS, and INFO.
+
+Here is how this function maps an Org mode source block to
+a HTML <pre> (HTM) source block. The list items (the part
+before the ‘:’) are the HTM field names. The list defintions
+(the part after the ‘:’) refer to the Org mode source block
+and its properties:
+
+- ‘language’: If non-nil use ‘language’, otherwise default to \"text\"
+- ‘title’: Try to get both the ‘name’ and ‘caption’. Prepare a title
+           using both elements, one element, or default to an
+           empty string.
+- ‘syntaxhl’: When an “#+attr_wp: :syntaxhl ...” document property appears
+            directly above a source block, then everything after
+            “:syntaxhl” is inserted directly into the shortcode."
   (if (org-export-read-attribute :attr_html src-block :textarea)
       (org-html--textarea-block src-block)
     (let* ((lang (org-element-property :language src-block))
            (code (org-html-format-code src-block info))
-           (label (let ((lbl (or (org-element-property :name src-block)
-                                (org-export-get-reference src-block info))))
-                    (if lbl (format " id=\"%s\"" lbl) ""))))
+           (name (let ((lbl (or (org-element-property :name src-block)
+                               (org-export-get-reference src-block info))))
+                   (if lbl (format " id=\"%s\"" lbl) ""))))
       (if (not lang)
-          (format "<pre class=\"example\"%s>\n%s</pre>" label code)
+          (format "<pre class=\"example\"%s>\n%s</pre>" name code)
         (format "<div class=\"org-src-container\">\n%s%s\n</div>"
                 ;; Build caption.
                 (let ((caption (org-export-get-caption src-block)))
@@ -162,7 +194,7 @@ Delegateswork to `org-wp-export-as-wordpress'."
                               (org-trim (org-export-data caption info))))))
                 ;; Contents.
                 (format "<pre class=\"src src-%s\"%s>%s</pre>"
-                        lang label code))))))
+                        lang name code))))))
 
 (defun org-wp-latex-environment (latex-environment contents info)
   "Transcode a LATEX-ENVIRONMENT element from Org to WP HTML.
