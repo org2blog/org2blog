@@ -738,9 +738,7 @@ code. It supports a bunch of languages and options (see [[https://en.support.wor
 open-source custom plugins for other language. You can use it for source
 blocks via a [[https://codex.wordpress.org/Shortcode][shortcode]].
 
-Configure it however you wish. There is even an Emacs color theme too. Please
-be sure read the [[https://github.com/syntaxhighlighter/syntaxhighlighter/wiki][SyntaxHighlighter Evolved WIKI]] in addition to using it's
-download page, which at time can be a little confusing. 
+Configure it however you wish. There is even an Emacs color theme too. 
 
 To use this first you need to set the variable
 ~org2blog/wp-use-sourcecode-shortcode~ to ~t~.
