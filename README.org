@@ -811,7 +811,7 @@ Now test your installation:
 
 You should see something like this:
 
-#+attr_latex: :width 100px
+#+attr_html: :width 100px
 [[file:/images/MathJax.png]]
 
 
