@@ -813,11 +813,6 @@ Now test your installation:
 You should see something like this:
 
 #+begin_html
-<a href=https://alphapapa.github.io/dont-tread-on-emacs/><img src="https://raw.githubusercontent.com/alphapapa/org-make-toc/master/dont-tread-on-emacs-150.png" align="right"></a>
-#+end_html
-
-
-#+begin_html
 <img src="https://github.com/org2blog/org2blog/blob/v1.1.0/images/MathJax.png" alt="MathJax Example"
 width="50%" height="50%">
 #+end_html
