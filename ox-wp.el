@@ -169,32 +169,41 @@ and its properties:
 - ‘syntaxhl’: When an “#+attr_wp: :syntaxhl ...” document property appears
             directly above a source block, then everything after
             “:syntaxhl” is inserted directly into the shortcode."
-  (if (org-export-read-attribute :attr_html src-block :textarea)
-      (org-html--textarea-block src-block)
+  (catch 'return
+    (when (org-export-read-attribute :attr_html src-block :textarea)
+      (let (result (org-html--textarea-block src-block))
+        (throw 'return result)))
     (let* ((lang (org-element-property :language src-block))
            (code (org-html-format-code src-block info))
            (name (let ((lbl (or (org-element-property :name src-block)
                                (org-export-get-reference src-block info))))
                    (if lbl (format " id=\"%s\"" lbl) ""))))
-      (if (not lang)
-          (format "<pre class=\"example\"%s>\n%s</pre>" name code)
-        (format "<div class=\"org-src-container\">\n%s%s\n</div>"
-                ;; Build caption.
-                (let ((caption (org-export-get-caption src-block)))
-                  (if (not caption) ""
-                    (let ((listing-number
-                           (format
-                            "<span class=\"listing-number\">%s </span>"
-                            (format
-                             (org-html--translate "Listing %d:" info)
-                             (org-export-get-ordinal
-                              src-block info nil #'org-html--has-caption-p)))))
-                      (format "<label class=\"org-src-name\">%s%s</label>"
-                              listing-number
-                              (org-trim (org-export-data caption info))))))
-                ;; Contents.
-                (format "<pre class=\"src src-%s\"%s>%s</pre>"
-                        lang name code))))))
+      (when (not lang)
+        (let (result (format "<pre class=\"example\"%s>\n%s</pre>" name code))
+          (throw 'return result)))
+      (let* ((fmtcontent
+              (format "<pre class=\"src src-%s\"%s>%s</pre>"
+                      lang name code))
+             (caption (org-export-get-caption src-block))
+             (fmtcaption
+              (if (not caption) ""
+                (let* ((fmtlisting (format
+                                    (org-html--translate "Listing %d:" info)
+                                    (org-export-get-ordinal
+                                     src-block info nil #'org-html--has-caption-p)))
+                       (listing-number
+                        (format
+                         "<span class=\"listing-number\">%s </span>"
+                         fmtlisting))
+                       (classlabel
+                        (format "<label class=\"org-src-name\">%s%s</label>"
+                                listing-number
+                                (org-trim (org-export-data caption info)))))
+                  classlabel)))
+             (result (format "<div class=\"org-src-container\">\n%s%s\n</div>"
+                             fmtcaption
+                             fmtcontent)))
+        result))))
 
 (defun org-wp-latex-environment (latex-environment contents info)
   "Transcode a LATEX-ENVIRONMENT element from Org to WP HTML.
