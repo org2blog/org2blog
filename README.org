@@ -812,6 +812,8 @@ Now test your installation:
 You should see something like this:
 
 
+[[file:/images/MathJax.png]]
+
 
 *** Importing Org Mode Files
 :PROPERTIES:
