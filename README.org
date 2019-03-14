@@ -814,8 +814,8 @@ You should see something like this:
 
 #+begin_export html
 <td>
-<img src="./images/MathJax.png" alt="MathJax Example"
-width="62%" height="62%">
+<img src="https://github.com/org2blog/org2blog/blob/v1.1.0/images/MathJax.png" alt="MathJax Example"
+width="50%" height="50%">
 </td>
 #+end_export
 
