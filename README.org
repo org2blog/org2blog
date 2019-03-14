@@ -47,13 +47,14 @@ Blog from Org mode to WordPress.
       -  [[#using-entry-templates][Using Entry Templates]]
       -  [[#a-post-dashboard][A Post Dashboard]]
       -  [[#doing-things-after-saving-and-publishing][Doing Things After Saving And Publishing]]
-    -  [[#clarifications][Clarifications]]
+    -  [[#some-questions-and-some-answers][Some Questions And Some Answers]]
       -  [[#why-does-org2blog-talk-about-save-view-publish-and-trash-so-much][Why Does Org2Blog Talk About Save, View, Publish, And Trash So Much?]]
       -  [[#why-does-org2blog-talk-about-buffers-subtrees-posts-and-pages-so-much][Why Does Org2blog Talk About Buffers, Subtrees, Posts, And Pages So Much?]]
+      -  [[#what-is-up-with-the-package-name][What Is Up With The Package Name?]]
   -  [[#changelog][Changelog]]
   -  [[#credits][Credits]]
   -  [[#when-things-go-wrong][When Things Go Wrong]]
-  -  [[#developmente][Developmente]]
+  -  [[#development][Development]]
 
 * Installation
 :properties:
@@ -811,9 +812,10 @@ Now test your installation:
 
 You should see something like this:
 
-#+attr_html: :width 100px
-[[file:/images/MathJax.png]]
-
+<td>
+<img src="./images/MathJax.png" alt="MathJax Example"
+width="62%" height="62%">
+</td>
 
 *** Importing Org Mode Files
 :PROPERTIES:
