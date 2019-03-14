@@ -812,10 +812,12 @@ Now test your installation:
 
 You should see something like this:
 
+#+begin_export html
 <td>
 <img src="./images/MathJax.png" alt="MathJax Example"
 width="62%" height="62%">
 </td>
+#+end_export
 
 *** Importing Org Mode Files
 :PROPERTIES:
