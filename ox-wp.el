@@ -33,6 +33,7 @@
 
 (eval-when-compile (require 'cl))
 (require 'ox-html)
+(require 's)
 
 
 
@@ -132,25 +133,31 @@ block and its properties:
 - ‘syntaxhl’: When an “#+attr_wp: :syntaxhl ...” document property appears
             directly above a source block, then everything after
             “:syntaxhl” is inserted directly into the shortcode."
-  (let* ((lang (org-element-property :language src-block))
+  (let* ((langval (org-element-property :language src-block))
+         (langs (plist-get info :wp-shortcode-langs-map))
+         (lang (or (cdr (assoc langval langs))
+                  (when langval (downcase langval))
+                  "text"))
          (name (or (org-element-property :name src-block)
                   ""))
-         (caption (or (and (org-export-get-caption src-block)
-                        (org-trim (org-export-data
-                                   (org-export-get-caption
-                                    src-block)
-                                   info)))
-                     ""))
-         (title (format "%s%s%s" name (if (and name caption) ": " "") caption))
-         (langs-map (plist-get info :wp-shortcode-langs-map))
-         (syntaxhl (org-export-read-attribute :attr_wp src-block :syntaxhl))
+         (cap (or (and (org-export-get-caption src-block)
+                    (org-trim (org-export-data
+                               (org-export-get-caption src-block)
+                               info)))
+                 ""))
+         (title-separator (if (and (s-present? name) (s-present? cap)) ": " ""))
+         (title (or (format "%s%s%s" name title-separator cap)
+                   ""))
+         (syntaxhl (or (org-export-read-attribute :attr_wp src-block :syntaxhl)
+                      ""))
+         (srccode (org-export-format-code-default src-block info))
          (result
           (format
            "[sourcecode language=\"%s\" title=\"%s\" %s]\n%s[/sourcecode]"
-           (or (cdr (assoc lang langs-map)) (when lang (downcase lang)) "text")
-           (or title "")
-           (or syntaxhl "")
-           (org-export-format-code-default src-block info))))
+           lang
+           title
+           syntaxhl
+           srccode)))
     result))
 
 (defun org-wp-src-block-html (src-block _contents info)
