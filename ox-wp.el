@@ -120,7 +120,10 @@ Delegateswork to `org-wp-export-as-wordpress'."
   "Transcode SRC-BLOCK, CONTENTS, and INFO to WordPress Shortcode."
   (let ((lang (org-element-property :language src-block))
         (caption (and (org-export-get-caption src-block)
-                    (car (org-export-get-caption src-block))))
+                    (org-trim (org-export-data
+                               (org-export-get-caption
+                                src-block)
+                               info))))
         (langs-map (plist-get info :wp-shortcode-langs-map))
         (syntaxhl (org-export-read-attribute :attr_wp src-block :syntaxhl)))
     (format "[sourcecode language=\"%s\" title=\"%s\" %s]\n%s[/sourcecode]"
