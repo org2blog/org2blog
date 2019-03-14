@@ -185,8 +185,9 @@ For example you can copy and paste the Git clone commands intto a terminal,
            (-interpose "\n"
                        (-map
                         (lambda (req)
-                          (message (format "git clone %s %s/%s"
-                                           (caddr req) install-dir (car req))))
+                          (if (not (caddr req)) ""
+                            (message (format "git clone %s %s/%s"
+                                             (caddr req) install-dir (car req)))))
                         (owp--pkg "requirements"))))))
  "~/src")
 #+end_src
@@ -194,7 +195,7 @@ For example you can copy and paste the Git clone commands intto a terminal,
 #+RESULTS: clones
 #+begin_EXAMPLE
 "git clone https://github.com/magnars/dash.el.git ~/src/dash
-git clone https://github.com/magnars/dash.el.git ~/src/dash-functional
+
 git clone https://github.com/rejeep/f.el.git ~/src/f
 git clone https://github.com/Wilfred/helpful.git ~/src/helpful
 git clone https://github.com/Wilfred/ht.el.git ~/src/ht

@@ -73,7 +73,7 @@
     (ht-set! p "emacs" "26.1")
     (ht-set! p "requirements"
              '((dash "2.15.0" "https://github.com/magnars/dash.el.git")
-               (dash-functional "2.15.0" "https://github.com/magnars/dash.el.git")
+               (dash-functional "2.15.0" nil)
                (f "0.20.0" "https://github.com/rejeep/f.el.git")
                (helpful "0.15" "https://github.com/Wilfred/helpful.git")
                (ht "2.2" "https://github.com/Wilfred/ht.el.git")
