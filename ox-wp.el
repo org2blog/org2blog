@@ -161,21 +161,7 @@ block and its properties:
     result))
 
 (defun org-wp-src-block-html (src-block _contents info)
-  "Create the HTML sourceblock with SRC-BLOCK, CONTENTS, and INFO.
-
-Here is how this function maps an Org mode source block to
-a HTML <pre> (HTM) source block. The list items (the part
-before the ‘:’ are the HTM field names. The list definitons
-(the part after the ‘:’) refer to the Org mode source block
-and its properties:
-
-- ‘language’: If non-nil use ‘language’, otherwise default to \"text\"
-- ‘title’: Try to get both the ‘name’ and ‘caption’. Prepare a title
-           using both elements, one element, or default to an
-           empty string.
-- ‘syntaxhl’: When an “#+attr_wp: :syntaxhl ...” document property appears
-            directly above a source block, then everything after
-            “:syntaxhl” is inserted directly into the shortcode.            "
+  "Create the HTML sourceblock with SRC-BLOCK, CONTENTS, and INFO."
   (catch 'return
     (when (org-export-read-attribute :attr_html src-block :textarea) ; TODO Test
       (let (result (org-html--textarea-block src-block))
