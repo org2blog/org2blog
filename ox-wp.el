@@ -177,7 +177,7 @@ and its properties:
             directly above a source block, then everything after
             “:syntaxhl” is inserted directly into the shortcode.            "
   (catch 'return
-    (when (org-export-read-attribute :attr_html src-block :textarea)
+    (when (org-export-read-attribute :attr_html src-block :textarea) ; TODO Test
       (let (result (org-html--textarea-block src-block))
         (throw 'return result)))
     (let* ((lang (org-element-property :language src-block))
