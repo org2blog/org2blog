@@ -186,7 +186,7 @@ and its properties:
                                (org-export-get-reference src-block info))))
                    (if lbl (format " id=\"%s\"" lbl) ""))))
       (when (not lang)
-        (let (result (format "<pre class=\"example\"%s>\n%s</pre>" name code))
+        (let ((result (format "<pre class=\"example\"%s>\n%s</pre>" name code)))
           (throw 'return result)))
       (let* ((fmtcontent
               (format "<pre class=\"src src-%s\"%s>%s</pre>"
