@@ -748,7 +748,7 @@ Configure your source blocks for SyntaxHighlighter like this:
 
 #+NAME: org_gcr_2019-03-06T17-15-24-06-00_cosmicality_97FBBAF4-3169-4F86-9E52-E085EF9A9BD4
 #+begin_src org
-,#+attr_wp: :syntaxhl light=true
+,#+attr_wp: :syntaxhl light="true"
 ,#+begin_src shell
 echo hi
 ,#+end_src
