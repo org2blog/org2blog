@@ -121,8 +121,8 @@ Delegateswork to `org-wp-export-as-wordpress'."
   "Create the SyntaxHighlighter Evolved sourceblock with SRC-BLOCK, CONTENTS, and INFO.
 
 Here is how this function maps an Org mode source block to
-a SyntaxHighlighter Evolved (SHE) source block. The list items
-(the part before the ‘:’) are the SHE field names. The list
+a SyntaxHighlighter Evolved (SHE) source block. The list items,
+the part before the colon, are the SHE field names. The list
 defintions (the part after the ‘:’) refer to the Org mode source
 block and its properties:
 
@@ -165,7 +165,7 @@ block and its properties:
 
 Here is how this function maps an Org mode source block to
 a HTML <pre> (HTM) source block. The list items (the part
-before the ‘:’) are the HTM field names. The list defintions
+before the ‘:’ are the HTM field names. The list definitons
 (the part after the ‘:’) refer to the Org mode source block
 and its properties:
 
@@ -175,7 +175,7 @@ and its properties:
            empty string.
 - ‘syntaxhl’: When an “#+attr_wp: :syntaxhl ...” document property appears
             directly above a source block, then everything after
-            “:syntaxhl” is inserted directly into the shortcode."
+            “:syntaxhl” is inserted directly into the shortcode.            "
   (catch 'return
     (when (org-export-read-attribute :attr_html src-block :textarea)
       (let (result (org-html--textarea-block src-block))
