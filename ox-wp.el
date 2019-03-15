@@ -163,7 +163,7 @@ block and its properties:
 (defun org-wp-src-block-html (src-block _contents info)
   "Create the HTML sourceblock with SRC-BLOCK, CONTENTS, and INFO."
   (catch 'return
-    (when (org-export-read-attribute :attr_html src-block :textarea) ; TODO Test
+    (when (org-export-read-attribute :attr_html src-block :textarea)
       (let (result (org-html--textarea-block src-block))
         (throw 'return result)))
     (let* ((lang (org-element-property :language src-block))
