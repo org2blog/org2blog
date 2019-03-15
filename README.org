@@ -725,8 +725,11 @@ surprised as how often you end up using them:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:F6832BDB-FAD6-417B-A01B-F69A64AD788F
 :END:
 
-Literate Programmers you will be happy to know that Org2Blog has first-class
-source block support! It works two different ways.
+Org2Blog has first-class source block support. The headliners in this section
+explain how. 
+
+Whichever way you choose be sure to additionally use =#+name= and =#+caption= to
+get the desired presentation.
 
 **** Org Mode
 
