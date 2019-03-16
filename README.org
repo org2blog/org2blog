@@ -207,7 +207,7 @@ git clone https://github.com/magnars/s.el.git ~/src/s
 git clone https://github.com/hexmode/xml-rpc-el.git ~/src/xml-rpc"
 #+end_EXAMPLE
 
-Add them to your load path,
+Add them to your load path and require them,
 
 #+name: org_gcr_2019-03-09T22-18-17-06-00_cosmicality_A4D95252-60ED-4DE0-BB7D-E828E64652B7
 #+begin_src emacs-lisp :exports both
