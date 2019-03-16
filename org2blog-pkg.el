@@ -1,6 +1,6 @@
 (define-package "org2blog" "1.1.0" "Blog from Org mode to WordPress"
   '((dash "2.15.0" "https://github.com/magnars/dash.el.git")
-    (dash-functional "2.15.0" "https://github.com/magnars/dash.el.git")
+    (dash-functional "2.15.0" nil)
     (f "0.20.0" "https://github.com/rejeep/f.el.git")
     (helpful "0.15" "https://github.com/Wilfred/helpful.git")
     (htmlize "1.55" "https://github.com/hniksic/emacs-htmlize.git")
