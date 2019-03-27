@@ -107,7 +107,7 @@ Delegateswork to `org-wp-export-as-wordpress'."
   "When INFO, filter newlines from PARAGRAPH."
   (let ((keep-new-lines (plist-get info :wp-keep-new-lines)))
                                         ; TODO What about the global?
-    (if keep-new-lines paragraph
+    (if keep-new-lines paragraph ; TODO let result
       (format "%s\n\n"
               (org-trim (replace-regexp-in-string "\s*\n" " " paragraph))))))
 
