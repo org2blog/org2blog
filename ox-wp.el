@@ -147,7 +147,7 @@ block and its properties:
                  ""))
          (title-separator (if (and (s-present? name) (s-present? cap)) ": " ""))
          (title (or (format "%s%s%s" name title-separator cap)
-                   ""))
+                   "")) ; TODO Can’t you have either or?
          (syntaxhl (or (org-export-read-attribute :attr_wp src-block :syntaxhl)
                       ""))
          (srccode (org-export-format-code-default src-block info))
