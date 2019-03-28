@@ -2443,7 +2443,7 @@ and munge it a little to make it suitable to use with the
          (cons "description" nil)
          (cons "tags" (or
                        (split-string (or (owp--eprop "POST_TAGS") "") "\\( *, *\\)" t)
-                       (-map 'org-no-properties (org-get-tags (point) nil))))
+                       (-map 'org-no-properties (org-get-tags-at (point) nil))))
          (cons "categories"
                (split-string (or (owp--eprop "CATEGORY") "")
                              "\\( *, *\\)" t))
