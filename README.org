@@ -728,8 +728,9 @@ surprised as how often you end up using them:
 Org2Blog has first-class source block support. The headliners in this section
 explain how. 
 
-Whichever way you choose be sure to additionally use =#+name= and =#+caption= to
-get the desired presentation.
+=#+name= and =#+caption= are included in the title.
+
+Source blocks do not work inside of plain lists. 
 
 **** Org Mode
 
