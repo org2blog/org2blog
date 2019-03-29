@@ -106,11 +106,12 @@ Delegateswork to `org-wp-export-as-wordpress'."
 ;; TODO Retain newlines for shortcode, maybe more
 (defun org-wp-filter-paragraph (paragraph _backend info)
   "When INFO, filter newlines from PARAGRAPH."
-  (let ((keep-new-lines (plist-get info :wp-keep-new-lines)))
-                                        ; TODO What about the global?
-    (if keep-new-lines paragraph ; TODO let result
-      (format "%s\n\n"
-              (org-trim (replace-regexp-in-string "\s*\n" " " paragraph))))))
+  (let* ((keep-new-lines (plist-get info :wp-keep-new-lines))
+         (result (if keep-new-lines paragraph
+                   (format "%s\n\n"
+                           (org-trim (replace-regexp-in-string "\s*\n" " "
+                                                               paragraph))))))
+    result))
 
 (defun org-wp-src-block (src-block contents info)
   "Delegate transcoding of SRC-BLOCK, CONTENTS, and INFO."
