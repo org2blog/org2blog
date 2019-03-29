@@ -115,10 +115,11 @@ Delegateswork to `org-wp-export-as-wordpress'."
 
 (defun org-wp-src-block (src-block contents info)
   "Delegate transcoding of SRC-BLOCK, CONTENTS, and INFO."
-  (let ((sc (plist-get info :wp-shortcode)))
-    (if sc
-        (org-wp-src-block-shortcode src-block contents info)
-      (org-wp-src-block-html src-block contents info))))
+  (let* ((sc (plist-get info :wp-shortcode))
+         (result (if sc
+                     (org-wp-src-block-shortcode src-block contents info)
+                   (org-wp-src-block-html src-block contents info))))
+    result))
 
 (defun org-wp-src-block-shortcode (src-block _contents info)
   "Create the SyntaxHighlighter Evolved sourceblock with SRC-BLOCK, CONTENTS, and INFO.
