@@ -761,7 +761,37 @@ echo hi
 The =:syntaxhl= property tells Org2Blog that everything following it is a
 configuration parameter for SyntaxHighlighter. Those values get passed on.
 
-The =#+ATTR_WP= line immediately *must* immediately precede the =#+BEGIN_SRC= line. 
+The =#+ATTR_WP= line immediately *must* immediately precede the =#+BEGIN_SRC= line.
+
+Sometimes your source block contents cause this plugin to do the unexpected. To
+put it simply your first reaction will be "Why doesn't this work?" For
+example, your source block may be rendered as plain text without any special
+formatting. If you run into this situation then start debugging it without
+Org2Blog even involved by editing the entry directly on WordPress.
+
+For example remove all of the contents of the source block and type in a
+single word. Preview the page. It probably worked correctly so now paste in
+the first line of content that you removed just now. Keep repeating until it
+doesn't work correctly anymore. If it looks like the problem is in Org2Blog
+then please create an issue ticket, otherwise considering reporting the issue
+to the plugin maintainer. 
+
+When you run into an issue and you want to just "make it work" then the
+easiest thing to do is to manually use an HTML ~<pre>~ block.
+
+Here is how to do it:
+
+#+begin_src org 
+,#+begin_export html
+<pre>
+o0O s5S z2Z !|l1Iij {([|})] .,;: ``''"" www
+a@#* vVuUwW <>;^°=-~ öÖüÜäÄßµ \/\/ -- == __
+the quick brown fox jumps over the lazy dog
+THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
+0123456789 &-+@ for (int i=0; i<=j; ++i) {}
+</pre>
+,#+end_export
+#+end_src
 
 *** MathJax Support
 :PROPERTIES:
