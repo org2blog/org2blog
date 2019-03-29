@@ -38,7 +38,7 @@
 
 
 ;;; Group
-
+;; TODO Automate versioning
 (defgroup org-export-wp nil
   "WordPress specific export options."
   :tag "Org WordPress"
