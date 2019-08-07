@@ -14,7 +14,7 @@
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
 ;; Version: 1.1.0
-;; Package-Requires: ((emacs "26.1") (dash "2.15.0") (dash-functional "2.15.0") (htmlize "1.55") (hydra "0.14.0") (metaweblog "1.0.1") (org "9.2.1") (xml-rpc "1.6.12"))
+;; Package-Requires: ((emacs "26.1") (htmlize "1.55") (hydra "0.14.0") (metaweblog "1.0.1") (org "9.2.1") (xml-rpc "1.6.12"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
 
@@ -45,8 +45,6 @@
 
 ;; External
 
-(require 'dash)
-(require 'dash-functional)
 (require 'ht)
 (require 'htmlize)
 (require 'hydra)
@@ -101,49 +99,49 @@ then it defaults to this value: it defaults to “1”.
 
 ;;; Deprecation
 
-(-map (lambda (ls)
-        (define-obsolete-function-alias (car ls) (cadr ls) owp--deprecation))
-      '((org2blog/wp-buffer-kill-prompt owp-on-new-entry-kill)
-        (org2blog/wp-complete-category owp-complete)
-        (org2blog/wp-delete-entry owp-post-trash)
-        (org2blog/wp-delete-page owp-page-trash)
-        (org2blog/wp-format-buffer owp-entry-buffer-make)
-        (org2blog/wp-insert-post-or-page-link owp-insert-link)
-        (org2blog/wp-login owp-user-login)
-        (org2blog/wp-logout owp-user-logout)
-        (org2blog/wp-new-entry owp-buffer-new)
-        (org2blog/wp-org-mode-hook-fn owp-maybe-start)
-        (org2blog/wp-password owp-user-set-password)
-        (org2blog/wp-post-buffer owp-buffer-post-save)
-        (org2blog/wp-post-buffer-and-publish owp-buffer-post-publish)
-        (org2blog/wp-post-buffer-as-page owp-buffer-page-save)
-        (org2blog/wp-post-subtree owp-subtree-post-save)
-        (org2blog/wp-post-subtree-and-publish owp-subtree-post-publish)
-        (org2blog/wp-post-subtree-as-page owp-subtree-page-save)
-        (org2blog/wp-post-subtree-as-page-and-publish owp-subtree-page-publish)
-        (org2blog/wp-preview-buffer-post owp-buffer-post-or-page-view)
-        (org2blog/wp-preview-subtree-post owp-subtree-post-or-page-view)
-        (org2blog/wp-reload-entry-mode-map owp-reload-entry-mode-map)
-        (org2blog/wp-track-buffer owp-buffer-track)
-        (org2blog/wp-track-subtree owp-subtree-track)))
+(mapcar (lambda (ls)
+          (define-obsolete-function-alias (car ls) (cadr ls) owp--deprecation))
+        '((org2blog/wp-buffer-kill-prompt owp-on-new-entry-kill)
+          (org2blog/wp-complete-category owp-complete)
+          (org2blog/wp-delete-entry owp-post-trash)
+          (org2blog/wp-delete-page owp-page-trash)
+          (org2blog/wp-format-buffer owp-entry-buffer-make)
+          (org2blog/wp-insert-post-or-page-link owp-insert-link)
+          (org2blog/wp-login owp-user-login)
+          (org2blog/wp-logout owp-user-logout)
+          (org2blog/wp-new-entry owp-buffer-new)
+          (org2blog/wp-org-mode-hook-fn owp-maybe-start)
+          (org2blog/wp-password owp-user-set-password)
+          (org2blog/wp-post-buffer owp-buffer-post-save)
+          (org2blog/wp-post-buffer-and-publish owp-buffer-post-publish)
+          (org2blog/wp-post-buffer-as-page owp-buffer-page-save)
+          (org2blog/wp-post-subtree owp-subtree-post-save)
+          (org2blog/wp-post-subtree-and-publish owp-subtree-post-publish)
+          (org2blog/wp-post-subtree-as-page owp-subtree-page-save)
+          (org2blog/wp-post-subtree-as-page-and-publish owp-subtree-page-publish)
+          (org2blog/wp-preview-buffer-post owp-buffer-post-or-page-view)
+          (org2blog/wp-preview-subtree-post owp-subtree-post-or-page-view)
+          (org2blog/wp-reload-entry-mode-map owp-reload-entry-mode-map)
+          (org2blog/wp-track-buffer owp-buffer-track)
+          (org2blog/wp-track-subtree owp-subtree-track)))
 
-(-map (lambda (ls)
-        (define-obsolete-variable-alias (car ls) (cadr ls) owp--deprecation))
-      '((org2blog/wp-after-new-post-or-page-functions owp-buffer-entry-save-hook)
-        (org2blog/wp-blog owp-blog)
-        (org2blog/wp-blog-name owp-blog-key)
-        (org2blog/wp-buffer-name owp-buffer-name)
-        (org2blog/wp-categories-list owp-categories)
-        (org2blog/wp-entry-mode-map owp-mode-map)
-        (org2blog/wp-export-options owp-export-options)
-        (org2blog/wp-logged-in owp-logged-in)
-        (org2blog/wp-mode-hook owp-mode-hook)
-        (org2blog/wp-pages-list owp-pages)
-        (org2blog/wp-server-blogid owp-blogid)
-        (org2blog/wp-server-pass owp-password)
-        (org2blog/wp-server-userid owp-username)
-        (org2blog/wp-server-xmlrpc-url owp-xmlrpc)
-        (org2blog/wp-tags-list owp-tags)))
+(mapcar (lambda (ls)
+          (define-obsolete-variable-alias (car ls) (cadr ls) owp--deprecation))
+        '((org2blog/wp-after-new-post-or-page-functions owp-buffer-entry-save-hook)
+          (org2blog/wp-blog owp-blog)
+          (org2blog/wp-blog-name owp-blog-key)
+          (org2blog/wp-buffer-name owp-buffer-name)
+          (org2blog/wp-categories-list owp-categories)
+          (org2blog/wp-entry-mode-map owp-mode-map)
+          (org2blog/wp-export-options owp-export-options)
+          (org2blog/wp-logged-in owp-logged-in)
+          (org2blog/wp-mode-hook owp-mode-hook)
+          (org2blog/wp-pages-list owp-pages)
+          (org2blog/wp-server-blogid owp-blogid)
+          (org2blog/wp-server-pass owp-password)
+          (org2blog/wp-server-userid owp-username)
+          (org2blog/wp-server-xmlrpc-url owp-xmlrpc)
+          (org2blog/wp-tags-list owp-tags)))
 
 
 
@@ -970,10 +968,10 @@ See messages below for details."
           (or
            blog-name
            (and (equal (length org2blog/wp-blog-alist) 1)
-                (car (car org2blog/wp-blog-alist)))
+              (car (car org2blog/wp-blog-alist)))
            (completing-read
             "What blog would you like to log in to? ([Tab] to see list): "
-            (-map 'car org2blog/wp-blog-alist) nil t)))
+            (mapcar 'car org2blog/wp-blog-alist) nil t)))
     (unless (> (length owp-blog-key) 1)
       (message
        (concat "Sorry, I can’t log in to blogs with names less than 2 "
@@ -1856,7 +1854,7 @@ Caller must handle any errors."
                owp-username
                owp-password
                owp-blogid))
-         (cats (-map
+         (cats (mapcar
                 (lambda (category) (cdr (assoc "categoryName" category)))
                 raw)))
     cats))
@@ -1869,7 +1867,7 @@ Caller must handle any errors."
                owp-username
                owp-password
                owp-blogid))
-         (tags (-map
+         (tags (mapcar
                 (lambda (tag) (cdr (assoc "slug" tag)))
                 raw)))
     tags))
@@ -1883,10 +1881,10 @@ Caller must handle any errors."
                  owp-password
                  owp-blogid))
          (page-summaries
-          (-map (lambda (pg)
-                  (cons (cdr (assoc "page_title" pg))
-                        (cdr (assoc "page_id" pg))))
-                pages))
+          (mapcar (lambda (pg)
+                    (cons (cdr (assoc "page_title" pg))
+                          (cdr (assoc "page_id" pg))))
+                  pages))
          (result (if summaries
                      page-summaries
                    pages)))
@@ -1986,15 +1984,15 @@ at mode start time and after the user re-configures it."
 (defun owp--create-categories (new-categories)
   "Add NEW-CATEGORIES to ‘owp-categories'."
   (let ((result
-         (-map
+         (mapcar
           (lambda (cat)
-            (if (and (not (-contains? owp-categories cat))
-                     (y-or-n-p
-                      (format
-                       (concat "Would you like to "
-                               "create the a new "
-                               "category named: “%s”?")
-                       cat)))
+            (if (and (not (seq-contains owp-categories cat))
+                   (y-or-n-p
+                    (format
+                     (concat "Would you like to "
+                             "create the a new "
+                             "category named: “%s”?")
+                     cat)))
                 (condition-case-unless-debug err
                     (wp-new-category
                      owp-xmlrpc
@@ -2430,7 +2428,7 @@ and munge it a little to make it suitable to use with the
          (cons "description" nil)
          (cons "tags" (or
                        (split-string (or (owp--eprop "POST_TAGS") "") "\\( *, *\\)" t)
-                       (-map 'org-no-properties (org-get-tags-at (point) nil))))
+                       (mapcar 'org-no-properties (org-get-tags-at (point) nil))))
          (cons "categories"
                (split-string (or (owp--eprop "CATEGORY") "")
                              "\\( *, *\\)" t))
@@ -2502,13 +2500,20 @@ and munge it a little to make it suitable to use with the
   (let ((result (concat (car contact) " <" (cdr contact) ">")))
     result))
 
+(defun owp--interpose (sep list)
+  "Return a new list of all elements in LIST separated by SEP."
+  (let* ((it (mapcar (lambda (x) (list x sep)) list))
+         (it (apply 'concatenate 'list it))
+         (it (seq-take it (- (length it) 1))))
+    it))
+
 (defun owp--contacts-info (contacts)
   "Create string from CONTACTS info."
-  (let* ((contacts (-map
+  (let* ((contacts (mapcar
                     'owp--contact-info
                     contacts))
-         (separated (-interpose ", " contacts))
-         (all (apply 's-concat separated)))
+         (separated (owp--interpose ", " contacts))
+         (all (apply 'concat separated)))
     all))
 
 (defun owp--update-header ()
@@ -2526,14 +2531,14 @@ and munge it a little to make it suitable to use with the
     (insert (format ";; Package-Requires: (%s)\n"
                     (let* ((ls (cons (cons 'emacs (list (owp--pkg "emacs")))
                                      (owp--pkg "requirements")))
-                           (defs (-map (lambda (req)
-                                         (format "(%s \"%s\")" (car req) (cadr req)))
-                                       ls))
-                           (spcd (-interpose " " defs))
+                           (defs (mapcar (lambda (req)
+                                           (format "(%s \"%s\")" (car req) (cadr req)))
+                                         ls))
+                           (spcd (owp--interpose " " defs))
                            (result (apply 's-concat spcd)))
                       result)))
     (insert (format ";; Keywords: %s\n"
-                    (apply 's-concat (-interpose ", " (owp--pkg "keywords")))))
+                    (apply 'concat (owp--interpose ", " (owp--pkg "keywords")))))
     (insert (format ";; Homepage: %s\n" (owp--pkg "homepage")))))
 
 
