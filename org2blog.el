@@ -14,7 +14,7 @@
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
 ;; Version: 1.1.0
-;; Package-Requires: ((emacs "26.1") (dash "2.15.0") (dash-functional "2.15.0") (f "0.20.0") (htmlize "1.55") (hydra "0.14.0") (metaweblog "1.0.1") (org "9.2.1") (s "1.12.0") (xml-rpc "1.6.12"))
+;; Package-Requires: ((emacs "26.1") (dash "2.15.0") (dash-functional "2.15.0") (f "0.20.0") (htmlize "1.55") (hydra "0.14.0") (metaweblog "1.0.1") (org "9.2.1") (xml-rpc "1.6.12"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
 
@@ -53,7 +53,6 @@
 (require 'hydra)
 (require 'metaweblog)
 (require 'org)
-(require 's)
 (require 'xml-rpc)
 
 ;; Internal
@@ -1533,9 +1532,9 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
   (interactive)
   (let* ((pre "@@html:<!--more")
          (post "-->@@")
-         (msg (s-trim (read-string "“More” message? (hit return to leave blank): ")))
-         (str (or (and (s-blank? msg) (s-concat pre post))
-                 (s-concat pre " " msg post))))
+         (msg (string-trim (read-string "“More” message? (hit return to leave blank): ")))
+         (str (or (and (string-blank-p msg) (concat pre post))
+                 (concat pre " " msg post))))
     (insert str)))
 
 ;;;###autoload
