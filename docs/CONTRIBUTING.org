@@ -36,8 +36,7 @@ are expected of you when you do decide to make a contribution:
 - If the change is a minor change and you don't think that it needs copyright
   assignment then the commit message should also contain the cookie
   TINYCHANGE. Otherwise add a copyright statement to the modifie
-  file, in the form of
-  - ~;; Copyright (C) 1979 Ellen Ripley <ellen@ripley.com>~
+  file, in the form of ~;; Copyright (C) 1979 Ellen Ripley <ellen@ripley.com>~
 
 That is it. That is everything. If you made it this far then kudos for you to
 sticking around. Thank you for spending your time here. Hope you keep blogging
