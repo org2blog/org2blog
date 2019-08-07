@@ -642,7 +642,10 @@ the property name and its value.
   - =TITLE=
   - =CATEGORY=
   - =POST_TAGS=
-    - Not =TAGS= like an entry
+    - Though they are the same thing, due to technical reasons when tags
+      appear under a Subtree they can't use the =TAGS= property like an Entry,
+      they use =POST_TAGS= instead. Please take note of this when you convert
+      an Entry post to a Subtree post.
   - =POSTID=
   - =PARENT=
   - =PERMALINK=
