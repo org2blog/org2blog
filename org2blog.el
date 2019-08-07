@@ -45,7 +45,6 @@
 
 ;; External
 
-(require 'ht)
 (require 'htmlize)
 (require 'hydra)
 (require 'metaweblog)
