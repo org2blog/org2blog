@@ -2,7 +2,7 @@
   '((htmlize "1.55" "https://github.com/hniksic/emacs-htmlize.git")
     (hydra "0.14.0" "https://github.com/abo-abo/hydra.git")
     (metaweblog "1.0.1" "https://github.com/org2blog/metaweblog.git")
-    (org "9.2.1" "https://code.orgmode.org/bzg/org-mode")
+    (org "9.1.9" "https://code.orgmode.org/bzg/org-mode")
     (xml-rpc "1.6.12" "https://github.com/hexmode/xml-rpc-el.git"))
   :authors
   '(("Puneeth Chaganti" . "punchagan+org2blog@gmail.com"))
