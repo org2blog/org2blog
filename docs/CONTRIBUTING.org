@@ -30,7 +30,9 @@ simple—we are looking for all and everything you view as a contribution.
 - Coding style and conventions :: The Emacs Lisp code should follow the
       [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Tips.html][Emacs Lisp conventions]] and the [[https://github.com/bbatsov/emacs-lisp-style-guide][Emacs Lisp Style Guide]].
 - Grammar and Language :: Use a spell-checker like [[http://aspell.net/][Aspell]] and grammar-checker
-     like [[https://languagetool.org/][LanguageTool]] one your docstrings and documentation.
+     like [[https://languagetool.org/][LanguageTool]] for your docstrings and documentation. Find writing
+     problems like weasel-words, passive-voice and duplicate words with
+     [[https://github.com/bnbeckwith/writegood-mode][Writegood Mode]]
 - Use quality-checking tools :: Use [[https://melpa.org/#/flycheck][flycheck]], [[https://github.com/purcell/package-lint][package-lint]] and
      [[https://github.com/purcell/flycheck-package][flycheck-package]] to help you identify common errors in package metadata
      and code. Use [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Tips.html][checkdoc]] to make sure that your package
