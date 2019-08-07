@@ -62,6 +62,12 @@ Blog from Org mode to WordPress.
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:8CEE033C-3D3A-422A-A15A-358D7BE5A224
 :end:
 
+** Requirements And Compatibility
+
+Org2Blog runs against the version of Org mode that comes pre-loaded with Emacs.
+
+Org2Blog currently requires Emacs 26.2.
+
 ** Using A Package
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:22F68132-BA47-4DAB-8F71-900C639CCDC2
