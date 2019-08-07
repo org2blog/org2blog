@@ -1535,16 +1535,7 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
          (post "-->@@")
          (msg (s-trim (read-string "“More” message? (hit return to leave blank): ")))
          (str (or (and (s-blank? msg) (s-concat pre post))
-                  (s-concat pre " " msg post))))
-    (insert str)))
-
-(defun help/insert-log-entry ()
-  "Produce and insert a compact datestamp with full year and maybe a log message."
-  (interactive)
-  (let* ((stamp (format-time-string "%Y%m%dT%H%M"))
-         (msg (s-trim (read-string "Log message? (hit return to leave blank): ")))
-         (str (or (and (s-blank? msg) stamp)
-                  (s-concat stamp "-" (s-replace " " "-" msg)))))
+                 (s-concat pre " " msg post))))
     (insert str)))
 
 ;;;###autoload
