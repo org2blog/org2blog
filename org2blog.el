@@ -48,7 +48,6 @@
 (require 'dash)
 (require 'dash-functional)
 (require 'f)
-(require 'helpful)
 (require 'ht)
 (require 'htmlize)
 (require 'hydra)
@@ -480,12 +479,12 @@ here seemed to be a good balance between speed and value(s)."
 ;;; Hydra
 
 (defun owp--hlpf (name)
-  "Apply ‘helpful-callable' to symbol NAME."
-  (helpful-callable name))
+  "Abstracts displaying information about symbol NAME."
+  (describe-symbol name))
 
 (defun owp--hlpv (name)
-  "Apply ‘helpful-variable' to symbol NAME."
-  (helpful-variable name))
+  "Abstracts displaying information about variable NAME."
+  (describe-variable name))
 
 (defhydra owp--hydra-main (:color blue :hint nil)
   "
