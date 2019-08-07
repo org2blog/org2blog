@@ -726,16 +726,16 @@ surprised as how often you end up using them:
 :END:
 
 Org2Blog has first-class source block support. The headliners in this section
-explain how. 
+explain how.
 
 =#+name= and =#+caption= are included in the title.
 
-Source blocks do not work inside of plain lists. 
+Source blocks do not work inside of plain lists.
 
 **** Org Mode
 
 Out of the box source blocks are converted into =<pre>= tags. This is the most
-simple and durable approach: it is plain old HTML. 
+simple and durable approach: it is plain old HTML.
 
 Another option is to SyntaxHighlighter Evolved.
 
@@ -774,14 +774,14 @@ single word. Preview the page. It probably worked correctly so now paste in
 the first line of content that you removed just now. Keep repeating until it
 doesn't work correctly anymore. If it looks like the problem is in Org2Blog
 then please create an issue ticket, otherwise considering reporting the issue
-to the plugin maintainer. 
+to the plugin maintainer.
 
 When you run into an issue and you want to just "make it work" then the
 easiest thing to do is to manually use an HTML ~<pre>~ block.
 
 Here is how to do it:
 
-#+begin_src org 
+#+begin_src org
 ,#+begin_export html
 <pre>
 o0O s5S z2Z !|l1Iij {([|})] .,;: ``''"" www
