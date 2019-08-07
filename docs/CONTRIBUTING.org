@@ -38,7 +38,7 @@ are expected of you when you do decide to make a contribution:
      conventions for documentation strings.
 - *Review existing issues* :: [[https://github.com/org2blog/org2blog/issues][The issue tracker]] may already have them solved,
      otherwise they are a great place to start
-- *Review the* :: [[%5B%5Bhttps://github.com/org2blog/org2blog/wiki%5D%5Bwiki%5D%5D ][Read more]] to learn more about how the entire package works—you
+- *Review the* Wiki:: [[%5B%5Bhttps://github.com/org2blog/org2blog/wiki%5D%5Bwiki%5D%5D ][Read more]] to learn more about how the entire package works—you
                   don't need to know all of Org2Blog to get a lot of value out
                   of it. You might be surprised to learn that it already has
                   what you need. This also gives you context for where
