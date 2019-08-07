@@ -35,7 +35,6 @@
     (puthash "requirements"
              '((dash "2.15.0" "https://github.com/magnars/dash.el.git")
                (dash-functional "2.15.0" nil)
-               (f "0.20.0" "https://github.com/rejeep/f.el.git")
                (htmlize "1.55" "https://github.com/hniksic/emacs-htmlize.git")
                (hydra "0.14.0" "https://github.com/abo-abo/hydra.git")
                (metaweblog "1.0.1" "https://github.com/org2blog/metaweblog.git")

@@ -14,7 +14,7 @@
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
 ;; Version: 1.1.0
-;; Package-Requires: ((emacs "26.1") (dash "2.15.0") (dash-functional "2.15.0") (f "0.20.0") (htmlize "1.55") (hydra "0.14.0") (metaweblog "1.0.1") (org "9.2.1") (xml-rpc "1.6.12"))
+;; Package-Requires: ((emacs "26.1") (dash "2.15.0") (dash-functional "2.15.0") (htmlize "1.55") (hydra "0.14.0") (metaweblog "1.0.1") (org "9.2.1") (xml-rpc "1.6.12"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
 
@@ -47,7 +47,6 @@
 
 (require 'dash)
 (require 'dash-functional)
-(require 'f)
 (require 'ht)
 (require 'htmlize)
 (require 'hydra)
@@ -724,7 +723,7 @@ on the project host site (GitHub at the moment)."
                (srcbuf (car match))
                (srcfile (with-current-buffer srcbuf
                           (buffer-file-name)))
-               (_ (unless (f-exists? srcfile)
+               (_ (unless (file-exists-p srcfile)
                     (message
                      (concat "I’m sorry I ran into a problem trying "
                              "to find the readme file"
@@ -734,11 +733,10 @@ on the project host site (GitHub at the moment)."
                     (throw 'return nil)))
                (title "*Org2Blog README (COPY)*")
                (destbuf (get-buffer-create title))
-               (readme (f-join (f-dirname srcfile) "README.org")))
+               (readme (concat (file-name-as-directory srcfile) "README.org")))
           (switch-to-buffer destbuf)
           (condition-case-unless-debug err
-              (let ((content (f-read readme)))
-                (insert content))
+              (insert-file-contents readme)
             (error
              (owp--error
               (format (concat "I’m sorry I ran into a problem trying load "
@@ -2234,10 +2232,10 @@ URL`https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.newPost'"
           (let* ((o2b-id (if subtree-p
                              (concat "id:" (org-id-get nil t))
                            (buffer-file-name)))
-                 (log-file (cond
-                            ((f-absolute? the-file) the-file)
+                 (log-file (cond ; TODO Test
+                            ((file-name-absolute-p the-file) the-file)
                             (org-directory
-                             (f-expand the-file org-directory))
+                             (expand-file-name the-file org-directory))
                             (t
                              (owp--error
                               (format
@@ -2253,10 +2251,10 @@ URL`https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.newPost'"
                                (cadr (plist-get (cdr owp-blog) :track-posts))
                              (cadr org2blog/wp-track-posts)))
                  p)
-            (make-directory (f-dirname log-file) t)
+            (make-directory (file-name-directory log-file) t)
             (when o2b-id
               (with-current-buffer (or (find-buffer-visiting log-file)
-                                       (find-file-noselect log-file))
+                                      (find-file-noselect log-file))
                 (save-excursion
                   (save-restriction
                     (widen)
