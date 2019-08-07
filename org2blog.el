@@ -730,7 +730,7 @@ on the project host site (GitHub at the moment)."
                     (throw 'return nil)))
                (title "*Org2Blog README (COPY)*")
                (destbuf (get-buffer-create title))
-               (readme (concat (file-name-as-directory srcfile) "README.org")))
+               (readme (concat (file-name-directory srcfile) "README.org")))
           (switch-to-buffer destbuf)
           (condition-case-unless-debug err
               (insert-file-contents readme)
