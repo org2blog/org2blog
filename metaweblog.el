@@ -1,4 +1,4 @@
-;;; metaweblog.el --- WordPress XML-RPC MetaWeblog and WordPress API client. -*- lexical-binding: t; -*-
+;;; metaweblog.el --- An XML-RPC MetaWeblog and WordPress API client. -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2008 Ashish Shukla
 ;; Copyright (C) 2010 Puneeth Chaganti
