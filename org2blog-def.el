@@ -88,7 +88,11 @@ Copy them from the *Messages* buffer into your Terminal."
 (defun owp-load-statement ()
   "Create Elisp code to load the libraries."
   (interactive)
-  (let ((install-dir (read-directory-name "Directory:")))
+  (let* ((install-dir (read-directory-name "Directory:"))
+         (install-dir (concat install-dir
+                              (if (string-match "/\\'"
+                                                install-dir)
+                                  "" "/"))))
     (mapcar (lambda (pkg)
               (princ (format "(add-to-list 'load-path \"%s%s\")\n"
                              install-dir
