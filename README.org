@@ -965,33 +965,7 @@ For historical reasons the WordPress API client is implemented inside of
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:E1C2A63C-7FA9-4746-A3CD-93906C9F561C
 :end:
 
-#+NAME: org_gcr_2019-03-06T17-15-24-06-00_cosmicality_43D3083E-1E94-4EF1-8B1C-33B6193CFD39
-#+begin_src shell :exports results
-git tag --list -n100 --ignore-case --sort="-version:refname"
-#+end_src
-
-#+RESULTS:
-#+begin_EXAMPLE
-v1.0.3          v1.0.3 release
-
-    Adds Hydra support for user-interface.
-v1.0.2          Increment for new metaweblog version.
-v1.0.1          Use latest metaweblog
-v1.0.0          Communicate completeness of the library with a first major release.
-v0.9.3          Release v0.9.3
-
-    - v0.9.2 ad389ae was released on 14-12-14
-    - Development continued until 16-05-02 fc7b2d9
-    - Today is 17-05-19
-      - It has been in use for one year and seventeen days
-    - And today
-      - Merged post subtree and publish and it is fine
-      - Added dependency on Org-Mode 8.3
-    - So therefore a new release
-      - v0.9.3
-v0.9.2          Bump up version.
-v0.9.1          Bump up version to 0.9.1.
-#+end_EXAMPLE
+See [[./HISTORY.org][HISTORY]].
 
 * Credits
 :PROPERTIES:
