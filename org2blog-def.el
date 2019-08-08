@@ -51,7 +51,13 @@
   "Get KEY from ‘owp--package’."
   (gethash key owp--package))
 
-(defun org2blog--update-pkg ()
+(defun owp-update-artifacts ()
+  "Update dependent artifacts."
+  (interactive)
+  (owp--update-pkg)
+  (owp--update-header) )
+
+(defun owp--update-pkg ()
   "Update package definition."
   (interactive)
   (save-buffer)
@@ -71,6 +77,31 @@
           ,(owp--pkg "homepage"))
        (current-buffer))
       (save-buffer))))
+
+(defun owp--update-header ()
+  "Update Org2Blog file header."
+  (interactive)
+  (find-file "org2blog.el")
+  (save-excursion
+    (goto-char (point-min))
+    (re-search-forward "^;; Author: ")
+    (kill-whole-line 6)
+    (insert (format ";; Author: %s\n" (owp--contacts-info (owp--pkg "authors"))))
+    (insert (format ";; Maintainer: %s\n" (owp--contact-info
+                                           (owp--pkg "maintainer"))))
+    (insert (format ";; Version: %s\n" (owp--pkg "version")))
+    (insert (format ";; Package-Requires: (%s)\n"
+                    (let* ((ls (cons (cons 'emacs (list (owp--pkg "emacs")))
+                                     (owp--pkg "requirements")))
+                           (defs (mapcar (lambda (req)
+                                           (format "(%s \"%s\")" (car req) (cadr req)))
+                                         ls))
+                           (spcd (owp--interpose " " defs))
+                           (result (apply 's-concat spcd)))
+                      result)))
+    (insert (format ";; Keywords: %s\n"
+                    (apply 'concat (owp--interpose ", " (owp--pkg "keywords")))))
+    (insert (format ";; Homepage: %s\n" (owp--pkg "homepage")))))
 
 (defun owp-checkout-statement ()
   "Create Git checkout commands for system code and packages into INSTALL-DIR.
