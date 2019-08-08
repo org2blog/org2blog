@@ -2230,7 +2230,7 @@ URL`https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.newPost'"
           (let* ((o2b-id (if subtree-p
                              (concat "id:" (org-id-get nil t))
                            (buffer-file-name)))
-                 (log-file (cond ; TODO Test
+                 (log-file (cond
                             ((file-name-absolute-p the-file) the-file)
                             (org-directory
                              (expand-file-name the-file org-directory))
