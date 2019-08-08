@@ -1001,6 +1001,8 @@ In addition to using to [[https://github.com/org2blog/org2blog/issues][reporting
     #+begin_src emacs-lisp
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
     #+end_src
+  - [[https://www.reddit.com/r/emacs/comments/cl2aw8/setting_setq_gnutlsalgorithmpriority/evw972x?utm_source=share&utm_medium=web2x][Via]] it seems that the bug is in =gnutls= and this solution works around it.
+    Excellent. 
 
 * Development
 :PROPERTIES:
