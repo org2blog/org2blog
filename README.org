@@ -264,7 +264,8 @@ menu. If for you that means reading then start with:
 - =UI [About]=: A light introduction to Org2Blog platform
 - =UI [README]=: A copy of this entire README.org in a writable buffer. This is
   a nice way to make your own notes in-place without making changes to the
-  original.
+  original. Just save your changes to your own file and then you'll have them
+  ready for the next time you are blogging. 
 
 Once you've successfully logged in and read a little bit about Org2Blog then
 you'll notice that you get started blogging very quickly (almost as fast as
