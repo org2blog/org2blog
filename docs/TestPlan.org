@@ -77,12 +77,20 @@ These are commands that insert markup into your post.
 * Tracking
 
 - [ ] Handle when no tracking is configured
-- [ ] Buffer
-  - [ ] Post
-  - [ ] Page
-- [ ] Subtree
-  - [ ] Post
-  - [ ] Page
+- [ ] When using the Org dir
+  - [ ] Buffer
+    - [ ] Post
+    - [ ] Page
+  - [ ] Subtree
+    - [ ] Post
+    - [ ] Page
+- [ ] When using the configuration file specified dir
+  - [ ] Buffer
+    - [ ] Post
+    - [ ] Page
+  - [ ] Subtree
+    - [ ] Post
+    - [ ] Page
 
 * Buffers
 
