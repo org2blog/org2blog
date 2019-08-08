@@ -37,15 +37,12 @@
 
 
 ;;; Group
-;; TODO Automate versioning
 (defgroup org-export-wp nil
   "WordPress specific export options."
   :tag "Org WordPress"
   :group 'org-export
-  :version "26.0"
-  :package-version '(Org . "9.2"))
-
-
+  :version "26.2"
+  :package-version '(Org . "9.2.2"))
 
 ;;; Fun - Public
 

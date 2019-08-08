@@ -115,6 +115,26 @@ Copy them from the *Messages* buffer into your Terminal."
                              (car pkg))))
             (owp--pkg "requirements"))))
 
+(defun owp--update-oxwp ()
+  "Update ox-wp defgroup."
+  (interactive)
+  (find-file "ox-wp.el")
+  (save-excursion
+    (goto-char (point-min))
+    (re-search-forward "^(defgroup org-export-wp nil")
+    (kill-whole-line 6)
+    (insert
+     (format
+      "(defgroup org-export-wp nil
+  \"WordPress specific export options.\"
+  :tag \"Org WordPress\"
+  :group 'org-export
+  :version \"%s\"
+  :package-version '(Org . \"%s\"))
+"
+      (owp--pkg "emacs")
+      (org-version)))))
+
 (defun owp-load-statement ()
   "Create Elisp code to load the libraries."
   (interactive)
