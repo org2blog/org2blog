@@ -148,7 +148,6 @@ These are commands that insert markup into your post.
 - [ ] Update version number and dependent libraries in
   - [ ] org2blog-pkg.el
   - [ ] MELPA recipe
-  - [ ] Github Shields
 
 * Installation
 
@@ -165,6 +164,7 @@ These are commands that insert markup into your post.
 
 - [ ] Standard
 - [ ] Badges
+  - [ ] Github Shields
   - [ ] Verions
   - [ ] Links
 
