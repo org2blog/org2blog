@@ -55,7 +55,9 @@ Blog from Org mode to WordPress.
     -  [[#some-questions-and-some-answers][Some Questions And Some Answers]]
       -  [[#why-does-org2blog-talk-about-save-view-publish-and-trash-so-much][Why Does Org2Blog Talk About Save, View, Publish, And Trash So Much?]]
       -  [[#why-does-org2blog-talk-about-buffers-subtrees-posts-and-pages-so-much][Why Does Org2blog Talk About Buffers, Subtrees, Posts, And Pages So Much?]]
-      -  [[#what-is-up-with-the-package-name][What Is Up With The Package Name?]]
+      -  [[#why-isnt-the-package-name-orgwordpress][Why Isn't The Package Name OrgWordpress?]]
+      -  [[#what-is-metaweblog-and-why-is-it-in-org2blog][What Is MetaWeblog And Why Is It In Org2Blog?]]
+      -  [[#why-does-org2blog-use-both-the-xml-rpc-metaweblog-and-wordpress-api][Why does Org2Blog Use Both The XML-RPC MetaWeblog and WordPress API]]
   -  [[#changelog][Changelog]]
   -  [[#credits][Credits]]
   -  [[#when-things-go-wrong][When Things Go Wrong]]
@@ -912,7 +914,7 @@ is pretty easy to fix anyway though).
 Although Org2Blog is implemented how WordPress works, it can surprising to see
 these words used. However you'll get used to it pretty quickly.
 
-*** What Is Up With The Package Name?
+*** Why Isn't The Package Name OrgWordpress?
 
 Org2Blog's technical name, its /package name/, is ~org2blog/wp~, /not/ ~org2blog~.
 There is another package out there named Org2BlogAtom, and its package name is
@@ -931,6 +933,31 @@ had any updates on the topic either.
 
 That is the story of the naming. If you are curious about naming things moving
 forward them please see the Development section of this document.
+
+*** What Is MetaWeblog And Why Is It In Org2Blog?
+
+#+BEGIN_QUOTE
+The [[https://en.wikipedia.org/wiki/MetaWeblog][MetaWeblog API]] is an application programming interface created by software
+developer Dave Winer that enables weblog entries to be written, edited, and
+deleted using web services.
+#+END_QUOTE
+
+Org2Blog implements a MetaWeblog client in =metaWeblog.el=. It has two uses. 
+
+First it implements an XML-RPC MetaWeblog client. This is generic and should
+work with any blog software that exposes the API.
+
+Second Org2Blog this client to interact with WordPress.
+
+=metaWeblog= is provided a package from Org2Blog to make it reusable for others
+via the standard packaging system.
+
+*** Why does Org2Blog Use Both The XML-RPC MetaWeblog and WordPress API
+
+Both APIs are required to get the job done.
+
+For historical reasons the WordPress API client is implemented inside of
+=metaWeblog=.
 
 * Changelog
 :properties:
