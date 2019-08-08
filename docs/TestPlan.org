@@ -137,12 +137,6 @@ These are commands that insert markup into your post.
   - ~owp-maybe-start~
     - Open an ORG2BLOG file verify mode starts
 
-* Terminal
-
-- [ ] Run in terminal
-  - Set browser to ~eww~
-  - Do typical things including viewing a post
-
 * Versioning and Libraries
 
 - [ ] Update version number and dependent libraries in
