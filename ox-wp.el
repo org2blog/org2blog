@@ -103,7 +103,6 @@ Delegateswork to `org-wp-export-as-wordpress'."
 
 ;;; Filters
 
-;; TODO Retain newlines for shortcode, maybe more
 (defun org-wp-filter-paragraph (paragraph _backend info)
   "When INFO, filter newlines from PARAGRAPH."
   (let* ((keep-new-lines (plist-get info :wp-keep-new-lines))
