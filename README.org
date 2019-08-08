@@ -103,7 +103,8 @@ throw at it.
 
 Self-publishing has two benefits:
 
-- It provides the package as-intended: it only includes what you need
+- It provides the package as-intended: it only includes what you need. For
+  example the list of Org2Bloggers and the logo image. 
 - Another copy is available if your favorite package repository (like MELPA)
   is not available
 
