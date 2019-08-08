@@ -29,6 +29,11 @@ Blog from Org mode to WordPress.
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:755F484E-6DBA-4FD7-8EC1-AE28F90F6B45
 :end:
   -  [[#installation][Installation]]
+    -  [[#requirements-and-compatibility][Requirements And Compatibility]]
+    -  [[#using-a-package][Using A Package]]
+      -  [[#use-package--melpa][Use-Package & MELPA]]
+      -  [[#using-this-projects-package][Using This Project's Package]]
+    -  [[#setting-up-the-source-code-by-hand][Setting Up The Source Code By Hand]]
   -  [[#usage][Usage]]
     -  [[#make-your-first-post-in-less-5-minutes][Make Your First Post In Less 5 Minutes]]
     -  [[#the-6-most-important-next-steps][The 6 Most Important Next Steps]]
@@ -58,7 +63,7 @@ Blog from Org mode to WordPress.
 
 * Installation
 :properties:
-:toc:      0
+:toc:      2
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:8CEE033C-3D3A-422A-A15A-358D7BE5A224
 :end:
 
@@ -73,8 +78,7 @@ Org2Blog currently requires Emacs 26.2.
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:22F68132-BA47-4DAB-8F71-900C639CCDC2
 :END:
 
-The easiest way to install Org2Blog is using a [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Packages.html][package]]. There are two good
-ways to do it.
+The easiest way to install Org2Blog is using a [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Packages.html][package]]. 
 
 *** Use-Package & MELPA
 
@@ -97,8 +101,6 @@ throw at it.
 
 *** Using This Project's Package
 
-This project self-publishes its package [[file:/package][here]].
-
 Self-publishing has two benefits:
 
 - It provides the package as-intended: it only includes what you need
@@ -107,165 +109,59 @@ Self-publishing has two benefits:
 
 To use it:
 
-- Download the [[https://github.com/org2blog/org2blog/releases][release]] you want given the version number appended to the file
+- Download the [[https://github.com/org2blog/org2blog/releases][release]] you want given the version number appended to the file,
+  which is a TAR file
+  - If you want the in-development version get it [[file:/package][here]]
   - If you want to build it yourself for example for testing the package then
     see [[./build.sh][build.sh]].
-- Now the simplest next step is to use Use-Package and MELPA to install
-  Org2Blog. Then delete the Org2Blog that got installed (probably under
-  ~/.emacs.d/elpa and install this one instead.
+- If you already installed the package using another package manager, from
+  MELPA and Use Package for example, delete the Org2Blog that got installed
+  (probably under ~/.emacs.d/elpa and install this one instead.
 - Run the command ~package-install-file~
-- Choose the file
+- Choose the TAR file you just downloaded
 
 The Emacs package manager will add it's artifacts to the load path, generate
 the =autoloads=, and might store a note in your =custom= file depending on your
-configuration. There are also other ways to do this if you don't want to use
-Use-Package but you still want to use packages (sic).
-
-The simplest way to install packages is by calling ~list-packages~ and choosing
-the packages that you need. You will only have to do it once and be done with
-it more or less forever. You can also install the packages programaticaly.
-
-⚠ Are you sure that you know what you are doing this approach?
-
-If you do then you are familiar with packages, =.custom=, the ~load-path~, and
-=Elisp=. If you are not, the please stick with the Use-package approach.
-Otherwise, read on.
-
-Org2Blog's dependencies are defined in ~owp--package~.
-
-Here is an [[https://stackoverflow.com/questions/10092322/how-to-automatically-install-emacs-packages-by-specifying-a-list-of-package-name][example]] of pragmatically installing the packages using Org2Blogs
-dependencies:
-
-#+name: org_gcr_2019-03-09T22-18-17-06-00_cosmicality_493DC2C6-1455-4865-ACF8-78715243E065
-#+begin_src emacs-lisp :eval no
-(defun maybe-install (&rest packages)
-  (-map
-   (lambda (package)
-     (catch 'return
-       (when (package-installed-p package)
-         (message (format "Package ‘%s’ is already installed." package))
-         (throw 'return nil))
-       (let ((install?
-              (y-or-n-p
-               (format "Package %s is missing. Install it? "
-                       package))))
-         (when install?
-           (package-install package)))))
-   packages))
-
-(or (file-exists-p package-user-dir)
-   (package-refresh-contents))
-
-(apply 'maybe-install (-map 'car (owp--pkg "requirements")))
-
-(package-initialize)
-#+end_src
+configuration.
 
 ** Setting Up The Source Code By Hand
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:3386D277-56FD-4D2F-BE0C-56553541CD25
 :END:
 
-🛑 Are you sure that you want to set this up by hand?
+If you are a developer or even just feel like exploring the code a little more
+then you can run Org2Blog and it's supporting packages by downloading then
+loading them yourself. Doing so will get you familiar with things like library
+versions, the ~load-path~, =Elisp=, and =Git=.
 
-If you do then you are familiar with library versions, the ~load-path~, =Elisp=,
-and =Git=. If you are not, the please stick with the Package approach.
-Otherwise, read on.
+Org2Blog's dependencies are defined in ~org2blog-def.el~. To get you started
+quickly there are two helper functions here:
 
-You can even utilize Use-Package in addition to running from source. That is
-the best combination of ease when you want to work on Org2Blog itself without
-making changes to it's dependencies.
+- ~owp-checkout-statementt~ creates Git commands to get the code from GitHub
+  into the directory you want it stored. Call it and enter the directory name.
+  Copy and paste the commands from =*Messages*= into your Terminal to run them.
+- ~owp-load-statement~ creates Elisp code to load the libraries. Copy them into
+  your Init file then run them. Now yhey will get loaded each time your start
+  Emacs.
 
-Org2Blog's dependencies are defined in ~owp--package~ and you can use them to
-progratically create the code you need to set up your development environment.
+For example you should see something like this:
 
-Here is a simple way to do it:
+#+BEGIN_SRC shell
+git clone https://github.com/hniksic/emacs-htmlize.git /Users/gcr/mysrc/htmlize
+#+END_SRC
 
-For example you can copy and paste the Git clone commands intto a terminal,
+And this
 
-#+name: clones
-#+begin_src emacs-lisp :exports both
-((lambda (install-dir)
-   (print
-    (apply 's-concat
-           (-interpose "\n"
-                       (-map
-                        (lambda (req)
-                          (if (not (caddr req)) ""
-                            (message (format "git clone %s %s/%s"
-                                             (caddr req) install-dir (car req)))))
-                        (owp--pkg "requirements"))))))
- "~/src")
-#+end_src
-
-#+RESULTS: clones
-#+begin_EXAMPLE
-"git clone https://github.com/magnars/dash.el.git ~/src/dash
-
-git clone https://github.com/rejeep/f.el.git ~/src/f
-git clone https://github.com/Wilfred/helpful.git ~/src/helpful
-git clone https://github.com/Wilfred/ht.el.git ~/src/ht
-git clone https://github.com/hniksic/emacs-htmlize.git ~/src/htmlize
-git clone https://github.com/abo-abo/hydra.git ~/src/hydra
-git clone https://github.com/org2blog/metaweblog.git ~/src/metaweblog
-git clone https://code.orgmode.org/bzg/org-mode ~/src/org
-git clone https://github.com/magnars/s.el.git ~/src/s
-git clone https://github.com/hexmode/xml-rpc-el.git ~/src/xml-rpc"
-#+end_EXAMPLE
-
-Add them to your load path and require them,
-
-#+name: org_gcr_2019-03-09T22-18-17-06-00_cosmicality_A4D95252-60ED-4DE0-BB7D-E828E64652B7
-#+begin_src emacs-lisp :exports both
-(apply 's-concat
-       ((lambda (install-dir)
-          (-map
-           (lambda (req)
-             (format "(add-to-list 'load-path %s/%s)\n(require '%s)\n"
-                     install-dir (car req) (car req)))
-           (owp--pkg "requirements")))
-        "~/src"))
-#+end_src
-
-#+RESULTS: org_gcr_2019-03-09T22-18-17-06-00_cosmicality_A4D95252-60ED-4DE0-BB7D-E828E64652B7
-#+begin_EXAMPLE
-"(add-to-list 'load-path ~/src/dash)
-(require 'dash)
-(add-to-list 'load-path ~/src/dash-functional)
-(require 'dash-functional)
-(add-to-list 'load-path ~/src/f)
-(require 'f)
-(add-to-list 'load-path ~/src/helpful)
-(require 'helpful)
-(add-to-list 'load-path ~/src/ht)
-(require 'ht)
-(add-to-list 'load-path ~/src/htmlize)
+#+name: org_gcr_2019-08-07T18-10-20-05-00_cosmicality_3353D35E-3036-40EE-B175-69057224A796
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "/Users/gcr/mysrc/htmlize")
 (require 'htmlize)
-(add-to-list 'load-path ~/src/hydra)
-(require 'hydra)
-(add-to-list 'load-path ~/src/metaweblog)
-(require 'metaweblog)
-(add-to-list 'load-path ~/src/org)
-(require 'org)
-(add-to-list 'load-path ~/src/s)
-(require 's)
-(add-to-list 'load-path ~/src/xml-rpc)
-(require 'xml-rpc)
-"
-#+end_EXAMPLE
+#+END_SRC
 
-Download Org2Blog and load it.
-
-#+name: org_gcr_2019-03-09T22-18-17-06-00_cosmicality_516D8334-B63F-4D13-A1F8-610C6B41FCB0
-#+begin_src sh :eval no
-git clone https://github.com/org2blog/org2blog.git ~/src
-
-#+end_src
-#+name: org_gcr_2019-03-01T15-03-54-06-00_cosmicality_581239EE-185A-4687-A062-11C76252EDAA
-#+begin_src emacs-lisp :eval no
-(add-to-list 'load-path "~/src/org2blog")
-(require 'org2blog-autoloads)
-#+end_src
+Now you've got everything you need to run Org2Blog against it's source code.
+With this set up you can start playing around with things and even making
+changes. When you scratch and itch, create your branch and submit a pull
+request. It is very fun and easy. 
 
 * Usage
 :PROPERTIES:

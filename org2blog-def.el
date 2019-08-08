@@ -72,5 +72,29 @@
        (current-buffer))
       (save-buffer))))
 
+(defun owp-checkout-statement ()
+  "Create Git checkout commands for system code and packages into INSTALL-DIR.
+
+Copy them from the *Messages* buffer into your Terminal."
+  (interactive)
+  (let ((install-dir (read-directory-name "Directory:")))
+    (mapcar (lambda (pkg) (princ (format
+                             "git clone %s %s%s\n"
+                             (caddr pkg)
+                             install-dir
+                             (car pkg))))
+            (owp--pkg "requirements"))))
+
+(defun owp-load-statement ()
+  "Create Elisp code to load the libraries."
+  (interactive)
+  (let ((install-dir (read-directory-name "Directory:")))
+    (mapcar (lambda (pkg)
+              (princ (format "(add-to-list 'load-path \"%s%s\")\n"
+                             install-dir
+                             (car pkg)))
+              (princ (format "(require '%s)\n" (car pkg))))
+            (owp--pkg "requirements"))))
+
 (provide 'org2blog-def)
 ;;; org2blog-def.el ends here
