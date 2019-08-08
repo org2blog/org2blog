@@ -33,7 +33,6 @@
 
 (eval-when-compile (require 'cl))
 (require 'ox-html)
-(require 's)
 
 
 
@@ -148,7 +147,11 @@ block and its properties:
                                (org-export-get-caption src-block)
                                info)))
                  ""))
-         (title-separator (if (and (s-present? name) (s-present? cap)) ": " ""))
+         (title-separator
+          (if (and (and name (not (string-empty-p (string-trim name))))
+                 (and cap (not (string-empty-p (string-trim cap)))))
+              ": "
+            ""))
          (title (format "%s%s%s" name title-separator cap))
          (syntaxhl (or (org-export-read-attribute :attr_wp src-block :syntaxhl)
                       ""))
