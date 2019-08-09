@@ -1024,6 +1024,7 @@ In addition to using to [[https://github.com/org2blog/org2blog/issues][reporting
 :END:
 
 - Activities
+  - [[./docs/ReleaseProcess.org][Release Process]].
   - [[./docs/CONTRIBUTING.org][Contributing]].
   - [[./docs/TestPlan.org][Test Plan]].
   - Building
