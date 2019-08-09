@@ -152,7 +152,8 @@ These are commands that insert markup into your post.
     - [ ] Source
     - [ ] Documents
     - [ ] Images
-- [ ] Install from MELPA
+  - [ ] Study Installation
+  - [ ] Test package
 
 * Documents
 
