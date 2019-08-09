@@ -148,6 +148,10 @@ These are commands that insert markup into your post.
 
 - [ ] Download source and use that
 - [ ] Create a package and install it
+  - [ ] Verify it has expected files
+    - [ ] Source
+    - [ ] Documents
+    - [ ] Images
 - [ ] Install from MELPA
 
 * Documents
