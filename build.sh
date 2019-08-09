@@ -48,12 +48,16 @@ org2blog ()
 
   mkdir -p "$content"
 
-  cp LICENSE.txt "$content" #  TODO Sort alpha, add metaweblog
-  cp org2blog.el "$content"
-  cp org2blog-pkg.el "$content"
-  cp docs/Org2Bloggers.org "$content"
-  cp ox-wp.el "$content"
+  cp HISTORY.org "$content"
+  cp LICENSE.txt "$content"
   cp README.org "$content"
+  cp docs/Org2Bloggers.org "$content"
+  cp metaweblog.el "$content"
+  cp org2blog-def.el "$content"
+  cp org2blog-pkg.el "$content"
+  cp org2blog.el "$content"
+  cp ox-wp.el "$content"
+  cp svg/Logo.svg "$content"
 
   tar -cvf "$dir.tar" --directory "$dir" "$name"
 
