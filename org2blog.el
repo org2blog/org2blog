@@ -64,7 +64,7 @@
 (defconst org2blog/wp-version (owp--pkg "version")
   "Current version of org2blog.el.")
 
-(defconst org2blog/wp-required-org-version (cadr (assoc 'org (owp--pkg "requirements")))
+(defconst org2blog/wp-required-org-version (owp--pkg "org")
   "Minimum variable ‘org-version’ required to run this package.")
 
 (defconst owp--minimal-emacs (owp--pkg "emacs")

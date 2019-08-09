@@ -32,6 +32,7 @@
     (puthash "version" "1.1.0" p)
     (puthash "doc" "Blog from Org mode to WordPress" p)
     (puthash "emacs" "26.2" p)
+    (puthash "org" "9.2.2" p)
     (puthash "requirements"
              '((htmlize "1.55" "https://github.com/hniksic/emacs-htmlize.git")
                (hydra "0.14.0" "https://github.com/abo-abo/hydra.git")
@@ -58,27 +59,6 @@
   (owp--update-oxwp)
   (owp--update-build))
 
-(defun owp--update-pkg ()
-  "Update package definition."
-  (interactive)
-  (save-buffer)
-  (save-excursion
-    (with-current-buffer (find-file "org2blog-pkg.el")
-      (erase-buffer)
-      (pp
-       `(define-package ,(owp--pkg "name") ,(owp--pkg "version") ,(owp--pkg "doc")
-          ',(owp--pkg "requirements")
-          :authors
-          ',(owp--pkg "authors")
-          :maintainer
-          ',(owp--pkg "maintainer")
-          :keywords
-          ',(owp--pkg "keywords")
-          :homepage
-          ,(owp--pkg "homepage"))
-       (current-buffer))
-      (save-buffer))))
-
 (defun owp--update-header ()
   "Update Org2Blog file header."
   (interactive)
@@ -104,20 +84,28 @@
                     (apply 'concat (owp--interpose ", " (owp--pkg "keywords")))))
     (insert (format ";; Homepage: %s\n" (owp--pkg "homepage")))))
 
-(defun owp-checkout-statement ()
-  "Create Git checkout commands for system code and packages into INSTALL-DIR.
-
-Copy them from the *Messages* buffer into your Terminal."
+(defun owp--update-pkg ()
+  "Update package definition."
   (interactive)
-  (let ((install-dir (read-directory-name "Directory:")))
-    (mapcar (lambda (pkg) (princ (format
-                             "git clone %s %s%s\n"
-                             (caddr pkg)
-                             install-dir
-                             (car pkg))))
-            (owp--pkg "requirements"))))
+  (save-buffer)
+  (save-excursion
+    (with-current-buffer (find-file "org2blog-pkg.el")
+      (erase-buffer)
+      (pp
+       `(define-package ,(owp--pkg "name") ,(owp--pkg "version") ,(owp--pkg "doc")
+          ',(owp--pkg "requirements")
+          :authors
+          ',(owp--pkg "authors")
+          :maintainer
+          ',(owp--pkg "maintainer")
+          :keywords
+          ',(owp--pkg "keywords")
+          :homepage
+          ,(owp--pkg "homepage"))
+       (current-buffer))
+      (save-buffer))))
 
-(defun owp--update-build ()
+(defun owp--update-oxwp ()
   "Update ox-wp defgroup."
   (interactive)
   (find-file "ox-wp.el")
@@ -135,7 +123,7 @@ Copy them from the *Messages* buffer into your Terminal."
   :package-version '(Org . \"%s\"))
 "
       (owp--pkg "emacs")
-      (org-version)))))
+      (owp--pkg "org")))))
 
 (defun owp--update-build ()
   "Update build.sh."
@@ -146,6 +134,19 @@ Copy them from the *Messages* buffer into your Terminal."
     (re-search-forward "local version")
     (kill-whole-line 1)
     (insert (format "  local version=\"%s\"\n" (owp--pkg "version")))))
+
+(defun owp-checkout-statement ()
+  "Create Git checkout commands for system code and packages into INSTALL-DIR.
+
+Copy them from the *Messages* buffer into your Terminal."
+  (interactive)
+  (let ((install-dir (read-directory-name "Directory:")))
+    (mapcar (lambda (pkg) (princ (format
+                             "git clone %s %s%s\n"
+                             (caddr pkg)
+                             install-dir
+                             (car pkg))))
+            (owp--pkg "requirements"))))
 
 (defun owp-load-statement ()
   "Create Elisp code to load the libraries."
