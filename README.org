@@ -476,6 +476,11 @@ there. Others for example take notes on a chapter of or an entire book and
 store them in a single. Just like a plain old Org mode document: subtrees do
 what they do well.
 
+Power users take note: you can store subtrees that post to different blogs by
+specifying the URL on the subtree. This "just works" like any other subtree
+post. Not something you might need much but when you do it is a very cool
+feature. 
+
 The workflow for creating a subtree entry is virtually identical to a buffer
 entry. There are only two (but very important) differences:
 
