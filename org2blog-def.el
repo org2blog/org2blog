@@ -54,10 +54,23 @@
 (defun owp-update-artifacts ()
   "Update dependent artifacts."
   (interactive)
+  (owp--update-readme)
   (owp--update-header)
   (owp--update-pkg)
   (owp--update-oxwp)
   (owp--update-build))
+
+(defun owp--update-readme ()
+  "Update README.org"
+  (interactive)
+  (find-file "README.org")
+  (save-excursion
+    (goto-char (point-min))
+    (re-search-forward "^Org2Blog currently requires Emacs")
+    (kill-whole-line 1)
+    (insert (format "Org2Blog requires Emacs %s and Org mode %s.\n"
+                    (owp--pkg "version")
+                    (owp--pkg "org")))))
 
 (defun owp--update-header ()
   "Update Org2Blog file header."
