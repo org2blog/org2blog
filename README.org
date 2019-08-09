@@ -107,10 +107,9 @@ throw at it.
 
 Self-publishing has two benefits:
 
-- It provides the package as-intended: it only includes what you need. For
-  example the list of Org2Bloggers and the logo image. 
-- Another copy is available if your favorite package repository (like MELPA)
-  is not available
+- You can download it from here and install it using Emacs's package manager
+- It is fun to build the package yourself then once you figure /that/ out
+  translate it to the MELPA recipe. 
 
 To use it:
 
@@ -119,9 +118,9 @@ To use it:
   - If you want the in-development version get it [[file:/package][here]]
   - If you want to build it yourself for example for testing the package then
     see [[./build.sh][build.sh]].
-- If you already installed the package using another package manager, from
-  MELPA and Use Package for example, delete the Org2Blog that got installed
-  (probably under ~/.emacs.d/elpa and install this one instead.
+- If you have already installed the package using another package manager,
+  from MELPA and Use Package for example, delete the Org2Blog directory that
+  got installed (probably under ~/.emacs.d/elpa and install this one instead.
 - Run the command ~package-install-file~
 - Choose the TAR file you just downloaded
 
