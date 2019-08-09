@@ -53,8 +53,9 @@
 (defun owp-update-artifacts ()
   "Update dependent artifacts."
   (interactive)
+  (owp--update-header)
   (owp--update-pkg)
-  (owp--update-header) )
+  (owp--update-oxwp))
 
 (defun owp--update-pkg ()
   "Update package definition."
