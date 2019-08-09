@@ -55,7 +55,8 @@
   (interactive)
   (owp--update-header)
   (owp--update-pkg)
-  (owp--update-oxwp))
+  (owp--update-oxwp)
+  (owp--update-build))
 
 (defun owp--update-pkg ()
   "Update package definition."
@@ -116,7 +117,7 @@ Copy them from the *Messages* buffer into your Terminal."
                              (car pkg))))
             (owp--pkg "requirements"))))
 
-(defun owp--update-oxwp ()
+(defun owp--update-build ()
   "Update ox-wp defgroup."
   (interactive)
   (find-file "ox-wp.el")
@@ -135,6 +136,16 @@ Copy them from the *Messages* buffer into your Terminal."
 "
       (owp--pkg "emacs")
       (org-version)))))
+
+(defun owp--update-build ()
+  "Update build.sh."
+  (interactive)
+  (find-file "build.sh")
+  (save-excursion
+    (goto-char (point-min))
+    (re-search-forward "local version")
+    (kill-whole-line 1)
+    (insert (format "  local version=\"%s\"\n" (owp--pkg "version")))))
 
 (defun owp-load-statement ()
   "Create Elisp code to load the libraries."

@@ -25,7 +25,7 @@ org2blog ()
   printf "Thanks and have a great time blogging."
   printf "\n\n"
 
-  local version="1.1.0" #  TODO Automate version number
+  local version="1.1.0"
   local name="org2blog-$version"
   local dir="$TMPDIR/$name"
   local content="$dir/$name"
