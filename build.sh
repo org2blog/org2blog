@@ -25,7 +25,7 @@ org2blog ()
   printf "Thanks and have a great time blogging."
   printf "\n\n"
 
-  local version="1.1.0"
+  local version="1.1.0" #  TODO Automate version number
   local name="org2blog-$version"
   local dir="$TMPDIR/$name"
   local content="$dir/$name"
@@ -48,7 +48,7 @@ org2blog ()
 
   mkdir -p "$content"
 
-  cp LICENSE.txt "$content"
+  cp LICENSE.txt "$content" #  TODO Sort alpha, add metaweblog
   cp org2blog.el "$content"
   cp org2blog-pkg.el "$content"
   cp docs/Org2Bloggers.org "$content"
