@@ -5,7 +5,6 @@
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Version: 1.0.4
 ;; Keywords: comm, files
 ;; Homepage: https://github.com/org2blog/org2blog/wiki
 
