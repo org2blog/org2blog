@@ -142,7 +142,11 @@ These are commands that insert markup into your post.
 * LaTeX
 
 - [ ] Built-In
+  - [ ] Inline
+  - [ ] Environment
 - [ ] MathJax
+  - [ ] Inline
+  - [ ] Environment
 
 * User
 
