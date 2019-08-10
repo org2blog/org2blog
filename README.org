@@ -871,7 +871,7 @@ Or in your blog config
   (setq org2blog/wp-blog-alist config))
 #+end_src
 
-hen you post entries they will get logged in your log file under the
+when you post entries they will get logged in your log file under the
 headline specified. For example:
 
 #+name: org_gcr_2019-08-09T21-02-43-05-00_cosmicality_84A07F27-20C7-4D39-9480-1DFCAB582698
@@ -891,7 +891,9 @@ Hi.
 If you specify a file that Org2Blog has some kind of problem accessing then it
 will try creating and loading the file specified by ~org-directory~. That way
 you won't lose anything. You can rename the file later after you get the
-desired file set working.
+desired file set working. The solution is usually to make sure that you
+specify the whole path ether absolutely or relatively. It won't work right
+list a file name without it's place in the directory system. 
 
 It it can't do either then you will get a warning message saying why it
 failed. The solution is usually to correct the file name or set the
