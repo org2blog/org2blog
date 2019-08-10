@@ -275,7 +275,7 @@ All the other properties are optional. They over-ride the global variables.
   :wp-code                 `org2blog/wp-use-sourcecode-shortcode'
   :track-posts             `org2blog/wp-track-posts'
                            Use a two item list.
-                           (list \".org2blog.org\" \"MYBLOGNAME\"")
+                           (list \".org2blog.org\")
   :id                      ‘owp-blogid’"
   :group 'org2blog/wp
   :type '(alist :value-type plist))
