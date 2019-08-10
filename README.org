@@ -45,7 +45,7 @@ Blog from Org mode to WordPress.
       -  [[#migrating-org-mode-files-to-org2blog-files][Migrating Org Mode Files To Org2Blog Files]]
       -  [[#export-wordpress-to-org][Export WordPress to Org]]
       -  [[#using-entry-templates][Using Entry Templates]]
-      -  [[#a-post-dashboard][A Post Dashboard]]
+      -  [[#tracking-posts][Tracking Posts]]
       -  [[#doing-things-after-saving-and-publishing][Doing Things After Saving And Publishing]]
     -  [[#some-questions-and-some-answers][Some Questions And Some Answers]]
       -  [[#why-does-org2blog-talk-about-save-view-publish-and-trash-so-much][Why Does Org2Blog Talk About Save, View, Publish, And Trash So Much?]]
@@ -888,6 +888,11 @@ headline specified. For example:
 Hi.
 #+end_src
 
+If you specify a file that Org2Blog has some kind of problem accessing then it
+will try creating and loading the file specified by ~org-directory~. It it can't
+do either then you will get a warning message saying why it failed. The
+solution is usually to correct the file name or set the ~org-directory~ to
+something valid. 
 
 *** Doing Things After Saving And Publishing
 :PROPERTIES:
