@@ -132,6 +132,18 @@ These are commands that insert markup into your post.
   - [ ] ~owp-subtree-page-publish~
   - [ ] ~owp-subtree-page-trash~
 
+* Source Blocks
+
+- [ ] Without SyntaxHighlighter Evolved
+  - [ ] Caption
+- [ ] With SyntaxHighlighter Evolved
+  - [ ] Caption
+
+* LaTeX
+
+- [ ] Built-In
+- [ ] MathJax
+
 * User
 
 - [ ] Commands
