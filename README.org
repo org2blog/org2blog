@@ -257,10 +257,10 @@ menu. If for you that means reading then start with:
   ready for the next time you are blogging. 
 
 Once you've successfully logged in and read a little bit about Org2Blog then
-you'll notice that you get started blogging very quickly (almost as fast as
-the demo). The menu items below are phrased generically, just choose the
-correct kind for your entry based on the source (buffer or subtree) and
-whether its destination is post or a page. Here is the workflow:
+you'll notice that you get started blogging very quickly. The menu items below
+are phrased generically, just choose the correct kind for your entry based on
+the source (buffer or subtree) and whether its destination is post or a page.
+Here is the workflow:
 
 - =UI [Login]=:
 - =UI [New Buffer]= or =UI [New Subtree]=:
