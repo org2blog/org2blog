@@ -35,10 +35,11 @@ These are user facing system information commands.
   - [ ] ~owp-version-info~
     - Version numbers display
 
-* Setup
+* Key Bindings
 
 - [ ] Commands
-  - [ ] ~owp-reload-entry-mode-map~
+  - [ ] ~owp-reload-entry-mode-map~: change prefix
+  - [ ] Compare bindings with UI
 
 * General Entries
 
