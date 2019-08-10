@@ -47,12 +47,11 @@
 
 (require 'htmlize)
 (require 'hydra)
-(require 'metaweblog)
-(require 'org)
 (require 'xml-rpc)
 
 ;; Internal
 
+(require 'org)
 (require 'metaweblog)
 (require 'ox-wp)
 (require 'org2blog-def)
