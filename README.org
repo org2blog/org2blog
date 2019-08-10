@@ -75,7 +75,7 @@ Org2Blog runs against the version of Org mode that comes pre-loaded with
 Emacs. Org2Blog will require a relatively recent version of Emacs simply to
 keep it up to date with Org mode.
 
-Org2Blog requires Emacs 1.1.0 and Org mode 9.2.2.
+Org2Blog requires Emacs 26.2 and Org mode 9.2.2.
 
 ** Using A Package
 :PROPERTIES:

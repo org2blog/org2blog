@@ -66,10 +66,10 @@
   (find-file "README.org")
   (save-excursion
     (goto-char (point-min))
-    (re-search-forward "^Org2Blog currently requires Emacs")
+    (re-search-forward "^Org2Blog requires Emacs")
     (kill-whole-line 1)
     (insert (format "Org2Blog requires Emacs %s and Org mode %s.\n"
-                    (owp--pkg "version")
+                    (owp--pkg "emacs")
                     (owp--pkg "org")))))
 
 (defun owp--update-header ()
