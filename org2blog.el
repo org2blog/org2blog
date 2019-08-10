@@ -892,7 +892,7 @@ closer to doing more blogging!"
   (setq gnutls-log-level (if on 2 0))
   (message "%s detailed reporting about *everything* that I am doing. %s"
            (if on "Enabling" "Disabling")
-           (if on "Hold onto your seat 🎢!" "Enjoy the silence 🧘.")))
+           (if on "Hold onto your seat!" "Enjoy the silence.")))
 
 ;;;###autoload
 (defun owp-user-report-on ()
