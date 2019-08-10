@@ -818,17 +818,76 @@ The former takes some reading and study of the code to utilize. It will be
 simplified in a future release. The latter is a template that is inserted
 without any value substitution.
 
-*** A Post Dashboard
+*** Tracking Posts
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:EA8A1588-DC5B-4D69-84F4-B988B35FA640
 :END:
 
-Out of the box Org2Blog will keep a record of all of your posts. Think of it
-as more of a personal dashboard. It works both for buffer entries and subtree
-entries. It only works for posts (it wouldn't make sense for a page).
+You can automatically track all of the posts that you make. Why might you want
+to do this?
 
-By default it is enabled and configured with ~org2blog/wp-track-posts~. When it
-is nil it is disabled.
+Perhaps you want a logbook of when you actually posted your
+entries versus when you wrote them.
+
+Maybe you want a single place to keep track of when you did all your posts so
+you can leverage Org mode's feature to get an overview of how you've been
+posting in terms of volume or topics covered and use that information to
+decide how to move forward. Each scenario is pretty specific and it will
+probably be the same for you.
+
+In my case sometimes I just want a record of what I did post so I can compare
+it to what is out on the server because sometimes I delete entries on th blog
+without deleting their source files in Org mode leaving me confused about what
+is going on.
+
+Surely where are more examples than I could make up here. Please send me some
+scenarios that you use this feature. And speaking of that here is how to us
+this feature.
+
+You need to tell Org2Blog where to do the tracking by telling it two things:
+
+- What is the file name you want to store the tracking data in
+- Under what headline do you want to store that data  
+
+Either specify at the top level programmatically:
+
+#+name: org_gcr_2019-08-09T21-02-43-05-00_cosmicality_965F6965-83E8-4CD5-A625-572162E970CD
+#+begin_src emacs-lisp 
+(setq org2blog/wp-track-posts (list ".org2blog.org" "MYBLOGNAME"))
+#+end_src
+
+Or in your blog config
+
+#+begin_src emacs-lisp 
+(let* ((credentials (auth-source-user-and-password "wisdomandwonder"))
+       (username (nth 0 credentials))
+       (password (nth 1 credentials))
+       (track-posts (list "org2blog.org" "MYBLOGNAME"))
+       (config `(("wisdomandwonder"
+                  :url "https://www.wisdomandwonder.com/xmlrpc.php"
+                  :username ,username
+                  :password ,password
+                  :confirm t))))
+  (setq org2blog/wp-blog-alist config))
+#+end_src
+
+Now when you post entries they will get logged in your log file under the
+headline specified. For example:
+
+#+name: org_gcr_2019-08-09T21-02-43-05-00_cosmicality_84A07F27-20C7-4D39-9480-1DFCAB582698
+#+begin_src org 
+,* MYBLOGNAME
+
+,** [[/Users/gcr/tmp/testpost.org][Hello, Buffer Post]]
+:PROPERTIES:
+:POSTID:   12578
+:POST_DATE: 20190810T02:41:00+0000
+:PUBLISHED: No
+:END:
+
+Hi.
+#+end_src
+
 
 *** Doing Things After Saving And Publishing
 :PROPERTIES:
