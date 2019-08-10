@@ -1030,9 +1030,7 @@ See messages below for details."
     (let ((cats (length owp-categories))
           (tags (length owp-tags))
           (pages (length owp-pages)))
-      (message (concat
-                "You are now logged in to your blog “%s. "
-                "Current stats: %s categories, %s tags, and %s pages.")
+      (message "You are now logged in to your blog “%s”"
                owp-blog-key cats tags pages))))
 
 ;;;###autoload
