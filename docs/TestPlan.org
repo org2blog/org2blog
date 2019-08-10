@@ -22,6 +22,7 @@ pleasant test run!
 These are user facing system information commands.
 
 - [ ] Commands
+  - [ ] ~owp-about~
   - [ ] ~owp-user-interface~
     - [ ] Main Menu
       - It should load
@@ -81,7 +82,8 @@ These are commands that insert markup into your post.
         - [ ] Tag
         - [ ] Parent
   - [ ] ~owp-entry-trash-prompt~
-    - Trash both a post and a page
+    - [ ] Page
+    - [ ] Post
   - [ ] Image Attachments
     - [ ] Single file
     - [ ] Two files
@@ -109,7 +111,7 @@ These are commands that insert markup into your post.
 - [ ] Commands
   - [ ] ~owp-buffer-new~
   - [ ] ~owp-buffer-post-save~
-  - [ ] ~owp-buffer-post--view~
+  - [ ] ~owp-buffer-post-view~
   - [ ] ~owp-buffer-post-publish~
   - [ ] ~owp-buffer-post-trash~
   - [ ] ~owp-buffer-page-save~
@@ -142,19 +144,23 @@ These are commands that insert markup into your post.
     - When enabled there are a lot of SSL messages happening
     - Disable it and they are not
 - [ ] Hooks
-  - ~owp-mode-hook~
+  - [ ] ~owp-mode-hook~
     - A good place to create keybindings, check that they are set
-  - ~owp-buffer-entry-save-hook~
-    - Add the sample hook from the docsring and verity that it works.
-  - ~owp-maybe-start~
+  - [ ] ~owp-buffer-entry-save-hook~
+    - Add the sample hook from the docsring and veriy that it works.
+  - [ ] ~owp-maybe-start~
     - Open an ORG2BLOG file verify mode starts
+  - [ ] ~org2blog/wp-after-new-post-or-page-functions~
+    - Use the ~pp~ example from [[../README.org][README]]
 
 * Versioning and Libraries
 
-- [ ] Update version number and dependent libraries in
+- [ ] ~owp-update-artifacts~ Update version number and dependent libraries in
+  - [ ] README.org
+  - [ ] org2blog.el
   - [ ] org2blog-pkg.el
-  - [ ] MELPA recipe
-  - [ ] Header line in org2blog.el
+  - [ ] ox-wp.el
+  - [ ] build.sh
 
 * Installation
 
@@ -170,7 +176,6 @@ These are commands that insert markup into your post.
 * Documents
 
 - [ ] Spell check
-- [ ] Link check
 
 ** README
 
@@ -178,7 +183,6 @@ These are commands that insert markup into your post.
 - [ ] Badges
   - [ ] Github Shields
   - [ ] Verions
-  - [ ] Links
 
 ** Other
 
