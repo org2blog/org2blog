@@ -2,6 +2,8 @@
 
 ** v1.1.0
 
+- Breaking change
+  - Modified the key map bindings to be consistent with the UI
 - New Features
   - User Interface: Exposes multitude of Org2Blog features for easy use.
   - Documentation: Added for all features.
@@ -20,10 +22,13 @@
 - Fixes
   - Exporter includes source block IDs
 - Road-map
-  - Retire obsolete functions
-  - Replace double-duty postid id with page id
-  - Functions already know about page versus post, so enforce that every
-    page post must have page id
+  - New Features
+    - Replace double-duty postid id with page id
+    - Functions already know about page versus post, so enforce that every
+      page post must have page id
+  - Planned Breaking Changes
+    - Retire obsolete functions
+    - Make keymap identical with UI bindings
 
 *** 2019-01-31 Org2Blog v1.0.3 Released
 
