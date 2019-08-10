@@ -2,8 +2,6 @@
 
 ** v1.1.0
 
-- Breaking change
-  - Modified the key map bindings to be consistent with the UI
 - New Features
   - User Interface: Exposes multitude of Org2Blog features for easy use.
   - Documentation: Added for all features.
