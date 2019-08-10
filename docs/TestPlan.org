@@ -4,17 +4,16 @@ This is an informal test plan for Org2Blog. It only includes commands.
 Reviewing each of them will give you a sense of how the system works. Perhaps
 reviewing the smallest units of functionality is a better way to learn the
 system compared to studying it all once. In service of those goals, just
-enough detail is provided here to make sense of testing, becoming mind
+enough detail is provided here to make sense of testing without becoming mind
 numbingly painful.
 
 The tests are split up logically and informally. The preequisites are obvious.
 For example you need a blog before you can post, and you need a user before
-you can log in. Each test has /some/ notes about what will happen and should
-happen, maybe along with a reference. All of the commands are also accessible
-by the UI if that is easier for you. Ideally you test the command directly and
-also via the UI.
+you can log in. Each test has /some/ notes about what should happen, maybe along
+with a reference. All of the commands are also accessible by the UI if that is
+easier for you. Ideally you test the command directly and also via the UI.
 
-The easiest way to use this is to copy this file to your computer and cross
+The easiest way to use this is to copy this file to your computer and check
 off items as you go. Please submit improvements and corrections. Have a
 pleasant test run!
 
@@ -25,10 +24,13 @@ These are user facing system information commands.
 - [ ] Commands
   - [ ] ~owp-user-interface~
     - [ ] Main Menu
+      - It should load
     - [ ] Insert Menu
+      - After creating a post try inserting everything
     - [ ] Variables Menu
+      - Load every value
   - [ ] ~owp-readme~
-    - All URLs open to live links
+    - It displays. Is savable.
   - [ ] ~owp-version-info~
     - Version numbers display
 
@@ -47,7 +49,7 @@ These are commands that insert markup into your post.
   - [ ] ~owp-insert-mathjax~
     - Inserts a [[https://codex.wordpress.org/Shortcode_API][WordPress Shortcode]] for [[https://wordpress.org/plugins/mathjax-latex/][MathJax-LaTeX]]
   - [ ] ~owp-insert-more~
-    - Inserts a [[https://en.support.wordpress.com/more-tag/][WordPress More tag]]
+    - Inserts a [[https://en.support.wordpress.com/more-tag/][WordPress More tag]] test empty and populated
   - [ ] ~owp-insert-link~
     - Insert a link to your blog
     - [ ] Post
@@ -62,12 +64,22 @@ These are commands that insert markup into your post.
       keword closing colon, so read the error message there
     - [ ] Buffer
       - [ ] Post
+        - [ ] Category
+        - [ ] Tag
+        - [ ] Parent
       - [ ] Page
-      - [ ] Parent
+        - [ ] Category
+        - [ ] Tag
+        - [ ] Parent
     - [ ] Subtree
       - [ ] Post
+        - [ ] Category
+        - [ ] Tag
+        - [ ] Parent
       - [ ] Page
-      - [ ] Parent
+        - [ ] Category
+        - [ ] Tag
+        - [ ] Parent
   - [ ] ~owp-entry-trash-prompt~
     - Trash both a post and a page
   - [ ] Image Attachments
