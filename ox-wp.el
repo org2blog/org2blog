@@ -117,39 +117,24 @@ Delegateswork to `org-wp-export-as-wordpress'."
     result))
 
 (defun org-wp-src-block-shortcode (src-block _contents info)
-  "Create the SyntaxHighlighter Evolved sourceblock with SRC-BLOCK, CONTENTS, and INFO.
-
-Here is how this function maps an Org mode source block to
-a SyntaxHighlighter Evolved (SHE) source block. The list items,
-the part before the colon, are the SHE field names. The list
-defintions (the part after the ‘:’) refer to the Org mode source
-block and its properties:
-
-- ‘language’: If non-nil use ‘language’, otherwise default to \"text\"
-- ‘title’: Try to get both the ‘name’ and ‘caption’. Prepare a title
-           using both elements, one element, or default to an
-           empty string.
-- ‘syntaxhl’: When an “#+attr_wp: :syntaxhl ...” document property appears
-            directly above a source block, then everything after
-            “:syntaxhl” is inserted directly into the shortcode."
+  "Create the SyntaxHighlighter Evolved sourceblock with SRC-BLOCK, CONTENTS, and INFO."
   (let* ((langval (org-element-property :language src-block))
          (langs (plist-get info :wp-shortcode-langs-map))
          (lang (or (cdr (assoc langval langs))
                   (when langval (downcase langval))
                   "text"))
+         (footnote (format
+                    (org-html--translate "Listing %d" info)
+                    (org-export-get-ordinal
+                     src-block info nil #'org-html--has-caption-p)))
          (name (or (org-element-property :name src-block)
-                  ""))
-         (cap (or (and (org-export-get-caption src-block)
-                    (org-trim (org-export-data
-                               (org-export-get-caption src-block)
-                               info)))
-                 ""))
-         (title-separator
-          (if (and (and name (not (string-empty-p (string-trim name))))
-                 (and cap (not (string-empty-p (string-trim cap)))))
-              ": "
-            ""))
-         (title (format "%s%s%s" name title-separator cap))
+                  (org-export-get-reference src-block info)))
+         (cap (and (org-export-get-caption src-block)
+                 (org-trim (org-export-data
+                            (org-export-get-caption src-block)
+                            info))))
+         (title (format "%s. Name: %s. %s"
+                        footnote name (if cap (concat cap ".") "")))
          (syntaxhl (or (org-export-read-attribute :attr_wp src-block :syntaxhl)
                       ""))
          (srccode (org-export-format-code-default src-block info))
@@ -168,36 +153,41 @@ block and its properties:
     (when (org-export-read-attribute :attr_html src-block :textarea)
       (let (result (org-html--textarea-block src-block))
         (throw 'return result)))
-    (let* ((lang (org-element-property :language src-block))
+    (let* ((name (or (org-element-property :name src-block)
+                    (org-export-get-reference src-block info)))
+           (caption (or (org-export-data
+                        (org-export-get-caption src-block)
+                        info)))
+           (lang (org-element-property :language src-block))
            (code (org-html-format-code src-block info))
-           (name (let ((lbl (or (org-element-property :name src-block)
-                               (org-export-get-reference src-block info))))
-                   (if lbl (format " id=\"%s\"" lbl) ""))))
-      (when (not lang)
-        (let ((result (format "<pre class=\"example\"%s>\n%s</pre>" name code)))
+           (footnote (format
+                      (org-html--translate "Listing %d." info)
+                      (org-export-get-ordinal
+                       src-block info nil #'org-html--has-caption-p)))
+           (name-and-caption (format "%s%s"
+                                     (if name
+                                         (format " Name: %s." name)
+                                       "")
+                                     (if (string-blank-p caption) ""
+                                       (format " %s." caption)))))
+      (unless lang
+        (let ((result
+               (format "<em>%s%s</em>\n<pre class=\"example\" id=\"%s\">\n%s</pre>"
+                       footnote name-and-caption name code)))
           (throw 'return result)))
-      (let* ((fmtcontent
-              (format "<pre class=\"src src-%s\"%s>%s</pre>"
-                      lang name code))
-             (caption (org-export-get-caption src-block))
-             (fmtcaption
-              (if (not caption) ""
-                (let* ((fmtlisting (format
-                                    (org-html--translate "Listing %d:" info)
-                                    (org-export-get-ordinal
-                                     src-block info nil #'org-html--has-caption-p)))
-                       (listing-number
-                        (format
-                         "<span class=\"listing-number\">%s </span>"
-                         fmtlisting))
-                       (classlabel
-                        (format "<label class=\"org-src-name\">%s%s</label>"
-                                listing-number
-                                (org-trim (org-export-data caption info)))))
-                  classlabel)))
-             (result (format "<div class=\"org-src-container\">\n%s%s\n</div>"
-                             fmtcaption
-                             fmtcontent)))
+      (let* ((listing-number (format
+                              "<span class=\"listing-number\">%s</span>"
+                              footnote))
+             (classlabel
+              (format "<label class=\"org-src-name\"><em>%s%s</em></label>"
+                      listing-number
+                      name-and-caption))
+             (body (format "<pre class=\"src src-%s\" id=\"%s\">%s</pre>"
+                           lang name code))
+             (div (format "<div class=\"org-src-container\">\n%s\n%s\n</div>"
+                          classlabel
+                          body))
+             (result div))
         result))))
 
 (defun org-wp-latex-environment (latex-environment contents info)

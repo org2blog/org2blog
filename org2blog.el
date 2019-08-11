@@ -2339,7 +2339,7 @@ various export options."
     (plist-put export-options :wp-latex
                (owp--blog-property-or :wp-latex org2blog/wp-use-wp-latex))
     (plist-put export-options :wp-shortcode
-               (owp--blog-property-or :wp-code org2blog/wp-use-sourcecode-shortcode))
+               (owp--blog-property-or :wp-shortcode org2blog/wp-use-sourcecode-shortcode))
     (plist-put export-options :tags-as-categories
                (owp--blog-property-or :tags-as-categories org2blog/wp-use-tags-as-categories))
     (plist-put export-options :wp-shortcode-langs-map

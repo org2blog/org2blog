@@ -172,6 +172,10 @@ These are commands that insert markup into your post.
   - [ ] ~org2blog/wp-after-new-post-or-page-functions~
     - Use the ~pp~ example from [[../README.org][README]]
 
+* Code
+
+- [ ] Review Every Artifact For TODO Entries
+
 * Versioning and Libraries
 
 - [ ] ~owp-update-artifacts~ Update version number and dependent libraries in
