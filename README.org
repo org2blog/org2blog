@@ -644,11 +644,11 @@ configuration. It would look something like this
 
 #+name: org_gcr_2019-08-10T12-52-53-05-00_cosmicality_425DF562-F13C-48A9-8B10-EE1B940DE96B
 #+begin_src emacs-lisp
-("myblog"
- :url "https://www.wisdomandwonder.com/xmlrpc.php"
- :username username
- :password password
- :confirm t)
+'("myblog"
+  :url "https://www.wisdomandwonder.com/xmlrpc.php"
+  :username username
+  :password password
+  :confirm t)
 #+end_src
 
 You probably noticed that the name of the global variable is a lot bigger than
