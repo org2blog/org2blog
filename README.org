@@ -36,7 +36,7 @@ Blog from Org mode to WordPress.
       -  [[#global-and-blog-specific-configuration][Global And Blog Specific Configuration]]
       -  [[#inserting-things][Inserting Things]]
       -  [[#source-blocks][Source Blocks]]
-      -  [[#mathjax-support][MathJax Support]]
+      -  [[#latex-support][LaTeX Support]]
       -  [[#migrating-org-mode-files-to-org2blog-files][Migrating Org Mode Files To Org2Blog Files]]
       -  [[#export-wordpress-to-org][Export WordPress to Org]]
       -  [[#using-entry-templates][Using Entry Templates]]
@@ -794,10 +794,12 @@ THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
 ,#+end_export
 #+end_src
 
-*** MathJax Support
+*** LaTeX Support
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:CB9F8F24-278D-4B79-A1A7-72AC7C051DC1
 :END:
+
+**** MathJax
 
 "[[http://docs.mathjax.org/en/latest/mathjax.html][MathJax]] is an open-source JavaScript display engine for LaTeX, MathML, and
 AsciiMath notation that works in all modern browsers."
