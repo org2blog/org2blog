@@ -712,6 +712,12 @@ With SyntaxHighlighter Evolved disabled:
 
   [[file:/images/SourceBlockNormal.png]]
 
+Note that in Org mode every source block has a name. If you don't specify one
+then it's automatically generated name will be used. For example:
+
+  [[file:/images/SourceBlockNormalNoname.png]]
+
+
 **** SyntaxHighlighter Evolved
 
 With SyntaxHighlighter Evolved enabled:
