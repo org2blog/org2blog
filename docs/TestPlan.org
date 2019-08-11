@@ -189,6 +189,17 @@ These are commands that insert markup into your post.
 
 - [ ] Download source and use that
 - [ ] Create a package and install it
+  - [ ] Update build.sh
+  - [ ] Verify it has expected files
+    - [ ] Source
+    - [ ] Documents
+    - [ ] Images
+  - [ ] Study Installation
+  - [ ] Test package
+    - Start a separate Emacs instance with an awareness of how Emacs is loading
+      Org2Blog from where
+- [ ] MELPA Package
+  - [ ] Update recipe
   - [ ] Verify it has expected files
     - [ ] Source
     - [ ] Documents
