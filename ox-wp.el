@@ -211,7 +211,7 @@ contextual information."
 
 
 ;; Misc
- ; TODO Test this
+
 (defun org-wp-latex-to-wp (text)
   "Convert latex fragments or environments in TEXT to WP LaTeX blocks."
   (let* ((matchers (plist-get org-format-latex-options :matchers))

@@ -27,6 +27,7 @@
   - Planned Breaking Changes
     - Retire obsolete functions
     - Make keymap identical with UI bindings
+    - Retire LaTeX exporter replace with MathJax
 
 *** 2019-01-31 Org2Blog v1.0.3 Released
 
