@@ -702,13 +702,15 @@ Here is how they look and work.
 #+name: org_gcr_2019-08-10T12-52-53-05-00_cosmicality_81A873BE-82E4-4F01-91B3-282C181CC02F
 #+begin_src org
 ,#+caption: My caption is my passport
-,#+name: My name is Joe
-,#+begin_src emacs-lisp
+,#+name: Demo
+,#+BEGIN_SRC
 (setq pass "Hi")
-,#+end_src
+,#+END_SRC
 #+end_src
 
 With SyntaxHighlighter Evolved disabled:
+
+  [[file:/images/SourceBlockNormal.png]]
 
 **** SyntaxHighlighter Evolved
 
