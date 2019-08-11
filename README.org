@@ -696,7 +696,28 @@ simple and durable approach: it is plain old HTML.
 
 Another option is to SyntaxHighlighter Evolved.
 
+Here is the sample post:
+
+#+name: org_gcr_2019-08-10T12-52-53-05-00_cosmicality_81A873BE-82E4-4F01-91B3-282C181CC02F
+#+begin_src org
+,#+caption: My caption is my passport
+,#+name: My name is Joe
+,#+begin_src emacs-lisp
+(setq pass "Hi")
+,#+end_src
+#+end_src
+
+**** Plain Source Box Format
+
+With SyntaxHighlighter Evolved disabled:
+
+
+
 **** SyntaxHighlighter Evolved
+
+With SyntaxHighlighter Evolved enabled:
+
+  [[file:/images/SourceBlockSyntaxHighlighterExposed.png]]
 
 [[https://wordpress.org/plugins/syntaxhighlighter/][SyntaxHighlighter Evolved]] is an extremely popular plugin for rendering source
 code. It supports a bunch of languages and configuration parameters (see [[https://en.support.wordpress.com/code/posting-source-code/][here]])
