@@ -709,9 +709,7 @@ Here is the sample post:
 
 **** Plain Source Box Format
 
-With SyntaxHighlighter Evolved disabled:
-
-
+Without SyntaxHighlighter Evolved disabled:
 
 **** SyntaxHighlighter Evolved
 
