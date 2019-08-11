@@ -759,7 +759,7 @@ line. It is easier though to configure it globally and never touch it again.
 
 With SyntaxHighlighter Evolved enabled:
 
-  [[file:/images/SourceBlockSyntaxHighlighterExposed.png]]
+  [[file:/images/SourceBlockSyntaxHighlighterExposed2.png]]
 
   [[file:/images/SourceBlockSyntaxHighlighterExposedNoName.png]]
   
