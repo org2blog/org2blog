@@ -137,8 +137,10 @@ These are commands that insert markup into your post.
 
 - [ ] Without SyntaxHighlighter Evolved
   - [ ] Caption
+  - [ ] Name
 - [ ] With SyntaxHighlighter Evolved
   - [ ] Caption
+  - [ ] Name
 
 * LaTeX
 
