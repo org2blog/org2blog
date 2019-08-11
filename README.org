@@ -623,7 +623,7 @@ possible. The following are some key points that will tie everything together:
 
 Org2Blog also helps you do many more good things. See below.
 
-*** Two Ways Of Configuring Features: Global And Blog Specific
+*** Global And Blog Specific Configuration
 
 There are two ways of configuring features: global and blog specific.
 
