@@ -699,6 +699,13 @@ Here is how they look and work.
 
 **** Plain Source Box Format
 
+First make sure that Org2Blog will generate plain on =<pre>= tags like this:
+
+#+name: org_gcr_2019-08-11T13-09-58-05-00_cosmicality_DAD815F1-2D09-421F-99F8-9187F6A72FEA
+#+begin_src emacs-lisp 
+(setq org2blog/wp-use-sourcecode-shortcode nil)
+#+end_src
+
 #+name: org_gcr_2019-08-10T12-52-53-05-00_cosmicality_81A873BE-82E4-4F01-91B3-282C181CC02F
 #+begin_src org
 ,#+caption: My caption is my passport
@@ -717,8 +724,32 @@ then it's automatically generated name will be used. For example:
 
   [[file:/images/SourceBlockNormalNoname.png]]
 
-
 **** SyntaxHighlighter Evolved
+
+To use this first you need to set the variable
+~org2blog/wp-use-sourcecode-shortcode~ to ~t~.
+
+#+name: org_gcr_2019-08-11T13-09-58-05-00_cosmicality_F87B5E80-70D2-4316-A022-441EA3605493
+#+begin_src emacs-lisp 
+(setq org2blog/wp-use-sourcecode-shortcode t)
+#+end_src
+
+Configure your source blocks for SyntaxHighlighter like this:
+
+#+NAME: org_gcr_2019-03-06T17-15-24-06-00_cosmicality_97FBBAF4-3169-4F86-9E52-E085EF9A9BD4
+#+begin_src org
+,#+caption: My caption is my passport
+,#+name: Demo
+,#+attr_wp: :syntaxhl light="true"
+,#+BEGIN_SRC
+(setq pass "Hi")
+,#+END_SRC
+#+end_src
+
+The =:syntaxhl= property tells Org2Blog that everything following it is a
+configuration parameter for SyntaxHighlighter. Those values get passed on.
+
+The =#+ATTR_WP= line immediately *must* immediately precede the =#+BEGIN_SRC= line.
 
 With SyntaxHighlighter Evolved enabled:
 
@@ -727,24 +758,6 @@ With SyntaxHighlighter Evolved enabled:
 [[https://wordpress.org/plugins/syntaxhighlighter/][SyntaxHighlighter Evolved]] is an extremely popular plugin for rendering source
 code. It supports a bunch of languages and configuration parameters (see [[https://en.support.wordpress.com/code/posting-source-code/][here]])
 in addition to open-source custom plugins for other language.
-
-To use this first you need to set the variable
-~org2blog/wp-use-sourcecode-shortcode~ to ~t~.
-
-Configure your source blocks for SyntaxHighlighter like this:
-
-#+NAME: org_gcr_2019-03-06T17-15-24-06-00_cosmicality_97FBBAF4-3169-4F86-9E52-E085EF9A9BD4
-#+begin_src org
-,#+attr_wp: :syntaxhl light="true"
-,#+begin_src shell
-echo hi
-,#+end_src
-#+end_src
-
-The =:syntaxhl= property tells Org2Blog that everything following it is a
-configuration parameter for SyntaxHighlighter. Those values get passed on.
-
-The =#+ATTR_WP= line immediately *must* immediately precede the =#+BEGIN_SRC= line.
 
 Sometimes your source block contents cause this plugin to do the unexpected.
 It will look at best horrible and more likely just wrong. Then to put it
