@@ -88,7 +88,11 @@ it will be “1” or above.
 The most likely case for bloggers is a single “site” setup.
 Therefore after you login and Org2Blog can’t find an ‘:id’,
 then it defaults to this value: it defaults to “1”.
-“1”.")
+“1”.
+
+The blog specific property is: :id
+
+Example: An integer defined by a string.")
 
 (defconst owp--deprecation "2.0.0"
   "Release in which obselete objects will be removed.")
@@ -162,10 +166,18 @@ then it defaults to this value: it defaults to “1”.
   "List of WP pages.")
 
 (defvar owp-xmlrpc nil
-  "WordPress server XML-RPC URL.")
+  "WordPress server XML-RPC URL.
+
+The blog specific property is: :url
+
+Example: \"https://www.wisdomandwonder.com/xmlrpc.php\"")
 
 (defvar owp-username nil
-  "WordPress server user id.")
+  "WordPress server user id.
+
+The blog specific property is: :url
+
+Example: \"admin\"")
 
 (defvar owp-blogid nil
   "WordPress Blog ID.")
@@ -215,7 +227,12 @@ Look at `org-export-options-alist' for the available options.
 Also, note that these options are over-ridden by in-file
 options.")
 
-(defvar owp-password nil)
+(defvar owp-password nil
+  "WordPress user password.
+
+The blog specific property is: :password
+
+Example: \"bilbo\"")
 
 (defvar owp-step-time 0.2 "Number of seconds to sleep between actions.
 
@@ -249,44 +266,34 @@ When a property is given a value in org2blog/wp-blog-alist, its
 setting overrides the value of the corresponding user
 variable (if any) during publishing.
 
-Most properties are optional, but some should always be set:
-
-  :url                     xmlrpc url of the blog.
-  :username                blog username
+:url and :username are required.
 
 All the other properties are optional. They over-ride the global variables.
+:group 'org2blog/wp
+  :type '(alist :value-type plist)
 
-  :password                password to be used
-  :default-title           `org2blog/wp-default-title'
-  :default-categories      `org2blog/wp-default-categories'
-                           Use a list of categories.
-                           (\"category1\" \"category2\" ...)
-  :default-title-sub       `org2blog/wp-default-title-subtree'
-  :default-categories-sub  `org2blog/wp-default-categories-subtree'
-                           Use a list of categories.
-                           (\"category1\" \"category2\" ...)
-  :tags-as-categories      `org2blog/wp-use-tags-as-categories'
-  :confirm                 `org2blog/wp-confirm-post'
-  :safe-trash              `org2blog/wp-safe-trash'
-  :safe-new-entry-buf-kill `org2blog/wp-safe-new-entry-buffer-kill'
-  :show                    `org2blog/wp-show-post-in-browser'
-  :keep-new-lines          `org2blog/wp-keep-new-lines'
-  :wp-latex                `org2blog/wp-use-wp-latex'
-  :wp-code                 `org2blog/wp-use-sourcecode-shortcode'
-  :track-posts             `org2blog/wp-track-posts'
-                           Use a two item list.
-                           (list \".org2blog.org\")
-  :id                      ‘owp-blogid’"
-  :group 'org2blog/wp
-  :type '(alist :value-type plist))
+Example:
+(\"myblog\"
+  :url \"https://www.wisdomandwonder.com/xmlrpc.php\"
+  :username username
+  :password password
+  :confirm t)")
 
 (defcustom org2blog/wp-default-categories '("Uncategorized" "Hello")
-  "Default list of categories for a new buffer entry."
+  "Default list of categories for a new buffer entry.
+
+The blog specific property is: :default-categories
+
+Example: '(\"category 1\" \"category 2\")"
   :group 'org2blog/wp
   :type '(repeat string))
 
 (defcustom org2blog/wp-default-categories-subtree '("Uncategorized" "Hello")
-  "Default list of categories for a new subtree entry."
+  "Default list of categories for a new subtree entry.
+
+The blog specific property is: :default-categories-sub
+
+Example: See default value."
   :group 'org2blog/wp
   :type '(repeat string))
 
@@ -324,32 +331,56 @@ It is passed to ‘format’ with 3 string arguments:
   :type 'function)
 
 (defcustom org2blog/wp-default-title "Hello, Buffer"
-  "Title of a newly generated buffer entry."
+  "Title of a newly generated buffer entry.
+
+The blog specific property is: :default-title
+
+Example: See default value."
   :group 'org2blog/wp
   :type 'string)
 
 (defcustom org2blog/wp-default-title-subtree "Hello, Subtree"
-  "Title of a newly generated subtree entry."
+  "Title of a newly generated subtree entry.
+
+The blog specific property is: :default-title-sub
+
+Example: See default value"
   :group 'org2blog/wp
   :type 'string)
 
 (defcustom org2blog/wp-use-tags-as-categories nil
-  "Non-nil means assign :tags: to Wordpress categories instead."
+  "Non-nil means assign :tags: to Wordpress categories instead.
+
+The blog specific property is: :tags-as-categories
+
+Example: A Boolean value."
   :group 'org2blog/wp
   :type 'boolean)
 
 (defcustom org2blog/wp-confirm-post nil
-  "Non-nil means confirm before Publishing a post or page."
+  "Non-nil means confirm before Publishing a post or page.
+
+The blog specific property is: :confirm
+
+Example: A Boolean value."
   :group 'org2blog/wp
   :type 'boolean)
 
 (defcustom org2blog/wp-safe-trash t
-  "Non-nil means confirm before Trashing a post or page."
+  "Non-nil means confirm before Trashing a post or page.
+
+The blog specific property is: :safe-trash
+
+Example: A Boolean value."
   :group 'org2blog/wp
   :type 'boolean)
 
 (defcustom org2blog/wp-safe-new-entry-buffer-kill t
-  "Non-nil means confirm before killing a new entry buffer."
+  "Non-nil means confirm before killing a new entry buffer.
+
+The blog specific property is: :safe-new-entry-buf-kill
+
+Example: A Boolean value."
   :group 'org2blog/wp
   :type 'boolean)
 
@@ -378,7 +409,7 @@ This variable is a symbol with options:
           blogged before then this is the easiest and least
           surprising approach.
 
-If you want to configure this value per-blog then use the option :SHOW."
+The blog specific property is: :show"
   :group 'org2blog/wp
   :type 'symbol)
 
@@ -387,17 +418,27 @@ If you want to configure this value per-blog then use the option :SHOW."
 
 When Org mode exports to HTML it removed line endings so
 the web page “looks right”. If for some reason you don’t
-what that typical behavior set this to program t."
+what that typical behavior set this to program `t'.
+
+The blog specific property is: :keep-new-lines
+
+Example: A boolean value."
   :group 'org2blog/wp
   :type 'boolean)
 
 (defcustom org2blog/wp-use-sourcecode-shortcode nil
-  "Non-nil means convert <pre> tags to WP sourcecode blocks."
+  "Non-nil means convert <pre> tags to WP sourcecode blocks.
+
+The blog specific property is: :wp-code"
   :group 'org2blog/wp
   :type 'boolean)
 
 (defcustom org2blog/wp-use-wp-latex t
-  "Non-nil means convert LaTeX to WP LaTeX blocks."
+  "Non-nil means convert LaTeX to WP LaTeX blocks.
+
+The blog specific property is: :wp-latex
+
+Example: A boolean value."
   :group 'org2blog/wp
   :type 'boolean)
 
@@ -423,7 +464,11 @@ Read more about this here:
 
 .org file in which to save logs about posts, and
 corresponding headline in file under which the logs should
-be added."
+be added.
+
+The blog specific property is: :track-posts
+
+Example: See default value."
   :group 'org2blog/wp
   :type '(list string string))
 

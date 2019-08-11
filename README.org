@@ -647,8 +647,8 @@ configuration. It would look something like this
 #+begin_src emacs-lisp
 ("myblog"
  :url "https://www.wisdomandwonder.com/xmlrpc.php"
- :username ,username
- :password ,password
+ :username username
+ :password password
  :confirm t)
 #+end_src
 
@@ -656,6 +656,12 @@ You probably noticed that the name of the global variable is a lot bigger than
 the name for configuring the individual blog. That is done in the interest of
 brevity. Also if you are overriding a global value then you already know a
 lot about it and don't need to see it's full name again.
+
+Most variables are optional but there are two variables that *must* be
+configured within this system:
+
+- Global ~owp-xmlrpc~ or blog specific ~:url~
+- Global ~owp-username~ or blog specific ~:username~
 
 An easy way to work with the difference between the global variable name and
 the blog specific name is to read the documentation for the global variable.
