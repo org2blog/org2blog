@@ -692,11 +692,12 @@ included in the post too.
 Warning: Source blocks do not work inside of plain lists.
 
 Out of the box source blocks are converted into =<pre>= tags. This is the most
-simple and durable approach: it is plain old HTML.
+simple and durable approach: it is plain old HTML. And another option is to
+SyntaxHighlighter Evolved.
 
-Another option is to SyntaxHighlighter Evolved.
+Here is how they look and work.
 
-Here is the sample post:
+**** Plain Source Box Format
 
 #+name: org_gcr_2019-08-10T12-52-53-05-00_cosmicality_81A873BE-82E4-4F01-91B3-282C181CC02F
 #+begin_src org
@@ -707,9 +708,7 @@ Here is the sample post:
 ,#+end_src
 #+end_src
 
-**** Plain Source Box Format
-
-Without SyntaxHighlighter Evolved disabled:
+With SyntaxHighlighter Evolved disabled:
 
 **** SyntaxHighlighter Evolved
 
