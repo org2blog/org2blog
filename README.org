@@ -32,7 +32,8 @@ Blog from Org mode to WordPress.
       -  [[#uploading-images][Uploading Images]]
       -  [[#supported-properties][Supported Properties]]
       -  [[#tying-it-all-together][Tying It All Together]]
-    -  [[#additional-functionality][Additional Functionality]]
+    -  [[#more-functionality][More Functionality]]
+      -  [[#global-and-blog-specific-configuration][Global And Blog Specific Configuration]]
       -  [[#inserting-things][Inserting Things]]
       -  [[#source-blocks][Source Blocks]]
       -  [[#mathjax-support][MathJax Support]]
@@ -41,12 +42,16 @@ Blog from Org mode to WordPress.
       -  [[#using-entry-templates][Using Entry Templates]]
       -  [[#tracking-entries][Tracking Entries]]
       -  [[#doing-things-after-saving-and-publishing][Doing Things After Saving And Publishing]]
+    -  [[#the-huge-power-of-customizations][The Huge Power Of Customizations]]
     -  [[#some-questions-and-some-answers][Some Questions And Some Answers]]
       -  [[#why-does-org2blog-talk-about-save-view-publish-and-trash-so-much][Why Does Org2Blog Talk About Save, View, Publish, And Trash So Much?]]
       -  [[#why-does-org2blog-talk-about-buffers-subtrees-posts-and-pages-so-much][Why Does Org2blog Talk About Buffers, Subtrees, Posts, And Pages So Much?]]
       -  [[#why-isnt-the-package-name-orgwordpress][Why Isn't The Package Name OrgWordpress?]]
       -  [[#what-is-metaweblog-and-why-is-it-in-org2blog][What Is MetaWeblog And Why Is It In Org2Blog?]]
       -  [[#why-does-org2blog-use-both-the-xml-rpc-metaweblog-and-wordpress-api][Why does Org2Blog Use Both The XML-RPC MetaWeblog and WordPress API]]
+  -  [[#sample-posts][Sample Posts]]
+    -  [[#buffer-post][Buffer Post]]
+    -  [[#subtree-post][Subtree Post]]
   -  [[#changelog][Changelog]]
   -  [[#credits][Credits]]
   -  [[#when-things-go-wrong][When Things Go Wrong]]
@@ -1094,6 +1099,48 @@ Both APIs are required to get the job done.
 
 For historical reasons the WordPress API client is implemented inside of
 =metaWeblog=.
+
+* Sample Posts
+
+There are so many ways to work with posts. Here are some real world examples.
+
+** Buffer Post
+
+#+name: org_gcr_2019-08-10T12-52-53-05-00_cosmicality_C94EF540-A6A5-4148-B365-CE5F217F55FB
+#+begin_src org
+,#+BLOG: wisdomandwonder
+,#+POSTID: 11659
+,#+ORG2BLOG:
+,#+DATE: [2019-02-01 Fri 19:38]
+,#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
+,#+CATEGORY: Emacs,
+,#+TAGS: MathJax, Org2Blog, Org mode, WordPress
+,#+TITLE: Blogging With Emacs🐃 From Org2Blog🦄 to WordPress
+
+[mathjax]
+
+Blogging from Org2Blog to WordPress /just works/ and that is just about all
+there is to it. All of the markup works. Even MathJax works:
+#+end_src
+
+** Subtree Post
+
+#+name: org_gcr_2019-08-10T12-52-53-05-00_cosmicality_FDFDFCA0-614F-4C6A-8B38-ACC1D3A4118B
+#+begin_src org
+,* VIM Changes Acronym to "VIM Imitates eMacs"
+:PROPERTIES:
+:BLOG:     wisdomandwonder
+:DATE: [2019-03-21 Thu 07:09]
+:OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
+:CATEGORY: Emacs,
+:POST_TAGS: emacs
+:ID:       o2b:3F021C4E-E80A-4DD4-AA13-A91835F0023D
+:POST_DATE: [2019-03-21 Thu 07:26]
+:POSTID:   12271
+:END:
+
+I ran ~M-x butterfly~ and we both smiled as VIM and Emacs converge.
+#+end_src
 
 * Changelog
 :properties:
