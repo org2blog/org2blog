@@ -1102,7 +1102,8 @@ For historical reasons the WordPress API client is implemented inside of
 
 * Sample Posts
 
-There are so many ways to work with posts. Here are some real world examples.
+There are so many ways to work with posts. Here are some real world examples
+to demonstrate how the features are implemented in a real entry.
 
 ** Buffer Post
 
