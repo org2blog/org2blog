@@ -208,6 +208,10 @@ These are commands that insert markup into your post.
     - Start a separate Emacs instance with an awareness of how Emacs is loading
       Org2Blog from where
 
+* Documentation
+
+- [ ] README.org contains information for defcustoms
+
 * Documents
 
 - [ ] Spell check
