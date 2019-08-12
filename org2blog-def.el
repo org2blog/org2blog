@@ -57,8 +57,7 @@
   (owp--update-readme)
   (owp--update-header)
   (owp--update-pkg)
-  (owp--update-oxwp)
-  (owp--update-build))
+  (owp--update-oxwp))
 
 (defun owp--update-readme ()
   "Update README.org"
@@ -137,16 +136,6 @@
 "
       (owp--pkg "emacs")
       (owp--pkg "org")))))
-
-(defun owp--update-build ()
-  "Update build.sh."
-  (interactive)
-  (find-file "build.sh")
-  (save-excursion
-    (goto-char (point-min))
-    (re-search-forward "local version")
-    (kill-whole-line 1)
-    (insert (format "  local version=\"%s\"\n" (owp--pkg "version")))))
 
 (defun owp-checkout-statement ()
   "Create Git checkout commands for system code and packages into INSTALL-DIR.

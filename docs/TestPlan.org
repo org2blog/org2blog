@@ -183,7 +183,6 @@ These are commands that insert markup into your post.
   - [ ] org2blog.el
   - [ ] org2blog-pkg.el
   - [ ] ox-wp.el
-  - [ ] build.sh
 
 * Installation
 

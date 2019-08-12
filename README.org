@@ -21,7 +21,7 @@ Blog from Org mode to WordPress.
     -  [[#requirements-and-compatibility][Requirements And Compatibility]]
     -  [[#using-a-package][Using A Package]]
       -  [[#use-package--melpa][Use-Package & MELPA]]
-      -  [[#using-this-projects-package][Using This Project's Package]]
+      -  [[#building-this-projects-package][Building This Project's Package]]
     -  [[#setting-up-the-source-code-by-hand][Setting Up The Source Code By Hand]]
   -  [[#usage][Usage]]
     -  [[#make-your-first-post-in-less-5-minutes][Make Your First Post In Less 5 Minutes]]
@@ -97,21 +97,17 @@ Take some time to read more about Use-Package. You can use as little or as
 much as you find helpful: it accommodates just about any Init style you can
 throw at it.
 
-*** Using This Project's Package
+*** Building This Project's Package
 
-Self-publishing has two benefits:
+MELPA creates Org2Blog's package using [[https://github.com/melpa/melpa/blob/master/recipes/org2blog][this recipe]]. The easiest way for you to
+build a package locally is to use it locally. Here is how:
 
-- You can download it from here and install it using Emacs's package manager
-- It is fun to build the package yourself to see how it works. Relative to
-  this project it is the best way to figure out what you really want in it and
-  /then/ set up your MELPA [[https://github.com/melpa/melpa#recipe-format][rec and install this one instead.
-- Run the command ~package-install-file~
-- Choose the TAR file you just downloaded
-
-The Emacs package manager will add it's artifacts to the load path, generate
-the =autoloads=, and might store a note in your =custom= file depending on your
-configuration.
-
+- Clone the [[https://github.com/melpa/melpa][MELPA repo]]
+- Read about how to [[https://github.com/melpa/melpa/blob/master/CONTRIBUTING.org#test-your-recipe][build a recipe]]
+- Make sure that you are using the correct Emacs version (see requirements
+  above) either in your path or editing the reciple
+- Open the Org2Recipe and build it
+  
 ** Setting Up The Source Code By Hand
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:3386D277-56FD-4D2F-BE0C-56553541CD25
