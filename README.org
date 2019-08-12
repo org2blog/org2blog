@@ -35,6 +35,7 @@ Blog from Org mode to WordPress.
     -  [[#more-functionality][More Functionality]]
       -  [[#global-and-blog-specific-configuration][Global And Blog Specific Configuration]]
       -  [[#inserting-things][Inserting Things]]
+      -  [[#confirming-things][Confirming Things]]
       -  [[#source-blocks][Source Blocks]]
       -  [[#latex-support][LaTeX Support]]
       -  [[#migrating-org-mode-files-to-org2blog-files][Migrating Org Mode Files To Org2Blog Files]]
@@ -319,6 +320,60 @@ way to do it.
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:A1DC8316-20E1-4188-AA22-E2F1CD62EC08
 :END:
+**** Just Writing
+:PROPERTIES:
+:ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:CF77828B-1078-4A5E-A9A4-25C5D554EF70
+:END:
+
+***** Your Second Buffer Post
+
+Perhaps you know some defaults you want for every kind of entry. When you
+are ready configure them see these variables and functions:
+- `org2blog/wp-default-categories`
+- `org2blog/wp-default-categories-subtree`
+- `org2blog/wp-buffer-template`
+- `org2blog/wp-buffer-format-function`
+- `org2blog/wp-default-title`
+- `org2blog/wp-default-title-subtree`
+
+With your configuration ready, start creating the post.
+
+Start by creating a =UI [New Buffer]=. A template is used to populate your
+entry. When you =UI [Login]= Org2Blog learns about your Categories, Tags, and
+Pages. Position the cursor on one of those lines and =UI [Complete]= to either
+choose a value or complete a value that you began typing. If you want one you
+can add a =#+DESCRIPTION= and a =#+PERMALINK= too.
+
+Org2Blog includes some helpers for inserting content into your entry under the
+=UI [“Insert A”]= menu:
+
+- =UI [More Tag]=: The WordPress "Read More" tag. Org2Blog will ask if you want
+  to use a message inside of it, too.
+- =UI [MathJax Shortcode]=: If you want to use [[https://www.mathjax.org/][MathJax]], this lets you do it.
+- =UI [“LaTeX” Name]=: Prove that MathJax is working.
+- =UI [Link To Post]=: Insert a link to a post from a list of posts on /your blog/.
+- =UI [Link To Page]=: Insert a link to a page from a list of posts on /your blog/.
+- =UI [#+ORG2BLOG]=: If your entry doesn't have the special tag, then it will
+  insert it.
+
+When you are ready save your new post. Open the main menu by calling
+~owp-user-interface~. Since you just created a buffer entry look at the menu
+items under the Buffers column and find the operation that you want to
+perform. Your first step here is =UI [Save Post Draft]=. This Saves your post on
+your blog. The language here is important: everything you do using the menu is
+phrased how you will be working on the blog itself and the actions you would
+be performing there. Next do =UI [View Post]= to bring up a web browser so you
+can read and review your post. From here you can iterate through your writing
+process until you finally =UI [Publish Post]=.
+
+***** Your First Buffer Page
+
+Working with pages is virtually identical to working with posts for a good
+reason: WordPress sees them as nearly the same thing and Org2Blog does too.
+The only difference is in one place: when you work with your page use the
+functions that have Page in the name.
+
+In the walk-through here that means using =UI [Save Page Draft]= and so on.
 
 **** Automatically Configuring Your Environment
 :PROPERTIES:
@@ -396,51 +451,10 @@ Then, configure your blog using those credentials, as shown below.
   (setq org2blog/wp-blog-alist config))
 #+END_SRC
 
-**** Just Writing
-:PROPERTIES:
-:ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:CF77828B-1078-4A5E-A9A4-25C5D554EF70
-:END:
-
-***** Your Second Buffer Post
-
-With your configuration ready, start creating the post.
-
-Start by creating a =UI [New Buffer]=. A template is used to populate your
-entry. When you =UI [Login]= Org2Blog learns about your Categories, Tags, and
-Pages. Position the cursor on one of those lines and =UI [Complete]= to either
-choose a value or complete a value that you began typing. If you want one you
-can add a =#+DESCRIPTION= and a =#+PERMALINK= too.
-
-Org2Blog includes some helpers for inserting content into your entry under the
-=UI [“Insert A”]= menu:
-
-- =UI [More Tag]=: The WordPress "Read More" tag. Org2Blog will ask if you want
-  to use a message inside of it, too.
-- =UI [MathJax Shortcode]=: If you want to use [[https://www.mathjax.org/][MathJax]], this lets you do it.
-- =UI [“LaTeX” Name]=: Prove that MathJax is working.
-- =UI [Link To Post]=: Insert a link to a post from a list of posts on /your blog/.
-- =UI [Link To Page]=: Insert a link to a page from a list of posts on /your blog/.
-- =UI [#+ORG2BLOG]=: If your entry doesn't have the special tag, then it will
-  insert it.
-
-When you are ready save your new post. Open the main menu by calling
-~owp-user-interface~. Since you just created a buffer entry look at the menu
-items under the Buffers column and find the operation that you want to
-perform. Your first step here is =UI [Save Post Draft]=. This Saves your post on
-your blog. The language here is important: everything you do using the menu is
-phrased how you will be working on the blog itself and the actions you would
-be performing there. Next do =UI [View Post]= to bring up a web browser so you
-can read and review your post. From here you can iterate through your writing
-process until you finally =UI [Publish Post]=.
-
-***** Your First Buffer Page
-
-Working with pages is virtually identical to working with posts for a good
-reason: WordPress sees them as nearly the same thing and Org2Blog does too.
-The only difference is in one place: when you work with your page use the
-functions that have Page in the name.
-
-In the walk-through here that means using =UI [Save Page Draft]= and so on.
+#+RESULTS: org_gcr_2019-03-06T17-15-24-06-00_cosmicality_9A6BC3D1-4227-4F4B-815C-779B1EC10724
+#+BEGIN_EXAMPLE
+("wordpress" :url "http://username.server.com/xmlrpc.php" :username nil :password nil)
+#+END_EXAMPLE
 
 *** Use Subtrees To Store Multiple Posts In One File
 :PROPERTIES:
@@ -510,6 +524,11 @@ Org2Blog automatically inserts the correct URL of the file out on your blog
 for you just like you had done it yourself. Remember that if you trash your
 post the attachment will still be in your blog.
 
+Customize `org2blog/wp-image-thumbnail-size` to specify the default thumbnail
+size. 
+
+Enable `org2blog/wp-image-thumbnails` to link to the full size image.
+
 *** Supported Properties
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:C88F5A1B-4431-4CAD-BABB-BE24BEEB088B
@@ -562,7 +581,7 @@ the property name and its value.
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:1364F0E7-582A-4A40-A32F-A8B839A76C45
 :END:
 
-After plarying around a little bit you should have a better sense of what is
+After playing around a little bit you should have a better sense of what is
 possible. The following are some key points that will tie everything together:
 
 - Org2Blog's fundamental approach to configuration simple. When you configure
@@ -626,6 +645,10 @@ Org2Blog also helps you do many more good things. See below.
 
 *** Global And Blog Specific Configuration
 
+See `org2blog/wp-blog-alist` to learn about how to
+configure any number of your blogs. You've already seen example of the
+configure this value and the documentation goes into more detail. 
+
 There are two ways of configuring features: global and blog specific.
 
 If you know that you want a feature configured the same way for every blog in
@@ -672,7 +695,14 @@ menu item =UI [“Insert A”]= captures some of them. You can get the help on t
 for more details and play around with inserting them too. You will be pretty
 surprised as how often you end up using them:
 
-#  TODO Insert screencast here
+*** Confirming Things
+
+Sometimes you want to be prompted before doing things. Here are some of the
+possiblities see:
+- `org2blog/wp-confirm-post`
+- `org2blog/wp-safe-trash`
+- `org2blog/wp-safe-new-entry-buffer-kill`
+- `org2blog/wp-show-post-in-browser`
 
 *** Source Blocks
 :PROPERTIES:
@@ -794,6 +824,11 @@ THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:CB9F8F24-278D-4B79-A1A7-72AC7C051DC1
 :END:
+
+**** WordPress LaTeX
+
+WordPress has LaTeX support [[https://en.support.wordpress.com/latex/][built-in]]. `org2blog/wp-use-wp-latex` is enabled by
+default. 
 
 **** MathJax
 
