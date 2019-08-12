@@ -983,6 +983,7 @@ Or in your blog config
                   :url "https://www.wisdomandwonder.com/xmlrpc.php"
                   :username ,username
                   :password ,password
+                  :track-posts ,track-posts
                   :confirm t))))
   (setq org2blog/wp-blog-alist config))
 #+end_src
