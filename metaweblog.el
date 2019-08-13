@@ -33,7 +33,7 @@
 ;; https://codex.wordpress.org/XML-RPC_WordPress_API
 
 ;; This API operates against a blog using its RPC endpoint URL ‘BLOG-XMLRPC',
-;; a user name `_USER-NAME', a password `PASSWORD', and a blog ID ‘BLOG-ID'.
+;; a user name `USER-NAME', a password `PASSWORD', and a blog ID ‘BLOG-ID'.
 ;; These parameters are used for every API call. When their intention is
 ;; obvious and as expected they are excluded from documentation by
 ;; including them in line at the end of the docstring only to satisfy
