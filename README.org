@@ -524,10 +524,10 @@ Org2Blog automatically inserts the correct URL of the file out on your blog
 for you just like you had done it yourself. Remember that if you trash your
 post the attachment will still be in your blog.
 
-Customize `org2blog/wp-image-thumbnail-size` to specify the default thumbnail
+Customize ~org2blog/wp-image-thumbnail-size~ to specify the default thumbnail
 size. 
 
-Enable `org2blog/wp-image-thumbnails` to link to the full size image.
+Enable ~org2blog/wp-image-thumbnails~ to link to the full size image.
 
 *** Supported Properties
 :PROPERTIES:
@@ -645,7 +645,7 @@ Org2Blog also helps you do many more good things. See below.
 
 *** Global And Blog Specific Configuration
 
-See `org2blog/wp-blog-alist` to learn about how to
+See ~org2blog/wp-blog-alist~ to learn about how to
 configure any number of your blogs. You've already seen example of the
 configure this value and the documentation goes into more detail. 
 
@@ -699,10 +699,10 @@ surprised as how often you end up using them:
 
 Sometimes you want to be prompted before doing things. Here are some of the
 possiblities see:
-- `org2blog/wp-confirm-post`
-- `org2blog/wp-safe-trash`
-- `org2blog/wp-safe-new-entry-buffer-kill`
-- `org2blog/wp-show-post-in-browser`
+- ~org2blog/wp-confirm-post~
+- ~org2blog/wp-safe-trash~
+- ~org2blog/wp-safe-new-entry-buffer-kill~
+- ~org2blog/wp-show-post-in-browser~
 
 *** Source Blocks
 :PROPERTIES:
@@ -827,7 +827,7 @@ THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
 
 **** WordPress LaTeX
 
-WordPress has LaTeX support [[https://en.support.wordpress.com/latex/][built-in]]. `org2blog/wp-use-wp-latex` is enabled by
+WordPress has LaTeX support [[https://en.support.wordpress.com/latex/][built-in]]. ~org2blog/wp-use-wp-latex~ is enabled by
 default. 
 
 **** MathJax
