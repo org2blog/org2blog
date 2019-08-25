@@ -142,6 +142,13 @@ And this
 (require 'htmlize)
 #+END_SRC
 
+Finally automatically update this document Table of Contents by adding this
+hook to Org mode:
+
+#+BEGIN_SRC emacs-lisp
+(add-hook 'org-mode-hook #'toc-org-mode)
+#+END_SRC
+
 Now you've got everything you need to run Org2Blog against its source code.
 With this set up you can start playing around with things and even making
 changes. When you scratch and itch, create your branch, and submit a pull
