@@ -1,3 +1,4 @@
+
 #+begin_html
 <a href=https://alphapapa.github.io/dont-tread-on-emacs/><img src="https://raw.githubusercontent.com/alphapapa/org-make-toc/master/dont-tread-on-emacs-150.png" align="right"></a>
 #+end_html
@@ -1282,6 +1283,8 @@ around it.
 :END:
 
 - Activities
+  - You may have already set up your codebase to /run/ Org2Blog but if you
+    haven't then find out how up in the Installation section.
   - [[./docs/ReleaseProcess.org][Release Process]].
   - [[./docs/CONTRIBUTING.org][Contributing]].
   - [[./docs/TestPlan.org][Test Plan]].
