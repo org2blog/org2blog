@@ -14,7 +14,7 @@
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
 ;; Version: 1.1.0
-;; Package-Requires: ((emacs "26.2") (htmlize "1.55") (hydra "0.14.0") (xml-rpc "1.6.12"))
+;; Package-Requires: ((emacs "26.2") (htmlize "1.55") (hydra "0.14.0") (toc-org "1.0") (xml-rpc "1.6.12"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
 
@@ -820,12 +820,12 @@ Use like this:
 ."
   (catch 'return
     (let* ((save-buffer? (and (owp--blog-property-or
-                               :safe-new-entry-buf-kill
-                               org2blog/wp-safe-new-entry-buffer-kill)
-                              (not (buffer-file-name))
-                              (y-or-n-p
-                               (concat "This entry hasn’t been saved to a file yet. "
-                                       "Should I save it to a file?"))))
+                             :safe-new-entry-buf-kill
+                             org2blog/wp-safe-new-entry-buffer-kill)
+                            (not (buffer-file-name))
+                            (y-or-n-p
+                             (concat "This entry hasn’t been saved to a file yet. "
+                                     "Should I save it to a file?"))))
            (published? (when save-buffer?
                          (y-or-n-p
                           (concat "I’m about to try to save the details "
@@ -1012,7 +1012,7 @@ See messages below for details."
           (or
            blog-name
            (and (equal (length org2blog/wp-blog-alist) 1)
-              (car (car org2blog/wp-blog-alist)))
+                (car (car org2blog/wp-blog-alist)))
            (completing-read
             "What blog would you like to log in to? ([Tab] to see list): "
             (mapcar 'car org2blog/wp-blog-alist) nil t)))
@@ -1572,7 +1572,7 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
          (post "-->@@")
          (msg (string-trim (read-string "“More” message? (hit return to leave blank): ")))
          (str (or (and (string-blank-p msg) (concat pre post))
-                 (concat pre " " msg post))))
+                  (concat pre " " msg post))))
     (insert str)))
 
 ;;;###autoload
@@ -2029,12 +2029,12 @@ at mode start time and after the user re-configures it."
          (mapcar
           (lambda (cat)
             (if (and (not (seq-contains owp-categories cat))
-                   (y-or-n-p
-                    (format
-                     (concat "Would you like to "
-                             "create the a new "
-                             "category named: “%s”?")
-                     cat)))
+                     (y-or-n-p
+                      (format
+                       (concat "Would you like to "
+                               "create the a new "
+                               "category named: “%s”?")
+                       cat)))
                 (condition-case-unless-debug err
                     (wp-new-category
                      owp-xmlrpc
@@ -2294,7 +2294,7 @@ URL`https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.newPost'"
             (make-directory (file-name-directory log-file) t)
             (when o2b-id
               (with-current-buffer (or (find-buffer-visiting log-file)
-                                      (find-file-noselect log-file))
+                                       (find-file-noselect log-file))
                 (save-excursion
                   (save-restriction
                     (widen)

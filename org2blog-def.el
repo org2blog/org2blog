@@ -36,6 +36,7 @@
     (puthash "requirements"
              '((htmlize "1.55" "https://github.com/hniksic/emacs-htmlize.git")
                (hydra "0.14.0" "https://github.com/abo-abo/hydra.git")
+               (toc-org "1.0" "https://github.com/snosov1/toc-org.git")
                (xml-rpc "1.6.12" "https://github.com/hexmode/xml-rpc-el.git"))
              p)
     (puthash "keywords" '("comm" "convenience" "outlines" "wp") p)
