@@ -142,7 +142,7 @@ And this
 (require 'htmlize)
 #+END_SRC
 
-Finally automatically update this document Table of Contents by adding this
+Finally automatically update this document's Table of Contents by adding this
 hook to Org mode:
 
 #+BEGIN_SRC emacs-lisp
