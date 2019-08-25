@@ -210,10 +210,9 @@ These are commands that insert markup into your post.
 
 * Documentation
 
-- [ ] README.org contains information for defcustoms
-
-* Documents
-
+- [ ] README.org
+  - [ ] Contains information for defcustoms
+  - [ ] Table of Contents has been rebuilt
 - [ ] Spell check
 
 ** README
