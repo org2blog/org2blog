@@ -25,16 +25,14 @@
 
 ;; Read about how this exporter works here URL ‘https://orgmode.org/manual/Adding-export-back_002dends.html/’
 
-;;; Code:
+;;;; Code
 
-
 
 ;;; Require
 
 (eval-when-compile (require 'cl))
 (require 'ox-html)
 
-
 
 ;;; Group
 (defgroup org-export-wp nil
@@ -44,7 +42,7 @@
   :version "26.2"
   :package-version '(Org . "9.2.2"))
 
-;;; Fun - Public
+;;; Function - Public
 
 ;;;###autoload
 (defun org-wp-export-as-wordpress (&optional async subtreep ext-plist)
@@ -79,11 +77,7 @@ Delegateswork to `org-wp-export-as-wordpress'."
       (kill-buffer)
       text)))
 
-
-
-;;;; Fun - Private
-
-
+;;; Functions - Private
 
 ;;; Back-End
 
@@ -121,22 +115,22 @@ Delegateswork to `org-wp-export-as-wordpress'."
   (let* ((langval (org-element-property :language src-block))
          (langs (plist-get info :wp-shortcode-langs-map))
          (lang (or (cdr (assoc langval langs))
-                   (when langval (downcase langval))
-                   "text"))
+                  (when langval (downcase langval))
+                  "text"))
          (footnote (format
                     (org-html--translate "Listing %d" info)
                     (org-export-get-ordinal
                      src-block info nil #'org-html--has-caption-p)))
          (name (or (org-element-property :name src-block)
-                   (org-export-get-reference src-block info)))
+                  (org-export-get-reference src-block info)))
          (cap (and (org-export-get-caption src-block)
-                   (org-trim (org-export-data
-                              (org-export-get-caption src-block)
-                              info))))
+                 (org-trim (org-export-data
+                            (org-export-get-caption src-block)
+                            info))))
          (title (format "%s. Name: %s. %s"
                         footnote name (if cap (concat cap ".") "")))
          (syntaxhl (or (org-export-read-attribute :attr_wp src-block :syntaxhl)
-                       ""))
+                      ""))
          (srccode (org-export-format-code-default src-block info))
          (result
           (format
@@ -154,10 +148,10 @@ Delegateswork to `org-wp-export-as-wordpress'."
       (let (result (org-html--textarea-block src-block))
         (throw 'return result)))
     (let* ((name (or (org-element-property :name src-block)
-                     (org-export-get-reference src-block info)))
+                    (org-export-get-reference src-block info)))
            (caption (or (org-export-data
-                         (org-export-get-caption src-block)
-                         info)))
+                        (org-export-get-caption src-block)
+                        info)))
            (lang (org-element-property :language src-block))
            (code (org-html-format-code src-block info))
            (footnote (format
@@ -207,10 +201,6 @@ contextual information."
       (org-html-latex-fragment latex-fragment contents info)
     (let ((latex-frag (org-element-property :value latex-fragment)))
       (org-wp-latex-to-wp latex-frag))))
-
-
-
-;; Misc
 
 (defun org-wp-latex-to-wp (text)
   "Convert latex fragments or environments in TEXT to WP LaTeX blocks."
