@@ -37,28 +37,24 @@
 ;; http://www.mail-archive.com/gnu-emacs-sources@gnu.org/msg01576.html
 ;; copyrighted by Ashish Shukla.
 
-;;; Code:
+;;;; Code:
 
-
+;;; Requires
 
-;;; Require
-
-;; External
+;; Packages - External
 
 (require 'htmlize)
 (require 'hydra)
 (require 'xml-rpc)
 
-;; Internal
+;; Packages - Internal
 
 (require 'org)
 (require 'metaweblog)
 (require 'ox-wp)
 (require 'org2blog-def)
 
-
-
-;;; Constant
+;;; Constants
 
 (defconst org2blog/wp-version (owp--pkg "version")
   "Current version of org2blog.el.")
@@ -98,9 +94,7 @@ Example: An integer defined by a string.")
   "Release in which obselete objects will be removed.")
 
 
-
-
-;;; Deprecation
+;;; Deprecations
 
 (mapc (lambda (ls)
         (define-obsolete-function-alias (car ls) (cadr ls) owp--deprecation))
@@ -146,9 +140,7 @@ Example: An integer defined by a string.")
         (org2blog/wp-server-xmlrpc-url owp-xmlrpc)
         (org2blog/wp-tags-list owp-tags)))
 
-
-
-;;; Variable
+;;; Variables
 
 (defvar owp-blog nil
   "Parameters of the currently selected blog.")
@@ -238,17 +230,13 @@ Example: \"bilbo\"")
 
 Must be greater than or equal to 0.2 seconds.")
 
-
-
-;;; Group
+;;; Groups
 
 (defgroup org2blog/wp nil
   "Blog from Org mode to WordPress"
   :group 'org2blog/wp)
 
-
-
-;;; Custom
+;;; Customize
 
 (defcustom org2blog/wp-blog-alist nil
   "User blog definitions.
@@ -514,9 +502,7 @@ here seemed to be a good balance between speed and value(s)."
   :group 'org2blog/wp
   :type 'integer)
 
-
-
-;;; Hydra
+;;; User Interface
 
 (defun owp--hlpf (name)
   "Abstracts displaying information about symbol NAME."
@@ -742,9 +728,7 @@ here seemed to be a good balance between speed and value(s)."
 
   ("q" owp--hydra-main/body "Back"))
 
-
-
-;;; Function - Public
+;;; Functions - Public
 
 (defun owp-readme ()
   "Display project README.org.
@@ -1884,9 +1868,7 @@ If it doesn’t find one then it doesn’t insert it."
                            "you insert it yourself."))
         (insert "#+ORG2BLOG:\n")))))
 
-
-
-;;; Funtion - Private
+;;; Function - Private
 
 (defun owp--load-categories ()
   "Load categories from server.
@@ -2558,8 +2540,6 @@ and munge it a little to make it suitable to use with the
          (all (apply 'concat separated)))
     all))
 
-
-
 ;;; Mode
 
 ;;;###autoload
@@ -2585,9 +2565,7 @@ Entry to this mode calls the value of `owp-mode-hook'."
   (when org2blog/wp-mode
     (run-mode-hooks 'owp-mode-hook)))
 
-
-
-;;;; Initialization
+;;; Initialization
 
 (cond (after-init-time
        (owp--startup-asserts)
