@@ -12,51 +12,63 @@ Blog from Org mode to WordPress.
 
 [[https://www.gnu.org/philosophy/free-sw.html][https://img.shields.io/badge/Libre%20Software-GPLv3-orange.svg]]
 
-* Table of Contents                                                     :TOC_3:QUOTE:
-#+BEGIN_QUOTE
-- [[#about][About]]
-- [[#installation][Installation]]
-  - [[#requirements-and-compatibility][Requirements And Compatibility]]
-  - [[#using-a-package][Using A Package]]
-    - [[#use-package--melpa][Use-Package & MELPA]]
-    - [[#building-this-projects-package][Building This Project's Package]]
-  - [[#setting-up-the-source-code-by-hand][Setting Up The Source Code By Hand]]
-- [[#usage][Usage]]
-  - [[#make-your-first-post-in-less-5-minutes][Make Your First Post In Less 5 Minutes]]
-  - [[#the-6-most-important-next-steps][The 6 Most Important Next Steps]]
-    - [[#helping-yourself-to-the-basics][Helping Yourself To The Basics]]
-    - [[#writing-more-after-you-have-settled-into-the-software][Writing More After You Have "Settled Into" The Software]]
-    - [[#use-subtrees-to-store-multiple-posts-in-one-file][Use Subtrees To Store Multiple Posts In One File]]
-    - [[#uploading-images][Uploading Images]]
-    - [[#supported-properties][Supported Properties]]
-    - [[#tying-it-all-together][Tying It All Together]]
-  - [[#more-functionality][More Functionality]]
-    - [[#global-and-blog-specific-configuration][Global And Blog Specific Configuration]]
-    - [[#inserting-things][Inserting Things]]
-    - [[#confirming-things][Confirming Things]]
-    - [[#source-blocks][Source Blocks]]
-    - [[#latex-support][LaTeX Support]]
-    - [[#migrating-org-mode-files-to-org2blog-files][Migrating Org Mode Files To Org2Blog Files]]
-    - [[#export-wordpress-to-org][Export WordPress to Org]]
-    - [[#using-entry-templates][Using Entry Templates]]
-    - [[#tracking-entries][Tracking Entries]]
-    - [[#doing-things-after-saving-and-publishing][Doing Things After Saving And Publishing]]
-  - [[#the-huge-power-of-customizations][The Huge Power Of Customizations]]
-  - [[#some-questions-and-some-answers][Some Questions And Some Answers]]
-    - [[#why-does-org2blog-talk-about-save-view-publish-and-trash-so-much][Why Does Org2Blog Talk About Save, View, Publish, And Trash So Much?]]
-    - [[#why-does-org2blog-talk-about-buffers-subtrees-posts-and-pages-so-much][Why Does Org2blog Talk About Buffers, Subtrees, Posts, And Pages So Much?]]
-    - [[#why-isnt-the-package-name-orgwordpress][Why Isn't The Package Name OrgWordpress?]]
-    - [[#what-is-metaweblog-and-why-is-it-in-org2blog][What Is MetaWeblog And Why Is It In Org2Blog?]]
-    - [[#why-does-org2blog-use-both-the-xml-rpc-metaweblog-and-wordpress-api][Why does Org2Blog Use Both The XML-RPC MetaWeblog and WordPress API]]
-- [[#sample-posts][Sample Posts]]
-  - [[#buffer-post][Buffer Post]]
-  - [[#subtree-post][Subtree Post]]
-- [[#changelog][Changelog]]
-- [[#credits][Credits]]
-- [[#when-things-go-wrong][When Things Go Wrong]]
-- [[#development][Development]]
-- [[#license][License]]
-#+END_QUOTE
+* Table of Contents
+:PROPERTIES:
+:toc:      all
+:END:
+  -  [[#about][About]]
+  -  [[#table-of-contents][Table of Contents]]
+  -  [[#installation][Installation]]
+    -  [[#requirements-and-compatibility][Requirements And Compatibility]]
+    -  [[#using-a-package][Using A Package]]
+      -  [[#use-package--melpa][Use-Package & MELPA]]
+      -  [[#building-this-projects-package][Building This Project's Package]]
+    -  [[#setting-up-the-source-code-by-hand][Setting Up The Source Code By Hand]]
+  -  [[#usage][Usage]]
+    -  [[#make-your-first-post-in-less-5-minutes][Make Your First Post In Less 5 Minutes]]
+    -  [[#the-6-most-important-next-steps][The 6 Most Important Next Steps]]
+      -  [[#helping-yourself-to-the-basics][Helping Yourself To The Basics]]
+      -  [[#writing-more-after-you-have-settled-into-the-software][Writing More After You Have "Settled Into" The Software]]
+        -  [[#just-writing][Just Writing]]
+          -  [[#your-second-buffer-post][Your Second Buffer Post]]
+          -  [[#your-first-buffer-page][Your First Buffer Page]]
+        -  [[#automatically-configuring-your-environment][Automatically Configuring Your Environment]]
+        -  [[#defining-custom-keybindings][Defining Custom Keybindings]]
+        -  [[#logging-in-faster][Logging In Faster]]
+      -  [[#use-subtrees-to-store-multiple-posts-in-one-file][Use Subtrees To Store Multiple Posts In One File]]
+      -  [[#uploading-images][Uploading Images]]
+      -  [[#supported-properties][Supported Properties]]
+      -  [[#tying-it-all-together][Tying It All Together]]
+    -  [[#more-functionality][More Functionality]]
+      -  [[#global-and-blog-specific-configuration][Global And Blog Specific Configuration]]
+      -  [[#inserting-things][Inserting Things]]
+      -  [[#confirming-things][Confirming Things]]
+      -  [[#source-blocks][Source Blocks]]
+        -  [[#plain-source-box-format][Plain Source Box Format]]
+        -  [[#syntaxhighlighter-evolved][SyntaxHighlighter Evolved]]
+      -  [[#latex-support][LaTeX Support]]
+        -  [[#wordpress-latex][WordPress LaTeX]]
+        -  [[#mathjax][MathJax]]
+      -  [[#migrating-org-mode-files-to-org2blog-files][Migrating Org Mode Files To Org2Blog Files]]
+      -  [[#export-wordpress-to-org][Export WordPress to Org]]
+      -  [[#using-entry-templates][Using Entry Templates]]
+      -  [[#tracking-entries][Tracking Entries]]
+      -  [[#doing-things-after-saving-and-publishing][Doing Things After Saving And Publishing]]
+    -  [[#the-huge-power-of-customizations][The Huge Power Of Customizations]]
+    -  [[#some-questions-and-some-answers][Some Questions And Some Answers]]
+      -  [[#why-does-org2blog-talk-about-save-view-publish-and-trash-so-much][Why Does Org2Blog Talk About Save, View, Publish, And Trash So Much?]]
+      -  [[#why-does-org2blog-talk-about-buffers-subtrees-posts-and-pages-so-much][Why Does Org2blog Talk About Buffers, Subtrees, Posts, And Pages So Much?]]
+      -  [[#why-isnt-the-package-name-orgwordpress][Why Isn't The Package Name OrgWordpress?]]
+      -  [[#what-is-metaweblog-and-why-is-it-in-org2blog][What Is MetaWeblog And Why Is It In Org2Blog?]]
+      -  [[#why-does-org2blog-use-both-the-xml-rpc-metaweblog-and-wordpress-api][Why does Org2Blog Use Both The XML-RPC MetaWeblog and WordPress API]]
+  -  [[#sample-posts][Sample Posts]]
+    -  [[#buffer-post][Buffer Post]]
+    -  [[#subtree-post][Subtree Post]]
+  -  [[#changelog][Changelog]]
+  -  [[#credits][Credits]]
+  -  [[#when-things-go-wrong][When Things Go Wrong]]
+  -  [[#development][Development]]
+  -  [[#license][License]]
 
 * Installation
 :properties:
@@ -150,12 +162,21 @@ And this
 #+name: org_gcr_2019-08-07T18-10-20-05-00_cosmicality_3353D35E-3036-40EE-B175-69057224A796
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "/Users/gcr/mysrc/htmlize")
-(require 'htmlize)
 #+END_SRC
 
 Finally if you make changes to the readme then first install the package
 [[https://github.com/alphapapa/org-make-toc][org-make-toc]] so the table of contents will get automatically updated after you
-make changes.
+make changes. You can also install it by hand like you did the other package,
+like this:
+
+#+BEGIN_SRC sh
+cd ~/src
+git clone https://github.com/alphapapa/org-make-toc.git
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/src/org-make-toc")
+#+END_SRC
 
 Now you've got everything you need to run Org2Blog against its source code.
 With this set up you can start playing around with things and even making
@@ -1214,6 +1235,8 @@ there is to it. All of the markup works. Even MathJax works:
 #+end_src
 
 ** Subtree Post
+:PROPERTIES:
+:END:
 
 #+name: org_gcr_2019-08-10T12-52-53-05-00_cosmicality_FDFDFCA0-614F-4C6A-8B38-ACC1D3A4118B
 #+begin_src org
@@ -1305,3 +1328,10 @@ around it.
 :end:
 
 - [[./LICENSE.txt][GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007]].
+
+# Local Variables:
+# eval: (require 'org-make-toc)
+# before-save-hook: org-make-toc
+# org-export-with-properties: ()
+# org-export-with-title: t
+# End:
