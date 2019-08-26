@@ -145,10 +145,10 @@ Copy them from the *Messages* buffer into your Terminal."
   (interactive)
   (let ((install-dir (read-directory-name "Directory:")))
     (mapcar (lambda (pkg) (princ (format
-                             "git clone %s %s%s\n"
-                             (caddr pkg)
-                             install-dir
-                             (car pkg))))
+                                  "git clone %s %s%s\n"
+                                  (caddr pkg)
+                                  install-dir
+                                  (car pkg))))
             (owp--pkg "requirements"))))
 
 (defun owp-load-statement ()
