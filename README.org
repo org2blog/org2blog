@@ -16,59 +16,59 @@ Blog from Org mode to WordPress.
 :PROPERTIES:
 :toc:      all
 :END:
-  -  [[#about][About]]
-  -  [[#table-of-contents][Table of Contents]]
-  -  [[#installation][Installation]]
-    -  [[#requirements-and-compatibility][Requirements And Compatibility]]
-    -  [[#using-a-package][Using A Package]]
-      -  [[#use-package--melpa][Use-Package & MELPA]]
-      -  [[#building-this-projects-package][Building This Project's Package]]
-    -  [[#setting-up-the-source-code-by-hand][Setting Up The Source Code By Hand]]
-  -  [[#usage][Usage]]
-    -  [[#make-your-first-post-in-less-5-minutes][Make Your First Post In Less 5 Minutes]]
-    -  [[#the-6-most-important-next-steps][The 6 Most Important Next Steps]]
-      -  [[#helping-yourself-to-the-basics][Helping Yourself To The Basics]]
-      -  [[#writing-more-after-you-have-settled-into-the-software][Writing More After You Have "Settled Into" The Software]]
-        -  [[#just-writing][Just Writing]]
-          -  [[#your-second-buffer-post][Your Second Buffer Post]]
-          -  [[#your-first-buffer-page][Your First Buffer Page]]
-        -  [[#automatically-configuring-your-environment][Automatically Configuring Your Environment]]
-        -  [[#defining-custom-keybindings][Defining Custom Keybindings]]
-        -  [[#logging-in-faster][Logging In Faster]]
-      -  [[#use-subtrees-to-store-multiple-posts-in-one-file][Use Subtrees To Store Multiple Posts In One File]]
-      -  [[#uploading-images][Uploading Images]]
-      -  [[#supported-properties][Supported Properties]]
-      -  [[#tying-it-all-together][Tying It All Together]]
-    -  [[#more-functionality][More Functionality]]
-      -  [[#global-and-blog-specific-configuration][Global And Blog Specific Configuration]]
-      -  [[#inserting-things][Inserting Things]]
-      -  [[#confirming-things][Confirming Things]]
-      -  [[#source-blocks][Source Blocks]]
-        -  [[#plain-source-box-format][Plain Source Box Format]]
-        -  [[#syntaxhighlighter-evolved][SyntaxHighlighter Evolved]]
-      -  [[#latex-support][LaTeX Support]]
-        -  [[#wordpress-latex][WordPress LaTeX]]
-        -  [[#mathjax][MathJax]]
-      -  [[#migrating-org-mode-files-to-org2blog-files][Migrating Org Mode Files To Org2Blog Files]]
-      -  [[#export-wordpress-to-org][Export WordPress to Org]]
-      -  [[#using-entry-templates][Using Entry Templates]]
-      -  [[#tracking-entries][Tracking Entries]]
-      -  [[#doing-things-after-saving-and-publishing][Doing Things After Saving And Publishing]]
-    -  [[#the-huge-power-of-customizations][The Huge Power Of Customizations]]
-    -  [[#some-questions-and-some-answers][Some Questions And Some Answers]]
-      -  [[#why-does-org2blog-talk-about-save-view-publish-and-trash-so-much][Why Does Org2Blog Talk About Save, View, Publish, And Trash So Much?]]
-      -  [[#why-does-org2blog-talk-about-buffers-subtrees-posts-and-pages-so-much][Why Does Org2blog Talk About Buffers, Subtrees, Posts, And Pages So Much?]]
-      -  [[#why-isnt-the-package-name-orgwordpress][Why Isn't The Package Name OrgWordpress?]]
-      -  [[#what-is-metaweblog-and-why-is-it-in-org2blog][What Is MetaWeblog And Why Is It In Org2Blog?]]
-      -  [[#why-does-org2blog-use-both-the-xml-rpc-metaweblog-and-wordpress-api][Why does Org2Blog Use Both The XML-RPC MetaWeblog and WordPress API]]
-  -  [[#sample-posts][Sample Posts]]
-    -  [[#buffer-post][Buffer Post]]
-    -  [[#subtree-post][Subtree Post]]
-  -  [[#changelog][Changelog]]
-  -  [[#credits][Credits]]
-  -  [[#when-things-go-wrong][When Things Go Wrong]]
-  -  [[#development][Development]]
-  -  [[#license][License]]
+-  [[#about][About]]
+-  [[#table-of-contents][Table of Contents]]
+-  [[#installation][Installation]]
+  -  [[#requirements-and-compatibility][Requirements And Compatibility]]
+  -  [[#using-a-package][Using A Package]]
+    -  [[#use-package--melpa][Use-Package & MELPA]]
+    -  [[#building-this-projects-package][Building This Project's Package]]
+  -  [[#setting-up-the-source-code-by-hand][Setting Up The Source Code By Hand]]
+-  [[#usage][Usage]]
+  -  [[#make-your-first-post-in-less-5-minutes][Make Your First Post In Less 5 Minutes]]
+  -  [[#the-6-most-important-next-steps][The 6 Most Important Next Steps]]
+    -  [[#helping-yourself-to-the-basics][Helping Yourself To The Basics]]
+    -  [[#writing-more-after-you-have-settled-into-the-software][Writing More After You Have "Settled Into" The Software]]
+      -  [[#just-writing][Just Writing]]
+        -  [[#your-second-buffer-post][Your Second Buffer Post]]
+        -  [[#your-first-buffer-page][Your First Buffer Page]]
+      -  [[#automatically-configuring-your-environment][Automatically Configuring Your Environment]]
+      -  [[#defining-custom-keybindings][Defining Custom Keybindings]]
+      -  [[#logging-in-faster][Logging In Faster]]
+    -  [[#use-subtrees-to-store-multiple-posts-in-one-file][Use Subtrees To Store Multiple Posts In One File]]
+    -  [[#uploading-images][Uploading Images]]
+    -  [[#supported-properties][Supported Properties]]
+    -  [[#tying-it-all-together][Tying It All Together]]
+  -  [[#more-functionality][More Functionality]]
+    -  [[#global-and-blog-specific-configuration][Global And Blog Specific Configuration]]
+    -  [[#inserting-things][Inserting Things]]
+    -  [[#confirming-things][Confirming Things]]
+    -  [[#source-blocks][Source Blocks]]
+      -  [[#plain-source-box-format][Plain Source Box Format]]
+      -  [[#syntaxhighlighter-evolved][SyntaxHighlighter Evolved]]
+    -  [[#latex-support][LaTeX Support]]
+      -  [[#wordpress-latex][WordPress LaTeX]]
+      -  [[#mathjax][MathJax]]
+    -  [[#migrating-org-mode-files-to-org2blog-files][Migrating Org Mode Files To Org2Blog Files]]
+    -  [[#export-wordpress-to-org][Export WordPress to Org]]
+    -  [[#using-entry-templates][Using Entry Templates]]
+    -  [[#tracking-entries][Tracking Entries]]
+    -  [[#doing-things-after-saving-and-publishing][Doing Things After Saving And Publishing]]
+  -  [[#the-huge-power-of-customizations][The Huge Power Of Customizations]]
+  -  [[#some-questions-and-some-answers][Some Questions And Some Answers]]
+    -  [[#why-does-org2blog-talk-about-save-view-publish-and-trash-so-much][Why Does Org2Blog Talk About Save, View, Publish, And Trash So Much?]]
+    -  [[#why-does-org2blog-talk-about-buffers-subtrees-posts-and-pages-so-much][Why Does Org2blog Talk About Buffers, Subtrees, Posts, And Pages So Much?]]
+    -  [[#why-isnt-the-package-name-orgwordpress][Why Isn't The Package Name OrgWordpress?]]
+    -  [[#what-is-metaweblog-and-why-is-it-in-org2blog][What Is MetaWeblog And Why Is It In Org2Blog?]]
+    -  [[#why-does-org2blog-use-both-the-xml-rpc-metaweblog-and-wordpress-api][Why does Org2Blog Use Both The XML-RPC MetaWeblog and WordPress API]]
+-  [[#sample-posts][Sample Posts]]
+  -  [[#buffer-post][Buffer Post]]
+  -  [[#subtree-post][Subtree Post]]
+-  [[#changelog][Changelog]]
+-  [[#credits][Credits]]
+-  [[#when-things-go-wrong][When Things Go Wrong]]
+-  [[#development][Development]]
+-  [[#license][License]]
 
 * Installation
 :properties:
@@ -742,10 +742,18 @@ possiblities see:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:F6832BDB-FAD6-417B-A01B-F69A64AD788F
 :END:
 
-Org2Blog has first-class source block support. The headliners in this section
+Org2Blog has first-class source block support. The headlines in this section
 explain how.
 
-When you have =#+name= and =#+caption= on a source block then the values are
+Org2Blog supports the source block =#+name= property. =NAME= can have a =#+caption=
+property for it. A =CAPTION= belongs to =NAME=, it exists dependenly on it. If you
+include a =CAPTION= but no =NAME= than the =CAPTION= value will not show up with the
+source block on your blog post.
+
+Note:
+
+-
+When you have and on a source block then the values are
 included in the post too.
 
 Warning: Source blocks do not work inside of plain lists.
@@ -757,7 +765,6 @@ SyntaxHighlighter Evolved.
 Here is how they look and work.
 
 **** Plain Source Box Format
-
 
 First make sure that Org2Blog will generate plain on =<pre>= tags like this:
 
@@ -775,14 +782,9 @@ First make sure that Org2Blog will generate plain on =<pre>= tags like this:
 ,#+END_SRC
 #+end_src
 
-With SyntaxHighlighter Evolved disabled:
+Here is how the built-in syntax highlighting looks:
 
 [[file:/images/SourceBlockNormal.png]]
-
-Note that in Org mode every source block has a name. If you don't specify one
-then it's automatically generated name will be used. For example:
-
-[[file:/images/SourceBlockNormalNoname.png]]
 
 **** SyntaxHighlighter Evolved
 
@@ -810,7 +812,9 @@ Configure your source blocks for SyntaxHighlighter like this:
 #+end_src
 
 SyntaxHighlighter Evolved always uses the global configuration unless you
-override it with the line ~#+attr_wp: :syntaxhl light="true"~ placed before the
+override it with the line
+~#+attr_wp: :syntaxhl light="true"~
+placed before the
 source block. The =:syntaxhl= property tells Org2Blog that everything following
 it is a configuration parameter for SyntaxHighlighter. Those values get passed
 on. The =#+ATTR_WP= line immediately *must* immediately precede the =#+BEGIN_SRC=
@@ -819,8 +823,6 @@ line. It is easier though to configure it globally and never touch it again.
 With SyntaxHighlighter Evolved enabled:
 
 [[file:/images/SourceBlockSyntaxHighlighterExposed2.png]]
-
-[[file:/images/SourceBlockSyntaxHighlighterExposedNoName.png]]
 
 Sometimes your source block contents cause this plugin to do the unexpected.
 It will look at best horrible and more likely just wrong. Then to put it

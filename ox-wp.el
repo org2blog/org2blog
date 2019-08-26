@@ -121,14 +121,14 @@ Delegateswork to `org-wp-export-as-wordpress'."
                     (org-html--translate "Listing %d" info)
                     (org-export-get-ordinal
                      src-block info nil #'org-html--has-caption-p)))
-         (name (or (org-element-property :name src-block)
-                  (org-export-get-reference src-block info)))
+         (name (org-element-property :name src-block))
          (cap (and (org-export-get-caption src-block)
                  (org-trim (org-export-data
                             (org-export-get-caption src-block)
                             info))))
-         (title (format "%s. Name: %s. %s"
-                        footnote name (if cap (concat cap ".") "")))
+         (title (concat footnote ". "
+                        (when name (format "Name: %s. " name))
+                        (when cap (format "%s. " cap))))
          (syntaxhl (or (org-export-read-attribute :attr_wp src-block :syntaxhl)
                       ""))
          (srccode (org-export-format-code-default src-block info))
@@ -147,8 +147,7 @@ Delegateswork to `org-wp-export-as-wordpress'."
     (when (org-export-read-attribute :attr_html src-block :textarea)
       (let (result (org-html--textarea-block src-block))
         (throw 'return result)))
-    (let* ((name (or (org-element-property :name src-block)
-                    (org-export-get-reference src-block info)))
+    (let* ((name (org-element-property :name src-block))
            (caption (or (org-export-data
                         (org-export-get-caption src-block)
                         info)))
@@ -158,12 +157,9 @@ Delegateswork to `org-wp-export-as-wordpress'."
                       (org-html--translate "Listing %d." info)
                       (org-export-get-ordinal
                        src-block info nil #'org-html--has-caption-p)))
-           (name-and-caption (format "%s%s"
-                                     (if name
-                                         (format " Name: %s." name)
-                                       "")
-                                     (if (string-blank-p caption) ""
-                                       (format " %s." caption)))))
+           (name-and-caption
+            (concat (when name (format "Name: %s. " name))
+                    (unless (string-blank-p caption) (format "%s. " caption)))))
       (unless lang
         (let ((result
                (format "<em>%s%s</em>\n<pre class=\"example\" id=\"%s\">\n%s</pre>"
