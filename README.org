@@ -127,8 +127,8 @@ build a package locally is to use it locally. Here is how:
 
 If you are a developer or even just feel like exploring the code a little for
 the first time then Org2Blog is a great place to start. Even better: you've
-already got everything you need. Specifically Emacs and all of the code
-required to run Org2Blog are only here for you running and ready for you to
+already got everything you need. Specifically, Emacs, and all of the code
+required to run Org2Blog, are already running and ready for you to
 dig into it. Simply find a function you want to study, position the cursor on
 it, type ~C-h f~, choose that function name, and hit enter. Now you will see a
 link for the source code. Position the cursor there and hit enter and you are
