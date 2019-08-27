@@ -40,7 +40,7 @@
   :tag "Org WordPress"
   :group 'org-export
   :version "26.2"
-  :package-version '(Org . "9.2.2"))
+  :package-version '(Org . "9.1.9"))
 
 ;;; Function - Public
 

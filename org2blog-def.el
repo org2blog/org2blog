@@ -32,7 +32,7 @@
     (puthash "version" "1.1.0" p)
     (puthash "doc" "Blog from Org mode to WordPress" p)
     (puthash "emacs" "26.2" p)
-    (puthash "org" "9.2.2" p)
+    (puthash "org" "9.1.9" p)
     (puthash "requirements"
              '((htmlize "1.55" "https://github.com/hniksic/emacs-htmlize.git")
                (hydra "0.14.0" "https://github.com/abo-abo/hydra.git")
