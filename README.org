@@ -588,32 +588,32 @@ Since they are plain old Org mode properties: be sure to keep a space between
 the property name and its value.
 
 - Entry
-- =DATE=
-- =TITLE=
-- =CATEGORY=
-- =TAGS=
-- =POSTID=
-- =PARENT=
-- =PERMALINK=
-- =DESCRIPTION= (aka excerpt)
+  - =DATE=
+  - =TITLE=
+  - =CATEGORY=
+  - =TAGS=
+  - =POSTID=
+  - =PARENT=
+  - =PERMALINK=
+  - =DESCRIPTION= (aka excerpt)
 - Subtree
-- For Date
-- =POST_DATE=
-- =SCHEDULEDD=
-- =DEADLINE=
-- =TIMESTAMP_IA=
-- =TIMESTAMP=
-- =TITLE=
-- =CATEGORY=
-- =POST_TAGS=
-- Though they are the same thing, due to technical reasons when tags
-appear under a Subtree they can't use the =TAGS= property like an Entry,
-they use =POST_TAGS= instead. Please take note of this when you convert
-an Entry post to a Subtree post.
-- =POSTID=
-- =PARENT=
-- =PERMALINK=
-- =DESCRIPTION= (aka excerpt)
+  - For Date
+    - =POST_DATE=
+    - =SCHEDULEDD=
+    - =DEADLINE=
+    - =TIMESTAMP_IA=
+    - =TIMESTAMP=
+  - =TITLE=
+  - =CATEGORY=
+  - =POST_TAGS=
+    - Though they are the same thing, due to technical reasons when tags appear
+      under a Subtree they can't use the =TAGS= property like an Entry, they use
+      =POST_TAGS= instead. Please take note of this when you convert an Entry post
+      to a Subtree post.
+  - =POSTID=
+  - =PARENT=
+  - =PERMALINK=
+  - =DESCRIPTION= (aka excerpt)
 
 *** Tying It All Together
 :PROPERTIES:
