@@ -1017,16 +1017,16 @@ Or in your blog config
 
 #+begin_src emacs-lisp
 (let* ((credentials (auth-source-user-and-password "wisdomandwonder"))
-(username (nth 0 credentials))
-(password (nth 1 credentials))
-(track-posts (list "org2blog.org" "MYBLOGNAME"))
-(config `(("wisdomandwonder"
-:url "https://www.wisdomandwonder.com/xmlrpc.php"
-:username ,username
-:password ,password
-:track-posts ,track-posts
-:confirm t))))
-(setq org2blog/wp-blog-alist config))
+       (username (nth 0 credentials))
+       (password (nth 1 credentials))
+       (track-posts (list "org2blog.org" "MYBLOGNAME"))
+       (config `(("wisdomandwonder"
+                  :url "https://www.wisdomandwonder.com/xmlrpc.php"
+                  :username ,username
+                  :password ,password
+                  :track-posts ,track-posts
+                  :confirm t))))
+  (setq org2blog/wp-blog-alist config))
 #+end_src
 
 when you post entries they will get logged in your log file under the
