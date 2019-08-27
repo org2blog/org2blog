@@ -102,7 +102,7 @@ is how to load Org2Blog:
 #+name: org_gcr_2019-03-09T22-18-17-06-00_cosmicality_64768F79-602C-4D7D-B537-C82BC3402F09
 #+begin_src emacs-lisp
 (use-package org2blog
-:ensure t)
+             :ensure t)
 #+end_src
 
 Take some time to read more about Use-Package. You can use as little or as
@@ -215,9 +215,9 @@ to blog with. This is all it takes. Now fill it out and evaluate it.
 #+NAME: org_gcr_2019-03-06T17-15-24-06-00_cosmicality_596316A8-5CB2-4D66-A519-66AF732BBBAA
 #+begin_src emacs-lisp
 (setq org2blog/wp-blog-alist
-'(("myblog"
-:url "https://myblog.com/xmlrpc.php"
-:username "username")))
+      '(("myblog"
+         :url "https://myblog.com/xmlrpc.php"
+         :username "username")))
 #+end_src
 - Display the Org2Blog user-interface (UI) by executing the command
 ~owp-user-interface~. You can do literally everything with Org2Blog using it's
@@ -444,8 +444,8 @@ for user key bindings.
 #+name: org_gcr_2019-03-04T08-22-32-06-00_cosmicality_8F0B6AC9-C081-48A2-8D57-EA164C30D32A
 #+begin_src emacs-lisp
 (defun sample-keybindings ()
-(local-set-key (kbd "s-(") #'owp-user-interface)
-(local-set-key (kbd "s-)") #'owp-complete))
+  (local-set-key (kbd "s-(") #'owp-user-interface)
+  (local-set-key (kbd "s-)") #'owp-complete))
 (add-hook 'org2blog/wp-mode-hook #'sample-keybindings)
 #+end_src
 
@@ -481,13 +481,13 @@ Then, configure your blog using those credentials, as shown below.
 #+BEGIN_SRC emacs-lisp
 (require 'auth-source)
 (let* ((credentials (auth-source-user-and-password "⟪myblog⟫"))
-(username (nth 0 credentials))
-(password (nth 1 credentials))
-(config `("wordpress"
-:url "http://username.server.com/xmlrpc.php"
-:username ,username
-:password ,password)))
-(setq org2blog/wp-blog-alist config))
+       (username (nth 0 credentials))
+       (password (nth 1 credentials))
+       (config `("wordpress"
+                 :url "http://username.server.com/xmlrpc.php"
+                 :username ,username
+                 :password ,password)))
+  (setq org2blog/wp-blog-alist config))
 #+END_SRC
 
 #+RESULTS: org_gcr_2019-03-06T17-15-24-06-00_cosmicality_9A6BC3D1-4227-4F4B-815C-779B1EC10724
@@ -703,10 +703,10 @@ configuration. It would look something like this
 #+name: org_gcr_2019-08-10T12-52-53-05-00_cosmicality_425DF562-F13C-48A9-8B10-EE1B940DE96B
 #+begin_src emacs-lisp
 '("myblog"
-:url "https://www.wisdomandwonder.com/xmlrpc.php"
-:username username
-:password password
-:confirm t)
+  :url "https://www.wisdomandwonder.com/xmlrpc.php"
+  :username username
+  :password password
+  :confirm t)
 #+end_src
 
 You probably noticed that the name of the global variable is a lot bigger than
