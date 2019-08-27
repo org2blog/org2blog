@@ -225,11 +225,17 @@ UI (setting keybindings elsewhere is super easy too and you'll cover it
 soon). For simplicity these directions will refer to "things to do in the
 UI" in the style of =UI [action]=. Find the action and press the key for it.
 Here are some examples of the UI
+
 [[file:/images/menu-main.png]]
+
 [[file:/images/InsertThingsMenu.png]]
+
 [[file:/images/CategoryCompletion.png]]
+
 [[file:/images/ReadmeBuffer.png]]
+
 [[file:/images/VariableMenu.png]]
+
 - Create a brand new entry from a template: =UI [New Buffer]=
 - If you aren't logged in then Org2Blog will ask if you would like to. Yes
 you should go ahead and log in.
