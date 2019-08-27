@@ -117,7 +117,7 @@ build a package locally is to use it locally. Here is how:
 - Clone the [[https://github.com/melpa/melpa][MELPA repo]]
 - Read about how to [[https://github.com/melpa/melpa/blob/master/CONTRIBUTING.org#test-your-recipe][build a recipe]]
 - Make sure that you are using the correct Emacs version (see requirements
-above) either in your path or editing the reciple
+  above) either in your path or editing the reciple
 - Open the Org2Recipe and build it
 
 ** Setting Up The Source Code By Hand
