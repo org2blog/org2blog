@@ -89,8 +89,6 @@ Delegateswork to `org-wp-export-as-wordpress'."
   :filters-alist '((:filter-paragraph . org-wp-filter-paragraph)))
 
 
-
-
 ;;; Filters
 
 (defun org-wp-filter-paragraph (paragraph _backend info)
@@ -130,7 +128,7 @@ Delegateswork to `org-wp-export-as-wordpress'."
                         (when name (format "Name: %s. " name))
                         (when cap (format "%s. " cap))))
          (syntaxhl (or (org-export-read-attribute :attr_wp src-block :syntaxhl)
-                      ""))
+                       ""))
          (srccode (org-export-format-code-default src-block info))
          (result
           (format
@@ -149,8 +147,8 @@ Delegateswork to `org-wp-export-as-wordpress'."
         (throw 'return result)))
     (let* ((name (org-element-property :name src-block))
            (caption (or (org-export-data
-                        (org-export-get-caption src-block)
-                        info)))
+                         (org-export-get-caption src-block)
+                         info)))
            (lang (org-element-property :language src-block))
            (code (org-html-format-code src-block info))
            (footnote (format
