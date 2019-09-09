@@ -40,11 +40,12 @@ and the server. For some reason my GnuTLS was negotiating v1.3 with the server
 and puked resulting it sending everything unencrypted over HTTP instead of
 encrypted over HTTPS!
 
-The solution was pretty simple: forbid GnuTLS from using TLSv1.3 as
-seen in the README
+The solution was pretty simple: forbid GnuTLS from using TLSv1.3:
 
-What caused the problem by who where? I don't know. What I can tell you though
-is that the timing of when issue presented itself was pretty close to when
-TLSv1.3 was nearly standardized and a lot of servers were switching over to
-using it. Maybe the host I was using was slowly cutting sites over to it? I'm
-just happy it works correctly now.
+#+name: org_gcr_2019-01-31T23-58-28-06-00_cosmicality_B75B85C4-2197-4893-9F13-70D0212F5E8D
+#+begin_src emacs-lisp
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+#+end_src
+
+As it would turn out this was due to a bug in GnuTLS. It was resolved in the
+Emacs 26.3 release.

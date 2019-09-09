@@ -39,7 +39,7 @@
   "WordPress specific export options."
   :tag "Org WordPress"
   :group 'org-export
-  :version "26.2"
+  :version "26.3"
   :package-version '(Org . "9.1.9"))
 
 ;;; Function - Public
@@ -113,17 +113,17 @@ Delegateswork to `org-wp-export-as-wordpress'."
   (let* ((langval (org-element-property :language src-block))
          (langs (plist-get info :wp-shortcode-langs-map))
          (lang (or (cdr (assoc langval langs))
-                  (when langval (downcase langval))
-                  "text"))
+                   (when langval (downcase langval))
+                   "text"))
          (footnote (format
                     (org-html--translate "Listing %d" info)
                     (org-export-get-ordinal
                      src-block info nil #'org-html--has-caption-p)))
          (name (org-element-property :name src-block))
          (cap (and (org-export-get-caption src-block)
-                 (org-trim (org-export-data
-                            (org-export-get-caption src-block)
-                            info))))
+                   (org-trim (org-export-data
+                              (org-export-get-caption src-block)
+                              info))))
          (title (concat footnote ". "
                         (when name (format "Name: %s. " name))
                         (when cap (format "%s. " cap))))

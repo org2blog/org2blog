@@ -9,7 +9,8 @@
   - Combination of user interface and additional documentation make for easier
     use.
 - Refinement
-  - Added dependency on Emacs 26.2 and Org mode 9.2.2 included with it
+  - Added dependency on Emacs 26.3 and Org mode 9.1.9 included with it
+    - Emacs 26.3 includes the GnuTLS bug fix documented in DebugginStories.org.
   - When you make xml-rpc calls, you can specify the blod id. However, org2blog
     always uses blog id '1'. There is no other way to do it. That value
     'org2blog/wp-server-blogid' is a defvar, but it isn't set anywhere. In one

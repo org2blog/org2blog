@@ -14,7 +14,7 @@
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
 ;; Version: 1.1.0
-;; Package-Requires: ((emacs "26.2") (htmlize "1.55") (hydra "0.14.0") (xml-rpc "1.6.12"))
+;; Package-Requires: ((emacs "26.3") (htmlize "1.55") (hydra "0.14.0") (xml-rpc "1.6.12"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
 
@@ -804,12 +804,12 @@ Use like this:
 ."
   (catch 'return
     (let* ((save-buffer? (and (owp--blog-property-or
-                               :safe-new-entry-buf-kill
-                               org2blog/wp-safe-new-entry-buffer-kill)
-                              (not (buffer-file-name))
-                              (y-or-n-p
-                               (concat "This entry hasn’t been saved to a file yet. "
-                                       "Should I save it to a file?"))))
+                             :safe-new-entry-buf-kill
+                             org2blog/wp-safe-new-entry-buffer-kill)
+                            (not (buffer-file-name))
+                            (y-or-n-p
+                             (concat "This entry hasn’t been saved to a file yet. "
+                                     "Should I save it to a file?"))))
            (published? (when save-buffer?
                          (y-or-n-p
                           (concat "I’m about to try to save the details "

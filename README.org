@@ -78,7 +78,7 @@ Org2Blog runs against the version of Org mode that comes pre-loaded with
 Emacs. Org2Blog will require a relatively recent version of Emacs simply to
 keep it up to date with Org mode.
 
-Org2Blog requires Emacs 26.2 and Org mode 9.1.9.
+Org2Blog requires Emacs 26.3 and Org mode 9.1.9.
 
 ** Using A Package
 :PROPERTIES:
@@ -1290,17 +1290,18 @@ quite right and make things right again.
 
 Here is where to begin:
 
-- Go [[https://github.com/org2blog/org2blog/issues][here]] to search forthe issue and maybe report. Don't hesitate because it
-  is easier to close an already solved issue than go through the pain of
+- Go [[https://github.com/org2blog/org2blog/issues][here]] to search for the issue and maybe report it. Don't hesitate because
+  it is easier to close an already solved issue than go through the pain of
   trying to figure out a solved problem.
 - Review the documentation by searching for keywords: it might be a documented
-  feature
-- If you need to dig deeper
-- The documentation for ~owp-user-report~ walks you through the entire process
-  of investigation. It can be intimidating at first. As you read through
-  it though you will find that Org2Blog has a few clearly defined layers.
-  When you "see" them they will make a lot of sense. Once you are
-  comfortable with the ideas there, enable reporting with =UI [Reporting On]=
+  feature.
+- If you need to dig deeper read the documentation for ~owp-user-report~. It
+  walks you through the entire process of investigation. It can be
+  intimidating at first. As you read through it though you will find that
+  Org2Blog has a few clearly defined layers. When you "see" them they will
+  make a lot of sense. Once you are comfortable with the ideas there, enable
+  reporting with =UI [Reporting On]=
+- Read about some past [[./docs/DebuggingStories.org][hard issues]] and how they were resolved.  
 
 * Development
 :PROPERTIES:
