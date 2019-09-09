@@ -161,10 +161,9 @@ And this
 (add-to-list 'load-path "/Users/gcr/mysrc/htmlize")
 #+END_SRC
 
-Finally if you make changes to the readme then first install the package
-[[https://github.com/alphapapa/org-make-toc][org-make-toc]] so the table of contents will get automatically updated after you
-make changes. You can also install it by hand like you did the other package,
-like this:
+Finally if you make changes to the readme then you need to rebuild the table
+of contents. Install the package [[https://github.com/alphapapa/org-make-toc][org-make-toc]]. Then call ~org-make-toc~. You can
+also install it by hand like you did the other packages, like this:
 
 #+BEGIN_SRC sh
 cd ~/src
@@ -174,6 +173,9 @@ git clone https://github.com/alphapapa/org-make-toc.git
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "~/src/org-make-toc")
 #+END_SRC
+
+See the [[Development][Development]] section for details on automatically rebuilding the table
+of contents.
 
 Now you've got everything you need to run Org2Blog against its source code.
 With this set up you can start playing around with things and even making
