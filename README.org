@@ -1343,7 +1343,6 @@ around it.
 
 - [[./LICENSE.txt][GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007]].
 
-[[file:/images/logo-color-multi.png]]
 [[file:/images/logo-icon.png]]
 
 # Local Variables:
