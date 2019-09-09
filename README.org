@@ -1,4 +1,4 @@
-happens[[file:/images/snapshot2.png]]
+[[file:/images/logo-color-multi.png]]
 
 * About
 :properties:
