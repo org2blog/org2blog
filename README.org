@@ -872,7 +872,7 @@ default.
 
 **** MathJax
 
-"[[http://docs.mathjax.org/en/latest/mathjax.html][MathJax]] is an open-source JavaScript display engine for LaTeX, MathML, and
+[[https://www.mathjax.org/][MathJax]] is an open-source JavaScript display engine for LaTeX, MathML, and
 AsciiMath notation that works in all modern browsers."
 
 Whether you use MathJax with a WordPress plugin, manual inclusion, or any
