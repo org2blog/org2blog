@@ -1,3 +1,4 @@
+[[file:/images/snapshot2.png]]
 
 #+begin_html
 <a href=https://alphapapa.github.io/dont-tread-on-emacs/><img src="https://raw.githubusercontent.com/alphapapa/org-make-toc/master/dont-tread-on-emacs-150.png" align="right"></a>
