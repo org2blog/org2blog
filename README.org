@@ -876,7 +876,7 @@ default.
 AsciiMath notation that works in all modern browsers."
 
 Whether you use MathJax with a WordPress plugin, manual inclusion, or any
-other means you need to be aware of MathJax's [[http://docs.mathjax.org/en/latest/start.html#using-a-content-delivery-network-cdn][CDN]] options: you need to get it
+other means you need to be aware of MathJax's [[https://www.mathjax.org/cdn-shutting-down/][CDN]] options: you need to get it
 from somewhere so just choose one of the sources and note the URL.
 
 First tell Org2Blog to disable translation to =wp-latex= syntax because you want
