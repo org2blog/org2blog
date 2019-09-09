@@ -1339,11 +1339,11 @@ around it.
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:E4196C89-DA78-44C7-9734-B9F37726F02A
 :end:
 
+- [[./LICENSE.txt][GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007]].
+
 #+begin_html
 <a href=https://alphapapa.github.io/dont-tread-on-emacs/><img src="https://raw.githubusercontent.com/alphapapa/org-make-toc/master/dont-tread-on-emacs-150.png" align="left"></a>
 #+end_html
-
-- [[./LICENSE.txt][GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007]].
 
 # Local Variables:
 # org-export-with-properties: ()
