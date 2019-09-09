@@ -906,7 +906,7 @@ sees it, then MathJax will get loaded for the page.
 - Default [latex] syntax attribute: =Inline=
 - Use WP-Latex syntax? =YES=
 - Use MathJax CDN Service? =NO=
-- MathJax no longer hosts their own CDN but there are [[https://docs.mathjax.org/en/latest/start.html#mathjax-cdn][many alternatives]].
+- MathJax no longer hosts their own CDN but there are [[https://www.mathjax.org/cdn-shutting-down/][many alternatives]].
 - Custom MathJax location? =YES=
 - [[https://docs.mathjax.org/en/v1.1-latest/configuration.html#loading][This]] explains how to load and configure the library manually. Please
 read it so you know what the plugin is doing.
