@@ -1285,7 +1285,7 @@ Plan on staying positive even when things don't go as planned!
 
 It probably isn't unique to you, and it is probably something easy to fix.
 Most surprises faced have to do with defects in the code, blog issues, and
-personal configuration together. Together we will figure out what isn't going
+personal configurations.Together we will figure out what isn't going
 quite right and make things right again.
 
 In addition to using to [[https://github.com/org2blog/org2blog/issues][reporting]] it right away, the following links can help too:
