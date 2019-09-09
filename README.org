@@ -108,8 +108,10 @@ throw at it.
 
 *** Building This Project's Package
 
-MELPA creates Org2Blog's package using [[https://github.com/melpa/melpa/blob/master/recipes/org2blog][this recipe]]. The easiest way for you to
-build a package locally is to use it locally. Here is how:
+MELPA creates Org2Blog's package using [[https://github.com/melpa/melpa/blob/master/recipes/org2blog][this recipe]].
+
+The easiest way for you to build the package is to download MELPA and build
+Org2Blog on your computer:
 
 - Clone the [[https://github.com/melpa/melpa][MELPA repo]]
 - Read about how to [[https://github.com/melpa/melpa/blob/master/CONTRIBUTING.org#test-your-recipe][build a recipe]]
@@ -1301,7 +1303,7 @@ Here is where to begin:
   Org2Blog has a few clearly defined layers. When you "see" them they will
   make a lot of sense. Once you are comfortable with the ideas there, enable
   reporting with =UI [Reporting On]=
-- Read about some past [[./docs/DebuggingStories.org][hard issues]] and how they were resolved.  
+- Read about some past [[./docs/DebuggingStories.org][hard issues]] and how they were resolved.
 
 * Development
 :PROPERTIES:
