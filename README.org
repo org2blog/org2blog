@@ -623,56 +623,56 @@ After playing around a little bit you should have a better sense of what is
 possible. The following are some key points that will tie everything together:
 
 - Org2Blog's fundamental approach to configuration simple. When you configure
-a feature using a variable then every blog profile will use that value. That
-makes it convenient because you are likely to use the same settings on each
-blog. Think of it as a global configuration, every blog profile will use it.
-Sometimes you want to configure things uniquely for each blog. For example
-you maybe you have a conservative workflow on your work blog, but are more
-easy going on your personal so your "confirm before doing things" will be
-totally different. Additionally the default categories and tags would be
-probably be very different too. See ~org2blog/wp-blog-alist~ for details.
+  a feature using a variable then every blog profile will use that value. That
+  makes it convenient because you are likely to use the same settings on each
+  blog. Think of it as a global configuration, every blog profile will use it.
+  Sometimes you want to configure things uniquely for each blog. For example
+  you maybe you have a conservative workflow on your work blog, but are more
+  easy going on your personal so your "confirm before doing things" will be
+  totally different. Additionally the default categories and tags would be
+  probably be very different too. See ~org2blog/wp-blog-alist~ for details.
 - You only have to =UI [Login]= when you want to save or publish your post.
-However, you won't have code completion for your Categories, Tags, or Parent
-pages until you do login. Org2Blog will ask you which blog to log into. If
-there is only one, then it won't ask. If there are none then it will warn
-you.
+  However, you won't have code completion for your Categories, Tags, or Parent
+  pages until you do login. Org2Blog will ask you which blog to log into. If
+  there is only one, then it won't ask. If there are none then it will warn
+  you.
 - You only have to =UI [Logout]= if you are going to start blogging to a
-different server than you began. All it does is clear out the local
-variables used to store tags and categories from your blog.
+  different server than you began. All it does is clear out the local
+  variables used to store tags and categories from your blog.
 - When you =UI [Save]= an already published entry then WordPress will change
-that entry into a Draft. This is normal WordPress behavior that you may have
-seen after working with the WordPress UI. If you have never used the
-WordPress UI before, now is the time. Sometimes using Org2Blog without any
-WordPress familiarity results in surprises when you forget to either publish
-or trash your draft and now there is a mysterious draft just sitting out
-there.
+  that entry into a Draft. This is normal WordPress behavior that you may have
+  seen after working with the WordPress UI. If you have never used the
+  WordPress UI before, now is the time. Sometimes using Org2Blog without any
+  WordPress familiarity results in surprises when you forget to either publish
+  or trash your draft and now there is a mysterious draft just sitting out
+  there.
 - Whenever Org2Blog can't do what you asked, and it understands why, then it
-will show you a message in the minibuffer and the Messages buffer. If it
-doesn't understand why then it gives you a warning in the minibuffer and
-also in the Warnings buffer. You'll find details there that can both help
-give you additional information to figure out what happened and resolve it
-yourself or to copy and paste and fill out an issue report on the
-[[https://github.com/org2blog/org2blog/issues][issue tracker]]. Be sure to post issues before you start to get upset. It is
-probably something we have all faced before and talking about it will
-usually get it resolved pretty quickly.
+  will show you a message in the minibuffer and the Messages buffer. If it
+  doesn't understand why then it gives you a warning in the minibuffer and
+  also in the Warnings buffer. You'll find details there that can both help
+  give you additional information to figure out what happened and resolve it
+  yourself or to copy and paste and fill out an issue report on the
+  [[https://github.com/org2blog/org2blog/issues][issue tracker]]. Be sure to post issues before you start to get upset. It is
+  probably something we have all faced before and talking about it will
+  usually get it resolved pretty quickly.
 - You can store a single entry in a file (a Buffer Post). You can store
-multiple entries in a Subtree Post. See more below.
+  multiple entries in a Subtree Post. See more below.
 - Custom Key Bindings
 - When you use the menu you will quickly find that you use 20% or the
-commands 80% of the time. For example you may only ever use buffer posts
-and never us any other menu item than =UI [Publish Post]=: in that case you
-only ever need to call one function! The menu item(s) to do what you want
-most of the time will quickly become "muscle memory". At that point it is
-will be easy for you to configure your own custom keybindings for the
-functions that back up the menu item. To find the function for the menu
-item just open the menu, choose =UI [Help]=, select the menu item, and you
-will be presented with the function that does the actual work. Take that
-function name and bind it to a key within this mode. See
-~sample-keybindings~ at the beginning of this document for an example how.
+  commands 80% of the time. For example you may only ever use buffer posts
+  and never us any other menu item than =UI [Publish Post]=: in that case you
+  only ever need to call one function! The menu item(s) to do what you want
+  most of the time will quickly become "muscle memory". At that point it is
+  will be easy for you to configure your own custom keybindings for the
+  functions that back up the menu item. To find the function for the menu
+  item just open the menu, choose =UI [Help]=, select the menu item, and you
+  will be presented with the function that does the actual work. Take that
+  function name and bind it to a key within this mode. See
+  ~sample-keybindings~ at the beginning of this document for an example how.
 - See ~owp-mode-map~ or ~org2blog/wp-keymap-prefix~ for details of the default
-keymap and prefix key.
+  keymap and prefix key.
 - You may find it just as easy to find a convenient key binding
-~owp-user-interface~ and use that instead.
+  ~owp-user-interface~ and use that instead.
 
 ** More Functionality
 :PROPERTIES:
