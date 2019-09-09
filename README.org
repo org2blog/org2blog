@@ -1,4 +1,4 @@
-[[file:/images/snapshot2.png]]
+happens[[file:/images/snapshot2.png]]
 
 * About
 :properties:
@@ -114,7 +114,7 @@ build a package locally is to use it locally. Here is how:
 - Clone the [[https://github.com/melpa/melpa][MELPA repo]]
 - Read about how to [[https://github.com/melpa/melpa/blob/master/CONTRIBUTING.org#test-your-recipe][build a recipe]]
 - Make sure that you are using the correct Emacs version (see requirements
-  above) either in your path or editing the reciple
+  above) either in your path or editing the recipe
 - Open the Org2Recipe and build it
 
 ** Setting Up The Source Code By Hand
@@ -188,7 +188,7 @@ request. It's pretty fun and very easy.
 :END:
 
 Note: For a better learning experience try reading this document inside of
-Emacs and Org mode by callling ~owp-readme~.
+Emacs and Org mode by calling ~owp-readme~.
 
 ** Make Your First Post In Less 5 Minutes
 :PROPERTIES:
@@ -324,7 +324,7 @@ things though then Org2Blog comes with a rich approach built right in.
 
 Start by calling ~Customize~ and search for ~org2blog~. Take a quick look at what is
 available. You might customize a bunch of things right away, or nothing at
-all. The important thing right now is to have atleast seen them once so they
+all. The important thing right now is to have at-least seen them once so they
 get stored in the back of your mind. One of the best things about customize is
 that you can configure variables right along with their definition. That tight
 integration of system and documentation make the whole thing easier to use and
@@ -736,7 +736,7 @@ surprised as how often you end up using them:
 *** Confirming Things
 
 Sometimes you want to be prompted before doing things. Here are some of the
-possiblities see:
+possibilities see:
 - ~org2blog/wp-confirm-post~
 - ~org2blog/wp-safe-trash~
 - ~org2blog/wp-safe-new-entry-buffer-kill~
@@ -751,7 +751,7 @@ Org2Blog has first-class source block support. The headlines in this section
 explain how.
 
 Org2Blog supports the source block =#+name= property. =NAME= can have a =#+caption=
-property for it. A =CAPTION= belongs to =NAME=, it exists dependenly on it. If you
+property for it. A =CAPTION= belongs to =NAME=, it exists dependently on it. If you
 include a =CAPTION= but no =NAME= than the =CAPTION= value will not show up with the
 source block on your blog post.
 
@@ -944,7 +944,7 @@ you only need to populate the required properties. Here is the easiest way how:
 
 - Create a =UI [New Buffer]= or =UI [New Subtree= and copy those default property
 values
-- Copy them into your file and populate them with what you wanto
+- Copy them into your file and populate them with what you want
 - If you want to use this entry to provide content for an existing post on the
 server then populate =POSTID=. When you do this, and save or post your entry,
 whatever was on the server will get replaced. Unless you want to lose the
@@ -992,7 +992,7 @@ decide how to move forward. Each scenario is pretty specific and it will
 probably be the same for you.
 
 In my case sometimes I just want a record of what I did post so I can compare
-it to what is out on the server because sometimes I delete entries on th blog
+it to what is out on the server because sometimes I delete entries on the blog
 without deleting their source files in Org mode leaving me confused about what
 is going on.
 
@@ -1125,7 +1125,7 @@ at ease though, this section should clear up some the weirdness ASAP.
 Most software out there has some version of [[https://en.wikipedia.org/wiki/Create,_read,_update_and_delete][Create, read, update and delete]]
 (CRUD). In our case it has to do with WordPress Entries and Pages. In techie
 language you would talk about CRUD'ing them. In WordPress language you talk
-about Saving, Viewing, Pubishing, and Trashing. Org2Blog chose to use the
+about Saving, Viewing, Publishing, and Trashing. Org2Blog chose to use the
 WordPress language: it is less surprising and makes it easier to keep the idea
 that Org2Blog fits into your WordPress workflow in your mind.
 
@@ -1293,7 +1293,7 @@ In addition to using to [[https://github.com/org2blog/org2blog/issues][reporting
 - How To Debug Difficult Problems
 - The documentation for ~owp-user-report~ walks you through the entire process
 of investigation. It can be intimidating at first. As you read through
-it though you will fidn that Org2Blog has a few clearly defined layers.
+it though you will find that Org2Blog has a few clearly defined layers.
 When you "see" them they will make a lot of sense. Once you are
 comfortable with the ideas there, enable reporting with =UI [Reporting On]=
 - [[./docs/DebuggingStories.org][Difficult Problems Faced And Resolved With Org2Blog]].
@@ -1334,7 +1334,7 @@ around it.
   - [[./docs/TestPlan.org][Test Plan]].
 - Rules
   - [[https://alphapapa.github.io/dont-tread-on-emacs/][Don't Tread On Emacs]].
-  - [[./.github/CODE_OF_CONDUCT.org][Code of Conduct]].
+  - [[./.GitHub/CODE_OF_CONDUCT.org][Code of Conduct]].
 
 * License
 :properties:
