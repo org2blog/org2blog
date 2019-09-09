@@ -1334,7 +1334,7 @@ around it.
   - [[./docs/TestPlan.org][Test Plan]].
 - Rules
   - [[https://alphapapa.github.io/dont-tread-on-emacs/][Don't Tread On Emacs]].
-  - [[./.gitHub/CODE_OF_CONDUCT.org][Code of Conduct]].
+  - [[./.github/CODE_OF_CONDUCT.org][Code of Conduct]].
 
 * License
 :properties:
