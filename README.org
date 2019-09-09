@@ -1,9 +1,5 @@
 [[file:/images/snapshot2.png]]
 
-#+begin_html
-<a href=https://alphapapa.github.io/dont-tread-on-emacs/><img src="https://raw.githubusercontent.com/alphapapa/org-make-toc/master/dont-tread-on-emacs-150.png" align="right"></a>
-#+end_html
-
 * About
 :properties:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:B5FB31EA-EA25-4675-90B0-AE0167BAE092
@@ -1324,6 +1320,13 @@ around it.
 - Activities
   - You may have already set up your codebase to /run/ Org2Blog but if you
     haven't then find out how up in the Installation section.
+  - Readme
+    - You may wish to automatically update the Readme's table of contents by
+      adding these file local variables to this file:
+      #+BEGIN_SRC org
+# eval: (require 'org-make-toc)
+# before-save-hook: org-make-toc
+      #+END_SRC
   - [[./docs/ReleaseProcess.org][Release Process]].
   - [[./docs/CONTRIBUTING.org][Contributing]].
   - [[./docs/TestPlan.org][Test Plan]].
@@ -1336,11 +1339,13 @@ around it.
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:E4196C89-DA78-44C7-9734-B9F37726F02A
 :end:
 
+#+begin_html
+<a href=https://alphapapa.github.io/dont-tread-on-emacs/><img src="https://raw.githubusercontent.com/alphapapa/org-make-toc/master/dont-tread-on-emacs-150.png" align="left"></a>
+#+end_html
+
 - [[./LICENSE.txt][GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007]].
 
 # Local Variables:
-# eval: (require 'org-make-toc)
-# before-save-hook: org-make-toc
 # org-export-with-properties: ()
 # org-export-with-title: t
 # End:
