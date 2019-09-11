@@ -104,7 +104,7 @@ If you want the cutting edge version using [[https://melpa.org/#/getting-started
 
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+             '("melpa" . "https://melpa.org/packages/") t)
 #+END_SRC
 
 For advanced users you can configure Package to use any combination of stable
