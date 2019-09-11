@@ -1,5 +1,6 @@
 - [ ] Update the version number and call ~owp-update-artifacts~.
 - [ ] Bring codebase up to expectations in [[CONTRIBUTING.org][Contributing]].
+- [ ] Push package definition and version changes
 - [ ] Build package with [[https://github.com/melpa/melpa#build-scripts][MELPA]] and make sure it installs and loads
 - [ ] Complete [[TestPlan.org][Test Plan]].
 - [ ] Update [[../HISTORY.org][History]]
