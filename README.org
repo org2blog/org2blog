@@ -15,11 +15,13 @@ Blog from Org mode to WordPress.
 :END:
 -  [[#about][About]]
 -  [[#table-of-contents][Table of Contents]]
+-  [[#requirements-and-compatibility][Requirements And Compatibility]]
 -  [[#installation][Installation]]
-  -  [[#requirements-and-compatibility][Requirements And Compatibility]]
   -  [[#using-a-package][Using A Package]]
-    -  [[#use-package--melpa][Use-Package & MELPA]]
-    -  [[#building-this-projects-package][Building This Project's Package]]
+    -  [[#use-package][Use-Package]]
+    -  [[#install-the-package-yourself][Install The Package Yourself]]
+    -  [[#build-the-package-yourself][Build The Package Yourself]]
+      -  [[#using-melpa][Using MELPA]]
   -  [[#setting-up-the-source-code-by-hand][Setting Up The Source Code By Hand]]
 -  [[#usage][Usage]]
   -  [[#make-your-first-post-in-less-5-minutes][Make Your First Post In Less 5 Minutes]]
@@ -43,6 +45,7 @@ Blog from Org mode to WordPress.
     -  [[#source-blocks][Source Blocks]]
       -  [[#plain-source-box-format][Plain Source Box Format]]
       -  [[#syntaxhighlighter-evolved][SyntaxHighlighter Evolved]]
+        -  [[#syntaxhighlighter-evolved-is-broken-now-what][SyntaxHighlighter Evolved Is Broken Now What?!]]
     -  [[#latex-support][LaTeX Support]]
       -  [[#wordpress-latex][WordPress LaTeX]]
       -  [[#mathjax][MathJax]]
@@ -875,6 +878,8 @@ line. It is easier though to configure it globally and never touch it again.
 With SyntaxHighlighter Evolved enabled:
 
 [[file:/images/SourceBlockSyntaxHighlighterExposed2.png]]
+
+***** SyntaxHighlighter Evolved Is Broken Now What?!
 
 Sometimes your source block contents cause this plugin to do the unexpected.
 It will look at best horrible and more likely just wrong. Then to put it
