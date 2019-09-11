@@ -90,12 +90,12 @@ versions that are close to the required version.
 
 The easiest way to install Org2Blog is using a [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Packages.html][package]].
 
-*** Use-Package & MELPA
+*** Use-Package
 
 [[https://github.com/jwiegley/use-package][Use-Package]] brings ease and order to your init file. It manages your packages
 in a predictable and simple way. It is the easiest way to use Org2Blog because
 it will download Org2Blog for you along with all of its dependencies. Before
-using it, configure [[https://melpa.org/#/org2blog][MELPA]]. MELPA contains the development branch of Org2Blog
+using it, configure [[https://melpa.org/#/getting-started][MELPA]]. MELPA contains the development branch of Org2Blog
 so you'll get the most current version right when it becomes available. Here
 is how to load Org2Blog:
 
