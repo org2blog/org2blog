@@ -80,6 +80,9 @@ keep it up to date with Org mode.
 
 Org2Blog requires Emacs 26.3 and Org mode 9.1.9.
 
+Despite the runtime version warning Org2Blog will /probably/ work fine on
+versions that are close to the required version.
+
 ** Using A Package
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:22F68132-BA47-4DAB-8F71-900C639CCDC2
