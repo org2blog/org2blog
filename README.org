@@ -114,10 +114,6 @@ throw at it.
 You can do what Use-Package does yourself. Just download the [[https://melpa.org/#/org2blog][Org2Blog's
 package]] (it is a tar file) and install it using ~package-install-file~.
 
-MELPA always has the most current version of the code available. However in
-case your can't reach MELPA there is a copy of the package [[./package][here]] too that is
-usually current.
-
 *** Build The Package Yourself
 
 **** Using MELPA
@@ -133,7 +129,11 @@ locally to build Org2Blog on your computer:
   above) either in your path or editing the recipe
 - Open the Org2Recipe and build it
 
-This will always be the offical Org2Blog package
+MELPA always has the most current version of the code available. However in
+case your can't reach MELPA the package is also provided [[./package][here]].
+
+The package on MELPA will always be the offical Org2Blog package so stick what
+that when you can. Use the copy here as a backup.
 
 ** Setting Up The Source Code By Hand
 :PROPERTIES:
