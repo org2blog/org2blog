@@ -34,8 +34,8 @@
     (puthash "emacs" "26.3" p)
     (puthash "org" "9.1.9" p)
     (puthash "requirements"
-             '((htmlize "1.55" "https://github.com/hniksic/emacs-htmlize.git")
-               (hydra "0.14.0" "https://github.com/abo-abo/hydra.git")
+             '((htmlize "1.54" "https://github.com/hniksic/emacs-htmlize.git")
+               (hydra "0.15.0" "https://github.com/abo-abo/hydra.git")
                (xml-rpc "1.6.12" "https://github.com/hexmode/xml-rpc-el.git"))
              p)
     (puthash "keywords" '("comm" "convenience" "outlines" "wp") p)
