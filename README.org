@@ -109,18 +109,31 @@ Take some time to read more about Use-Package. You can use as little or as
 much as you find helpful: it accommodates just about any Init style you can
 throw at it.
 
-*** Building This Project's Package
+*** Install The Package Yourself
+
+You can do what Use-Package does yourself. Just download the [[https://melpa.org/#/org2blog][Org2Blog's
+package]] (it is a tar file) and install it using ~package-install-file~.
+
+MELPA always has the most current version of the code available. However in
+case your can't reach MELPA there is a copy of the package [[./package][here]] too that is
+usually current.
+
+*** Build The Package Yourself
+
+**** Using MELPA
 
 MELPA creates Org2Blog's package using [[https://github.com/melpa/melpa/blob/master/recipes/org2blog][this recipe]].
 
-The easiest way for you to build the package is to download MELPA and build
-Org2Blog on your computer:
+The easiest way for you to build the package is to download MELPA and run it
+locally to build Org2Blog on your computer:
 
 - Clone the [[https://github.com/melpa/melpa][MELPA repo]]
 - Read about how to [[https://github.com/melpa/melpa/blob/master/CONTRIBUTING.org#test-your-recipe][build a recipe]]
 - Make sure that you are using the correct Emacs version (see requirements
   above) either in your path or editing the recipe
 - Open the Org2Recipe and build it
+
+This will always be the offical Org2Blog package
 
 ** Setting Up The Source Code By Hand
 :PROPERTIES:
@@ -172,11 +185,18 @@ also install it by hand like you did the other packages, like this:
 
 #+BEGIN_SRC sh
 cd ~/src
+git clone https://github.com/magnars/s.el.git
+git clone https://github.com/magnars/dash.el.git
 git clone https://github.com/alphapapa/org-make-toc.git
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/src/s")
+(require 's)
+(add-to-list 'load-path "~/src/dash")
+(require 'dash)
 (add-to-list 'load-path "~/src/org-make-toc")
+(require 'org-make-toc)
 #+END_SRC
 
 See the [[Development][Development]] section for details on automatically rebuilding the table
