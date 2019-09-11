@@ -90,6 +90,28 @@ versions that are close to the required version.
 
 The easiest way to install Org2Blog is using a [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Packages.html][package]].
 
+You can use either a stable or cutting-edge version of Org2Blog by configuring
+your packaging system.
+
+If you want the stable version then use [[https://stable.melpa.org/#/getting-started][MELPA Stable]]
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+#+END_SRC
+
+If you want the cutting edge version using [[https://melpa.org/#/getting-started][MELPA]]
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+#+END_SRC
+
+For advanced users you can configure Package to use any combination of stable
+and cutting-edge versions of a package /and/ its dependencies. Read more about
+how to [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Package-Installation.html#Package-Installation][configure]] it and [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Package-Menu.html#Package-Menu][utilize]] that power in both your init file and the
+Package user interface.
+
 *** Use-Package
 
 [[https://github.com/jwiegley/use-package][Use-Package]] brings ease and order to your init file. It manages your packages
