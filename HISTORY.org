@@ -8,6 +8,7 @@
   - Status information explaining what is happening and what you can do next.
   - Combination of user interface and additional documentation make for easier
     use.
+  - Cari at [[https://sepiarainbow.com/][Sepia Rainbow Designs]] drew the brilliant logo.
 - Refinement
   - Added dependency on Emacs 26.3 and Org mode 9.1.9 included with it
     - Emacs 26.3 includes the GnuTLS bug fix documented in DebugginStories.org.
