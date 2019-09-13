@@ -137,7 +137,8 @@ throw at it.
 *** Install The Package Yourself
 
 You can do what Use-Package does yourself. Just download the [[https://melpa.org/#/org2blog][Org2Blog's
-package]] (it is a tar file) and install it using ~package-install-file~.
+package]] (it is a tar file) and install it using ~package-install-file~. Load it
+by adding ~(require 'org2blog)~ to your init file.
 
 *** Build The Package Yourself
 
