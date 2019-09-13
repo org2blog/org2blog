@@ -21,7 +21,6 @@ Blog from Org mode to WordPress.
     -  [[#use-package][Use-Package]]
     -  [[#install-the-package-yourself][Install The Package Yourself]]
     -  [[#build-the-package-yourself][Build The Package Yourself]]
-      -  [[#using-melpa][Using MELPA]]
   -  [[#setting-up-the-source-code-by-hand][Setting Up The Source Code By Hand]]
 -  [[#usage][Usage]]
   -  [[#make-your-first-post-in-less-5-minutes][Make Your First Post In Less 5 Minutes]]
@@ -141,8 +140,6 @@ package]] (it is a tar file) and install it using ~package-install-file~. Load i
 by adding ~(require 'org2blog)~ to your init file.
 
 *** Build The Package Yourself
-
-**** Using MELPA
 
 MELPA creates Org2Blog's package using [[https://github.com/melpa/melpa/blob/master/recipes/org2blog][this recipe]].
 
