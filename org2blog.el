@@ -871,10 +871,14 @@ and evaluate local variable to see precisely what is happening.
 
 After studying the request body, messages, and control flow and
 things still don't work then the best thing to do is to test the
-call using another tool. Once you've got a copy of the xml request
-body you can test it using cURL. By this point you'll have a
-better sense of where things are happening, or not, and now
-might be the time to move on to the transfer layer.
+call using another tool. Paste the request-data into a file named
+`test.txt' and make the request using cURL like this:
+
+curl --data @test.txt https://www.yourblog.com/xmlrpc.php
+
+By this point you'll have a better sense of where things are
+happening, or not, and now might be the time to move on to the
+transfer layer.
 
 If you are investigating at the GnuTLS layer it helps to study
 the debug messages side by side with the output of an analysis
