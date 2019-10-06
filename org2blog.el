@@ -188,8 +188,8 @@ Example: \"admin\"")
 Here is an example of creating keybindings:
 
 (defun ahook ()
-  (local-set-key (kbd \"M-9\") #'owp-user-interface)
-  (local-set-key (kbd \"M-0\") #'owp-complete))
+  (local-set-key (kbd \"M-9\") #'org2blog-user-interface)
+  (local-set-key (kbd \"M-0\") #'org2blog-complete))
 (add-hook 'org2blog/wp-mode-hook #'ahook).")
 
 (defvar org2blog-buffer-entry-save-hook nil
@@ -203,7 +203,7 @@ Here is an example that outputs the entire object to the *Messages* buffer:
 (defun ahook (entry)
   (pp entry))
 
-(add-hook 'owp-buffer-entry-save-hook #'ahook).")
+(add-hook 'org2blog-buffer-entry-save-hook #'ahook).")
 
 (defvar org2blog-export-options
   '(
@@ -313,7 +313,7 @@ It is passed to ‘format’ with 3 string arguments:
   :group 'org2blog/wp
   :type 'string)
 
-(defcustom org2blog/wp-buffer-format-function 'owp-entry-buffer-make
+(defcustom org2blog/wp-buffer-format-function 'org2blog-entry-buffer-make
   "Function formatting a buffer according to `org2blog/wp-buffer-template'."
   :group 'org2blog/wp
   :type 'function)
@@ -464,7 +464,7 @@ Example: See default value."
   "C-c M-p"
   "Mode keymap prefix.
 
-Call `owp-reload-entry-mode-map' after making
+Call `org2blog-reload-entry-mode-map' after making
 change for them to takes effect."
   :group 'org2blog/wp
   :type 'string)
@@ -485,7 +485,7 @@ change for them to takes effect."
 (defcustom org2blog/link-selection-size 100
   "Number of most recent entries to present for insertion.
 
-function ‘owp-insert-link’ inserts an
+function ‘org2blog-insert-link’ inserts an
 Org link for an entry ID. Retrieve the
 variable ‘org2blog/link-selection-size' most recent entries
 to present to the user for selection.
@@ -741,10 +741,10 @@ on the project host site (GitHub at the moment)."
   (interactive)
   (catch 'return
     (condition-case-unless-debug err
-        (let* ((match (find-function-noselect 'owp-readme t))
+        (let* ((match (find-function-noselect 'org2blog-readme t))
                (_ (unless (and (consp match) (cdr match))
                     (org2blog--error (concat "I’m sorry but I can’t show you the "
-                                             "README using ‘owp-readme’."))
+                                             "README using ‘org2blog-readme’."))
                     (throw 'return nil)))
                (srcbuf (car match))
                (srcfile (with-current-buffer srcbuf
@@ -753,7 +753,7 @@ on the project host site (GitHub at the moment)."
                     (message
                      (concat "I’m sorry I ran into a problem trying "
                              "to find the readme file"
-                             "for ‘owp-readme’. Please "
+                             "for ‘org2blog-readme’. Please "
                              "report this as an error."))
                     (org2blog--error "Couldn’t open README")
                     (throw 'return nil)))
@@ -766,7 +766,7 @@ on the project host site (GitHub at the moment)."
             (error
              (org2blog--error
               (format (concat "I’m sorry I ran into a problem trying load "
-                              "and the contents %s in ‘owp-readme’.")
+                              "and the contents %s in ‘org2blog-readme’.")
                       readme)
               (format "%s" err))
              (throw 'return nil)))
@@ -780,7 +780,7 @@ on the project host site (GitHub at the moment)."
       (error
        (org2blog--error
         (format (concat "I’m sorry I ran into a problem trying to display "
-                        "the readme somewhere in ‘owp-readme’."))
+                        "the readme somewhere in ‘org2blog-readme’."))
         (format "%s" err))
        (throw 'return nil)))))
 
@@ -799,7 +799,7 @@ KIND must be either ’buffer or ’subtree.
 Use like this:
 
   (add-hook 'kill-buffer-hook
-             (apply-partially #'owp-on-new-entry-kill ’buffer)
+             (apply-partially #'org2blog-on-new-entry-kill ’buffer)
                               nil 'local)
 ."
   (catch 'return
@@ -826,7 +826,7 @@ Use like this:
 
 Use it like this:
 
-(add-hook 'org-mode-hook #'owp-maybe-start)"
+(add-hook 'org-mode-hook #'org2blog-maybe-start)"
   (with-current-buffer (current-buffer)
     (when (org2blog--bprop "ORG2BLOG")
       (org2blog/wp-mode t))))
@@ -859,7 +859,7 @@ listed below, followed by details about their debug output:
   - Debug messages output in buffer: *Messages*
 
 Investigate by going through layer's messages from top to bottom.
-Call function ‘owp-version-info’ to display runtime version numbers
+Call function ‘org2blog-version-info’ to display runtime version numbers
 
 You usually only need to keep track of what is happening between
 two of them because if it is doing what you expect then you
@@ -928,13 +928,13 @@ closer to doing more blogging!"
 
 ;;;###autoload
 (defun org2blog-user-report-on ()
-  "Enable ‘owp-user-report’ ’ing."
+  "Enable ‘org2blog-user-report’ ’ing."
   (interactive)
   (org2blog-user-report t))
 
 ;;;###autoload
 (defun org2blog-user-report-off ()
-  "Disable ‘owp-user-report’ ’ing."
+  "Disable ‘org2blog-user-report’ ’ing."
   (interactive)
   (org2blog-user-report nil))
 
@@ -976,7 +976,7 @@ See messages below for details."
                   "I’m not sure what you mean by that so I’m going to "
                   "leave your password alone."))
         (throw 'return nil))
-      (setq owp-password new)
+      (setq org2blog-password new)
       (message (concat
                 "I just set your password “on your computer in memory. "
                 "I mean that, your password remains the same on "
@@ -996,7 +996,7 @@ See messages below for details."
                             "‘org2blog/wp-blog-alist’ and try "
                             "logging in again."))
       (throw 'return nil))
-    (setq owp-blog-key
+    (setq org2blog-blog-key
           (or
            blog-name
            (and (equal (length org2blog/wp-blog-alist) 1)
@@ -1004,7 +1004,7 @@ See messages below for details."
            (completing-read
             "What blog would you like to log in to? ([Tab] to see list): "
             (mapcar 'car org2blog/wp-blog-alist) nil t)))
-    (unless (> (length owp-blog-key) 1)
+    (unless (> (length org2blog-blog-key) 1)
       (message
        (concat "Sorry, I can’t log in to blogs with names less than 2 "
                "characters long! It is weird, but I just can’t! Please "
@@ -1014,11 +1014,11 @@ See messages below for details."
                "‘org2blog/wp-blog-alist’, or choose a different blog from "
                "the list you are presented."))
       (throw 'return nil))
-    (setq owp-blog (assoc owp-blog-key org2blog/wp-blog-alist)
-          owp-xmlrpc (org2blog-blog-get :url)
-          owp-username (org2blog-blog-get :username)
-          owp-blogid (or (org2blog-blog-get :id) owp--default-blogid)
-          owp-password
+    (setq org2blog-blog (assoc org2blog-blog-key org2blog/wp-blog-alist)
+          org2blog-xmlrpc (org2blog-blog-get :url)
+          org2blog-username (org2blog-blog-get :username)
+          org2blog-blogid (or (org2blog-blog-get :id) org2blog--default-blogid)
+          org2blog-password
           (or
            (org2blog-blog-get :password)
            (read-passwd
@@ -1027,60 +1027,60 @@ See messages below for details."
                      "and I need that to log you in. "
                      "What is your password for ‘%s’ on ‘%s’? "
                      "(type C-g to quit)")
-                    owp-username owp-blog-key))))
+                    org2blog-username org2blog-blog-key))))
     (message "Loading categories…")
-    (sit-for owp-step-time)
+    (sit-for org2blog-step-time)
     (condition-case-unless-debug err
-        (setq owp-categories (org2blog--load-categories))
+        (setq org2blog-categories (org2blog--load-categories))
       (error
        (org2blog--error
         (format (concat "I’m sorry I ran into a problem trying to load categories "
-                        "inside of ‘owp-user-login’."))
+                        "inside of ‘org2blog-user-login’."))
         (format "%s" err))
        (throw 'return nil)))
     (message "Loading tags…")
-    (sit-for owp-step-time)
+    (sit-for org2blog-step-time)
     (condition-case-unless-debug err
-        (setq owp-tags (org2blog--load-tags))
+        (setq org2blog-tags (org2blog--load-tags))
       (error
        (org2blog--error
         (format (concat "I’m sorry I ran into a problem trying to load tags "
-                        "inside of ‘owp-user-login’."))
+                        "inside of ‘org2blog-user-login’."))
         (format "%s" err))
        (throw 'return nil)))
     (message "Loading page list…")
-    (sit-for owp-step-time)
+    (sit-for org2blog-step-time)
     (condition-case-unless-debug err
-        (setq owp-pages (org2blog--load-pages 'summaries))
+        (setq org2blog-pages (org2blog--load-pages 'summaries))
       (error
        (org2blog--error
         (format (concat "I’m sorry I ran into a problem trying to load page "
-                        "summaries inside of ‘owp-user-login’."))
+                        "summaries inside of ‘org2blog-user-login’."))
         (format "%s" err))
        (throw 'return nil)))
-    (setq owp-logged-in t)
-    (let ((cats (length owp-categories))
-          (tags (length owp-tags))
-          (pages (length owp-pages)))
+    (setq org2blog-logged-in t)
+    (let ((cats (length org2blog-categories))
+          (tags (length org2blog-tags))
+          (pages (length org2blog-pages)))
       (message "You are now logged in to your blog “%s”"
-               owp-blog-key cats tags pages))))
+               org2blog-blog-key cats tags pages))))
 
 ;;;###autoload
 (defun org2blog-user-logout()
   "Log out of blog."
   (interactive)
-  (setq owp-xmlrpc nil
-        owp-username nil
-        owp-blogid nil
-        owp-password nil
-        owp-categories nil
-        owp-tags nil
-        owp-pages nil
-        owp-logged-in nil)
+  (setq org2blog-xmlrpc nil
+        org2blog-username nil
+        org2blog-blogid nil
+        org2blog-password nil
+        org2blog-categories nil
+        org2blog-tags nil
+        org2blog-pages nil
+        org2blog-logged-in nil)
   (message (concat
             "You are now logged out of your blog “%s”. "
             "Hope you had fun blogging and have a great day!")
-           owp-blog-key))
+           org2blog-blog-key))
 
 ;;;###autoload
 (defun org2blog--new (destination)
@@ -1091,10 +1091,10 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
       (org2blog--error
        (format
         (concat "I’m sorry I ran into a problem "
-                (format "inside of ‘owp--new’ with a destination ‘%s’."
+                (format "inside of ‘org2blog--new’ with a destination ‘%s’."
                         destination))))
       (throw 'return nil))
-    (when (and (not owp-logged-in)
+    (when (and (not org2blog-logged-in)
              (y-or-n-p
               (concat
                "It looks like you are not logged in right now. "
@@ -1104,11 +1104,11 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
     (let* ((buf-name (cond ((eq destination 'buffer) "Buf")
                            ((eq destination 'subtree) "Sub")))
            (buf (generate-new-buffer
-                 (format owp-buffer-name buf-name owp-blog-key)))
+                 (format org2blog-buffer-name buf-name org2blog-blog-key)))
            content)
       (switch-to-buffer buf)
       (add-hook 'kill-buffer-hook
-                (apply-partially #'owp-on-new-entry-kill destination) nil 'local)
+                (apply-partially #'org2blog-on-new-entry-kill destination) nil 'local)
       (org-mode)
       (cond ((eq destination 'buffer)
              (setq content
@@ -1131,7 +1131,7 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
 :POST_TAGS: %s
 :END:\n\n"
                             (org2blog--blog-property-or :default-title-sub org2blog/wp-default-title-subtree)
-                            owp-blog-key
+                            org2blog-blog-key
                             (format-time-string "[%Y-%m-%d %a %H:%M]" (current-time))
                             (mapconcat
                              (lambda (cat) cat)
@@ -1255,35 +1255,35 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
               (throw 'return nil)))
           (condition-case-unless-debug err
               (cond ((and to-post post-id)
-                     (metaweblog-edit-post owp-xmlrpc
-                                           owp-username
-                                           owp-password
+                     (metaweblog-edit-post org2blog-xmlrpc
+                                           org2blog-username
+                                           org2blog-password
                                            post-id
                                            post
                                            publish))
                     ((and to-post (not post-id))
                      (setq post-id (metaweblog-new-post
-                                    owp-xmlrpc
-                                    owp-username
-                                    owp-password
-                                    owp-blogid
+                                    org2blog-xmlrpc
+                                    org2blog-username
+                                    org2blog-password
+                                    org2blog-blogid
                                     post
                                     publish))
                      (setq made-new-entry t))
                     ((and to-page post-id)
-                     (wp-edit-page owp-xmlrpc
-                                   owp-username
-                                   owp-password
-                                   owp-blogid
+                     (wp-edit-page org2blog-xmlrpc
+                                   org2blog-username
+                                   org2blog-password
+                                   org2blog-blogid
                                    post-id
                                    post
                                    publish))
                     ((and to-page (not post-id))
                      (setq post-id
-                           (wp-new-page owp-xmlrpc
-                                        owp-username
-                                        owp-password
-                                        owp-blogid
+                           (wp-new-page org2blog-xmlrpc
+                                        org2blog-username
+                                        org2blog-password
+                                        org2blog-blogid
                                         post
                                         publish))
                      (setq made-new-entry t)))
@@ -1291,17 +1291,17 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
              (org2blog--error
               (format (concat "I’m sorry I ran into a problem "
                               "on %s: “%s” (ID “%s”) "
-                              "inside of ‘owp-entry-save’.")
+                              "inside of ‘org2blog-entry-save’.")
                       thing (cdr (assoc "title" post)) post-id)
               (format "%s" err))
              (throw 'return nil)))
           (when made-new-entry
             (run-hook-with-args
-             'owp-buffer-entry-save-hook
+             'org2blog-buffer-entry-save-hook
              (org2blog--get-post-or-page post-id))
             (when to-page
               (condition-case-unless-debug err
-                  (setq owp-pages (org2blog--load-pages 'summaries))
+                  (setq org2blog-pages (org2blog--load-pages 'summaries))
                 (error
                  (org2blog--error
                   (format (concat "I just saved your new page, "
@@ -1312,10 +1312,10 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
                   (format "%s" err)))))
             (when from-buffer
               (goto-char (point-min))
-              (when to-post (insert (concat "#+BLOG: " owp-blog-key "\n")))
+              (when to-post (insert (concat "#+BLOG: " org2blog-blog-key "\n")))
               (insert (concat "#+POSTID: " post-id "\n")))
             (when from-subtree
-              (when to-post (org-entry-put (point) "BLOG" owp-blog-key))
+              (when to-post (org-entry-put (point) "BLOG" org2blog-blog-key))
               (org-entry-put (point) "POSTID" post-id)))
           (org2blog--save-details post post-id publish from-subtree)
           (let* ((did (format
@@ -1334,7 +1334,7 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
                                  "it then try customizing "
                                  "‘org2blog/wp-show-post-in-browser’.")
                          thing))
-                  ((not owp-logged-in)
+                  ((not org2blog-logged-in)
                    (message
                     (concat did
                             "It looks like you wanted to display your %s, but "
@@ -1449,22 +1449,22 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
       (condition-case-unless-debug err
           (progn
             (when is-post
-              (metaweblog-delete-post owp-xmlrpc
-                                      owp-username
-                                      owp-password
+              (metaweblog-delete-post org2blog-xmlrpc
+                                      org2blog-username
+                                      org2blog-password
                                       entry-id))
             (when is-page
-              (wp-delete-page owp-xmlrpc
-                              owp-blogid
-                              owp-username
-                              owp-password
+              (wp-delete-page org2blog-xmlrpc
+                              org2blog-blogid
+                              org2blog-username
+                              org2blog-password
                               entry-id)))
         (error
          (org2blog--error
           (format (concat "I’m sorry I ran into a problem "
                           "trying to trash your %s "
                           "ID “%s” "
-                          "inside of ‘owp-entry-trash’.")
+                          "inside of ‘org2blog-entry-trash’.")
                   type entry-id)
           (format "%s" err))
          (throw 'return nil)))
@@ -1510,13 +1510,13 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
                          "next."))
         (throw 'return nil))
       (cond (see-cat
-             (setq ls owp-categories)
+             (setq ls org2blog-categories)
              (setq thing "Category"))
             (see-tag
-             (setq ls owp-tags)
+             (setq ls org2blog-tags)
              (setq thing "Tag"))
             (see-parent
-             (setq ls owp-pages)
+             (setq ls org2blog-pages)
              (setq thing "Parent"))
             (t (org2blog--error
                 (format
@@ -1599,10 +1599,10 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
       (save-restriction
         (when is-buffer
           (widen)
-          (org2blog--save-details (owp--export-as-post) "" published? nil))
+          (org2blog--save-details (org2blog--export-as-post) "" published? nil))
         (when is-subtree
           (org-narrow-to-subtree)
-          (org2blog--save-details (owp--export-as-post t) "" published? t)
+          (org2blog--save-details (org2blog--export-as-post t) "" published? t)
           (widen))))))
 
 ;;;###autoload
@@ -1658,7 +1658,7 @@ Source is either a ’post or ’subtree"
                         (org2blog--bprop "POST_ID")
                         (org2blog--eprop "POSTID")
                         (org2blog--eprop "POST_ID")))
-           (url owp-xmlrpc))
+           (url org2blog-xmlrpc))
       (if (not entry-id)
           (message (concat "Sorry I can’t display this %s post because it "
                            "hasn’t been saved or published yet. Please do "
@@ -1690,22 +1690,22 @@ instead of posts."
   (message "Loading %s…" (if is-page "page list"
                            (format "last %s posts"
                                    org2blog/link-selection-size)))
-  (sit-for owp-step-time)
+  (sit-for org2blog-step-time)
   (catch 'return
     (let* ((post-list
             (condition-case-unless-debug err
                 (if is-page
                     (org2blog--load-pages)
-                  (metaweblog-get-recent-posts owp-xmlrpc
-                                               owp-blogid
-                                               owp-username
-                                               owp-password
+                  (metaweblog-get-recent-posts org2blog-xmlrpc
+                                               org2blog-blogid
+                                               org2blog-username
+                                               org2blog-password
                                                org2blog/link-selection-size))
               (error
                (org2blog--error
                 (format (concat "I’m sorry I ran into a problem "
                                 "trying to insert a link "
-                                "inside of ‘owp-insert-link’."))
+                                "inside of ‘org2blog-insert-link’."))
                 (format "%s" err))
                (throw 'return nil))))
            post-title entryid url title-id-map)
@@ -1721,13 +1721,13 @@ instead of posts."
             entryid (cdr (assoc post-title title-id-map)))
       (when post-title
         (setq url (concat
-                   (replace-regexp-in-string "xmlrpc\\.php$" "?p=" owp-xmlrpc)
+                   (replace-regexp-in-string "xmlrpc\\.php$" "?p=" org2blog-xmlrpc)
                    entryid))
         (insert (format "[[%s][%s]]" url post-title))))))
 
 ;;;###autoload
 (defun org2blog-reload-entry-mode-map ()
-  "Re-initialize `owp-mode-map'.
+  "Re-initialize `org2blog-mode-map'.
 
 Use the prefix key sequence defined by
 `org2blog/wp-keymap-prefix' and update `minor-mode-map-alist'
@@ -1735,7 +1735,7 @@ accordingly."
   (interactive)
   (org2blog--init-entry-mode-map)
   (let ((keymap (assoc 'org2blog/wp-mode minor-mode-map-alist)))
-    (setcdr keymap owp-mode-map)))
+    (setcdr keymap org2blog-mode-map)))
 
 ;;;###autoload
 (defun org2blog-about ()
@@ -1878,10 +1878,10 @@ If it doesn’t find one then it doesn’t insert it."
   "Load categories from server.
 Caller must handle any errors."
   (let* ((raw (metaweblog-get-categories
-               owp-xmlrpc
-               owp-username
-               owp-password
-               owp-blogid))
+               org2blog-xmlrpc
+               org2blog-username
+               org2blog-password
+               org2blog-blogid))
          (cats (mapcar
                 (lambda (category) (cdr (assoc "categoryName" category)))
                 raw)))
@@ -1891,10 +1891,10 @@ Caller must handle any errors."
   "Load tags from server.
 Caller must handle any errors."
   (let* ((raw (wp-get-tags
-               owp-xmlrpc
-               owp-username
-               owp-password
-               owp-blogid))
+               org2blog-xmlrpc
+               org2blog-username
+               org2blog-password
+               org2blog-blogid))
          (tags (mapcar
                 (lambda (tag) (cdr (assoc "slug" tag)))
                 raw)))
@@ -1904,10 +1904,10 @@ Caller must handle any errors."
   "Load raw pages from server or SUMMARIES if non-nil.
 Caller must handle any errors."
   (let* ((pages (wp-get-pagelist
-                 owp-xmlrpc
-                 owp-username
-                 owp-password
-                 owp-blogid))
+                 org2blog-xmlrpc
+                 org2blog-username
+                 org2blog-password
+                 org2blog-blogid))
          (page-summaries
           (mapcar (lambda (pg)
                     (cons (cdr (assoc "page_title" pg))
@@ -1956,16 +1956,16 @@ See: URL ‘https://orgmode.org/manual/Property-syntax.html#Property-syntax’'.
 
 (defun org2blog--eprop (name)
   "Return entry property for NAME.
-See ‘owp--bprop’ docstring for details."
+See ‘org2blog--bprop’ docstring for details."
   (org-entry-get (point) name))
 
 (defun org2blog-blog-has (property)
   "Return non-nil if current blog PROPERTY exists."
-  (plist-member (cdr owp-blog) property))
+  (plist-member (cdr org2blog-blog) property))
 
 (defun org2blog-blog-get (property)
   "Return current blog PROPERTY."
-  (plist-get (cdr owp-blog) property))
+  (plist-get (cdr org2blog-blog) property))
 
 (defun org2blog--blog-property-or (property value)
   "Return current blog PROPERTY, else or VALUE."
@@ -1975,13 +1975,13 @@ See ‘owp--bprop’ docstring for details."
 
 (defun org2blog--login-status ()
   "User login status of current blog."
-  (let ((msg (if (not owp-logged-in) "Logged Out."
+  (let ((msg (if (not org2blog-logged-in) "Logged Out."
                (format "Logged In To ‘%s’ as ‘%s’."
-                       owp-blog-key owp-username))))
+                       org2blog-blog-key org2blog-username))))
     msg))
 
 (defun org2blog--define-key (map suffix function)
-  "Helper to populate ‘owp-mode-map’ in MAP for FUNCTION with SUFFIX.
+  "Helper to populate ‘org2blog-mode-map’ in MAP for FUNCTION with SUFFIX.
 
 Define a key sequence SUFFIX in MAP for FUNCTION.
 
@@ -1991,7 +1991,7 @@ Uses the mode's key map with the prefix
     (define-key map keyseq function)))
 
 (defun org2blog--init-entry-mode-map ()
-  "Initialize `owp-mode-map'.
+  "Initialize `org2blog-mode-map'.
 
 Uses the prefix key sequence defined by
 `org2blog/wp-keymap-prefix'.
@@ -2000,21 +2000,21 @@ Both sets the map and returns the map so that it can be used both
 at mode start time and after the user re-configures it."
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map org-mode-map)
-    (org2blog--define-key map "p" 'owp-buffer-post-publish)
-    (org2blog--define-key map "P" 'owp-buffer-page-publish)
-    (org2blog--define-key map "d" 'owp-buffer-post-save)
-    (org2blog--define-key map "D" 'owp-buffer-page-save)
-    (org2blog--define-key map "t" 'owp-complete)
-    (org2blog--define-key map "g" 'owp-user-interface)
-    (setq owp-mode-map map)
+    (org2blog--define-key map "p" 'org2blog-buffer-post-publish)
+    (org2blog--define-key map "P" 'org2blog-buffer-page-publish)
+    (org2blog--define-key map "d" 'org2blog-buffer-post-save)
+    (org2blog--define-key map "D" 'org2blog-buffer-page-save)
+    (org2blog--define-key map "t" 'org2blog-complete)
+    (org2blog--define-key map "g" 'org2blog-user-interface)
+    (setq org2blog-mode-map map)
     map))
 
 (defun org2blog--create-categories (new-categories)
-  "Add NEW-CATEGORIES to ‘owp-categories'."
+  "Add NEW-CATEGORIES to ‘org2blog-categories'."
   (let ((result
          (mapcar
           (lambda (cat)
-            (if (and (not (seq-contains owp-categories cat))
+            (if (and (not (seq-contains org2blog-categories cat))
                    (y-or-n-p
                     (format
                      (concat "Would you like to "
@@ -2023,20 +2023,20 @@ at mode start time and after the user re-configures it."
                      cat)))
                 (condition-case-unless-debug err
                     (wp-new-category
-                     owp-xmlrpc
-                     owp-username
-                     owp-password
-                     owp-blogid
+                     org2blog-xmlrpc
+                     org2blog-username
+                     org2blog-password
+                     org2blog-blogid
                      cat)
                   (error
                    (org2blog--error
                     (format
                      (concat "I’m sorry I ran into a problem "
                              "trying to create categories "
-                             "inside of ‘owp--create-categories’."))
+                             "inside of ‘org2blog--create-categories’."))
                     (format "%s" err))
                    (throw 'return nil))))
-            (add-to-list 'owp-categories cat))
+            (add-to-list 'org2blog-categories cat))
           new-categories)))
     result))
 
@@ -2071,9 +2071,9 @@ User is not logged in and attempts to save a post.
 
 This function prompts the user to login."
   (let ((blog-name (org2blog--entry-blog-name)))
-    (when (and blog-name (not (equal blog-name owp-blog-key)))
+    (when (and blog-name (not (equal blog-name org2blog-blog-key)))
       (org2blog-user-logout))
-    (unless owp-logged-in
+    (unless org2blog-logged-in
       (org2blog-user-login blog-name))))
 
 (defun org2blog-entry-buffer-make (buffer-template)
@@ -2104,9 +2104,9 @@ See ‘org2blog/wp-buffer-template’ for details about how it is used."
                                              file-name)))
           (setq beg (match-end 0))
           (when (save-match-data (not (or
-                                       (string-match org-plain-link-re file-name)
-                                       (string-match "^.*#" file-name)
-                                       (string-equal (file-name-nondirectory file-name) ""))))
+                                     (string-match org-plain-link-re file-name)
+                                     (string-match "^.*#" file-name)
+                                     (string-equal (file-name-nondirectory file-name) ""))))
             (goto-char (point-min))
             (if (re-search-forward (concat "^.*# "
                                            (regexp-quote file-name)
@@ -2125,15 +2125,15 @@ See ‘org2blog/wp-buffer-template’ for details about how it is used."
               ;; Return alist with id, file, url, type
               (condition-case-unless-debug err
                   (setq upload-ret (metaweblog-upload-file
-                                    owp-xmlrpc
-                                    owp-username
-                                    owp-password
-                                    owp-blogid
+                                    org2blog-xmlrpc
+                                    org2blog-username
+                                    org2blog-password
+                                    org2blog-blogid
                                     (get-file-properties file-name)))
                 (error
                  (org2blog--error
                   (format (concat "I’m sorry I ran into a problem "
-                                  "inside of ‘owp--upload-files-replace-urls’."))
+                                  "inside of ‘org2blog--upload-files-replace-urls’."))
                   (format "%s" err))
                  (throw 'return nil)))
               (setq file-web-url
@@ -2148,11 +2148,11 @@ See ‘org2blog/wp-buffer-template’ for details about how it is used."
                        ;; Get the name of thumbnail image, in this case medium at
                        ;; 300px.
                        (media-item-info
-                        (xml-rpc-method-call owp-xmlrpc
+                        (xml-rpc-method-call org2blog-xmlrpc
                                              "wp.getMediaItem"
-                                             owp-blogid
-                                             owp-username
-                                             owp-password
+                                             org2blog-blogid
+                                             org2blog-username
+                                             org2blog-password
                                              attachment-id)))
 
                   ;; media-item-info -> metadata -> sizes -> medium -> file == basename-300x???.jpg
@@ -2225,16 +2225,16 @@ URL`https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.newPost'"
   (interactive)
   (catch 'return
     (condition-case-unless-debug err
-        (let ((post-or-page (metaweblog-get-post owp-xmlrpc
-                                                 owp-username
-                                                 owp-password
+        (let ((post-or-page (metaweblog-get-post org2blog-xmlrpc
+                                                 org2blog-username
+                                                 org2blog-password
                                                  post-or-page-id)))
           post-or-page)
       (error
        (org2blog--error
         (format (concat "I’m sorry I ran into a problem trying to retrieve "
                         "ID “%s” "
-                        "inside of ‘owp--get-post-or-page’.")
+                        "inside of ‘org2blog--get-post-or-page’.")
                 post-or-page-id)
         (format "%s" err))
        (throw 'return nil)))))
@@ -2274,7 +2274,7 @@ URL`https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.newPost'"
                                 "tracking your entry again.")))
                              (throw 'return nil))))
                  (headline (if (org2blog-blog-has :track-posts)
-                               (cadr (plist-get (cdr owp-blog) :track-posts))
+                               (cadr (plist-get (cdr org2blog-blog) :track-posts))
                              (cadr org2blog/wp-track-posts)))
                  p)
             (make-directory (file-name-directory log-file) t)
@@ -2319,7 +2319,7 @@ URL`https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.newPost'"
 
 This can be passed on to the export functions to configure the
 various export options."
-  (let ((export-options owp-export-options))
+  (let ((export-options org2blog-export-options))
     (plist-put export-options :wp-keep-new-lines
                (org2blog--blog-property-or :keep-new-lines org2blog/wp-keep-new-lines))
     (plist-put export-options :wp-latex
@@ -2383,7 +2383,7 @@ logged in.  Otherwise, the user is prompted to login."
       (or
        (cdr (assoc
              (car (split-string parent "\\( *, *\\)" t))
-             owp-pages))
+             org2blog-pages))
        (number-to-string (string-to-number parent))
        "0")
     "0"))
@@ -2406,7 +2406,7 @@ logged in.  Otherwise, the user is prompted to login."
 
 The entry object returned does not contain the exported html.
 This entry needs to be further processed by the
-`owp--export-as-post' function, to add the export html
+`org2blog--export-as-post' function, to add the export html
 and munge it a little to make it suitable to use with the
 `metaweblog' functions."
   (let*
@@ -2439,7 +2439,7 @@ and munge it a little to make it suitable to use with the
 
 The entry object returned does not contain the exported html.
 This entry needs to be further processed by the
-`owp--export-as-post' function, to add the export html
+`org2blog--export-as-post' function, to add the export html
 and munge it a little to make it suitable to use with the
 `metaweblog' functions."
   (let*
@@ -2491,7 +2491,7 @@ and munge it a little to make it suitable to use with the
   "Verify startup assertions."
   (org2blog--startup-library-check "Org mode" org-version
                                    org2blog/wp-required-org-version)
-  (org2blog--startup-library-check "Emacs" emacs-version owp--minimal-emacs))
+  (org2blog--startup-library-check "Emacs" emacs-version org2blog--minimal-emacs))
 
 (defun org2blog--error (amessage &optional report-details)
   "Display error AMESSAGE and non-nil REPORT-DETAILS for a human."
@@ -2538,7 +2538,7 @@ and munge it a little to make it suitable to use with the
 (defun org2blog--contacts-info (contacts)
   "Create string from CONTACTS info."
   (let* ((contacts (mapcar
-                    'owp--contact-info
+                    'org2blog--contact-info
                     contacts))
          (separated (org2blog--interpose ", " contacts))
          (all (apply 'concat separated)))
@@ -2557,9 +2557,9 @@ Non-nil argument turns mode on.
 Nil argument turns mode off.
 
 Commands:
-\\{owp-mode-map}
+\\{org2blog-mode-map}
 
-Entry to this mode calls the value of `owp-mode-hook'."
+Entry to this mode calls the value of `org2blog-mode-hook'."
 
   :init-value nil
   :lighter " o2b"
@@ -2567,7 +2567,7 @@ Entry to this mode calls the value of `owp-mode-hook'."
   :keymap (org2blog--init-entry-mode-map)
 
   (when org2blog/wp-mode
-    (run-mode-hooks 'owp-mode-hook)))
+    (run-mode-hooks 'org2blog-mode-hook)))
 
 ;;; Initialization
 
@@ -2575,8 +2575,8 @@ Entry to this mode calls the value of `owp-mode-hook'."
        (org2blog--startup-asserts)
        (org2blog-version-info))
       ((not after-init-time)
-       (add-hook 'after-init-hook #'owp--startup-asserts t)
-       (add-hook 'after-init-hook #'owp-version-info t)))
+       (add-hook 'after-init-hook #'org2blog--startup-asserts t)
+       (add-hook 'after-init-hook #'org2blog-version-info t)))
 
 (provide 'org2blog)
 
