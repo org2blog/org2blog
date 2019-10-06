@@ -512,10 +512,10 @@ here seemed to be a good balance between speed and value(s)."
   "Abstracts displaying information about variable NAME."
   (describe-variable name))
 
-(defhydra owp--hydra-main (:color blue :hint nil)
+(defhydra org2blog--hydra-main (:color blue :hint nil)
   "
 ╔═^═════════╗
-║ ^Org2Blog ║^ (Main Menu) %(owp--login-status)^
+║ ^Org2Blog ║^ (Main Menu) %(org2blog--login-status)^
 ╠═^═════════╩^═══════╦═════════════^═══^╦════════^════════════^╦═^═══════^═══════════^═╗
 ║ ^Admin^            ║ ^Use^            ║ ^Buffer^             ║ ^Subtree^           ^ ║
 ╚═^═════^════════════╩═^═══^════════════╩═^══════^═════════════╩═^═══════^═══════════^═╝
@@ -528,44 +528,44 @@ here seemed to be a good balance between speed and value(s)."
  [_h_] Help           [_V_] Variables    [_L_] Publish Page     [_O_] Publish Page
  [_q_] Quit            ^ ^               [_:_] Trash Page       [_P_] Trash Page
 "
-  ("4" owp-user-login :exit nil)
-  ("3" owp-user-report-on :exit nil)
-  ("2" owp-user-report-off :exit nil)
-  ("1" owp-user-logout :exit nil)
-  ("a" owp-about)
-  ("w" owp-version-info)
-  ("h" (owp--hydra-main-help/body))
+  ("4" org2blog-user-login :exit nil)
+  ("3" org2blog-user-report-on :exit nil)
+  ("2" org2blog-user-report-off :exit nil)
+  ("1" org2blog-user-logout :exit nil)
+  ("a" org2blog-about)
+  ("w" org2blog-version-info)
+  ("h" (org2blog--hydra-main-help/body))
   ("q" nil)
 
-  ("e" owp-buffer-new)
-  ("r" owp-subtree-new)
-  ("c" owp-complete)
-  ("f" owp-entry-trash-prompt)
-  ("d" owp--hydra-main-inserts/body)
-  ("v" owp-readme)
-  ("V" owp--hydra-main-variables/body)
+  ("e" org2blog-buffer-new)
+  ("r" org2blog-subtree-new)
+  ("c" org2blog-complete)
+  ("f" org2blog-entry-trash-prompt)
+  ("d" org2blog--hydra-main-inserts/body)
+  ("v" org2blog-readme)
+  ("V" org2blog--hydra-main-variables/body)
 
-  ("j" owp-buffer-post-save)
-  ("k" owp-buffer-post-view)
-  ("l" owp-buffer-post-publish)
-  (";" owp-buffer-post-trash)
+  ("j" org2blog-buffer-post-save)
+  ("k" org2blog-buffer-post-view)
+  ("l" org2blog-buffer-post-publish)
+  (";" org2blog-buffer-post-trash)
 
-  ("J" owp-buffer-page-save)
-  ("K" owp-buffer-page-view)
-  ("L" owp-buffer-page-publish)
-  (":" owp-buffer-page-trash)
+  ("J" org2blog-buffer-page-save)
+  ("K" org2blog-buffer-page-view)
+  ("L" org2blog-buffer-page-publish)
+  (":" org2blog-buffer-page-trash)
 
-  ("u" owp-subtree-post-save)
-  ("i" owp-subtree-post-view)
-  ("o" owp-subtree-post-publish)
-  ("p" owp-subtree-post-trash)
+  ("u" org2blog-subtree-post-save)
+  ("i" org2blog-subtree-post-view)
+  ("o" org2blog-subtree-post-publish)
+  ("p" org2blog-subtree-post-trash)
 
-  ("U" owp-subtree-page-save)
-  ("I" owp-subtree-page-view)
-  ("O" owp-subtree-page-publish)
-  ("P" owp-subtree-page-trash))
+  ("U" org2blog-subtree-page-save)
+  ("I" org2blog-subtree-page-view)
+  ("O" org2blog-subtree-page-publish)
+  ("P" org2blog-subtree-page-trash))
 
-(defhydra owp--hydra-main-help (:color blue :hint nil)
+(defhydra org2blog--hydra-main-help (:color blue :hint nil)
   "
 ╔═^═════════╗
 ║ ^Org2Blog ║^ (Main Menu → Help) Select any item for more detail
@@ -581,46 +581,46 @@ here seemed to be a good balance between speed and value(s)."
   ^ ^                 [_V_] Variables    [_L_] Publish Page     [_O_] Publish Page
  [_q_] Back            ^ ^               [_:_] Trash Page       [_P_] Trash Page
 "
-  ("4" (owp--hlpf 'owp-user-login) :exit nil)
-  ("3" (owp--hlpf 'owp-user-report-on) :exit nil)
-  ("2" (owp--hlpf 'owp-user-report-off) :exit nil)
-  ("1" (owp--hlpf 'owp-user-logout) :exit nil)
-  ("a" (owp--hlpf 'owp-about) :exit nil)
-  ("w" (owp--hlpf 'owp-version-info) :exit nil)
-  ("q" owp--hydra-main/body)
+  ("4" (org2blog--hlpf 'org2blog-user-login) :exit nil)
+  ("3" (org2blog--hlpf 'org2blog-user-report-on) :exit nil)
+  ("2" (org2blog--hlpf 'org2blog-user-report-off) :exit nil)
+  ("1" (org2blog--hlpf 'org2blog-user-logout) :exit nil)
+  ("a" (org2blog--hlpf 'org2blog-about) :exit nil)
+  ("w" (org2blog--hlpf 'org2blog-version-info) :exit nil)
+  ("q" org2blog--hydra-main/body)
 
-  ("e" (owp--hlpf 'owp-buffer-new) :exit nil)
-  ("r" (owp--hlpf 'owp-subtree-new) :exit nil)
-  ("c" (owp--hlpf 'owp-complete) :exit nil)
-  ("f" (owp--hlpf 'owp-entry-trash-prompt) :exit nil)
-  ("d" (owp--hlpf 'owp--main-inserts) :exit nil)
-  ("v" (owp--hlpf 'owp-readme) :exit nil)
-  ("V" (owp--hlpf 'owp--main-variables) :exit nil)
+  ("e" (org2blog--hlpf 'org2blog-buffer-new) :exit nil)
+  ("r" (org2blog--hlpf 'org2blog-subtree-new) :exit nil)
+  ("c" (org2blog--hlpf 'org2blog-complete) :exit nil)
+  ("f" (org2blog--hlpf 'org2blog-entry-trash-prompt) :exit nil)
+  ("d" (org2blog--hlpf 'org2blog--main-inserts) :exit nil)
+  ("v" (org2blog--hlpf 'org2blog-readme) :exit nil)
+  ("V" (org2blog--hlpf 'org2blog--main-variables) :exit nil)
 
-  ("j" (owp--hlpf 'owp-buffer-post-save) :exit nil)
-  ("k" (owp--hlpf 'owp-buffer-post-view) :exit nil)
-  ("l" (owp--hlpf 'owp-buffer-post-publish) :exit nil)
-  (";" (owp--hlpf 'owp-buffer-post-trash) :exit nil)
+  ("j" (org2blog--hlpf 'org2blog-buffer-post-save) :exit nil)
+  ("k" (org2blog--hlpf 'org2blog-buffer-post-view) :exit nil)
+  ("l" (org2blog--hlpf 'org2blog-buffer-post-publish) :exit nil)
+  (";" (org2blog--hlpf 'org2blog-buffer-post-trash) :exit nil)
 
-  ("J" (owp--hlpf 'owp-buffer-page-save) :exit nil)
-  ("K" (owp--hlpf 'owp-buffer-page-view) :exit nil)
-  ("L" (owp--hlpf 'owp-buffer-page-publish) :exit nil)
-  (":" (owp--hlpf 'owp-buffer-page-trash) :exit nil)
+  ("J" (org2blog--hlpf 'org2blog-buffer-page-save) :exit nil)
+  ("K" (org2blog--hlpf 'org2blog-buffer-page-view) :exit nil)
+  ("L" (org2blog--hlpf 'org2blog-buffer-page-publish) :exit nil)
+  (":" (org2blog--hlpf 'org2blog-buffer-page-trash) :exit nil)
 
-  ("u" (owp--hlpf 'owp-subtree-post-save) :exit nil)
-  ("i" (owp--hlpf 'owp-subtree-post-view) :exit nil)
-  ("o" (owp--hlpf 'owp-subtree-post-publish) :exit nil)
-  ("p" (owp--hlpf 'owp-subtree-post-trash) :exit nil)
+  ("u" (org2blog--hlpf 'org2blog-subtree-post-save) :exit nil)
+  ("i" (org2blog--hlpf 'org2blog-subtree-post-view) :exit nil)
+  ("o" (org2blog--hlpf 'org2blog-subtree-post-publish) :exit nil)
+  ("p" (org2blog--hlpf 'org2blog-subtree-post-trash) :exit nil)
 
-  ("U" (owp--hlpf 'owp-subtree-page-save) :exit nil)
-  ("I" (owp--hlpf 'owp-subtree-page-view) :exit nil)
-  ("O" (owp--hlpf 'owp-subtree-page-publish) :exit nil)
-  ("P" (owp--hlpf 'owp-subtree-page-trash) :exit nil))
+  ("U" (org2blog--hlpf 'org2blog-subtree-page-save) :exit nil)
+  ("I" (org2blog--hlpf 'org2blog-subtree-page-view) :exit nil)
+  ("O" (org2blog--hlpf 'org2blog-subtree-page-publish) :exit nil)
+  ("P" (org2blog--hlpf 'org2blog-subtree-page-trash) :exit nil))
 
 (defun org2blog--main-inserts ()
   "Open the “Insert A” menu."
-  (owp--hydra-main-inserts/body))
-(defhydra owp--hydra-main-inserts (:color blue :hint nil)
+  (org2blog--hydra-main-inserts/body))
+(defhydra org2blog--hydra-main-inserts (:color blue :hint nil)
   "
 ╔══════════╗
 ║ Org2Blog ║ (Main Menu → Insert)
@@ -636,17 +636,17 @@ here seemed to be a good balance between speed and value(s)."
 [_h_] Help           ^ ^
 [_q_] Back           ^ ^
 "
-  ("m" owp-insert-more)
-  ("t" owp-insert-mathjax)
-  ("x" owp-insert-latex)
-  ("r" owp-insert-link-to-post)
-  ("g" owp-insert-link-to-page)
-  ("o" owp-org2blog-keyword-check)
+  ("m" org2blog-insert-more)
+  ("t" org2blog-insert-mathjax)
+  ("x" org2blog-insert-latex)
+  ("r" org2blog-insert-link-to-post)
+  ("g" org2blog-insert-link-to-page)
+  ("o" org2blog-org2blog-keyword-check)
 
-  ("h" owp--hydra-main-inserts-help/body)
-  ("q" owp--hydra-main/body))
+  ("h" org2blog--hydra-main-inserts-help/body)
+  ("q" org2blog--hydra-main/body))
 
-(defhydra owp--hydra-main-inserts-help (:color blue :hint nil)
+(defhydra org2blog--hydra-main-inserts-help (:color blue :hint nil)
   "
 ╔══════════╗
 ║ Org2Blog ║ (Main Menu → Insert → Help) Select any item for more detail
@@ -662,71 +662,71 @@ here seemed to be a good balance between speed and value(s)."
                      ^ ^
 [_q_] Back           ^ ^
 "
-  ("m" (owp--hlpf 'owp-insert-more) :exit nil)
-  ("t" (owp--hlpf 'owp-insert-mathjax) :exit nil)
-  ("x" (owp--hlpf 'owp-insert-latex) :exit nil)
-  ("r" (owp--hlpf 'owp-insert-link-to-post) :exit nil)
-  ("g" (owp--hlpf 'owp-insert-link-to-page) :exit nil)
-  ("o" (owp--hlpf 'owp-org2blog-keyword-check) :exit nil)
-  ("q" owp--hydra-main-inserts/body))
+  ("m" (org2blog--hlpf 'org2blog-insert-more) :exit nil)
+  ("t" (org2blog--hlpf 'org2blog-insert-mathjax) :exit nil)
+  ("x" (org2blog--hlpf 'org2blog-insert-latex) :exit nil)
+  ("r" (org2blog--hlpf 'org2blog-insert-link-to-post) :exit nil)
+  ("g" (org2blog--hlpf 'org2blog-insert-link-to-page) :exit nil)
+  ("o" (org2blog--hlpf 'org2blog-org2blog-keyword-check) :exit nil)
+  ("q" org2blog--hydra-main-inserts/body))
 
 (defun org2blog--main-variables ()
   "Open the Variables menu."
-  (owp--hydra-main-variables/body))
-(defhydra owp--hydra-main-variables (:color blue :columns 2)
+  (org2blog--hydra-main-variables/body))
+(defhydra org2blog--hydra-main-variables (:color blue :columns 2)
   "
 ╔══════════╗
 ║ Org2Blog ║ (Main Menu → Variables) Select any item for more detail
 ╚══════════╩═════════════════════════════════════════════════════════╝
 "
-  ("aa" (owp--hlpv 'org2blog/link-selection-size)
+  ("aa" (org2blog--hlpv 'org2blog/link-selection-size)
    "org2blog/link-selection-size" :exit nil)
-  ("ab" (owp--hlpv 'org2blog/wp-blog-alist)
+  ("ab" (org2blog--hlpv 'org2blog/wp-blog-alist)
    "org2blog/wp-blog-alist" :exit nil)
-  ("ac" (owp--hlpv 'org2blog/wp-buffer-format-function)
+  ("ac" (org2blog--hlpv 'org2blog/wp-buffer-format-function)
    "org2blog/wp-buffer-format-function" :exit nil)
-  ("ad" (owp--hlpv 'org2blog/wp-buffer-subtree-template-prefix)
+  ("ad" (org2blog--hlpv 'org2blog/wp-buffer-subtree-template-prefix)
    "org2blog/wp-buffer-subtree-template-prefix" :exit nil)
-  ("ae" (owp--hlpv 'org2blog/wp-buffer-template)
+  ("ae" (org2blog--hlpv 'org2blog/wp-buffer-template)
    "org2blog/wp-buffer-template" :exit nil)
-  ("af" (owp--hlpv 'org2blog/wp-buffer-template-prefix)
+  ("af" (org2blog--hlpv 'org2blog/wp-buffer-template-prefix)
    "org2blog/wp-buffer-template-prefix" :exit nil)
-  ("ag" (owp--hlpv 'org2blog/wp-confirm-post)
+  ("ag" (org2blog--hlpv 'org2blog/wp-confirm-post)
    "org2blog/wp-confirm-post" :exit nil)
-  ("ah" (owp--hlpv 'org2blog/wp-default-categories)
+  ("ah" (org2blog--hlpv 'org2blog/wp-default-categories)
    "org2blog/wp-default-categories" :exit nil)
-  ("ai" (owp--hlpv 'org2blog/wp-default-categories-subtree)
+  ("ai" (org2blog--hlpv 'org2blog/wp-default-categories-subtree)
    "org2blog/wp-default-categories-subtree" :exit nil)
-  ("aj" (owp--hlpv 'org2blog/wp-default-title)
+  ("aj" (org2blog--hlpv 'org2blog/wp-default-title)
    "org2blog/wp-default-title" :exit nil)
-  ("ak" (owp--hlpv 'org2blog/wp-default-title-subtree)
+  ("ak" (org2blog--hlpv 'org2blog/wp-default-title-subtree)
    "org2blog/wp-default-title-subtree" :exit nil)
-  ("al" (owp--hlpv 'org2blog/wp-image-thumbnail-size)
+  ("al" (org2blog--hlpv 'org2blog/wp-image-thumbnail-size)
    "org2blog/wp-image-thumbnail-size" :exit nil)
-  ("am" (owp--hlpv 'org2blog/wp-image-thumbnails)
+  ("am" (org2blog--hlpv 'org2blog/wp-image-thumbnails)
    "org2blog/wp-image-thumbnails" :exit nil)
-  ("an" (owp--hlpv 'org2blog/wp-keep-new-lines)
+  ("an" (org2blog--hlpv 'org2blog/wp-keep-new-lines)
    "org2blog/wp-keep-new-lines" :exit nil)
-  ("ao" (owp--hlpv 'org2blog/wp-keymap-prefix)
+  ("ao" (org2blog--hlpv 'org2blog/wp-keymap-prefix)
    "org2blog/wp-keymap-prefix" :exit nil)
-  ("ap" (owp--hlpv 'org2blog/wp-safe-new-entry-buffer-kill)
+  ("ap" (org2blog--hlpv 'org2blog/wp-safe-new-entry-buffer-kill)
    "org2blog/wp-safe-new-entry-buffer-kill" :exit nil)
-  ("aq" (owp--hlpv 'org2blog/wp-safe-trash)
+  ("aq" (org2blog--hlpv 'org2blog/wp-safe-trash)
    "org2blog/wp-safe-trash" :exit nil)
-  ("ar" (owp--hlpv 'org2blog/wp-shortcode-langs-map)
+  ("ar" (org2blog--hlpv 'org2blog/wp-shortcode-langs-map)
    "org2blog/wp-shortcode-langs-map" :exit nil)
-  ("as" (owp--hlpv 'org2blog/wp-show-post-in-browser)
+  ("as" (org2blog--hlpv 'org2blog/wp-show-post-in-browser)
    "org2blog/wp-show-post-in-browser" :exit nil)
-  ("at" (owp--hlpv 'org2blog/wp-track-posts)
+  ("at" (org2blog--hlpv 'org2blog/wp-track-posts)
    "org2blog/wp-track-posts" :exit nil)
-  ("au" (owp--hlpv 'org2blog/wp-use-sourcecode-shortcode)
+  ("au" (org2blog--hlpv 'org2blog/wp-use-sourcecode-shortcode)
    "org2blog/wp-use-sourcecode-shortcode" :exit nil)
-  ("av" (owp--hlpv 'org2blog/wp-use-tags-as-categories)
+  ("av" (org2blog--hlpv 'org2blog/wp-use-tags-as-categories)
    "org2blog/wp-use-tags-as-categories" :exit nil)
-  ("aw" (owp--hlpv 'org2blog/wp-use-wp-latex)
+  ("aw" (org2blog--hlpv 'org2blog/wp-use-wp-latex)
    "org2blog/wp-use-wp-latex" :exit nil)
 
-  ("q" owp--hydra-main/body "Back"))
+  ("q" org2blog--hydra-main/body "Back"))
 
 ;;; Functions - Public
 
