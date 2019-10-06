@@ -2523,27 +2523,6 @@ and munge it a little to make it suitable to use with the
                             timezone-utf-offset)))
     timestamp))
 
-(defun org2blog--contact-info (contact)
-  "Create string from CONTACT info."
-  (let ((result (concat (car contact) " <" (cdr contact) ">")))
-    result))
-
-(defun org2blog--interpose (sep list)
-  "Return a new list of all elements in LIST separated by SEP."
-  (let* ((it (mapcar (lambda (x) (list x sep)) list))
-         (it (apply 'concatenate 'list it))
-         (it (seq-take it (- (length it) 1))))
-    it))
-
-(defun org2blog--contacts-info (contacts)
-  "Create string from CONTACTS info."
-  (let* ((contacts (mapcar
-                    'org2blog--contact-info
-                    contacts))
-         (separated (org2blog--interpose ", " contacts))
-         (all (apply 'concat separated)))
-    all))
-
 ;;; Mode
 
 ;;;###autoload

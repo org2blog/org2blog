@@ -71,6 +71,27 @@
                     (org2blog-def--pkg "emacs")
                     (org2blog-def--pkg "org")))))
 
+(defun org2blog-def--contact-info (contact)
+  "Create string from CONTACT info."
+  (let ((result (concat (car contact) " <" (cdr contact) ">")))
+    result))
+
+(defun org2blog-def--interpose (sep list)
+  "Return a new list of all elements in LIST separated by SEP."
+  (let* ((it (mapcar (lambda (x) (list x sep)) list))
+         (it (apply 'concatenate 'list it))
+         (it (seq-take it (- (length it) 1))))
+    it))
+
+(defun org2blog-def--contacts-info (contacts)
+  "Create string from CONTACTS info."
+  (let* ((contacts (mapcar
+                    'org2blog-def--contact-info
+                    contacts))
+         (separated (org2blog-def--interpose ", " contacts))
+         (all (apply 'concat separated)))
+    all))
+
 (defun org2blog-def--update-header ()
   "Update Org2Blog file header."
   (interactive)
@@ -89,11 +110,11 @@
                            (defs (mapcar (lambda (req)
                                            (format "(%s \"%s\")" (car req) (cadr req)))
                                          ls))
-                           (spcd (org2blog--interpose " " defs))
+                           (spcd (org2blog-def--interpose " " defs))
                            (result (apply 's-concat spcd)))
                       result)))
     (insert (format ";; Keywords: %s\n"
-                    (apply 'concat (org2blog--interpose ", " (org2blog-def--pkg "keywords")))))
+                    (apply 'concat (org2blog-def--interpose ", " (org2blog-def--pkg "keywords")))))
     (insert (format ";; Homepage: %s\n" (org2blog-def--pkg "homepage")))))
 
 (defun org2blog-def--update-pkg ()
