@@ -142,48 +142,48 @@ Example: An integer defined by a string.")
 
 ;;; Variables
 
-(defvar owp-blog nil
+(defvar org2blog-blog nil
   "Parameters of the currently selected blog.")
 
-(defvar owp-blog-key nil
+(defvar org2blog-blog-key nil
   "Name of the blog, to pick from `org2blog/wp-blog-alist'.")
 
-(defvar owp-categories nil
+(defvar org2blog-categories nil
   "List of weblog categories.")
 
-(defvar owp-tags nil
+(defvar org2blog-tags nil
   "List of weblog tags.")
 
-(defvar owp-pages nil
+(defvar org2blog-pages nil
   "List of WP pages.")
 
-(defvar owp-xmlrpc nil
+(defvar org2blog-xmlrpc nil
   "WordPress server XML-RPC URL.
 
 The blog specific property is: :url
 
 Example: \"https://www.wisdomandwonder.com/xmlrpc.php\"")
 
-(defvar owp-username nil
+(defvar org2blog-username nil
   "WordPress server user id.
 
 The blog specific property is: :url
 
 Example: \"admin\"")
 
-(defvar owp-blogid nil
+(defvar org2blog-blogid nil
   "WordPress Blog ID.")
 
-(defvar owp-mode-map nil
+(defvar org2blog-mode-map nil
   "Keymap for blog entry buffer.")
 
-(defvar owp-logged-in nil
+(defvar org2blog-logged-in nil
   "Flag whether user is logged-in or not.")
 
-(defvar owp-buffer-name "*Org2Blog (%s): %s*"
+(defvar org2blog-buffer-name "*Org2Blog (%s): %s*"
   "Name of the blog buffer.")
 
-(defvar owp-mode-hook nil
+(defvar org2blog-mode-hook nil
   "Hook to run upon entry into mode.
 Here is an example of creating keybindings:
 
@@ -192,7 +192,7 @@ Here is an example of creating keybindings:
   (local-set-key (kbd \"M-0\") #'owp-complete))
 (add-hook 'org2blog/wp-mode-hook #'ahook).")
 
-(defvar owp-buffer-entry-save-hook nil
+(defvar org2blog-buffer-entry-save-hook nil
   "Hooks run after a new post or page save.
 
 Each function is called with one argument, the object
@@ -205,7 +205,7 @@ Here is an example that outputs the entire object to the *Messages* buffer:
 
 (add-hook 'owp-buffer-entry-save-hook #'ahook).")
 
-(defvar owp-export-options
+(defvar org2blog-export-options
   '(
     :section-numbers nil
     :with-priority nil
@@ -219,14 +219,14 @@ Look at `org-export-options-alist' for the available options.
 Also, note that these options are over-ridden by in-file
 options.")
 
-(defvar owp-password nil
+(defvar org2blog-password nil
   "WordPress user password.
 
 The blog specific property is: :password
 
 Example: \"bilbo\"")
 
-(defvar owp-step-time 0.2 "Number of seconds to sleep between actions.
+(defvar org2blog-step-time 0.2 "Number of seconds to sleep between actions.
 
 Must be greater than or equal to 0.2 seconds.")
 
