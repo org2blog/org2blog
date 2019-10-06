@@ -79,8 +79,8 @@
     (goto-char (point-min))
     (re-search-forward "^;; Author: ")
     (kill-whole-line 6)
-    (insert (format ";; Author: %s\n" (owp--contacts-info (org2blog-def--pkg "authors"))))
-    (insert (format ";; Maintainer: %s\n" (owp--contact-info
+    (insert (format ";; Author: %s\n" (org2blog-def--contacts-info (org2blog-def--pkg "authors"))))
+    (insert (format ";; Maintainer: %s\n" (org2blog-def--contact-info
                                            (org2blog-def--pkg "maintainer"))))
     (insert (format ";; Version: %s\n" (org2blog-def--pkg "version")))
     (insert (format ";; Package-Requires: (%s)\n"
@@ -89,11 +89,11 @@
                            (defs (mapcar (lambda (req)
                                            (format "(%s \"%s\")" (car req) (cadr req)))
                                          ls))
-                           (spcd (owp--interpose " " defs))
+                           (spcd (org2blog--interpose " " defs))
                            (result (apply 's-concat spcd)))
                       result)))
     (insert (format ";; Keywords: %s\n"
-                    (apply 'concat (owp--interpose ", " (org2blog-def--pkg "keywords")))))
+                    (apply 'concat (org2blog--interpose ", " (org2blog-def--pkg "keywords")))))
     (insert (format ";; Homepage: %s\n" (org2blog-def--pkg "homepage")))))
 
 (defun org2blog-def--update-pkg ()
@@ -137,7 +137,7 @@
       (org2blog-def--pkg "emacs")
       (org2blog-def--pkg "org")))))
 
-(defun owp-checkout-statement ()
+(defun org2blog-def-checkout-statement ()
   "Create Git checkout commands for system code and packages into INSTALL-DIR.
 
 Copy them from the *Messages* buffer into your Terminal."
