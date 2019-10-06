@@ -236,7 +236,7 @@ request. It's pretty fun and very easy.
 :END:
 
 Note: For a better learning experience try reading this document inside of
-Emacs and Org mode by calling ~owp-readme~.
+Emacs and Org mode by calling ~org2blog-readme~.
 
 ** Make Your First Post In Less 5 Minutes
 :PROPERTIES:
@@ -267,7 +267,7 @@ to blog with. This is all it takes. Now fill it out and evaluate it.
          :username "username")))
 #+end_src
 - Display the Org2Blog user-interface (UI) by executing the command
-~owp-user-interface~. You can do literally everything with Org2Blog using it's
+~org2blog-user-interface~. You can do literally everything with Org2Blog using it's
 UI (setting keybindings elsewhere is super easy too and you'll cover it
 soon). For simplicity these directions will refer to "things to do in the
 UI" in the style of =UI [action]=. Find the action and press the key for it.
@@ -327,7 +327,7 @@ everybody wanted to know how to do
 
 Org2Blog's goal is to keep blogging fun. It strives make hard things easy and
 easy things easier. So in that spirit everything you want to do can be done
-via the menu. Start the menu calling ~owp-user-interface~.
+via the menu. Start the menu calling ~org2blog-user-interface~.
 
 The easiest way to get started with the basics is to play around with the
 menu. If for you that means reading then start with:
@@ -443,7 +443,7 @@ to use a message inside of it, too.
 insert it.
 
 When you are ready save your new post. Open the main menu by calling
-~owp-user-interface~. Since you just created a buffer entry look at the menu
+~org2blog-user-interface~. Since you just created a buffer entry look at the menu
 items under the Buffers column and find the operation that you want to
 perform. Your first step here is =UI [Save Post Draft]=. This Saves your post on
 your blog. The language here is important: everything you do using the menu is
@@ -467,7 +467,7 @@ In the walk-through here that means using =UI [Save Page Draft]= and so on.
 :END:
 
 You can customize your writing experience by configuring Org2Blog whenever it
-opens up an Org2Blog file. You do that using ~owp-mode-hook~.
+opens up an Org2Blog file. You do that using ~org2blog-mode-hook~.
 
 Since Org2Blog documents are plain Org documents, Org2Blog can't tell the
 difference between them just by looking at them. It needs a hint. The hint is
@@ -477,7 +477,7 @@ mode hook:
 
 #+name: org_gcr_2019-03-04T08-22-32-06-00_cosmicality_C837C334-C25F-460E-B54B-D2825B38FA39
 #+begin_src emacs-lisp
-(add-hook 'org-mode-hook #'owp-maybe-start)
+(add-hook 'org-mode-hook #'org2blog-maybe-start)
 #+end_src
 
 **** Defining Custom Keybindings
@@ -491,8 +491,8 @@ for user key bindings.
 #+name: org_gcr_2019-03-04T08-22-32-06-00_cosmicality_8F0B6AC9-C081-48A2-8D57-EA164C30D32A
 #+begin_src emacs-lisp
 (defun sample-keybindings ()
-  (local-set-key (kbd "s-(") #'owp-user-interface)
-  (local-set-key (kbd "s-)") #'owp-complete))
+  (local-set-key (kbd "s-(") #'org2blog-user-interface)
+  (local-set-key (kbd "s-)") #'org2blog-complete))
 (add-hook 'org2blog/wp-mode-hook #'sample-keybindings)
 #+end_src
 
@@ -717,10 +717,10 @@ possible. The following are some key points that will tie everything together:
   will be presented with the function that does the actual work. Take that
   function name and bind it to a key within this mode. See
   ~sample-keybindings~ at the beginning of this document for an example how.
-- See ~owp-mode-map~ or ~org2blog/wp-keymap-prefix~ for details of the default
+- See ~org2blog-mode-map~ or ~org2blog/wp-keymap-prefix~ for details of the default
   keymap and prefix key.
 - You may find it just as easy to find a convenient key binding
-  ~owp-user-interface~ and use that instead.
+  ~org2blog-user-interface~ and use that instead.
 
 ** More Functionality
 :PROPERTIES:
@@ -764,8 +764,8 @@ lot about it and don't need to see it's full name again.
 Most variables are optional but there are two variables that *must* be
 configured within this system:
 
-- Global ~owp-xmlrpc~ or blog specific ~:url~
-- Global ~owp-username~ or blog specific ~:username~
+- Global ~org2blog-xmlrpc~ or blog specific ~:url~
+- Global ~org2blog-username~ or blog specific ~:username~
 
 An easy way to work with the difference between the global variable name and
 the blog specific name is to read the documentation for the global variable.
@@ -1237,7 +1237,7 @@ Org2BlogAtom seems [[https://repo.or.cz/r/org2blog.git/][unavailable]] and no lo
 had any updates on the topic either.
 
 That is the story of the naming. If you are curious about naming things moving
-forward the namespace is slowing being moved to ~owp~. Please see the
+forward the namespace is slowing being moved to ~org2blog~. Please see the
 Development section of this document for more details.
 
 *** What Is MetaWeblog And Why Is It In Org2Blog?
@@ -1346,7 +1346,7 @@ Here is where to begin:
   trying to figure out a solved problem.
 - Review the documentation by searching for keywords: it might be a documented
   feature.
-- If you need to dig deeper read the documentation for ~owp-user-report~. It
+- If you need to dig deeper read the documentation for ~org2blog-user-report~. It
   walks you through the entire process of investigation. It can be
   intimidating at first. As you read through it though you will find that
   Org2Blog has a few clearly defined layers. When you "see" them they will
