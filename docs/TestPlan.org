@@ -22,23 +22,23 @@ pleasant test run!
 These are user facing system information commands.
 
 - [ ] Commands
-  - [ ] ~owp-about~
-  - [ ] ~owp-user-interface~
+  - [ ] ~org2blog-about~
+  - [ ] ~org2blog-user-interface~
     - [ ] Main Menu
       - It should load
     - [ ] Insert Menu
       - After creating a post try inserting everything
     - [ ] Variables Menu
       - Load every value
-  - [ ] ~owp-readme~
+  - [ ] ~org2blog-readme~
     - It displays. Is savable.
-  - [ ] ~owp-version-info~
+  - [ ] ~org2blog-version-info~
     - Version numbers display
 
 * Key Bindings
 
 - [ ] Commands
-  - [ ] ~owp-reload-entry-mode-map~: change prefix
+  - [ ] ~org2blog-reload-entry-mode-map~: change prefix
   - [ ] Compare bindings with UI
 
 * General Entries
@@ -46,20 +46,20 @@ These are user facing system information commands.
 These are commands that insert markup into your post.
 
 - [ ] Commands
-  - [ ] ~owp-insert-latex~
+  - [ ] ~org2blog-insert-latex~
     - Inserts a [[https://orgmode.org/manual/LaTeX-fragments.html][LaTeX fragment]] for the name LaTeX
-  - [ ] ~owp-insert-mathjax~
+  - [ ] ~org2blog-insert-mathjax~
     - Inserts a [[https://codex.wordpress.org/Shortcode_API][WordPress Shortcode]] for [[https://wordpress.org/plugins/mathjax-latex/][MathJax-LaTeX]]
-  - [ ] ~owp-insert-more~
+  - [ ] ~org2blog-insert-more~
     - Inserts a [[https://en.support.wordpress.com/more-tag/][WordPress More tag]] test empty and populated
-  - [ ] ~owp-insert-link~
+  - [ ] ~org2blog-insert-link~
     - Insert a link to your blog
     - [ ] Post
     - [ ] Page
-  - [ ] ~owp-org2blog-keyword-check~
+  - [ ] ~org2blog-org2blog-keyword-check~
     - Inserts the #+ORG2BLOG keyword in the first open line it finds to test a
       few out. It works the same in buffer and subtree pages
-  - [ ] ~owp-complete~
+  - [ ] ~org2blog-complete~
     - Completes categories, tags, and [[https://en.support.wordpress.com/pages/page-options/#parent-page][parent]].
     - Position cursor all over the line
     - Use empty and populated lines: one place it won't complete is at the
@@ -82,7 +82,7 @@ These are commands that insert markup into your post.
         - [ ] Category
         - [ ] Tag
         - [ ] Parent
-  - [ ] ~owp-entry-trash-prompt~
+  - [ ] ~org2blog-entry-trash-prompt~
     - [ ] Page
     - [ ] Post
   - [ ] Image Attachments
@@ -110,28 +110,28 @@ These are commands that insert markup into your post.
 * Buffers
 
 - [ ] Commands
-  - [ ] ~owp-buffer-new~
-  - [ ] ~owp-buffer-post-save~
-  - [ ] ~owp-buffer-post-view~
-  - [ ] ~owp-buffer-post-publish~
-  - [ ] ~owp-buffer-post-trash~
-  - [ ] ~owp-buffer-page-save~
-  - [ ] ~owp-buffer-page-view~
-  - [ ] ~owp-buffer-page-publish~
-  - [ ] ~owp-buffer-page-trash~
+  - [ ] ~org2blog-buffer-new~
+  - [ ] ~org2blog-buffer-post-save~
+  - [ ] ~org2blog-buffer-post-view~
+  - [ ] ~org2blog-buffer-post-publish~
+  - [ ] ~org2blog-buffer-post-trash~
+  - [ ] ~org2blog-buffer-page-save~
+  - [ ] ~org2blog-buffer-page-view~
+  - [ ] ~org2blog-buffer-page-publish~
+  - [ ] ~org2blog-buffer-page-trash~
 
 * Subtrees
 
 - [ ] Commands
-  - [ ] ~owp-subtree-new~
-  - [ ] ~owp-subtree-post-save~
-  - [ ] ~owp-subtree-post-view~
-  - [ ] ~owp-subtree-post-publish~
-  - [ ] ~owp-subtree-post-trash~
-  - [ ] ~owp-subtree-page-save~
-  - [ ] ~owp-subtree-page-view~
-  - [ ] ~owp-subtree-page-publish~
-  - [ ] ~owp-subtree-page-trash~
+  - [ ] ~org2blog-subtree-new~
+  - [ ] ~org2blog-subtree-post-save~
+  - [ ] ~org2blog-subtree-post-view~
+  - [ ] ~org2blog-subtree-post-publish~
+  - [ ] ~org2blog-subtree-post-trash~
+  - [ ] ~org2blog-subtree-page-save~
+  - [ ] ~org2blog-subtree-page-view~
+  - [ ] ~org2blog-subtree-page-publish~
+  - [ ] ~org2blog-subtree-page-trash~
 
 * Source Blocks
 
@@ -154,20 +154,20 @@ These are commands that insert markup into your post.
 * User
 
 - [ ] Commands
-  - [ ] ~owp-user-login~
+  - [ ] ~org2blog-user-login~
     - Area above UI shows login status
     - Messages shows statistics
-  - [ ] ~owp-user-logout~
+  - [ ] ~org2blog-user-logout~
     - Area above UI shows logout status
-  - [ ] ~owp-user-report~
+  - [ ] ~org2blog-user-report~
     - When enabled there are a lot of SSL messages happening
     - Disable it and they are not
 - [ ] Hooks
-  - [ ] ~owp-mode-hook~
+  - [ ] ~org2blog-mode-hook~
     - A good place to create keybindings, check that they are set
-  - [ ] ~owp-buffer-entry-save-hook~
+  - [ ] ~org2blog-buffer-entry-save-hook~
     - Add the sample hook from the docsring and veriy that it works.
-  - [ ] ~owp-maybe-start~
+  - [ ] ~org2blog-maybe-start~
     - Open an ORG2BLOG file verify mode starts
   - [ ] ~org2blog/wp-after-new-post-or-page-functions~
     - Use the ~pp~ example from [[../README.org][README]]
