@@ -62,10 +62,10 @@
 (defconst org2blog/wp-required-org-version (owp--pkg "org")
   "Minimum variable ‘org-version’ required to run this package.")
 
-(defconst owp--minimal-emacs (owp--pkg "emacs")
+(defconst org2blog--minimal-emacs (owp--pkg "emacs")
   "Minimum variable ‘emacs-version’ required to run this package.")
 
-(defconst owp--default-blogid "1"
+(defconst org2blog--default-blogid "1"
   "Default WordPress Blog ID.
 
 Nearly every XML-RPC API call requires the blog id.
@@ -90,7 +90,7 @@ The blog specific property is: :id
 
 Example: An integer defined by a string.")
 
-(defconst owp--deprecation "2.0.0"
+(defconst org2blog-deprecation "2.0.0"
   "Release in which obselete objects will be removed.")
 
 
