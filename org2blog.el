@@ -56,13 +56,13 @@
 
 ;;; Constants
 
-(defconst org2blog/wp-version (owp--pkg "version")
+(defconst org2blog/wp-version (org2blog-def--pkg "version")
   "Current version of org2blog.el.")
 
-(defconst org2blog/wp-required-org-version (owp--pkg "org")
+(defconst org2blog/wp-required-org-version (org2blog-def--pkg "org")
   "Minimum variable ‘org-version’ required to run this package.")
 
-(defconst org2blog--minimal-emacs (owp--pkg "emacs")
+(defconst org2blog--minimal-emacs (org2blog-def--pkg "emacs")
   "Minimum variable ‘emacs-version’ required to run this package.")
 
 (defconst org2blog--default-blogid "1"
@@ -2461,7 +2461,7 @@ and munge it a little to make it suitable to use with the
                (split-string (or (owp--eprop "CATEGORY") "")
                              "\\( *, *\\)" t))
          (cons "post-id" (or (owp--eprop "POSTID")
-                             (owp--eprop "POST_ID")))
+                            (owp--eprop "POST_ID")))
          (cons "parent" (owp--bprop-parent-id
                          (owp--eprop "PARENT")))
          (cons "excerpt" (owp--eprop "DESCRIPTION"))

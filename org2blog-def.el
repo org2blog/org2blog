@@ -26,7 +26,7 @@
 
 ;;; Constant
 
-(defconst owp--package
+(defconst org2blog-def--package
   (let ((p (make-hash-table :test 'equal)))
     (puthash "name" "org2blog" p)
     (puthash "version" "1.1.0" p)
@@ -47,19 +47,19 @@
     p)
   "Internal package definition.")
 
-(defun owp--pkg (key)
-  "Get KEY from ‘owp--package’."
-  (gethash key owp--package))
+(defun org2blog-def--pkg (key)
+  "Get KEY from ‘org2blog-def--package’."
+  (gethash key org2blog-def--package))
 
-(defun owp-update-artifacts ()
+(defun org2blog-def-update-artifacts ()
   "Update dependent artifacts."
   (interactive)
-  (owp--update-readme)
-  (owp--update-header)
-  (owp--update-pkg)
-  (owp--update-oxwp))
+  (org2blog-def--update-readme)
+  (org2blog-def--update-header)
+  (org2blog-def--update-pkg)
+  (org2blog-def--update-oxwp))
 
-(defun owp--update-readme ()
+(defun org2blog-def--update-readme ()
   "Update README.org"
   (interactive)
   (find-file "README.org")
@@ -68,10 +68,10 @@
     (re-search-forward "^Org2Blog requires Emacs")
     (kill-whole-line 1)
     (insert (format "Org2Blog requires Emacs %s and Org mode %s.\n"
-                    (owp--pkg "emacs")
-                    (owp--pkg "org")))))
+                    (org2blog-def--pkg "emacs")
+                    (org2blog-def--pkg "org")))))
 
-(defun owp--update-header ()
+(defun org2blog-def--update-header ()
   "Update Org2Blog file header."
   (interactive)
   (find-file "org2blog.el")
@@ -79,13 +79,13 @@
     (goto-char (point-min))
     (re-search-forward "^;; Author: ")
     (kill-whole-line 6)
-    (insert (format ";; Author: %s\n" (owp--contacts-info (owp--pkg "authors"))))
+    (insert (format ";; Author: %s\n" (owp--contacts-info (org2blog-def--pkg "authors"))))
     (insert (format ";; Maintainer: %s\n" (owp--contact-info
-                                           (owp--pkg "maintainer"))))
-    (insert (format ";; Version: %s\n" (owp--pkg "version")))
+                                           (org2blog-def--pkg "maintainer"))))
+    (insert (format ";; Version: %s\n" (org2blog-def--pkg "version")))
     (insert (format ";; Package-Requires: (%s)\n"
-                    (let* ((ls (cons (cons 'emacs (list (owp--pkg "emacs")))
-                                     (owp--pkg "requirements")))
+                    (let* ((ls (cons (cons 'emacs (list (org2blog-def--pkg "emacs")))
+                                     (org2blog-def--pkg "requirements")))
                            (defs (mapcar (lambda (req)
                                            (format "(%s \"%s\")" (car req) (cadr req)))
                                          ls))
@@ -93,10 +93,10 @@
                            (result (apply 's-concat spcd)))
                       result)))
     (insert (format ";; Keywords: %s\n"
-                    (apply 'concat (owp--interpose ", " (owp--pkg "keywords")))))
-    (insert (format ";; Homepage: %s\n" (owp--pkg "homepage")))))
+                    (apply 'concat (owp--interpose ", " (org2blog-def--pkg "keywords")))))
+    (insert (format ";; Homepage: %s\n" (org2blog-def--pkg "homepage")))))
 
-(defun owp--update-pkg ()
+(defun org2blog-def--update-pkg ()
   "Update package definition."
   (interactive)
   (save-buffer)
@@ -104,20 +104,20 @@
     (with-current-buffer (find-file "org2blog-pkg.el")
       (erase-buffer)
       (pp
-       `(define-package ,(owp--pkg "name") ,(owp--pkg "version") ,(owp--pkg "doc")
-          ',(owp--pkg "requirements")
+       `(define-package ,(org2blog-def--pkg "name") ,(org2blog-def--pkg "version") ,(org2blog-def--pkg "doc")
+          ',(org2blog-def--pkg "requirements")
           :authors
-          ',(owp--pkg "authors")
+          ',(org2blog-def--pkg "authors")
           :maintainer
-          ',(owp--pkg "maintainer")
+          ',(org2blog-def--pkg "maintainer")
           :keywords
-          ',(owp--pkg "keywords")
+          ',(org2blog-def--pkg "keywords")
           :homepage
-          ,(owp--pkg "homepage"))
+          ,(org2blog-def--pkg "homepage"))
        (current-buffer))
       (save-buffer))))
 
-(defun owp--update-oxwp ()
+(defun org2blog-def--update-oxwp ()
   "Update ox-wp defgroup."
   (interactive)
   (find-file "ox-wp.el")
@@ -134,8 +134,8 @@
   :version \"%s\"
   :package-version '(Org . \"%s\"))
 "
-      (owp--pkg "emacs")
-      (owp--pkg "org")))))
+      (org2blog-def--pkg "emacs")
+      (org2blog-def--pkg "org")))))
 
 (defun owp-checkout-statement ()
   "Create Git checkout commands for system code and packages into INSTALL-DIR.
@@ -144,13 +144,13 @@ Copy them from the *Messages* buffer into your Terminal."
   (interactive)
   (let ((install-dir (read-directory-name "Directory:")))
     (mapcar (lambda (pkg) (princ (format
-                                  "git clone %s %s%s\n"
-                                  (caddr pkg)
-                                  install-dir
-                                  (car pkg))))
-            (owp--pkg "requirements"))))
+                             "git clone %s %s%s\n"
+                             (caddr pkg)
+                             install-dir
+                             (car pkg))))
+            (org2blog-def--pkg "requirements"))))
 
-(defun owp-load-statement ()
+(defun org2blog-def-load-statement ()
   "Create Elisp code to load the libraries."
   (interactive)
   (let* ((install-dir (read-directory-name "Directory:"))
@@ -163,7 +163,7 @@ Copy them from the *Messages* buffer into your Terminal."
                              install-dir
                              (car pkg)))
               (princ (format "(require '%s)\n" (car pkg))))
-            (owp--pkg "requirements"))))
+            (org2blog-def--pkg "requirements"))))
 
 (provide 'org2blog-def)
 ;;; org2blog-def.el ends here

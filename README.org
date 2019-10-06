@@ -181,10 +181,10 @@ library versions, the ~load-path~, =Elisp=, and =Git=.
 Org2Blog's dependencies are defined in ~org2blog-def.el~. To get you started
 quickly there are two helper functions here:
 
-- ~owp-checkout-statement~ creates Git commands to get the code from GitHub
+- ~org2blog-def-checkout-statement~ creates Git commands to get the code from GitHub
 into the directory you want it stored. Call it and input the directory name.
 Copy and paste the commands from =*Messages*= into your Terminal to run them.
-- ~owp-load-statement~ creates Elisp code to load the libraries.
+- ~org2blog-def-load-statement~ creates Elisp code to load the libraries.
 Call it and input the directory name. Copy them into
 your Init file then run them. Now they will get loaded each time your start
 Emacs.

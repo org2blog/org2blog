@@ -1,4 +1,4 @@
-- [ ] Update the version number and call ~owp-update-artifacts~.
+- [ ] Update the version number and call ~org2blog-def-update-artifacts~.
 - [ ] Bring codebase up to expectations in [[CONTRIBUTING.org][Contributing]].
 - [ ] Push package definition and version changes
 - [ ] Build package with [[https://github.com/melpa/melpa#build-scripts][MELPA]] and make sure it installs and loads
