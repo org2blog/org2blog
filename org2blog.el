@@ -775,16 +775,18 @@ on the project host site (GitHub at the moment)."
           (goto-char (point-min))
           (org-mode)
           (message
-           (concat
-            "I just copied README.org into this buffer. You can "
-            "leave it open as a reference, take notes in it, "
-            "copy and paste things into your own configuration, "
-            "and even save it to your own file. "
-            "I didn't include its screenshots but you "
-            "can find them on the GitHub page. "
-            "When you are finished you can save "
-            "this buffer's contents "
-            "your own file or just kill the buffer to quit.")))
+           (format
+            (concat
+             "I just copied README.org into this buffer. You can "
+             "leave it open as a reference, take notes in it, "
+             "copy and paste things into your own configuration, "
+             "and even save it to your own file. "
+             "I didn't include its screenshots but you "
+             "can find them here %s. "
+             "When you are finished you can save "
+             "this buffer's contents "
+             "your own file or just kill the buffer to quit.")
+            (org2blog-def--pkg "homepage"))))
       (error
        (org2blog--error
         (format (concat "I’m sorry I ran into a problem trying to display "
