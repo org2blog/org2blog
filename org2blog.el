@@ -1036,11 +1036,11 @@ You usually only need to keep track of what is happening between
 two of them because if it is doing what you expect then you
 can move on.
 
-Consider print messages where you need them and also using edebug.
-With virtually no setup, Edebug lets you walk through a function
-and evaluate local variable to see precisely what is happening.
+Consider print messages where you need them and also using Edebug.
+With virtually no setup Edebug lets you walk through a function
+and evaluate local variables to see precisely what is happening.
 
-After studying the request body, messages, and control flow and
+If after studying the request body, messages, and control flow 
 things still don't work then the best thing to do is to test the
 call using another tool. Paste the request-data into a file named
 `test.txt' and make the request using cURL like this:
