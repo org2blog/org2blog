@@ -97,7 +97,7 @@ Example: An integer defined by a string.")
 ;;; Deprecations
 
 (mapc (lambda (ls)
-        (define-obsolete-function-alias (car ls) (cadr ls) org2blog--deprecation))
+        (define-obsolete-function-alias (car ls) (cadr ls) org2blog-deprecation))
       '((org2blog/wp-buffer-kill-prompt org2blog-on-new-entry-kill)
         (org2blog/wp-complete-category org2blog-complete)
         (org2blog/wp-delete-entry org2blog-post-trash)
@@ -123,7 +123,7 @@ Example: An integer defined by a string.")
         (org2blog/wp-track-subtree org2blog-subtree-track)))
 
 (mapc (lambda (ls)
-        (define-obsolete-variable-alias (car ls) (cadr ls) org2blog--deprecation))
+        (define-obsolete-variable-alias (car ls) (cadr ls) org2blog-deprecation))
       '((org2blog/wp-after-new-post-or-page-functions org2blog-buffer-entry-save-hook)
         (org2blog/wp-blog org2blog-blog)
         (org2blog/wp-blog-name org2blog-blog-key)
