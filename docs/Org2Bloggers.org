@@ -23,6 +23,7 @@ Please let us know about more blogs to add to the list!
 - [[http://recolliments.wordpress.com/][Recolliments (Poetry in catalan)]]
 - [[http://stallmer.wordpress.com/][STALLMER]]
 - [[http://bytebaker.com/][The ByteBaker | Computer Science isn't a science and it's not about computers]]
+- [[https://www.lonecpluspluscoder.com][The Lone C++ Coder's Blog]]
 - [[http://www.alandmoore.com/blog][Thought Bucket]]
 - [[http://avdi.org/devblog/][Virtuous Code]]
 - [[http://www.olivierberger.com/weblog/][WebLog Olivier Berger]]
