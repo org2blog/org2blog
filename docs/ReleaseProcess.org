@@ -1,5 +1,6 @@
 - [ ] Update the version number and call ~org2blog-def-update-artifacts~.
 - [ ] Bring codebase up to expectations in [[CONTRIBUTING.org][Contributing]].
+  - [ ] Byte compile file, checkdoc, package-lint
 - [ ] Push package definition and version changes
 - [ ] Build package with [[https://github.com/melpa/melpa#build-scripts][MELPA]]
   - [ ] Make sure it installs and loads
