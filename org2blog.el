@@ -538,8 +538,8 @@ Example: A Boolean value."
 (defcustom org2blog/wp-show-post-in-browser 'dont
   "How to automatically display an entry after save or publish.
 
-Eventually you will have a lot of examples of how you prefer
-to blog. This is your “personal workflow” and option should
+Eventually you will have a lot of examples of how you prefer to
+blog. This is your “personal workflow” and this option should
 reflect that.
 
 This variable is a symbol with options:
@@ -975,12 +975,12 @@ Use like this:
 ."
   (catch 'return
     (let* ((save-buffer? (and (org2blog--blog-property-or
-                               :safe-new-entry-buf-kill
-                               org2blog/wp-safe-new-entry-buffer-kill)
-                              (not (buffer-file-name))
-                              (y-or-n-p
-                               (concat "This entry hasn’t been saved to a file yet. "
-                                       "Should I save it to a file?"))))
+                             :safe-new-entry-buf-kill
+                             org2blog/wp-safe-new-entry-buffer-kill)
+                            (not (buffer-file-name))
+                            (y-or-n-p
+                             (concat "This entry hasn’t been saved to a file yet. "
+                                     "Should I save it to a file?"))))
            (published? (when save-buffer?
                          (y-or-n-p
                           (concat "I’m about to try to save the details "
@@ -1407,14 +1407,14 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
                          (org2blog--blog-property-or :confirm org2blog/wp-confirm-post)
                          publish))
                (show (or (org2blog-blog-has :show)
-                         org2blog/wp-show-post-in-browser))
+                        org2blog/wp-show-post-in-browser))
                post-id)
           (org2blog--create-categories (cdr (assoc "categories" post)))
           (setq post-id (cdr (assoc "post-id" post)))
           (when confirm
             (when (not (y-or-n-p
-                        (format "Would you like to publish your %s: “%s” (ID “%s”)?"
-                                thing (cdr (assoc "title" post)) post-id)))
+                      (format "Would you like to publish your %s: “%s” (ID “%s”)?"
+                              thing (cdr (assoc "title" post)) post-id)))
               (message
                (concat "Canceled publishing your %s: “%s” (ID “%s”).")
                thing (cdr (assoc "title" post))
