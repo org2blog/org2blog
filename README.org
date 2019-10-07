@@ -1376,8 +1376,8 @@ git clone https://github.com/alphapapa/org-make-toc.git
   - Read the [[./docs/CONTRIBUTING.org][contributing]] guidelines.
   - Before your commit make sure that ~byte-compile-file~, ~checkdoc~, and
     ~package-lint-current-buffer~ don't report any errors. The first two are
-    included with Emacs. You can either install ~package-lint~ using MELPA
-    You can also install it by hand like you did the other
+    included with Emacs. ~package-lint~ you can either install using MELPA or
+    you can also install it by hand like you did the other
     packages, like this:
     #+BEGIN_SRC sh
 cd ~/src
