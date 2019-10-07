@@ -780,9 +780,10 @@ on the project host site (GitHub at the moment)."
             "leave it open as a reference, take notes in it, "
             "copy and paste things into your own configuration, "
             "and even save it to your own file. "
-            "I didn't include the screenshots but you "
+            "I didn't include its screenshots but you "
             "can find them on the GitHub page. "
-            "When you are finished you can save to "
+            "When you are finished you can save "
+            "this buffer's contents "
             "your own file or just kill the buffer to quit.")))
       (error
        (org2blog--error
