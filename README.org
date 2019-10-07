@@ -1372,9 +1372,9 @@ git clone https://github.com/alphapapa/org-make-toc.git
 # eval: (require 'org-make-toc)
 # before-save-hook: org-make-toc
     #+END_SRC
-- [[./docs/ReleaseProcess.org][Release Process]].
 - [[./docs/CONTRIBUTING.org][Contributing]].
 - [[./docs/TestPlan.org][Test Plan]].
+- [[./docs/ReleaseProcess.org][Release Process]].
 - Rules
   - [[https://alphapapa.github.io/dont-tread-on-emacs/][Don't Tread On Emacs]].
   - [[./.github/CODE_OF_CONDUCT.org][Code of Conduct]].
