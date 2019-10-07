@@ -1084,7 +1084,6 @@ See messages below for details."
             "Hope you had fun blogging and have a great day!")
            org2blog-blog-key))
 
-;;;###autoload
 (defun org2blog--new (destination)
   "Create new entry buffer for DESTINATION.
 Destination is either a symbol ‘buffer’ or a ‘subtree’."
@@ -1657,9 +1656,9 @@ Source is either a ’post or ’subtree"
     (org2blog--ensure-login)
     (when is-subtree (widen))
     (let* ((entry-id (or (org2blog--bprop "POSTID")
-                         (org2blog--bprop "POST_ID")
-                         (org2blog--eprop "POSTID")
-                         (org2blog--eprop "POST_ID")))
+                        (org2blog--bprop "POST_ID")
+                        (org2blog--eprop "POSTID")
+                        (org2blog--eprop "POST_ID")))
            (url org2blog-xmlrpc))
       (if (not entry-id)
           (message (concat "Sorry I can’t display this %s post because it "
