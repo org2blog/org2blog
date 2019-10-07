@@ -1372,7 +1372,10 @@ git clone https://github.com/alphapapa/org-make-toc.git
 # eval: (require 'org-make-toc)
 # before-save-hook: org-make-toc
     #+END_SRC
-- [[./docs/CONTRIBUTING.org][Contributing]].
+- Contributing
+  - Read the [[./docs/CONTRIBUTING.org][contributing]] guidelines.
+  - Before your commit make sure that ~byte-compile-file~, ~checkdoc~, and
+    ~package-lint-current-buffer~ don't report any errors.
 - [[./docs/TestPlan.org][Test Plan]].
 - [[./docs/ReleaseProcess.org][Release Process]].
 - Rules
