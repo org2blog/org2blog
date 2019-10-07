@@ -1219,26 +1219,34 @@ is pretty easy to fix anyway though).
 Although Org2Blog is implemented how WordPress works, it can surprising to see
 these words used. However you'll get used to it pretty quickly.
 
-*** Why Isn't The Package Name OrgWordpress?
+*** Why Isn't The Package Name Org2Wordpress?
 
-Org2Blog's technical name, its /package name/, is ~org2blog/wp~, /not/ ~org2blog~.
-There is another package out there named Org2BlogAtom, and its package name is
-~org2blog/atom~. It didn't start out that way though, they started out having
-the same package name ~org2blog~.
+When Org2Blog was created its technical name, its /package name/, was
+~org2blog~. Unbeknownst to us there was another package out there named
+Org2BlogAtom with the same package name!
 
 These unforeseen naming conflicts do happen more than you might thing and it
-had to be resolved.  Since they both had the same package name they needed some way
-to differentiate themselves from each other and the slash/suffix approach was
-chosen. So why doesn't /this/ package say 'Org2Blog/WP' all over the place?
+had to be resolved. Since they both had the same package name they needed some
+way to differentiate themselves from each other and the slash/suffix approach
+was chosen resulting in ~org2blog/atom~ and ~org2blog/wp~. So why doesn't /this/
+package say 'Org2Blog/WP' all over the place today?
 
 That is another historical accident. This package became known simply as
 Org2Blog without the /WP, and the name stuck. Part of the reason might be that
 Org2BlogAtom seems [[https://repo.or.cz/r/org2blog.git/][unavailable]] and no longer maintained. Its [[https://www.emacswiki.org/emacs/Org2BlogAtom][wiki]] page hasn't
-had any updates on the topic either.
+had any updates on the topic either. Having made this decision it made sense
+to change the artifact naming scheme to ~org2blog~ instead of ~org2blog/wp~. It is
+easier to understand and adheres to artifact naming best practices. Over time
+existing ~/wp~ names are slowly being migrated. That still doesn't answer the
+original question yet!
 
-That is the story of the naming. If you are curious about naming things moving
-forward the namespace is slowing being moved to ~org2blog~. Please see the
-Development section of this document for more details.
+Org2Blog is blogging software. You write everything in Org mode and publish it
+to a blog. It is pretty simple. Currently it publishes to WordPress. Could it
+publish to any other blog? With some work definitely. Its impossible to rule
+out using Org2Blog to blog to other blogs in addition to WordPress.
+
+In that historical context and considering goals today the name remains
+Org2Blog instead of Org2Wordpress.
 
 *** What Is MetaWeblog And Why Is It In Org2Blog?
 
