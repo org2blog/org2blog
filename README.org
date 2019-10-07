@@ -1344,41 +1344,40 @@ Here is where to begin:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:75FC72AE-6ECF-475F-AF06-9E45F13B07C8
 :END:
 
-- Activities
-  - You may have already set up your codebase to /run/ Org2Blog but if you
-    haven't then find out how up in the Installation section.
-  - Readme
-    - You may wish to automatically update the Readme's table of contents by
-      adding these file local variables to this file:
-      #+BEGIN_SRC org
+- You may have already set up your codebase to /run/ Org2Blog but if you
+  haven't then find out how up in the Installation section.
+- Readme
+  - You may wish to automatically update the Readme's table of contents by
+    adding these file local variables to this file:
+    #+BEGIN_SRC org
 # eval: (require 'org-make-toc)
 # before-save-hook: org-make-toc
-      #+END_SRC
-    - If you do decide make changes to the readme then you need to rebuild the
-      table of contents. Install the package [[https://github.com/alphapapa/org-make-toc][org-make-toc]]. Then call
-      ~org-make-toc~. You can also install it by hand like you did the other
-      packages, like this:
-      #+BEGIN_SRC sh
-      cd ~/src
-      git clone https://github.com/magnars/s.el.git
-      git clone https://github.com/magnars/dash.el.git
-      git clone https://github.com/alphapapa/org-make-toc.git
-      #+END_SRC
-      Use this code to load it:
-      #+BEGIN_SRC emacs-lisp
-      (add-to-list 'load-path "~/src/s")
-      (require 's)
-      (add-to-list 'load-path "~/src/dash")
-      (require 'dash)
-      (add-to-list 'load-path "~/src/org-make-toc")
-      (require 'org-make-toc)
-      #+END_SRC
-    - [[./docs/ReleaseProcess.org][Release Process]].
-    - [[./docs/CONTRIBUTING.org][Contributing]].
-    - [[./docs/TestPlan.org][Test Plan]].
-    - Rules
-      - [[https://alphapapa.github.io/dont-tread-on-emacs/][Don't Tread On Emacs]].
-      - [[./.github/CODE_OF_CONDUCT.org][Code of Conduct]].
+    #+END_SRC
+  - If you do decide make changes to the readme then you need to rebuild the
+    table of contents. Install the package [[https://github.com/alphapapa/org-make-toc][org-make-toc]]. Then call
+    ~org-make-toc~. You can also install it by hand like you did the other
+    packages, like this:
+    #+BEGIN_SRC sh
+cd ~/src
+git clone https://github.com/magnars/s.el.git
+git clone https://github.com/magnars/dash.el.git
+git clone https://github.com/alphapapa/org-make-toc.git
+    #+END_SRC
+    Use this code to load it:
+    #+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/src/s")
+(require 's)
+(add-to-list 'load-path "~/src/dash")
+(require 'dash)
+(add-to-list 'load-path "~/src/org-make-toc")
+(require 'org-make-toc)
+    #+END_SRC
+- [[./docs/ReleaseProcess.org][Release Process]].
+- [[./docs/CONTRIBUTING.org][Contributing]].
+- [[./docs/TestPlan.org][Test Plan]].
+- Rules
+  - [[https://alphapapa.github.io/dont-tread-on-emacs/][Don't Tread On Emacs]].
+  - [[./.github/CODE_OF_CONDUCT.org][Code of Conduct]].
 
 * License
 :properties:
