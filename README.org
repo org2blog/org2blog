@@ -1347,12 +1347,6 @@ Here is where to begin:
 - You may have already set up your codebase to /run/ Org2Blog but if you
   haven't then find out how up in the Installation section.
 - Readme
-  - You may wish to automatically update the Readme's table of contents by
-    adding these file local variables to this file:
-    #+BEGIN_SRC org
-# eval: (require 'org-make-toc)
-# before-save-hook: org-make-toc
-    #+END_SRC
   - If you do decide make changes to the readme then you need to rebuild the
     table of contents. Install the package [[https://github.com/alphapapa/org-make-toc][org-make-toc]]. Then call
     ~org-make-toc~. You can also install it by hand like you did the other
@@ -1371,6 +1365,12 @@ git clone https://github.com/alphapapa/org-make-toc.git
 (require 'dash)
 (add-to-list 'load-path "~/src/org-make-toc")
 (require 'org-make-toc)
+    #+END_SRC
+  - You may wish to automatically update the Readme's table of contents by
+    adding these file local variables to this file:
+    #+BEGIN_SRC org
+# eval: (require 'org-make-toc)
+# before-save-hook: org-make-toc
     #+END_SRC
 - [[./docs/ReleaseProcess.org][Release Process]].
 - [[./docs/CONTRIBUTING.org][Contributing]].
