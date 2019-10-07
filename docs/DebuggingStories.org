@@ -47,5 +47,9 @@ The solution was pretty simple: forbid GnuTLS from using TLSv1.3:
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 #+end_src
 
-As it would turn out this was due to a bug in GnuTLS. It was resolved in the
-Emacs 26.3 release.
+At least that was the /first/ solution.
+
+As it would turn out this issue was caused by a bug in GnuTLS and by changing
+this setting it uninentionally avoided the error.
+
+The issue was resolved in Emacs 26.3.
