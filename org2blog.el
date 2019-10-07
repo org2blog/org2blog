@@ -774,11 +774,16 @@ on the project host site (GitHub at the moment)."
              (throw 'return nil)))
           (goto-char (point-min))
           (org-mode)
-          (message (concat "I just made a copy of README.org and inserted "
-                           "it into this buffer. You can read it, and "
-                           "even add notes and make changes as you go "
-                           "along. When you are finished you can save it to "
-                           "your own file or just kill the buffer.")))
+          (message
+           (concat
+            "I just copied README.org into this buffer. You can "
+            "leave it open as a reference, take notes in it, "
+            "copy and paste things into your own configuration, "
+            "and even save it to your own file. "
+            "I didn't include the screenshots but you "
+            "can find them on the GitHub page. "
+            "When you are finished you can save to "
+            "your own file or just kill the buffer to quit.")))
       (error
        (org2blog--error
         (format (concat "I’m sorry I ran into a problem trying to display "
@@ -806,12 +811,12 @@ Use like this:
 ."
   (catch 'return
     (let* ((save-buffer? (and (org2blog--blog-property-or
-                               :safe-new-entry-buf-kill
-                               org2blog/wp-safe-new-entry-buffer-kill)
-                              (not (buffer-file-name))
-                              (y-or-n-p
-                               (concat "This entry hasn’t been saved to a file yet. "
-                                       "Should I save it to a file?"))))
+                             :safe-new-entry-buf-kill
+                             org2blog/wp-safe-new-entry-buffer-kill)
+                            (not (buffer-file-name))
+                            (y-or-n-p
+                             (concat "This entry hasn’t been saved to a file yet. "
+                                     "Should I save it to a file?"))))
            (published? (when save-buffer?
                          (y-or-n-p
                           (concat "I’m about to try to save the details "
@@ -1096,11 +1101,11 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
                         destination))))
       (throw 'return nil))
     (when (and (not org2blog-logged-in)
-             (y-or-n-p
-              (concat
-               "It looks like you are not logged in right now. "
-               "Would you like to login before composing "
-               "this new entry?")))
+               (y-or-n-p
+                (concat
+                 "It looks like you are not logged in right now. "
+                 "Would you like to login before composing "
+                 "this new entry?")))
       (org2blog-user-login))
     (let* ((buf-name (cond ((eq destination 'buffer) "Buf")
                            ((eq destination 'subtree) "Sub")))
@@ -1656,9 +1661,9 @@ Source is either a ’post or ’subtree"
     (org2blog--ensure-login)
     (when is-subtree (widen))
     (let* ((entry-id (or (org2blog--bprop "POSTID")
-                        (org2blog--bprop "POST_ID")
-                        (org2blog--eprop "POSTID")
-                        (org2blog--eprop "POST_ID")))
+                         (org2blog--bprop "POST_ID")
+                         (org2blog--eprop "POSTID")
+                         (org2blog--eprop "POST_ID")))
            (url org2blog-xmlrpc))
       (if (not entry-id)
           (message (concat "Sorry I can’t display this %s post because it "
