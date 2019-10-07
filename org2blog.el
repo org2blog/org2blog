@@ -265,7 +265,9 @@ Example:
   :url \"https://www.wisdomandwonder.com/xmlrpc.php\"
   :username username
   :password password
-  :confirm t)")
+  :confirm t)"
+  :group 'org2blog/wp
+  :type '(alist))
 
 (defcustom org2blog/wp-default-categories '("Uncategorized" "Hello")
   "Default list of categories for a new buffer entry.
