@@ -1364,6 +1364,7 @@ Here is where to begin:
       git clone https://github.com/magnars/dash.el.git
       git clone https://github.com/alphapapa/org-make-toc.git
       #+END_SRC
+      Use this code to load it:
       #+BEGIN_SRC emacs-lisp
       (add-to-list 'load-path "~/src/s")
       (require 's)
