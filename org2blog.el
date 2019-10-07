@@ -1010,7 +1010,7 @@ See messages below for details."
           (or
            blog-name
            (and (equal (length org2blog/wp-blog-alist) 1)
-                (car (car org2blog/wp-blog-alist)))
+              (car (car org2blog/wp-blog-alist)))
            (completing-read
             "What blog would you like to log in to? ([Tab] to see list): "
             (mapcar 'car org2blog/wp-blog-alist) nil t)))
@@ -1069,11 +1069,8 @@ See messages below for details."
         (format "%s" err))
        (throw 'return nil)))
     (setq org2blog-logged-in t)
-    (let ((cats (length org2blog-categories))
-          (tags (length org2blog-tags))
-          (pages (length org2blog-pages)))
-      (message "You are now logged in to your blog “%s”"
-               org2blog-blog-key))))
+    (message "You are now logged in to your blog “%s”"
+             org2blog-blog-key)))
 
 ;;;###autoload
 (defun org2blog-user-logout()
@@ -1104,11 +1101,11 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
                         destination))))
       (throw 'return nil))
     (when (and (not org2blog-logged-in)
-               (y-or-n-p
-                (concat
-                 "It looks like you are not logged in right now. "
-                 "Would you like to login before composing "
-                 "this new entry?")))
+             (y-or-n-p
+              (concat
+               "It looks like you are not logged in right now. "
+               "Would you like to login before composing "
+               "this new entry?")))
       (org2blog-user-login))
     (let* ((buf-name (cond ((eq destination 'buffer) "Buf")
                            ((eq destination 'subtree) "Sub")))
@@ -1489,17 +1486,17 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
       (let ((pos (point)))
         (forward-line 0)
         (setq see-cat (or (re-search-forward "^#\\+category: "
-                                             (line-end-position) t 1)
-                          (re-search-forward "^:category: "
-                                             (line-end-position) t 1)))
+                                            (line-end-position) t 1)
+                         (re-search-forward "^:category: "
+                                            (line-end-position) t 1)))
         (setq see-tag (or (re-search-forward "^#\\+tags: "
-                                             (line-end-position) t 1)
-                          (re-search-forward "^:post_tags: "
-                                             (line-end-position) t 1)))
+                                            (line-end-position) t 1)
+                         (re-search-forward "^:post_tags: "
+                                            (line-end-position) t 1)))
         (setq see-parent (or (re-search-forward "^#\\+parent: "
-                                                (line-end-position) t 1)
-                             (re-search-forward "^:parent: "
-                                                (line-end-position) t 1)))
+                                               (line-end-position) t 1)
+                            (re-search-forward "^:parent: "
+                                               (line-end-position) t 1)))
         (setq propend (or see-cat see-tag see-parent))
         (goto-char pos))
       (unless propend
@@ -1569,7 +1566,7 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
          (post "-->@@")
          (msg (string-trim (read-string "“More” message? (hit return to leave blank): ")))
          (str (or (and (string-blank-p msg) (concat pre post))
-                  (concat pre " " msg post))))
+                 (concat pre " " msg post))))
     (insert str)))
 
 ;;;###autoload
@@ -1664,9 +1661,9 @@ Source is either a ’post or ’subtree"
     (org2blog--ensure-login)
     (when is-subtree (widen))
     (let* ((entry-id (or (org2blog--bprop "POSTID")
-                         (org2blog--bprop "POST_ID")
-                         (org2blog--eprop "POSTID")
-                         (org2blog--eprop "POST_ID")))
+                        (org2blog--bprop "POST_ID")
+                        (org2blog--eprop "POSTID")
+                        (org2blog--eprop "POST_ID")))
            (url org2blog-xmlrpc))
       (if (not entry-id)
           (message (concat "Sorry I can’t display this %s post because it "
