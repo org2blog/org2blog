@@ -27,11 +27,10 @@
 
 ;; Read about how this exporter works here URL ‘https://orgmode.org/manual/Adding-export-back_002dends.html/’
 
-;;; Code:
+;;;; Code:
 
 ;;; Require
 
-(eval-when-compile (require 'cl))
 (require 'ox-html)
 
 ;;; Constants
@@ -39,7 +38,7 @@
 (defconst ox-wp-version (org2blog-def--pkg "version")
   "Current version of ox-wp.el.")
 
-;;; Function - Public
+;;; Functions
 
 ;;;###autoload
 (defun ox-wp-export-as-wordpress (&optional async subtreep ext-plist)
@@ -78,9 +77,7 @@ Delegates work to `ox-wp-export-as-wordpress'."
       (kill-buffer)
       text)))
 
-;;; Functions - Private
-
-;;; Back-End
+;; Back-End
 
 (org-export-define-derived-backend 'wp 'html
   :translate-alist '((src-block . ox-wp-src-block)
@@ -90,7 +87,7 @@ Delegates work to `ox-wp-export-as-wordpress'."
   :filters-alist '((:filter-paragraph . ox-wp-filter-paragraph)))
 
 
-;;; Filters
+;; Filters
 
 (defun ox-wp-filter-paragraph (paragraph _backend info)
   "When INFO, filter newlines from PARAGRAPH."
