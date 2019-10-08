@@ -545,21 +545,21 @@ reflect that.
 
 This variable is a symbol with options:
 
-- ask ::  Ask you whether to display it or not.
-          This is useful when your workflow is to make
-          continuous changes that you just don’t know
-          whether or not you want to display it each time.
-- show :: Show it immediately.
-          This is useful your workflow is to write your entry
-          once and basically have it be perfect on the first
-          try. That way you save it, review it, see that
-          it looks good, publish it, and you are done.
-- dont :: Don’t show it at all.
-          This is useful when your workflow is to display
-          your entry once and manually refresh the page
-          yourself after saving or publishing. If you’ve
-          blogged before then this is the easiest and least
-          surprising approach.
+  - ask ::  Ask you whether to display it or not.
+            This is useful when your workflow is to make
+            continuous changes that you just don’t know
+            whether or not you want to display it each time.
+  - show :: Show it immediately.
+            This is useful your workflow is to write your entry
+            once and basically have it be perfect on the first
+            try. That way you save it, review it, see that
+            it looks good, publish it, and you are done.
+  - dont :: Don’t show it at all.
+            This is useful when your workflow is to display
+            your entry once and manually refresh the page
+            yourself after saving or publishing. If you’ve
+            blogged before then this is the easiest and least
+            surprising approach.
 
 The blog specific property is: :show"
   :group 'org2blog/wp
@@ -1172,7 +1172,7 @@ See messages below for details."
           (or
            blog-name
            (and (equal (length org2blog/wp-blog-alist) 1)
-              (car (car org2blog/wp-blog-alist)))
+                (car (car org2blog/wp-blog-alist)))
            (completing-read
             "What blog would you like to log in to? ([Tab] to see list): "
             (mapcar 'car org2blog/wp-blog-alist) nil t)))
@@ -1263,11 +1263,11 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
                         destination))))
       (throw 'return nil))
     (when (and (not org2blog-logged-in)
-             (y-or-n-p
-              (concat
-               "It looks like you are not logged in right now. "
-               "Would you like to login before composing "
-               "this new entry?")))
+               (y-or-n-p
+                (concat
+                 "It looks like you are not logged in right now. "
+                 "Would you like to login before composing "
+                 "this new entry?")))
       (org2blog-user-login))
     (let* ((buf-name (cond ((eq destination 'buffer) "Buf")
                            ((eq destination 'subtree) "Sub")))
@@ -1408,16 +1408,16 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
                          (org2blog--blog-property-or :confirm org2blog/wp-confirm-post)
                          publish))
                (show (or (org2blog-blog-has :show)
-                        org2blog/wp-show-post-in-browser))
+                         org2blog/wp-show-post-in-browser))
                post-id)
           (org2blog--create-categories (cdr (assoc "categories" post)))
           (setq post-id (cdr (assoc "post-id" post)))
           (when confirm
             (when (not (y-or-n-p
-                      (concat
-                       (format "Would you like to publish your %s: “%s” (ID “%s”)"
-                               thing (cdr (assoc "title" post)) post-id)
-                       "?")))
+                        (concat
+                         (format "Would you like to publish your %s: “%s” (ID “%s”)"
+                                 thing (cdr (assoc "title" post)) post-id)
+                         "?")))
               (message
                (concat "Canceled publishing your %s: “%s” (ID “%s”).")
                thing (cdr (assoc "title" post))
@@ -1601,17 +1601,17 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
                        (progn (org-narrow-to-subtree)
                               (widen)
                               (or (org2blog--eprop "POSTID")
-                                 (org2blog--eprop "POST_ID"))))))
+                                  (org2blog--eprop "POST_ID"))))))
   (catch 'return
     (let* ((safetrash (org2blog--blog-property-or :safe-trash org2blog/wp-safe-trash))
            (is-post (eq type 'post))
            (is-page (eq type 'page))
            (thing (symbol-name type))
            (doit (or (not safetrash)
-                    (y-or-n-p
-                     (format (concat "Would you like to trash "
-                                     "your %s with ID: “%s”?")
-                             thing entry-id)))))
+                     (y-or-n-p
+                      (format (concat "Would you like to trash "
+                                      "your %s with ID: “%s”?")
+                              thing entry-id)))))
       (when (not doit)
         (message (concat "You chose not to trash your post with ID: “%s”"
                          ", so I did not.") entry-id)
@@ -1650,17 +1650,17 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
       (let ((pos (point)))
         (forward-line 0)
         (setq see-cat (or (re-search-forward "^#\\+category: "
-                                            (line-end-position) t 1)
-                         (re-search-forward "^:category: "
-                                            (line-end-position) t 1)))
+                                             (line-end-position) t 1)
+                          (re-search-forward "^:category: "
+                                             (line-end-position) t 1)))
         (setq see-tag (or (re-search-forward "^#\\+tags: "
-                                            (line-end-position) t 1)
-                         (re-search-forward "^:post_tags: "
-                                            (line-end-position) t 1)))
+                                             (line-end-position) t 1)
+                          (re-search-forward "^:post_tags: "
+                                             (line-end-position) t 1)))
         (setq see-parent (or (re-search-forward "^#\\+parent: "
-                                               (line-end-position) t 1)
-                            (re-search-forward "^:parent: "
-                                               (line-end-position) t 1)))
+                                                (line-end-position) t 1)
+                             (re-search-forward "^:parent: "
+                                                (line-end-position) t 1)))
         (setq propend (or see-cat see-tag see-parent))
         (goto-char pos))
       (unless propend
@@ -1730,7 +1730,7 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
          (post "-->@@")
          (msg (string-trim (read-string "“More” message? (hit return to leave blank): ")))
          (str (or (and (string-blank-p msg) (concat pre post))
-                 (concat pre " " msg post))))
+                  (concat pre " " msg post))))
     (insert str)))
 
 ;;;###autoload
@@ -2600,7 +2600,7 @@ and munge it a little to make it suitable to use with the
                          (org2blog--bprop "PARENT")))
          (cons "excerpt" (org-element-interpret-data
                           (or (plist-get export-environment
-                                        :description) "")))
+                                         :description) "")))
          (cons "permalink" (or (org2blog--bprop "PERMALINK") "")))))
     parsed-entry))
 
@@ -2617,12 +2617,12 @@ and munge it a little to make it suitable to use with the
         (list
          (cons "point" (point))
          (cons "date" (or (org2blog--eprop "POST_DATE")
-                         (org2blog--eprop "SCHEDULED")
-                         (org2blog--eprop "DEADLINE")
-                         (org2blog--eprop "TIMESTAMP_IA")
-                         (org2blog--eprop "TIMESTAMP")))
+                          (org2blog--eprop "SCHEDULED")
+                          (org2blog--eprop "DEADLINE")
+                          (org2blog--eprop "TIMESTAMP_IA")
+                          (org2blog--eprop "TIMESTAMP")))
          (cons "title" (or (org2blog--eprop "TITLE")
-                          (nth 4 (org-heading-components))))
+                           (nth 4 (org-heading-components))))
          (cons "description" nil)
          (cons "tags" (or
                        (split-string (or (org2blog--eprop "POST_TAGS") "") "\\( *, *\\)" t)
@@ -2631,7 +2631,7 @@ and munge it a little to make it suitable to use with the
                (split-string (or (org2blog--eprop "CATEGORY") "")
                              "\\( *, *\\)" t))
          (cons "post-id" (or (org2blog--eprop "POSTID")
-                            (org2blog--eprop "POST_ID")))
+                             (org2blog--eprop "POST_ID")))
          (cons "parent" (org2blog--bprop-parent-id
                          (org2blog--eprop "PARENT")))
          (cons "excerpt" (org2blog--eprop "DESCRIPTION"))
