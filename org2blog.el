@@ -189,10 +189,10 @@ Copy them from the *Messages* buffer into your Terminal."
   (interactive)
   (let ((install-dir (read-directory-name "Directory:")))
     (mapcar (lambda (pkg) (princ (format
-                             "git clone %s %s%s\n"
-                             (caddr pkg)
-                             install-dir
-                             (car pkg))))
+                                  "git clone %s %s%s\n"
+                                  (caddr pkg)
+                                  install-dir
+                                  (car pkg))))
             (org2blog-def--pkg "requirements"))))
 
 (defun org2blog-def-load-statement ()
@@ -984,12 +984,12 @@ Use like this:
 ."
   (catch 'return
     (let* ((save-buffer? (and (org2blog--blog-property-or
-                               :safe-new-entry-buf-kill
-                               org2blog/wp-safe-new-entry-buffer-kill)
-                              (not (buffer-file-name))
-                              (y-or-n-p
-                               (concat "This entry hasn’t been saved to a file yet. "
-                                       "Should I save it to a file?"))))
+                             :safe-new-entry-buf-kill
+                             org2blog/wp-safe-new-entry-buffer-kill)
+                            (not (buffer-file-name))
+                            (y-or-n-p
+                             (concat "This entry hasn’t been saved to a file yet. "
+                                     "Should I save it to a file?"))))
            (published? (when save-buffer?
                          (y-or-n-p
                           (concat "I’m about to try to save the details "
@@ -1993,8 +1993,12 @@ read all about them here: ")
    :tag "GPLv3"
    "https://www.gnu.org/licenses/quick-guide-gplv3.en.html")
   (widget-insert ". (If you want to dig into the details,\n")
-  (widget-insert "see the ‘LICENSE.TXT' that ")
-  (widget-insert "came installed with this package).")
+  (widget-insert "see the ")
+  (widget-create
+   'url-link
+   :tag "LICENSE.TXT"
+   "https://github.com/org2blog/org2blog/blob/master/LICENSE")
+  (widget-insert " for this package).")
   (widget-insert "\n\n")
   (widget-insert "If you are brand new to blogging then be sure to read Rebecca Blood’s\n")
   (widget-insert "book:")
@@ -2194,12 +2198,12 @@ at mode start time and after the user re-configures it."
          (mapcar
           (lambda (cat)
             (if (and (not (seq-contains org2blog-categories cat))
-                     (y-or-n-p
-                      (format
-                       (concat "Would you like to "
-                               "create the a new "
-                               "category named: “%s”?")
-                       cat)))
+                   (y-or-n-p
+                    (format
+                     (concat "Would you like to "
+                             "create the a new "
+                             "category named: “%s”?")
+                     cat)))
                 (condition-case-unless-debug err
                     (metaweblog-wp-new-category
                      org2blog-xmlrpc
@@ -2283,9 +2287,9 @@ See ‘org2blog/wp-buffer-template’ for details about how it is used."
                                              file-name)))
           (setq beg (match-end 0))
           (when (save-match-data (not (or
-                                       (string-match org-plain-link-re file-name)
-                                       (string-match "^.*#" file-name)
-                                       (string-equal (file-name-nondirectory file-name) ""))))
+                                     (string-match org-plain-link-re file-name)
+                                     (string-match "^.*#" file-name)
+                                     (string-equal (file-name-nondirectory file-name) ""))))
             (goto-char (point-min))
             (if (re-search-forward (concat "^.*# "
                                            (regexp-quote file-name)
