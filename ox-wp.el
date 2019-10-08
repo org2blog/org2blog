@@ -72,9 +72,9 @@ display a buffer with the export value."
     async subtreep nil t ext-plist (lambda () (html-mode))))
 
 (defun org-wp-export-as-string (&optional async subtreep ext-plist)
-  "Get exported buffer text as a string by deletation.
+  "Get exported buffer text as a string by delegation.
 
-Delegating: ASYNC, SUBTREEP, and EXT-PLIST.
+delegating: ASYNC, SUBTREEP, and EXT-PLIST.
 
 Delegateswork to `org-wp-export-as-wordpress'."
   (interactive)
