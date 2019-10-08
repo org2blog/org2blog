@@ -6,7 +6,7 @@
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Version: 1.0.1
+;; Version: 1.1.0
 ;; Package-Requires: ((emacs "26.3"))
 ;; Keywords: comm
 ;; Homepage: https://github.com/org2blog/org2blog
@@ -155,47 +155,47 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                  (param nil (value nil (string nil ,user-name)))
                  (param nil (value nil (string nil ,password)))
                  (param nil (value nil
-                                 (struct
-                                  nil
-                                  (member nil
-                                          (name nil "title")
-                                          (value nil ,post-title))
-                                  (member nil
-                                          (name nil "description")
-                                          (value nil ,post-description))
-                                  (member nil
-                                          (name nil "mt_excerpt")
-                                          (value nil ,post-excerpt))
-                                  (member nil
-                                          (name nil "wp_slug")
-                                          (value nil ,post-permalink))
-                                  (member nil
-                                          (name nil "dateCreated")
-                                          (dateTime.iso8601 nil ,post-date))
-                                  ,(when post-tags
-                                     `(member nil
-                                              (name nil "mt_keywords")
-                                              (value nil
-                                                     (array
-                                                      nil
-                                                      ,(append
-                                                        '(data nil)
-                                                        (mapcar
-                                                         (lambda(f)
-                                                           `(value nil (string nil ,f)))
-                                                         post-tags))))))
-                                  ,(when post-categories
-                                     `(member nil
-                                              (name nil "categories")
-                                              (value nil
-                                                     (array
-                                                      nil
-                                                      ,(append
-                                                        '(data nil)
-                                                        (mapcar
-                                                         (lambda(f)
-                                                           `(value nil (string nil ,f)))
-                                                         post-categories)))))))))
+                                   (struct
+                                    nil
+                                    (member nil
+                                            (name nil "title")
+                                            (value nil ,post-title))
+                                    (member nil
+                                            (name nil "description")
+                                            (value nil ,post-description))
+                                    (member nil
+                                            (name nil "mt_excerpt")
+                                            (value nil ,post-excerpt))
+                                    (member nil
+                                            (name nil "wp_slug")
+                                            (value nil ,post-permalink))
+                                    (member nil
+                                            (name nil "dateCreated")
+                                            (dateTime.iso8601 nil ,post-date))
+                                    ,(when post-tags
+                                       `(member nil
+                                                (name nil "mt_keywords")
+                                                (value nil
+                                                       (array
+                                                        nil
+                                                        ,(append
+                                                          '(data nil)
+                                                          (mapcar
+                                                           (lambda(f)
+                                                             `(value nil (string nil ,f)))
+                                                           post-tags))))))
+                                    ,(when post-categories
+                                       `(member nil
+                                                (name nil "categories")
+                                                (value nil
+                                                       (array
+                                                        nil
+                                                        ,(append
+                                                          '(data nil)
+                                                          (mapcar
+                                                           (lambda(f)
+                                                             `(value nil (string nil ,f)))
+                                                           post-categories)))))))))
                  (param nil (value nil (boolean nil ,(if publish "1" "0")))))))))))
 
 (defun metaweblog-wp-new-page
@@ -231,50 +231,50 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                  (param nil (value nil (string nil ,user-name)))
                  (param nil (value nil (string nil ,password)))
                  (param nil (value nil
-                                 (struct
-                                  nil
-                                  (member nil
-                                          (name nil "title")
-                                          (value nil ,post-title))
-                                  (member nil
-                                          (name nil "description")
-                                          (value nil ,post-description))
-                                  (member nil
-                                          (name nil "mt_excerpt")
-                                          (value nil ,post-excerpt))
-                                  (member nil
-                                          (name nil "wp_slug")
-                                          (value nil ,post-permalink))
-                                  (member nil
-                                          (name nil "wp_page_parent_id")
-                                          (value nil ,post-parent))
-                                  (member nil
-                                          (name nil "dateCreated")
-                                          (dateTime.iso8601 nil ,post-date))
-                                  ,(when post-tags
-                                     `(member nil
-                                              (name nil "mt_keywords")
-                                              (value nil
-                                                     (array
-                                                      nil
-                                                      ,(append
-                                                        '(data nil)
-                                                        (mapcar
-                                                         (lambda(f)
-                                                           `(value nil (string nil ,f)))
-                                                         post-tags))))))
-                                  ,(when post-categories
-                                     `(member nil
-                                              (name nil "categories")
-                                              (value nil
-                                                     (array
-                                                      nil
-                                                      ,(append
-                                                        '(data nil)
-                                                        (mapcar
-                                                         (lambda(f)
-                                                           `(value nil (string nil ,f)))
-                                                         post-categories)))))))))
+                                   (struct
+                                    nil
+                                    (member nil
+                                            (name nil "title")
+                                            (value nil ,post-title))
+                                    (member nil
+                                            (name nil "description")
+                                            (value nil ,post-description))
+                                    (member nil
+                                            (name nil "mt_excerpt")
+                                            (value nil ,post-excerpt))
+                                    (member nil
+                                            (name nil "wp_slug")
+                                            (value nil ,post-permalink))
+                                    (member nil
+                                            (name nil "wp_page_parent_id")
+                                            (value nil ,post-parent))
+                                    (member nil
+                                            (name nil "dateCreated")
+                                            (dateTime.iso8601 nil ,post-date))
+                                    ,(when post-tags
+                                       `(member nil
+                                                (name nil "mt_keywords")
+                                                (value nil
+                                                       (array
+                                                        nil
+                                                        ,(append
+                                                          '(data nil)
+                                                          (mapcar
+                                                           (lambda(f)
+                                                             `(value nil (string nil ,f)))
+                                                           post-tags))))))
+                                    ,(when post-categories
+                                       `(member nil
+                                                (name nil "categories")
+                                                (value nil
+                                                       (array
+                                                        nil
+                                                        ,(append
+                                                          '(data nil)
+                                                          (mapcar
+                                                           (lambda(f)
+                                                             `(value nil (string nil ,f)))
+                                                           post-categories)))))))))
                  (param nil (value nil (boolean nil ,(if publish "1" "0")))))))))))
 
 (defun metaweblog-wp-edit-page
@@ -312,50 +312,50 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                  (param nil (value nil (string nil ,user-name)))
                  (param nil (value nil (string nil ,password)))
                  (param nil (value nil
-                                 (struct
-                                  nil
-                                  (member nil
-                                          (name nil "title")
-                                          (value nil ,post-title))
-                                  (member nil
-                                          (name nil "description")
-                                          (value nil ,post-description))
-                                  (member nil
-                                          (name nil "mt_excerpt")
-                                          (value nil ,post-excerpt))
-                                  (member nil
-                                          (name nil "wp_slug")
-                                          (value nil ,post-permalink))
-                                  (member nil
-                                          (name nil "wp_page_parent_id")
-                                          (value nil ,post-parent))
-                                  (member nil
-                                          (name nil "dateCreated")
-                                          (dateTime.iso8601 nil ,post-date))
-                                  ,(when post-tags
-                                     `(member nil
-                                              (name nil "mt_keywords")
-                                              (value nil
-                                                     (array
-                                                      nil
-                                                      ,(append
-                                                        '(data nil)
-                                                        (mapcar
-                                                         (lambda(f)
-                                                           `(value nil (string nil ,f)))
-                                                         post-tags))))))
-                                  ,(when post-categories
-                                     `(member nil
-                                              (name nil "categories")
-                                              (value nil
-                                                     (array
-                                                      nil
-                                                      ,(append
-                                                        '(data nil)
-                                                        (mapcar
-                                                         (lambda(f)
-                                                           `(value nil (string nil ,f)))
-                                                         post-categories)))))))))
+                                   (struct
+                                    nil
+                                    (member nil
+                                            (name nil "title")
+                                            (value nil ,post-title))
+                                    (member nil
+                                            (name nil "description")
+                                            (value nil ,post-description))
+                                    (member nil
+                                            (name nil "mt_excerpt")
+                                            (value nil ,post-excerpt))
+                                    (member nil
+                                            (name nil "wp_slug")
+                                            (value nil ,post-permalink))
+                                    (member nil
+                                            (name nil "wp_page_parent_id")
+                                            (value nil ,post-parent))
+                                    (member nil
+                                            (name nil "dateCreated")
+                                            (dateTime.iso8601 nil ,post-date))
+                                    ,(when post-tags
+                                       `(member nil
+                                                (name nil "mt_keywords")
+                                                (value nil
+                                                       (array
+                                                        nil
+                                                        ,(append
+                                                          '(data nil)
+                                                          (mapcar
+                                                           (lambda(f)
+                                                             `(value nil (string nil ,f)))
+                                                           post-tags))))))
+                                    ,(when post-categories
+                                       `(member nil
+                                                (name nil "categories")
+                                                (value nil
+                                                       (array
+                                                        nil
+                                                        ,(append
+                                                          '(data nil)
+                                                          (mapcar
+                                                           (lambda(f)
+                                                             `(value nil (string nil ,f)))
+                                                           post-categories)))))))))
                  (param nil (value nil (boolean nil ,(if publish "1" "0")))))))))))
 
 (defun metaweblog-edit-post
@@ -391,47 +391,47 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                  (param nil (value nil (string nil ,user-name)))
                  (param nil (value nil (string nil ,password)))
                  (param nil (value nil
-                                 (struct
-                                  nil
-                                  (member nil
-                                          (name nil "title")
-                                          (value nil ,post-title))
-                                  (member nil
-                                          (name nil "description")
-                                          (value nil ,post-description))
-                                  (member nil
-                                          (name nil "mt_excerpt")
-                                          (value nil ,post-excerpt))
-                                  (member nil
-                                          (name nil "wp_slug")
-                                          (value nil ,post-permalink))
-                                  (member nil
-                                          (name nil "dateCreated")
-                                          (dateTime.iso8601 nil ,post-date))
-                                  ,(when post-tags
-                                     `(member nil
-                                              (name nil "mt_keywords")
-                                              (value nil
-                                                     (array
-                                                      nil
-                                                      ,(append
-                                                        '(data nil)
-                                                        (mapcar
-                                                         (lambda(f)
-                                                           `(value nil (string nil ,f)))
-                                                         post-tags))))))
-                                  ,(when post-categories
-                                     `(member nil
-                                              (name nil "categories")
-                                              (value nil
-                                                     (array
-                                                      nil
-                                                      ,(append
-                                                        '(data nil)
-                                                        (mapcar
-                                                         (lambda(f)
-                                                           `(value nil (string nil ,f)))
-                                                         post-categories)))))))))
+                                   (struct
+                                    nil
+                                    (member nil
+                                            (name nil "title")
+                                            (value nil ,post-title))
+                                    (member nil
+                                            (name nil "description")
+                                            (value nil ,post-description))
+                                    (member nil
+                                            (name nil "mt_excerpt")
+                                            (value nil ,post-excerpt))
+                                    (member nil
+                                            (name nil "wp_slug")
+                                            (value nil ,post-permalink))
+                                    (member nil
+                                            (name nil "dateCreated")
+                                            (dateTime.iso8601 nil ,post-date))
+                                    ,(when post-tags
+                                       `(member nil
+                                                (name nil "mt_keywords")
+                                                (value nil
+                                                       (array
+                                                        nil
+                                                        ,(append
+                                                          '(data nil)
+                                                          (mapcar
+                                                           (lambda(f)
+                                                             `(value nil (string nil ,f)))
+                                                           post-tags))))))
+                                    ,(when post-categories
+                                       `(member nil
+                                                (name nil "categories")
+                                                (value nil
+                                                       (array
+                                                        nil
+                                                        ,(append
+                                                          '(data nil)
+                                                          (mapcar
+                                                           (lambda(f)
+                                                             `(value nil (string nil ,f)))
+                                                           post-categories)))))))))
                  (param nil (value nil (boolean nil ,(if publish "1" "0")))))))))))
 
 (defun metaweblog-get-post (blog-xmlrpc user-name password post-id)
@@ -527,20 +527,20 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                  (param nil (value nil (string nil ,user-name)))
                  (param nil (value nil (string nil ,password)))
                  (param nil (value nil
-                                 (struct
-                                  nil
-                                  (member nil
-                                          (name nil "name")
-                                          (value nil ,file-name))
-                                  (member nil
-                                          (name nil "bits")
-                                          (base64 nil ,file-bits))
-                                  (member nil
-                                          (name nil "type")
-                                          (value nil ,file-type))
-                                  (member nil
-                                          (name nil "overwrite")
-                                          (value nil "t")))))
+                                   (struct
+                                    nil
+                                    (member nil
+                                            (name nil "name")
+                                            (value nil ,file-name))
+                                    (member nil
+                                            (name nil "bits")
+                                            (base64 nil ,file-bits))
+                                    (member nil
+                                            (name nil "type")
+                                            (value nil ,file-type))
+                                    (member nil
+                                            (name nil "overwrite")
+                                            (value nil "t")))))
                  )))))))
 
 

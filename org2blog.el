@@ -45,7 +45,7 @@
   (let ((p (make-hash-table :test 'equal)))
     (puthash "name" "org2blog" p)
     (puthash "version" "1.1.0" p)
-    (puthash "metaweblog" "1.0.1" p)
+    (puthash "metaweblog" "1.1.0" p)
     (puthash "doc" "Blog from Org mode to WordPress" p)
     (puthash "emacs" "26.3" p)
     (puthash "org" "9.1.9" p)
