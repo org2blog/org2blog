@@ -34,14 +34,6 @@
 (eval-when-compile (require 'cl))
 (require 'ox-html)
 
-;;; Group
-(defgroup org-export-wp nil
-  "WordPress specific export options."
-  :tag "Org WordPress"
-  :group 'org-export
-  :version "26.3"
-  :package-version '(Org . "9.1.9"))
-
 ;;; Function - Public
 
 ;;;###autoload
