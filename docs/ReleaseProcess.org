@@ -7,5 +7,7 @@
   - [ ] Make sure it installs and loads
   - [ ] Update org2blog-master.tar in repo
 - [ ] Complete [[TestPlan.org][Test Plan]].
+  - Start Emacs in an empty environment before loading Org2Blog and performing
+    the testing by starting Emacs like this: ~emacs --no-init-file~
 - [ ] Update [[../HISTORY.org][History]]
 - [ ] Bring to ~master~ and tag the release
