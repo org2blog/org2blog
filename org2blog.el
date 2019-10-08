@@ -994,7 +994,7 @@ Use like this:
 
 ;;;###autoload
 (defun org2blog-maybe-start ()
-  "Enable `function org2blog/wp-mode' when `#+ORG2BLOG:' is present.
+  "Enable function `org2blog/wp-mode' when `#+ORG2BLOG:' is present.
 
 Use it like this:
 
