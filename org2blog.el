@@ -39,20 +39,6 @@
 
 ;;;; Code:
 
-;;; Requires
-
-;; Packages - External
-
-(require 'htmlize)
-(require 'hydra)
-(require 'xml-rpc)
-
-;; Packages - Internal
-
-(require 'org)
-(require 'metaweblog)
-(require 'ox-wp)
-
 ;;; System Configuration
 
 (defconst org2blog-def--package
@@ -223,6 +209,20 @@ Copy them from the *Messages* buffer into your Terminal."
                              (car pkg)))
               (princ (format "(require '%s)\n" (car pkg))))
             (org2blog-def--pkg "requirements"))))
+
+;;; Requires
+
+;; Packages - External
+
+(require 'htmlize)
+(require 'hydra)
+(require 'xml-rpc)
+
+;; Packages - Internal
+
+(require 'org)
+(require 'metaweblog)
+(require 'ox-wp)
 
 ;;; Constants
 
@@ -985,12 +985,12 @@ Use like this:
 ."
   (catch 'return
     (let* ((save-buffer? (and (org2blog--blog-property-or
-                               :safe-new-entry-buf-kill
-                               org2blog/wp-safe-new-entry-buffer-kill)
-                              (not (buffer-file-name))
-                              (y-or-n-p
-                               (concat "This entry hasn’t been saved to a file yet. "
-                                       "Should I save it to a file?"))))
+                             :safe-new-entry-buf-kill
+                             org2blog/wp-safe-new-entry-buffer-kill)
+                            (not (buffer-file-name))
+                            (y-or-n-p
+                             (concat "This entry hasn’t been saved to a file yet. "
+                                     "Should I save it to a file?"))))
            (published? (when save-buffer?
                          (y-or-n-p
                           (concat "I’m about to try to save the details "
