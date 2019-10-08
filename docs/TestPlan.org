@@ -23,6 +23,7 @@ These are user facing system information commands.
 
 - [ ] Commands
   - [ ] ~org2blog-about~
+    - Verify all URLs
   - [ ] ~org2blog-user-interface~
     - [ ] Main Menu
       - It should load
