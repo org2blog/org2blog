@@ -189,10 +189,10 @@ Copy them from the *Messages* buffer into your Terminal."
   (interactive)
   (let ((install-dir (read-directory-name "Directory:")))
     (mapcar (lambda (pkg) (princ (format
-                                  "git clone %s %s%s\n"
-                                  (caddr pkg)
-                                  install-dir
-                                  (car pkg))))
+                             "git clone %s %s%s\n"
+                             (caddr pkg)
+                             install-dir
+                             (car pkg))))
             (org2blog-def--pkg "requirements"))))
 
 (defun org2blog-def-load-statement ()
@@ -1924,9 +1924,9 @@ accordingly."
   (let ((inhibit-read-only t))
     (erase-buffer))
   (remove-overlays)
-  (widget-insert "╔═══════════════════════════════════════╗\n")
-  (widget-insert "║ 🐃 → 🦄 → Org2Blog → WordPress → 🌐    ║\n")
-  (widget-insert "╚═══════════════════════════════════════╝")
+  (widget-insert "╔═══════════════════════════════════════════════╗\n")
+  (widget-insert "║ Emacs → Org mode → Org2Blog → WordPress → WWW ║\n")
+  (widget-insert "╚═══════════════════════════════════════════════╝")
   (widget-insert "\n\n")
   (widget-insert "Welcome Org2Bloggers!")
   (widget-insert "\n\n")
@@ -2012,11 +2012,15 @@ read all about them here: ")
   (widget-insert "It helps you discover your blogging goals and your values up front leaving you ")
   (widget-insert "\nwith more time for writing ✎.")
   (widget-insert "\n\n")
-  (widget-insert "If you’re curious about some of the other Org2Bloggers out there\n")
-  (widget-insert "then be sure to check out the links in the file ‘Org2Bloggers.org'\n")
-  (widget-insert "that came with this package.")
+  (widget-insert "Be sure to check out ")
+  (widget-insert "the links to other ")
+  (widget-create
+   'url-link
+   :tag "Org2Bloggers"
+   "https://github.com/org2blog/org2blog/blob/master/docs/Org2Bloggers.org")
+  (widget-insert " out there.")
   (widget-insert "\n\n")
-  (widget-insert "To all and soon to be Org2Bloggers out there:")
+  (widget-insert "To all and soon to be Org2Bloggers:")
   (widget-insert "\n\n")
   (widget-insert "Hope you have fun blogging and have a great day!")
   (widget-insert "\n\n")
