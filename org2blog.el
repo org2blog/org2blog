@@ -1414,8 +1414,10 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
           (setq post-id (cdr (assoc "post-id" post)))
           (when confirm
             (when (not (y-or-n-p
-                      (format "Would you like to publish your %s: “%s” (ID “%s”)?"
-                              thing (cdr (assoc "title" post)) post-id)))
+                      (concat
+                       (format "Would you like to publish your %s: “%s” (ID “%s”)"
+                               thing (cdr (assoc "title" post)) post-id)
+                       "?")))
               (message
                (concat "Canceled publishing your %s: “%s” (ID “%s”).")
                thing (cdr (assoc "title" post))
