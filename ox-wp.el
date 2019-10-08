@@ -186,6 +186,7 @@ Delegates work to `org-wp-export-as-wordpress'."
 
 (defun org-wp-latex-environment (latex-environment contents info)
   "Transcode a LATEX-ENVIRONMENT element from Org to WP HTML.
+
 CONTENTS holds the contents of the item.  INFO is a plist holding
 contextual information."
   (if (not (plist-get info :wp-latex))
@@ -195,6 +196,7 @@ contextual information."
 
 (defun org-wp-latex-fragment (latex-fragment contents info)
   "Transcode a LATEX-FRAGMENT element from Org to WP HTML.
+
 CONTENTS holds the contents of the item.  INFO is a plist holding
 contextual information."
   (if (not (plist-get info :wp-latex))
