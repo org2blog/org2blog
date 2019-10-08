@@ -1172,7 +1172,7 @@ See messages below for details."
           (or
            blog-name
            (and (equal (length org2blog/wp-blog-alist) 1)
-                (car (car org2blog/wp-blog-alist)))
+              (car (car org2blog/wp-blog-alist)))
            (completing-read
             "What blog would you like to log in to? ([Tab] to see list): "
             (mapcar 'car org2blog/wp-blog-alist) nil t)))
@@ -1263,11 +1263,11 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
                         destination))))
       (throw 'return nil))
     (when (and (not org2blog-logged-in)
-               (y-or-n-p
-                (concat
-                 "It looks like you are not logged in right now. "
-                 "Would you like to login before composing "
-                 "this new entry?")))
+             (y-or-n-p
+              (concat
+               "It looks like you are not logged in right now. "
+               "Would you like to login before composing "
+               "this new entry?")))
       (org2blog-user-login))
     (let* ((buf-name (cond ((eq destination 'buffer) "Buf")
                            ((eq destination 'subtree) "Sub")))
@@ -1408,16 +1408,16 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
                          (org2blog--blog-property-or :confirm org2blog/wp-confirm-post)
                          publish))
                (show (or (org2blog-blog-has :show)
-                         org2blog/wp-show-post-in-browser))
+                        org2blog/wp-show-post-in-browser))
                post-id)
           (org2blog--create-categories (cdr (assoc "categories" post)))
           (setq post-id (cdr (assoc "post-id" post)))
           (when confirm
             (when (not (y-or-n-p
-                        (concat
-                         (format "Would you like to publish your %s: “%s” (ID “%s”)"
-                                 thing (cdr (assoc "title" post)) post-id)
-                         "?")))
+                      (concat
+                       (format "Would you like to publish your %s: “%s” (ID “%s”)"
+                               thing (cdr (assoc "title" post)) post-id)
+                       "?")))
               (message
                (concat "Canceled publishing your %s: “%s” (ID “%s”).")
                thing (cdr (assoc "title" post))
@@ -1522,11 +1522,11 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
                               ((and from-subtree to-page)
                                (org2blog-subtree-post-or-page-view))))
                   ((and ask (y-or-n-p
-                             (format
-                              (concat did
-                                      "Would you like to display "
-                                      "your %s: “%s” (ID “%s”)? ")
-                              thing (cdr (assoc "title" post)) post-id)))
+                           (format
+                            (concat did
+                                    "Would you like to display "
+                                    "your %s: “%s” (ID “%s”)? ")
+                            thing (cdr (assoc "title" post)) post-id)))
                    (cond ((and from-buffer to-post)
                           (org2blog-buffer-post-or-page-view))
                          ((and from-buffer to-page)
@@ -1597,21 +1597,21 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
   (org2blog--ensure-login)
   (when (null entry-id)
     (setq entry-id (or (org2blog--bprop "POSTID")
-                       (org2blog--bprop "POST_ID")
-                       (progn (org-narrow-to-subtree)
-                              (widen)
-                              (or (org2blog--eprop "POSTID")
-                                  (org2blog--eprop "POST_ID"))))))
+                      (org2blog--bprop "POST_ID")
+                      (progn (org-narrow-to-subtree)
+                             (widen)
+                             (or (org2blog--eprop "POSTID")
+                                (org2blog--eprop "POST_ID"))))))
   (catch 'return
     (let* ((safetrash (org2blog--blog-property-or :safe-trash org2blog/wp-safe-trash))
            (is-post (eq type 'post))
            (is-page (eq type 'page))
            (thing (symbol-name type))
            (doit (or (not safetrash)
-                     (y-or-n-p
-                      (format (concat "Would you like to trash "
-                                      "your %s with ID: “%s”?")
-                              thing entry-id)))))
+                    (y-or-n-p
+                     (format (concat "Would you like to trash "
+                                     "your %s with ID: “%s”?")
+                             thing entry-id)))))
       (when (not doit)
         (message (concat "You chose not to trash your post with ID: “%s”"
                          ", so I did not.") entry-id)
@@ -1650,17 +1650,17 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
       (let ((pos (point)))
         (forward-line 0)
         (setq see-cat (or (re-search-forward "^#\\+category: "
-                                             (line-end-position) t 1)
-                          (re-search-forward "^:category: "
-                                             (line-end-position) t 1)))
+                                            (line-end-position) t 1)
+                         (re-search-forward "^:category: "
+                                            (line-end-position) t 1)))
         (setq see-tag (or (re-search-forward "^#\\+tags: "
-                                             (line-end-position) t 1)
-                          (re-search-forward "^:post_tags: "
-                                             (line-end-position) t 1)))
+                                            (line-end-position) t 1)
+                         (re-search-forward "^:post_tags: "
+                                            (line-end-position) t 1)))
         (setq see-parent (or (re-search-forward "^#\\+parent: "
-                                                (line-end-position) t 1)
-                             (re-search-forward "^:parent: "
-                                                (line-end-position) t 1)))
+                                               (line-end-position) t 1)
+                            (re-search-forward "^:parent: "
+                                               (line-end-position) t 1)))
         (setq propend (or see-cat see-tag see-parent))
         (goto-char pos))
       (unless propend
@@ -1724,13 +1724,14 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
 ;;;###autoload
 (defun org2blog-insert-more ()
   "Insert WordPress “More” tag.
+
 “More” tags only work in posts, not Pages."
   (interactive)
   (let* ((pre "@@html:<!--more")
          (post "-->@@")
          (msg (string-trim (read-string "“More” message? (hit return to leave blank): ")))
          (str (or (and (string-blank-p msg) (concat pre post))
-                  (concat pre " " msg post))))
+                 (concat pre " " msg post))))
     (insert str)))
 
 ;;;###autoload
