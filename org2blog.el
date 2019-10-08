@@ -59,6 +59,7 @@
   (let ((p (make-hash-table :test 'equal)))
     (puthash "name" "org2blog" p)
     (puthash "version" "1.1.0" p)
+    (puthash "metaweblog" "1.0.1" p)
     (puthash "doc" "Blog from Org mode to WordPress" p)
     (puthash "emacs" "26.3" p)
     (puthash "org" "9.1.9" p)
@@ -86,6 +87,7 @@
   (org2blog-def--update-readme)
   (org2blog-def--update-org2blog)
   (org2blog-def--update-oxwp)
+  (org2blog-def--update-metaweblog)
   (org2blog-def--update-pkg))
 
 (defun org2blog-def--update-readme ()
@@ -121,8 +123,8 @@
          (all (apply 'concat separated)))
     all))
 
-(defun org2blog-def--update-header (file requirements keywords)
-  "Update FILE header with REQUIREMENTS and KEYWORDS."
+(defun org2blog-def--update-header (file version requirements keywords)
+  "Update FILE header with VERSION, REQUIREMENTS, and KEYWORDS."
   (interactive)
   (find-file file)
   (save-excursion
@@ -132,7 +134,7 @@
     (insert (format ";; Author: %s\n" (org2blog-def--contacts-info (org2blog-def--pkg "authors"))))
     (insert (format ";; Maintainer: %s\n" (org2blog-def--contact-info
                                            (org2blog-def--pkg "maintainer"))))
-    (insert (format ";; Version: %s\n" (org2blog-def--pkg "version")))
+    (insert (format ";; Version: %s\n" version))
     (insert (format ";; Package-Requires: (%s)\n"
                     (let* ((ls (cons (cons 'emacs (list (org2blog-def--pkg "emacs")))
                                      requirements))
@@ -151,6 +153,7 @@
   (interactive)
   (org2blog-def--update-header
    "org2blog.el"
+   (org2blog-def--pkg "version")
    (org2blog-def--pkg "requirements")
    (org2blog-def--pkg "keywords")))
 
@@ -180,8 +183,18 @@
   (interactive)
   (org2blog-def--update-header
    "ox-wp.el"
+   (org2blog-def--pkg "version")
    nil
    (org2blog-def--pkg "keywords")))
+
+(defun org2blog-def--update-metaweblog ()
+  "Update metaweblog file."
+  (interactive)
+  (org2blog-def--update-header
+   "metaweblog.el"
+   (org2blog-def--pkg "metaweblog")
+   nil
+   '("comm")))
 
 (defun org2blog-def-checkout-statement ()
   "Create Git checkout commands for system code and packages into INSTALL-DIR.
