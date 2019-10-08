@@ -84,9 +84,9 @@
   "Update dependent artifacts."
   (interactive)
   (org2blog-def--update-readme)
-  (org2blog-def--update-header)
-  (org2blog-def--update-pkg)
-  (org2blog-def--update-oxwp))
+  (org2blog-def--update-org2blog)
+  (org2blog-def--update-oxwp)
+  (org2blog-def--update-pkg))
 
 (defun org2blog-def--update-readme ()
   "Update README.org."
