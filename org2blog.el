@@ -263,7 +263,6 @@ Example: An integer defined by a string.")
 (defconst org2blog-deprecation "2.0.0"
   "Release in which obselete objects will be removed.")
 
-
 ;;; Deprecations
 
 (mapc (lambda (ls)
@@ -985,12 +984,12 @@ Use like this:
 ."
   (catch 'return
     (let* ((save-buffer? (and (org2blog--blog-property-or
-                             :safe-new-entry-buf-kill
-                             org2blog/wp-safe-new-entry-buffer-kill)
-                            (not (buffer-file-name))
-                            (y-or-n-p
-                             (concat "This entry hasn’t been saved to a file yet. "
-                                     "Should I save it to a file?"))))
+                               :safe-new-entry-buf-kill
+                               org2blog/wp-safe-new-entry-buffer-kill)
+                              (not (buffer-file-name))
+                              (y-or-n-p
+                               (concat "This entry hasn’t been saved to a file yet. "
+                                       "Should I save it to a file?"))))
            (published? (when save-buffer?
                          (y-or-n-p
                           (concat "I’m about to try to save the details "
