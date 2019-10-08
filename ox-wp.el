@@ -76,7 +76,7 @@ display a buffer with the export value."
 
 delegating: ASYNC, SUBTREEP, and EXT-PLIST.
 
-Delegateswork to `org-wp-export-as-wordpress'."
+Delegates work to `org-wp-export-as-wordpress'."
   (interactive)
   (with-current-buffer (org-wp-export-as-wordpress async subtreep ext-plist)
     (let ((text (buffer-string)))
