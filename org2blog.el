@@ -2518,8 +2518,8 @@ various export options."
   (let ((result
          (save-excursion
            (org2blog--upload-files-replace-urls
-            (org-no-properties (org-wp-export-as-string nil subtree-p
-                                                        export-options))))))
+            (org-no-properties (ox-wp-export-as-string nil subtree-p
+                                                       export-options))))))
     result))
 
 (defun org2blog--export-as-post (&optional subtree-p)

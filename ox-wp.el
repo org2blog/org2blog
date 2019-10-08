@@ -37,7 +37,7 @@
 ;;; Function - Public
 
 ;;;###autoload
-(defun org-wp-export-as-wordpress (&optional async subtreep ext-plist)
+(defun ox-wp-export-as-wordpress (&optional async subtreep ext-plist)
   "Export current buffer to a text buffer by delegation.
 
 Delegating: ASYNC, SUTREEP, and EXT-PLIST.
@@ -61,14 +61,14 @@ display a buffer with the export value."
   (org-export-to-buffer 'wp "*Org WordPress Export*"
     async subtreep nil t ext-plist (lambda () (html-mode))))
 
-(defun org-wp-export-as-string (&optional async subtreep ext-plist)
+(defun ox-wp-export-as-string (&optional async subtreep ext-plist)
   "Get exported buffer text as a string by delegation.
 
 delegating: ASYNC, SUBTREEP, and EXT-PLIST.
 
-Delegates work to `org-wp-export-as-wordpress'."
+Delegates work to `ox-wp-export-as-wordpress'."
   (interactive)
-  (with-current-buffer (org-wp-export-as-wordpress async subtreep ext-plist)
+  (with-current-buffer (ox-wp-export-as-wordpress async subtreep ext-plist)
     (let ((text (buffer-string)))
       (kill-buffer)
       text)))
@@ -78,16 +78,16 @@ Delegates work to `org-wp-export-as-wordpress'."
 ;;; Back-End
 
 (org-export-define-derived-backend 'wp 'html
-  :translate-alist '((src-block . org-wp-src-block)
-                     (example-block . org-wp-src-block)
-                     (latex-environment . org-wp-latex-environment)
-                     (latex-fragment . org-wp-latex-fragment))
-  :filters-alist '((:filter-paragraph . org-wp-filter-paragraph)))
+  :translate-alist '((src-block . ox-wp-src-block)
+                     (example-block . ox-wp-src-block)
+                     (latex-environment . ox-wp-latex-environment)
+                     (latex-fragment . ox-wp-latex-fragment))
+  :filters-alist '((:filter-paragraph . ox-wp-filter-paragraph)))
 
 
 ;;; Filters
 
-(defun org-wp-filter-paragraph (paragraph _backend info)
+(defun ox-wp-filter-paragraph (paragraph _backend info)
   "When INFO, filter newlines from PARAGRAPH."
   (let* ((keep-new-lines (plist-get info :wp-keep-new-lines))
          (result (if keep-new-lines paragraph
@@ -96,15 +96,15 @@ Delegates work to `org-wp-export-as-wordpress'."
                                                                paragraph))))))
     result))
 
-(defun org-wp-src-block (src-block contents info)
+(defun ox-wp-src-block (src-block contents info)
   "Delegate transcoding of SRC-BLOCK, CONTENTS, and INFO."
   (let* ((sc (plist-get info :wp-shortcode))
          (result (if sc
-                     (org-wp-src-block-shortcode src-block contents info)
-                   (org-wp-src-block-html src-block contents info))))
+                     (ox-wp-src-block-shortcode src-block contents info)
+                   (ox-wp-src-block-html src-block contents info))))
     result))
 
-(defun org-wp-src-block-shortcode (src-block _contents info)
+(defun ox-wp-src-block-shortcode (src-block _contents info)
   "Create the SyntaxHighlighter Evolved sourceblock with SRC-BLOCK, CONTENTS, and INFO."
   (let* ((langval (org-element-property :language src-block))
          (langs (plist-get info :wp-shortcode-langs-map))
@@ -135,7 +135,7 @@ Delegates work to `org-wp-export-as-wordpress'."
            srccode)))
     result))
 
-(defun org-wp-src-block-html (src-block _contents info)
+(defun ox-wp-src-block-html (src-block _contents info)
   "Create the HTML sourceblock with SRC-BLOCK, CONTENTS, and INFO."
   (catch 'return
     (when (org-export-read-attribute :attr_html src-block :textarea)
@@ -174,7 +174,7 @@ Delegates work to `org-wp-export-as-wordpress'."
              (result div))
         result))))
 
-(defun org-wp-latex-environment (latex-environment contents info)
+(defun ox-wp-latex-environment (latex-environment contents info)
   "Transcode a LATEX-ENVIRONMENT element from Org to WP HTML.
 
 CONTENTS holds the contents of the item.  INFO is a plist holding
@@ -182,9 +182,9 @@ contextual information."
   (if (not (plist-get info :wp-latex))
       (org-html-latex-environment latex-environment contents info)
     (let ((latex-env (org-element-property :value latex-environment)))
-      (org-wp-latex-to-wp latex-env))))
+      (ox-wp-latex-to-wp latex-env))))
 
-(defun org-wp-latex-fragment (latex-fragment contents info)
+(defun ox-wp-latex-fragment (latex-fragment contents info)
   "Transcode a LATEX-FRAGMENT element from Org to WP HTML.
 
 CONTENTS holds the contents of the item.  INFO is a plist holding
@@ -192,9 +192,9 @@ contextual information."
   (if (not (plist-get info :wp-latex))
       (org-html-latex-fragment latex-fragment contents info)
     (let ((latex-frag (org-element-property :value latex-fragment)))
-      (org-wp-latex-to-wp latex-frag))))
+      (ox-wp-latex-to-wp latex-frag))))
 
-(defun org-wp-latex-to-wp (text)
+(defun ox-wp-latex-to-wp (text)
   "Convert latex fragments or environments in TEXT to WP LaTeX blocks."
   (let* ((matchers (plist-get org-format-latex-options :matchers))
          (re-list org-latex-regexps)
