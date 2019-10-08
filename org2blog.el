@@ -176,24 +176,12 @@
       (save-buffer))))
 
 (defun org2blog-def--update-oxwp ()
-  "Update ox-wp defgroup."
+  "Update ox-wp file."
   (interactive)
-  (find-file "ox-wp.el")
-  (save-excursion
-    (goto-char (point-min))
-    (re-search-forward "^(defgroup org-export-wp nil")
-    (kill-whole-line 6)
-    (insert
-     (format
-      "(defgroup org-export-wp nil
-  \"WordPress specific export options.\"
-  :tag \"Org WordPress\"
-  :group 'org-export
-  :version \"%s\"
-  :package-version '(Org . \"%s\"))
-"
-      (org2blog-def--pkg "emacs")
-      (org2blog-def--pkg "org")))))
+  (org2blog-def--update-header
+   "ox-wp.el"
+   nil
+   (org2blog-def--pkg "keywords")))
 
 (defun org2blog-def-checkout-statement ()
   "Create Git checkout commands for system code and packages into INSTALL-DIR.
@@ -202,10 +190,10 @@ Copy them from the *Messages* buffer into your Terminal."
   (interactive)
   (let ((install-dir (read-directory-name "Directory:")))
     (mapcar (lambda (pkg) (princ (format
-                                  "git clone %s %s%s\n"
-                                  (caddr pkg)
-                                  install-dir
-                                  (car pkg))))
+                             "git clone %s %s%s\n"
+                             (caddr pkg)
+                             install-dir
+                             (car pkg))))
             (org2blog-def--pkg "requirements"))))
 
 (defun org2blog-def-load-statement ()
