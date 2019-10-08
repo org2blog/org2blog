@@ -1826,9 +1826,9 @@ Source is either a ’post or ’subtree"
     (org2blog--ensure-login)
     (when is-subtree (widen))
     (let* ((entry-id (or (org2blog--bprop "POSTID")
-                         (org2blog--bprop "POST_ID")
-                         (org2blog--eprop "POSTID")
-                         (org2blog--eprop "POST_ID")))
+                        (org2blog--bprop "POST_ID")
+                        (org2blog--eprop "POSTID")
+                        (org2blog--eprop "POST_ID")))
            (url org2blog-xmlrpc))
       (if (not entry-id)
           (message (concat "Sorry I can’t display this %s post because it "
@@ -2186,12 +2186,12 @@ at mode start time and after the user re-configures it."
          (mapcar
           (lambda (cat)
             (if (and (not (seq-contains org2blog-categories cat))
-                     (y-or-n-p
-                      (format
-                       (concat "Would you like to "
-                               "create the a new "
-                               "category named: “%s”?")
-                       cat)))
+                   (y-or-n-p
+                    (format
+                     (concat "Would you like to "
+                             "create the a new "
+                             "category named: “%s”?")
+                     cat)))
                 (condition-case-unless-debug err
                     (wp-new-category
                      org2blog-xmlrpc
@@ -2275,9 +2275,9 @@ See ‘org2blog/wp-buffer-template’ for details about how it is used."
                                              file-name)))
           (setq beg (match-end 0))
           (when (save-match-data (not (or
-                                       (string-match org-plain-link-re file-name)
-                                       (string-match "^.*#" file-name)
-                                       (string-equal (file-name-nondirectory file-name) ""))))
+                                     (string-match org-plain-link-re file-name)
+                                     (string-match "^.*#" file-name)
+                                     (string-equal (file-name-nondirectory file-name) ""))))
             (goto-char (point-min))
             (if (re-search-forward (concat "^.*# "
                                            (regexp-quote file-name)
@@ -2411,7 +2411,9 @@ URL`https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.newPost'"
        (throw 'return nil)))))
 
 (defun org2blog--save-details (post pid pub subtree-p)
-  "Save POST details of PID and PUB. If SUBTREE-P is non-nil, record that."
+  "Save POST details of PID and PUB.
+
+If SUBTREE-P is non-nil, record that."
   (catch 'return
     (save-excursion
       (let ((the-file (if (org2blog-blog-has :track-posts)
@@ -2451,7 +2453,7 @@ URL`https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.newPost'"
             (make-directory (file-name-directory log-file) t)
             (when o2b-id
               (with-current-buffer (or (find-buffer-visiting log-file)
-                                       (find-file-noselect log-file))
+                                      (find-file-noselect log-file))
                 (save-excursion
                   (save-restriction
                     (widen)
