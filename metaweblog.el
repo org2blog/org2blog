@@ -54,6 +54,22 @@
 (defconst metaweblog-version (org2blog-def--pkg "metaweblog")
   "Current version of ox-wp.el.")
 
+;;; Deprecations
+
+(defconst metaweblog-deprecation "2.0.0"
+  "Release in which obselete objects will be removed.")
+
+(mapc (lambda (ls)
+        (define-obsolete-function-alias (car ls) (cadr ls) metaweblog-deprecation))
+      '((wp-new-category metaweblog-wp-new-category)
+        (wp-get-tags metaweblog-wp-get-tags)
+        (wp-get-pages metaweblog-wp-get-pages)
+        (wp-get-pagelist metaweblog-wp-get-pagelist)
+        (wp-new-page metaweblog-wp-new-page)
+        (wp-edit-page metaweblog-wp-edit-page)
+        (wp-delete-page metaweblog-wp-delete-page)
+        (get-file-properties metaweblog-get-file-properties)))
+
 ;;; Function - Public
 
 (defun metaweblog-get-categories (blog-xmlrpc user-name password blog-id)
@@ -66,7 +82,7 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                        user-name
                        password))
 
-(defun wp-new-category (blog-xmlrpc user-name password blog-id category)
+(defun metaweblog-wp-new-category (blog-xmlrpc user-name password blog-id category)
   "Create Category CATEGORY.
 
 BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
@@ -77,7 +93,7 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                        password
                        `(("name" . ,category))))
 
-(defun wp-get-tags (blog-xmlrpc user-name password blog-id)
+(defun metaweblog-wp-get-tags (blog-xmlrpc user-name password blog-id)
   "Retrieve list of Tags.
 
 BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
@@ -87,7 +103,7 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                        user-name
                        password))
 
-(defun wp-get-pages (blog-xmlrpc user-name password blog-id)
+(defun metaweblog-wp-get-pages (blog-xmlrpc user-name password blog-id)
   "Retrieve list of Pages with entire page content.
 
 BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
@@ -97,7 +113,7 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                        user-name
                        password))
 
-(defun wp-get-pagelist (blog-xmlrpc user-name password blog-id)
+(defun metaweblog-wp-get-pagelist (blog-xmlrpc user-name password blog-id)
   "Retrieve list of Pages with minimal page content.
 
 BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
@@ -182,7 +198,7 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                                                          post-categories)))))))))
                  (param nil (value nil (boolean nil ,(if publish "1" "0")))))))))))
 
-(defun wp-new-page
+(defun metaweblog-wp-new-page
     (blog-xmlrpc user-name password blog-id content publish)
   "Sends a new page to the blog.
 
@@ -261,7 +277,7 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                                                          post-categories)))))))))
                  (param nil (value nil (boolean nil ,(if publish "1" "0")))))))))))
 
-(defun wp-edit-page
+(defun metaweblog-wp-edit-page
     (blog-xmlrpc user-name password blog-id page-id content publish)
   "Edits an existing page PAGE-ID on the blog.
 
@@ -442,7 +458,7 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                        password
                        t))
 
-(defun wp-delete-page (blog-xmlrpc blog-id user-name password page-id)
+(defun metaweblog-wp-delete-page (blog-xmlrpc blog-id user-name password page-id)
   "Delete a page PAGE-ID from the weblog system.
 
 BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
@@ -466,7 +482,7 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                        password
                        number-of-posts))
 
-(defun get-file-properties (file)
+(defun metaweblog-get-file-properties (file)
   "Gets the properties of a file FILE.
 
 Returns an assoc list with
@@ -511,20 +527,20 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                  (param nil (value nil (string nil ,user-name)))
                  (param nil (value nil (string nil ,password)))
                  (param nil (value nil
-                                   (struct
-                                    nil
-                                    (member nil
-                                            (name nil "name")
-                                            (value nil ,file-name))
-                                    (member nil
-                                            (name nil "bits")
-                                            (base64 nil ,file-bits))
-                                    (member nil
-                                            (name nil "type")
-                                            (value nil ,file-type))
-                                    (member nil
-                                            (name nil "overwrite")
-                                            (value nil "t")))))
+                                 (struct
+                                  nil
+                                  (member nil
+                                          (name nil "name")
+                                          (value nil ,file-name))
+                                  (member nil
+                                          (name nil "bits")
+                                          (base64 nil ,file-bits))
+                                  (member nil
+                                          (name nil "type")
+                                          (value nil ,file-type))
+                                  (member nil
+                                          (name nil "overwrite")
+                                          (value nil "t")))))
                  )))))))
 
 

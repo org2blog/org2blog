@@ -1449,21 +1449,21 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
                                     publish))
                      (setq made-new-entry t))
                     ((and to-page post-id)
-                     (wp-edit-page org2blog-xmlrpc
-                                   org2blog-username
-                                   org2blog-password
-                                   org2blog-blogid
-                                   post-id
-                                   post
-                                   publish))
+                     (metaweblog-wp-edit-page org2blog-xmlrpc
+                                              org2blog-username
+                                              org2blog-password
+                                              org2blog-blogid
+                                              post-id
+                                              post
+                                              publish))
                     ((and to-page (not post-id))
                      (setq post-id
-                           (wp-new-page org2blog-xmlrpc
-                                        org2blog-username
-                                        org2blog-password
-                                        org2blog-blogid
-                                        post
-                                        publish))
+                           (metaweblog-wp-new-page org2blog-xmlrpc
+                                                   org2blog-username
+                                                   org2blog-password
+                                                   org2blog-blogid
+                                                   post
+                                                   publish))
                      (setq made-new-entry t)))
             (error
              (org2blog--error
@@ -1632,11 +1632,11 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
                                       org2blog-password
                                       entry-id))
             (when is-page
-              (wp-delete-page org2blog-xmlrpc
-                              org2blog-blogid
-                              org2blog-username
-                              org2blog-password
-                              entry-id)))
+              (metaweblog-wp-delete-page org2blog-xmlrpc
+                                         org2blog-blogid
+                                         org2blog-username
+                                         org2blog-password
+                                         entry-id)))
         (error
          (org2blog--error
           (format (concat "I’m sorry I ran into a problem "
@@ -2069,7 +2069,7 @@ Caller must handle any errors."
 (defun org2blog--load-tags ()
   "Load tags from server.
 Caller must handle any errors."
-  (let* ((raw (wp-get-tags
+  (let* ((raw (metaweblog-wp-get-tags
                org2blog-xmlrpc
                org2blog-username
                org2blog-password
@@ -2082,7 +2082,7 @@ Caller must handle any errors."
 (defun org2blog--load-pages (&optional summaries)
   "Load raw pages from server or SUMMARIES if non-nil.
 Caller must handle any errors."
-  (let* ((pages (wp-get-pagelist
+  (let* ((pages (metaweblog-wp-get-pagelist
                  org2blog-xmlrpc
                  org2blog-username
                  org2blog-password
@@ -2201,7 +2201,7 @@ at mode start time and after the user re-configures it."
                                "category named: “%s”?")
                        cat)))
                 (condition-case-unless-debug err
-                    (wp-new-category
+                    (metaweblog-wp-new-category
                      org2blog-xmlrpc
                      org2blog-username
                      org2blog-password
@@ -2308,7 +2308,7 @@ See ‘org2blog/wp-buffer-template’ for details about how it is used."
                                     org2blog-username
                                     org2blog-password
                                     org2blog-blogid
-                                    (get-file-properties file-name)))
+                                    (metaweblog-get-file-properties file-name)))
                 (error
                  (org2blog--error
                   (format (concat "I’m sorry I ran into a problem "
