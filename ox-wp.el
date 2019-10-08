@@ -5,8 +5,10 @@
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Keywords: comm, files
-;; Homepage: https://github.com/org2blog/org2blog/wiki
+;; Version: 1.1.0
+;; Package-Requires: ((emacs "26.3"))
+;; Keywords: comm, outlines, wp
+;; Homepage: https://github.com/org2blog/org2blog
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -25,16 +27,12 @@
 
 ;; Read about how this exporter works here URL ‘https://orgmode.org/manual/Adding-export-back_002dends.html/’
 
-;;;; Code
-
+;;; Code:
 
 ;;; Require
 
-;;; Code:
-
 (eval-when-compile (require 'cl))
 (require 'ox-html)
-
 
 ;;; Group
 (defgroup org-export-wp nil
@@ -249,5 +247,5 @@ contextual information."
       (replace-regexp-in-string "\s*\n" " " (buffer-string)))))
 
 (provide 'ox-wp)
-
 ;;; ox-wp.el ends here
+
