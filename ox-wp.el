@@ -233,7 +233,7 @@ contextual information."
                 (replace-match (concat "<p style=\"text-align:center\"> $latex "
                                        (substring (match-string 0) 2 -2)
                                        "$ </p>") nil t))
-               ((equal m )
+               ((equal m "begin")
                 (if (equal (match-string 2) "equation")
                     (replace-match (concat "<p style=\"text-align:center\"> $latex "
                                            (substring (match-string 1) 16 -14)
