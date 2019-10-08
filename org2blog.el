@@ -121,10 +121,10 @@
          (all (apply 'concat separated)))
     all))
 
-(defun org2blog-def--update-header ()
-  "Update Org2Blog file header."
+(defun org2blog-def--update-header (file requirements keywords)
+  "Update FILE header with REQUIREMENTS and KEYWORDS."
   (interactive)
-  (find-file "org2blog.el")
+  (find-file file)
   (save-excursion
     (goto-char (point-min))
     (re-search-forward "^;; Author: ")
@@ -135,7 +135,7 @@
     (insert (format ";; Version: %s\n" (org2blog-def--pkg "version")))
     (insert (format ";; Package-Requires: (%s)\n"
                     (let* ((ls (cons (cons 'emacs (list (org2blog-def--pkg "emacs")))
-                                     (org2blog-def--pkg "requirements")))
+                                     requirements))
                            (defs (mapcar (lambda (req)
                                            (format "(%s \"%s\")" (car req) (cadr req)))
                                          ls))
@@ -143,8 +143,16 @@
                            (result (apply 's-concat spcd)))
                       result)))
     (insert (format ";; Keywords: %s\n"
-                    (apply 'concat (org2blog-def--interpose ", " (org2blog-def--pkg "keywords")))))
+                    (apply 'concat (org2blog-def--interpose ", " keywords))))
     (insert (format ";; Homepage: %s\n" (org2blog-def--pkg "homepage")))))
+
+(defun org2blog-def--update-org2blog ()
+  "Update Org2Blog file."
+  (interactive)
+  (org2blog-def--update-header
+   "org2blog.el"
+   (org2blog-def--pkg "requirements")
+   (org2blog-def--pkg "keywords")))
 
 (defun org2blog-def--update-pkg ()
   "Update package definition."
