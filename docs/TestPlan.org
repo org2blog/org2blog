@@ -7,7 +7,7 @@ system compared to studying it all once. In service of those goals, just
 enough detail is provided here to make sense of testing without becoming mind
 numbingly painful.
 
-The tests are split up logically and informally. The preequisites are obvious.
+The tests are split up logically and informally. The prerequisites are obvious.
 For example you need a blog before you can post, and you need a user before
 you can log in. Each test has /some/ notes about what should happen, maybe along
 with a reference. All of the commands are also accessible by the UI if that is
@@ -221,7 +221,7 @@ These are commands that insert markup into your post.
 - [ ] Standard
 - [ ] Badges
   - [ ] Github Shields
-  - [ ] Verions
+  - [ ] Versions
 
 ** Other
 
