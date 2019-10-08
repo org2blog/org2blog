@@ -30,6 +30,8 @@
 
 ;;; Require
 
+;;; Code:
+
 (eval-when-compile (require 'cl))
 (require 'ox-html)
 
@@ -46,7 +48,9 @@
 
 ;;;###autoload
 (defun org-wp-export-as-wordpress (&optional async subtreep ext-plist)
-  "Export current buffer to a text buffer delegating ASYNC, SUTREEP, and EXT-PLIST.
+  "Export current buffer to a text buffer by delegation.
+
+Delegating: ASYNC, SUTREEP, and EXT-PLIST.
 
 If narrowing is active in the current buffer, only export its
 narrowed part.
@@ -68,7 +72,9 @@ display a buffer with the export value."
     async subtreep nil t ext-plist (lambda () (html-mode))))
 
 (defun org-wp-export-as-string (&optional async subtreep ext-plist)
-  "Get exported buffer text as a string delegating ASYNC, SUBTREEP, and EXT-PLIST.
+  "Get exported buffer text as a string by deletation.
+
+Delegating: ASYNC, SUBTREEP, and EXT-PLIST.
 
 Delegateswork to `org-wp-export-as-wordpress'."
   (interactive)
