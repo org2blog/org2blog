@@ -113,22 +113,22 @@ Delegateswork to `org-wp-export-as-wordpress'."
   (let* ((langval (org-element-property :language src-block))
          (langs (plist-get info :wp-shortcode-langs-map))
          (lang (or (cdr (assoc langval langs))
-                   (when langval (downcase langval))
-                   "text"))
+                  (when langval (downcase langval))
+                  "text"))
          (footnote (format
                     (org-html--translate "Listing %d" info)
                     (org-export-get-ordinal
                      src-block info nil #'org-html--has-caption-p)))
          (name (org-element-property :name src-block))
          (cap (and (org-export-get-caption src-block)
-                   (org-trim (org-export-data
-                              (org-export-get-caption src-block)
-                              info))))
+                 (org-trim (org-export-data
+                            (org-export-get-caption src-block)
+                            info))))
          (title (concat footnote ". "
                         (when name (format "Name: %s. " name))
                         (when cap (format "%s. " cap))))
          (syntaxhl (or (org-export-read-attribute :attr_wp src-block :syntaxhl)
-                       ""))
+                      ""))
          (srccode (org-export-format-code-default src-block info))
          (result
           (format
@@ -143,12 +143,12 @@ Delegateswork to `org-wp-export-as-wordpress'."
   "Create the HTML sourceblock with SRC-BLOCK, CONTENTS, and INFO."
   (catch 'return
     (when (org-export-read-attribute :attr_html src-block :textarea)
-      (let (result (org-html--textarea-block src-block))
+      (let ((result (org-html--textarea-block src-block)))
         (throw 'return result)))
     (let* ((name (org-element-property :name src-block))
            (caption (or (org-export-data
-                         (org-export-get-caption src-block)
-                         info)))
+                        (org-export-get-caption src-block)
+                        info)))
            (lang (org-element-property :language src-block))
            (code (org-html-format-code src-block info))
            (footnote (format
