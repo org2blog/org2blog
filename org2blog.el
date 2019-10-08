@@ -2523,7 +2523,9 @@ various export options."
     result))
 
 (defun org2blog--export-as-post (&optional subtree-p)
-  "Parse a buffer entry. If SUBTREE-P is non nill then parse subtree."
+  "Parse a buffer entry.
+
+If SUBTREE-P is non nill then parse subtree."
 
   (let* ((export-options (org2blog--collect-export-options))
          (tags-as-categories (plist-get export-options :tags-as-categories)))
