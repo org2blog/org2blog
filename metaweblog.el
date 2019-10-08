@@ -45,10 +45,16 @@
 
 ;;; Code:
 
+;;; Require
+
 (require 'xml-rpc)
 
-(defconst metaweblog-version "1.0.1"
-  "Current version of metaweblog.el.")
+;;; Constants
+
+(defconst metaweblog-version (org2blog-def--pkg "metaweblog")
+  "Current version of ox-wp.el.")
+
+;;; Function - Public
 
 (defun metaweblog-get-categories (blog-xmlrpc user-name password blog-id)
   "Retrieve list of Categories.

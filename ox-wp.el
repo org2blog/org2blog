@@ -34,6 +34,11 @@
 (eval-when-compile (require 'cl))
 (require 'ox-html)
 
+;;; Constants
+
+(defconst ox-wp-version (org2blog-def--pkg "version")
+  "Current version of ox-wp.el.")
+
 ;;; Function - Public
 
 ;;;###autoload
