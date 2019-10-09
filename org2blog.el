@@ -1430,7 +1430,7 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
                (concat "Canceled publishing your %s: “%s” (ID “%s”).")
                thing (cdr (assoc "title" post))
                post-id)
-              (throw 'return nil)))
+              (throw 'return (list 'failure post-id "User canceled"))))
           (condition-case-unless-debug err
               (cond ((and to-post post-id)
                      (metaweblog-edit-post org2blog-xmlrpc
@@ -1472,7 +1472,7 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
                               "inside of ‘org2blog-entry-save’.")
                       thing (cdr (assoc "title" post)) post-id)
               (format "%s" err))
-             (throw 'return nil)))
+             (throw 'return (list 'failure post-id "RPC error"))))
           (when made-new-entry
             (run-hook-with-args
              'org2blog-buffer-entry-save-hook
@@ -1542,7 +1542,8 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
                          ((and from-subtree to-post)
                           (org2blog-subtree-post-or-page-view))
                          ((and from-subtree to-page)
-                          (org2blog-subtree-post-or-page-view)))))))))))
+                          (org2blog-subtree-post-or-page-view))))))
+          (throw 'return (list 'success post-id "It worked")))))))
 
 ;;;###autoload
 (defun org2blog-entry-trash-prompt (id)

@@ -1388,7 +1388,35 @@ git clone https://github.com/purcell/package-lint.git
 (add-to-list 'load-path "~/src/package-lint")
 (require 'package-lint)
     #+END_SRC
-- [[./docs/TestPlan.org][Test Plan]].
+- Testing
+  - Programmatic Interactive System Testing
+    - Working with posts and pages is the most important 80% of this package.
+      This core functionality should always work well and be easy to test. And
+      it is easy to test. It only takes 3 steps to get the system tests
+      running.
+      + Define 3 system variables for the blog you will test against like this:
+        #+BEGIN_SRC shell
+O2BXMLRPC="https://yourblog.com/xmlrpc.php"
+O2BUSER="user"
+O2BPASSWORD="password"
+        #+END_SRC
+      + Load and evaluate [[./tests/org2blog-test-system.el][System Test Program]].
+      + Now you've got everything you need to start automatically going
+        through the entire blogging process. The test functions will log you
+        in, create and display posts, modify them, publish them, and finally
+        trash them. At each step there is a pause so you can observe what is
+        happening on the blog. This is a great way to see how the workflow
+        works too if you've never blogged before. These are the four functions
+        that you will use for testing from a buffer or a subtree to a post or
+        a page:
+        - ~defun org2blog--test-buffer-post~
+        - ~defun org2blog--test-buffer-page~
+        - ~defun org2blog--test-subtree-post~
+        - ~defun org2blog--test-subtree-page~
+  - Manual System Testing
+    - Here is a detailed [[./docs/TestPlan.org][Test Plan]] for manually testing every feature of this
+      system. It is a great way to see everything that can be done with
+      Org2Blog.
 - [[./docs/ReleaseProcess.org][Release Process]].
 - Rules
   - [[https://alphapapa.github.io/dont-tread-on-emacs/][Don't Tread On Emacs]].
