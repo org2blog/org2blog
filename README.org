@@ -181,13 +181,13 @@ library versions, the ~load-path~, =Elisp=, and =Git=.
 Org2Blog's dependencies are defined in ~org2blog-def.el~. To get you started
 quickly there are two helper functions here:
 
-- ~org2blog-def-checkout-statement~ creates Git commands to get the code from GitHub
-into the directory you want it stored. Call it and input the directory name.
-Copy and paste the commands from =*Messages*= into your Terminal to run them.
-- ~org2blog-def-load-statement~ creates Elisp code to load the libraries.
-Call it and input the directory name. Copy them into
-your Init file then run them. Now they will get loaded each time your start
-Emacs.
+- ~org2blog-def-checkout-statement~ creates Git commands to get the code from
+  GitHub into the directory you want it stored. Call it and input the
+  directory name. Copy and paste the commands from =*Messages*= into your
+  Terminal to run them.
+- ~org2blog-def-load-statement~ creates Elisp code to load the libraries. Call
+  it and input the directory name. Copy them into your Init file then run
+  them. Now they will get loaded each time your start Emacs.
 
 For example you should see something like this:
 
@@ -231,11 +231,11 @@ the other cool features soon! You can easily make your first post in less than
 
 - Installation is already complete so Org2Blog is ready for you to use.
 - Create the profile for your blog so you can get started. In this example
-"myblog" is the name of your profile for your blog: it stores everything you
-want Org2Blog to use and know about it. To get started it only requires the
-2 bits of information shown. ~url~ is the full URL required to access
-WordPress XML-RPC on your blog. ~username~ is the account that you are using
-to blog with. This is all it takes. Now fill it out and evaluate it.
+  "myblog" is the name of your profile for your blog: it stores everything you
+  want Org2Blog to use and know about it. To get started it only requires the
+  2 bits of information shown. ~url~ is the full URL required to access
+  WordPress XML-RPC on your blog. ~username~ is the account that you are using
+  to blog with. This is all it takes. Now fill it out and evaluate it.
 #+NAME: org_gcr_2019-03-06T17-15-24-06-00_cosmicality_596316A8-5CB2-4D66-A519-66AF732BBBAA
 #+begin_src emacs-lisp
 (setq org2blog/wp-blog-alist
@@ -244,11 +244,11 @@ to blog with. This is all it takes. Now fill it out and evaluate it.
          :username "username")))
 #+end_src
 - Display the Org2Blog user-interface (UI) by executing the command
-~org2blog-user-interface~. You can do literally everything with Org2Blog using it's
-UI (setting keybindings elsewhere is super easy too and you'll cover it
-soon). For simplicity these directions will refer to "things to do in the
-UI" in the style of =UI [action]=. Find the action and press the key for it.
-Here are some examples of the UI
+  ~org2blog-user-interface~. You can do literally everything with Org2Blog using
+  it's UI (setting keybindings elsewhere is super easy too and you'll cover it
+  soon). For simplicity these directions will refer to "things to do in the
+  UI" in the style of =UI [action]=. Find the action and press the key for it.
+  Here are some examples of the UI
 
 *The Main Menu:*
 [[file:/images/menu-main.png]]
@@ -264,11 +264,11 @@ Here are some examples of the UI
 - Create a brand new entry from a template: =UI [New Buffer]=
 - If you aren't logged in then Org2Blog will ask if you would like to. Yes
 you should go ahead and log in.
-- A pre-populated buffer post sits in front of you. Fill it out
-with test data for with title, category, and tags. Org mode requires you to
-keep a space in between the keyword and the value: that is the only way that
-it can read them. If you accidentally omit the space then Org2Blog will
-report it to you and suggest a resolution.
+- A pre-populated buffer post sits in front of you. Fill it out with test data
+  for with title, category, and tags. Org mode requires you to keep a space in
+  between the keyword and the value: that is the only way that it can read
+  them. If you accidentally omit the space then Org2Blog will report it to you
+  and suggest a resolution.
 - Save it as a post draft on the blog: =UI [Save Post Draft]=
 - Watch for messages in the minibuffer letting you know what is happening.
 - =#+POSTID= is populated now.
@@ -312,9 +312,9 @@ menu. If for you that means reading then start with:
 
 - =UI [About]=: A light introduction to Org2Blog platform
 - =UI [README]=: A copy of this entire README.org in a writable buffer. This is
-a nice way to make your own notes in-place without making changes to the
-original. Just save your changes to your own file and then you'll have them
-ready for the next time you are blogging.
+  a nice way to make your own notes in-place without making changes to the
+  original. Just save your changes to your own file and then you'll have them
+  ready for the next time you are blogging.
 
 Once you've successfully logged in and read a little bit about Org2Blog then
 you'll notice that you get started blogging very quickly. The menu items below
