@@ -1417,7 +1417,7 @@ O2BPASSWORD="password"
         - ~defun org2blog--test-subtree-post~
         - ~defun org2blog--test-subtree-page~
     - If you need a test WordPress system to use you can set up a free
-      WordPress blog [[https://https:/wordpress.com][here]].
+      WordPress blog [[https:/wordpress.com][here]].
   - Manual System Testing
     - Here is a detailed [[./docs/TestPlan.org][Test Plan]] for manually testing every feature of this
       system. It is a great way to see everything that can be done with
