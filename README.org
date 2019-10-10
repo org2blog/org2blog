@@ -247,20 +247,9 @@ the other cool features soon! You can easily make your first post in less than
   ~org2blog-user-interface~. You can do literally everything with Org2Blog using
   it's UI (setting keybindings elsewhere is super easy too and you'll cover it
   soon). For simplicity these directions will refer to "things to do in the
-  UI" in the style of =UI [action]=. Find the action and press the key for it.
-  Here are some examples of the UI
-
-*The Main Menu:*
-[[file:/images/menu-main.png]]
-*The "Insert Things" Menu":*
-[[file:/images/InsertThingsMenu.png]]
-*Category Completion:*
-[[file:/images/CategoryCompletion.png]]
-*Readme:*
-[[file:/images/ReadmeBuffer.png]]
-*Variable Documentation Menu:*
-[[file:/images/VariableMenu.png]]
-
+  UI" in the style of =UI [action]=.
+  *The Main Menu:*
+  [[file:/images/menu-main.png]]
 - Create a brand new entry from a template: =UI [New Buffer]=
 - If you aren't logged in then Org2Blog will ask if you would like to. Yes
 you should go ahead and log in.
@@ -281,6 +270,20 @@ the most out of Org2Blog. It is simple and powerful, and you can shape it into
 the perfect blogging tool for you. Work through usage sections at your own
 pace. Take the time to invest in Org2Blog and your personal blogging workflow.
 It is not a race, it is a pleasant walk: so take your time and have fun!
+
+P.S. If you are interested here are some other examples of the UI
+
+*The "Insert Things" Menu":*
+[[file:/images/InsertThingsMenu.png]]
+
+*Category Completion:*
+[[file:/images/CategoryCompletion.png]]
+
+*Readme:*
+[[file:/images/ReadmeBuffer.png]]
+
+*Variable Documentation Menu:*
+[[file:/images/VariableMenu.png]]
 
 ** The 6 Most Important Next Steps
 :PROPERTIES:
