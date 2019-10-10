@@ -1311,7 +1311,7 @@ See [[./HISTORY.org][HISTORY]].
 - Cari at [[https://sepiarainbow.com/][Sepia Rainbow Designs]] drew the brilliant logo.
 - [[./docs/Org2Bloggers.org][The Hundreds Of Org2Bloggers Out There]].
   - Be sure to add /your/ or /your friends/ or /anybody's/ blog to the list!
-- Org2Blog Is Lovingly Maintained By Grant Rettke
+- Org2Blog is lovingly maintained by Grant Rettke.
 
 * When Things Go Wrong
 
