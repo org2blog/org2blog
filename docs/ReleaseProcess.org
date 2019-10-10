@@ -10,4 +10,4 @@
   - Start Emacs in an empty environment before loading Org2Blog and performing
     the testing by starting Emacs like this: ~emacs --no-init-file~
 - [ ] Update [[../HISTORY.org][History]]
-- [ ] Bring to ~master~ and tag the release
+- [ ] Merge branch into ~master~ and tag the release
