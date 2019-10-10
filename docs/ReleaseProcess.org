@@ -2,12 +2,12 @@
   ~org2blog-def-update-artifacts~ to update all of the versioned files.
 - [ ] Bring codebase up to expectations in [[CONTRIBUTING.org][Contributing]].
   - [ ] Byte compile file, checkdoc, package-lint
+- [ ] Complete [[./tests/org2blog-test-system.el][System Test Program and ]][[TestPlan.org][Test Plan]].
+  - Start Emacs in an empty environment before loading Org2Blog and performing
+    the testing by starting Emacs like this: ~emacs --no-init-file~
 - [ ] Push package definition and version changes
 - [ ] Build package with [[https://github.com/melpa/melpa#build-scripts][MELPA]]
   - [ ] Make sure it installs and loads
   - [ ] Update org2blog-master.tar in repo
-- [ ] Complete [[TestPlan.org][Test Plan]].
-  - Start Emacs in an empty environment before loading Org2Blog and performing
-    the testing by starting Emacs like this: ~emacs --no-init-file~
 - [ ] Update [[../HISTORY.org][History]]
 - [ ] Merge branch into ~master~ and tag the release
