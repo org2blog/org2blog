@@ -250,15 +250,15 @@ soon). For simplicity these directions will refer to "things to do in the
 UI" in the style of =UI [action]=. Find the action and press the key for it.
 Here are some examples of the UI
 
-The Main Menu:
+*The Main Menu:*
 [[file:/images/menu-main.png]]
-The "Insert Things" Menu":
+*The "Insert Things" Menu":*
 [[file:/images/InsertThingsMenu.png]]
-Category Completion:
+*Category Completion:*
 [[file:/images/CategoryCompletion.png]]
-Readme:
+*Readme:*
 [[file:/images/ReadmeBuffer.png]]
-Variable Documentation Menu:
+*Variable Documentation Menu:*
 [[file:/images/VariableMenu.png]]
 
 - Create a brand new entry from a template: =UI [New Buffer]=
