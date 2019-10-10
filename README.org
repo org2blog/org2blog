@@ -152,12 +152,6 @@ locally to build Org2Blog on your computer:
   above) either in your path or editing the recipe
 - Open the Org2Recipe and build it
 
-MELPA always has the most current version of the code available. However in
-case your can't reach MELPA the package is also provided [[./package][here]].
-
-The package on MELPA will always be the offical Org2Blog package so stick what
-that when you can. Use the copy here as a backup.
-
 ** Setting Up The Source Code By Hand
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:3386D277-56FD-4D2F-BE0C-56553541CD25
