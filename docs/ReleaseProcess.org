@@ -1,5 +1,5 @@
 - [ ] Update the version number in ~org2blog-def--package~ ~and call
-  ~org2blog-def-update-artifacts~ to updated all of the versioned files.
+  ~org2blog-def-update-artifacts~ to update all of the versioned files.
 - [ ] Bring codebase up to expectations in [[CONTRIBUTING.org][Contributing]].
   - [ ] Byte compile file, checkdoc, package-lint
 - [ ] Push package definition and version changes
