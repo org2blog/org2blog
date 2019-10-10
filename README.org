@@ -1394,17 +1394,17 @@ git clone https://github.com/purcell/package-lint.git
       This core functionality should always work well and be easy to test. And
       it is easy to test. It only takes 3 steps to get the system tests
       running.
-      + Define 3 system variables for the blog you will test against like this:
+      - Define 3 system variables for the blog you will test against like this:
         #+BEGIN_SRC shell
 O2BXMLRPC="https://yourblog.com/xmlrpc.php"
 O2BUSER="user"
 O2BPASSWORD="password"
         #+END_SRC
-      + Load and evaluate [[./tests/org2blog-test-system.el][System Test Program]].
-        + Start Emacs in an empty environment before loading Org2Blog and
+      - Load and evaluate [[./tests/org2blog-test-system.el][System Test Program]].
+        - Start Emacs in an empty environment before loading Org2Blog and
           performing the testing by starting Emacs like this:
-          ~emacs --no-init-file~      
-      + Now you've got everything you need to start automatically going
+          ~emacs --no-init-file~
+      - Now you've got everything you need to start automatically going
         through the entire blogging process. The test functions will log you
         in, create and display posts, modify them, publish them, and finally
         trash them. At each step there is a pause so you can observe what is
@@ -1416,6 +1416,8 @@ O2BPASSWORD="password"
         - ~defun org2blog--test-buffer-page~
         - ~defun org2blog--test-subtree-post~
         - ~defun org2blog--test-subtree-page~
+    - If you need a test WordPress system to use you can set up a free
+      WordPress blog [[https://https:/wordpress.com][here]].
   - Manual System Testing
     - Here is a detailed [[./docs/TestPlan.org][Test Plan]] for manually testing every feature of this
       system. It is a great way to see everything that can be done with
