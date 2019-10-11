@@ -463,15 +463,15 @@ mode hook:
 In addition to using the menu, you might enjoy some personal keybindings for
 Org2Blog functions. Here is an example:
 
-This sample uses the =super= name-space because it is /supposed/ to be 100% free
+This sample uses the =alt= name-space because it is /supposed/ to be 100% free
 for user key bindings.
 
 #+name: org_gcr_2019-03-04T08-22-32-06-00_cosmicality_8F0B6AC9-C081-48A2-8D57-EA164C30D32A
 #+begin_src emacs-lisp
-(defun sample-keybindings ()
-  (local-set-key (kbd "s-(") #'org2blog-user-interface)
-  (local-set-key (kbd "s-)") #'org2blog-complete))
-(add-hook 'org2blog/wp-mode-hook #'sample-keybindings)
+(defun org2blog-sample-keybindings ()
+  (local-set-key (kbd "A-0") #'org2blog-user-interface)
+  (local-set-key (kbd "A-9") #'org2blog-complete))
+(add-hook 'org2blog/wp-mode-hook #'org2blog-sample-keybindings)
 #+end_src
 
 **** Logging In Faster
