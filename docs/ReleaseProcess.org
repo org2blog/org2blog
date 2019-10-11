@@ -8,5 +8,6 @@
 - [ ] Push package definition and version changes
 - [ ] Build package with [[https://github.com/melpa/melpa#build-scripts][MELPA]]
   - [ ] Make sure it installs and loads
+  - [ ] Test using the package
 - [ ] Update [[../HISTORY.org][History]]
 - [ ] Merge branch into ~master~ and tag the release
