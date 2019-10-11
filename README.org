@@ -1403,7 +1403,7 @@ O2BXMLRPC="https://yourblog.com/xmlrpc.php"
 O2BUSER="user"
 O2BPASSWORD="password"
         #+END_SRC
-      - Load and evaluate [[./tests/org2blog-test-system.el][System Test Program]].
+      - Load and evaluate [[./org2blog-test-system.el][System Test Program]].
         - Start Emacs in an empty environment before loading Org2Blog and
           performing the testing by starting Emacs like this:
           ~emacs --no-init-file~
