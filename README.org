@@ -267,6 +267,9 @@ It is not a race, it is a pleasant walk: so take your time and have fun!
 
 P.S. If you are interested here are some other examples of the UI
 
+*The Help Menu–Just Hit "h":*
+[[file:/images/HelpMenu.gif]]
+
 *The "Insert Things" Menu":*
 [[file:/images/InsertThingsMenu.png]]
 
@@ -692,6 +695,9 @@ possible. The following are some key points that will tie everything together:
   will be presented with the function that does the actual work. Take that
   function name and bind it to a key within this mode. See
   ~sample-keybindings~ at the beginning of this document for an example how.
+  - Here is a screenshot of the Help menu
+    *The Help Menu–Just Hit "h":*
+    [[file:/images/HelpMenu.gif]]
 - See ~org2blog-mode-map~ or ~org2blog/wp-keymap-prefix~ for details of the default
   keymap and prefix key.
 - You may find it just as easy to find a convenient key binding
