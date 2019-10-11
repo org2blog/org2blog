@@ -695,8 +695,7 @@ possible. The following are some key points that will tie everything together:
   will be presented with the function that does the actual work. Take that
   function name and bind it to a key within this mode. See
   ~sample-keybindings~ at the beginning of this document for an example how.
-  - Here is a screenshot of the Help menu
-    *The Help Menu–Just Hit "h":*
+  - Here is a screenshot of the Help menu–Just Hit "h":
     [[file:/images/HelpMenu.gif]]
 - See ~org2blog-mode-map~ or ~org2blog/wp-keymap-prefix~ for details of the default
   keymap and prefix key.
