@@ -463,6 +463,11 @@ mode hook:
 In addition to using the menu, you might enjoy some personal keybindings for
 Org2Blog functions. Here is an example:
 
+Here is how to identify the functions /behind/ the User Interface that you can
+bind to keys:
+
+[[file:/images/HelpMenu.gif]]
+
 This sample uses the =alt= name-space because it is /supposed/ to be 100% free
 for user key bindings.
 
