@@ -19,7 +19,7 @@
 - Added a new logo:
   - A WordPress operator's inky hand, colored by Org mode, cradles a special
     press plate for Org2Blog: Org2Blog's first logo. Thank you Cari at
-    [[https://sepiarainbow.com/][Sepia Rainbow Designs]] for this brilliant logo.
+    [[http://sepiarainbow.com/][Sepia Rainbow Designs]] for this brilliant logo.
 - Adds a built-in README with links to learn more about where to start with
   blogging and how Free Software is critical to you as a user and society as a
   whole.
