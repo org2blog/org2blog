@@ -51,6 +51,12 @@
 - ~ox-wp~ exporter includes source block IDs.
 - Completed and corrected implementation of various functionality.
 
+** Future
+
+- Implement Texinfo manual in README.org
+- Get org2blog-tests.org running again
+- Migrate to continuous integration with nix-emacs-ci  
+
 *** 2019-01-31 Org2Blog v1.0.3 Released
 
 Adds Hydra support for user-interface.
