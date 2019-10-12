@@ -49,7 +49,7 @@
 *** Fixes
 
 - ~ox-wp~ exporter includes source block IDs.
-- Completed and corrected implementation of significant functionality.
+- Completed and corrected implementation of various functionality.
 
 *** 2019-01-31 Org2Blog v1.0.3 Released
 
