@@ -688,18 +688,17 @@ possible. The following are some key points that will tie everything together:
   usually get it resolved pretty quickly.
 - You can store a single entry in a file (a Buffer Post). You can store
   multiple entries in a Subtree Post. See more below.
-- Custom Key Bindings
-- When you use the menu you will quickly find that you use 20% or the
-  commands 80% of the time. For example you may only ever use buffer posts
-  and never us any other menu item than =UI [Publish Post]=: in that case you
-  only ever need to call one function! The menu item(s) to do what you want
-  most of the time will quickly become "muscle memory". At that point it is
-  will be easy for you to configure your own custom keybindings for the
-  functions that back up the menu item. To find the function for the menu
-  item just open the menu, choose =UI [Help]=, select the menu item, and you
-  will be presented with the function that does the actual work. Take that
-  function name and bind it to a key within this mode. See
-  ~sample-keybindings~ at the beginning of this document for an example how.
+- Custom Key Bindings: When you use the menu you will quickly find that you
+  use 20% or the commands 80% of the time. For example you may only ever use
+  buffer posts and never us any other menu item than =UI [Publish Post]=: in
+  that case you only ever need to call one function! The menu item(s) to do
+  what you want most of the time will quickly become "muscle memory". At that
+  point it is will be easy for you to configure your own custom keybindings
+  for the functions that back up the menu item. To find the function for the
+  menu item just open the menu, choose =UI [Help]=, select the menu item, and
+  you will be presented with the function that does the actual work. Take that
+  function name and bind it to a key within this mode. See ~sample-keybindings~
+  at the beginning of this document for an example how.
   - Here is a screenshot of the Help menu–Just Hit "h":
     [[file:/images/HelpMenu.gif]]
 - See ~org2blog-mode-map~ or ~org2blog/wp-keymap-prefix~ for details of the default
