@@ -1,35 +1,55 @@
 * Org2Blog Release History
 
-** v1.1.0
+** v1.1.0 "Inky Hand"
 
-- New Features
-  - User Interface: Exposes multitude of Org2Blog features for easy use.
-  - Documentation: Added for all features.
-  - Status information explaining what is happening and what you can do next.
-  - Combination of user interface and additional documentation make for easier
-    use.
-  - Cari at [[https://sepiarainbow.com/][Sepia Rainbow Designs]] drew the brilliant logo.
-- Refinement
-  - Added dependency on Emacs 26.3 and Org mode 9.1.9 included with it
-    - Emacs 26.3 includes the GnuTLS bug fix documented in DebugginStories.org.
-  - When you make xml-rpc calls, you can specify the blod id. However, org2blog
-    always uses blog id '1'. There is no other way to do it. That value
-    'org2blog/wp-server-blogid' is a defvar, but it isn't set anywhere. In one
-    place, it is checked for in `o2b-user-login`, and if it can't find it, then
-    it defaults to 1. This is now a constant.
-  - Finished implementing numerous features
-  - Handle all network errors
-- Fixes
-  - Exporter includes source block IDs
-- Road-map
-  - New Features
-    - Replace double-duty postid id with page id
-    - Functions already know about page versus post, so enforce that every
-      page post must have page id
-  - Planned Breaking Changes
-    - Retire obsolete functions
-    - Make keymap identical with UI bindings
-    - Retire LaTeX exporter replace with MathJax
+*** Users
+
+- Adds a simple and powerful user interface exposing every aspect of
+  Org2Blog—many of which you may never have known even existed before.
+  - Just access help to look up the function name behind every user interface
+    item if you want to bind it to a key.
+- Includes the manual built-in to the application. It is the README.org so you
+  don't have to go to the web page to read it.
+- Expands on and revises every aspect of documentation including explanations
+  and screenshots.
+  - Styles and strategies covered range from first-time blogging to advanced
+    use with multiple blogs and diverse workflows.
+- Adds an API for automating bulk import of Org files when you want to move
+  from another Org based blogging platform to Org2Blog.
+- Added a new logo:
+  - A WordPress operator's inky hand, colored by Org mode, cradles a special
+    press plate for Org2Blog: Org2Blog's first logo. Thank you Cari at
+    [[https://sepiarainbow.com/][Sepia Rainbow Designs]] for this brilliant logo.
+- Adds a built-in README with links to learn more about where to start with
+  blogging and how Free Software is critical to you as a user and society as a
+  whole.
+
+*** Developers
+
+- Now requires at least Emacs 26.3 and Org mode 9.1.9.
+- Expanded and revised every aspect of documentation including running from
+  the source code instead of a package and debugging various network issues.
+- Adds steps for rebuilding the readme
+- Revises contribution expectations
+- Adds scripted system integration testing covering 50% of Org2Blog's
+  functionality
+- Imports ~metaweblog~
+- Adds ~org2blog-def-update-artifacts~ to update version numbers across all
+  package files. See ~org2blog-def--package~ for details.
+- Names refactored to standardize language.
+- All code brought up to GNU and MELPA coding and packaging standards.
+
+*** Maintainers
+
+- Adds steps for all aspects of package maintenance
+- Adds function deprecations for future future retirement
+- Blog ID will only ever be 1: Org2Blog doesn't support multi-site installs.
+  See ~org2blog--default-blogid~.
+
+*** Fixes
+
+- ~ox-wp~ exporter includes source block IDs.
+- Completed and corrected implementation of significant functionality.
 
 *** 2019-01-31 Org2Blog v1.0.3 Released
 
