@@ -978,13 +978,32 @@ If you want to turn an existing Org mode document into an Org2Blog document
 you only need to populate the required properties. Here is the easiest way how:
 
 - Create a =UI [New Buffer]= or =UI [New Subtree= and copy those default property
-values
+  values
 - Copy them into your file and populate them with what you want
 - If you want to use this entry to provide content for an existing post on the
-server then populate =POSTID=. When you do this, and save or post your entry,
-whatever was on the server will get replaced. Unless you want to lose the
-content of your existing post, bring that content into your Org file. One
-easy way to do that is to use [[https://pandoc.org/][Pandoc]] to covert form HTML to Org.
+  server then populate =POSTID=. When you do this, and save or post your entry,
+  whatever was on the server will get replaced.
+
+That is the process to migrate a single Org file it is pretty simple. How do
+you migrating a lot lot more files though?
+
+Fortunately it is still simple. Rather than performing the steps manually you
+can automate the process with code. The code will do what you did by hand
+instead of having to type it all yourself. First start by making sure that you
+are familiar with how to perform those steps manually.
+
+First take a post and convert it by hand. It will prove to you that you
+understand the process, you can log into your blog, and that everything works
+correctly. That is all you need to begin automating.
+
+Create another post and convert it by hand. This time use the API to submit
+it. Look at the code for ~org2blog--test-buffer-post~ to see how it works. That
+codes goes through all of the steps of posting including demonstrating how to
+make changes. You don't need to do that for migration you. You only need to
+login and publish the post (if you want to see a result code, read the
+function doc). Now you are ready to begin automating migration of all of your
+Org files. When you have any questions please be sure to reach out here so
+your migration is as pleasant and fast as possible.
 
 *** Export WordPress to Org
 :PROPERTIES:
