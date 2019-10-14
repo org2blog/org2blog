@@ -53,7 +53,7 @@
 ;;;; Utility
 ;;;;
 
-(defvar org2blog--test-last-contents nil
+(defvar org2blog--buffer-content nil
   "Stores test buffer contents as a string.
 
 Every test runs within the context of a buffer. There are two
@@ -81,7 +81,7 @@ after the test.")
 (defun org2blog--test-buffer-post ()
   (interactive)
   (catch 'return
-    (setq org2blog--test-last-contents
+    (setq org2blog--buffer-content
           "
 #+ORG2BLOG:
 #+BLOG: test
@@ -101,54 +101,54 @@ TEST: Buffer Post
     (let* ((body
             (with-temp-buffer
               (org-mode)
-              (insert org2blog--test-last-contents)
+              (insert org2blog--buffer-content)
               (setq org2blog--test-tmp (org2blog-buffer-post-save))
               (buffer-string))))
-      (setq org2blog--test-last-contents body))
+      (setq org2blog--buffer-content body))
     ;; View
     (org2blog--test-confirm-step "View it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-buffer-post-view))
     ;; Modify
-    (setq org2blog--test-last-contents
-          (concat org2blog--test-last-contents
+    (setq org2blog--buffer-content
+          (concat org2blog--buffer-content
                   "\nModified here."))
     (org2blog--test-confirm-step "Update it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-buffer-post-save))
     ;; View
     (org2blog--test-confirm-step "View it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-buffer-post-view))
     ;; Publish
     (org2blog--test-confirm-step "Publish it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-buffer-post-publish))
     ;; View
     (org2blog--test-confirm-step "View it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-buffer-post-view))
     ;; Trash
     (org2blog--test-confirm-step "Trash it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-buffer-post-trash))
     ;; View
     (org2blog--test-confirm-step "View it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-buffer-post-view))))
 
 ;;; Buffer Page
@@ -156,7 +156,7 @@ TEST: Buffer Post
 (defun org2blog--test-buffer-page ()
   (interactive)
   (catch 'return
-    (setq org2blog--test-last-contents
+    (setq org2blog--buffer-content
           "
 #+ORG2BLOG:
 #+BLOG: test
@@ -176,54 +176,54 @@ TEST: Buffer Page
     (let* ((body
             (with-temp-buffer
               (org-mode)
-              (insert org2blog--test-last-contents)
+              (insert org2blog--buffer-content)
               (setq org2blog--test-tmp (org2blog-buffer-page-save))
               (buffer-string))))
-      (setq org2blog--test-last-contents body))
+      (setq org2blog--buffer-content body))
     ;; View
     (org2blog--test-confirm-step "View it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-buffer-page-view))
     ;; Modify
-    (setq org2blog--test-last-contents
-          (concat org2blog--test-last-contents
+    (setq org2blog--buffer-content
+          (concat org2blog--buffer-content
                   "\nModified here."))
     (org2blog--test-confirm-step "Update it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-buffer-page-save))
     ;; View
     (org2blog--test-confirm-step "View it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-buffer-page-view))
     ;; Publish
     (org2blog--test-confirm-step "Publish it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-buffer-page-publish))
     ;; View
     (org2blog--test-confirm-step "View it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-buffer-page-view))
     ;; Trash
     (org2blog--test-confirm-step "Trash it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-buffer-page-trash))
     ;; View
     (org2blog--test-confirm-step "View it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-buffer-page-view))))
 
 ;;; Subtree Post
@@ -231,7 +231,7 @@ TEST: Buffer Page
 (defun org2blog--test-subtree-post ()
   (interactive)
   (catch 'return
-    (setq org2blog--test-last-contents
+    (setq org2blog--buffer-content
           "
 #+ORG2BLOG
 
@@ -254,54 +254,54 @@ TEST: Subtree Post
     (let* ((body
             (with-temp-buffer
               (org-mode)
-              (insert org2blog--test-last-contents)
+              (insert org2blog--buffer-content)
               (setq org2blog--test-tmp (org2blog-subtree-post-save))
               (buffer-string))))
-      (setq org2blog--test-last-contents body))
+      (setq org2blog--buffer-content body))
     ;; View
     (org2blog--test-confirm-step "View it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-subtree-post-view))
     ;; Modify
-    (setq org2blog--test-last-contents
-          (concat org2blog--test-last-contents
+    (setq org2blog--buffer-content
+          (concat org2blog--buffer-content
                   "\nModified here."))
     (org2blog--test-confirm-step "Update it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-subtree-post-save))
     ;; View
     (org2blog--test-confirm-step "View it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-subtree-post-view))
     ;; Publish
     (org2blog--test-confirm-step "Publish it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-subtree-post-publish))
     ;; View
     (org2blog--test-confirm-step "View it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-subtree-post-view))
     ;; Trash
     (org2blog--test-confirm-step "Trash it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-subtree-post-trash))
     ;; View
     (org2blog--test-confirm-step "View it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-subtree-post-view))))
 
 ;;; Subtree Page
@@ -309,7 +309,7 @@ TEST: Subtree Post
 (defun org2blog--test-subtree-page ()
   (interactive)
   (catch 'return
-    (setq org2blog--test-last-contents
+    (setq org2blog--buffer-content
           "
 #+ORG2BLOG
 
@@ -332,52 +332,52 @@ TEST: Subtree Page
     (let* ((body
             (with-temp-buffer
               (org-mode)
-              (insert org2blog--test-last-contents)
+              (insert org2blog--buffer-content)
               (setq org2blog--test-tmp (org2blog-subtree-page-save))
               (buffer-string))))
-      (setq org2blog--test-last-contents body))
+      (setq org2blog--buffer-content body))
     ;; View
     (org2blog--test-confirm-step "View it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-subtree-page-view))
     ;; Modify
-    (setq org2blog--test-last-contents
-          (concat org2blog--test-last-contents
+    (setq org2blog--buffer-content
+          (concat org2blog--buffer-content
                   "\nModified here."))
     (org2blog--test-confirm-step "Update it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-subtree-page-save))
     ;; View
     (org2blog--test-confirm-step "View it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-subtree-page-view))
     ;; Publish
     (org2blog--test-confirm-step "Publish it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-subtree-page-publish))
     ;; View
     (org2blog--test-confirm-step "View it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-subtree-page-view))
     ;; Trash
     (org2blog--test-confirm-step "Trash it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-subtree-page-trash))
     ;; View
     (org2blog--test-confirm-step "View it?")
     (with-temp-buffer
       (org-mode)
-      (insert org2blog--test-last-contents)
+      (insert org2blog--buffer-content)
       (org2blog-subtree-page-view))))
