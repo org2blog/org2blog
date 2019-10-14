@@ -53,7 +53,15 @@
 ;;;; Utility
 ;;;;
 
-(setq org2blog--test-last-contents nil)
+(defvar org2blog--test-last-contents nil
+  "Stores test buffer contents as a string.
+
+Every test runs within the context of a buffer. There are two
+scenarios. The first is creating a new buffer and populating it
+with an entry. The second is performing server operations on an
+existing entry already in a buffer possibly resulting in changes
+to the buffer. This variable stores that content both before and
+after the test.")
 
 (defun org2blog--test-confirm-step (&optional msg)
   "Confirm progression of the test. Prompt with MSG if non-nil."
