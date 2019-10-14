@@ -177,14 +177,6 @@ These are commands that insert markup into your post.
 
 - [ ] Review Every Artifact For TODO Entries
 
-* Versioning and Libraries
-
-- [ ] ~org2blog-def-update-artifacts~ Update version number and dependent libraries in
-  - [ ] README.org
-  - [ ] org2blog.el
-  - [ ] org2blog-pkg.el
-  - [ ] ox-wp.el
-
 * Installation
 
 - [ ] Download source and use that

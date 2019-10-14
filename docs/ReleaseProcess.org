@@ -1,4 +1,9 @@
-- [ ] Update the version number in ~org2blog-def--package~ ~and call
+- [ ] ~org2blog-def-update-artifacts~ Update version number and dependent
+  libraries. First open any one of them, then call this function:
+  - [ ] README.org
+  - [ ] org2blog.el
+  - [ ] org2blog-pkg.el
+  - [ ] ox-wp.el
   ~org2blog-def-update-artifacts~ to update all of the versioned files.
 - [ ] Bring codebase up to expectations in [[CONTRIBUTING.org][Contributing]].
   - [ ] Byte compile file, checkdoc, package-lint
