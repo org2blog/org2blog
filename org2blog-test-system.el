@@ -1,3 +1,31 @@
+;;; org2blog-test-system.el --- Org2Blog WordPress System Testing  -*- lexical-binding: t; -*-
+
+;; Copyright (C) 2019 Grant Rettke <grant@wisdomandwonder.com>
+
+;; Author: Grant Rettke <grant@wisdomandonder.com>
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;; Provides interactive system integration testing. Get your blog ready for
+;; use and choose the test you want to run. At each step of the test you are
+;; prompted whether to continue or not. Visually very the results of each step
+;; in Messages and on your blog.
+
+;;; Code:
+
 ;;;;
 ;;;; Setup
 ;;;;
