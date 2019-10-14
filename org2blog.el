@@ -993,12 +993,12 @@ Use like this:
 ."
   (catch 'return
     (let* ((save-buffer? (and (org2blog--blog-property-or
-                             :safe-new-entry-buf-kill
-                             org2blog/wp-safe-new-entry-buffer-kill)
-                            (not (buffer-file-name))
-                            (y-or-n-p
-                             (concat "This entry hasn’t been saved to a file yet. "
-                                     "Should I save it to a file?"))))
+                               :safe-new-entry-buf-kill
+                               org2blog/wp-safe-new-entry-buffer-kill)
+                              (not (buffer-file-name))
+                              (y-or-n-p
+                               (concat "This entry hasn’t been saved to a file yet. "
+                                       "Should I save it to a file?"))))
            (published? (when save-buffer?
                          (y-or-n-p
                           (concat "I’m about to try to save the details "
@@ -2212,12 +2212,12 @@ at mode start time and after the user re-configures it."
          (mapcar
           (lambda (cat)
             (if (and (not (seq-contains org2blog-categories cat))
-                   (y-or-n-p
-                    (format
-                     (concat "Would you like to "
-                             "create the a new "
-                             "category named: “%s”?")
-                     cat)))
+                     (y-or-n-p
+                      (format
+                       (concat "Would you like to "
+                               "create the a new "
+                               "category named: “%s”?")
+                       cat)))
                 (condition-case-unless-debug err
                     (metaweblog-wp-new-category
                      org2blog-xmlrpc
@@ -2301,9 +2301,9 @@ See ‘org2blog/wp-buffer-template’ for details about how it is used."
                                              file-name)))
           (setq beg (match-end 0))
           (when (save-match-data (not (or
-                                     (string-match org-plain-link-re file-name)
-                                     (string-match "^.*#" file-name)
-                                     (string-equal (file-name-nondirectory file-name) ""))))
+                                       (string-match org-plain-link-re file-name)
+                                       (string-match "^.*#" file-name)
+                                       (string-equal (file-name-nondirectory file-name) ""))))
             (goto-char (point-min))
             (if (re-search-forward (concat "^.*# "
                                            (regexp-quote file-name)
