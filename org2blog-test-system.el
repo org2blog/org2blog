@@ -102,7 +102,7 @@ TEST: Buffer Post
             (with-temp-buffer
               (org-mode)
               (insert org2blog--buffer-content)
-              (setq org2blog--test-tmp (org2blog-buffer-post-save))
+              (org2blog-buffer-post-save)
               (buffer-string))))
       (setq org2blog--buffer-content body))
     ;; View
@@ -177,7 +177,7 @@ TEST: Buffer Page
             (with-temp-buffer
               (org-mode)
               (insert org2blog--buffer-content)
-              (setq org2blog--test-tmp (org2blog-buffer-page-save))
+              (org2blog-buffer-page-save)
               (buffer-string))))
       (setq org2blog--buffer-content body))
     ;; View
@@ -255,7 +255,7 @@ TEST: Subtree Post
             (with-temp-buffer
               (org-mode)
               (insert org2blog--buffer-content)
-              (setq org2blog--test-tmp (org2blog-subtree-post-save))
+              (org2blog-subtree-post-save)
               (buffer-string))))
       (setq org2blog--buffer-content body))
     ;; View
@@ -333,7 +333,7 @@ TEST: Subtree Page
             (with-temp-buffer
               (org-mode)
               (insert org2blog--buffer-content)
-              (setq org2blog--test-tmp (org2blog-subtree-page-save))
+              (org2blog-subtree-page-save)
               (buffer-string))))
       (setq org2blog--buffer-content body))
     ;; View
