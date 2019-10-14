@@ -51,7 +51,7 @@
 
 ;;; Constants
 
-(defconst metaweblog-version (org2blog-def--pkg "metaweblog")
+(defconst metaweblog-version "1.1.0"
   "Current version of ox-wp.el.")
 
 ;;; Deprecations

@@ -180,7 +180,16 @@
    "metaweblog.el"
    (org2blog-def--pkg "metaweblog")
    nil
-   '("comm")))
+   '("comm"))
+  (progn
+    (find-file "metaweblog.el")
+    (save-excursion
+      (goto-char (point-min))
+      (re-search-forward "(defconst metaweblog-version")
+      (kill-whole-line 2)
+      (insert (format "(defconst metaweblog-version \"%s\"\n"
+                      (org2blog-def--pkg "metaweblog")))
+      (insert (format "  \"Current version of ox-wp.el.\")\n")))))
 
 (defun org2blog-def-checkout-statement ()
   "Create Git checkout commands for system code and packages into INSTALL-DIR.
