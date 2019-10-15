@@ -16,3 +16,4 @@
   - [ ] Test using the package
 - [ ] Update [[../HISTORY.org][History]]
 - [ ] Merge branch into ~master~ and tag the release
+  - Note MELPA master and table downloads.
