@@ -1430,6 +1430,7 @@ O2BPASSWORD="password"
         - Start Emacs in an empty environment before loading Org2Blog and
           performing the testing by starting Emacs like this:
           ~emacs --no-init-file~
+        - Load (or open and evalute it) it because it is not a package.
       - Now you've got everything you need to start automatically going
         through the entire blogging process. The test functions will log you
         in, create and display posts, modify them, publish them, and finally

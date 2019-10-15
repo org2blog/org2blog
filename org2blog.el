@@ -13,7 +13,7 @@
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Version: 1.1.0
+;; Version: 1.1.1
 ;; Package-Requires: ((emacs "26.3") (htmlize "1.54") (hydra "0.15.0") (xml-rpc "1.6.12"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
@@ -44,8 +44,9 @@
 (defconst org2blog-def--package
   (let ((p (make-hash-table :test 'equal)))
     (puthash "name" "org2blog" p)
-    (puthash "version" "1.1.0" p)
-    (puthash "metaweblog" "1.1.0" p)
+    (puthash "version" "1.1.1" p)
+    (puthash "metaweblog" "1.1.1" p)
+    (puthash "ox-wp" "1.1.1" p)
     (puthash "doc" "Blog from Org mode to WordPress" p)
     (puthash "emacs" "26.3" p)
     (puthash "org" "9.1.9" p)
@@ -68,25 +69,48 @@
   (gethash key org2blog-def--package))
 
 (defun org2blog-def-update-artifacts ()
-  "Update dependent artifacts."
+  "Update dependent artifacts.
+
+This function requires that you are calling it while visiting a
+file located in the project's top level directory because it
+opens all of the files relatively.
+
+This seems like the most simple approach.
+
+It also leaves the file buffer's open because you probably want to
+inspect the generated code.
+
+This also seems like the most simple approach."
   (interactive)
   (org2blog-def--update-readme)
   (org2blog-def--update-org2blog)
-  (org2blog-def--update-oxwp)
+  (org2blog-def--update-ox-wp)
   (org2blog-def--update-metaweblog)
   (org2blog-def--update-pkg))
+
+(defmacro org2blog-def--update-the (file &rest body)
+  "?"
+  `(save-excursion
+     (save-buffer)
+     (let ((origin (current-buffer)))
+       (find-file ,file)
+       (save-excursion
+         ,@body)
+       (save-buffer)
+       (unless (eq origin (current-buffer))
+         (previous-buffer)))))
 
 (defun org2blog-def--update-readme ()
   "Update README.org."
   (interactive)
-  (find-file "README.org")
-  (save-excursion
-    (goto-char (point-min))
-    (re-search-forward "^Org2Blog requires at least Emacs")
-    (kill-whole-line 1)
-    (insert (format "Org2Blog requires at least Emacs %s and Org mode %s.\n"
-                    (org2blog-def--pkg "emacs")
-                    (org2blog-def--pkg "org")))))
+  (org2blog-def--update-the
+   "README.org"
+   (goto-char (point-min))
+   (re-search-forward "^Org2Blog requires at least Emacs")
+   (kill-whole-line 1)
+   (insert (format "Org2Blog requires at least Emacs %s and Org mode %s.\n"
+                   (org2blog-def--pkg "emacs")
+                   (org2blog-def--pkg "org")))))
 
 (defun org2blog-def--contact-info (contact)
   "Create string from CONTACT info."
@@ -110,29 +134,31 @@
     all))
 
 (defun org2blog-def--update-header (file version requirements keywords)
-  "Update FILE header with VERSION, REQUIREMENTS, and KEYWORDS."
+  "Update FILE header with VERSION, REQUIREMENTS, and KEYWORDS. Unless NOSWITCHBACK
+is non-nil switch to previous buffer."
   (interactive)
-  (find-file file)
-  (save-excursion
-    (goto-char (point-min))
-    (re-search-forward "^;; Author: ")
-    (kill-whole-line 6)
-    (insert (format ";; Author: %s\n" (org2blog-def--contacts-info (org2blog-def--pkg "authors"))))
-    (insert (format ";; Maintainer: %s\n" (org2blog-def--contact-info
-                                           (org2blog-def--pkg "maintainer"))))
-    (insert (format ";; Version: %s\n" version))
-    (insert (format ";; Package-Requires: (%s)\n"
-                    (let* ((ls (cons (cons 'emacs (list (org2blog-def--pkg "emacs")))
-                                     requirements))
-                           (defs (mapcar (lambda (req)
-                                           (format "(%s \"%s\")" (car req) (cadr req)))
-                                         ls))
-                           (spcd (org2blog-def--interpose " " defs))
-                           (result (apply 's-concat spcd)))
-                      result)))
-    (insert (format ";; Keywords: %s\n"
-                    (apply 'concat (org2blog-def--interpose ", " keywords))))
-    (insert (format ";; Homepage: %s\n" (org2blog-def--pkg "homepage")))))
+  (org2blog-def--update-the
+   file
+   (goto-char (point-min))
+   (re-search-forward "^;; Author: ")
+   (kill-whole-line 6)
+   (insert (format ";; Author: %s\n" (org2blog-def--contacts-info (org2blog-def--pkg "authors"))))
+   (insert (format ";; Maintainer: %s\n" (org2blog-def--contact-info
+                                          (org2blog-def--pkg "maintainer"))))
+   (insert (format ";; Version: %s\n" version))
+   (insert (format ";; Package-Requires: (%s)\n"
+                   (let* ((ls (cons (cons 'emacs (list (org2blog-def--pkg "emacs")))
+                                    requirements))
+                          (defs (mapcar (lambda (req)
+                                          (format "(%s \"%s\")" (car req) (cadr req)))
+                                        ls))
+                          (spcd (org2blog-def--interpose " " defs))
+                          (result (apply 's-concat spcd)))
+                     result)))
+   (insert (format ";; Keywords: %s\n"
+                   (apply 'concat (org2blog-def--interpose ", " keywords))))
+   (insert (format ";; Homepage: %s\n" (org2blog-def--pkg
+                                        "homepage")))))
 
 (defun org2blog-def--update-org2blog ()
   "Update Org2Blog file."
@@ -146,41 +172,57 @@
 (defun org2blog-def--update-pkg ()
   "Update package definition."
   (interactive)
-  (save-buffer)
-  (save-excursion
-    (with-current-buffer (find-file "org2blog-pkg.el")
-      (erase-buffer)
-      (pp
-       `(define-package ,(org2blog-def--pkg "name") ,(org2blog-def--pkg "version") ,(org2blog-def--pkg "doc")
-          ',(org2blog-def--pkg "requirements")
-          :authors
-          ',(org2blog-def--pkg "authors")
-          :maintainer
-          ',(org2blog-def--pkg "maintainer")
-          :keywords
-          ',(org2blog-def--pkg "keywords")
-          :homepage
-          ,(org2blog-def--pkg "homepage"))
-       (current-buffer))
-      (save-buffer))))
+  (org2blog-def--update-the
+   "org2blog-pkg.el"
+   (erase-buffer)
+   (pp
+    `(define-package ,(org2blog-def--pkg "name") ,(org2blog-def--pkg "version") ,(org2blog-def--pkg "doc")
+       ',(org2blog-def--pkg "requirements")
+       :authors
+       ',(org2blog-def--pkg "authors")
+       :maintainer
+       ',(org2blog-def--pkg "maintainer")
+       :keywords
+       ',(org2blog-def--pkg "keywords")
+       :homepage
+       ,(org2blog-def--pkg "homepage"))
+    (current-buffer))))
 
-(defun org2blog-def--update-oxwp ()
+(defun org2blog-def--update-ox-wp ()
   "Update ox-wp file."
   (interactive)
-  (org2blog-def--update-header
-   "ox-wp.el"
-   (org2blog-def--pkg "version")
-   nil
-   (org2blog-def--pkg "keywords")))
+  (let ((file "ox-wp.el"))
+    (org2blog-def--update-header
+     file
+     (org2blog-def--pkg "version")
+     nil
+     (org2blog-def--pkg "keywords"))
+    (org2blog-def--update-the
+     file
+     (goto-char (point-min))
+     (re-search-forward "(defconst ox-wp-version")
+     (kill-whole-line 2)
+     (insert (format "(defconst ox-wp-version \"%s\"\n"
+                     (org2blog-def--pkg "ox-wp")))
+     (insert (format "  \"Current version of ox-wp.el.\")\n")))))
 
 (defun org2blog-def--update-metaweblog ()
   "Update metaweblog file."
   (interactive)
-  (org2blog-def--update-header
-   "metaweblog.el"
-   (org2blog-def--pkg "metaweblog")
-   nil
-   '("comm")))
+  (let ((file "metaweblog.el"))
+    (org2blog-def--update-header
+     file
+     (org2blog-def--pkg "metaweblog")
+     nil
+     '("comm"))
+    (org2blog-def--update-the
+     file
+     (goto-char (point-min))
+     (re-search-forward "(defconst metaweblog-version")
+     (kill-whole-line 2)
+     (insert (format "(defconst metaweblog-version \"%s\"\n"
+                     (org2blog-def--pkg "metaweblog")))
+     (insert (format "  \"Current version of ox-wp.el.\")\n")))))
 
 (defun org2blog-def-checkout-statement ()
   "Create Git checkout commands for system code and packages into INSTALL-DIR.
@@ -189,10 +231,10 @@ Copy them from the *Messages* buffer into your Terminal."
   (interactive)
   (let ((install-dir (read-directory-name "Directory:")))
     (mapcar (lambda (pkg) (princ (format
-                             "git clone %s %s%s\n"
-                             (caddr pkg)
-                             install-dir
-                             (car pkg))))
+                                  "git clone %s %s%s\n"
+                                  (caddr pkg)
+                                  install-dir
+                                  (car pkg))))
             (org2blog-def--pkg "requirements"))))
 
 (defun org2blog-def-load-statement ()
@@ -984,12 +1026,12 @@ Use like this:
 ."
   (catch 'return
     (let* ((save-buffer? (and (org2blog--blog-property-or
-                             :safe-new-entry-buf-kill
-                             org2blog/wp-safe-new-entry-buffer-kill)
-                            (not (buffer-file-name))
-                            (y-or-n-p
-                             (concat "This entry hasn’t been saved to a file yet. "
-                                     "Should I save it to a file?"))))
+                               :safe-new-entry-buf-kill
+                               org2blog/wp-safe-new-entry-buffer-kill)
+                              (not (buffer-file-name))
+                              (y-or-n-p
+                               (concat "This entry hasn’t been saved to a file yet. "
+                                       "Should I save it to a file?"))))
            (published? (when save-buffer?
                          (y-or-n-p
                           (concat "I’m about to try to save the details "
@@ -2203,12 +2245,12 @@ at mode start time and after the user re-configures it."
          (mapcar
           (lambda (cat)
             (if (and (not (seq-contains org2blog-categories cat))
-                   (y-or-n-p
-                    (format
-                     (concat "Would you like to "
-                             "create the a new "
-                             "category named: “%s”?")
-                     cat)))
+                     (y-or-n-p
+                      (format
+                       (concat "Would you like to "
+                               "create the a new "
+                               "category named: “%s”?")
+                       cat)))
                 (condition-case-unless-debug err
                     (metaweblog-wp-new-category
                      org2blog-xmlrpc
@@ -2292,9 +2334,9 @@ See ‘org2blog/wp-buffer-template’ for details about how it is used."
                                              file-name)))
           (setq beg (match-end 0))
           (when (save-match-data (not (or
-                                     (string-match org-plain-link-re file-name)
-                                     (string-match "^.*#" file-name)
-                                     (string-equal (file-name-nondirectory file-name) ""))))
+                                       (string-match org-plain-link-re file-name)
+                                       (string-match "^.*#" file-name)
+                                       (string-equal (file-name-nondirectory file-name) ""))))
             (goto-char (point-min))
             (if (re-search-forward (concat "^.*# "
                                            (regexp-quote file-name)
