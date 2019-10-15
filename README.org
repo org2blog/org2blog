@@ -418,7 +418,7 @@ to use a message inside of it, too.
 - =UI [Link To Post]=: Insert a link to a post from a list of posts on /your blog/.
 - =UI [Link To Page]=: Insert a link to a page from a list of posts on /your blog/.
 - =UI [#+ORG2BLOG]=: If your entry doesn't have the special tag, then it will
-insert it.
+  insert it.
 
 When you are ready save your new post. Open the main menu by calling
 ~org2blog-user-interface~. Since you just created a buffer entry look at the menu
