@@ -222,7 +222,7 @@ is non-nil switch to previous buffer."
      (kill-whole-line 2)
      (insert (format "(defconst metaweblog-version \"%s\"\n"
                      (org2blog-def--pkg "metaweblog")))
-     (insert (format "  \"Current version of ox-wp.el.\")\n")))))
+     (insert (format "  \"Current version of metaweblog.el.\")\n")))))
 
 (defun org2blog-def-checkout-statement ()
   "Create Git checkout commands for system code and packages into INSTALL-DIR.

@@ -52,7 +52,7 @@
 ;;; Constants
 
 (defconst metaweblog-version "1.1.1"
-  "Current version of ox-wp.el.")
+  "Current version of metaweblog.el.")
 
 ;;; Deprecations
 
