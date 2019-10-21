@@ -1,4 +1,6 @@
-[[file:/images/logo-color-multi.png]]
+#+title: Org2Blog
+
+file:/images/logo-color-multi.png]]
 
 * About
 :properties:
