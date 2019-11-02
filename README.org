@@ -1,7 +1,5 @@
 #+title: Org2Blog
 
-[[file:/images/logo-color-multi.png]]
-
 * About
 :properties:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:B5FB31EA-EA25-4675-90B0-AE0167BAE092
