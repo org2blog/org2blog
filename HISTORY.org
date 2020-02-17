@@ -52,6 +52,11 @@
 - ~ox-wp~ exporter includes source block IDs.
 - Completed and corrected implementation of various functionality.
 
+*** Patches
+
+- v1.1.2
+  - Load =subr-x=.
+
 ** Future
 
 - Implement Texinfo manual in README.org

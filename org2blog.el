@@ -13,7 +13,7 @@
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Version: 1.1.1
+;; Version: 1.1.2
 ;; Package-Requires: ((emacs "26.3") (htmlize "1.54") (hydra "0.15.0") (xml-rpc "1.6.12") (metaweblog "1.1.1"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
@@ -45,7 +45,7 @@
   (let ((p (make-hash-table :test 'equal))
         (metaweblog "metaweblog"))
     (puthash "name" "org2blog" p)
-    (puthash "version" "1.1.1" p)
+    (puthash "version" "1.1.2" p)
     (puthash metaweblog "1.1.1" p)
     (puthash "ox-wp" "1.1.1" p)
     (puthash "doc" "Blog from Org mode to WordPress" p)
@@ -233,10 +233,10 @@ Copy them from the *Messages* buffer into your Terminal."
   (interactive)
   (let ((install-dir (read-directory-name "Directory:")))
     (mapcar (lambda (pkg) (princ (format
-                                  "git clone %s %s%s\n"
-                                  (caddr pkg)
-                                  install-dir
-                                  (car pkg))))
+                             "git clone %s %s%s\n"
+                             (caddr pkg)
+                             install-dir
+                             (car pkg))))
             (org2blog-def--pkg "requirements"))))
 
 (defun org2blog-def-load-statement ()
@@ -267,6 +267,7 @@ Copy them from the *Messages* buffer into your Terminal."
 
 (require 'org)
 (require 'ox-wp)
+(eval-when-compile (require 'subr-x))
 
 ;;; Constants
 
