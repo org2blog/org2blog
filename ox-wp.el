@@ -122,9 +122,10 @@ Delegates work to `ox-wp-export-as-wordpress'."
                    (org-trim (org-export-data
                               (org-export-get-caption src-block)
                               info))))
-         (title (concat footnote ". "
-                        (when name (format "Name: %s. " name))
-                        (when cap (format "%s. " cap))))
+         (title (concat footnote
+                        "."
+                        (when name (format " Name: %s." name))
+                        (when cap (format " %s." cap))))
          (syntaxhl (or (org-export-read-attribute :attr_wp src-block :syntaxhl)
                        ""))
          (srccode (org-export-format-code-default src-block info))
