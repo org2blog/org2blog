@@ -5,7 +5,7 @@
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Version: 1.1.2
+;; Version: 1.1.3
 ;; Package-Requires: ((emacs "26.3"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
@@ -35,7 +35,7 @@
 
 ;;; Constants
 
-(defconst ox-wp-version "1.1.1"
+(defconst ox-wp-version "1.1.3"
   "Current version of ox-wp.el.")
 
 ;;; Functions
@@ -122,9 +122,10 @@ Delegates work to `ox-wp-export-as-wordpress'."
                    (org-trim (org-export-data
                               (org-export-get-caption src-block)
                               info))))
-         (title (concat footnote ". "
-                        (when name (format "Name: %s. " name))
-                        (when cap (format "%s. " cap))))
+         (title (concat footnote
+                        "."
+                        (when name (format " Name: %s." name))
+                        (when cap (format " %s." cap))))
          (syntaxhl (or (org-export-read-attribute :attr_wp src-block :syntaxhl)
                        ""))
          (srccode (org-export-format-code-default src-block info))
@@ -154,8 +155,8 @@ Delegates work to `ox-wp-export-as-wordpress'."
                       (org-export-get-ordinal
                        src-block info nil #'org-html--has-caption-p)))
            (name-and-caption
-            (concat (when name (format "Name: %s. " name))
-                    (unless (string-blank-p caption) (format "%s. " caption)))))
+            (concat (when name (format " Name: %s." name))
+                    (unless (string-blank-p caption) (format " %s." caption)))))
       (unless lang
         (let ((result
                (format "<em>%s%s</em>\n<pre class=\"example\" id=\"%s\">\n%s</pre>"
