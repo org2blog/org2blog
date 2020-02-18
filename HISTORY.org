@@ -56,6 +56,8 @@
 
 - v1.1.2
   - Load =subr-x=.
+- v1.1.3
+  - Correct listing format spacing in ox-wp-src-block-shortcode and ox-wp-src-block-html.
 
 ** Future
 
