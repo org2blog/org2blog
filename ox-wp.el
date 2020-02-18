@@ -155,8 +155,8 @@ Delegates work to `ox-wp-export-as-wordpress'."
                       (org-export-get-ordinal
                        src-block info nil #'org-html--has-caption-p)))
            (name-and-caption
-            (concat (when name (format "Name: %s. " name))
-                    (unless (string-blank-p caption) (format "%s. " caption)))))
+            (concat (when name (format " Name: %s." name))
+                    (unless (string-blank-p caption) (format " %s." caption)))))
       (unless lang
         (let ((result
                (format "<em>%s%s</em>\n<pre class=\"example\" id=\"%s\">\n%s</pre>"
