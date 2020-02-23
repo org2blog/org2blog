@@ -782,10 +782,7 @@ possibilities see:
 Org2Blog has first-class source block support. The headlines in this section
 explain how.
 
-Org2Blog supports the source block =#+name= property. =NAME= can have a =#+caption=
-property for it. A =CAPTION= belongs to =NAME=, it exists dependently on it. If you
-include a =CAPTION= but no =NAME= than the =CAPTION= value will not show up with the
-source block on your blog post.
+Org2Blog source blocks support both the =#+name= and =#caption= property.
 
 Note:
 
