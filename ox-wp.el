@@ -144,24 +144,16 @@ Delegates work to `ox-wp-export-as-wordpress'."
                          info)))
            (lang (org-element-property :language src-block))
            (code (org-html-format-code src-block info))
-           (footnote (format
-                      (org-html--translate "Listing %d." info)
-                      (org-export-get-ordinal
-                       src-block info nil #'org-html--has-caption-p)))
            (name-and-caption
             (concat (when name (format " Name: %s." name))
                     (unless (string-blank-p caption) (format " %s." caption)))))
       (unless lang
         (let ((result
-               (format "<em>%s%s</em>\n<pre class=\"example\" id=\"%s\">\n%s</pre>"
-                       footnote name-and-caption name code)))
+               (format "<em>%s</em>\n<pre class=\"example\" id=\"%s\">\n%s</pre>"
+                       name-and-caption name code)))
           (throw 'return result)))
-      (let* ((listing-number (format
-                              "<span class=\"listing-number\">%s</span>"
-                              footnote))
-             (classlabel
-              (format "<label class=\"org-src-name\"><em>%s%s</em></label>"
-                      listing-number
+      (let* ((classlabel
+              (format "<label class=\"org-src-name\"><em>%s</em></label>"
                       name-and-caption))
              (body (format "<pre class=\"src src-%s\" id=\"%s\">%s</pre>"
                            lang name code))
