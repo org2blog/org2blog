@@ -113,19 +113,13 @@ Delegates work to `ox-wp-export-as-wordpress'."
          (lang (or (cdr (assoc langval langs))
                    (when langval (downcase langval))
                    "text"))
-         (footnote (format
-                    (org-html--translate "Listing %d" info)
-                    (org-export-get-ordinal
-                     src-block info nil #'org-html--has-caption-p)))
          (name (org-element-property :name src-block))
          (cap (and (org-export-get-caption src-block)
                    (org-trim (org-export-data
                               (org-export-get-caption src-block)
                               info))))
-         (title (concat footnote
-                        "."
-                        (when name (format " Name: %s." name))
-                        (when cap (format " %s." cap))))
+         (title (concat (when name (format "Name: %s." name))
+                        (when cap (format "%s." (concat (when name " ") cap)))))
          (syntaxhl (or (org-export-read-attribute :attr_wp src-block :syntaxhl)
                        ""))
          (srccode (org-export-format-code-default src-block info))
