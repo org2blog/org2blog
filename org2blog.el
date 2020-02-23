@@ -13,7 +13,7 @@
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Version: 1.1.3
+;; Version: 1.1.4
 ;; Package-Requires: ((emacs "26.3") (htmlize "1.54") (hydra "0.15.0") (xml-rpc "1.6.12") (metaweblog "1.1.1"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
@@ -44,7 +44,7 @@
 (defconst org2blog-def--package
   (let ((p (make-hash-table :test 'equal))
         (metaweblog "metaweblog")
-        (this-release "1.1.3"))
+        (this-release "1.1.4"))
     (puthash "name" "org2blog" p)
     (puthash "version" this-release p)
     (puthash metaweblog "1.1.1" p)
@@ -234,10 +234,10 @@ Copy them from the *Messages* buffer into your Terminal."
   (interactive)
   (let ((install-dir (read-directory-name "Directory:")))
     (mapcar (lambda (pkg) (princ (format
-                             "git clone %s %s%s\n"
-                             (caddr pkg)
-                             install-dir
-                             (car pkg))))
+                                  "git clone %s %s%s\n"
+                                  (caddr pkg)
+                                  install-dir
+                                  (car pkg))))
             (org2blog-def--pkg "requirements"))))
 
 (defun org2blog-def-load-statement ()
