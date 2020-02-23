@@ -821,7 +821,7 @@ First make sure that Org2Blog will generate plain on =<pre>= tags like this:
 
 Here is how the built-in syntax highlighting looks:
 
-[[file:/images/SourceBlockNorma3.png]]
+[[file:/images/SourceBlockNormal3.png]]
 
 **** SyntaxHighlighter Evolved
 
