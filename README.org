@@ -821,7 +821,7 @@ First make sure that Org2Blog will generate plain on =<pre>= tags like this:
 
 Here is how the built-in syntax highlighting looks:
 
-[[file:/images/SourceBlockNormal.png]]
+[[file:/images/SourceBlockNorma3.png]]
 
 **** SyntaxHighlighter Evolved
 
@@ -858,7 +858,7 @@ globally and never touch it again.
 
 With SyntaxHighlighter Evolved enabled:
 
-[[file:/images/SourceBlockSyntaxHighlighterExposed2.png]]
+[[file:/images/SourceBlockSyntaxHighlighterExposed3.png]]
 
 ***** SyntaxHighlighter Evolved Is Broken Now What?!
 
