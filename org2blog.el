@@ -13,7 +13,7 @@
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Version: 1.1.4
+;; Version: 1.1.5
 ;; Package-Requires: ((emacs "26.3") (htmlize "1.54") (hydra "0.15.0") (xml-rpc "1.6.12") (metaweblog "1.1.1"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
@@ -44,7 +44,7 @@
 (defconst org2blog-def--package
   (let ((p (make-hash-table :test 'equal))
         (metaweblog "metaweblog")
-        (this-release "1.1.4"))
+        (this-release "1.1.5"))
     (puthash "name" "org2blog" p)
     (puthash "version" this-release p)
     (puthash metaweblog "1.1.1" p)
@@ -234,10 +234,10 @@ Copy them from the *Messages* buffer into your Terminal."
   (interactive)
   (let ((install-dir (read-directory-name "Directory:")))
     (mapcar (lambda (pkg) (princ (format
-                                  "git clone %s %s%s\n"
-                                  (caddr pkg)
-                                  install-dir
-                                  (car pkg))))
+                             "git clone %s %s%s\n"
+                             (caddr pkg)
+                             install-dir
+                             (car pkg))))
             (org2blog-def--pkg "requirements"))))
 
 (defun org2blog-def-load-statement ()
@@ -512,17 +512,39 @@ Example: See default value."
 #+DESCRIPTION:
 #+TITLE: %s
 \n"
-  "The default template to be inserted in a new entry buffer.
+  "The default template to be inserted in a new buffer entry.
 
 It is passed to ‘format’ with 3 string arguments:
 - Today’s date and time
-- Your configuration of default categories
-- Your configuration of default title."
+- Your configuration of default buffer entry categories
+- Your configuration of default buffer entry title."
   :group 'org2blog/wp
   :type 'string)
 
 (defcustom org2blog/wp-buffer-template-prefix nil
   "A prefix to the default template used for a new post buffer."
+  :group 'org2blog/wp
+  :type 'string)
+
+(defcustom org2blog/wp-buffer-subtree-template
+  "#+ORG2BLOG
+
+* %s
+:PROPERTIES:
+:BLOG: %s
+:DATE: %s
+:OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
+:CATEGORY: %s
+:POST_TAGS: %s
+:END:\n\n"
+  "The default template to be inserted in a new subtree entry.
+
+It is passed to ‘format’ with 5 string arguments:
+- Your configuration of default subtree title.
+- Your Blog ID.
+- Today’s date and time
+- Your configuration of default subtree entry categories.
+- Your configuration of default subtree entry tags."
   :group 'org2blog/wp
   :type 'string)
 
@@ -533,6 +555,11 @@ It is passed to ‘format’ with 3 string arguments:
 
 (defcustom org2blog/wp-buffer-format-function 'org2blog-entry-buffer-make
   "Function formatting a buffer according to `org2blog/wp-buffer-template'."
+  :group 'org2blog/wp
+  :type 'function)
+
+(defcustom org2blog/wp-buffer-subtree-format-function 'org2blog-entry-subtree-make
+  "Function formatting an entry according to `org2blog/wp-buffer-subtree-template'."
   :group 'org2blog/wp
   :type 'function)
 
@@ -903,45 +930,49 @@ here seemed to be a good balance between speed and value(s)."
    "org2blog/wp-blog-alist")
   ("ac" (org2blog--hlpv 'org2blog/wp-buffer-format-function)
    "org2blog/wp-buffer-format-function")
-  ("ad" (org2blog--hlpv 'org2blog/wp-buffer-subtree-template-prefix)
+  ("ad" (org2blog--hlpv 'org2blog/wp-buffer-subtree-format-function)
+   "org2blog/wp-buffer-subtree-format-function")
+  ("ae" (org2blog--hlpv 'org2blog/wp-buffer-subtree-template)
+   "org2blog/wp-buffer-subtree-template")
+  ("af" (org2blog--hlpv 'org2blog/wp-buffer-subtree-template-prefix)
    "org2blog/wp-buffer-subtree-template-prefix")
-  ("ae" (org2blog--hlpv 'org2blog/wp-buffer-template)
+  ("ag" (org2blog--hlpv 'org2blog/wp-buffer-template)
    "org2blog/wp-buffer-template")
-  ("af" (org2blog--hlpv 'org2blog/wp-buffer-template-prefix)
+  ("ah" (org2blog--hlpv 'org2blog/wp-buffer-template-prefix)
    "org2blog/wp-buffer-template-prefix")
-  ("ag" (org2blog--hlpv 'org2blog/wp-confirm-post)
+  ("ai" (org2blog--hlpv 'org2blog/wp-confirm-post)
    "org2blog/wp-confirm-post")
-  ("ah" (org2blog--hlpv 'org2blog/wp-default-categories)
+  ("aj" (org2blog--hlpv 'org2blog/wp-default-categories)
    "org2blog/wp-default-categories")
-  ("ai" (org2blog--hlpv 'org2blog/wp-default-categories-subtree)
+  ("ak" (org2blog--hlpv 'org2blog/wp-default-categories-subtree)
    "org2blog/wp-default-categories-subtree")
-  ("aj" (org2blog--hlpv 'org2blog/wp-default-title)
+  ("al" (org2blog--hlpv 'org2blog/wp-default-title)
    "org2blog/wp-default-title")
-  ("ak" (org2blog--hlpv 'org2blog/wp-default-title-subtree)
+  ("am" (org2blog--hlpv 'org2blog/wp-default-title-subtree)
    "org2blog/wp-default-title-subtree")
-  ("al" (org2blog--hlpv 'org2blog/wp-image-thumbnail-size)
+  ("an" (org2blog--hlpv 'org2blog/wp-image-thumbnail-size)
    "org2blog/wp-image-thumbnail-size")
-  ("am" (org2blog--hlpv 'org2blog/wp-image-thumbnails)
+  ("ao" (org2blog--hlpv 'org2blog/wp-image-thumbnails)
    "org2blog/wp-image-thumbnails")
-  ("an" (org2blog--hlpv 'org2blog/wp-keep-new-lines)
+  ("ap" (org2blog--hlpv 'org2blog/wp-keep-new-lines)
    "org2blog/wp-keep-new-lines")
-  ("ao" (org2blog--hlpv 'org2blog/wp-keymap-prefix)
+  ("aq" (org2blog--hlpv 'org2blog/wp-keymap-prefix)
    "org2blog/wp-keymap-prefix")
-  ("ap" (org2blog--hlpv 'org2blog/wp-safe-new-entry-buffer-kill)
+  ("ar" (org2blog--hlpv 'org2blog/wp-safe-new-entry-buffer-kill)
    "org2blog/wp-safe-new-entry-buffer-kill")
-  ("aq" (org2blog--hlpv 'org2blog/wp-safe-trash)
+  ("as" (org2blog--hlpv 'org2blog/wp-safe-trash)
    "org2blog/wp-safe-trash")
-  ("ar" (org2blog--hlpv 'org2blog/wp-shortcode-langs-map)
+  ("at" (org2blog--hlpv 'org2blog/wp-shortcode-langs-map)
    "org2blog/wp-shortcode-langs-map")
-  ("as" (org2blog--hlpv 'org2blog/wp-show-post-in-browser)
+  ("au" (org2blog--hlpv 'org2blog/wp-show-post-in-browser)
    "org2blog/wp-show-post-in-browser")
-  ("at" (org2blog--hlpv 'org2blog/wp-track-posts)
+  ("av" (org2blog--hlpv 'org2blog/wp-track-posts)
    "org2blog/wp-track-posts")
-  ("au" (org2blog--hlpv 'org2blog/wp-use-sourcecode-shortcode)
+  ("aw" (org2blog--hlpv 'org2blog/wp-use-sourcecode-shortcode)
    "org2blog/wp-use-sourcecode-shortcode")
-  ("av" (org2blog--hlpv 'org2blog/wp-use-tags-as-categories)
+  ("ax" (org2blog--hlpv 'org2blog/wp-use-tags-as-categories)
    "org2blog/wp-use-tags-as-categories")
-  ("aw" (org2blog--hlpv 'org2blog/wp-use-wp-latex)
+  ("ay" (org2blog--hlpv 'org2blog/wp-use-wp-latex)
    "org2blog/wp-use-wp-latex")
 
   ("q" org2blog--hydra-main/body "Back"))
@@ -1342,24 +1373,8 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
              (setq content
                    (concat
                     (or org2blog/wp-buffer-subtree-template-prefix "")
-                    (format "#+ORG2BLOG
-
-* %s
-:PROPERTIES:
-:BLOG: %s
-:DATE: %s
-:OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
-:CATEGORY: %s
-:POST_TAGS: %s
-:END:\n\n"
-                            (org2blog--blog-property-or :default-title-sub org2blog/wp-default-title-subtree)
-                            org2blog-blog-key
-                            (format-time-string "[%Y-%m-%d %a %H:%M]" (current-time))
-                            (mapconcat
-                             (lambda (cat) cat)
-                             (org2blog--blog-property-or :default-categories-sub org2blog/wp-default-categories-subtree)
-                             ", ")
-                            "")))))
+                    (funcall org2blog/wp-buffer-subtree-format-function
+                             org2blog/wp-buffer-subtree-template)))))
       (insert content)
       (org2blog/wp-mode t))))
 
@@ -2311,7 +2326,7 @@ This function prompts the user to login."
       (org2blog-user-login blog-name))))
 
 (defun org2blog-entry-buffer-make (buffer-template)
-  "Create new entry buffer populated using BUFFER-TEMPLATE.
+  "Create new Buffer Entry populated using BUFFER-TEMPLATE.
 
 See ‘org2blog/wp-buffer-template’ for details about how it is used."
   (format buffer-template
@@ -2320,6 +2335,20 @@ See ‘org2blog/wp-buffer-template’ for details about how it is used."
            (org2blog--blog-property-or :default-categories org2blog/wp-default-categories)
            ", ")
           (org2blog--blog-property-or :default-title org2blog/wp-default-title)))
+
+(defun org2blog-entry-subtree-make (subtree-template)
+  "Create new Subtree Entry populated using SUBTREE-TEMPLATE.
+
+See ‘org2blog/wp-buffer-subtree-template’ for details about how it is used."
+  (format subtree-template
+          (org2blog--blog-property-or :default-title-sub org2blog/wp-default-title-subtree)
+          org2blog-blog-key
+          (format-time-string "[%Y-%m-%d %a %H:%M]" (current-time))
+          (mapconcat
+           (lambda (cat) cat)
+           (org2blog--blog-property-or :default-categories-sub org2blog/wp-default-categories-subtree)
+           ", ")
+          ""))
 
 (defun org2blog--upload-files-replace-urls (text)
   "Upload files and replace their links in TEXT."
