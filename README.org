@@ -279,7 +279,7 @@ P.S. If you are interested here are some other examples of the UI
 *Readme:*
 [[file:/images/ReadmeBuffer.png]]
 
-*Variable Documentation Menu:*
+*Variable/Option Documentation Menu:* /(subject to change)/
 [[file:/images/VariableMenu.png]]
 
 ** The 6 Most Important Next Steps
