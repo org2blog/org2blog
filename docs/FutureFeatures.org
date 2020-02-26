@@ -1,0 +1,3 @@
+- Implement Texinfo manual in README.org
+- Refactor org2blog-tests.org running again
+- Migrate to continuous integration with nix-emacs-ci
