@@ -2371,8 +2371,7 @@ See ‘org2blog/wp-buffer-subtree-template’ for details about how it is used."
           (org2blog--blog-property-or :default-title-sub org2blog/wp-default-title-subtree)
           org2blog-blog-key
           (format-time-string "[%Y-%m-%d %a %H:%M]" (current-time))
-          (mapconcat
-           (lambda (cat) cat)
+          (string-join
            (org2blog--blog-property-or :default-categories-sub org2blog/wp-default-categories-subtree)
            ", ")
           (mapconcat
