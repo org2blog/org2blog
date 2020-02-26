@@ -279,7 +279,7 @@ P.S. If you are interested here are some other examples of the UI
 *Readme:*
 [[file:/images/ReadmeBuffer.png]]
 
-*Variable/Option Documentation Menu:* /(subject to change)/
+*Customizations Documentation Menu:*
 [[file:/images/VariableMenu.png]]
 
 ** The 6 Most Important Next Steps
@@ -398,11 +398,13 @@ are ready configure them see these variables and functions:
   - ~org2blog/wp-buffer-format-function~
   - ~org2blog/wp-default-title~
   - ~org2blog/wp-default-categories~
+  - ~org2blog/wp-default-tags~
 - Subtree Entry
   - ~org2blog/wp-buffer-subtree-template~
   - ~org2blog/wp-buffer-subtree-format-function~
   - ~org2blog/wp-default-title-subtree~
   - ~org2blog/wp-default-categories-subtree~
+  - ~org2blog/wp-default-tags-subtree~
 
 With your configuration ready, start creating the post.
 

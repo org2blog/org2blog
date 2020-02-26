@@ -13,7 +13,7 @@
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Version: 1.1.5
+;; Version: 1.1.6
 ;; Package-Requires: ((emacs "26.3") (htmlize "1.54") (hydra "0.15.0") (xml-rpc "1.6.12") (metaweblog "1.1.1"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
@@ -44,7 +44,7 @@
 (defconst org2blog-def--package
   (let ((p (make-hash-table :test 'equal))
         (metaweblog "metaweblog")
-        (this-release "1.1.5"))
+        (this-release "1.1.6"))
     (puthash "name" "org2blog" p)
     (puthash "version" this-release p)
     (puthash metaweblog "1.1.1" p)
@@ -503,20 +503,39 @@ Example: See default value."
   :group 'org2blog/wp
   :type '(repeat string))
 
+(defcustom org2blog/wp-default-tags '("Emacs" "Lisp")
+  "Default list of tags for a new buffer entry.
+
+The blog specific property is: :default-tags
+
+Example: '(\"tag 1\" \"tag 2\")"
+  :group 'org2blog/wp
+  :type '(repeat string))
+
+(defcustom org2blog/wp-default-tags-subtree '("Emacs" "Lisp")
+  "Default list of tags for a new subtree entry.
+
+The blog specific property is: :default-tags-sub
+
+Example: '(\"tag 1\" \"tag 2\")"
+  :group 'org2blog/wp
+  :type '(repeat string))
+
 (defcustom org2blog/wp-buffer-template
   "#+ORG2BLOG:
 #+DATE: %s
 #+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
 #+CATEGORY: %s
-#+TAGS:
+#+TAGS: %s
 #+DESCRIPTION:
 #+TITLE: %s
 \n"
   "The default template to be inserted in a new buffer entry.
 
-It is passed to ‘format’ with 3 string arguments:
+It is passed to ‘format’ with 4 string arguments:
 - Today’s date and time
 - Your configuration of default buffer entry categories
+- Your configuration of default buffer entry tags
 - Your configuration of default buffer entry title."
   :group 'org2blog/wp
   :type 'string)
@@ -918,6 +937,7 @@ here seemed to be a good balance between speed and value(s)."
 (defun org2blog--main-variables ()
   "Open the Variables menu."
   (org2blog--hydra-main-variables/body))
+
 (defhydra org2blog--hydra-main-variables (:color blue :columns 2)
   "
 ╔══════════╗
@@ -946,33 +966,37 @@ here seemed to be a good balance between speed and value(s)."
    "org2blog/wp-default-categories")
   ("ak" (org2blog--hlpv 'org2blog/wp-default-categories-subtree)
    "org2blog/wp-default-categories-subtree")
-  ("al" (org2blog--hlpv 'org2blog/wp-default-title)
+  ("al" (org2blog--hlpv 'org2blog/wp-default-tags)
+   "org2blog/wp-default-tags")
+  ("am" (org2blog--hlpv 'org2blog/wp-default-tags-subtree)
+   "org2blog/wp-default-tags-subtree")
+  ("an" (org2blog--hlpv 'org2blog/wp-default-title)
    "org2blog/wp-default-title")
-  ("am" (org2blog--hlpv 'org2blog/wp-default-title-subtree)
+  ("ao" (org2blog--hlpv 'org2blog/wp-default-title-subtree)
    "org2blog/wp-default-title-subtree")
-  ("an" (org2blog--hlpv 'org2blog/wp-image-thumbnail-size)
+  ("ap" (org2blog--hlpv 'org2blog/wp-image-thumbnail-size)
    "org2blog/wp-image-thumbnail-size")
-  ("ao" (org2blog--hlpv 'org2blog/wp-image-thumbnails)
+  ("aq" (org2blog--hlpv 'org2blog/wp-image-thumbnails)
    "org2blog/wp-image-thumbnails")
-  ("ap" (org2blog--hlpv 'org2blog/wp-keep-new-lines)
+  ("ar" (org2blog--hlpv 'org2blog/wp-keep-new-lines)
    "org2blog/wp-keep-new-lines")
-  ("aq" (org2blog--hlpv 'org2blog/wp-keymap-prefix)
+  ("as" (org2blog--hlpv 'org2blog/wp-keymap-prefix)
    "org2blog/wp-keymap-prefix")
-  ("ar" (org2blog--hlpv 'org2blog/wp-safe-new-entry-buffer-kill)
+  ("at" (org2blog--hlpv 'org2blog/wp-safe-new-entry-buffer-kill)
    "org2blog/wp-safe-new-entry-buffer-kill")
-  ("as" (org2blog--hlpv 'org2blog/wp-safe-trash)
+  ("au" (org2blog--hlpv 'org2blog/wp-safe-trash)
    "org2blog/wp-safe-trash")
-  ("at" (org2blog--hlpv 'org2blog/wp-shortcode-langs-map)
+  ("av" (org2blog--hlpv 'org2blog/wp-shortcode-langs-map)
    "org2blog/wp-shortcode-langs-map")
-  ("au" (org2blog--hlpv 'org2blog/wp-show-post-in-browser)
+  ("aw" (org2blog--hlpv 'org2blog/wp-show-post-in-browser)
    "org2blog/wp-show-post-in-browser")
-  ("av" (org2blog--hlpv 'org2blog/wp-track-posts)
+  ("ax" (org2blog--hlpv 'org2blog/wp-track-posts)
    "org2blog/wp-track-posts")
-  ("aw" (org2blog--hlpv 'org2blog/wp-use-sourcecode-shortcode)
+  ("ay" (org2blog--hlpv 'org2blog/wp-use-sourcecode-shortcode)
    "org2blog/wp-use-sourcecode-shortcode")
-  ("ax" (org2blog--hlpv 'org2blog/wp-use-tags-as-categories)
+  ("az" (org2blog--hlpv 'org2blog/wp-use-tags-as-categories)
    "org2blog/wp-use-tags-as-categories")
-  ("ay" (org2blog--hlpv 'org2blog/wp-use-wp-latex)
+  ("ba" (org2blog--hlpv 'org2blog/wp-use-wp-latex)
    "org2blog/wp-use-wp-latex")
 
   ("q" org2blog--hydra-main/body "Back"))
@@ -2334,6 +2358,9 @@ See ‘org2blog/wp-buffer-template’ for details about how it is used."
           (string-join
            (org2blog--blog-property-or :default-categories org2blog/wp-default-categories)
            ", ")
+          (string-join
+           (org2blog--blog-property-or :default-tags org2blog/wp-default-tags)
+           ", ")
           (org2blog--blog-property-or :default-title org2blog/wp-default-title)))
 
 (defun org2blog-entry-subtree-make (subtree-template)
@@ -2348,7 +2375,10 @@ See ‘org2blog/wp-buffer-subtree-template’ for details about how it is used."
            (lambda (cat) cat)
            (org2blog--blog-property-or :default-categories-sub org2blog/wp-default-categories-subtree)
            ", ")
-          ""))
+          (mapconcat
+           (lambda (cat) cat)
+           (org2blog--blog-property-or :default-tags-sub org2blog/wp-default-tags-subtree)
+           ", ")))
 
 (defun org2blog--upload-files-replace-urls (text)
   "Upload files and replace their links in TEXT."
