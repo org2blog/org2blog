@@ -1,8 +1,6 @@
-* Org2Blog Release History
+* v1.1.* "Inky Hand"
 
-** v1.1.0 "Inky Hand"
-
-*** Users
+** Users
 
 - Adds a simple and powerful user interface exposing every aspect of
   Org2Blog—many of which you may never have known even existed before.
@@ -25,7 +23,7 @@
   start having fun blogging, and even how Free Software is critical to you as
   a user and society as a whole.
 
-*** Developers
+** Developers
 
 - Now requires at least Emacs 26.3 and Org mode 9.1.9.
 - Expanded and revised every aspect of documentation including running from
@@ -40,20 +38,22 @@
 - Names refactored to standardize language.
 - All code brought up to GNU and MELPA coding and packaging standards.
 
-*** Maintainers
+** Maintainers
 
 - Adds steps for all aspects of package maintenance
 - Adds function deprecations for future future retirement
 - Blog ID will only ever be 1: Org2Blog doesn't support multi-site installs.
   See ~org2blog--default-blogid~.
 
-*** Fixes
+** Fixes
 
 - ~ox-wp~ exporter includes source block IDs.
 - Completed and corrected implementation of various functionality.
 
-*** Patches
+** Patches
 
+- v1.1.1
+  - Standardized version numbers across Org2Blog, OX-WP, and MetaWeblog to 1.1.1
 - v1.1.2
   - Load =subr-x=.
 - v1.1.3
@@ -65,23 +65,25 @@
 - v1.1.6
   - Give Tags configurable default values like Categories already do.
 
-** 2019-01-31 Org2Blog v1.0.3 Released
+* v1.0.*
+** v1.0.3
 
 Adds Hydra support for user-interface.
 
-** 2017-12-16 Org2Blog v1.0.2 Released
+** v1.0.2
 
 Increment for new metaweblog version.
 
-** 2017-12-16 Org2Blog v1.0.1 Released
+** v1.0.1
 
 Use latest metaweblog
 
-** 2017-06-27 Org2Blog v1.0.0 Released
+** v1.0.0
 
 Communicate completeness of the library with a first major release.
 
-** 2017-05-19 Org2Blog v0.9.3 Released
+* v0.9.*
+** v0.9.3
 
 - v0.9.2 ad389ae was released on 14-12-14
 - Development continued until 16-05-02 fc7b2d9
@@ -93,10 +95,10 @@ Communicate completeness of the library with a first major release.
 - So therefore a new release
   - v0.9.3
 
-** 2014-12-15 Org2Blog v0.9.2 Released
+** v0.9.2
 
 Bump up version.
 
-** 2014-11-30 Org2Blog v0.9.1 Released
+** v0.9.1
 
 Bump up version to 0.9.1.
