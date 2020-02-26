@@ -21,14 +21,14 @@ simple—we are looking for all and everything you view as a contribution.
   space and formatting changes, and comment clean.
 - Refactoring.
 - Support questions… Yes really! If you are facing it then you can't be the
-  only one. It is an opportunity toe better the documentation, the package
+  only one. It is an opportunity to better the documentation, the package
   itself, or more.
 - Whatever things that /aren't/ listed here that /should be/.
 
 * Contribution Expectations
 
 - Coding style and conventions :: The Emacs Lisp code should follow the
-      [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Tips.html][Emacs Lisp conventions]] and the [[https://github.com/bbatsov/emacs-lisp-style-guide][Emacs Lisp Style Guide]].
+     [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Tips.html][Emacs Lisp conventions]] and the [[https://github.com/bbatsov/emacs-lisp-style-guide][Emacs Lisp Style Guide]].
 - Grammar and Language :: Use a spell-checker like [[http://aspell.net/][Aspell]] and grammar-checker
      like [[https://languagetool.org/][LanguageTool]] for your docstrings and documentation. Find writing
      problems like weasel-words, passive-voice and duplicate words with
