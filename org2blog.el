@@ -80,7 +80,7 @@ opens all of the files relatively.
 
 This seems like the most simple approach.
 
-It also leaves the file buffer's open because you probably want to
+It also leaves the file buffers open because you probably want to
 inspect the generated code.
 
 This also seems like the most simple approach."
