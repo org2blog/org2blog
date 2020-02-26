@@ -485,7 +485,7 @@ Example:
   :group 'org2blog/wp
   :type '(alist))
 
-(defcustom org2blog/wp-default-categories '("Uncategorized" "Hello")
+(defcustom org2blog/wp-default-categories '("Org2Blog" "WordPress")
   "Default list of categories for a new buffer entry.
 
 The blog specific property is: :default-categories
@@ -494,7 +494,7 @@ Example: '(\"category 1\" \"category 2\")"
   :group 'org2blog/wp
   :type '(repeat string))
 
-(defcustom org2blog/wp-default-categories-subtree '("Uncategorized" "Hello")
+(defcustom org2blog/wp-default-categories-subtree '("Org2Blog" "WordPress")
   "Default list of categories for a new subtree entry.
 
 The blog specific property is: :default-categories-sub
