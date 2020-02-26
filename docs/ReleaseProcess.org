@@ -1,10 +1,4 @@
-- [ ] ~org2blog-def-update-artifacts~ Update version number and dependent
-  libraries. First open any one of them, then call this function:
-  - [ ] README.org
-  - [ ] org2blog.el
-  - [ ] org2blog-pkg.el
-  - [ ] ox-wp.el
-  ~org2blog-def-update-artifacts~ to update all of the versioned files.
+- [ ] The release version number appears in multiple files. Instead of manually updating all of them there is a function to do it. ~org2blog-def-update-artifacts~ visits the files and updates the correct settings. To use it first open ~org2blog.el~ and then call it.
 - [ ] Bring codebase up to expectations in [[CONTRIBUTING.org][Contributing]].
   - [ ] Byte compile file, checkdoc, package-lint
 - [ ] Complete [[./tests/org2blog-test-system.el][System Test Program and ]][[TestPlan.org][Test Plan]].
