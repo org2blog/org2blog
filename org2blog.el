@@ -72,7 +72,10 @@
   (gethash key org2blog-def--package))
 
 (defun org2blog-def-update-artifacts ()
-  "Update dependent artifacts.
+  "Update dependent artifacts with version information in `org2blog-def--package'.
+
+Before calling this update and evaluate `org2blog-def--package'
+with the new release version number.
 
 This function requires that you are calling it while visiting a
 file located in the project's top level directory because it
