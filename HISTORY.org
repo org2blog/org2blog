@@ -65,29 +65,23 @@
 - v1.1.6
   - Give Tags configurable default values like Categories already do.
 
-** Future
-
-- Implement Texinfo manual in README.org
-- Refactor org2blog-tests.org running again
-- Migrate to continuous integration with nix-emacs-ci
-
-*** 2019-01-31 Org2Blog v1.0.3 Released
+** 2019-01-31 Org2Blog v1.0.3 Released
 
 Adds Hydra support for user-interface.
 
-*** 2017-12-16 Org2Blog v1.0.2 Released
+** 2017-12-16 Org2Blog v1.0.2 Released
 
 Increment for new metaweblog version.
 
-*** 2017-12-16 Org2Blog v1.0.1 Released
+** 2017-12-16 Org2Blog v1.0.1 Released
 
 Use latest metaweblog
 
-*** 2017-06-27 Org2Blog v1.0.0 Released
+** 2017-06-27 Org2Blog v1.0.0 Released
 
 Communicate completeness of the library with a first major release.
 
-*** 2017-05-19 Org2Blog v0.9.3 Released
+** 2017-05-19 Org2Blog v0.9.3 Released
 
 - v0.9.2 ad389ae was released on 14-12-14
 - Development continued until 16-05-02 fc7b2d9
@@ -99,10 +93,10 @@ Communicate completeness of the library with a first major release.
 - So therefore a new release
   - v0.9.3
 
-*** 2014-12-15 Org2Blog v0.9.2 Released
+** 2014-12-15 Org2Blog v0.9.2 Released
 
 Bump up version.
 
-*** 2014-11-30 Org2Blog v0.9.1 Released
+** 2014-11-30 Org2Blog v0.9.1 Released
 
 Bump up version to 0.9.1.
