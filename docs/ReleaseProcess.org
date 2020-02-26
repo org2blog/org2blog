@@ -1,4 +1,4 @@
-- [ ] The release version number appears in multiple files. Instead of manually updating all of them there is a function to do it. ~org2blog-def-update-artifacts~ visits the files and updates the correct settings. To use it first open ~org2blog.el~ and then call it.
+- [ ] The release version number appears in multiple files. Instead of manually updating all of them there is a function to do it. ~org2blog-def-update-artifacts~ visits the files and updates the correct settings. To use it first open ~org2blog.el,~ update ~org2blog-def--package~ with the new version number, evaluate it, and then call ~org2blog-def-update-artifacts~.
 - [ ] Bring codebase up to expectations in [[CONTRIBUTING.org][Contributing]].
   - [ ] Byte compile file, checkdoc, package-lint
 - [ ] Complete [[../org2blog-test-system.el][System Test Program and Test Plan]]
