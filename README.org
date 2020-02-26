@@ -956,11 +956,11 @@ Now test your installation:
 #+NAME: org_gcr_2019-03-06T17-15-24-06-00_cosmicality_F2AC1FB7-2878-45CF-A441-01ECC9A2B109
 #+BEGIN_SRC org
 - The word LaTeX
-- $\LaTeX$
+  - $\LaTeX$
 - Inline
-- $\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$
+  - $\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$
 - Equation
-- $$\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$$
+  - $$\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$$
 #+END_SRC
 
 You should see something like this:
