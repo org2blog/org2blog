@@ -1,3 +1,4 @@
+
 #+title: Org2Blog
 
 [[file:/images/logo-color-multi.png]]
@@ -57,7 +58,7 @@ Blog from Org mode to WordPress.
   -  [[#some-questions-and-some-answers][Some Questions And Some Answers]]
     -  [[#why-does-org2blog-talk-about-save-view-publish-and-trash-so-much][Why Does Org2Blog Talk About Save, View, Publish, And Trash So Much?]]
     -  [[#why-does-org2blog-talk-about-buffers-subtrees-posts-and-pages-so-much][Why Does Org2blog Talk About Buffers, Subtrees, Posts, And Pages So Much?]]
-    -  [[#why-isnt-the-package-name-orgwordpress][Why Isn't The Package Name OrgWordpress?]]
+    -  [[#why-isnt-the-package-name-org2wordpress][Why Isn't The Package Name Org2Wordpress?]]
     -  [[#what-is-metaweblog-and-why-is-it-in-org2blog][What Is MetaWeblog And Why Is It In Org2Blog?]]
     -  [[#why-does-org2blog-use-both-the-xml-rpc-metaweblog-and-wordpress-api][Why does Org2Blog Use Both The XML-RPC MetaWeblog and WordPress API]]
 -  [[#sample-posts][Sample Posts]]
@@ -65,7 +66,9 @@ Blog from Org mode to WordPress.
   -  [[#subtree-post][Subtree Post]]
 -  [[#changelog][Changelog]]
 -  [[#credits][Credits]]
--  [[#when-things-go-wrong][When Things Go Wrong]]
+-  [[#when-things-go-wrong-or-could-go-even-better][When Things Go Wrong Or Could Go Even Better]]
+  -  [[#when-things-go-wrong][When Things Go Wrong]]
+  -  [[#when-things-could-go-even-better][When Things Could Go Even Better]]
 -  [[#development][Development]]
 -  [[#license][License]]
 
@@ -1343,7 +1346,9 @@ See [[./HISTORY.org][HISTORY]].
   - Be sure to add /your/ or /your friends/ or /anybody's/ blog to the list!
 - Org2Blog is lovingly maintained by Grant Rettke.
 
-* When Things Go Wrong
+* When Things Go Wrong Or Could Go Even Better
+
+** When Things Go Wrong
 
 Plan on staying positive even when things don't go as planned!
 
@@ -1366,6 +1371,16 @@ Here is where to begin:
   make a lot of sense. Once you are comfortable with the ideas there, enable
   reporting with =UI [Reporting On]=
 - Read about some past [[./docs/DebuggingStories.org][hard issues]] and how they were resolved.
+
+** When Things Could Go Even Better
+
+Org2Blog always has room for new and improved features. The process for making those improvements is welcomed and simple.
+
+Here are the steps:
+
+- Ideas for new future features are captured in [[https://github.com/org2blog/org2blog/FUTURE.org][FUTURE]] file. Please read and review it to see if the feature is already listed in there.
+- Review the already submitted [[https://github.com/org2blog/org2blog/issues][entries]] to see if it is already in there. Typically ideas will either assigned for implementation or moved in the [[https://github.com/org2blog/org2blog/FUTURE.org][FUTURE]] file relatively quickly.
+- If you don't find it in either of those places then fill out a request [[https://github.com/org2blog/org2blog/issues][here]]. Either way don't worry too much about tracking down whether it was listed or not already: the most important thing is figuring out what to do with it next.
 
 * Development
 :PROPERTIES:
