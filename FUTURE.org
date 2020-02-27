@@ -5,6 +5,13 @@
 - Get Travis autobuild and autotesting running again #273
 - Migrate XML-RPC WordPress API to https://codex.wordpress.org/XML-RPC_WordPress_API/Taxonomies #271
 - Prevent documents from being posted #200
+- Make sure that post tracking works without org-directory set #242
+  - This test https://github.com/org2blog/org2blog/blob/master/tests/org2blog-tests.org#tracking-posts should verify that post tracking owrks without org-directory set.
+  - This post #216 (comment) may indicate that it does not.
+  - Determine whether or not this is an issue and deal with it.
+- Make the location of .org2blog configurable #268
+  - Add a customizable variable for the default, which is nothing
+  - If a customization exists then use that, otherwise use org-directory
 
 * No Issue Created
 
