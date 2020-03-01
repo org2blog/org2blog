@@ -36,7 +36,7 @@ Blog from Org mode to WordPress.
       -  [[#logging-in-faster][Logging In Faster]]
     -  [[#use-subtrees-to-store-multiple-posts-in-one-file][Use Subtrees To Store Multiple Posts In One File]]
     -  [[#automatic-image-uploading][Automatic Image Uploading]]
-      -  [[#old][Old]]
+      -  [[#how-it-works][How It Works]]
     -  [[#supported-properties][Supported Properties]]
     -  [[#tying-it-all-together][Tying It All Together]]
   -  [[#more-functionality][More Functionality]]
