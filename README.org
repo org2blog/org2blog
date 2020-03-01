@@ -35,7 +35,8 @@ Blog from Org mode to WordPress.
       -  [[#defining-custom-keybindings][Defining Custom Keybindings]]
       -  [[#logging-in-faster][Logging In Faster]]
     -  [[#use-subtrees-to-store-multiple-posts-in-one-file][Use Subtrees To Store Multiple Posts In One File]]
-    -  [[#uploading-images][Uploading Images]]
+    -  [[#automatic-image-uploading][Automatic Image Uploading]]
+      -  [[#old][Old]]
     -  [[#supported-properties][Supported Properties]]
     -  [[#tying-it-all-together][Tying It All Together]]
   -  [[#more-functionality][More Functionality]]
@@ -568,44 +569,90 @@ warning. This is to prevent unpleasant situations.
 You can either save your subtree entry in a file, or copy and paste it into an
 existing file.
 
-*** Uploading Images
+*** Automatic Image Uploading
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:FB5F7515-436B-4757-80C7-23FF81485F29
 :END:
 
-In-line images and linked images (or files) with =file:= URLs /just work/.
-Depending on how you do the linking you might have to play around with it to
-get it /just right/.
+WordPress does a great job helping you manage image files using its [[https://en.support.wordpress.com/media/][Media Library]]. The Media Library [[https://wordpress.org/support/article/media-library-screen/][User Interface]] is simple and powerful. Whether you post photos once in a while or you are posting daily running a [[https://en.wikipedia.org/wiki/Photoblog][Photoblog]] the Media Library integrates nicely with both of and most of the most common blogging workflows. After blogging for a while and developing the beginnings of a personal workflow it is a good time to start considering where Org2Blog can assist you working with image files in your Media Library.
 
-Org2Blog will push images to your blog just once, and add a comment to your
-entry so it remembers. If you remove that comment then Org2Blog will push it
-again.
+Org2Blog can help you do one thing here: automatically upload images to your media library for you. The way it works is that when you publish your post to your blog Org2Blog:
 
-Captions and attributes as [[http://orgmode.org/manual/Images-in-HTML-export.html][defined]] in Org mode will be preserved,
-but these attributes are not saved with the image to the library
-itself. WordPress doesn't store that kind of metadata with images.
+- Scans your Org2Blog entry.
+- Finds a link to an image file on your computer.
+- Uploads the file to your Media Library.
+- On publishing
+  - Modifies the link so it points to the uploaded file on your blog.
+  - Configures the size of the ~IMG~ linked.
+  - Inserts the new link in the post.
+  - Make a note in the Org2Blog entry so that it remembers that it already uploaded the image file to your blog.
 
-After the attachment is uploaded a note is stored inside of your entry so that
-Org2Blog remembers that it already uploaded the file. Here is an example:
+This is good for the following workflows:
 
-#+name: org_gcr_2019-03-06T17-15-24-06-00_cosmicality_1151E8D9-CA15-4F73-A5B8-961C3A37E7F9
+- "I Never Want To Touch The Media Library User Interface"
+  - "But When I Do I Can Make It And The Entry Consistent"
+- "I Rarely Post Images And When I Do They Are All On My Blog"
+  - This features make every image link point to your blog
+- "I'm Very Familiar And Comfortable With HTML, Org mode, And WordPress"
+
+In other words this workflow is very powerful, simple, and useful to a very certain skilled and curious kind of user. It might not be for most of you, but if it is then you will really like it.
+
+By default this feature is disabled. If after reading this you find that you are that kind of user or even just curious about how it works then you can enable the feature by setting ~org2blog/wp-image-upload~ to a non-nil value and read more about how it works.
+
+**** How It Works
+
+Org mode's HTML exporter is smart about [[https://orgmode.org/worg/org-tutorials/images-and-xhtml-export.html][Image links]]. When it finds images in an Org link like this [[file:example.png][=file:=]] or even a link like this =[[example.png]]= it knows to generate an =IMG= tag in the resulting HTML. All of the file types listed in ~org-html-inline-image-rules~ are automatically supported. They work in Org2Blog exactly the same as in Org mode: Org2Blog uses the Org mode HTML exporter to do all of its work which means that everything is going to work as you expect it.
+
+All of the standard HTML image attributes work by prefacing the image link with a =#+ATTR_HTML= like and following it with the desired attribute including for example:
+
+- :alt :: My alt def
+- :width ::
+- :height ::
+- :style :: border:2px solid black;
+- :style :: float:left;
+
+Just like most exporters you can also caption the image with a line like this:
+
+#+BEGIN_SRC org
+,#+CAPTION: My image caption
+#+END_SRC
+
+These two capabilities will get you very close to your desired image styling. The last thing to configure is how to handle image thumbnails.
+
+Org2Blog will insert image thumbnails for all of the image files that you upload to your server. If you want to use this feature first enable it by setting ~org2blog/wp-image-thumbnails~ to a non-nil value. Then choose a thumbnail size by configuring ~org2blog/wp-image-thumbnail-size~. Now after uploading your image files the inserted link will include a thumbnail preview of your image file.
+
+Now that you have things configured here is how to move forward with your post.
+
+Create your post exactly as you would expect. Use Image links where you need them. It might look something like this:
+
 #+begin_src org
 [[file:testimage1.png]]
 
-[[file:testimage2.png]]
+[[./testimage2.png]]
+#+end_src
+
+Post your entry. Your image files are uploaded to your blog. A note is stored so that Org2Blog remembers that it already uploaded those image files.
+
+#+begin_src org
+[[file:testimage1.png]]
+
+[[./testimage2.png]]
 
 # testimage1.png https://www.wisdomandwonder.com/wp-content/uploads/2019/03/testimage1-1.png
 # testimage2.png https://www.wisdomandwonder.com/wp-content/uploads/2019/03/testimage2-1.png
 #+end_src
 
-Org2Blog automatically inserts the correct URL of the file out on your blog
-for you just like you had done it yourself. Remember that if you trash your
-post the attachment will still be in your blog.
+Because Org2Blog is completely disconnected from the Media Library it is up to you now to keep them synchronized. Here is a list of things you are required to manage and synchronize manually:
 
-Customize ~org2blog/wp-image-thumbnail-size~ to specify the default thumbnail
-size.
+- When you delete images
+  - locally you need to delete them in your Media Library.
+  - remotely you need to remove them from your Entry.
+- When you modify images
+  - locally you need to remove the upload note so that they will get re-uploaded to your blog.
 
-Enable ~org2blog/wp-image-thumbnails~ to link to the full size image.
+Once you are comfortable with the Org2Blog lifecycle with WordPress it becomes second nature to manage this manually. The first few times you need to manage this it will be surprising /not/ to see your changes posted it will come to your mind quickly how to address it.
+
+This is how Automatic Image Uploading works.
 
 *** Supported Properties
 :PROPERTIES:

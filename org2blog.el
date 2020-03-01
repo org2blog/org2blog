@@ -736,8 +736,17 @@ change for them to takes effect."
   :group 'org2blog/wp
   :type 'string)
 
+(defcustom org2blog/wp-image-upload nil
+  "Non-nil means upload supported Org mode image types to the WordPress Media Library.
+
+The blog specific property is: :image-upload
+
+Example: A boolean value."
+  :group 'org2blog/wp
+  :type 'boolean)
+
 (defcustom org2blog/wp-image-thumbnails nil
-  "Non-nil means WordPress thumbnail links to full-size image."
+  "Non-nil means WordPress inserts a thumbnail link to a full-size image."
   :group 'org2blog/wp
   :type 'boolean)
 
@@ -977,29 +986,31 @@ here seemed to be a good balance between speed and value(s)."
    "org2blog/wp-default-title")
   ("ao" (org2blog--hlpv 'org2blog/wp-default-title-subtree)
    "org2blog/wp-default-title-subtree")
-  ("ap" (org2blog--hlpv 'org2blog/wp-image-thumbnail-size)
+  ("ap" (org2blog--hlpv 'org2blog/wp-image-upload)
+   "org2blog/wp-image-upload")
+  ("aq" (org2blog--hlpv 'org2blog/wp-image-thumbnail-size)
    "org2blog/wp-image-thumbnail-size")
-  ("aq" (org2blog--hlpv 'org2blog/wp-image-thumbnails)
+  ("ar" (org2blog--hlpv 'org2blog/wp-image-thumbnails)
    "org2blog/wp-image-thumbnails")
-  ("ar" (org2blog--hlpv 'org2blog/wp-keep-new-lines)
+  ("as" (org2blog--hlpv 'org2blog/wp-keep-new-lines)
    "org2blog/wp-keep-new-lines")
-  ("as" (org2blog--hlpv 'org2blog/wp-keymap-prefix)
+  ("at" (org2blog--hlpv 'org2blog/wp-keymap-prefix)
    "org2blog/wp-keymap-prefix")
-  ("at" (org2blog--hlpv 'org2blog/wp-safe-new-entry-buffer-kill)
+  ("au" (org2blog--hlpv 'org2blog/wp-safe-new-entry-buffer-kill)
    "org2blog/wp-safe-new-entry-buffer-kill")
-  ("au" (org2blog--hlpv 'org2blog/wp-safe-trash)
+  ("av" (org2blog--hlpv 'org2blog/wp-safe-trash)
    "org2blog/wp-safe-trash")
-  ("av" (org2blog--hlpv 'org2blog/wp-shortcode-langs-map)
+  ("aw" (org2blog--hlpv 'org2blog/wp-shortcode-langs-map)
    "org2blog/wp-shortcode-langs-map")
-  ("aw" (org2blog--hlpv 'org2blog/wp-show-post-in-browser)
+  ("ax" (org2blog--hlpv 'org2blog/wp-show-post-in-browser)
    "org2blog/wp-show-post-in-browser")
-  ("ax" (org2blog--hlpv 'org2blog/wp-track-posts)
+  ("ay" (org2blog--hlpv 'org2blog/wp-track-posts)
    "org2blog/wp-track-posts")
-  ("ay" (org2blog--hlpv 'org2blog/wp-use-sourcecode-shortcode)
+  ("az" (org2blog--hlpv 'org2blog/wp-use-sourcecode-shortcode)
    "org2blog/wp-use-sourcecode-shortcode")
-  ("az" (org2blog--hlpv 'org2blog/wp-use-tags-as-categories)
+  ("ba" (org2blog--hlpv 'org2blog/wp-use-tags-as-categories)
    "org2blog/wp-use-tags-as-categories")
-  ("ba" (org2blog--hlpv 'org2blog/wp-use-wp-latex)
+  ("bb" (org2blog--hlpv 'org2blog/wp-use-wp-latex)
    "org2blog/wp-use-wp-latex")
 
   ("q" org2blog--hydra-main/body "Back"))
@@ -2385,6 +2396,10 @@ See ‘org2blog/wp-buffer-subtree-template’ for details about how it is used."
 (defun org2blog--upload-files-replace-urls (text)
   "Upload files and replace their links in TEXT."
   (catch 'return
+    (unless (org2blog--blog-property-or :image-upload org2blog/wp-image-upload)
+      (message (format "%s" (concat "No work to do: not uploading images.")))
+      (throw 'return nil))
+    (message (format "%s" (concat "Work to do: uploading images.")))
     (let ((file-regexp "<img src=\"\\(.*?\\)\"")
           file-all-urls file-name file-web-url beg file-thumbnail-name upload-ret)
       (save-excursion
