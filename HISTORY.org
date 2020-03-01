@@ -64,6 +64,11 @@
   - Make Subtree Entries using a template like Buffer Entries already do.
 - v1.1.6
   - Give Tags configurable default values like Categories already do.
+- v1.1.7
+  - Refactor Image Uploading Functionality
+    - No longer uploads =A HREF= links.
+    - Now an Option disabled by default.
+    - Expanded documentation.
 
 * v1.0.*
 ** v1.0.3
