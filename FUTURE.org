@@ -12,10 +12,11 @@
 - Make the location of .org2blog configurable #268
   - Add a customizable variable for the default, which is nothing
   - If a customization exists then use that, otherwise use org-directory
-- Generate Texinfo from README.org #272    
+- Generate Texinfo from README.org #272
 
 * No Issue Created
 
 - Implement Texinfo manual in README.org
 - Refactor org2blog-tests.org running again
 - Migrate to continuous integration with nix-emacs-ci
+- Document how Org2Blog works
