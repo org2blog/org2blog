@@ -2385,7 +2385,7 @@ See ‘org2blog/wp-buffer-subtree-template’ for details about how it is used."
 (defun org2blog--upload-files-replace-urls (text)
   "Upload files and replace their links in TEXT."
   (catch 'return
-    (let ((file-regexp "<a href=\"\\(.*?\\)\"\\|<img src=\"\\(.*?\\)\"")
+    (let ((file-regexp "<img src=\"\\(.*?\\)\"")
           file-all-urls file-name file-web-url beg file-thumbnail-name upload-ret)
       (save-excursion
         (while (string-match file-regexp text beg)
