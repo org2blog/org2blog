@@ -601,7 +601,7 @@ By default this feature is disabled. If after reading this you find that you are
 
 **** How It Works
 
-Org mode's HTML exporter is smart about [[https://orgmode.org/worg/org-tutorials/images-and-xhtml-export.html][Image links]]. When it finds images in an Org link like this [[file:example.png][=file:=]] or even a link like this =[[example.png]]= it knows to generate an =IMG= tag in the resulting HTML. All of the file types listed in ~org-html-inline-image-rules~ are automatically supported. They work in Org2Blog exactly the same as in Org mode: Org2Blog uses the Org mode HTML exporter to do all of its work which means that everything is going to work as you expect it.
+Org mode's HTML exporter is smart about [[https://orgmode.org/worg/org-tutorials/images-and-xhtml-export.html][Image links]]. When it finds images in an Org link like this [[file:example.png][file:]] or even a link like this =[[example.png]]= it knows to generate an =IMG= tag in the resulting HTML. All of the file types listed in ~org-html-inline-image-rules~ are automatically supported. They work in Org2Blog exactly the same as in Org mode: Org2Blog uses the Org mode HTML exporter to do all of its work which means that everything is going to work as you expect it.
 
 All of the standard HTML image attributes work by prefacing the image link with a =#+ATTR_HTML= like and following it with the desired attribute including for example:
 
