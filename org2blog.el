@@ -13,7 +13,7 @@
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Version: 1.1.7
+;; Version: 1.1.8
 ;; Package-Requires: ((emacs "26.3") (htmlize "1.54") (hydra "0.15.0") (xml-rpc "1.6.12") (metaweblog "1.1.1"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
@@ -44,7 +44,7 @@
 (defconst org2blog-def--package
   (let ((p (make-hash-table :test 'equal))
         (metaweblog "metaweblog")
-        (this-release "1.1.7"))
+        (this-release "1.1.8"))
     (puthash "name" "org2blog" p)
     (puthash "version" this-release p)
     (puthash metaweblog "1.1.1" p)
@@ -2398,7 +2398,7 @@ See ‘org2blog/wp-buffer-subtree-template’ for details about how it is used."
   (catch 'return
     (unless (org2blog--blog-property-or :image-upload org2blog/wp-image-upload)
       (message (format "%s" (concat "No work to do: not uploading images.")))
-      (throw 'return nil))
+      (throw 'return text))
     (message (format "%s" (concat "Work to do: uploading images.")))
     (let ((file-regexp "<img src=\"\\(.*?\\)\"")
           file-all-urls file-name file-web-url beg file-thumbnail-name upload-ret)

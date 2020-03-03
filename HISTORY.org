@@ -69,6 +69,8 @@
     - No longer uploads =A HREF= links.
     - Now an Option disabled by default.
     - Expanded documentation.
+- v1.1.8
+  - Completely disabled publishing so re-enabled it.
 
 * v1.0.*
 ** v1.0.3
