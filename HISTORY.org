@@ -57,9 +57,9 @@
 - v1.1.2
   - Load =subr-x=.
 - v1.1.3
-  - Correct listing format spacing in ox-wp-src-block-shortcode and ox-wp-src-block-html.
+  - Correct listing format spacing in ~ox-wp-src-block-shortcode~ and ~ox-wp-src-block-html~.
 - v1.1.4
-  - Remove "Listing" prefix ox-wp-src-block-shortcode and ox-wp-src-block-html.
+  - Remove "Listing" prefix ~ox-wp-src-block-shortcode~ and ~ox-wp-src-block-html~.
 - v1.1.5
   - Make Subtree Entries using a template like Buffer Entries already do.
 - v1.1.6
