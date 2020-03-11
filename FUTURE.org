@@ -20,3 +20,4 @@
 - Refactor org2blog-tests.org running again
 - Migrate to continuous integration with nix-emacs-ci
 - Document how Org2Blog works
+- Update documentation for Gutenberg
