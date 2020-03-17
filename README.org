@@ -597,7 +597,13 @@ This is good for the following workflows:
 
 In other words this workflow is very powerful, simple, and useful to a very certain skilled and curious kind of user. It might not be for most of you, but if it is then you will really like it.
 
-By default this feature is disabled. If after reading this you find that you are that kind of user or even just curious about how it works then you can enable the feature by setting ~org2blog/wp-image-upload~ to a non-nil value and read more about how it works.
+By default this feature is disabled. If after reading this you find that you are that kind of user or even just curious about how it works then you can enable the feature by setting ~org2blog/wp-image-upload~ to a non-nil value like this
+
+#+BEGIN_SRC emacs-lisp
+(setq org2blog/wp-image-upload t)
+#+END_SRC
+
+and read more about how it works.
 
 **** How It Works
 
