@@ -21,4 +21,6 @@
 - Migrate to continuous integration with nix-emacs-ci
 - Document how Org2Blog works
 - Update documentation for Gutenberg
-- Add examples of warning messages  
+- Add examples of warning messages
+- Document spell checking tools
+- Document [[https://github.com/alphapapa/org-web-tools][org-web-tools]] workflow  
