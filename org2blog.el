@@ -2731,7 +2731,7 @@ and munge it a little to make it suitable to use with the
          (cons "title" (org-element-interpret-data
                         (or (plist-get export-environment :title)
                             "No Title")))
-         (cons "description" nil)
+         (cons "description" (org2blog--bprop "DESCRIPTION"))
          (cons "tags"
                (split-string (or (org2blog--bprop "TAGS") "")
                              "\\( *, *\\)" t))
@@ -2743,7 +2743,8 @@ and munge it a little to make it suitable to use with the
                          (org2blog--bprop "PARENT")))
          (cons "excerpt" (org-element-interpret-data
                           (or (plist-get export-environment
-                                         :description) "")))
+                                         :description)
+                              (org2blog--bprop "DESCRIPTION"))))
          (cons "permalink" (or (org2blog--bprop "PERMALINK") "")))))
     parsed-entry))
 
