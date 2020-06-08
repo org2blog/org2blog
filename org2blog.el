@@ -2731,7 +2731,7 @@ and munge it a little to make it suitable to use with the
          (cons "title" (org-element-interpret-data
                         (or (plist-get export-environment :title)
                             "No Title")))
-         (cons "description" (org2blog--bprop "DESCRIPTION"))
+         (cons "description" nil)
          (cons "tags"
                (split-string (or (org2blog--bprop "TAGS") "")
                              "\\( *, *\\)" t))
