@@ -71,6 +71,8 @@
     - Expanded documentation.
 - v1.1.8
   - Completely disabled publishing so re-enabled it.
+- v1.1.9
+  - Implement `Excerpt' property
 
 * v1.0.*
 ** v1.0.3
