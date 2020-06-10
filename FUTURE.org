@@ -25,3 +25,4 @@
 - Document [[https://github.com/alphapapa/org-web-tools][org-web-tools]] workflow
 - Shortcode documentation needs to be added
   - Right now ~org2blog/wp-use-sourcecode-shortcode~ is only mentioned in context of one specific plugin. It is a general feature that applies to every plugin. Document this.
+- Application overview for new contributors
