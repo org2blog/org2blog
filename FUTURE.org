@@ -3,6 +3,7 @@
 - Support for custom fields/taxonomies #278
 - Overhaul testing #274
 - Get Travis autobuild and autotesting running again #273
+  - Migrate to continuous integration with nix-emacs-ci
 - Migrate XML-RPC WordPress API to https://codex.wordpress.org/XML-RPC_WordPress_API/Taxonomies #271
 - Prevent documents from being posted #200
 - Make sure that post tracking works without org-directory set #242
@@ -17,7 +18,6 @@
 * No Issue Created
 
 - Refactor org2blog-tests.org running again
-- Migrate to continuous integration with nix-emacs-ci
 - Document how Org2Blog works
 - Update documentation for Gutenberg
 - Add examples of warning messages
