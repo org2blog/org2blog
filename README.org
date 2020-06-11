@@ -43,6 +43,7 @@ Blog from Org mode to WordPress.
     -  [[#global-and-blog-specific-configuration][Global And Blog Specific Configuration]]
     -  [[#inserting-things][Inserting Things]]
     -  [[#confirming-things][Confirming Things]]
+    -  [[#html-support][HTML Support]]
     -  [[#source-blocks][Source Blocks]]
       -  [[#plain-source-box-format][Plain Source Box Format]]
       -  [[#syntaxhighlighter-evolved][SyntaxHighlighter Evolved]]
@@ -835,6 +836,34 @@ possibilities see:
 - ~org2blog/wp-safe-trash~
 - ~org2blog/wp-safe-new-entry-buffer-kill~
 - ~org2blog/wp-show-post-in-browser~
+
+*** HTML Support
+
+Sometimes you need to generate your HTML content by hand. For example you might be working with particular requirements for using a ShortCode. Another example is that you might be utilizing custom page elements that aren't accessible any other way. Whatever the case you aren't going to use the Org2Blog infrastructure to generate it: you need direct HTML access and here is how to get it by using [[https://orgmode.org/manual/Quoting-HTML-tags.html#Quoting-HTML-tags][Quoting HTML tags]]:
+
+For a single line of code use this:
+
+#+BEGIN_SRC org
+@@html:<b>@@bold text@@html:</b>@@
+#+END_SRC
+
+For multi-line code use this:
+
+#+BEGIN_SRC org
+,#+HTML: Literal HTML code for export
+
+,#+BEGIN_EXPORT html
+  All lines between these markers are exported literally
+,#+END_EXPORT
+#+END_SRC
+
+An easy way to create this style of source block is to use [[https://orgmode.org/manual/Structure-Templates.html][Structure Templates]]. Simply type ~<h~ then strike ~TAB~ to create an HTML export block.
+
+(examples copied from the Quoting link)
+
+Whatever you place in those blocks will get inserted directly into your post.
+
+You will know when you need this feature and will greatly enjoy being able to use it.
 
 *** Source Blocks
 :PROPERTIES:
