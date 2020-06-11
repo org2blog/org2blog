@@ -1700,7 +1700,7 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
 
 ;;;###autoload
 (defun org2blog-entry-trash (type &optional entry-id)
-  "Trash entryof TYPE. If ENTRY-ID is non-nil trash that one."
+  "Trash entry of TYPE. If ENTRY-ID is non-nil trash that one."
   (interactive "P")
   (org2blog--ensure-login)
   (when (null entry-id)
