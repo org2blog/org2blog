@@ -2727,9 +2727,7 @@ and munge it a little to make it suitable to use with the
         (list
          (cons "point" (point))
          (cons "date" (org2blog--bprop "DATE"))
-         (cons "title" (org-element-interpret-data
-                        (or (plist-get export-environment :title)
-                            "No Title")))
+         (cons "title" (org2blog--bprop "TITLE"))
          (cons "description" nil)
          (cons "tags"
                (split-string (or (org2blog--bprop "TAGS") "")
