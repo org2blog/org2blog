@@ -1503,7 +1503,6 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
   (save-excursion
     (save-restriction
       (catch 'return
-        (widen)
         (let* ((from-buffer (eq source 'buffer))
                (from-subtree (eq source 'subtree))
                (to-post (eq type 'post))
