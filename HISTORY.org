@@ -73,6 +73,9 @@
   - Completely disabled publishing so re-enabled it.
 - v1.1.9
   - Implement `Excerpt' property
+- v1.1.10
+  - Restore narrowing functionality when posting buffer entries.
+  - Corrected title creation bug exposed by restoring narrowing.
 
 * v1.0.*
 ** v1.0.3
