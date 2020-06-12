@@ -34,7 +34,8 @@ Blog from Org mode to WordPress.
       -  [[#automatically-configuring-your-environment][Automatically Configuring Your Environment]]
       -  [[#defining-custom-keybindings][Defining Custom Keybindings]]
       -  [[#logging-in-faster][Logging In Faster]]
-    -  [[#use-subtrees-to-store-multiple-posts-in-one-file][Use Subtrees To Store Multiple Posts In One File]]
+    -  [[#store-multiple-posts-in-one-file][Store Multiple Posts In One File]]
+      -  [[#using-subtrees][Using Subtrees]]
     -  [[#automatic-image-uploading][Automatic Image Uploading]]
       -  [[#how-it-works][How It Works]]
     -  [[#supported-properties][Supported Properties]]
@@ -536,10 +537,12 @@ Then, configure your blog using those credentials, as shown below.
 ("wordpress" :url "http://username.server.com/xmlrpc.php" :username nil :password nil)
 #+END_EXAMPLE
 
-*** Use Subtrees To Store Multiple Posts In One File
+*** Store Multiple Entries In One File
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:3F78416A-13E8-4E29-959D-E1ABF134CEDB
 :END:
+
+**** Using Subtrees
 
 Subtrees are a great way to keep multiple posts in one file. One way people
 use this it create a single file for a week or a month and store all entries
@@ -569,6 +572,52 @@ warning. This is to prevent unpleasant situations.
 
 You can either save your subtree entry in a file, or copy and paste it into an
 existing file.
+
+**** Using Narrowing
+
+Having already read through the manual and posted a buffer entry, you are probably starting to get comfortable with how they look. Basically, an entry has some configuration data at the top of the page, followed by the title, and then the content. It is what you'll be seeing time and time again. As you write more, you will probably start to wonder, "Why can't I just store multiple buffer entries in a single buffer in the first place?! (And if you hadn't already, then you will definitely be wondering after you read the section on using Subtrees to store multiple entries!)" That is an excellent question.
+
+The first reason is that it is easier to make sense of your entry types when their home is clearly defined: every single buffer entry is stored in a separate file, and multiple subtree entries are stored in a single file. For most users, this is a straightforward approach that handles the majority of workflows that Org2Bloggers will ever require. Whether or not this workflow serves you, you may still be left wondering what /exactly/ is the difference between a buffer entry and a subtree entry.
+
+Buffer entries and subtrees are identical in purpose. You write, save, view, publish, and trash them. The only difference between them is their technical format. As you may have seen, buffer entries specify post configuration properties up at the top of the page, and subtree entries specify them just below the subtree. Now to come all the way back around, you might be asking, "Well, if they are identical, then why can't I store multiple buffer entries in a single file?" The answer is that yes, you can.
+
+You can store multiple buffer entries in a single file. You write, save, view, publish, and trash them precisely as you would expect. It all "just works," that is if you are willing to get a little more technical about using Emacs by learning something about =Narrowing=.
+
+#+BEGIN_QUOTE
+Narrowing means focusing in on some portion of the buffer, making the rest temporarily inaccessible. The portion which you can still get to is called the accessible portion. Canceling the narrowing, which makes the entire buffer once again accessible, is called widening. The bounds of narrowing in effect in a buffer are called the buffer's restriction.
+
+Narrowing can make it easier to concentrate on a single subroutine or paragraph by eliminating clutter. It can also be used to limit the range of operation of a replace command or repeating keyboard macro.
+#+END_QUOTE
+
+-- [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Narrowing.html][14.5 Narrowing]], from the [[https://www.gnu.org/software/emacs/manual/html_node/emacs/index.html#Top][The Emacs Editor]] Documentation
+
+When you tell Org2Blog to act upon a single Buffer entry, say =[Save Post Draft]=, then Org2Blog needs to think that it is looking at a single Buffer entry. This is easy to do when there is only one Buffer entry /because there is only one buffer entry/. How do you make Org2Blog think that there is only one Buffer entry when you start storing /multiple/ Buffer entries a single file, though? The answer is that you do it by merely using =Narrowing=.
+
+Please read its definition two or three times until you feel good about it. It is a simple idea, but it can take time for it to sink in. Once you start using it, though, you will find it to be a powerful tool useful for many situations that you deal with as a writer of any kind. Here is how to use it to store multiple Buffer entries in a single file:
+
+- Create the file =blog.org= in which to store multiple Buffer entries.
+- Create a Buffer entry, as usual, using the UI
+- Instead of saving it, copy and paste it into =blog.org=
+- Give it a notable title and some content.
+- Do the same thing for another buffer entry. Now you have two in =blog.org=.
+- It should look something like this:
+
+=[[Narrowing1.png]]=
+
+Now you are all set to start working multiple Buffer entries in a single file. You'll go through the process of narrowing down to a single entry and working on it just as you've already done before. Here are the steps:
+
+- Identify the second Buffer entry you just created. You will work on this from here on.
+- Highlight everything from the start of the entry to the end of the entry. You can do this using your mouse by positioning the pointer at the top of the post, pressing and holding the mouse button, then releasing it. Another way to do it is to move the cursor up to that position, press ~Control-space~, then move the cursor to the end.
+- Narrow to the selected region by pressing ~Control-x n n~. That means pushing and holding ~Control-x~, releasing it, then striking ~n~ once, and then finally once again.
+- If you did it right then, you would only see the second Buffer entry. You have just narrowed down to the region you selected: the entire Buffer entry.
+- From here, you can work with your entry exactly as you did before.
+- It should look something like this:
+
+=[[Narrowing.gif]]=
+
+As you can see, storing multiple Buffer entries in a single file is pretty compelling in theory. In practice, though, it can result in some confusion when you are in the flow of writing, and suddenly, the rest of your file is missing. On the other hand, when you become more adept and working with the Emacs editor, you will find that =Narrowing= is one of the power tools that you can't live without.
+
+If you read this far, then using ~Narrowing~ to manage multiple Buffer entries might be the right thing for you. Either way, I'm you know now that this is an option. If this is your introduction to ~Narrowing~ then I hope that you enjoy its use and have the chance to play around with where it happens to fit into your workflow with Org2Blog or any of the problems you solve using Emacs!
 
 *** Automatic Image Uploading
 :PROPERTIES:
