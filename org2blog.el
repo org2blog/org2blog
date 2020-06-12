@@ -2738,10 +2738,7 @@ and munge it a little to make it suitable to use with the
          (cons "post-id" (org2blog--bprop "POSTID"))
          (cons "parent" (org2blog--bprop-parent-id
                          (org2blog--bprop "PARENT")))
-         (cons "excerpt" (org-element-interpret-data
-                          (or (plist-get export-environment
-                                         :description)
-                              (org2blog--bprop "DESCRIPTION"))))
+         (cons "excerpt" (org2blog--bprop "DESCRIPTION"))
          (cons "permalink" (or (org2blog--bprop "PERMALINK") "")))))
     parsed-entry))
 
