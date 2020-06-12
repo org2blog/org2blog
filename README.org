@@ -603,7 +603,7 @@ Please read its definition two or three times until you feel good about it. It i
 - Do the same thing for another buffer entry. Now you have two in =blog.org=.
 - It should look something like this:
 
-=[[Narrowing1.png]]=
+[[Narrowing1.png]]
 
 Now you are all set to start working multiple Buffer entries in a single file. You'll go through the process of narrowing down to a single entry and working on it just as you've already done before. Here are the steps:
 
@@ -614,7 +614,7 @@ Now you are all set to start working multiple Buffer entries in a single file. Y
 - From here, you can work with your entry exactly as you did before.
 - It should look something like this:
 
-=[[Narrowing.gif]]=
+[[Narrowing.gif]]
 
 As you can see, storing multiple Buffer entries in a single file is pretty compelling in theory. In practice, though, it can result in some confusion when you are in the flow of writing, and suddenly, the rest of your file is missing. On the other hand, when you become more adept and working with the Emacs editor, you will find that =Narrowing= is one of the power tools that you can't live without.
 
