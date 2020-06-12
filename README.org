@@ -603,7 +603,7 @@ Please read its definition two or three times until you feel good about it. It i
 - Do the same thing for another buffer entry. Now you have two in =blog.org=.
 - It should look something like this:
 
-[[file:/images/Narrowing1.png]]
+[[file:/images/Narrowing01.png]]
 
 Now you are all set to start working multiple Buffer entries in a single file. You'll go through the process of narrowing down to a single entry and working on it just as you've already done before. Here are the steps:
 
