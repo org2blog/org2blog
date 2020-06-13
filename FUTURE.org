@@ -14,6 +14,7 @@
   - Add a customizable variable for the default, which is nothing
   - If a customization exists then use that, otherwise use org-directory
 - Generate Texinfo from README.org #272
+- Switch everything to POST_ID from POSTID #304
 
 * No Issue Created
 
@@ -26,4 +27,3 @@
 - Shortcode documentation needs to be added
   - Right now ~org2blog/wp-use-sourcecode-shortcode~ is only mentioned in context of one specific plugin. It is a general feature that applies to every plugin. Document this.
 - Application overview for new contributors
-- Use "POST_ID" instead of "POSTID".
