@@ -46,6 +46,7 @@ Blog from Org mode to WordPress.
     -  [[#inserting-things][Inserting Things]]
     -  [[#confirming-things][Confirming Things]]
     -  [[#html-support][HTML Support]]
+      -  [[#posting-exactly-what-you-wrote-quoting-html][Posting Exactly What You Wrote (Quoting HTML)]]
     -  [[#source-blocks][Source Blocks]]
       -  [[#plain-source-box-format][Plain Source Box Format]]
       -  [[#syntaxhighlighter-evolved][SyntaxHighlighter Evolved]]
@@ -888,6 +889,8 @@ possibilities see:
 - ~org2blog/wp-show-post-in-browser~
 
 *** HTML Support
+
+**** Posting Exactly What You Wrote (Quoting HTML)
 
 Sometimes you need to generate your HTML content by hand. For example you might be working with particular requirements for using a ShortCode. Another example is that you might be utilizing custom page elements that aren't accessible any other way. Whatever the case you aren't going to use the Org2Blog infrastructure to generate it: you need direct HTML access and here is how to get it by using [[https://orgmode.org/manual/Quoting-HTML-tags.html#Quoting-HTML-tags][Quoting HTML tags]]:
 
