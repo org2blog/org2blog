@@ -968,10 +968,14 @@ Here is how the built-in syntax highlighting looks:
 
 [[https://wordpress.org/plugins/syntaxhighlighter/][SyntaxHighlighter Evolved]] is an extremely popular plugin for rendering source
 code. It supports a bunch of languages and configuration parameters (see [[https://en.support.wordpress.com/code/posting-source-code/][here]])
-in addition to open-source custom plugins for other language.
+in addition to open-source custom plugins for other languages.
 
 To use this first you need to set the variable
 ~org2blog/wp-use-sourcecode-shortcode~ to ~t~.
+
+Since you are an Emacser you probably want to add support for Emacs-Lisp immediately by using rehanift's [[https://github.com/rehanift/wp-syntaxhighlighter-brush-lispy][wp-syntaxhighlighter-brush-lispy]]. If you've never installed a plugin before then there are instructions on the page. The only thing that you might do differently is to create the folder ~wp-syntaxhighlighter-brush-lispy~ and copy the plugins files there.
+
+Here are some examples of how to use SyntaxHighlighter Evolved:
 
 #+name: org_gcr_2019-08-11T13-09-58-05-00_cosmicality_F87B5E80-70D2-4316-A022-441EA3605493
 #+begin_src emacs-lisp
