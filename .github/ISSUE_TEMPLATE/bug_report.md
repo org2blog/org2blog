@@ -41,6 +41,10 @@ Now obtain critical library information by:
 4. The information appears in the minibuffer then gets added to the `kill-ring`, aka your clipboard.
 5. Paste that message below:
 
+```
+The messages goes here
+```
+
 ### Server
 
 - What is the URL of your blog?
