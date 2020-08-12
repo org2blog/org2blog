@@ -1235,7 +1235,9 @@ closer to doing more blogging!"
 
 ;;;###autoload
 (defun org2blog-version-info (&optional value)
-  "Display critical library information or return as a VALUE if non-nil."
+  "Display critical library information or return as a VALUE if non-nil.
+
+When displaying: store the information in the `kill-ring'."
   (interactive)
   (let ((msg (format
               "Org2Blog Runtime: Org2Blog %s, Emacs %s, Org Mode %s, MetaWeblog %s, XML-RPC %s"
@@ -1245,6 +1247,7 @@ closer to doing more blogging!"
               metaweblog-version
               xml-rpc-version)))
     (if value msg
+      (kill-new msg)
       (message msg))))
 
 ;;;###autoload
