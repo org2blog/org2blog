@@ -2,6 +2,10 @@
 
 Please check if your PR fulfills the following [Contribution Expectations](https://github.com/org2blog/org2blog/blob/master/docs/CONTRIBUTING.org#contribution-expectations)
 
+Does this PR fulfill them?
+- [ ] No
+- [ ] Yes
+
 ## Pull request type
 
 Please try to limit your pull request to one type, submit multiple pull requests if needed.
