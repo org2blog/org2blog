@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-Thank you for filling out this bug report. Please perform every step and answer every question to the best of your ability. That will make it easier for you and more accessible for us to address the issue with the highest level of quality in the shortest amount of time.
+Thank you for filling out this bug report (BR). Please perform every step and answer every question to the best of your ability. That will make it easier for you and more accessible for us to address the issue with the highest level of quality in the shortest amount of time.
 
 ### Description
 
@@ -25,7 +25,7 @@ reported or resolved?
 - What operating system are you running Emacs on? [e.g., macOS 10.13 or Windows 10]
 - How did you install Emacs? [e.g., compiled it, download and manual install, package manager like Apt on Linux or brew on macOS]
 - Do you run Emacs in the GUI or a Terminal? [e.g., GUI or Terminal]
-- What is the value of `org2blog/wp-blog-alist`? Here is how to add the value to this report: Create an empty source block by inserting three backticks on a blank line, hit return to create a new empty line, then insert three backticks. Now the goal is to place the value on that empty line. One way is for you to copy your configuration into this block manually. It is the easiest. Another way is to ask Emacs to find the value so you can paste it onto this line. Here is how: hit `M-S-:`, type `(kill-new (with-output-to-string (princ org2blog/wp-blog-alist)))` and strike `[enter]`, the information is now in the `kill-ring`, go back to that empty line, and paste the value. You will have to format it now, but you will have the correct values for your system. Either way, remove any private information like passwords or internal URLs. It will look something like this markup and code:'
+- What is the value of `org2blog/wp-blog-alist`? Here is how to add the value to this BR: Create an empty source block by inserting three backticks on a blank line, hit return to create a new empty line, then insert three backticks. Now the goal is to place the value on that empty line. One way is for you to copy your configuration into this block manually. It is the easiest. Another way is to ask Emacs to find the value so you can paste it onto this line. Here is how: hit `M-S-:`, type `(kill-new (with-output-to-string (princ org2blog/wp-blog-alist)))` and strike `[enter]`, the information is now in the `kill-ring`, go back to that empty line, and paste the value. You will have to format it now, but you will have the correct values for your system. Either way, remove any private information like passwords or internal URLs. It will look something like this markup and code:'
 
 ```
 (("yourblog"
@@ -55,7 +55,7 @@ Paste the message here.
 
 ### Minimal Reproducible Example
 
-Read about creating a [Minimal Reproducible Example](https://stackoverflow.com/help/minimal-reproducible-example) to learn about the best way to write a bug report. Although the post is tailored for their discussion board, the techniques and strategies apply perfectly to report a bug. After reading about their approach a couple of times, please move forward with the report.
+Read about creating a [Minimal Reproducible Example](https://stackoverflow.com/help/minimal-reproducible-example) to learn about the best way to write a BR. Although the post is tailored for their discussion board, the techniques and strategies apply perfectly to report a bug. After reading about their approach a couple of times, please move forward with the BR.
 
 ### Steps to Reproduce
 
