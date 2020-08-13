@@ -1,5 +1,5 @@
 ---
-name: Feature request
+name: Feature Request
 about: If something can be better, then we'll make it happen together!
 title: ''
 labels: 'Feature Request'
