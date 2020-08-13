@@ -1,20 +1,52 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
+about: If something can be better, then we'll make it happen together!
 title: ''
-labels: ''
+labels: 'Feature Request'
 assignees: ''
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+Thank you for filling out this feature request (FR). Please perform every step and answer every question to the best of your ability. That will make it easier for you and more accessible for us to address the feature request with the highest level of quality in the shortest amount of time.
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+### Description
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+[Single sentence description of the feature.]
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+### Prerequisites
+
+* [ ] Did you study the README and learn how the existing Org2Blog features work?
+* [ ] Did you review the issue tracker to see if this FR already
+exists or is resolved?
+* [ ] Have you reviewed the FUTURE file to see if the FR already exists?
+
+### Type of FR
+
+Please try to limit your FR to one type, submit multiple FRs if needed.
+
+Please check the type of feature you are requesting:
+- [ ] Brand New Feature
+- [ ] Change Existing Feature
+- [ ] Code style update (formatting, renaming)
+- [ ] Refactoring (no functional changes, no api changes)
+- [ ] Build related changes
+- [ ] Documentation content changes
+- [ ] Other (please describe):
+
+### Describe the solution you'd like
+
+[Provide a clear and concise description of what you want to happen.
+
+Include "Why" for some context. For example that "It is painful when..." or "Org2Blog would make me so much happier if..."]
+
+### Describe alternatives you've considered
+
+[A clear and concise description of any alternative solutions or features you've considered.]
+
+### Screenshots
+
+[If applicable, add screenshots to help explain your FR.]
+
+### Additional context
+
+[Add any other context about the FR here.]
