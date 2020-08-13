@@ -16,7 +16,7 @@ This contribution guide exists so that you and other contributor will get the mo
 - Feature ideas.
 - "Simple things" like spelling and grammar fixes, typo correction, white space and formatting changes, and comment clean.
 - Refactoring.
-- Support questions… Yes really! If you are facing it then you can't be the only one. It is an opportunity to better the documentation, the package itself, or more.
+- Support questions… Yes really! If you are facing it then you can't be the only one. It is an opportunity to better the documentation, the package itself, or more. Create a [[https://github.com/org2blog/org2blog/issues/new]["Blank" issue type]] to ask your question since it is neither a bug report nor a feature requestion.
 - Whatever things that /aren't/ listed here that /should be/.
 
 * Contribution Expectations
