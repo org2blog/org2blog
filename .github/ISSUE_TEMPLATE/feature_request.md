@@ -15,10 +15,10 @@ Thank you for filling out this feature request (FR). Please perform every step a
 
 ### Prerequisites
 
-* [ ] Did you study the README and learn how the existing Org2Blog features work?
+* [ ] Did you study the [README](https://github.com/org2blog/org2blog/blob/master/README.org) and learn how the existing Org2Blog features work?
 * [ ] Did you review the issue tracker to see if this FR already
 exists or is resolved?
-* [ ] Have you reviewed the FUTURE file to see if the FR already exists?
+* [ ] Have you reviewed the [FUTURE](https://github.com/org2blog/org2blog/blob/master/FUTURE.org) file to see if the FR already exists?
 
 ### Type of FR
 
