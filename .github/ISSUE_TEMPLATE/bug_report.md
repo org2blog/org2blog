@@ -61,6 +61,14 @@ Paste the logs here.
 - Can you log into your blog using that browser?
 - Can you create or edit a post using that browser?
 
+### Hardware Issues
+
+It is easy to diagnose odd computer and router behavior and that might have been reported to address issues working with WordPress's XML-RPC. However for most of us rebooting the server is neither trivial nor easy and in fact can be a very bad idea. Only consider that route if you know what you are doing.
+
+- Have you tried rebooting your computer?
+- Have you tried rebooting your router?
+- Have you tried rebooting your server?
+
 ### Minimal Reproducible Example
 
 Read about creating a [Minimal Reproducible Example](https://stackoverflow.com/help/minimal-reproducible-example) to learn about the best way to write a BR. Although the post is tailored for their discussion board, the techniques and strategies apply perfectly to report a bug. After reading about their approach a couple of times, please move forward with the BR.
