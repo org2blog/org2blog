@@ -1498,11 +1498,12 @@ quite right and make things right again.
 
 Here is where to begin:
 
+- Study the README to learn how the feature you are reporting is expected to work.
+- Review the documentation by searching for keywords: it might be a documented
+  feature.
 - Go [[https://github.com/org2blog/org2blog/issues][here]] to search for the issue and maybe report it. Don't hesitate because
   it is easier to close an already solved issue than go through the pain of
   trying to figure out a solved problem.
-- Review the documentation by searching for keywords: it might be a documented
-  feature.
 - If you need to dig deeper read the documentation for ~org2blog-user-report~. It
   walks you through the entire process of investigation. It can be
   intimidating at first. As you read through it though you will find that

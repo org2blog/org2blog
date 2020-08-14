@@ -15,7 +15,8 @@ Thank you for filling out this bug report (BR). Please perform every step and an
 
 ### Prerequisites
 
-* [ ] Did you study the [README](https://github.com/org2blog/org2blog/blob/master/README.org) to learn how the feature you are reporting a bug, is expected to work?
+* [ ] Did you study the [README](https://github.com/org2blog/org2blog/blob/master/README.org) to learn how the feature you are reporting a bug is expected to work?
+* [ ] Did you go through the [When Things Go Wrong](https://github.com/org2blog/org2blog#when-things-go-wrong-or-could-go-even-better) process? It covers the steps to review many possibilies
 * [ ] Did you review the issue tracker to see if this bug is already
 reported or resolved?
 * [ ] Did you consider that what you are describing may be a feature request? If you answered yes, review both the issue tracker and the [FUTURE](https://github.com/org2blog/org2blog/blob/master/FUTURE.org)  file to see if the feature request already exists.
