@@ -23,6 +23,7 @@ reported or resolved?
 
 ### Environment
 
+- Regarding the feature that you are reporting: #1 Has it ever worked correctly for you? and #2 If so when, and, what do you think might have changed between then and now? For example you are on a different network or you made changes to your Emacs configuration.
 - What operating system are you running Emacs on? [e.g., macOS 10.13 or Windows 10]
 - How did you install Emacs? [e.g., compiled it, download and manual install, package manager like Apt on Linux or brew on macOS]
 - Do you run Emacs in the GUI or a Terminal? [e.g., GUI or Terminal]
@@ -44,6 +45,12 @@ Now obtain critical library information by:
 
 ```
 Paste the message here.
+```
+
+Did you go through the `org2blog-user-report` process? If you did then please paste in the log files here [yes/No]:
+
+```
+Paste the logs here.
 ```
 
 ### Server
