@@ -29,3 +29,4 @@
 - Application overview for new contributors
 - Keeping issues in a closed state with the "on-hold" label and this file at
   the same time is starting to get confusing.
+- GPL releases for previous committers.
