@@ -1258,7 +1258,7 @@ This does not change your password on the blog.
 
 This does not change your password in your configuration file.
 
-It does change your pass in memory during this session.
+It does change your password in memory during this session.
 
 See messages below for details."
   (interactive)
