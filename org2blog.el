@@ -2128,7 +2128,7 @@ read all about them here: ")
   (widget-insert "\n\n")
   (widget-create
    'url-link
-   :tag "Copyright 2019"
+   :tag "Copyright"
    "https://www.gnu.org/licenses/copyleft.en.html")
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map widget-keymap)
