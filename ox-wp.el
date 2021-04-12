@@ -83,7 +83,9 @@ Delegates work to `ox-wp-export-as-wordpress'."
   :translate-alist '((src-block . ox-wp-src-block)
                      (example-block . ox-wp-src-block)
                      (latex-environment . ox-wp-latex-environment)
-                     (latex-fragment . ox-wp-latex-fragment))
+                     (latex-fragment . ox-wp-latex-fragment)
+                     (export-block . ox-wp-export-block)
+                     (export-snippet . ox-wp-export-snippet))
   :filters-alist '((:filter-paragraph . ox-wp-filter-paragraph)))
 
 
@@ -226,6 +228,20 @@ contextual information."
                                            (substring (match-string 1) 16 -14)
                                            "$ </p>") nil t))))))))
       (replace-regexp-in-string "\s*\n" " " (buffer-string)))))
+
+(defun ox-wp-export-snippet (export-snippet _contents _info)
+  "Transcode a EXPORT-SNIPPET object from Org to Wordpress.
+CONTENTS is nil.  INFO is a plist holding contextual
+information."
+  (when (member (org-export-snippet-backend export-snippet) '(wp html))
+    (org-element-property :value export-snippet)))
+
+(defun ox-wp-export-block (export-block _contents _info)
+  "Transcode a EXPORT-BLOCK element from Org to Wordpress.
+CONTENTS is nil.  INFO is a plist holding contextual information."
+  (when (or (string= (org-element-property :type export-block) "WP")
+            (string= (org-element-property :type export-block) "HTML"))
+    (org-remove-indentation (org-element-property :value export-block))))
 
 (provide 'ox-wp)
 ;;; ox-wp.el ends here
