@@ -230,14 +230,14 @@ contextual information."
       (replace-regexp-in-string "\s*\n" " " (buffer-string)))))
 
 (defun ox-wp-export-snippet (export-snippet _contents _info)
-  "Transcode a EXPORT-SNIPPET object from Org to Wordpress.
+  "Transcode a EXPORT-SNIPPET object from Org to WordPress.
 CONTENTS is nil.  INFO is a plist holding contextual
 information."
   (when (member (org-export-snippet-backend export-snippet) '(wp html))
     (org-element-property :value export-snippet)))
 
 (defun ox-wp-export-block (export-block _contents _info)
-  "Transcode a EXPORT-BLOCK element from Org to Wordpress.
+  "Transcode a EXPORT-BLOCK element from Org to WordPress.
 CONTENTS is nil.  INFO is a plist holding contextual information."
   (when (or (string= (org-element-property :type export-block) "WP")
             (string= (org-element-property :type export-block) "HTML"))

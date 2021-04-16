@@ -63,7 +63,7 @@ Blog from Org mode to WordPress.
   -  [[#some-questions-and-some-answers][Some Questions And Some Answers]]
     -  [[#why-does-org2blog-talk-about-save-view-publish-and-trash-so-much][Why Does Org2Blog Talk About Save, View, Publish, And Trash So Much?]]
     -  [[#why-does-org2blog-talk-about-buffers-subtrees-posts-and-pages-so-much][Why Does Org2blog Talk About Buffers, Subtrees, Posts, And Pages So Much?]]
-    -  [[#why-isnt-the-package-name-org2wordpress][Why Isn't The Package Name Org2Wordpress?]]
+    -  [[#why-isnt-the-package-name-org2wordpress][Why Isn't The Package Name Org2WordPress?]]
     -  [[#what-is-metaweblog-and-why-is-it-in-org2blog][What Is MetaWeblog And Why Is It In Org2Blog?]]
     -  [[#why-does-org2blog-use-both-the-xml-rpc-metaweblog-and-wordpress-api][Why does Org2Blog Use Both The XML-RPC MetaWeblog and WordPress API]]
 -  [[#sample-posts][Sample Posts]]
@@ -1366,7 +1366,7 @@ is pretty easy to fix anyway though).
 Although Org2Blog is implemented how WordPress works, it can surprising to see
 these words used. However you'll get used to it pretty quickly.
 
-*** Why Isn't The Package Name Org2Wordpress?
+*** Why Isn't The Package Name Org2WordPress?
 
 When Org2Blog was created its technical name, its /package name/, was
 ~org2blog~. Unbeknownst to us there was another package out there named
@@ -1393,7 +1393,7 @@ publish to any other blog? With some work definitely. Its impossible to rule
 out using Org2Blog to blog to other blogs in addition to WordPress.
 
 In that historical context and considering goals today the name remains
-Org2Blog instead of Org2Wordpress.
+Org2Blog instead of Org2WordPress.
 
 *** What Is MetaWeblog And Why Is It In Org2Blog?
 

@@ -604,7 +604,7 @@ Example: See default value"
   :type 'string)
 
 (defcustom org2blog/wp-use-tags-as-categories nil
-  "Non-nil means assign :tags: to Wordpress categories instead.
+  "Non-nil means assign :tags: to WordPress categories instead.
 
 The blog specific property is: :tags-as-categories
 
