@@ -79,7 +79,7 @@ Blog from Org mode to WordPress.
 
 * Requirements And Compatibility
 
-Org2Blog runs against the version of Org mode that comes pre-loaded with Emacs. Org2Blog will require a relatively recent version of Emacs simply to keep it up to date with Org mode.
+Org2Blog runs against the version of Org mode that comes pre-loaded with Emacs. Org2Blog will require a relatively recent version of Emacs to keep it up to date with Org mode.
 
 Org2Blog requires at least Emacs 26.3 and Org mode 9.1.9.
 
@@ -90,7 +90,7 @@ That is the minimum version required and will probably work fine with most newer
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:8CEE033C-3D3A-422A-A15A-358D7BE5A224
 :end:
 
-** Using A Package
+** Using a Package
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:22F68132-BA47-4DAB-8F71-900C639CCDC2
 :END:
@@ -99,7 +99,7 @@ The easiest way to install Org2Blog is using a [[https://www.gnu.org/software/em
 
 You can use either a stable or cutting-edge version of Org2Blog by configuring your packaging system.
 
-If you want the stable version then use [[https://stable.melpa.org/#/getting-started][MELPA Stable]]
+If you want the stable version, then use [[https://stable.melpa.org/#/getting-started][MELPA Stable]]
 
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'package-archives
@@ -113,11 +113,11 @@ If you want the cutting edge version using [[https://melpa.org/#/getting-started
              '("melpa" . "https://melpa.org/packages/") t)
 #+END_SRC
 
-For advanced users you can configure Package to use any combination of stable and cutting-edge versions of a package /and/ its dependencies. Read more about how to [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Package-Installation.html#Package-Installation][configure]] it and [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Package-Menu.html#Package-Menu][utilize]] that power in both your init file and the Package user interface.
+For advanced users, you can configure Package to use any combination of stable and cutting-edge versions of a package /and/ its dependencies. Read more about how to [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Package-Installation.html#Package-Installation][configure]] it and [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Package-Menu.html#Package-Menu][utilize]] that power in both your init file and the Package user interface.
 
 *** Use-Package
 
-[[https://github.com/jwiegley/use-package][Use-Package]] brings ease and order to your init file. It manages your packages in a predictable and simple way. It is the easiest way to use Org2Blog because it will download Org2Blog for you along with all of its dependencies. Before using it, configure [[https://melpa.org/#/getting-started][MELPA]]. MELPA contains the development branch of Org2Blog so you'll get the most current version right when it becomes available. Here is how to load Org2Blog:
+[[https://github.com/jwiegley/use-package][Use-Package]] brings ease and order to your init file. It manages your packages predictably and simply. It is the easiest way to use Org2Blog because it will download Org2Blog for you along with all of its dependencies. Before using it, configure [[https://melpa.org/#/getting-started][MELPA]]. MELPA contains the development branch of Org2Blog, so you'll get the most current version right when it becomes available. Here is how to load Org2Blog:
 
 #+name: org_gcr_2019-03-09T22-18-17-06-00_cosmicality_64768F79-602C-4D7D-B537-C82BC3402F09
 #+begin_src emacs-lisp
@@ -127,11 +127,11 @@ For advanced users you can configure Package to use any combination of stable an
 
 Take some time to read more about Use-Package. You can use as little or as much as you find helpful: it accommodates just about any Init style you can throw at it.
 
-*** Install The Package Yourself
+*** Install the Package Yourself
 
 You can do what Use-Package does yourself. Just download the [[https://melpa.org/#/org2blog][Org2Blog's package]] (it is a tar file) and install it using ~package-install-file~. Load it by adding ~(require 'org2blog)~ to your init file.
 
-*** Build The Package Yourself
+*** Build the Package Yourself
 
 MELPA creates Org2Blog's package using [[https://github.com/melpa/melpa/blob/master/recipes/org2blog][this recipe]].
 
@@ -142,19 +142,19 @@ The easiest way for you to build the package is to download MELPA and run it loc
 - Make sure that you are using the correct Emacs version (see requirements above) either in your path or editing the recipe
 - Open the Org2Recipe and build it
 
-** Setting Up The Source Code By Hand
+** Setting Up the Source Code By Hand
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:3386D277-56FD-4D2F-BE0C-56553541CD25
 :END:
 
-If you are a developer or even just feel like exploring the code a little for the first time then Org2Blog is a great place to start. Even better: you've already got everything you need. Specifically, Emacs, and all of the code required to run Org2Blog, are already running and ready for you to dig into it. Simply find a function you want to study, position the cursor on it, type ~C-h f~, choose that function name, and hit enter. Now you will see a link for the source code. Position the cursor there and hit enter and you are ready to study. You can make changes here, run them, and see how things work. All of the code has already been installed automatically by the package manager so you don't need to do anything else: just dig into the code. This is the easiest way to get started with the source code. If you want to do more then you can run Org2Blog and it's supporting packages by downloading their source loading them yourself. Doing so will get you familiar with things like library versions, the ~load-path~, =Elisp=, and =Git=.
+If you are a developer or even feel like exploring the code a little for the first time, then Org2Blog is a great place to start. Even better: you've already got everything you need. Specifically, Emacs, and all of the code required to run Org2Blog, are already running and ready to dig into it. Find a function you want to study, position the cursor on it, type ~C-h f~, choose that function name and hit enter. Now you will see a link for the source code. Position the cursor there and hit enter, and you are ready to study. You can make changes here, run them, and see how things work. The code has already been installed automatically by the package manager, so you don't need to do anything else: dig into the code. It's that easy to get started. If you want to do more, you can run Org2Blog and its supporting packages by downloading their source and loading them yourself. Doing so will get you familiar with things like library versions, the ~load-path~, =Elisp=, and =Git=.
 
-Org2Blog's dependencies are defined in ~org2blog-def.el~. To get you started quickly there are two helper functions here:
+~org2blog-def.el~ defines Org2Blog's dependencies. Here are helper functions to quickly get you started:
 
-- ~org2blog-def-checkout-statement~ creates Git commands to get the code from GitHub into the directory you want it stored. Call it and input the directory name. Copy and paste the commands from =*Messages*= into your Terminal to run them.
-- ~org2blog-def-load-statement~ creates Elisp code to load the libraries. Call it and input the directory name. Copy them into your Init file then run them. Now they will get loaded each time your start Emacs.
+- ~org2blog-def-checkout-statement~ creates Git commands to get the code from GitHub into the directory you want it stored. Call it and input the directory name. Please copy and paste the commands from =*Messages*= into your Terminal to run them.
+- ~org2blog-def-load-statement~ creates Elisp code to load the libraries. Call it and input the directory name. Copy them into your Init file, then run them. Now they will get loaded each time your start Emacs.
 
-For example you should see something like this:
+For example, you should see something like this:
 
 #+BEGIN_SRC shell
 git clone https://github.com/hniksic/emacs-htmlize.git /Users/gcr/mysrc/htmlize
@@ -167,24 +167,25 @@ And this
 (add-to-list 'load-path "/Users/gcr/mysrc/htmlize")
 #+END_SRC
 
-Now you've got everything you need to run Org2Blog against its source code. With this set up you can start playing around with things and even making changes. When you scratch and itch, create your branch, and submit a pull request. It's pretty fun and very easy.
+Now you've got everything you need to run Org2Blog against its source code. With this set up you can start playing around with things and even making changes. When you scratch and itch, create your branch and submit a pull request. It's pretty fun and effortless.
 
 * Usage
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:808A8EC0-9E9D-4DE2-958D-65E073D5100B
 :END:
 
-Note: For a better learning experience try reading this document inside of Emacs and Org mode by calling ~org2blog-readme~.
+*Note*: For a better learning experience try reading this document inside of Emacs and Org mode by calling ~org2blog-readme~.
 
 ** Make Your First Post In Less 5 Minutes
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:4BAA0490-704B-40D0-976F-0EB40F91E5A9
 :END:
 
-[[https://www.amazon.com/exec/obidos/ASIN/073820756X/ref=nosim/rebeccaspocke-20][Blogging]] is fun. Org2Blog makes blogging with [[https://wordpress.com/about/][WordPress]] even more fun because it makes it simple. Simplicity is one of Org2Blog's greatest strengths. That means you spend more time blogging and less time fiddling around with stuff. Having fun is why you are doing this, right? Exactly. Before digging into all of the powerful things that you can do with Org2Blog, make your first blog post. To do that, it is copy-and-paste time. Don't worry, you'll dig into all the other cool features soon! You can easily make your first post in less than 5 minutes from now because the configuration file and UI make it so simple
+[[https://www.amazon.com/exec/obidos/ASIN/073820756X/ref=nosim/rebeccaspocke-20][Blogging]] is fun. Org2Blog makes blogging with [[https://wordpress.com/about/][WordPress]] even more fun because it makes it simple. Simplicity is one of Org2Blog's greatest strengths. That means you spend more time blogging and less time fiddling around with stuff. Having fun is why you are doing this, right? Exactly. Before digging into all of the powerful things you can do with Org2Blog, make your first blog post. To do that, it is copy-and-paste time. Don't worry; you'll dig into all the other cool features soon! You can easily make your first post in less than 5 minutes from now because the configuration file and UI make it so simple.
 
-- Installation is already complete so Org2Blog is ready for you to use.
-- Create the profile for your blog so you can get started. In this example "myblog" is the name of your profile for your blog: it stores everything you want Org2Blog to use and know about it. To get started it only requires the 2 bits of information shown. ~url~ is the full URL required to access WordPress XML-RPC on your blog. ~username~ is the account that you are using to blog with. This is all it takes. Now fill it out and evaluate it.
+- Installation is already complete, so Org2Blog is ready for you to use.
+- Create the profile for your blog so you can get started. In this example, "myblog" is the name of your profile for your blog: it stores everything you want Org2Blog to use and know about it. To get started, it only requires the 2 bits of the information shown. ~url~ is the full URL required to access WordPress XML-RPC on your blog. ~username~ is the account that you are using to blog. Now fill it out and evaluate it.
+
 #+NAME: org_gcr_2019-03-06T17-15-24-06-00_cosmicality_596316A8-5CB2-4D66-A519-66AF732BBBAA
 #+begin_src emacs-lisp
 (setq org2blog/wp-blog-alist
@@ -192,21 +193,21 @@ Note: For a better learning experience try reading this document inside of Emacs
          :url "https://myblog.com/xmlrpc.php"
          :username "username")))
 #+end_src
-- Display the Org2Blog user-interface (UI) by executing the command ~org2blog-user-interface~. You can do literally everything with Org2Blog using it's UI (setting keybindings elsewhere is super easy too and you'll cover it soon). For simplicity these directions will refer to "things to do in the UI" in the style of =UI [action]=.
+- Display the Org2Blog user interface (UI) by executing the command ~org2blog-user-interface~. You can do everything with Org2Blog using its UI (setting keybindings elsewhere is super easy, too, and you'll cover it soon). For simplicity, these directions will refer to "things to do in the UI" in the style of =UI [action]=.
 - *The Main Menu:*
   - [[file:/images/menu-main.png]]
 - Create a brand new entry from a template: =UI [New Buffer]=
-- If you aren't logged in then Org2Blog will ask if you would like to. Yes you should go ahead and log in.
-- A pre-populated buffer post sits in front of you. Fill it out with test data for with title, category, and tags. Org mode requires you to keep a space in between the keyword and the value: that is the only way that it can read them. If you accidentally omit the space then Org2Blog will report it to you and suggest a resolution.
-- Save it as a post draft on the blog: =UI [Save Post Draft]=
+- If you aren't logged in, then Org2Blog will ask if you would like to log in. Yes, you should go ahead and log in.
+- A pre-populated buffer post sits in front of you. Please fill it out with test data with title, category, and tags. Org mode requires you to keep a space between the keyword and the value: that is the only way for it to read them. If you accidentally omit the space, then Org2Blog will report it to you and suggest a resolution.
+- Save it as a post-draft on the blog: =UI [Save Post Draft]=
 - Watch for messages in the minibuffer letting you know what is happening.
 - =#+POSTID= is populated now.
 - View it: =UI [View Post]=
 - When you are ready to post it, do it: =UI [Publish Post]=
 
-Congratulations! You just made your first blog post with Org2Blog! With this experience under your belt you will be a lot more interested about how to get the most out of Org2Blog. It is simple and powerful, and you can shape it into the perfect blogging tool for you. Work through usage sections at your own pace. Take the time to invest in Org2Blog and your personal blogging workflow. It is not a race, it is a pleasant walk: so take your time and have fun!
+Congratulations! You just made your first blog post with Org2Blog! With this experience under your belt, you will be a lot more interested in how to get the most out of Org2Blog. It is simple and powerful, and you can shape it into the perfect blogging tool for you. Work through usage sections at your own pace. Take the time to invest in Org2Blog and your blogging workflow. It is not a race; it is a pleasant walk: so take your time and have fun!
 
-P.S. If you are interested here are some other examples of the UI
+P.S. If you are interested, here are some other examples of the UI
 
 *The Help Menu–Just Hit "h":*
 [[file:/images/HelpMenu.gif]]
@@ -228,45 +229,47 @@ P.S. If you are interested here are some other examples of the UI
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:DA51A3B2-9218-4673-B1E4-C68ADDD33366
 :END:
 
-The example at the start of this document is meant to be just that: an example. It only covers a fraction of what is possible for writing and publishing with Org2Blog. This headline covers a few things that really fill in the gaps for how to do more and better blogging with Org2Blog.
+The example at the start of this document is meant to be just that: an example. It only covers a fraction of what is possible for writing and publishing with Org2Blog. This headline covers a few things that fill the gaps in doing more and better blogging with Org2Blog.
 
-Every Org2Blogger is unique, of course. However, they all know Emacs and Org mode. The concepts and features are in place (in varying degrees) are a common ground. Consequently the bulk of the feedback about Org2Blog had a *lot* in common too. The following items are the top 5 things that pretty much everybody wanted to know how to do
+Every Org2Blogger is unique, of course. However, Org2Bloggers all know Emacs and Org mode. The concepts and features are in place (in varying degrees) are common ground. Consequently, the bulk of the feedback about Org2Blog had a *lot* in common too. The following items are the top 5 things that pretty much everybody wanted to know how to do
 
 *** Helping Yourself To The Basics
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:D57964B2-21BA-40F9-8B61-73204EE21C07
 :END:
 
-Org2Blog's goal is to keep blogging fun. It strives make hard things easy and easy things easier. So in that spirit everything you want to do can be done via the menu. Start the menu calling ~org2blog-user-interface~.
+Org2Blog's goal is to keep blogging fun. It strives to make complicated things easy and easy things more leisurely. So in that spirit, you can do everything you want to do via the menu. Start the menu by calling ~org2blog-user-interface~.
 
-The easiest way to get started with the basics is to play around with the menu. If for you that means reading then start with:
+The easiest way to get started with the basics is to play around with the menu. If for you that means reading, then start with:
 
-- =UI [About]=: A light introduction to Org2Blog platform
-- =UI [README]=: A copy of this entire README.org in a writable buffer. This is a nice way to make your own notes in-place without making changes to the original. Just save your changes to your own file and then you'll have them ready for the next time you are blogging.
+- =UI [About]=: A light introduction to the Org2Blog platform
+- =UI [README]=: A copy of this entire README.org in a writable buffer.
 
-Once you've successfully logged in and read a little bit about Org2Blog then you'll notice that you get started blogging very quickly. The menu items below are phrased generically, just choose the correct kind for your entry based on the source (buffer or subtree) and whether its destination is post or a page. Here is the workflow:
+They are both an excellent way to make your notes in place without making changes to the original. Just save your changes to your file, and then you'll have them ready for the next time you are blogging.
+
+Once you've successfully logged in and read a little bit about Org2Blog, then you'll notice that you get started blogging very quickly. Whether you start with a Buffer or Subtree Entry, you'll begin with the same workflow. Here is the workflow:
 
 - =UI [Login]=:
 - =UI [New Buffer]= or =UI [New Subtree]=:
 - =UI [Save It]=:
 - =UI [View It]=:
 - =UI [Publish It]=:
-- Make changes as you iterate over the entry
+- Make changes as you iterate over the Entry
 - =UI [Save It]=:
 - =UI [View It]=:
 - =UI [Publish It]=:
 
-That workflow is 100% of blogging. The right 50% of the menu is dedicated to that alone! For each action you just need to tell Org2Blog whether you are doing it from (the source) a Buffer Entry or a Subtree Entry and whether or not it is a (destination) post or a page. With that simplicity in mind, please read on to learn about the options for learning more.
+That workflow is 100% of blogging. The right 50% of the menu is dedicated to that alone! For each action, you just need to tell Org2Blog whether you are doing it from (the source) a Buffer Entry or a Subtree Entry and whether or not it is a (destination) post or a page. With that simplicity in mind, please read on to learn about the options for learning more.
 
-Another way to play around with it is to try out all of the menu items. Don't worry though because it is really, really safe. Org2Blog never deletes anything on your computer. It will of course delete blog entries on the server, but never the source documents. What each menu item does, too, is pretty obvious by the name. If you want to read its documentation then hit =h=, its key command will turn red, hit it, and its documentation will come up. They are probably overly detailed, but, it is usually better to over-specify. If your preferred style of playing involves reading, running, and configuring things though then Org2Blog comes with a rich approach built right in.
+Another way to play around with it is to try out all of the menu items. Don't worry, though, because it is safe. Org2Blog never deletes anything on your computer. It will, of course, delete blog entries on the server, but never the source documents. What each menu item does, too, is pretty apparent by the name. If you want to read its documentation, then hit =h=, its key command will turn red, hit it, and its documentation will come up. They are probably overly detailed, but it is usually better to over-specify. If your preferred style of playing involves reading, running, and configuring things, though, then Org2Blog comes with a rich approach built right in.
 
-Start by calling ~Customize~ and search for ~org2blog~. Take a quick look at what is available. You might customize a bunch of things right away, or nothing at all. The important thing right now is to have at-least seen them once so they get stored in the back of your mind. One of the best things about customize is that you can configure variables right along with their definition. That tight integration of system and documentation make the whole thing easier to use and understand.
+Start by calling ~Customize~ and search for ~org2blog~. Take a quick look at what is available. You might customize a bunch of things right away, or nothing at all. Store them in the back of your mind. One of the best things about customize is that you can configure variables right along with their definition. That tight integration of the system and documentation makes the whole thing easier to use and understand.
 
-You have probably noticed by now, there aren't a ton of function names listed in this documented. That is by design. Org2Blog has a lot of functions and a lot of configuration options. So many that it would overwhelm a lot of us. On top of that, the document would probably get either wrong or just out of date pretty quickly. However, you /do/ need to know the details at some point, so, what is the happy medium? It is simple: let Org2Blog teach you everything that /you/ want to know exactly when you want to know it.
+You have probably noticed by now; there aren't a ton of function names listed in this document. That is by design. Org2Blog has a lot of functions and a lot of configuration options. So many that it would overwhelm a lot of us. On top of that, the document would probably get either wrong or just out of date pretty quickly. However, you /do/ need to know the details at some point, so what is the happy medium? It is simple: let Org2Blog teach you everything that /you/ want to know precisely when you want to know it.
 
-One of the selling posts about Emacs Lisp computer programs is that not only do they come with the Libre Software source code but they also include all of the documentation in-place. It means that you can ask Emacs to give you the documentation for whatever you want. This is a fine, powerful, and good solution. It is the best for programmers. For bloggers though, it can be a little overwhelming a place to start. Org2Blog does its best to bridge the gap between the two by providing documentation for functions and variables directly from the menu. If you are the kind of person who just jumps right in and wants to see everything right at once, then =UI [Values]= is where you want to start. Otherwise access them using Customize just like normal.
+One of the selling posts about Emacs Lisp computer programs is that not only do they come with the Libre Software source code, but they also include all of the documentation in place. It means that you can ask Emacs to give you the documentation for whatever you want. Built-in documentation is a fine, powerful, and reasonable solution. It is the best for programmers. For bloggers, though, it can be a little overwhelming a place to start. Org2Blog does its best to bridge the gap between the two by providing documentation for functions and variables directly from the menu. If you are the kind of person who just jumps right in and wants to see everything right at once, then =UI [Values]= is where you want to start. Otherwise, access them using Customize just like usual.
 
-This combination of easy to use menus and direct access to the code is the best way to get started. Find something that looks interesting, read about it, do it, or both, then more. Whatever keeps you having the most fun is the right way to do it.
+This combination of easy-to-use menus and direct access to the code is the best way to get started. Find something that looks interesting, read about it, do it, or both, then more. Whatever keeps you having the most fun is the right way to do it.
 
 *** Writing More After You Have "Settled Into" The Software
 :PROPERTIES:
@@ -295,25 +298,24 @@ Perhaps you know some defaults you want for every kind of entry. When you are re
 
 With your configuration ready, start creating the post.
 
-Start by creating a =UI [New Buffer]=. A template is used to populate your entry. When you =UI [Login]= Org2Blog learns about your Categories, Tags, and Pages. Position the cursor on one of those lines and =UI [Complete]= to either choose a value or complete a value that you began typing. If you want one you can add a =#+DESCRIPTION= and a =#+PERMALINK= too.
+Start by creating a =UI [New Buffer]=. A template populates your Entry. When you =UI [Login]= Org2Blog learns about your Categories, Tags, and Pages. Position the cursor on one of those lines and =UI [Complete]= and either choose a value or complete a value that you began typing. If you want one, you can add a =#+DESCRIPTION= and a =#+PERMALINK= too.
 
-Org2Blog includes some helpers for inserting content into your entry under the =UI [“Insert A”]= menu:
+Org2Blog includes some helpers for inserting content into your Entry under the =UI [“Insert A”]= menu:
 
 - =UI [More Tag]=: The WordPress "Read More" tag. Org2Blog will ask if you want to use a message inside of it, too.
 - =UI [MathJax Shortcode]=: If you want to use [[https://www.mathjax.org/][MathJax]], this lets you do it.
 - =UI [“LaTeX” Name]=: Prove that MathJax is working.
 - =UI [Link To Post]=: Insert a link to a post from a list of posts on /your blog/.
 - =UI [Link To Page]=: Insert a link to a page from a list of posts on /your blog/.
-- =UI [#+ORG2BLOG]=: If your entry doesn't have the special tag, then it will
-  insert it.
+- =UI [#+ORG2BLOG]=: If your Entry doesn't have the special tag, then it will insert it.
 
-When you are ready save your new post. Open the main menu by calling ~org2blog-user-interface~. Since you just created a buffer entry look at the menu items under the Buffers column and find the operation that you want to perform. Your first step here is =UI [Save Post Draft]=. This Saves your post on your blog. The language here is important: everything you do using the menu is phrased how you will be working on the blog itself and the actions you would be performing there. Next do =UI [View Post]= to bring up a web browser so you can read and review your post. From here you can iterate through your writing process until you finally =UI [Publish Post]=.
+When you are ready, save your new post. Open the main menu by calling ~org2blog-user-interface~. Since you just created a buffer entry, look at the menu items under the Buffers column and find the operation you want to perform. Your first step here is =UI [Save Post Draft]= to save your post on your blog. The language here is essential: actions you'll perform in your actual blog map directly to menu items here. Next, do =UI [View Post]= to bring up a web browser so you can read and review your post. From here, you can iterate through your writing process until you finally =UI [Publish Post]=.
 
 ***** Your First Buffer Page
 
-Working with pages is virtually identical to working with posts for a good reason: WordPress sees them as nearly the same thing and Org2Blog does too. The only difference is in one place: when you work with your page use the functions that have Page in the name.
+Working with pages is virtually identical to working with posts for a good reason: WordPress sees them as nearly the same thing, and Org2Blog does too. The only difference is that when you work with your page, use the functions that have Page in the name.
 
-In the walk-through here that means using =UI [Save Page Draft]= and so on.
+In the walk-through here, that means using =UI [Save Page Draft]= and so on.
 
 **** Automatically Configuring Your Environment
 :PROPERTIES:
@@ -322,7 +324,7 @@ In the walk-through here that means using =UI [Save Page Draft]= and so on.
 
 You can customize your writing experience by configuring Org2Blog whenever it opens up an Org2Blog file. You do that using ~org2blog-mode-hook~.
 
-Since Org2Blog documents are plain Org documents, Org2Blog can't tell the difference between them just by looking at them. It needs a hint. The hint is simple: Org2Blog looks for a buffer property named =#+ORG2BLOG= and if it finds it then it loads its minor mode. To make this happen set it up in the Org mode hook:
+Since Org2Blog documents are plain Org documents, Org2Blog can't tell the difference between them just by looking at them. It needs a hint. The hint is simple: Org2Blog looks for a buffer property named =#+ORG2BLOG=, and if it finds it, it loads its minor mode. To make this happen, set it up in the Org mode hook:
 
 #+name: org_gcr_2019-03-04T08-22-32-06-00_cosmicality_C837C334-C25F-460E-B54B-D2825B38FA39
 #+begin_src emacs-lisp
@@ -354,7 +356,7 @@ This sample uses the =alt= name-space because it is /supposed/ to be 100% free f
 
 Org2Blog can automatically log you in if you configure a =.netrc= file in your home directory.
 
-Your configuration should look like this
+Your configuration should look like this.
 
 #+NAME: org_gcr_2019-03-06T17-15-24-06-00_cosmicality_53E1F010-1415-4DB9-AC70-6989687FD272
 #+begin_src sh
@@ -399,41 +401,41 @@ Then, configure your blog using those credentials, as shown below.
 
 **** Using Subtrees
 
-Subtrees are a great way to keep multiple posts in one file. One way people use this it create a single file for a week or a month and store all entries there. Others for example take notes on a chapter of or an entire book and store them in a single place. Just like a plain old Org mode document: subtrees do what they do well.
+Subtrees are a great way to keep multiple posts in one file. People use this to create a single file for a week or a month and store all entries there. Others, for example, take notes on a chapter or an entire book and keep them in a single place. Just like a plain old Org mode document: subtrees do what they do well.
 
-Power users take note: you can store subtrees that post to different blogs by specifying the URL on the subtree. This "just works" like any other subtree post. Not something you might need much but when you do it is a very cool feature.
+Power users take note: you can store subtrees that post to different blogs by specifying the URL on the subtree. This "just works" like any other subtree post. Not something you might need much, but when you do, it is a very cool feature.
 
-The workflow for creating a subtree entry is virtually identical to a buffer entry. There are only two (but very important) differences:
+The workflow for creating a subtree entry is virtually identical to a buffer entry. There are only two (but significant) differences:
 
 - Use =UI [New Subtree]= to get started.
 - Review the properties
 - They go in a drawer like any other subtree.
-- The headlines is used for =TITLE= unless you set an option for it
-- Unlike a buffer entry: Tags are stored in =POST_TAGS=. Org mode already uses =TAGS= as a fundamental concept for subtrees so we had to choose a different property name. =POST_TAGS= seemed pretty good.
+- Unless you specify an option: the headline populated the =TITLE=.
+- Unlike a buffer entry: Tags are stored in =POST_TAGS=. Org mode already uses =TAGS= as a fundamental concept for subtrees, so we had to choose a different property name. =POST_TAGS= seemed pretty good.
 
-If you ever have your cursor in a subtree, any subtree, and you attempt to use a buffer function, Org2Blog will not perform the actions and give you a warning. This is to prevent unpleasant situations.
+Suppose you ever have your cursor in a subtree, any subtree, and you attempt to use a buffer function. In that case, Org2Blog will not perform the actions and give you a warning, preventing unexpected editing and posting behavior.
 
-You can either save your subtree entry in a file, or copy and paste it into an existing file.
+You can either save your subtree entry in a file or copy and paste it into an existing file.
 
 **** Using Narrowing
 
-Having already read through the manual and posted a buffer entry, you are probably starting to get comfortable with how they look. Basically, an entry has some configuration data at the top of the page, followed by the title, and then the content. It is what you'll be seeing time and time again. As you write more, you will probably start to wonder, "Why can't I just store multiple buffer entries in a single buffer in the first place?! (And if you hadn't already, then you will definitely be wondering after you read the section on using Subtrees to store multiple entries!)" That is an excellent question.
+Having already read through the manual and posted a buffer entry, you are almost comfortable with how they look. An entry has some configuration data at the top of the page, followed by the title and the content. It is what you'll be seeing time and time again. As you write more, you will probably start to wonder, "Why can't I just store multiple buffer entries in a single buffer in the first place?! (And if you hadn't already, then you will be wondering after you read the section on using Subtrees to store multiple entries!)" That is an excellent question.
 
-The first reason is that it is easier to make sense of your entry types when their home is clearly defined: every single buffer entry is stored in a separate file, and multiple subtree entries are stored in a single file. For most users, this is a straightforward approach that handles the majority of workflows that Org2Bloggers will ever require. Whether or not this workflow serves you, you may still be left wondering what /exactly/ is the difference between a buffer entry and a subtree entry.
+The first reason is that it is easier to make sense of your entry types when their home is clearly defined: every single buffer entry is stored in a separate file, and multiple subtree entries are stored in a single file. For most users, this is a straightforward approach that handles most workflows that Org2Bloggers will ever require. Whether or not this workflow serves you, this explanation may still leave you wondering what /exactly/ is the difference between a buffer entry and a subtree entry.
 
-Buffer entries and subtrees are identical in purpose. You write, save, view, publish, and trash them. The only difference between them is their technical format. As you may have seen, buffer entries specify post configuration properties up at the top of the page, and subtree entries specify them just below the subtree. Now to come all the way back around, you might be asking, "Well, if they are identical, then why can't I store multiple buffer entries in a single file?" The answer is that yes, you can.
+Buffer entries and subtrees are identical in purpose. You write, save, view, publish, and trash them. The only difference between them is their technical format. As you may have seen, buffer entries specify post configuration properties up at the top of the page, and subtree entries specify them just below the subtree. Now to come back around, you might be asking, "Well, if they are identical, then why can't I store multiple buffer entries in a single file?" The answer is that yes, you can.
 
-You can store multiple buffer entries in a single file. You write, save, view, publish, and trash them precisely as you would expect. It all "just works," that is if you are willing to get a little more technical about using Emacs by learning something about =Narrowing=.
+You can store multiple buffer entries in a single file. You write, save, view, publish, and trash them precisely as you would expect. It all "just works," that is, if you are willing to get a little more technical about using Emacs by learning something about =Narrowing=.
 
 #+BEGIN_QUOTE
-Narrowing means focusing in on some portion of the buffer, making the rest temporarily inaccessible. The portion which you can still get to is called the accessible portion. Canceling the narrowing, which makes the entire buffer once again accessible, is called widening. The bounds of narrowing in effect in a buffer are called the buffer's restriction.
+Narrowing means focusing on some portion of the Buffer, making the rest temporarily inaccessible. The portion which you can still get to is called the accessible portion. Canceling the narrowing, which makes the entire Buffer once again accessible, is called widening. The bounds of narrowing in effect in a buffer are called the Buffer's restriction.
 
-Narrowing can make it easier to concentrate on a single subroutine or paragraph by eliminating clutter. It can also be used to limit the range of operation of a replace command or repeating keyboard macro.
+Narrowing can make it easier to concentrate on a single subroutine or paragraph by eliminating clutter. It can also limit the range of operation of a replace command or repeating keyboard macro.
 #+END_QUOTE
 
 -- [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Narrowing.html][14.5 Narrowing]], from the [[https://www.gnu.org/software/emacs/manual/html_node/emacs/index.html#Top][The Emacs Editor]] Documentation
 
-When you tell Org2Blog to act upon a single Buffer entry, say =[Save Post Draft]=, then Org2Blog needs to think that it is looking at a single Buffer entry. This is easy to do when there is only one Buffer entry /because there is only one buffer entry/. How do you make Org2Blog think that there is only one Buffer entry when you start storing /multiple/ Buffer entries a single file, though? The answer is that you do it by merely using =Narrowing=.
+When you tell Org2Blog to act upon a single Buffer entry, say =[Save Post Draft]=, then Org2Blog needs to think that it is looking at a single Buffer entry. Convincing Org2Blog is easy to do when there is only one Buffer entry /because there is only one buffer entry/. How do you make Org2Blog think that there is only one Buffer entry when you start storing /multiple/ Buffer entries in a single file, though? The answer is that you do it by merely using =Narrowing=.
 
 Please read its definition two or three times until you feel good about it. It is a simple idea, but it can take time for it to sink in. Once you start using it, though, you will find it to be a powerful tool useful for many situations that you deal with as a writer of any kind. Here is how to use it to store multiple Buffer entries in a single file:
 
@@ -446,27 +448,27 @@ Please read its definition two or three times until you feel good about it. It i
 
 [[file:/images/Narrowing01.png]]
 
-Now you are all set to start working multiple Buffer entries in a single file. You'll go through the process of narrowing down to a single entry and working on it just as you've already done before. Here are the steps:
+Now you are all set to start working multiple Buffer entries in a single file. You'll go through the process of narrowing it down to a single entry and working on it just as you've already done before. Here are the steps:
 
 - Identify the second Buffer entry you just created. You will work on this from here on.
-- Highlight everything from the start of the entry to the end of the entry. You can do this using your mouse by positioning the pointer at the top of the post, pressing and holding the mouse button, then releasing it. Another way to do it is to move the cursor up to that position, press ~Control-space~, then move the cursor to the end.
+- Highlight everything from the start of the Entry to the end of the Entry. You can do this using your mouse by positioning the pointer at the top of the post, pressing and holding the mouse button, then releasing it. Another way to do it is to move the cursor up to that position, press ~Control-space~, then move the cursor to the end.
 - Narrow to the selected region by pressing ~Control-x n n~. That means pushing and holding ~Control-x~, releasing it, then striking ~n~ once, and then finally once again.
 - If you did it right then, you would only see the second Buffer entry. You have just narrowed down to the region you selected: the entire Buffer entry.
-- From here, you can work with your entry exactly as you did before.
+- From here, you can work with your Entry precisely as you did before.
 - It should look something like this:
 
 [[file:/images/Narrowing.gif]]
 
-As you can see, storing multiple Buffer entries in a single file is pretty compelling in theory. In practice, though, it can result in some confusion when you are in the flow of writing, and suddenly, the rest of your file is missing. On the other hand, when you become more adept and working with the Emacs editor, you will find that =Narrowing= is one of the power tools that you can't live without.
+As you can see, storing multiple Buffer entries in a single file is pretty compelling in theory. In practice, though, it can result in some confusion when you are in the writing flow, and suddenly, the rest of your file is missing. On the other hand, when you become more adept and working with the Emacs editor, you will find that =Narrowing= is one of the powerful tools you can't live without.
 
-If you read this far, then using ~Narrowing~ to manage multiple Buffer entries might be the right thing for you. Either way, I'm you know now that this is an option. If this is your introduction to ~Narrowing~ then I hope that you enjoy its use and have the chance to play around with where it happens to fit into your workflow with Org2Blog or any of the problems you solve using Emacs!
+If you read this far, then using ~Narrowing~ to manage multiple Buffer entries might be the right thing for you. Either way, I'm you know now that this is an option. If this is your introduction to ~Narrowing~ then I hope you enjoy its use and have the chance to play around with where it happens to fit into your workflow with Org2Blog or any of the problems you solve using Emacs!
 
 *** Automatic Image Uploading
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:FB5F7515-436B-4757-80C7-23FF81485F29
 :END:
 
-WordPress does a great job helping you manage image files using its [[https://en.support.wordpress.com/media/][Media Library]]. The Media Library [[https://wordpress.org/support/article/media-library-screen/][User Interface]] is simple and powerful. Whether you post photos once in a while or you are posting daily running a [[https://en.wikipedia.org/wiki/Photoblog][Photoblog]] the Media Library integrates nicely with both of and most of the most common blogging workflows. After blogging for a while and developing the beginnings of a personal workflow it is a good time to start considering where Org2Blog can assist you working with image files in your Media Library.
+WordPress does a great job helping you manage image files using its [[https://en.support.wordpress.com/media/][Media Library]]. The Media Library [[https://wordpress.org/support/article/media-library-screen/][User Interface]] is simple and powerful. Whether you post photos once in a while or you are posting pictures daily running a [[https://en.wikipedia.org/wiki/Photoblog][Photoblog]] the Media Library integrates nicely with both of and most of the most common blogging workflows. After blogging for a while and developing the beginnings of a personal workflow, it is an excellent time to start considering where Org2Blog can assist you in working with image files in your Media Library.
 
 Org2Blog can help you do one thing here: automatically upload images to your media library for you. The way it works is that when you publish your post to your blog Org2Blog:
 
@@ -474,32 +476,32 @@ Org2Blog can help you do one thing here: automatically upload images to your med
 - Finds a link to an image file on your computer.
 - Uploads the file to your Media Library.
 - On publishing
-  - Modifies the link so it points to the uploaded file on your blog.
+  - Modifies the link, so it points to the uploaded file on your blog.
   - Configures the size of the ~IMG~ linked.
   - Inserts the new link in the post.
   - Make a note in the Org2Blog entry so that it remembers that it already uploaded the image file to your blog.
 
-This is good for the following workflows:
+This approach is suitable for the following workflows:
 
 - "I Never Want To Touch The Media Library User Interface"
   - "But When I Do I Can Make It And The Entry Consistent"
 - "I Rarely Post Images And When I Do They Are All On My Blog"
   - This features make every image link point to your blog
-- "I'm Very Familiar And Comfortable With HTML, Org mode, And WordPress"
+- "I'm Very Familiar And Comfortable With HTML, Org mode, And WordPress."
 
-In other words this workflow is very powerful, simple, and useful to a very certain skilled and curious kind of user. It might not be for most of you, but if it is then you will really like it.
+In other words, this workflow is compelling, simple, and valuable to a very certain skilled and curious kind of user. It might not be for most of you, but if it is, then you will like it.
 
-By default this feature is disabled. If after reading this you find that you are that kind of user or even just curious about how it works then you can enable the feature by setting ~org2blog/wp-image-upload~ to a non-nil value like this
+By default, this feature is disabled. If, after reading this, you find that you are that kind of user or even just curious about how it works, then you can enable the feature by setting ~org2blog/wp-image-upload~ to a non-nil value like this.
 
 #+BEGIN_SRC emacs-lisp
 (setq org2blog/wp-image-upload t)
 #+END_SRC
 
-and read more about how it works.
+And read more about how it works.
 
 **** How It Works
 
-Org mode's HTML exporter is smart about [[https://orgmode.org/worg/org-tutorials/images-and-xhtml-export.html][Image links]]. When it finds images in an Org link like this [[file:example.png][file:]] or even a link like this =[[example.png]]= it knows to generate an =IMG= tag in the resulting HTML. All of the file types listed in ~org-html-inline-image-rules~ are automatically supported. They work in Org2Blog exactly the same as in Org mode: Org2Blog uses the Org mode HTML exporter to do all of its work which means that everything is going to work as you expect it.
+Org mode's HTML exporter is smart about [[https://orgmode.org/worg/org-tutorials/images-and-xhtml-export.html][Image links]]. When it finds images in an Org link for example  [[file:example.png][file:]] or =[[example.png]]= it knows to generate an =IMG= tag in the resulting HTML. All of the file types listed in ~org-html-inline-image-rules~ are automatically supported. They work in Org2Blog the same as in Org mode: Org2Blog uses the Org mode HTML exporter to do all of its work which means that everything will work as you expect it.
 
 All of the standard HTML image attributes work by prefacing the image link with a =#+ATTR_HTML= like and following it with the desired attribute including for example:
 
@@ -509,7 +511,7 @@ All of the standard HTML image attributes work by prefacing the image link with 
 - :style :: border:2px solid black;
 - :style :: float:left;
 
-Just like most exporters you can also caption the image with a line like this:
+Just like most exporters, you can also caption the image with a line like this:
 
 #+BEGIN_SRC org
 ,#+CAPTION: My image caption
@@ -517,9 +519,9 @@ Just like most exporters you can also caption the image with a line like this:
 
 These two capabilities will get you very close to your desired image styling. The last thing to configure is how to handle image thumbnails.
 
-Org2Blog will insert image thumbnails for all of the image files that you upload to your server. If you want to use this feature first enable it by setting ~org2blog/wp-image-thumbnails~ to a non-nil value. Then choose a thumbnail size by configuring ~org2blog/wp-image-thumbnail-size~. Now after uploading your image files the inserted link will include a thumbnail preview of your image file.
+Org2Blog will insert image thumbnails for all of the image files that you upload to your server. If you want to use this feature, first enable it by setting ~org2blog/wp-image-thumbnails~ to a non-nil value. Then choose a thumbnail size by configuring ~org2blog/wp-image-thumbnail-size~. After uploading your image files, the inserted link will include a thumbnail preview of your image file.
 
-Now that you have things configured here is how to move forward with your post.
+Now that you have things configured, here is how to move forward with your post.
 
 Create your post exactly as you would expect. Use Image links where you need them. It might look something like this:
 
@@ -529,7 +531,7 @@ Create your post exactly as you would expect. Use Image links where you need the
 [[./testimage2.png]]
 #+end_src
 
-Post your entry. Your image files are uploaded to your blog. A note is stored so that Org2Blog remembers that it already uploaded those image files.
+Posting your Entry automatically uploads the files to your blog. A note is stored so that Org2Blog remembers that it already uploaded those image files.
 
 #+begin_src org
 [[file:testimage1.png]]
@@ -540,28 +542,28 @@ Post your entry. Your image files are uploaded to your blog. A note is stored so
 # testimage2.png https://www.wisdomandwonder.com/wp-content/uploads/2019/03/testimage2-1.png
 #+end_src
 
-Because Org2Blog is completely disconnected from the Media Library it is up to you now to keep them synchronized. Here is a list of things you are required to manage and synchronize manually:
+Org2Blog is wholly disconnected from the Media Library. Therefore, it is up to you to keep them synchronized. Here is a list of things you are required to manage and synchronize manually:
 
 - When you delete images
-  - locally you need to delete them in your Media Library.
-  - remotely you need to remove them from your Entry.
+  - locally, you need to delete them in your Media Library.
+  - remotely, you need to remove them from your Entry.
 - When you modify images
-  - locally you need to remove the upload note so that they will get re-uploaded to your blog.
+  - locally, you need to remove the upload note so that they will get re-uploaded to your blog.
 
-Once you are comfortable with the Org2Blog lifecycle with WordPress it becomes second nature to manage this manually. The first few times you need to manage this it will be surprising /not/ to see your changes posted it will come to your mind quickly how to address it.
+Once you are comfortable with the Org2Blog lifecycle with WordPress, it becomes second nature to manage this manually. The first few times you need to handle this, it will be surprising /not/ to see your changes posted. It will come to your mind quickly how to address it.
 
-This is how Automatic Image Uploading works.
+Automatic Image Uploading is flexible and /just works/.
 
 *** Supported Properties
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:C88F5A1B-4431-4CAD-BABB-BE24BEEB088B
 :END:
 
-The best way to think about how Org2Blog defines entry properties is to first think what a WordPress entry's metadata. For example there are posts and posts can have parents. Each have a numerical identifier so when you work with them in your Org2Blog file you'll deal with the same thing. A permalink too is exactly what you would expect. If you haven't looked at post metadata before then open up a post and click around to see what data it uses.
+The best way to think about how Org2Blog defines entry properties is first to think about its metadata. For example, there are posts, and posts can have parents. Each has a numerical identifier, so you'll deal with the same thing when you work with them in your Org2Blog file. A permalink also behaves precisely how you would expect. If you haven't looked at post metadata before, then open up a post and click around to see what data it uses.
 
-Next think about how Org mode metadata can supplement your WordPress data. For example Subtrees can have a bunch of different date types. Each one of them will work as the date value for the entry on WordPress.
+Next, think about how Org mode metadata can supplement your WordPress data. For example, Subtrees can have a bunch of different date types. Each one of them will work as the date value for the Entry on WordPress.
 
-Since they are plain old Org mode properties: be sure to keep a space between the property name and its value.
+Since they are plain old Org mode properties, keep a space between the property name and its value.
 
 - Entry
   - =DATE=
@@ -582,7 +584,7 @@ Since they are plain old Org mode properties: be sure to keep a space between th
   - =TITLE=
   - =CATEGORY=
   - =POST_TAGS=
-    - Though they are the same thing, due to technical reasons when tags appear under a Subtree they can't use the =TAGS= property like an Entry, they use =POST_TAGS= instead. Please take note of this when you convert an Entry post to a Subtree post.
+    - Though they are the same thing, due to technical reasons, when tags appear under a Subtree, they can't use the =TAGS= property like an Entry; they use =POST_TAGS= instead. Please take note of this when you convert an Entry post to a Subtree post.
   - =POSTID=
   - =PARENT=
   - =PERMALINK=
@@ -593,15 +595,15 @@ Since they are plain old Org mode properties: be sure to keep a space between th
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:1364F0E7-582A-4A40-A32F-A8B839A76C45
 :END:
 
-After playing around a little bit you should have a better sense of what is possible. The following are some key points that will tie everything together:
+After playing around a little bit, you should have a better sense of what is possible. The following are some key points that will tie everything together:
 
-- Org2Blog's fundamental approach to configuration simple. When you configure a feature using a variable then every blog profile will use that value. That makes it convenient because you are likely to use the same settings on each blog. Think of it as a global configuration, every blog profile will use it. Sometimes you want to configure things uniquely for each blog. For example you maybe you have a conservative workflow on your work blog, but are more easy going on your personal so your "confirm before doing things" will be totally different. Additionally the default categories and tags would be probably be very different too. See ~org2blog/wp-blog-alist~ for details.
-- You only have to =UI [Login]= when you want to save or publish your post. However, you won't have code completion for your Categories, Tags, or Parent pages until you do login. Org2Blog will ask you which blog to log into. If there is only one, then it won't ask. If there are none then it will warn you.
+- Org2Blog's fundamental approach to configuration simple. When you configure a feature using a variable, then every blog profile will use that value. That makes it convenient because you are likely to use the same settings on each blog. Think of it as a global configuration; every blog profile will use it. Sometimes you want to configure things uniquely for each blog. For example, you may have a conservative workflow on your work blog but are more easygoing on your personal, so your "confirm before doing things" will be different. Additionally, the default categories and tags would probably be very different too. See ~org2blog/wp-blog-alist~ for details.
+- You only have to =UI [Login]= when you want to save or publish your post. However, you won't have code completion for your Categories, Tags, or Parent pages until you log in. Org2Blog will ask you which blog to log into: if there is only one, it won't ask. If there are none, then it will warn you.
 - You only have to =UI [Logout]= if you are going to start blogging to a different server than you began. All it does is clear out the local variables used to store tags and categories from your blog.
-- When you =UI [Save]= an already published entry then WordPress will change that entry into a Draft. This is normal WordPress behavior that you may have seen after working with the WordPress UI. If you have never used the WordPress UI before, now is the time. Sometimes using Org2Blog without any WordPress familiarity results in surprises when you forget to either publish or trash your draft and now there is a mysterious draft just sitting out there.
-- Whenever Org2Blog can't do what you asked, and it understands why, then it will show you a message in the minibuffer and the Messages buffer. If it doesn't understand why then it gives you a warning in the minibuffer and also in the Warnings buffer. You'll find details there that can both help give you additional information to figure out what happened and resolve it yourself or to copy and paste and fill out an issue report on the [[https://github.com/org2blog/org2blog/issues][issue tracker]]. Be sure to post issues before you start to get upset. It is probably something we have all faced before and talking about it will usually get it resolved pretty quickly.
+- When you =UI [Save]= an already published entry, WordPress will change that Entry into a Draft. The WordPress UI works the same way. If you have never used the WordPress UI before, now is the time. Sometimes using Org2Blog without any WordPress familiarity results in surprises when you forget to either publish or trash your draft and now there is a mysterious draft just sitting out there.
+Whenever Org2Blog can't do what you asked and understands why it will show you a message in the minibuffer and the Messages buffer. Suppose it doesn't know why it gives you a warning in the minibuffer and the Warnings buffer. You'll find details there that can both help provide you additional information to figure out what happened and resolve it yourself or to copy and paste and fill out an issue report on the [[https://github.com/org2blog/org2blog/issues][issue tracker]]. Be sure to post issues before you start to get upset. It is probably something we have all faced before, and talking about it will usually get it resolved pretty quickly.
 - You can store a single entry in a file (a Buffer Post). You can store multiple entries in a Subtree Post. See more below.
-- Custom Key Bindings: When you use the menu you will quickly find that you use 20% or the commands 80% of the time. For example you may only ever use buffer posts and never us any other menu item than =UI [Publish Post]=: in that case you only ever need to call one function! The menu item(s) to do what you want most of the time will quickly become "muscle memory". At that point it is will be easy for you to configure your own custom keybindings for the functions that back up the menu item. To find the function for the menu item just open the menu, choose =UI [Help]=, select the menu item, and you will be presented with the function that does the actual work. Take that function name and bind it to a key within this mode. See ~sample-keybindings~ at the beginning of this document for an example how.
+- Custom Key Bindings: When you use the menu, you will quickly find that you use 20% or the commands 80% of the time. For example, you may only ever use buffer posts and never use any other menu item than =UI [Publish Post]=: in that case, you only ever need to call one function! The menu item(s) to do what you want most of the time will quickly become "muscle memory." At that point, it will be easy for you to configure your custom keybindings for the functions that back up the menu item. To find the function for the menu item, just open the menu, choose =UI [Help]=, select the menu item, and Org2Blog will present you with the function that does the actual work. Take that function name and bind it to a key within this mode. See ~sample-keybindings~ at the beginning of this document for an example of how.
   - Here is a screenshot of the Help menu–Just Hit "h":
     - [[file:/images/HelpMenu.gif]]
 - See ~org2blog-mode-map~ or ~org2blog/wp-keymap-prefix~ for details of the default keymap and prefix key.
@@ -616,13 +618,13 @@ Org2Blog also helps you do many more good things. See below.
 
 *** Global And Blog Specific Configuration
 
-See ~org2blog/wp-blog-alist~ to learn about how to configure any number of your blogs. You've already seen example of the configure this value and the documentation goes into more detail.
+See ~org2blog/wp-blog-alist~ to learn about how to configure any number of your blogs. You've already seen an example of how to configure this value, and the documentation goes into more detail.
 
 There are two ways of configuring features: global and blog specific.
 
-If you know that you want a feature configured the same way for every blog in your configuration then you should configure the global value. For example if you want to always be prompted before posting then ~(setq org2blog/wp-confirm-post t)~. You will be prompted before every post.
+If you know that you want a feature configured the same way for every blog in your configuration, you should configure the global value. For example, if you wish always to be prompted before posting, then ~(setq org2blog/wp-confirm-post t)~. Now you will be prompted before every post.
 
-Imagine though that for a personal blog where it is OK to make a lot of changes /after/ posting you don't need the prompt. Here you can override the global setting by setting the value directly in the individual blog configuration. It would look something like this
+Imagine, though, that you don't need the prompt for a personal blog where it is OK to make many changes /after/ posting. Here you can override the global setting by setting the value directly in the individual blog configuration. It would look something like this.
 
 #+name: org_gcr_2019-08-10T12-52-53-05-00_cosmicality_425DF562-F13C-48A9-8B10-EE1B940DE96B
 #+begin_src emacs-lisp
@@ -633,18 +635,18 @@ Imagine though that for a personal blog where it is OK to make a lot of changes 
   :confirm t)
 #+end_src
 
-You probably noticed that the name of the global variable is a lot bigger than the name for configuring the individual blog. That is done in the interest of brevity. Also if you are overriding a global value then you already know a lot about it and don't need to see it's full name again.
+In the interest of brevity, the name of the global variable is a lot bigger than the name for configuring the individual blog. If you are overriding a global value, you already know a lot about it and don't need to see its full name again.
 
-Most variables are optional but there are two variables that *must* be configured within this system:
+Most variables are optional, but two variables * must* be configured within this system:
 
 - Global ~org2blog-xmlrpc~ or blog specific ~:url~
 - Global ~org2blog-username~ or blog specific ~:username~
 
-An easy way to work with the difference between the global variable name and the blog specific name is to read the documentation for the global variable. It will show you the purpose of that setting, example values, and the property name if you want to use it in the blog specific configure. It is a very powerful and convenient feature that makes working with multiple blogs very easy and even fun.
+An easy way to work with the difference between the global variable name and the blog specific name is to read the documentation for the global variable. It will show you the purpose of that setting, example values, and the property name if you want to use it in the blog-specific configure. It is a compelling and convenient feature that makes working with multiple blogs very easy and even fun.
 
 *** Inserting Things
 
-Most Org2Bloggers end up inserting a few elements common to all of us. The menu item =UI [“Insert A”]= captures some of them. You can get the help on them for more details and play around with inserting them too. You will be pretty surprised as how often you end up using them:
+Most Org2Bloggers end up inserting a few elements common to all of us. The menu item =UI [“Insert A”]= captures some of them. You can get help on them for more details and play around with inserting them too. You will be pretty surprised as to how often you end up using them:
 
 *** Confirming Things
 
@@ -658,9 +660,9 @@ Sometimes you want to be prompted before doing things. Here are some of the poss
 
 **** Posting Exactly What You Wrote (Quoting HTML)
 
-Sometimes you need to generate your HTML content by hand. For example you might be working with particular requirements for using a ShortCode. Another example is that you might be utilizing custom page elements that aren't accessible any other way. Whatever the case you aren't going to use the Org2Blog infrastructure to generate it: you need direct HTML access and here is how to get it by using [[https://orgmode.org/manual/Quoting-HTML-tags.html#Quoting-HTML-tags][Quoting HTML tags]]:
+Sometimes you need to generate your HTML content by hand. For example, you might be working with particular requirements for using a ShortCode. Another example is that you might be utilizing custom page elements that aren't accessible any other way. Whatever the case, you aren't going to use the Org2Blog infrastructure to generate it: you need direct HTML access, and here is how to get it by using [[https://orgmode.org/manual/Quoting-HTML-tags.html#Quoting-HTML-tags][Quoting HTML tags]]:
 
-For a single line of code use this:
+For a single line of code, use this:
 
 #+BEGIN_SRC org
 @@html:<b>@@bold text@@html:</b>@@
@@ -676,13 +678,13 @@ For multi-line code use this:
 ,#+END_EXPORT
 #+END_SRC
 
-An easy way to create this style of source block is to use [[https://orgmode.org/manual/Structure-Templates.html][Structure Templates]]. Simply type ~<h~ then strike ~TAB~ to create an HTML export block.
+An easy way to create this style of the source block is to use [[https://orgmode.org/manual/Structure-Templates.html][Structure Templates]]. Type ~<h~ then strike ~TAB~ to create an HTML export block.
 
 (examples copied from the Quoting link)
 
 Whatever you place in those blocks will get inserted directly into your post.
 
-You will know when you need this feature and will greatly enjoy being able to use it.
+You will know when you need this feature and will immensely enjoy being able to use it.
 
 *** Source Blocks
 :PROPERTIES:
@@ -696,11 +698,11 @@ Org2Blog source blocks support both the =#+name= and =#caption= property.
 Note:
 
 -
-When you have and on a source block then the values are included in the post too.
+When you have, and on a source block, then the values are included in the post too.
 
-Warning: Source blocks do not work inside of plain lists.
+*Warning*: Source blocks do not work inside of plain lists.
 
-Out of the box source blocks are converted into =<pre>= tags. This is the most simple and durable approach: it is plain old HTML. And another option is to SyntaxHighlighter Evolved.
+Out of the box, source blocks are converted into =<pre>= tags. This is the most durable and straightforward approach: it is plain old HTML. And another option is to SyntaxHighlighter Evolved.
 
 Here is how they look and work.
 
@@ -730,9 +732,9 @@ Here is how the built-in syntax highlighting looks:
 
 [[https://wordpress.org/plugins/syntaxhighlighter/][SyntaxHighlighter Evolved]] is an extremely popular plugin for rendering source code. It supports a bunch of languages and configuration parameters (see [[https://en.support.wordpress.com/code/posting-source-code/][here]]) in addition to open-source custom plugins for other languages.
 
-To use this first you need to set the variable ~org2blog/wp-use-sourcecode-shortcode~ to ~t~.
+To use this first, you need to set the variable ~org2blog/wp-use-sourcecode-shortcode~ to ~t~.
 
-Since you are an Emacser you probably want to add support for Emacs-Lisp immediately by using rehanift's [[https://github.com/rehanift/wp-syntaxhighlighter-brush-lispy][wp-syntaxhighlighter-brush-lispy]]. If you've never installed a plugin before then there are instructions on the page. The only thing that you might do differently is to create the folder ~wp-syntaxhighlighter-brush-lispy~ and copy the plugins files there.
+Since you are an Emacser, you probably want to add support for Emacs-Lisp immediately by using rehanift's [[https://github.com/rehanift/wp-syntaxhighlighter-brush-lispy][wp-syntaxhighlighter-brush-lispy]]. If you've never installed a plugin before then, there are instructions on the page. The only thing that you might do differently is to create the folder ~wp-syntaxhighlighter-brush-lispy~ and copy the plugins files there.
 
 Here are some examples of how to use SyntaxHighlighter Evolved:
 
@@ -752,7 +754,7 @@ Configure your source blocks for SyntaxHighlighter like this:
 ,#+END_SRC
 #+end_src
 
-SyntaxHighlighter Evolved always uses the global configuration unless you override it with the line ~#+attr_wp: :syntaxhl light="true"~ placed before the source block. The =:syntaxhl= property tells Org2Blog that everything following it is a configuration parameter for SyntaxHighlighter. Those values get passed on. The =#+ATTR_WP= line immediately *must* immediately precede the =#+BEGIN_SRC= line. It is easier though to configure it globally and never touch it again.
+SyntaxHighlighter Evolved always uses the global configuration unless you override it with the line ~#+attr_wp: :syntaxhl light="true"~ placed before the source block. The =:syntaxhl= property tells Org2Blog that everything following it is a configuration parameter for SyntaxHighlighter. Those values get passed on. The =#+ATTR_WP= line immediately *must* immediately precede the =#+BEGIN_SRC= line. It is easier, though, to configure it globally and never touch it again.
 
 With SyntaxHighlighter Evolved enabled:
 
@@ -760,11 +762,11 @@ With SyntaxHighlighter Evolved enabled:
 
 ***** SyntaxHighlighter Evolved Is Broken Now What?!
 
-Sometimes your source block contents cause this plugin to do the unexpected. It will look at best horrible and more likely just wrong. Then to put it simply your first reaction will be "Why doesn't this work😠?!" For example, your source block may be rendered as plain text without any special formatting. If you run into this situation then start debugging it without Org2Blog even involved by editing the entry directly on WordPress.
+Sometimes your source block contents cause this plugin to do the unexpected. It will look at best horrible and more likely just wrong. Then to put it simply, your first reaction will be, "Why doesn't this work😠?!" For example, your source block might be rendered as plain text without any special formatting. If you run into this situation, start debugging it without Org2Blog even involved by editing the entry directly on WordPress.
 
-For example remove all of the contents of the source block and type in a single word. Preview the page. It probably worked correctly so now paste in the first line of content that you removed just now. Keep repeating until it doesn't work correctly anymore. If it looks like the problem is in Org2Blog then please create an issue ticket, otherwise considering reporting the issue to the plugin maintainer.
+For example, remove all of the contents of the source block and type in a single word. Preview the page. It probably worked correctly, so now paste in the first line of content that you removed just now. Keep repeating until it doesn't work correctly anymore. If it looks like the problem is in Org2Blog, then please create an issue ticket, otherwise considering reporting the issue to the plugin maintainer.
 
-When you run into an issue and you want to just "make the content look right" then the easiest thing to do is to manually wrap it in an HTML ~<pre>~ block.
+When you run into an issue and want to "make the content look right," then the easiest thing to do is manually wrap it in an HTML ~<pre>~ block.
 
 Here is how to do it:
 
@@ -793,29 +795,29 @@ WordPress has LaTeX support [[https://en.support.wordpress.com/latex/][built-in]
 
 [[https://www.mathjax.org/][MathJax]] is an open-source JavaScript display engine for LaTeX, MathML, and AsciiMath notation that works in all modern browsers."
 
-Whether you use MathJax with a WordPress plugin, manual inclusion, or any other means you need to be aware of MathJax's [[https://www.mathjax.org/cdn-shutting-down/][CDN]] options: you need to get it from somewhere so just choose one of the sources and note the URL.
+Whether you use MathJax with a WordPress plugin, manual inclusion, or any other means, you need to be aware of MathJax's [[https://www.mathjax.org/cdn-shutting-down/][CDN]] options: you need to get it from somewhere, so choose one of the sources and note the URL.
 
-First tell Org2Blog to disable translation to =wp-latex= syntax because you want to use MathJax instead.
+First, tell Org2Blog to disable translation to =wp-latex= syntax because you want to use MathJax instead.
 
 #+name: org_gcr_2019-03-08T01-25-08-06-00_cosmicality_E94F1F13-48FA-46DB-A1A6-6DFE135F8538
 #+begin_src emacs-lisp
 (setq org2blog/wp-use-wp-latex nil)
 #+end_src
 
-Then easiest way to use MathJax with WordPress is to set up this [[https://wordpress.org/plugins/mathjax-latex/][MathJax-LaTeX]] plugin.
+Then the easiest way to use MathJax with WordPress is to set up this [[https://wordpress.org/plugins/mathjax-latex/][MathJax-LaTeX]] plugin.
 
 - Steps
 - Install it
 - Configure it
 - Force Load: =NO=
-- Using MathJax adds time for loading your post. It is probably imperceptible but you probably want page loads to be as fast as possible. If you plan to use MathJax a lot, or you don't mind the nearly imperceptible load time even if you are not using it, then enable this setting: MathJax will get loaded on every post.
-- If you are not going to use it frequently or want to manually require it when you need it then use =UI [“Insert A”]= followed by =UI [MathJax Shortcode]= to insert the MathJax shortcode. When WordPress sees it, then MathJax will get loaded for the page.
+- Using MathJax adds time for loading your post. It is probably imperceptible, but you probably want page loads to be as fast as possible. If you plan to use MathJax a lot or don't mind the nearly imperceptible load time even if you are not using it, enable this setting: your browser will load MathJax on every post.
+- If you are not going to use it frequently or want to require it when you need it manually, then use =UI [“Insert A”]= followed by =UI [MathJax Shortcode]= to insert the MathJax shortcode. When WordPress sees it, then MathJax will get loaded for the page.
 - Default [latex] syntax attribute: =Inline=
 - Use WP-Latex syntax? =YES=
 - Use MathJax CDN Service? =NO=
-- MathJax no longer hosts their own CDN but there are [[https://www.mathjax.org/cdn-shutting-down/][many alternatives]].
+- MathJax no longer hosts their CDN, but there are [[https://www.mathjax.org/cdn-shutting-down/][many alternatives]].
 - Custom MathJax location? =YES=
-- [[https://docs.mathjax.org/en/v1.1-latest/configuration.html#loading][This]] explains how to load and configure the library manually. Please read it so you know what the plugin is doing.
+- [[https://docs.mathjax.org/en/v1.1-latest/configuration.html#loading][This]] explains how to load and configure the library manually. Please read it, so you know what the plugin is doing.
 - Copy the CDN URL up to and including the ~MathJax.js~. Everything /after/ that are configuration options
 - MathJax Configuration: =TeX-AMS-MML_HTMLorMML=
 
@@ -844,35 +846,35 @@ width="50%" height="50%">
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:56FD59F9-1365-44F9-8CC1-12CE12937BF0
 :END:
 
-If you want to turn an existing Org mode document into an Org2Blog document you only need to populate the required properties. Here is the easiest way how:
+If you want to turn an existing Org mode document into an Org2Blog document, you only need to populate the required properties. Here is the easiest way how:
 
 - Create a =UI [New Buffer]= or =UI [New Subtree= and copy those default property values
 - Copy them into your file and populate them with what you want
-- If you want to use this entry to provide content for an existing post on the server then populate =POSTID=. When you do this, and save or post your entry, whatever was on the server will get replaced.
+- If you want to use this entry to provide content for an existing post on the server, then populate =POSTID=. When you do this and save or post your entry, whatever was on the server will get replaced.
 
-That is the process to migrate a single Org file it is pretty simple. How do you migrating a lot lot more files though?
+That is the process to migrate a single Org file; it is pretty simple. How do you migrate a lot more files, though?
 
-Fortunately it is still simple. Rather than performing the steps manually you can automate the process with code. The code will do what you did by hand instead of having to type it all yourself. First start by making sure that you are familiar with how to perform those steps manually.
+Fortunately, it is still simple. Rather than performing the steps manually, you can automate the process with code. The code will do what you did by hand instead of having to type it all yourself. First, start by making sure that you are familiar with how to perform those steps manually.
 
-First take a post and convert it by hand. It will prove to you that you understand the process, you can log into your blog, and that everything works correctly. That is all you need to begin automating.
+First, take a post and convert it by hand. It will prove to you that you understand the process, you can log into your blog, and that everything works correctly. That is all you need to begin automating.
 
-Create another post and convert it by hand. This time use the API to submit it. Look at the code for ~org2blog--test-buffer-post~ to see how it works. That codes goes through all of the steps of posting including demonstrating how to make changes. You don't need to do that for migration you. You only need to login and publish the post (if you want to see a result code, read the function doc). Now you are ready to begin automating migration of all of your Org files. When you have any questions please be sure to reach out here so your migration is as pleasant and fast as possible.
+Create another post and convert it by hand. This time use the API to submit it. Look at the code for ~org2blog--test-buffer-post~ to see how it works. That code goes through all of the steps of posting, including demonstrating how to make changes. You don't need to do that for migration. You only need to log in and publish the post (if you want to see a result code, read the function doc). Now you are ready to begin automating the migration of all of your Org files. When you have any questions, please be sure to reach out here, so your migration is as pleasant and fast as possible.
 
 *** Export WordPress to Org
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:0EE1AC01-BE62-4A9F-BB54-19492BE9D42E
 :END:
 
-Once you start using Org2Blog for all of your /new/ posts you you will want to starting using it for all of your /old/ posts too. The easiest way for that is to export your WordPress database to Org files. [[https://github.com/org2blog/org2blog-importers][This]] project performs that export. Reports of successful exports of 2000+ entries are common.
+Once you start using Org2Blog for all of your /new/ posts, you will want to start using it for all of your /old/ posts too. The easiest way for that is to export your WordPress database to Org files. [[https://github.com/org2blog/org2blog-importers][This]] project performs that export. Reports of successful exports of 2000+ entries are common.
 
 *** Using Entry Templates
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:AF693199-1147-4491-859E-72B1400D6197
 :END:
 
-Out of the box Org2Blog populates your new Buffer entries with a template. If you want to change it you can configure ~org2blog/wp-buffer-template~ or ~org2blog/wp-buffer-subtree-template-prefix~.
+Out of the box, Org2Blog populates your new Buffer entries with a template. If you want to change it you can configure ~org2blog/wp-buffer-template~ or ~org2blog/wp-buffer-subtree-template-prefix~.
 
-The former takes some reading and study of the code to utilize. It will be simplified in a future release. The latter is a template that is inserted without any value substitution.
+The former takes some reading and study of the code to utilize. A future release will simplify it in a future release. The latter is a template that is inserted without any value substitution.
 
 *** Tracking Entries
 :PROPERTIES:
@@ -881,15 +883,15 @@ The former takes some reading and study of the code to utilize. It will be simpl
 
 You can automatically track all of the posts that you make. Why might you want to do this?
 
-Perhaps you want a logbook of when you actually posted your entries versus when you wrote them.
+Perhaps you want a logbook of when you posted your entries versus when you wrote them.
 
-Maybe you want a single place to keep track of when you did all your posts so you can leverage Org mode's feature to get an overview of how you've been posting in terms of volume or topics covered and use that information to decide how to move forward. Each scenario is pretty specific and it will probably be the same for you.
+Maybe you want a single place to keep track of when you did all your posts so you can leverage Org mode's feature to get an overview of how you've been posting in terms of volume or topics covered and use that information to decide how to move forward. Each scenario is pretty specific, and it will probably be the same for you.
 
-In my case sometimes I just want a record of what I did post so I can compare it to what is out on the server because sometimes I delete entries on the blog without deleting their source files in Org mode leaving me confused about what is going on.
+In my case, sometimes I want a record of what I did post so I can compare it to what is out on the server because sometimes I delete entries on the blog without deleting their source files in Org mode, leaving me confused about what is going on.
 
-Surely where are more examples than I could make up here. Please send me some scenarios that you use this feature. And speaking of that here is how to us this feature.
+Indeed there are more examples than I could make up here. Please send me some scenarios that you use this feature—and speaking of that, here is how to use this feature.
 
-You need to tell Org2Blog where to do the tracking by telling it two things:
+Tell Org2Blog where to do the tracking by telling it two things:
 
 - What is the file name you want to store the tracking data in
 - Under what headline do you want to store that data
@@ -933,16 +935,16 @@ when you post entries they will get logged in your log file under the headline s
 Hi.
 #+end_src
 
-If you specify a file that Org2Blog has some kind of problem accessing then it will try creating and loading the file specified by ~org-directory~. That way you won't lose anything. You can rename the file later after you get the desired file set working. The solution is usually to make sure that you specify the whole path ether absolutely or relatively. It won't work right list a file name without it's place in the directory system.
+If you specify a file that Org2Blog has some problem accessing, it will try creating and loading the file specified by ~org-directory~. That way, you won't lose anything. You can rename the file later after you get the desired file set working. The solution is usually to make sure that you specify the whole path either absolutely or relatively. It won't work right to list a file name without its place in the directory system.
 
-It it can't do either then you will get a warning message saying why it failed. The solution is usually to correct the file name or set the ~org-directory~ to something valid.
+If it can't do either, then you will get a warning message saying why it failed. The solution is usually to correct the file name or set the ~org-directory~ to something valid.
 
 *** Doing Things After Saving And Publishing
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:C31909F6-8E61-4833-89BB-860175914813
 :END:
 
-Now your post or page exists both in your Org-Mode file on your computer, and also in WordPress itself. That page or post inside of WordPress contains a lot of metadata and you might be interested in some of it. [[https://codex.wordpress.org/XML-RPC_MetaWeblog_API][Here]] is documentation covering all of the fields. You can easily access that data using a hook function.
+Now your post or page exists both in your Org-Mode file on your computer and also in WordPress itself. That page or post inside WordPress contains a lot of metadata, and you might be interested in some of it. [[https://codex.wordpress.org/XML-RPC_MetaWeblog_API][Here]] is documentation covering all of the fields. You can easily access that data using a hook function.
 
 After publishing your post or page, Org2Blog calls the functions in ~org2blog/wp-after-new-post-or-page-functions~ passing them the post or page metadata. Maybe you've never seen a hook function like this before because it takes an argument. They are still just plain old functions. Here they need to accept one argument so that Org2Blog can give you that metadata. It is pretty simple.
 
@@ -955,9 +957,9 @@ Here is an example that displays your post or page information in the =*Messages
 
 ** The Huge Power Of Customizations
 
-By now you've probably seen that Org2Blog can be tailored to your personal workflow. If you haven't, the following will show you how easily that it can. If you already have, then you'll see how you can make it even better. It all comes through Customization to your configuration.
+By now, you've probably seen that Org2Blog can be tailored to your workflow. If you haven't, the following will show you how easily that it can. If you already have, then you'll see how you can make it even better. It all comes through Customization to your configuration.
 
-The fastest way to learn about everything possible with Org2Blog is to read the documentation for the customizations. You've already seen some of them in examples and that is a great way to start learning about them. When you have a particular itch to scratch and you find answers in here, the support board, or function documentation they are all great ways to learn more. You can also benefit a lot from searching for all of the customization variables and reading the documentation for them. Here is how:
+The fastest way to learn about everything possible with Org2Blog is to read the documentation for the customizations. You've already seen some of them in examples, and that is a great way to start learning about them. When you have a particular itch to scratch and find answers in here, the support board, or function documentation, they are all great ways to learn more. You can also benefit a lot from searching for all of the customization variables and reading the documentation for them. Here is how:
 
 - Call ~M-x occur~
 - Insert (defcustom and hit enter
@@ -965,7 +967,7 @@ The fastest way to learn about everything possible with Org2Blog is to read the 
 - Place the cursor on one and hit return
 - You are now in a buffer with the cursor positioned at the source code of that defcustom and ready to read its documentation
 
-When you have time read one or two of them and see where they might fit into /your/ workflow.
+When you have time, read one or two of them and see where they might fit into /your/ workflow.
 
 ** Some Questions And Some Answers
 :PROPERTIES:
@@ -1038,8 +1040,7 @@ For historical reasons the WordPress API client is implemented inside of =metaWe
 
 * Sample Posts
 
-There are so many ways to work with posts. Here are some real world examples to demonstrate how the features are implemented in a real entry.
-
+There are so many ways to work with posts. Here are some real-world examples.
 ** Buffer Post
 
 #+name: org_gcr_2019-08-10T12-52-53-05-00_cosmicality_C94EF540-A6A5-4148-B365-CE5F217F55FB
@@ -1095,7 +1096,7 @@ See [[./HISTORY.org][HISTORY]].
 - Cari at [[https://sepiarainbow.com/][Sepia Rainbow Designs]] drew the brilliant logo.
 - [[./docs/Org2Bloggers.org][The Hundreds Of Org2Bloggers Out There]].
   - Be sure to add /your/ or /your friends/ or /anybody's/ blog to the list!
-- Org2Blog is lovingly maintained by Grant Rettke.
+- Grant Rettke lovingly maintains Org2Blog.
 
 * When Things Go Wrong Or Could Go Even Better
 
@@ -1110,27 +1111,27 @@ Here is where to begin:
 - Study the README to learn how the feature you are reporting is expected to work.
 - Review the documentation by searching for keywords: it might be a documented feature.
 - Go [[https://github.com/org2blog/org2blog/issues][here]] to search for the issue and maybe report it. Don't hesitate because it is easier to close an already solved issue than go through the pain of trying to figure out a solved problem.
-- If you need to dig deeper read the documentation for ~org2blog-user-report~. It walks you through the entire process of investigation. It can be intimidating at first. As you read through it though you will find that Org2Blog has a few clearly defined layers. When you "see" them they will make a lot of sense. Once you are comfortable with the ideas there, enable reporting with =UI [Reporting On]=
-- Read about some past [[./docs/DebuggingStories.org][hard issues]] and how they were resolved.
+- If you need to dig deeper, read the documentation for ~org2blog-user-report~. It walks you through the entire process of investigation. It can be intimidating at first. As you read through it, though, you will find that Org2Blog has a few clearly defined layers. When you "see" them, they will make a lot of sense. Once you are comfortable with the ideas there, enable reporting with =UI [Reporting On]=
+- Read about some past [[./docs/DebuggingStories.org][challenging issues]] and how debugging resolved them.
 
 ** When Things Could Go Even Better
 
-Org2Blog always has room for new and improved features. The process for making those improvements is welcomed and simple.
+Org2Blog always has room for new and improved features. The process for making those improvements is welcomed and straightforward.
 
 Here are the steps:
 
 - Ideas for new future features are captured in [[https://github.com/org2blog/org2blog/FUTURE.org][FUTURE]] file. Please read and review it to see if the feature is already listed in there.
 - Review the already submitted [[https://github.com/org2blog/org2blog/issues][entries]] to see if it is already in there. Typically ideas will either assigned for implementation or moved in the [[https://github.com/org2blog/org2blog/FUTURE.org][FUTURE]] file relatively quickly.
-- If you don't find it in either of those places then fill out a request [[https://github.com/org2blog/org2blog/issues][here]]. Either way don't worry too much about tracking down whether it was listed or not already: the most important thing is figuring out what to do with it next.
+- If you don't find it in either of those places, then fill out a request [[https://github.com/org2blog/org2blog/issues][here]]. Either way, don't worry too much about tracking down whether it was listed or not already: the most important thing is figuring out what to do with it next.
 
 * Development
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:75FC72AE-6ECF-475F-AF06-9E45F13B07C8
 :END:
 
-- You may have already set up your codebase to /run/ Org2Blog but if you haven't then find out how up in the Installation section.
+- You may have already set up your codebase to /run/ Org2Blog, but if you haven't, then find out how up in the Installation section.
 - Readme
-  - If you do decide make changes to the readme then you need to rebuild the table of contents. Install the package [[https://github.com/alphapapa/org-make-toc][org-make-toc]]. Then call ~org-make-toc~. You can also install it by hand like you did the other packages, like this:
+  - If you decide to make changes to the readme, you need to rebuild the table of contents. Install the package [[https://github.com/alphapapa/org-make-toc][org-make-toc]]. Then call ~org-make-toc~. You can also install it by hand like you did the other packages, like this:
     #+BEGIN_SRC sh
 cd ~/src
 git clone https://github.com/magnars/s.el.git
@@ -1146,7 +1147,7 @@ git clone https://github.com/alphapapa/org-make-toc.git
 (add-to-list 'load-path "~/src/org-make-toc")
 (require 'org-make-toc)
     #+END_SRC
-  - You may wish to automatically update the Readme's table of contents by adding these file local variables to this file:
+  - You may wish to automatically update the Readme's table of contents by adding these file local variables:
     #+BEGIN_SRC org
 # eval: (require 'org-make-toc)
 # before-save-hook: org-make-toc
@@ -1165,8 +1166,8 @@ git clone https://github.com/purcell/package-lint.git
     #+END_SRC
 - Testing
   - Programmatic Interactive System Testing
-    - Working with posts and pages is the most important 80% of this package. This core functionality should always work well and be easy to test. And it is easy to test. It only takes 3 steps to get the system tests running.
-      - Define 3 system variables for the blog you will test against like this:
+    - Working with posts and pages is the most critical 80% of this package. This core functionality should always work well and be easy to test. And it is easy to test. It only takes 3 steps to get the system tests running.
+      - Define three system variables for the blog you will test against like this:
         #+BEGIN_SRC shell
 O2BXMLRPC="https://yourblog.com/xmlrpc.php"
 O2BUSER="user"
@@ -1175,7 +1176,7 @@ O2BPASSWORD="password"
       - Load and evaluate [[./org2blog-test-system.el][System Test Program]].
         - Start Emacs in an empty environment before loading Org2Blog and performing the testing by starting Emacs like this: ~emacs --no-init-file~
         - Load (or open and evalute it) it because it is not a package.
-      - Now you've got everything you need to start automatically going through the entire blogging process. The test functions will log you in, create and display posts, modify them, publish them, and finally trash them. At each step there is a pause so you can observe what is happening on the blog. This is a great way to see how the workflow works too if you've never blogged before. These are the four functions that you will use for testing from a buffer or a subtree to a post or a page:
+      - Now you've got everything you need to start automatically going through the entire blogging process. The test functions will log you in, create and display posts, modify them, publish them, and finally trash them. At each step, there is a pause so you can observe what is happening on the blog. Testing is a great way to see how the workflow works, too, if you've never blogged before. These four functions cover everything.
         - ~defun org2blog--test-buffer-post~
         - ~defun org2blog--test-buffer-page~
         - ~defun org2blog--test-subtree-post~
