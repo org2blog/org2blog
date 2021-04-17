@@ -1,21 +1,10 @@
 * Introduction
 
-This is an informal test plan for Org2Blog. It only includes commands.
-Reviewing each of them will give you a sense of how the system works. Perhaps
-reviewing the smallest units of functionality is a better way to learn the
-system compared to studying it all once. In service of those goals, just
-enough detail is provided here to make sense of testing without becoming mind
-numbingly painful.
+This is an informal test plan for Org2Blog. It only includes commands. Reviewing each of them will give you a sense of how the system works. Perhaps reviewing the smallest units of functionality is a better way to learn the system compared to studying it all once. In service of those goals, just enough detail is provided here to make sense of testing without becoming mind numbingly painful.
 
-The tests are split up logically and informally. The prerequisites are obvious.
-For example you need a blog before you can post, and you need a user before
-you can log in. Each test has /some/ notes about what should happen, maybe along
-with a reference. All of the commands are also accessible by the UI if that is
-easier for you. Ideally you test the command directly and also via the UI.
+The tests are split up logically and informally. The prerequisites are obvious. For example you need a blog before you can post, and you need a user before you can log in. Each test has /some/ notes about what should happen, maybe along with a reference. All of the commands are also accessible by the UI if that is easier for you. Ideally you test the command directly and also via the UI.
 
-The easiest way to use this is to copy this file to your computer and check
-off items as you go. Please submit improvements and corrections. Have a
-pleasant test run!
+The easiest way to use this is to copy this file to your computer and check off items as you go. Please submit improvements and corrections. Have a pleasant test run!
 
 * Information
 
@@ -63,8 +52,7 @@ These are commands that insert markup into your post.
   - [ ] ~org2blog-complete~
     - Completes categories, tags, and [[https://en.support.wordpress.com/pages/page-options/#parent-page][parent]].
     - Position cursor all over the line
-    - Use empty and populated lines: one place it won't complete is at the
-      keword closing colon, so read the error message there
+    - Use empty and populated lines: one place it won't complete is at the keword closing colon, so read the error message there
     - [ ] Buffer
       - [ ] Post
         - [ ] Category
@@ -188,8 +176,7 @@ These are commands that insert markup into your post.
     - [ ] Images
   - [ ] Study Installation
   - [ ] Test package
-    - Start a separate Emacs instance with an awareness of how Emacs is loading
-      Org2Blog from where
+    - Start a separate Emacs instance with an awareness of how Emacs is loading Org2Blog from where
 - [ ] MELPA Package
   - [ ] Update recipe
   - [ ] Verify it has expected files
@@ -198,8 +185,7 @@ These are commands that insert markup into your post.
     - [ ] Images
   - [ ] Study Installation
   - [ ] Test package
-    - Start a separate Emacs instance with an awareness of how Emacs is loading
-      Org2Blog from where
+    - Start a separate Emacs instance with an awareness of how Emacs is loading Org2Blog from where
 
 * Documentation
 

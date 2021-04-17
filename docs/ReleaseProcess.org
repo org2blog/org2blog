@@ -2,8 +2,7 @@
 - [ ] Bring codebase up to expectations in [[CONTRIBUTING.org][Contributing]].
   - [ ] Byte compile file, checkdoc, package-lint
 - [ ] Complete [[../org2blog-test-system.el][System Test Program and Test Plan]]
-  - Start Emacs in an empty environment before loading Org2Blog and performing
-    the testing by starting Emacs like this: ~emacs --no-init-file~
+  - Start Emacs in an empty environment before loading Org2Blog and performing the testing by starting Emacs like this: ~emacs --no-init-file~
 - [ ] Push package definition and version changes
 - [ ] Build package with [[https://github.com/melpa/melpa#build-scripts][MELPA]]
   - [ ] Make sure it installs and loads
