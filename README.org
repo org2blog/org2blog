@@ -174,7 +174,7 @@ Now you've got everything you need to run Org2Blog against its source code. With
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:808A8EC0-9E9D-4DE2-958D-65E073D5100B
 :END:
 
-*Note*: For a better learning experience try reading this document inside of Emacs and Org mode by calling ~org2blog-readme~.
+*Note*: For a better learning experience try reading this document inside of Emacs and Org mode after installing Org2Blog by calling ~org2blog-readme~.
 
 ** Make Your First Post In Less 5 Minutes
 :PROPERTIES:
