@@ -101,17 +101,17 @@ You can use either a stable or cutting-edge version of Org2Blog by configuring y
 
 If you want the stable version, then use [[https://stable.melpa.org/#/getting-started][MELPA Stable]]
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-#+END_SRC
+#+end_src
 
 If you want the cutting edge version using [[https://melpa.org/#/getting-started][MELPA]]
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/") t)
-#+END_SRC
+#+end_src
 
 For advanced users, you can configure Package to use any combination of stable and cutting-edge versions of a package /and/ its dependencies. Read more about how to [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Package-Installation.html#Package-Installation][configure]] it and [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Package-Menu.html#Package-Menu][utilize]] that power in both your init file and the Package user interface.
 
@@ -119,7 +119,6 @@ For advanced users, you can configure Package to use any combination of stable a
 
 [[https://github.com/jwiegley/use-package][Use-Package]] brings ease and order to your init file. It manages your packages predictably and simply. It is the easiest way to use Org2Blog because it will download Org2Blog for you along with all of its dependencies. Before using it, configure [[https://melpa.org/#/getting-started][MELPA]]. MELPA contains the development branch of Org2Blog, so you'll get the most current version right when it becomes available. Here is how to load Org2Blog:
 
-#+name: org_gcr_2019-03-09T22-18-17-06-00_cosmicality_64768F79-602C-4D7D-B537-C82BC3402F09
 #+begin_src emacs-lisp
 (use-package org2blog
              :ensure t)
@@ -156,16 +155,15 @@ If you are a developer or even feel like exploring the code a little for the fir
 
 For example, you should see something like this:
 
-#+BEGIN_SRC shell
+#+begin_src shell
 git clone https://github.com/hniksic/emacs-htmlize.git /Users/gcr/mysrc/htmlize
-#+END_SRC
+#+end_src
 
 And this
 
-#+name: org_gcr_2019-08-07T18-10-20-05-00_cosmicality_3353D35E-3036-40EE-B175-69057224A796
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (add-to-list 'load-path "/Users/gcr/mysrc/htmlize")
-#+END_SRC
+#+end_src
 
 Now you've got everything you need to run Org2Blog against its source code. With this set up you can start playing around with things and even making changes. When you scratch and itch, create your branch and submit a pull request. It's pretty fun and effortless.
 
@@ -186,7 +184,6 @@ Now you've got everything you need to run Org2Blog against its source code. With
 - Installation is already complete, so Org2Blog is ready for you to use.
 - Create the profile for your blog so you can get started. In this example, "myblog" is the name of your profile for your blog: it stores everything you want Org2Blog to use and know about it. To get started, it only requires the 2 bits of the information shown. ~url~ is the full URL required to access WordPress XML-RPC on your blog. ~username~ is the account that you are using to blog. Now fill it out and evaluate it.
 
-#+NAME: org_gcr_2019-03-06T17-15-24-06-00_cosmicality_596316A8-5CB2-4D66-A519-66AF732BBBAA
 #+begin_src emacs-lisp
 (setq org2blog/wp-blog-alist
       '(("myblog"
@@ -326,7 +323,6 @@ You can customize your writing experience by configuring Org2Blog whenever it op
 
 Since Org2Blog documents are plain Org documents, Org2Blog can't tell the difference between them just by looking at them. It needs a hint. The hint is simple: Org2Blog looks for a buffer property named =#+ORG2BLOG=, and if it finds it, it loads its minor mode. To make this happen, set it up in the Org mode hook:
 
-#+name: org_gcr_2019-03-04T08-22-32-06-00_cosmicality_C837C334-C25F-460E-B54B-D2825B38FA39
 #+begin_src emacs-lisp
 (add-hook 'org-mode-hook #'org2blog-maybe-start)
 #+end_src
@@ -341,7 +337,6 @@ Here is how to identify the functions /behind/ the User Interface that you can b
 
 This sample uses the =alt= name-space because it is /supposed/ to be 100% free for user key bindings.
 
-#+name: org_gcr_2019-03-04T08-22-32-06-00_cosmicality_8F0B6AC9-C081-48A2-8D57-EA164C30D32A
 #+begin_src emacs-lisp
 (defun org2blog-sample-keybindings ()
   (local-set-key (kbd "A-0") #'org2blog-user-interface)
@@ -358,14 +353,12 @@ Org2Blog can automatically log you in if you configure a =.netrc= file in your h
 
 Your configuration should look like this.
 
-#+NAME: org_gcr_2019-03-06T17-15-24-06-00_cosmicality_53E1F010-1415-4DB9-AC70-6989687FD272
 #+begin_src sh
 machine ⟪myblog⟫ login ⟪myusername⟫ password ⟪myrealpassword⟫
 #+end_src
 
 or like this
 
-#+NAME: org_gcr_2019-03-06T17-15-24-06-00_cosmicality_A5F0D188-3440-42F8-A6BC-4BA2A74D3514
 #+begin_src sh
 machine ⟪myblog⟫
 login ⟪myusername⟫
@@ -376,8 +369,7 @@ Whatever format you use: first replace the contents of the double angle brackets
 
 Then, configure your blog using those credentials, as shown below.
 
-#+NAME: org_gcr_2019-03-06T17-15-24-06-00_cosmicality_9A6BC3D1-4227-4F4B-815C-779B1EC10724
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (require 'auth-source)
 (let* ((credentials (auth-source-user-and-password "⟪myblog⟫"))
        (username (nth 0 credentials))
@@ -387,12 +379,12 @@ Then, configure your blog using those credentials, as shown below.
                  :username ,username
                  :password ,password)))
   (setq org2blog/wp-blog-alist config))
-#+END_SRC
+#+end_src
 
-#+RESULTS: org_gcr_2019-03-06T17-15-24-06-00_cosmicality_9A6BC3D1-4227-4F4B-815C-779B1EC10724
-#+BEGIN_EXAMPLE
+#+results:
+#+begin_example
 ("wordpress" :url "http://username.server.com/xmlrpc.php" :username nil :password nil)
-#+END_EXAMPLE
+#+end_example
 
 *** Store Multiple Entries In One File
 :PROPERTIES:
@@ -427,11 +419,11 @@ Buffer entries and subtrees are identical in purpose. You write, save, view, pub
 
 You can store multiple buffer entries in a single file. You write, save, view, publish, and trash them precisely as you would expect. It all "just works," that is, if you are willing to get a little more technical about using Emacs by learning something about =Narrowing=.
 
-#+BEGIN_QUOTE
+#+begin_quote
 Narrowing means focusing on some portion of the Buffer, making the rest temporarily inaccessible. The portion which you can still get to is called the accessible portion. Canceling the narrowing, which makes the entire Buffer once again accessible, is called widening. The bounds of narrowing in effect in a buffer are called the Buffer's restriction.
 
 Narrowing can make it easier to concentrate on a single subroutine or paragraph by eliminating clutter. It can also limit the range of operation of a replace command or repeating keyboard macro.
-#+END_QUOTE
+#+end_quote
 
 -- [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Narrowing.html][14.5 Narrowing]], from the [[https://www.gnu.org/software/emacs/manual/html_node/emacs/index.html#Top][The Emacs Editor]] Documentation
 
@@ -493,9 +485,9 @@ In other words, this workflow is compelling, simple, and valuable to a very cert
 
 By default, this feature is disabled. If, after reading this, you find that you are that kind of user or even just curious about how it works, then you can enable the feature by setting ~org2blog/wp-image-upload~ to a non-nil value like this.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (setq org2blog/wp-image-upload t)
-#+END_SRC
+#+end_src
 
 And read more about how it works.
 
@@ -513,9 +505,9 @@ All of the standard HTML image attributes work by prefacing the image link with 
 
 Just like most exporters, you can also caption the image with a line like this:
 
-#+BEGIN_SRC org
+#+begin_src org
 ,#+CAPTION: My image caption
-#+END_SRC
+#+end_src
 
 These two capabilities will get you very close to your desired image styling. The last thing to configure is how to handle image thumbnails.
 
@@ -626,7 +618,6 @@ If you know that you want a feature configured the same way for every blog in yo
 
 Imagine, though, that you don't need the prompt for a personal blog where it is OK to make many changes /after/ posting. Here you can override the global setting by setting the value directly in the individual blog configuration. It would look something like this.
 
-#+name: org_gcr_2019-08-10T12-52-53-05-00_cosmicality_425DF562-F13C-48A9-8B10-EE1B940DE96B
 #+begin_src emacs-lisp
 '("myblog"
   :url "https://www.wisdomandwonder.com/xmlrpc.php"
@@ -664,19 +655,19 @@ Sometimes you need to generate your HTML content by hand. For example, you might
 
 For a single line of code, use this:
 
-#+BEGIN_SRC org
+#+begin_src org
 @@html:<b>@@bold text@@html:</b>@@
-#+END_SRC
+#+end_src
 
 For multi-line code use this:
 
-#+BEGIN_SRC org
+#+begin_src org
 ,#+HTML: Literal HTML code for export
 
 ,#+BEGIN_EXPORT html
   All lines between these markers are exported literally
 ,#+END_EXPORT
-#+END_SRC
+#+end_src
 
 An easy way to create this style of the source block is to use [[https://orgmode.org/manual/Structure-Templates.html][Structure Templates]]. Type ~<h~ then strike ~TAB~ to create an HTML export block.
 
@@ -693,7 +684,7 @@ You will know when you need this feature and will immensely enjoy being able to 
 
 Org2Blog has first-class source block support. The headlines in this section explain how.
 
-Org2Blog source blocks support both the =#+name= and =#caption= property.
+Org2Blog source blocks support both the =#+NAME= and =#CAPTION= property.
 
 Note:
 
@@ -710,16 +701,14 @@ Here is how they look and work.
 
 First make sure that Org2Blog will generate plain on =<pre>= tags like this:
 
-#+name: org_gcr_2019-08-11T13-09-58-05-00_cosmicality_DAD815F1-2D09-421F-99F8-9187F6A72FEA
 #+begin_src emacs-lisp
 (setq org2blog/wp-use-sourcecode-shortcode nil)
 #+end_src
 
-#+name: org_gcr_2019-08-10T12-52-53-05-00_cosmicality_81A873BE-82E4-4F01-91B3-282C181CC02F
 #+begin_src org
-,#+caption: My caption is my passport
-,#+name: Demo
-,#+BEGIN_SRC
+,#+CAPTION: My caption is my passport
+,#+NAME: Demo
+,#+BEGIN_SRC emacs-lisp
 (setq pass "Hi")
 ,#+END_SRC
 #+end_src
@@ -738,18 +727,16 @@ Since you are an Emacser, you probably want to add support for Emacs-Lisp immedi
 
 Here are some examples of how to use SyntaxHighlighter Evolved:
 
-#+name: org_gcr_2019-08-11T13-09-58-05-00_cosmicality_F87B5E80-70D2-4316-A022-441EA3605493
 #+begin_src emacs-lisp
 (setq org2blog/wp-use-sourcecode-shortcode t)
 #+end_src
 
 Configure your source blocks for SyntaxHighlighter like this:
 
-#+NAME: org_gcr_2019-03-06T17-15-24-06-00_cosmicality_97FBBAF4-3169-4F86-9E52-E085EF9A9BD4
 #+begin_src org
-,#+caption: My caption is my passport
-,#+name: Demo
-,#+BEGIN_SRC
+,#+CAPTION: My caption is my passport
+,#+NAME: Demo
+,#+BEGIN_SRC emacs-lisp
 (setq pass "Hi")
 ,#+END_SRC
 #+end_src
@@ -771,7 +758,7 @@ When you run into an issue and want to "make the content look right," then the e
 Here is how to do it:
 
 #+begin_src org
-,#+begin_export html
+,#+BEGIN_EXPORT html
 <pre>
 o0O s5S z2Z !|l1Iij {([|})] .,;: ``''"" www
 a@#* vVuUwW <>;^°=-~ öÖüÜäÄßµ \/\/ -- == __
@@ -779,7 +766,7 @@ the quick brown fox jumps over the lazy dog
 THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
 0123456789 &-+@ for (int i=0; i<=j; ++i) {}
 </pre>
-,#+end_export
+,#+END_EXPORT
 #+end_src
 
 *** LaTeX Support
@@ -799,7 +786,6 @@ Whether you use MathJax with a WordPress plugin, manual inclusion, or any other 
 
 First, tell Org2Blog to disable translation to =wp-latex= syntax because you want to use MathJax instead.
 
-#+name: org_gcr_2019-03-08T01-25-08-06-00_cosmicality_E94F1F13-48FA-46DB-A1A6-6DFE135F8538
 #+begin_src emacs-lisp
 (setq org2blog/wp-use-wp-latex nil)
 #+end_src
@@ -824,15 +810,14 @@ Then the easiest way to use MathJax with WordPress is to set up this [[https://w
 Now test your installation:
 
 - Test it out using these ([[https://math.meta.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference][and more]]) examples
-#+NAME: org_gcr_2019-03-06T17-15-24-06-00_cosmicality_F2AC1FB7-2878-45CF-A441-01ECC9A2B109
-#+BEGIN_SRC org
+#+begin_src org
 - The word LaTeX
   - $\LaTeX$
 - Inline
   - $\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$
 - Equation
   - $$\sum_{i=0}^n i^2 = \frac{(n^2+n)(2n+1)}{6}$$
-#+END_SRC
+#+end_src
 
 You should see something like this:
 
@@ -898,7 +883,6 @@ Tell Org2Blog where to do the tracking by telling it two things:
 
 Either specify at the top level programmatically:
 
-#+name: org_gcr_2019-08-09T21-02-43-05-00_cosmicality_965F6965-83E8-4CD5-A625-572162E970CD
 #+begin_src emacs-lisp
 (setq org2blog/wp-track-posts (list ".org2blog.org" "MYBLOGNAME"))
 #+end_src
@@ -921,7 +905,6 @@ Or in your blog config
 
 when you post entries they will get logged in your log file under the headline specified. For example:
 
-#+name: org_gcr_2019-08-09T21-02-43-05-00_cosmicality_84A07F27-20C7-4D39-9480-1DFCAB582698
 #+begin_src org
 ,* MYBLOGNAME
 
@@ -950,7 +933,6 @@ After publishing your post or page, Org2Blog calls the functions in ~org2blog/wp
 
 Here is an example that displays your post or page information in the =*Messages*= buffer:
 
-#+NAME: org_gcr_2019-03-06T17-15-24-06-00_cosmicality_2734615A-6D82-4818-8DEE-206B9DE3A253
 #+begin_src emacs-lisp
 (add-hook 'org2blog/wp-after-new-post-or-page-functions (lambda (p) (pp p)))
 #+end_src
@@ -1018,9 +1000,9 @@ In that historical context and considering goals today the name remains Org2Blog
 
 *** What Is MetaWeblog And Why Is It In Org2Blog?
 
-#+BEGIN_QUOTE
+#+begin_quote
 The [[https://en.wikipedia.org/wiki/MetaWeblog][MetaWeblog API]] is an application programming interface created by software developer Dave Winer that enables weblog entries to be written, edited, and deleted using web services.
-#+END_QUOTE
+#+end_quote
 
 Org2Blog implements a MetaWeblog client in =metaWeblog.el=. It has two uses.
 
@@ -1043,7 +1025,6 @@ For historical reasons the WordPress API client is implemented inside of =metaWe
 There are so many ways to work with posts. Here are some real-world examples.
 ** Buffer Post
 
-#+name: org_gcr_2019-08-10T12-52-53-05-00_cosmicality_C94EF540-A6A5-4148-B365-CE5F217F55FB
 #+begin_src org
 ,#+BLOG: wisdomandwonder
 ,#+POSTID: 11659
@@ -1063,7 +1044,6 @@ Blogging from Org2Blog to WordPress /just works/ and that is just about all ther
 :PROPERTIES:
 :END:
 
-#+name: org_gcr_2019-08-10T12-52-53-05-00_cosmicality_FDFDFCA0-614F-4C6A-8B38-ACC1D3A4118B
 #+begin_src org
 ,* VIM Changes Acronym to "VIM Imitates eMacs"
 :PROPERTIES:
@@ -1132,47 +1112,47 @@ Here are the steps:
 - You may have already set up your codebase to /run/ Org2Blog, but if you haven't, then find out how up in the Installation section.
 - Readme
   - If you decide to make changes to the readme, you need to rebuild the table of contents. Install the package [[https://github.com/alphapapa/org-make-toc][org-make-toc]]. Then call ~org-make-toc~. You can also install it by hand like you did the other packages, like this:
-    #+BEGIN_SRC sh
+    #+begin_src sh
 cd ~/src
 git clone https://github.com/magnars/s.el.git
 git clone https://github.com/magnars/dash.el.git
 git clone https://github.com/alphapapa/org-make-toc.git
-    #+END_SRC
+    #+end_src
     Use this code to load it:
-    #+BEGIN_SRC emacs-lisp
+    #+begin_src emacs-lisp
 (add-to-list 'load-path "~/src/s")
 (require 's)
 (add-to-list 'load-path "~/src/dash")
 (require 'dash)
 (add-to-list 'load-path "~/src/org-make-toc")
 (require 'org-make-toc)
-    #+END_SRC
+    #+end_src
   - You may wish to automatically update the Readme's table of contents by adding these file local variables:
-    #+BEGIN_SRC org
+    #+begin_src org
 # eval: (require 'org-make-toc)
 # before-save-hook: org-make-toc
-    #+END_SRC
+    #+end_src
 - Contributing
   - Read the [[./docs/CONTRIBUTING.org][contributing]] guidelines.
   - Before your commit make sure that ~byte-compile-file~, ~checkdoc~, and ~package-lint-current-buffer~ don't report any errors. The first two are included with Emacs. ~package-lint~ you can either install using MELPA or you can also install it by hand like you did the other packages, like this:
-    #+BEGIN_SRC sh
+    #+begin_src sh
 cd ~/src
 git clone https://github.com/purcell/package-lint.git
-    #+END_SRC
+    #+end_src
     Use this code to load it:
-    #+BEGIN_SRC emacs-lisp
+    #+begin_src emacs-lisp
 (add-to-list 'load-path "~/src/package-lint")
 (require 'package-lint)
-    #+END_SRC
+    #+end_src
 - Testing
   - Programmatic Interactive System Testing
     - Working with posts and pages is the most critical 80% of this package. This core functionality should always work well and be easy to test. And it is easy to test. It only takes 3 steps to get the system tests running.
       - Define three system variables for the blog you will test against like this:
-        #+BEGIN_SRC shell
+        #+begin_src shell
 O2BXMLRPC="https://yourblog.com/xmlrpc.php"
 O2BUSER="user"
 O2BPASSWORD="password"
-        #+END_SRC
+        #+end_src
       - Load and evaluate [[./org2blog-test-system.el][System Test Program]].
         - Start Emacs in an empty environment before loading Org2Blog and performing the testing by starting Emacs like this: ~emacs --no-init-file~
         - Load (or open and evalute it) it because it is not a package.
