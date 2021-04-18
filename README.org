@@ -686,7 +686,7 @@ Org2Blog has first-class source block support. The headlines in this section exp
 
 Org2Blog source blocks support both the =#+NAME= and =#CAPTION= property.
 
-Note:
+*Note*:
 
 -
 When you have, and on a source block, then the values are included in the post too.
