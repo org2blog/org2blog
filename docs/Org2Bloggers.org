@@ -9,7 +9,7 @@ Please let us know about more blogs to add to the list!
 - [[http://crazythinking.wordpress.com/][Crazythinking]]
 - [[http://croniqueslinux.wordpress.com/][Cròniques d'un Nyu i un Pingüí (in catalan)]]
 - [[http://blog.nethazard.net/][Gabriel Saldana's blog]]
-- Grant Rettke: [[https://www.wisdomandwonder.com/][Wisdom and Wonder]]
+- [[https://www.wisdomandwonder.com/][Grant Rettke: Wisdom and Wonder]]
 - [[http://graphtheoryinlatex.wordpress.com/][Graph Theory in LaTeX 2]]
 - [[http://www.hackinghistory.ca/][Hacking History]]
 - [[http://blog.nozav.org/][Humus numericus]]
