@@ -742,7 +742,7 @@ When you want to override it's global configuration use
 ,#+ATTR_WP: :syntaxhl light="true"
 #+end_src
 
-placed before the source block. The =:syntaxhl= property tells Org2Blog that everything following it is a configuration parameter for SyntaxHighlighter. Those values get passed on. The =#+ATTR_WP= line immediately *must* immediately precede the =#+BEGIN_SRC= line. It is easier, though, to configure it globally and never touch it again.
+placed before the source block. The =:syntaxhl= property tells Org2Blog that everything following it is a configuration parameter for SyntaxHighlighter. Those values get passed on. The =#+ATTR_WP= line *must* immediately precede the =#+BEGIN_SRC= line. It is easier, though, to configure it globally and never touch it again.
 
 With SyntaxHighlighter Evolved enabled:
 
