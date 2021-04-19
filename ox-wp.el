@@ -223,10 +223,10 @@ contextual information."
                                        (substring (match-string 0) 2 -2)
                                        "$ </p>") nil t))
                ((equal m "begin")
-                (if (equal (match-string 2) "equation")
-                    (replace-match (concat "<p style=\"text-align:center\"> $latex "
-                                           (substring (match-string 1) 16 -14)
-                                           "$ </p>") nil t))))))))
+                (cond ((equal (match-string 2) "equation")
+                       (replace-match (concat "<p style=\"text-align:center\"> $latex "
+                                              (substring (match-string 1) 16 -14)
+                                              "$ </p>") nil t)))))))))
       (let ((result
              (replace-regexp-in-string "\s*\n" " " (buffer-string))))
         result))))
