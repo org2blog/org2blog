@@ -232,13 +232,25 @@ contextual information."
 (defun ox-wp-export-snippet (export-snippet _contents _info)
   "Transcode a EXPORT-SNIPPET object from Org to WordPress.
 CONTENTS is nil.  INFO is a plist holding contextual
-information."
+information.
+
+`ox-wp' initially relied upon `ox-html' to satisfy this
+function's responsibility. Consequently, it used the
+`html' tag. When `ox-wp' implemented its export function,
+it switched over to using the `wp' tag instead. However,
+it needs to continue supporting both tags."
   (when (member (org-export-snippet-backend export-snippet) '(wp html))
     (org-element-property :value export-snippet)))
 
 (defun ox-wp-export-block (export-block _contents _info)
   "Transcode a EXPORT-BLOCK element from Org to WordPress.
-CONTENTS is nil.  INFO is a plist holding contextual information."
+CONTENTS is nil.  INFO is a plist holding contextual information.
+
+`ox-wp' initially relied upon `ox-html' to satisfy this
+function's responsibility. Consequently, it used the
+`html' tag. When `ox-wp' implemented its export function,
+it switched over to using the `wp' tag instead. However,
+it needs to continue supporting both tags."
   (when (or (string= (org-element-property :type export-block) "WP")
             (string= (org-element-property :type export-block) "HTML"))
     (org-remove-indentation (org-element-property :value export-block))))
