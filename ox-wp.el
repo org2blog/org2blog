@@ -227,7 +227,9 @@ contextual information."
                     (replace-match (concat "<p style=\"text-align:center\"> $latex "
                                            (substring (match-string 1) 16 -14)
                                            "$ </p>") nil t))))))))
-      (replace-regexp-in-string "\s*\n" " " (buffer-string)))))
+      (let ((result
+             (replace-regexp-in-string "\s*\n" " " (buffer-string))))
+        result))))
 
 (defun ox-wp-export-snippet (export-snippet _contents _info)
   "Transcode a EXPORT-SNIPPET object from Org to WordPress.
