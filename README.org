@@ -718,17 +718,15 @@ Here is how the built-in syntax highlighting looks:
 
 [[https://wordpress.org/plugins/syntaxhighlighter/][SyntaxHighlighter Evolved]] is an extremely popular plugin for rendering source code. It supports a bunch of languages and configuration parameters (see [[https://en.support.wordpress.com/code/posting-source-code/][here]]) in addition to open-source custom plugins for other languages.
 
-To use this first, you need to set the variable ~org2blog/wp-use-sourcecode-shortcode~ to ~t~.
-
 Since you are an Emacser, you probably want to add support for Emacs-Lisp immediately by using rehanift's [[https://github.com/rehanift/wp-syntaxhighlighter-brush-lispy][wp-syntaxhighlighter-brush-lispy]]. If you've never installed a plugin before then, there are instructions on the page. The only thing that you might do differently is to create the folder ~wp-syntaxhighlighter-brush-lispy~ and copy the plugins files there.
 
-Here are some examples of how to use SyntaxHighlighter Evolved:
+To enable SyntaxHighlighter Evolved you need to set the variable ~org2blog/wp-use-sourcecode-shortcode~ to ~t~.
 
 #+begin_src emacs-lisp
 (setq org2blog/wp-use-sourcecode-shortcode t)
 #+end_src
 
-Configure your source blocks for SyntaxHighlighter like this:
+Configure your source blocks for SyntaxHighlighter like this. SyntaxHighlighter Evolved automatically uses the default global settings you configured in it's WordPress plugin page.
 
 #+begin_src org
 ,#+CAPTION: My caption is my passport
@@ -738,7 +736,7 @@ Configure your source blocks for SyntaxHighlighter like this:
 ,#+END_SRC
 #+end_src
 
-SyntaxHighlighter Evolved always uses the global configuration unless you override it with the line
+When you want to override it's global configuration use
 
 #+begin_src org
 ,#+ATTR_WP: :syntaxhl light="true"
