@@ -726,7 +726,7 @@ To enable SyntaxHighlighter Evolved you need to set the variable ~org2blog/wp-us
 (setq org2blog/wp-use-sourcecode-shortcode t)
 #+end_src
 
-Configure your source blocks for SyntaxHighlighter like this. SyntaxHighlighter Evolved automatically uses the default global settings you configured in it's WordPress plugin page.
+Configure your source blocks for SyntaxHighlighter like below. SyntaxHighlighter Evolved automatically uses the default global settings you configured in it's WordPress plugin page.
 
 #+begin_src org
 ,#+CAPTION: My caption is my passport
