@@ -187,46 +187,46 @@ contextual information."
 
 (defun ox-wp-latex-to-wp (text)
   "Convert latex fragments or environments in TEXT to WP LaTeX blocks."
-  (let* ((matchers (plist-get org-format-latex-options :matchers))
-         (re-list org-latex-regexps)
-         re e m)
+  (let ((matchers (plist-get org-format-latex-options :matchers))
+        (regular-expressions org-latex-regexps))
     (with-temp-buffer
       (insert text)
       (goto-char (point-min))
-      (while (setq e (pop re-list))
-        (setq m (car e)
-              re (nth 1 e))
-        (when (member m matchers)
-          (save-match-data
-            (when (re-search-forward re nil t)
-              (cond
-               ((equal m "$")
-                (replace-match (concat (match-string 1) "$latex "
-                                       (match-string 4) "$"
-                                       (match-string 6))
-                               nil t))
-               ((equal m "$1")
-                (replace-match (concat (match-string 1) "$latex "
-                                       (substring (match-string 2) 1 -1)
-                                       "$" (match-string 3))
-                               nil t))
-               ((equal m "\\(")
-                (replace-match (concat "$latex "
-                                       (substring (match-string 0) 2 -2)
-                                       "$") nil t))
-               ((equal m "\\[")
-                (replace-match (concat "<p style=\"text-align:center\"> $latex "
-                                       (substring (match-string 0) 2 -2)
-                                       "$ </p>") nil t))
-               ((equal m "$$")
-                (replace-match (concat "<p style=\"text-align:center\"> $latex "
-                                       (substring (match-string 0) 2 -2)
-                                       "$ </p>") nil t))
-               ((equal m "begin")
-                (cond ((equal (match-string 2) "equation")
-                       (replace-match (concat "<p style=\"text-align:center\"> $latex "
-                                              (substring (match-string 1) 16 -14)
-                                              "$ </p>") nil t)))))))))
+      (while (nth 0 regular-expressions)
+        (let* ((regular-expression (pop regular-expressions))
+               (re-matcher (nth 0 regular-expression))
+               (re-pattern (nth 1 regular-expression)))
+          (when (member re-matcher matchers)
+            (save-match-data
+              (when (re-search-forward re-pattern nil t)
+                (cond
+                 ((equal re-matcher "$")
+                  (replace-match (concat (match-string 1) "$latex "
+                                         (match-string 4) "$"
+                                         (match-string 6))
+                                 nil t))
+                 ((equal re-matcher "$1")
+                  (replace-match (concat (match-string 1) "$latex "
+                                         (substring (match-string 2) 1 -1)
+                                         "$" (match-string 3))
+                                 nil t))
+                 ((equal re-matcher "\\(")
+                  (replace-match (concat "$latex "
+                                         (substring (match-string 0) 2 -2)
+                                         "$") nil t))
+                 ((equal re-matcher "\\[")
+                  (replace-match (concat "<p style=\"text-align:center\"> $latex "
+                                         (substring (match-string 0) 2 -2)
+                                         "$ </p>") nil t))
+                 ((equal re-matcher "$$")
+                  (replace-match (concat "<p style=\"text-align:center\"> $latex "
+                                         (substring (match-string 0) 2 -2)
+                                         "$ </p>") nil t))
+                 ((equal re-matcher "begin")
+                  (cond ((equal (match-string 2) "equation")
+                         (replace-match (concat "<p style=\"text-align:center\"> $latex "
+                                                (substring (match-string 1) 16 -14)
+                                                "$ </p>") nil t))))))))))
       (let ((result
              (replace-regexp-in-string "\s*\n" " " (buffer-string))))
         result))))
