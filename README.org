@@ -659,8 +659,6 @@ To include raw HTML code in the Org file so Org2Blog can insert that HTML code i
 For larger raw HTML code blocks, use these WP export code blocks:
 
 #+begin_src org
-,#+HTML: Literal HTML code for export
-
 ,#+BEGIN_EXPORT wp
   All lines between these markers are exported literally
 ,#+END_EXPORT
