@@ -772,7 +772,7 @@ THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
 
 **** WordPress LaTeX
 
-WordPress has LaTeX support [[https://en.support.wordpress.com/latex/][built-in]]. ~org2blog/wp-use-wp-latex~ is enabled by default.
+WordPress has LaTeX support [[https://en.support.wordpress.com/latex/][built-in]]. Although it is incomplete, it is built-in, so read it to figure out if you need more functionality than it provides. Org2Blog attempts to address some of its deficit by implementing the feature itself: in particular, support both additional embedded ~math~ formats and the ~equation~ environment. Org2Blog doesn't address everything you may need, so consider submitting a feature request when you find missing LaTeX markup. ~org2blog/wp-use-wp-latex~ is enabled by default.
 
 **** MathJax
 
