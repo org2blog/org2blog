@@ -45,8 +45,7 @@ Blog from Org mode to WordPress.
     -  [[#global-and-blog-specific-configuration][Global And Blog Specific Configuration]]
     -  [[#inserting-things][Inserting Things]]
     -  [[#confirming-things][Confirming Things]]
-    -  [[#html-support][HTML Support]]
-      -  [[#posting-exactly-what-you-wrote-quoting-html][Posting Exactly What You Wrote (Quoting HTML)]]
+    -  [[#raw-html-creation][Raw HTML Creation]]
     -  [[#source-blocks][Source Blocks]]
       -  [[#plain-source-box-format][Plain Source Box Format]]
       -  [[#syntaxhighlighter-evolved][SyntaxHighlighter Evolved]]
@@ -493,7 +492,7 @@ And read more about how it works.
 
 **** How It Works
 
-Org mode's HTML exporter is smart about [[https://orgmode.org/worg/org-tutorials/images-and-xhtml-export.html][Image links]]. When it finds images in an Org link for example  [[file:example.png][file:]] or =[[example.png]]= it knows to generate an =IMG= tag in the resulting HTML. All of the file types listed in ~org-html-inline-image-rules~ are automatically supported. They work in Org2Blog the same as in Org mode: Org2Blog uses the Org mode HTML exporter to do all of its work which means that everything will work as you expect it.
+Org mode is smart about [[https://orgmode.org/worg/org-tutorials/images-and-xhtml-export.html][Image links]]. When it finds images in an Org link for example [[file:example.png][file:]] or =[[example.png]]= it knows to generate an =IMG= tag in the resulting HTML. All of the file types listed in ~org-html-inline-image-rules~ are automatically supported. They work in Org2Blog the same as in Org mode: Org2Blog uses the Org mode HTML exporter to do all of its work which means that everything will work as you expect it.
 
 All of the standard HTML image attributes work by prefacing the image link with a =#+ATTR_HTML= like and following it with the desired attribute including for example:
 
@@ -647,35 +646,33 @@ Sometimes you want to be prompted before doing things. Here are some of the poss
 - ~org2blog/wp-safe-new-entry-buffer-kill~
 - ~org2blog/wp-show-post-in-browser~
 
-*** HTML Support
+*** Raw HTML Creation
 
-**** Posting Exactly What You Wrote (Quoting HTML)
+Sometimes Org2Blog doesn't know how to generate the HTML that you need. For example, you might be working with special requirements for using a ShortCode. Another example is that you might be utilizing custom page elements that aren't accessible any other way. The simplest example you may have already seen above is the WordPress =more= tag. Whatever the case, the easiest and most straightforward way to get what you need is to insert the raw HTML content you need directly.
 
-Sometimes you need to generate your HTML content by hand. For example, you might be working with particular requirements for using a ShortCode. Another example is that you might be utilizing custom page elements that aren't accessible any other way. Whatever the case, you aren't going to use the Org2Blog infrastructure to generate it: you need direct HTML access, and here is how to get it by using [[https://orgmode.org/manual/Quoting-HTML-tags.html#Quoting-HTML-tags][Quoting HTML tags]]:
-
-For a single line of code, use this:
+To include raw HTML code in the Org file so Org2Blog can insert that HTML code in the output, use this inline syntax: ‘@@wp:...@@’. For example:
 
 #+begin_src org
-@@html:<b>@@bold text@@html:</b>@@
+@@wp:<b>@@bold text@@html:</b>@@
 #+end_src
 
-For multi-line code use this:
+For larger raw HTML code blocks, use these WP export code blocks:
 
 #+begin_src org
 ,#+HTML: Literal HTML code for export
 
-,#+BEGIN_EXPORT html
+,#+BEGIN_EXPORT wp
   All lines between these markers are exported literally
 ,#+END_EXPORT
 #+end_src
 
-An easy way to create this style of the source block is to use [[https://orgmode.org/manual/Structure-Templates.html][Structure Templates]]. Type ~<h~ then strike ~TAB~ to create an HTML export block.
+An easy way to create this block is to use [[https://orgmode.org/manual/Structure-Templates.html][Structure Templates]]. Org2Blog comes with a template for creating raw HTML code blocks. However, it doesn't load it automatically. To automatically add the template each time you start Emacs, add ~(org2blog-structure-template-add)~ to your startup file.
 
-(examples copied from the Quoting link)
-
-Whatever you place in those blocks will get inserted directly into your post.
+Inside of your file type ~<wp~ then strike ~TAB~ to create the raw HTML block you need.
 
 You will know when you need this feature and will immensely enjoy being able to use it.
+
+*Note*: In the previous version of Org2Blog, Org2Blog raw HTML export blocks used the ~html~ tag to include raw HTML. Using the ~html~ tag had the convenient side-effect that Org2Blog inserted the raw HTML whether posting your Entry to WordPress /or/ exported the same document to HTML. However rarely used: this was the original behavior. Since it was *rarely* used, though, Org2Blog switched over to use the ~wp~ tag. ~wp~ is easier to remember and a good reminder of how you are using the structural block. That said: both ~wp~ and ~html~ do and will continue to work the same way. In the future, though, please use the ~wp~ tag instead.
 
 *** Source Blocks
 :PROPERTIES:
@@ -759,7 +756,7 @@ When you run into an issue and want to "make the content look right," then the e
 Here is how to do it:
 
 #+begin_src org
-,#+BEGIN_EXPORT html
+,#+BEGIN_EXPORT wp
 <pre>
 o0O s5S z2Z !|l1Iij {([|})] .,;: ``''"" www
 a@#* vVuUwW <>;^°=-~ öÖüÜäÄßµ \/\/ -- == __

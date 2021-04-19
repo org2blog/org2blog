@@ -1837,12 +1837,27 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
 
 “More” tags only work in posts, not Pages."
   (interactive)
-  (let* ((pre "@@html:<!--more")
+  (let* ((pre "@@wp:<!--more")
          (post "-->@@")
          (msg (string-trim (read-string "“More” message? (hit return to leave blank): ")))
          (str (or (and (string-blank-p msg) (concat pre post))
                   (concat pre " " msg post))))
     (insert str)))
+
+;;;###autoload
+(defun org2blog-structure-template-add ()
+  "Add `<wp' to insert `BEGIN_EXPORT wp' block."
+  (interactive)
+  (let* ((key "wp")
+         (body "#+BEGIN_EXPORT wp
+?
+#+END_EXPORT")
+         (template (list key body))
+         (msg (format "Just enabled the \"<%s\" Easy template. Type it and hit
+TAB to create an Org2Blog export block." key)))
+    (unless (assoc key org-structure-template-alist)
+      (add-to-list 'org-structure-template-alist template)
+      (message msg))))
 
 ;;;###autoload
 (defun org2blog-insert-mathjax ()
