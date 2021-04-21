@@ -1074,6 +1074,25 @@ See [[./HISTORY.org][HISTORY]].
   - Be sure to add /your/ or /your friends/ or /anybody's/ blog to the list!
 - Grant Rettke lovingly maintains Org2Blog.
 
+* Testimonials
+
+- I’ve recently discovered the absolute joy that is writing and publishing
+  wordpress blog posts using Emacs 24 and org2blog. -- [[https://vxlabs.com/2014/05/25/emacs-24-with-prelude-org2blog-and-wordpress/][cpbotha]]
+- Org2Blog is the reason I want to use Emacs for blogging. -- [[https://coderscat.com/blogging-with-emacs-and-wordpress/][Nic]]
+- Yesterday I installed Org2blog, which allows me to write my blog posts in
+  Emacs org-mode and push them to my WordPress blog from within Emacs. So far
+  I like it a lot! One less reason to leave Emacs :-), and hopefully also a
+  reason to blog more often. -- [[https://blog.karssen.org/2015/09/06/configuring-org2blog-2/][Lennart]]
+- org2blog is a beautiful plugin to post to wordpress blog. -- [[https://blog.binchen.org/posts/how-to-use-org2blog-effectively-as-a-programmer.html][Chen Bin]]
+- I love blogging with org2blog. -- [[https://irreal.org/blog/?p=6307][Jon Sander (jcs)]]
+- For those of you who’ve noticed that I’ve started being a more active
+  blogger over the last few weeks, there’s a good explanation: I’ve discovered
+  org2blog. -- [[http://eglenn.scripts.mit.edu/citystate/2012/02/org2blog/][Ezra Glenn]]
+- Org2blog is THE best tool to publish from org-mode to WordPress. -- [[http://tech.memoryimprintstudio.com/use-emacs-org2blog-to-publish-wordpress-blogs-with-crayon-highlight-support-2/][Mistan]]
+- So you may wonder why I’m now blogging like there’s no tomorrow. The reason
+  is org2blog/wp, a tool to publish directly from Org-mode in Emacs to
+  WordPress blogs such as Hypotheses. -- [[https://nlphist.hypotheses.org/178][Michael Piotrowski]]
+
 * When Things Go Wrong Or Could Go Even Better
 
 ** When Things Go Wrong
