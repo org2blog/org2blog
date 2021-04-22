@@ -1159,6 +1159,10 @@ git clone https://github.com/purcell/package-lint.git
 (add-to-list 'load-path "~/src/package-lint")
 (require 'package-lint)
     #+end_src
+  - *Note*: Org2Blog uses non-standard separators in its naming. The naming will address it in a future release.
+    #+BEGIN_SRC text
+error: `org2blog/wp-version' contains a non-standard separator `/', use hyphens instead (see Elisp Coding Conventions).   
+    #+END_SRC
 - Testing
   - Programmatic Interactive System Testing
     - Working with posts and pages is the most critical 80% of this package. This core functionality should always work well and be easy to test. And it is easy to test. It only takes 3 steps to get the system tests running.

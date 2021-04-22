@@ -540,9 +540,7 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                                             (value nil ,file-type))
                                     (member nil
                                             (name nil "overwrite")
-                                            (value nil "t")))))
-                 )))))))
-
+                                            (value nil "t"))))))))))))
 
 (provide 'metaweblog)
 

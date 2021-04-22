@@ -72,7 +72,9 @@
   (gethash key org2blog-def--package))
 
 (defun org2blog-def-update-artifacts ()
-  "Update dependent artifacts with version information in `org2blog-def--package'.
+  "Update dependent artifacts with version information.
+
+Use data from `org2blog-def--package'.
 
 Before calling this update and evaluate `org2blog-def--package'
 with the new release version number.
@@ -91,7 +93,7 @@ inspect the generated code."
   (org2blog-def--update-pkg))
 
 (defmacro org2blog-def--update-the (file &rest body)
-  "?"
+  "Visit FILE and evaluate BODY."
   `(save-excursion
      (save-buffer)
      (let ((origin (current-buffer)))
@@ -136,8 +138,7 @@ inspect the generated code."
     all))
 
 (defun org2blog-def--update-header (file version requirements keywords)
-  "Update FILE header with VERSION, REQUIREMENTS, and KEYWORDS. Unless NOSWITCHBACK
-  is non-nil switch to previous buffer."
+  "Update FILE header with VERSION, REQUIREMENTS, and KEYWORDS."
   (interactive)
   (org2blog-def--update-the
    file
@@ -420,14 +421,13 @@ Here is an example that outputs the entire object to the *Messages* buffer:
   (add-hook 'org2blog-buffer-entry-save-hook #'ahook).")
 
 (defvar org2blog-export-options
-  '(
-    :section-numbers nil
+  '(:section-numbers
+    nil
     :with-priority nil
     :with-sub-superscript nil
     :with-toc nil
     :with-tags nil
-    :with-todo-keywords nil
-    )
+    :with-todo-keywords nil)
   "Export options to be used when exporting buffers and subtrees.
 Look at `org-export-options-alist' for the available options.
 Also, note that these options are over-ridden by in-file
@@ -733,7 +733,9 @@ change for them to takes effect."
   :type 'string)
 
 (defcustom org2blog/wp-image-upload nil
-  "Non-nil means upload supported Org mode image types to the WordPress Media Library.
+  "Non-nil means upload supported Org mode image types.
+
+Upload to the WordPress Media Library.
 
 The blog specific property is: :image-upload
 

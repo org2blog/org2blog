@@ -1,4 +1,4 @@
-;;; ox-wp.el --- Org mode exporter for WordPress. -*- lexical-binding: t; -*-
+;;; ox-wp.el --- Org mode exporter for WordPress -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2014 Puneeth Chaganti <punchagan@muse-amuse.in>
 ;; Copyright (C) 2019 Grant Rettke <grant@wisdomandwonder.com>
