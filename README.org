@@ -650,10 +650,10 @@ Sometimes you want to be prompted before doing things. Here are some of the poss
 
 Sometimes Org2Blog doesn't know how to generate the HTML that you need. For example, you might be working with special requirements for using a ShortCode. Another example is that you might be utilizing custom page elements that aren't accessible any other way. The simplest example you may have already seen above is the WordPress =more= tag. Whatever the case, the easiest and most straightforward way to get what you need is to insert the raw HTML content you need directly.
 
-To include raw HTML code in the Org file so Org2Blog can insert that HTML code in the output, use this inline syntax: ‘@@wp:...@@’. For example:
+To include a small snippet of raw HTML code in the Org file so Org2Blog can insert that HTML code in the output, use this inline syntax: ~@@wp:...@@~. For example:
 
 #+begin_src org
-@@wp:<b>@@bold text@@html:</b>@@
+@@wp:<!--more Custom WordPress Tag-->@@
 #+end_src
 
 For larger raw HTML code blocks, use these WP export code blocks:
@@ -666,11 +666,11 @@ For larger raw HTML code blocks, use these WP export code blocks:
 
 An easy way to create this block is to use [[https://orgmode.org/manual/Structure-Templates.html][Structure Templates]]. Org2Blog comes with a template for creating raw HTML code blocks. However, it doesn't load it automatically. To automatically add the template each time you start Emacs, add ~(org2blog-structure-template-add)~ to your startup file.
 
-Inside of your file type ~<wp~ then strike ~TAB~ to create the raw HTML block you need.
+Inside of your file type ~<wp~ then strike ~TAB~ to create the snippet, or ~<WP~ to create the raw HTML block you need.
 
 You will know when you need this feature and will immensely enjoy being able to use it.
 
-*Note*: In the previous version of Org2Blog, Org2Blog raw HTML export blocks used the ~html~ tag to include raw HTML. Using the ~html~ tag had the convenient side-effect that Org2Blog inserted the raw HTML whether posting your Entry to WordPress /or/ exported the same document to HTML. However rarely used: this was the original behavior. Since it was *rarely* used, though, Org2Blog switched over to use the ~wp~ tag. ~wp~ is easier to remember and a good reminder of how you are using the structural block. That said: both ~wp~ and ~html~ do and will continue to work the same way. In the future, though, please use the ~wp~ tag instead.
+*Note*: In the previous version of Org2Blog, Org2Blog raw HTML export blocks used the ~html~ tag to include raw HTML. Using the ~html~ tag had the convenient side-effect that Org2Blog inserted the raw HTML whether posting your Entry to WordPress /or/ exporting the same document to HTML. However rarely used: this was the original behavior. Since it was *rarely* used, though, Org2Blog switched over to use the ~wp~ tag. ~wp~ is easier to remember and a good reminder of how you are using the structural block. That said: both ~wp~ and ~html~ do and will continue to work the same way. In the future, though, please use the ~wp~ tag instead.
 
 *** Source Blocks
 :PROPERTIES:

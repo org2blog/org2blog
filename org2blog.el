@@ -1846,18 +1846,31 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
 
 ;;;###autoload
 (defun org2blog-structure-template-add ()
-  "Add `<wp' to insert `BEGIN_EXPORT wp' block."
+  "Enable `@@wp' or `BEGIN_EXPORT wp' blocks.
+
+Add them to `snippet-key org-structure-template-alist' unless
+already present."
   (interactive)
-  (let* ((key "wp")
-         (body "#+BEGIN_EXPORT wp
+  (let* ((snippet-key "wp")
+         (snippet-body "@@wp:?@@")
+         (snippet-template (list snippet-key snippet-body))
+         (block-key "WP")
+         (block-body "#+BEGIN_EXPORT wp
 ?
 #+END_EXPORT")
-         (template (list key body))
-         (msg (format "Just enabled the \"<%s\" Easy template. Type it and hit
-TAB to create an Org2Blog export block." key)))
-    (unless (assoc key org-structure-template-alist)
-      (add-to-list 'org-structure-template-alist template)
-      (message msg))))
+         (block-template (list block-key block-body))
+         (msg
+          (format
+           (concat "The \"<%s\" and \"%s\" "
+                   "Easy templates are ready to use. "
+                   "Type one then hit TAB to create an Org2Blog "
+                   "export snippet or block.")
+           snippet-key block-key)))
+    (unless (assoc snippet-key org-structure-template-alist)
+      (add-to-list 'org-structure-template-alist snippet-template))
+    (unless (assoc block-key org-structure-template-alist)
+      (add-to-list 'org-structure-template-alist block-template))
+    (message "%s" msg)))
 
 ;;;###autoload
 (defun org2blog-insert-mathjax ()
