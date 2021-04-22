@@ -61,6 +61,16 @@
 - v1.1.10
   - Restore narrowing functionality when posting buffer entries.
   - Corrected title creation bug exposed by restoring narrowing.
+- v1.1.11
+  - Raw HTML support with ~wp~ snippets and blocks for more straightforward custom HTML.
+  - Narrowing approach to store multiple posts in a single file makes exporting to other formats easier.
+  - Improved Contribution Expectations for Documentation and Coding style makes contributing easier.
+  - Added Issue template, Bug report template, and Pull request template for easier creation and resolution.
+  - Unfilled documentation making grammar enabling the use of checking tools for more straightforward grammar checking.
+  - Structure templates for inserting RAW HTML using snippets or blocks.
+  - Minor refactorings to ease maintenance.
+  - Added testimonials for the fun of it.
+  - After this release, only bug fixes: new development in v1.2.0 branch starting with migration to the latest Emacs and Org mode.
 
 * v1.0.*
 ** v1.0.3
