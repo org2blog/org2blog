@@ -81,12 +81,8 @@ This function requires that you are calling it while visiting a
 file located in the project's top level directory because it
 opens all of the files relatively.
 
-This seems like the most simple approach.
-
 It also leaves the file buffers open because you probably want to
-inspect the generated code.
-
-This also seems like the most simple approach."
+inspect the generated code."
   (interactive)
   (org2blog-def--update-readme)
   (org2blog-def--update-org2blog)
@@ -141,7 +137,7 @@ This also seems like the most simple approach."
 
 (defun org2blog-def--update-header (file version requirements keywords)
   "Update FILE header with VERSION, REQUIREMENTS, and KEYWORDS. Unless NOSWITCHBACK
-is non-nil switch to previous buffer."
+  is non-nil switch to previous buffer."
   (interactive)
   (org2blog-def--update-the
    file
@@ -237,10 +233,10 @@ Copy them from the *Messages* buffer into your Terminal."
   (interactive)
   (let ((install-dir (read-directory-name "Directory:")))
     (mapcar (lambda (pkg) (princ (format
-                                  "git clone %s %s%s\n"
-                                  (caddr pkg)
-                                  install-dir
-                                  (car pkg))))
+                             "git clone %s %s%s\n"
+                             (caddr pkg)
+                             install-dir
+                             (car pkg))))
             (org2blog-def--pkg "requirements"))))
 
 (defun org2blog-def-load-statement ()
