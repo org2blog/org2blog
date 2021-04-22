@@ -1,6 +1,13 @@
-- [ ] The release version number appears in multiple files. Instead of manually updating all of them there is a function to do it. ~org2blog-def-update-artifacts~ visits the files and updates the correct settings. To use it first open ~org2blog.el,~ update ~org2blog-def--package~ with the new version number, evaluate it, and then call ~org2blog-def-update-artifacts~.
+- [ ] The release version number appears in multiple files. Instead of manually updating all of them there is a function to do it. ~org2blog-def-update-artifacts~ visits the files and updates the correct settings. To use it:
+  - Open ~org2blog.el~
+  - Update ~org2blog-def--package~ with the new version number (~this-release~)
+  - Evaluate it
+  - Call ~org2blog-def-update-artifacts~
+    - This step /may/ be fragile. It automates the manual steps of updating version numbers by searching for string matches, and sometimes those values change. If the function fails, try visiting each of the relevant files in the function body, moving the cursor to the first line, and trying again. If that fails, then please file an Issue Report so we can look at it together.
 - [ ] Bring codebase up to expectations in [[CONTRIBUTING.org][Contributing]].
-  - [ ] Byte compile file, checkdoc, package-lint
+  - [ ] Byte compile source code files
+  - [ ] Checkdoc
+  - [ ] Package-Lint
 - [ ] Complete [[../org2blog-test-system.el][System Test Program and Test Plan]]
   - Start Emacs in an empty environment before loading Org2Blog and performing the testing by starting Emacs like this: ~emacs --no-init-file~
 - [ ] Push package definition and version changes
