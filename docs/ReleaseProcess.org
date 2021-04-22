@@ -14,6 +14,7 @@
 - [ ] Build package with [[https://github.com/melpa/melpa#build-scripts][MELPA]]
   - [ ] Make sure it installs and loads
   - [ ] Test using the package
+- [ ] Update copyright dates
 - [ ] Update [[../HISTORY.org][History]]
 - [ ] Merge branch into ~master~ and tag the release
   - Note MELPA master and table downloads.
