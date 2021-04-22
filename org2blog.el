@@ -2749,7 +2749,7 @@ This entry needs to be further processed by the
 and munge it a little to make it suitable to use with the
 `metaweblog' functions."
   (let*
-      ((export-environment (org-export-with-buffer-copy (org-export-get-environment)))
+      ((_ (org-export-with-buffer-copy (org-export-get-environment)))
        (parsed-entry
         (list
          (cons "point" (point))
