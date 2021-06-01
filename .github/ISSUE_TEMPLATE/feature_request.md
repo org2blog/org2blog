@@ -32,8 +32,8 @@ Are you willing to write new or refine the existing documentation as this featur
 
 Please choose one of the following:
 
-[ ] Yes.
-[ ] No. Please provide an explanation why.
+- [ ] Yes.
+- [ ] No. Please provide an explanation why.
 
 ### Type of FR
 
