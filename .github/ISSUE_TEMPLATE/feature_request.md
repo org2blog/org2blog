@@ -20,6 +20,21 @@ Thank you for filling out this feature request (FR). Please perform every step a
 exists or is resolved?
 * [ ] Have you reviewed the [FUTURE](https://github.com/org2blog/org2blog/blob/master/FUTURE.org) file to see if the FR already exists?
 
+### Good Documentation
+
+Good documentation requires the author to take the user's perspective, address that user, and most importantly, have zero working knowledge of how the software works internally. Developers can rarely do this well for one simple reason: they are too close to their product, so someone else usually has to do it. Typically a Technical Writer is staffed to fill that role, but like most software projects (open source or not), Org2Blog can't quite fit that in the budget this year, so it is up to the developers yet again. However, the good news for all Org2Blog users now is that you are here!
+
+You are already writing this feature request from the viewpoint required for good documentation. You already know how you'll be doing what you want to do with this product: you just need them implemented. Here, my friend is where the magic can happen.
+
+Given your unique take on Org2Blog, how it can improve, the new functionality inspiring you, and your ideal position as a thoughtful user and feature request submitter—everyone is dying to know:
+
+Are you willing to write new or refine the existing documentation as this feature request moves through its lifecycle?
+
+Please choose one of the following:
+
+[ ] Yes.
+[ ] No. Please provide an explanation why.
+
 ### Type of FR
 
 Please try to limit your FR to one type, submit multiple FRs if needed.
