@@ -11,7 +11,7 @@ Thank you for filling out this feature request (FR). Please perform every step a
 
 ### Description
 
-[Single sentence description of the feature.]
+[Please replace this with: _A single sentence description of the feature._]
 
 ### Prerequisites
 
@@ -40,6 +40,7 @@ Please choose one of the following:
 Please try to limit your FR to one type, submit multiple FRs if needed.
 
 Please check the type of feature you are requesting:
+
 - [ ] Brand New Feature
 - [ ] Change Existing Feature
 - [ ] Code style update (formatting, renaming)
@@ -50,18 +51,18 @@ Please check the type of feature you are requesting:
 
 ### Describe the solution you'd like
 
-[Provide a clear and concise description of what you want to happen.
+[Please replace this with: _A clear and concise description of what you want to happen._]
 
 Include "Why" for some context. For example that "It is painful when..." or "Org2Blog would make me so much happier if..."]
 
 ### Describe alternatives you've considered
 
-[A clear and concise description of any alternative solutions or features you've considered.]
+[Please replace this with: _A clear and concise description of any alternative solutions or features you've considered, including none._]
 
-### Screenshots
+### Screenshots & User Interface Mockups
 
-[If applicable, add screenshots to help explain your FR.]
+If applicable, add screenshots to help explain your FR.
 
 ### Additional context
 
-[Add any other context about the FR here.]
+If applicable, add any other context about the FR here.
