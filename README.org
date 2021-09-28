@@ -1000,6 +1000,8 @@ In that historical context and considering goals today the name remains Org2Blog
 The [[https://en.wikipedia.org/wiki/MetaWeblog][MetaWeblog API]] is an application programming interface created by software developer Dave Winer that enables weblog entries to be written, edited, and deleted using web services.
 #+end_quote
 
+WordPress [[https://codex.wordpress.org/XML-RPC_MetaWeblog_API][implements]] the API.
+
 Org2Blog implements a MetaWeblog client in =metaWeblog.el=. It has two uses.
 
 First it implements an XML-RPC MetaWeblog client. This is generic and should work with any blog software that exposes the API.
@@ -1161,7 +1163,7 @@ git clone https://github.com/purcell/package-lint.git
     #+end_src
   - *Note*: Org2Blog uses non-standard separators in its naming. The naming will address it in a future release.
     #+BEGIN_SRC text
-error: `org2blog/wp-version' contains a non-standard separator `/', use hyphens instead (see Elisp Coding Conventions).   
+error: `org2blog/wp-version' contains a non-standard separator `/', use hyphens instead (see Elisp Coding Conventions).
     #+END_SRC
 - Testing
   - Programmatic Interactive System Testing
