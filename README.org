@@ -296,6 +296,8 @@ With your configuration ready, start creating the post.
 
 Start by creating a =UI [New Buffer]=. A template populates your Entry. When you =UI [Login]= Org2Blog learns about your Categories, Tags, and Pages. Position the cursor on one of those lines and =UI [Complete]= and either choose a value or complete a value that you began typing. If you want one, you can add a =#+DESCRIPTION= and a =#+PERMALINK= too.
 
+Please note that WordPress has a slightly unexpected behavior when completing Categories and Tags. Although Org2Blog can complete unused Categories, it cannot complete unused Tags. Although the unused Tag exists on the blog, it still can't be completed while writing. Hiding unused tags is normal WordPress behavior for now.
+
 Org2Blog includes some helpers for inserting content into your Entry under the =UI [“Insert A”]= menu:
 
 - =UI [More Tag]=: The WordPress "Read More" tag. Org2Blog will ask if you want to use a message inside of it, too.
@@ -1006,7 +1008,7 @@ Org2Blog implements a MetaWeblog client in =metaWeblog.el=. It has two uses.
 
 First it implements an XML-RPC MetaWeblog client. This is generic and should work with any blog software that exposes the API.
 
-Second it implements a WordPress API client.
+Second it implements a [[https://codex.wordpress.org/XML-RPC_WordPress_API][WordPress XML-RPC client]].
 
 Org2Blog uses this client to work with WordPress
 
