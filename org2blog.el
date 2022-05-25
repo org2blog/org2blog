@@ -1245,7 +1245,6 @@ When displaying: store the information in the `kill-ring'."
               metaweblog-version
               xml-rpc-version)))
     (if value msg
-      (kill-new msg)
       (message msg))))
 
 ;;;###autoload
