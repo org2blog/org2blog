@@ -18,6 +18,9 @@
 
 * No Issue Created
 
+- Application Passwords
+  - See [[https://make.wordpress.org/core/2020/11/05/application-passwords-integration-guide/][Application Passwords: Integration Guide]]
+  - On <2022-08-10> tried on WordPress 6.0.1. Couldn't make feature work using either ~curl~ or ~org2blog~.
 - Refactor org2blog-tests.org running again
 - Document how Org2Blog works
 - Update documentation for Gutenberg
