@@ -98,12 +98,16 @@ The easiest way to install Org2Blog is using a [[https://www.gnu.org/software/em
 
 You can use either a stable or cutting-edge version of Org2Blog by configuring your packaging system.
 
-If you want the stable version, then use [[https://stable.melpa.org/#/org2blog][MELPA Stable]]
+The stable version contains well-used releases unlikely to contain bugs. However it receives new features and bug fixes more slowly.
+
+If you want the stable version, then use [[https://stable.melpa.org/#/org2blog][MELPA Stable]]:
 
 #+begin_src emacs-lisp
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 #+end_src
+
+The cutting-edge version contains new changes immediately as they are made. It contains new features and bug fixes faster than the stable version. Although it is very unlikely it may contain breaking changes.
 
 If you want the cutting edge version using [[https://melpa.org/#/org2blog][MELPA]]
 
@@ -116,24 +120,28 @@ For advanced users, you can configure Package to use any combination of stable a
 
 *** Use-Package
 
-[[https://github.com/jwiegley/use-package][Use-Package]] brings ease and order to your init file. It manages your packages predictably and simply. It is the easiest way to use Org2Blog because it will download Org2Blog for you along with all of its dependencies. Before using it, configure [[https://melpa.org/#/getting-started][MELPA]]. MELPA contains the development branch of Org2Blog, so you'll get the most current version right when it becomes available. Here is how to load Org2Blog:
+[[https://github.com/jwiegley/use-package][Use-Package]] brings ease and order to your init file. It manages your packages predictably and simply. It is the easiest way to use Org2Blog because it will download Org2Blog for you along with all of its dependencies. Before using it you must configure your system as explained in [[#using-a-package][Using A Package]]
+
+Here is how to load Org2Blog:
 
 #+begin_src emacs-lisp
 (use-package org2blog
              :ensure t)
 #+end_src
 
-Take some time to read more about Use-Package. You can use as little or as much as you find helpful: it accommodates just about any Init style you can throw at it.
+Take some time to read more about Use-Package. You can use as little or as much as you find helpful. It accommodates just about any Init style you can throw at it.
 
 *** Install the Package Yourself
 
-You can do what Use-Package does yourself. Just download the [[https://melpa.org/#/org2blog][Org2Blog's package]] (it is a tar file) and install it using ~package-install-file~. Load it by adding ~(require 'org2blog)~ to your init file.
+You can also do what Use-Package does yourself. Find the package you want in [[#using-a-package][Using A Package]] and download it. It is a plain old ~TAR~ file so you can uncompress and examine it to see how it works.
+
+Install it by calling ~package-install-file~ and choosing the file you just downloaded. Load it by adding ~(require 'org2blog)~ to your init file.
 
 *** Build the Package Yourself
 
 MELPA creates Org2Blog's package using [[https://github.com/melpa/melpa/blob/master/recipes/org2blog][this recipe]].
 
-The easiest way for you to build the package is to download MELPA and run it locally to build Org2Blog on your computer:
+Here is how to build it:
 
 - Clone the [[https://github.com/melpa/melpa][MELPA repo]]
 - Read about how to [[https://github.com/melpa/melpa/blob/master/CONTRIBUTING.org#test-your-recipe][build a recipe]]
@@ -145,12 +153,12 @@ The easiest way for you to build the package is to download MELPA and run it loc
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:3386D277-56FD-4D2F-BE0C-56553541CD25
 :END:
 
-If you are a developer or even feel like exploring the code a little for the first time, then Org2Blog is a great place to start. Even better: you've already got everything you need. Specifically, Emacs, and all of the code required to run Org2Blog, are already running and ready to dig into it. Find a function you want to study, position the cursor on it, type ~C-h f~, choose that function name and hit enter. Now you will see a link for the source code. Position the cursor there and hit enter, and you are ready to study. You can make changes here, run them, and see how things work. The code has already been installed automatically by the package manager, so you don't need to do anything else: dig into the code. It's that easy to get started. If you want to do more, you can run Org2Blog and its supporting packages by downloading their source and loading them yourself. Doing so will get you familiar with things like library versions, the ~load-path~, =Elisp=, and =Git=.
+Here is where to start:
 
-~org2blog-def.el~ defines Org2Blog's dependencies. Here are helper functions to quickly get you started:
+The constant ~org2blog-def--package~ helps manage Org2Blog's dependencies. Here are helper functions to quickly get you started:
 
-- ~org2blog-def-checkout-statement~ creates Git commands to get the code from GitHub into the directory you want it stored. Call it and input the directory name. Please copy and paste the commands from =*Messages*= into your Terminal to run them.
-- ~org2blog-def-load-statement~ creates Elisp code to load the libraries. Call it and input the directory name. Copy them into your Init file, then run them. Now they will get loaded each time your start Emacs.
+- ~org2blog-def-checkout-statement~ creates Git commands to get the code from GitHub into the directory you want it stored. Call it and input the directory name. Finally copy and paste the commands from =*Messages*= into your Terminal to run them.
+- ~org2blog-def-load-statement~ creates Elisp code to load the libraries. Call it and input the directory name. Copy and paste the commands from =*Messages*= into your init file. Finally run them. Now they will get loaded each time you start Emacs.
 
 For example, you should see something like this:
 
@@ -164,7 +172,9 @@ And this
 (add-to-list 'load-path "/Users/gcr/mysrc/htmlize")
 #+end_src
 
-Now you've got everything you need to run Org2Blog against its source code. With this set up you can start playing around with things and even making changes. When you scratch and itch, create your branch and submit a pull request. It's pretty fun and effortless.
+Now you've got everything you need to run Org2Blog against its source code.
+
+With this set up you can start playing around with things and even making changes. When you scratch an itch: create your branch and submit a pull request. It's fun, easy, and makes Org2Blog better for all its users.
 
 * Usage
 :PROPERTIES:
