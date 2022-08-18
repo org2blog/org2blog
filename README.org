@@ -98,14 +98,14 @@ The easiest way to install Org2Blog is using a [[https://www.gnu.org/software/em
 
 You can use either a stable or cutting-edge version of Org2Blog by configuring your packaging system.
 
-If you want the stable version, then use [[https://stable.melpa.org/#/getting-started][MELPA Stable]]
+If you want the stable version, then use [[https://stable.melpa.org/#/org2blog][MELPA Stable]]
 
 #+begin_src emacs-lisp
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 #+end_src
 
-If you want the cutting edge version using [[https://melpa.org/#/getting-started][MELPA]]
+If you want the cutting edge version using [[https://melpa.org/#/org2blog][MELPA]]
 
 #+begin_src emacs-lisp
 (add-to-list 'package-archives
