@@ -65,7 +65,7 @@ Blog from Org mode to WordPress.
     -  [[#why-isnt-the-package-name-org2wordpress][Why Isn't The Package Name Org2WordPress?]]
     -  [[#what-is-metaweblog-and-why-is-it-in-org2blog][What Is MetaWeblog And Why Is It In Org2Blog?]]
     -  [[#why-does-org2blog-use-both-the-xml-rpc-metaweblog-and-wordpress-api][Why does Org2Blog Use Both The XML-RPC MetaWeblog and WordPress API]]
-    -  [[#how-does-org2blog-manage-autoloads?][How does Org2Blog manage autoloads?]]
+    -  [[#how-does-org2blog-manage-autoloads][How does Org2Blog manage autoloads?]]
 -  [[#sample-posts][Sample Posts]]
   -  [[#buffer-post][Buffer Post]]
   -  [[#subtree-post][Subtree Post]]
