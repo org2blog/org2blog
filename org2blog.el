@@ -234,7 +234,7 @@ Copy them from the *Messages* buffer into your Terminal."
   (interactive)
   (let ((install-dir (read-directory-name "Directory:")))
     (mapcar (lambda (pkg) (princ (format
-                             "git clone %s %s%s\n"
+                             "git clone %s %s/%s\n"
                              (caddr pkg)
                              install-dir
                              (car pkg))))
