@@ -1,3 +1,4 @@
+- [ ] Should should already be performing your release work in a branch. Make sure of that.
 - [ ] The release version number appears in multiple files. Instead of manually updating all of them there is a function to do it. ~org2blog-def-update-artifacts~ visits the files and updates the correct settings. To use it:
   - Open ~org2blog.el~
   - Update ~org2blog-def--package~ with the new version number (~this-release~)
