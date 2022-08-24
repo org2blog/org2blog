@@ -2,12 +2,12 @@
 
 ;; Copyright (C) 2008 Ashish Shukla
 ;; Copyright (C) 2010 Puneeth Chaganti
-;; Copyright (C) 2019 Grant Rettke <grant@wisdomandwonder.com>
+;; Copyright (C) 2019-2022 Grant Rettke <grant@wisdomandwonder.com>
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Version: 1.1.1
-;; Package-Requires: ((emacs "26.3"))
+;; Version: 1.1.11
+;; Package-Requires: ((emacs "27.1"))
 ;; Keywords: comm
 ;; Homepage: https://github.com/org2blog/org2blog
 
@@ -51,7 +51,7 @@
 
 ;;; Constants
 
-(defconst metaweblog-version "1.1.1"
+(defconst metaweblog-version "1.1.11"
   "Current version of metaweblog.el.")
 
 ;;; Deprecations

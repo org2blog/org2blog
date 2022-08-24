@@ -1,3 +1,4 @@
+- [ ] Copy this to a temp file or buffer and fill it out. This will get pasted into the commit message for the release
 - [ ] Should should already be performing your release work in a branch. Make sure of that.
 - [ ] The release version number appears in multiple files. Instead of manually updating all of them there is a function to do it. ~org2blog-def-update-artifacts~ visits the files and updates the correct settings. To use it:
   - Open ~org2blog.el~
@@ -10,8 +11,9 @@
   - [ ] Checkdoc
   - [ ] Package-Lint
 - [ ] Complete [[../org2blog-test-system.el][System Test Program and Test Plan]]
-  - Start Emacs in an empty environment before loading Org2Blog and performing the testing by starting Emacs like this: ~emacs --no-init-file~
-- [ ] Push package definition and version changes
+  - Start Emacs in an empty environment before loading Org2Blog and perform the testing by starting Emacs like this: ~emacs --no-init-file~
+  - The test is identical to running manually. Primarily used in case you don't have a blog and you are pointing at the test server.
+  - Did you run this and why?
 - [ ] Build package with [[https://github.com/melpa/melpa#build-scripts][MELPA]]
   - [ ] Make sure it installs and loads
   - [ ] Test using the package

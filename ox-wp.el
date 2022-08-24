@@ -6,7 +6,7 @@
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
 ;; Version: 1.1.11
-;; Package-Requires: ((emacs "26.3"))
+;; Package-Requires: ((emacs "27.1"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
 

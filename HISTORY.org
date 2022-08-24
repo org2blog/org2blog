@@ -71,6 +71,10 @@
   - Minor refactorings to ease maintenance.
   - Added testimonials for the fun of it.
   - After this release, only bug fixes: new development in v1.2.0 branch starting with migration to the latest Emacs and Org mode.
+- v1.1.2
+  - Correctly use and document autoloads
+  - Don't populate kill ring with version message
+  - Documentation cleanup
 
 * v1.0.*
 ** v1.0.3

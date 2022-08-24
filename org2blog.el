@@ -9,12 +9,12 @@
 ;; Copyright (C) 2010 Matt Price <matt@roke.mercey.dyndns.org>
 ;; Copyright (C) 2011 Mykola Nikishov <mn@mn.com.ua>
 ;; Copyright (C) 2013 Peter Vasil <mail@petervasil.net>
-;; Copyright (C) 2015-2021 Grant Rettke <grant@wisdomandwonder.com>
+;; Copyright (C) 2015-2022 Grant Rettke <grant@wisdomandwonder.com>
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
 ;; Version: 1.1.11
-;; Package-Requires: ((emacs "26.3") (htmlize "1.54") (hydra "0.15.0") (xml-rpc "1.6.12") (metaweblog "1.1.1"))
+;; Package-Requires: ((emacs "27.1") (htmlize "1.54") (hydra "0.15.0") (xml-rpc "1.6.12") (metaweblog "1.1.11"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
 
@@ -47,10 +47,10 @@
         (this-release "1.1.11"))
     (puthash "name" "org2blog" p)
     (puthash "version" this-release p)
-    (puthash metaweblog "1.1.1" p)
+    (puthash metaweblog this-release p)
     (puthash "ox-wp" this-release p)
     (puthash "doc" "Blog from Org mode to WordPress" p)
-    (puthash "emacs" "26.3" p)
+    (puthash "emacs" "27.1" p)
     (puthash "org" "9.1.9" p)
     (puthash "requirements"
              `((htmlize "1.54" "https://github.com/hniksic/emacs-htmlize.git")
@@ -234,10 +234,10 @@ Copy them from the *Messages* buffer into your Terminal."
   (interactive)
   (let ((install-dir (read-directory-name "Directory:")))
     (mapcar (lambda (pkg) (princ (format
-                             "git clone %s %s/%s\n"
-                             (caddr pkg)
-                             install-dir
-                             (car pkg))))
+                                  "git clone %s %s/%s\n"
+                                  (caddr pkg)
+                                  install-dir
+                                  (car pkg))))
             (org2blog-def--pkg "requirements"))))
 
 (defun org2blog-def-load-statement ()
@@ -2326,7 +2326,7 @@ at mode start time and after the user re-configures it."
   (let ((result
          (mapcar
           (lambda (cat)
-            (if (and (not (seq-contains org2blog-categories cat))
+            (if (and (not (seq-contains-p org2blog-categories cat))
                      (y-or-n-p
                       (format
                        (concat "Would you like to "
@@ -2438,7 +2438,7 @@ See ‘org2blog/wp-buffer-subtree-template’ for details about how it is used."
                                              file-name)))
           (setq beg (match-end 0))
           (when (save-match-data (not (or
-                                       (string-match org-plain-link-re file-name)
+                                       (string-match org-link-plain-re file-name)
                                        (string-match "^.*#" file-name)
                                        (string-equal (file-name-nondirectory file-name) ""))))
             (goto-char (point-min))
@@ -2790,7 +2790,7 @@ and munge it a little to make it suitable to use with the
          (cons "description" nil)
          (cons "tags" (or
                        (split-string (or (org2blog--eprop "POST_TAGS") "") "\\( *, *\\)" t)
-                       (mapcar 'org-no-properties (org-get-tags-at (point) nil))))
+                       (mapcar 'org-no-properties (org-get-tags (point) nil))))
          (cons "categories"
                (split-string (or (org2blog--eprop "CATEGORY") "")
                              "\\( *, *\\)" t))
