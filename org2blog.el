@@ -13,8 +13,8 @@
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Version: 1.1.11
-;; Package-Requires: ((emacs "27.1") (htmlize "1.54") (hydra "0.15.0") (xml-rpc "1.6.12") (metaweblog "1.1.11"))
+;; Version: 1.1.12
+;; Package-Requires: ((emacs "27.1") (htmlize "1.54") (hydra "0.15.0") (xml-rpc "1.6.12") (metaweblog "1.1.12"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
 
@@ -44,7 +44,7 @@
 (defconst org2blog-def--package
   (let ((p (make-hash-table :test 'equal))
         (metaweblog "metaweblog")
-        (this-release "1.1.11"))
+        (this-release "1.1.12"))
     (puthash "name" "org2blog" p)
     (puthash "version" this-release p)
     (puthash metaweblog this-release p)
