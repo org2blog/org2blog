@@ -1,12 +1,12 @@
 ;;; ox-wp.el --- Org mode exporter for WordPress -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2014 Puneeth Chaganti <punchagan@muse-amuse.in>
-;; Copyright (C) 2019-2021 Grant Rettke <grant@wisdomandwonder.com>
+;; Copyright (C) 2019-2022 Grant Rettke <grant@wisdomandwonder.com>
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Version: 1.1.12
-;; Package-Requires: ((emacs "27.1"))
+;; Version: 1.1.13
+;; Package-Requires: ((emacs "28.1"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
 
@@ -35,7 +35,7 @@
 
 ;;; Constants
 
-(defconst ox-wp-version "1.1.12"
+(defconst ox-wp-version "1.1.13"
   "Current version of ox-wp.el.")
 
 ;;; Functions

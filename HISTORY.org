@@ -1,6 +1,7 @@
-* v1.1.* "Inky Hand"
+* v1 "Inky Hand"
 
-** Users
+** v1.1.00
+*** Users
 
 - Adds a simple and powerful user interface exposing every aspect of Org2Blog—many of which you may never have known even existed before.
   - Use the one-keypress help menu to look up the documentation behind every menu entry along with the function name behind it if you want to bind it to a key.
@@ -12,7 +13,7 @@
   - A WordPress operator's inky hand, colored by Org mode, cradles a special press plate for Org2Blog: Org2Blog's first logo. Thank you Cari at [[http://sepiarainbow.com/][Sepia Rainbow Designs]] for this brilliant logo.
 - Adds a built-in README with links to learn more about this project, how to start having fun blogging, and even how Free Software is critical to you as a user and society as a whole.
 
-** Developers
+*** Developers
 
 - Now requires at least Emacs 26.3 and Org mode 9.1.9.
 - Expanded and revised every aspect of documentation including running from the source code instead of a package and debugging various network issues.
@@ -24,39 +25,39 @@
 - Names refactored to standardize language.
 - All code brought up to GNU and MELPA coding and packaging standards.
 
-** Maintainers
+*** Maintainers
 
 - Adds steps for all aspects of package maintenance
 - Adds function deprecations for future future retirement
 - Blog ID will only ever be 1: Org2Blog doesn't support multi-site installs. See ~org2blog--default-blogid~.
 
-** Fixes
+*** Fixes
 
 - ~ox-wp~ exporter includes source block IDs.
 - Completed and corrected implementation of various functionality.
 
-** Patches
+** v1.1.01-v1.1.13
 
-- v1.1.1
+- v1.1.01
   - Standardized version numbers across Org2Blog, OX-WP, and MetaWeblog to 1.1.1
-- v1.1.2
+- v1.1.02
   - Load =subr-x=.
-- v1.1.3
+- v1.1.03
   - Correct listing format spacing in ~ox-wp-src-block-shortcode~ and ~ox-wp-src-block-html~.
-- v1.1.4
+- v1.1.04
   - Remove "Listing" prefix ~ox-wp-src-block-shortcode~ and ~ox-wp-src-block-html~.
-- v1.1.5
+- v1.1.05
   - Make Subtree Entries using a template like Buffer Entries already do.
-- v1.1.6
+- v1.1.06
   - Give Tags configurable default values like Categories already do.
-- v1.1.7
+- v1.1.07
   - Refactor Image Uploading Functionality
     - No longer uploads =A HREF= links.
     - Now an Option disabled by default.
     - Expanded documentation.
-- v1.1.8
+- v1.1.08
   - Completely disabled publishing so re-enabled it.
-- v1.1.9
+- v1.1.09
   - Implement `Excerpt' property
 - v1.1.10
   - Restore narrowing functionality when posting buffer entries.
@@ -71,10 +72,15 @@
   - Minor refactorings to ease maintenance.
   - Added testimonials for the fun of it.
   - After this release, only bug fixes: new development in v1.2.0 branch starting with migration to the latest Emacs and Org mode.
-- v1.1.2
+- v1.1.12
   - Correctly use and document autoloads
   - Don't populate kill ring with version message
   - Documentation cleanup
+- v1.1.13
+  - Emacs v27.1 🠆 v28.1
+  - Org v9.1.9 🠆 9.5.2
+  - HTMLize v1.54 🠆 v1.56
+  - XML-RPC v1.6.12 🠆 1.6.15
 
 * v1.0.*
 ** v1.0.3

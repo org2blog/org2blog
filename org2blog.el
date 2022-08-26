@@ -13,8 +13,8 @@
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Version: 1.1.12
-;; Package-Requires: ((emacs "27.1") (htmlize "1.54") (hydra "0.15.0") (xml-rpc "1.6.12") (metaweblog "1.1.12"))
+;; Version: 1.1.13
+;; Package-Requires: ((emacs "28.1") (htmlize "1.56") (hydra "0.15.0") (xml-rpc "1.6.15") (metaweblog "1.1.13"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
 
@@ -44,18 +44,18 @@
 (defconst org2blog-def--package
   (let ((p (make-hash-table :test 'equal))
         (metaweblog "metaweblog")
-        (this-release "1.1.12"))
+        (this-release "1.1.13"))
     (puthash "name" "org2blog" p)
     (puthash "version" this-release p)
     (puthash metaweblog this-release p)
     (puthash "ox-wp" this-release p)
     (puthash "doc" "Blog from Org mode to WordPress" p)
-    (puthash "emacs" "27.1" p)
-    (puthash "org" "9.1.9" p)
+    (puthash "emacs" "28.1" p)
+    (puthash "org" "9.5.2" p)
     (puthash "requirements"
-             `((htmlize "1.54" "https://github.com/hniksic/emacs-htmlize.git")
+             `((htmlize "1.56" "https://github.com/hniksic/emacs-htmlize.git")
                (hydra "0.15.0" "https://github.com/abo-abo/hydra.git")
-               (xml-rpc "1.6.12" "https://github.com/hexmode/xml-rpc-el.git")
+               (xml-rpc "1.6.15" "https://github.com/hexmode/xml-rpc-el.git")
                (metaweblog ,(gethash metaweblog p) "https://github.com/org2blog/org2blog.git"))
              p)
     (puthash "keywords" '("comm" "convenience" "outlines" "wp") p)
