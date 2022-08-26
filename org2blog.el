@@ -1233,15 +1233,19 @@ closer to doing more blogging!"
 
 ;;;###autoload
 (defun org2blog-version-info (&optional value)
-  "Display critical library information or return as a VALUE if non-nil."
+  "Display critical library information or return as a VALUE if non-nil.
+
+Hydra doesn't provide a version number."
   (interactive)
   (let ((msg (format
-              "Org2Blog Runtime: Org2Blog %s, Emacs %s, Org Mode %s, MetaWeblog %s, XML-RPC %s"
+              "Org2Blog Runtime: Org2Blog %s, Emacs %s, Org Mode %s,
+MetaWeblog %s, XML-RPC %s, HTMLize %s"
               org2blog/wp-version
               emacs-version
               org-version
               metaweblog-version
-              xml-rpc-version)))
+              xml-rpc-version
+              htmlize-version)))
     (if value msg
       (message msg))))
 
