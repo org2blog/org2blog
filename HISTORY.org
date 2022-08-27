@@ -35,7 +35,7 @@
 - ~ox-wp~ exporter includes source block IDs.
 - Completed and corrected implementation of various functionality.
 
-** v1.1.01-v1.1.13
+** v1.1.01-v1.1.12
 
 - v1.1.01
   - Standardized version numbers across Org2Blog, OX-WP, and MetaWeblog to 1.1.1
@@ -75,6 +75,9 @@
   - Correctly use and document autoloads
   - Don't populate kill ring with version message
   - Documentation cleanup
+
+** v1.1.13-
+
 - v1.1.13
   - Emacs v27.1 🠆 v28.1
   - Org v9.1.9 🠆 9.5.2
