@@ -1340,13 +1340,19 @@ and lack of Issue Requests stating otherwise. It looks like this:
   stopping.
 - You must choose a blog to use for this session. Unless you
   choose one I'm stopping.
-- Thus far Org2Blog hasn't made any API calls. Therefore we still
-  don't know if User's password works or not. This is OK because
-  the User can still use Org2Blog without logging successfully.
-  The only limitation is that the User won't have completion data.
+- Thus far Org2Blog hasn't made any API calls. Therefore we
+  still don't know if User's password works or not. This is OK
+  because the User can still use Org2Blog without logging
+  successfully. The only limitation is that the User won't have
+  completion data.
 - `org2blog-complete' needs completion data to work. Therefore
-  lists of categories, tags, and pages are loaded here. If any
-  of the loads fail then I'm stopping.
+  categories, tags, and pages are loaded here. If any of the
+  loads fail then I'll notify the user. It is an error because
+  we don't know why it didn't work. It could be network
+  connectivity or a problem with Org2Blog itself. However the
+  User can still continue moving forward to edit an Org2Blog file
+  without that data. Consequently the function proceeds instead
+  of failing here.
 "
   (interactive)
   (catch 'return
@@ -1388,38 +1394,49 @@ and lack of Issue Requests stating otherwise. It looks like this:
                      "What is your password for ‘%s’ on ‘%s’? "
                      "(type C-g to quit)")
                     org2blog-username org2blog-blog-key))))
-    (message "Loading categories…")
-    (sit-for org2blog-step-time)
-    (condition-case-unless-debug err
-        (setq org2blog-categories (org2blog--load-categories))
+    (condition-case val
+        (progn
+          (message "Loading categories...")
+          (sit-for org2blog-step-time)
+          (org2blog--load-categories))
+      (:success
+       (setq org2blog-categories val)
+       (message "Categories loaded."))
       (error
        (org2blog--error
         (format (concat "I’m sorry I ran into a problem trying to load categories "
                         "inside of ‘org2blog-user-login’."))
-        (format "%s" err))
-       (throw 'return nil)))
-    (message "Loading tags…")
-    (sit-for org2blog-step-time)
-    (condition-case-unless-debug err
-        (setq org2blog-tags (org2blog--load-tags))
+        (format "%s" val))))
+    (condition-case val
+        (progn
+          (message "Loading tags...")
+          (sit-for org2blog-step-time)
+          (org2blog--load-tags))
+      (:success
+       (setq org2blog-tags val)
+       (message "Tags loaded."))
       (error
        (org2blog--error
         (format (concat "I’m sorry I ran into a problem trying to load tags "
                         "inside of ‘org2blog-user-login’."))
-        (format "%s" err))
-       (throw 'return nil)))
-    (message "Loading page list…")
-    (sit-for org2blog-step-time)
-    (condition-case-unless-debug err
-        (setq org2blog-pages (org2blog--load-pages 'summaries))
+        (format "%s" val))))
+    (condition-case val
+        (progn
+          (message "Loading page list...")
+          (sit-for org2blog-step-time)
+          (org2blog--load-pages 'summaries))
+      (:success
+       (setq org2blog-pages val)
+       (message "Pages loaded."))
       (error
        (org2blog--error
         (format (concat "I’m sorry I ran into a problem trying to load page "
                         "summaries inside of ‘org2blog-user-login’."))
-        (format "%s" err))
-       (throw 'return nil)))
+        (format "%s" val))))
     (setq org2blog-logged-in t)
-    (message "You are now logged in to your blog “%s”"
+    (message (concat
+              "You are now ready to use your blog “%s”. "
+              "Hope you have fun blogging and have a great day!")
              org2blog-blog-key)))
 
 ;;;###autoload
