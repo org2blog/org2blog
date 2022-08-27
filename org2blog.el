@@ -1319,7 +1319,35 @@ See messages below for details."
 
 ;;;###autoload
 (defun org2blog-user-login (&optional blog-name)
-  "Log in to BLOG-NAME if non-nil, otherwise choose from a list."
+  "Log in to BLOG-NAME if non-nil, otherwise choose from a list.
+
+Please note that this login is only from the User's perspective.
+Org2Blog uses the XML-RPC API to interact with WordPress.
+Org2Blog has to send the Users password with every API call.
+The API is stateless: there is no concept of logging in. Every
+API call is a new one requiring the password each time. Despite
+that Org2Blog has to provide some concept of being logged in
+for the User. Given that goal Org2Blog must know some basics
+about the User's blog. Using that information it must make some
+ decisions about how to configure itself for the most common
+usage scenario.
+
+The most common usage scenario here is defined by imagined usage
+and lack of Issue Requests stating otherwise. It looks like this:
+
+- You must tell me about at least one blog available for use
+  now. Unless you defined a blog in `org2blog/wp-blog-alist' I'm
+  stopping.
+- You must choose a blog to use for this session. Unless you
+  choose one I'm stopping.
+- Thus far Org2Blog hasn't made any API calls. Therefore we still
+  don't know if User's password works or not. This is OK because
+  the User can still use Org2Blog without logging successfully.
+  The only limitation is that the User won't have completion data.
+- `org2blog-complete' needs completion data to work. Therefore
+  lists of categories, tags, and pages are loaded here. If any
+  of the loads fail then I'm stopping.
+"
   (interactive)
   (catch 'return
     (when (not org2blog/wp-blog-alist)
