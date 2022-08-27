@@ -81,6 +81,7 @@
   - Org v9.1.9 🠆 9.5.2
   - HTMLize v1.54 🠆 v1.56
   - XML-RPC v1.6.12 🠆 1.6.15
+  - Convert system definition from hashtables to structs
 
 * v1.0.*
 ** v1.0.3
