@@ -45,6 +45,12 @@
   "Current version of org2blog.el.")
 
 (defstruct
+    org2blog-pkg
+  name
+  version
+  url)
+
+(defstruct
     org2blog-def
   name
   version
@@ -68,11 +74,23 @@
    :doc "Blog from Org mode to WordPress"
    :emacs "28.1"
    :org "9.5.2"
-   :requirements `((htmlize "1.56" "https://github.com/hniksic/emacs-htmlize.git")
-                   (hydra "0.15.0" "https://github.com/abo-abo/hydra.git")
-                   (xml-rpc "1.6.15" "https://github.com/hexmode/xml-rpc-el.git")
-                   (metaweblog ,org2blog/wp-version
-                               "https://github.com/org2blog/org2blog.git"))
+   :requirements (list
+                  (make-org2blog-pkg
+                   :name "htmlize"
+                   :version "1.56"
+                   :url "https://github.com/hniksic/emacs-htmlize.git")
+                  (make-org2blog-pkg
+                   :name "hydra"
+                   :version "0.15.0"
+                   :url "https://github.com/abo-abo/hydra.git")
+                  (make-org2blog-pkg
+                   :name "xml-rpc"
+                   :version "1.6.15"
+                   :url "https://github.com/hexmode/xml-rpc-el.git")
+                  (make-org2blog-pkg
+                   :name "metaweblog"
+                   :version org2blog/wp-version
+                   :url "https://github.com/org2blog/org2blog.git"))
    :keywords '("comm" "convenience" "outlines" "wp")
    :authors '(("Puneeth Chaganti" . "punchagan+org2blog@gmail.com"))
    :maintainer '("Grant Rettke" . "grant@wisdomandwonder.com")
@@ -157,15 +175,16 @@ inspect the generated code."
    (insert (format ";; Maintainer: %s\n" (org2blog-def--contact-info
                                           (org2blog-def-maintainer org2blog-defi))))
    (insert (format ";; Version: %s\n" version))
-   (insert (format ";; Package-Requires: (%s)\n"
-                   (let* ((ls (cons (cons 'emacs (list (org2blog-def-emacs org2blog-defi)))
-                                    requirements))
-                          (defs (mapcar (lambda (req)
-                                          (format "(%s \"%s\")" (car req) (cadr req)))
-                                        ls))
-                          (spcd (org2blog-def--interpose " " defs))
-                          (result (apply 's-concat spcd)))
-                     result)))
+   (insert (format ";; Package-Requires: ((emacs \"%s\")"
+                   (org2blog-def-emacs org2blog-defi)))
+   (mapcar
+    (lambda (req)
+      (let* ((name (org2blog-pkg-name req))
+             (version (org2blog-pkg-version req))
+             (str (format " (%s \"%s\")" name version)))
+        (insert str)))
+    requirements)
+   (insert (format ")\n"))
    (insert (format ";; Keywords: %s\n"
                    (apply 'concat (org2blog-def--interpose ", " keywords))))
    (insert (format ";; Homepage: %s\n" (org2blog-def-homepage org2blog-defi)))))
@@ -187,7 +206,13 @@ inspect the generated code."
    (erase-buffer)
    (pp
     `(define-package ,(org2blog-def-name org2blog-defi) ,(org2blog-def-version org2blog-defi) ,(org2blog-def-doc org2blog-defi)
-       ',(org2blog-def-requirements org2blog-defi)
+       ',(seq-mapcat
+          (lambda (req)
+            (list
+             (list (intern (org2blog-pkg-name req))
+                   (org2blog-pkg-version req)
+                   (org2blog-pkg-url req))))
+          (org2blog-def-requirements org2blog-defi))
        :authors
        ',(org2blog-def-authors org2blog-defi)
        :maintainer
@@ -240,12 +265,16 @@ inspect the generated code."
   Copy them from the *Messages* buffer into your Terminal."
   (interactive)
   (let ((install-dir (read-directory-name "Directory:")))
-    (mapcar (lambda (pkg) (princ (format
-                                  "git clone %s %s/%s\n"
-                                  (caddr pkg)
-                                  install-dir
-                                  (car pkg))))
-            (org2blog-def-requirements org2blog-defi))))
+    (mapcar
+     (lambda (req)
+       (let* ((name (org2blog-pkg-name req))
+              (url (org2blog-pkg-url req)))
+         (princ (format
+                 "git clone %s %s/%s\n"
+                 url
+                 install-dir
+                 name))))
+     (org2blog-def-requirements org2blog-defi))))
 
 (defun org2blog-def-load-statement ()
   "Create Elisp code to load the libraries."
@@ -255,12 +284,14 @@ inspect the generated code."
                               (if (string-match "/\\'"
                                                 install-dir)
                                   "" "/"))))
-    (mapcar (lambda (pkg)
-              (princ (format "(add-to-list 'load-path \"%s%s\")\n"
-                             install-dir
-                             (car pkg)))
-              (princ (format "(require '%s)\n" (car pkg))))
-            (org2blog-def-requirements org2blog-defi))))
+    (mapcar
+     (lambda (req)
+       (let* ((name (org2blog-pkg-name req)))
+         (princ (format "(add-to-list 'load-path \"%s%s\")\n"
+                        install-dir
+                        name))
+         (princ (format "(require '%s)\n" name))))
+     (org2blog-def-requirements org2blog-defi))))
 
 ;;; Requires
 
