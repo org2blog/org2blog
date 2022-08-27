@@ -1,5 +1,4 @@
-* v1 "Inky Hand"
-
+* v1.1 "Inky Hand"
 ** v1.1.00
 *** Users
 
@@ -83,25 +82,33 @@
   - XML-RPC v1.6.12 🠆 1.6.15
   - Convert system definition from hashtables to structs
 
-* v1.0.*
-** v1.0.3
-
-Adds Hydra support for user-interface.
-
-** v1.0.2
-
-Increment for new metaweblog version.
-
-** v1.0.1
-
-Use latest metaweblog
-
-** v1.0.0
+* v1.0
+** v1.0.00
 
 Communicate completeness of the library with a first major release.
 
-* v0.9.*
-** v0.9.3
+** v1.0.01
+
+Use latest metaweblog
+
+** v1.0.02
+
+Increment for new metaweblog version.
+
+** v1.0.03
+
+Adds Hydra support for user-interface.
+
+* v0.9
+** v0.9.01
+
+Bump up version to 0.9.1.
+
+** v0.9.02
+
+Bump up version.
+
+** v0.9.03
 
 - v0.9.2 ad389ae was released on 14-12-14
 - Development continued until 16-05-02 fc7b2d9
@@ -113,10 +120,3 @@ Communicate completeness of the library with a first major release.
 - So therefore a new release
   - v0.9.3
 
-** v0.9.2
-
-Bump up version.
-
-** v0.9.1
-
-Bump up version to 0.9.1.
