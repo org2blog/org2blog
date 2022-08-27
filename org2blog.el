@@ -41,35 +41,39 @@
 
 ;;; System Configuration
 
-(defconst org2blog-def--package
-  (let ((p (make-hash-table :test 'equal))
-        (metaweblog "metaweblog")
-        (this-release "1.1.13"))
-    (puthash "name" "org2blog" p)
-    (puthash "version" this-release p)
-    (puthash metaweblog this-release p)
-    (puthash "ox-wp" this-release p)
-    (puthash "doc" "Blog from Org mode to WordPress" p)
-    (puthash "emacs" "28.1" p)
-    (puthash "org" "9.5.2" p)
-    (puthash "requirements"
-             `((htmlize "1.56" "https://github.com/hniksic/emacs-htmlize.git")
-               (hydra "0.15.0" "https://github.com/abo-abo/hydra.git")
-               (xml-rpc "1.6.15" "https://github.com/hexmode/xml-rpc-el.git")
-               (metaweblog ,(gethash metaweblog p) "https://github.com/org2blog/org2blog.git"))
-             p)
-    (puthash "keywords" '("comm" "convenience" "outlines" "wp") p)
-    (puthash "authors" '(("Puneeth Chaganti" .
-                          "punchagan+org2blog@gmail.com"))
-             p)
-    (puthash "maintainer" '("Grant Rettke" . "grant@wisdomandwonder.com") p)
-    (puthash "homepage" "https://github.com/org2blog/org2blog" p)
-    p)
-  "Internal package definition.")
+(defstruct
+    org2blog-def
+  name
+  version
+  metaweblog
+  ox-wp
+  doc
+  emacs
+  org
+  requirements
+  keywords
+  authors
+  maintainer
+  homepage)
 
-(defun org2blog-def--pkg (key)
-  "Get KEY from ‘org2blog-def--package’."
-  (gethash key org2blog-def--package))
+(defconst org2blog-defi
+  (make-org2blog-def
+   :name "org2blog"
+   :version "1.1.13"
+   :metaweblog "1.1.13"
+   :ox-wp "1.1.13"
+   :doc "Blog from Org mode to WordPress"
+   :emacs "28.1"
+   :org "9.5.2"
+   :requirements '((htmlize "1.56" "https://github.com/hniksic/emacs-htmlize.git")
+                   (hydra "0.15.0" "https://github.com/abo-abo/hydra.git")
+                   (xml-rpc "1.6.15" "https://github.com/hexmode/xml-rpc-el.git")
+                   (metaweblog "1.1.13"
+                               "https://github.com/org2blog/org2blog.git"))
+   :keywords '("comm" "convenience" "outlines" "wp")
+   :authors '(("Puneeth Chaganti" . "punchagan+org2blog@gmail.com"))
+   :maintainer '("Grant Rettke" . "grant@wisdomandwonder.com")
+   :homepage "https://github.com/org2blog/org2blog"))
 
 (defun org2blog-def-update-artifacts ()
   "Update dependent artifacts with version information.
@@ -113,8 +117,8 @@ inspect the generated code."
    (re-search-forward "^Org2Blog requires at least Emacs")
    (kill-whole-line 1)
    (insert (format "Org2Blog requires at least Emacs %s and Org mode %s.\n"
-                   (org2blog-def--pkg "emacs")
-                   (org2blog-def--pkg "org")))))
+                   (org2blog-def-emacs org2blog-defi)
+                   (org2blog-def-org org2blog-defi)))))
 
 (defun org2blog-def--contact-info (contact)
   "Create string from CONTACT info."
@@ -145,12 +149,13 @@ inspect the generated code."
    (goto-char (point-min))
    (re-search-forward "^;; Author: ")
    (kill-whole-line 6)
-   (insert (format ";; Author: %s\n" (org2blog-def--contacts-info (org2blog-def--pkg "authors"))))
+   (insert (format ";; Author: %s\n" (org2blog-def--contacts-info
+                                      (org2blog-def-authors org2blog-defi))))
    (insert (format ";; Maintainer: %s\n" (org2blog-def--contact-info
-                                          (org2blog-def--pkg "maintainer"))))
+                                          (org2blog-def-maintainer org2blog-defi))))
    (insert (format ";; Version: %s\n" version))
    (insert (format ";; Package-Requires: (%s)\n"
-                   (let* ((ls (cons (cons 'emacs (list (org2blog-def--pkg "emacs")))
+                   (let* ((ls (cons (cons 'emacs (list (org2blog-def-emacs org2blog-defi)))
                                     requirements))
                           (defs (mapcar (lambda (req)
                                           (format "(%s \"%s\")" (car req) (cadr req)))
@@ -160,17 +165,16 @@ inspect the generated code."
                      result)))
    (insert (format ";; Keywords: %s\n"
                    (apply 'concat (org2blog-def--interpose ", " keywords))))
-   (insert (format ";; Homepage: %s\n" (org2blog-def--pkg
-                                        "homepage")))))
+   (insert (format ";; Homepage: %s\n" (org2blog-def-homepage org2blog-defi)))))
 
 (defun org2blog-def--update-org2blog ()
   "Update Org2Blog file."
   (interactive)
   (org2blog-def--update-header
    "org2blog.el"
-   (org2blog-def--pkg "version")
-   (org2blog-def--pkg "requirements")
-   (org2blog-def--pkg "keywords")))
+   (org2blog-def-version org2blog-defi)
+   (org2blog-def-requirements org2blog-defi)
+   (org2blog-def-keywords org2blog-defi)))
 
 (defun org2blog-def--update-pkg ()
   "Update package definition."
@@ -179,16 +183,16 @@ inspect the generated code."
    "org2blog-pkg.el"
    (erase-buffer)
    (pp
-    `(define-package ,(org2blog-def--pkg "name") ,(org2blog-def--pkg "version") ,(org2blog-def--pkg "doc")
-       ',(org2blog-def--pkg "requirements")
+    `(define-package ,(org2blog-def-name org2blog-defi) ,(org2blog-def-version org2blog-defi) ,(org2blog-def-doc org2blog-defi)
+       ',(org2blog-def-requirements org2blog-defi)
        :authors
-       ',(org2blog-def--pkg "authors")
+       ',(org2blog-def-authors org2blog-defi)
        :maintainer
-       ',(org2blog-def--pkg "maintainer")
+       ',(org2blog-def-maintainer org2blog-defi)
        :keywords
-       ',(org2blog-def--pkg "keywords")
+       ',(org2blog-def-keywords org2blog-defi)
        :homepage
-       ,(org2blog-def--pkg "homepage"))
+       ,(org2blog-def-homepage org2blog-defi))
     (current-buffer))))
 
 (defun org2blog-def--update-ox-wp ()
@@ -197,16 +201,16 @@ inspect the generated code."
   (let ((file "ox-wp.el"))
     (org2blog-def--update-header
      file
-     (org2blog-def--pkg "version")
+     (org2blog-def-version org2blog-defi)
      nil
-     (org2blog-def--pkg "keywords"))
+     (org2blog-def-keywords org2blog-defi))
     (org2blog-def--update-the
      file
      (goto-char (point-min))
      (re-search-forward "(defconst ox-wp-version")
      (kill-whole-line 2)
      (insert (format "(defconst ox-wp-version \"%s\"\n"
-                     (org2blog-def--pkg "ox-wp")))
+                     (org2blog-def-ox-wp org2blog-defi)))
      (insert (format "  \"Current version of ox-wp.el.\")\n")))))
 
 (defun org2blog-def--update-metaweblog ()
@@ -215,7 +219,7 @@ inspect the generated code."
   (let ((file "metaweblog.el"))
     (org2blog-def--update-header
      file
-     (org2blog-def--pkg "metaweblog")
+     (org2blog-def-metaweblog org2blog-defi)
      nil
      '("comm"))
     (org2blog-def--update-the
@@ -224,13 +228,13 @@ inspect the generated code."
      (re-search-forward "(defconst metaweblog-version")
      (kill-whole-line 2)
      (insert (format "(defconst metaweblog-version \"%s\"\n"
-                     (org2blog-def--pkg "metaweblog")))
+                     (org2blog-def-metaweblog org2blog-defi)))
      (insert (format "  \"Current version of metaweblog.el.\")\n")))))
 
 (defun org2blog-def-checkout-statement ()
   "Create Git checkout commands for system code and packages into INSTALL-DIR.
 
-Copy them from the *Messages* buffer into your Terminal."
+  Copy them from the *Messages* buffer into your Terminal."
   (interactive)
   (let ((install-dir (read-directory-name "Directory:")))
     (mapcar (lambda (pkg) (princ (format
@@ -238,7 +242,7 @@ Copy them from the *Messages* buffer into your Terminal."
                              (caddr pkg)
                              install-dir
                              (car pkg))))
-            (org2blog-def--pkg "requirements"))))
+            (org2blog-def-requirements org2blog-defi))))
 
 (defun org2blog-def-load-statement ()
   "Create Elisp code to load the libraries."
@@ -253,7 +257,7 @@ Copy them from the *Messages* buffer into your Terminal."
                              install-dir
                              (car pkg)))
               (princ (format "(require '%s)\n" (car pkg))))
-            (org2blog-def--pkg "requirements"))))
+            (org2blog-def-requirements org2blog-defi))))
 
 ;;; Requires
 
@@ -272,13 +276,13 @@ Copy them from the *Messages* buffer into your Terminal."
 
 ;;; Constants
 
-(defconst org2blog/wp-version (org2blog-def--pkg "version")
+(defconst org2blog/wp-version (org2blog-def-version org2blog-defi)
   "Current version of org2blog.el.")
 
-(defconst org2blog/wp-required-org-version (org2blog-def--pkg "org")
+(defconst org2blog/wp-required-org-version (org2blog-def-org org2blog-defi)
   "Minimum variable ‘org-version’ required to run this package.")
 
-(defconst org2blog--minimal-emacs (org2blog-def--pkg "emacs")
+(defconst org2blog--minimal-emacs (org2blog-def-emacs org2blog-defi)
   "Minimum variable ‘emacs-version’ required to run this package.")
 
 (defconst org2blog--default-blogid "1"
