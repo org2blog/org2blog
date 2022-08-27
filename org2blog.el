@@ -39,7 +39,10 @@
 
 ;;;; Code:
 
-;;; System Configuration
+;;; System Definition
+
+(defconst org2blog/wp-version "1.1.13"
+  "Current version of org2blog.el.")
 
 (defstruct
     org2blog-def
@@ -59,16 +62,16 @@
 (defconst org2blog-defi
   (make-org2blog-def
    :name "org2blog"
-   :version "1.1.13"
-   :metaweblog "1.1.13"
-   :ox-wp "1.1.13"
+   :version org2blog/wp-version
+   :metaweblog org2blog/wp-version
+   :ox-wp org2blog/wp-version
    :doc "Blog from Org mode to WordPress"
    :emacs "28.1"
    :org "9.5.2"
-   :requirements '((htmlize "1.56" "https://github.com/hniksic/emacs-htmlize.git")
+   :requirements `((htmlize "1.56" "https://github.com/hniksic/emacs-htmlize.git")
                    (hydra "0.15.0" "https://github.com/abo-abo/hydra.git")
                    (xml-rpc "1.6.15" "https://github.com/hexmode/xml-rpc-el.git")
-                   (metaweblog "1.1.13"
+                   (metaweblog ,org2blog/wp-version
                                "https://github.com/org2blog/org2blog.git"))
    :keywords '("comm" "convenience" "outlines" "wp")
    :authors '(("Puneeth Chaganti" . "punchagan+org2blog@gmail.com"))
@@ -275,9 +278,6 @@ inspect the generated code."
 (eval-when-compile (require 'subr-x))
 
 ;;; Constants
-
-(defconst org2blog/wp-version (org2blog-def-version org2blog-defi)
-  "Current version of org2blog.el.")
 
 (defconst org2blog/wp-required-org-version (org2blog-def-org org2blog-defi)
   "Minimum variable ‘org-version’ required to run this package.")
