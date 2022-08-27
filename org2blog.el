@@ -241,10 +241,10 @@ inspect the generated code."
   (interactive)
   (let ((install-dir (read-directory-name "Directory:")))
     (mapcar (lambda (pkg) (princ (format
-                             "git clone %s %s/%s\n"
-                             (caddr pkg)
-                             install-dir
-                             (car pkg))))
+                                  "git clone %s %s/%s\n"
+                                  (caddr pkg)
+                                  install-dir
+                                  (car pkg))))
             (org2blog-def-requirements org2blog-defi))))
 
 (defun org2blog-def-load-statement ()
