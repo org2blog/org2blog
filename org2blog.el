@@ -2408,12 +2408,12 @@ Scenario #1
 
 User logs into BLOG-A and starts blogging. At some point
 User returns to an OLD-ENTRY to make changes. OLD-ENTRY belongs
-to BLOG-B  Upon completing the changes User chooses to save the
+to BLOG-B. Upon completing the changes User chooses to save the
 entry. At this point User is logged into BLOG-A while attempting
 to post to BLOG-B. This won’t work, there will be an authentication
 failure.
 
-This function handles this scenario by logging the U out of
+This function handles this scenario by logging the User out of
 BLOG-A and logging User into BLOG-B.
 
 Scenario #2:
