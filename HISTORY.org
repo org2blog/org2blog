@@ -79,14 +79,14 @@
 ** v1.1.13-
 
 - v1.1.13
-  - Emacs v27.1 🠆 v28.1
-  - Org v9.1.9 🠆 9.5.2
-  - HTMLize v1.54 🠆 v1.56
-  - XML-RPC v1.6.12 🠆 1.6.15
-  - Convert system definition from hashtables to structs
-  - Load categories, tags, and pages without failing on error
-  - Add tag checkout to org2blog-def-checkout-statement
-  - Document WordPress version
+  - Updates Emacs v27.1 🠆 v28.1
+  - Updates Org v9.1.9 🠆 9.5.2
+  - Updates HTMLize v1.54 🠆 v1.56
+  - Updates XML-RPC v1.6.12 🠆 1.6.15
+  - Converts system definition from hashtables to structs
+  - Loads categories, tags, and pages without failing on error
+  - Adds tag checkout to org2blog-def-checkout-statement
+  - Documents WordPress version
 
 * v1.0
 ** v1.0.00
