@@ -1104,7 +1104,7 @@ on the project host site (GitHub at the moment)."
              "When you are finished you can save "
              "this buffer's contents into "
              "your own file or just kill the buffer to quit.")
-            (org2blog-def--pkg "homepage"))))
+            (org2blog-def-homepage org2blog-defi))))
       (error
        (org2blog--error
         (format (concat "I’m sorry I ran into a problem trying to display "
