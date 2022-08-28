@@ -79,6 +79,7 @@
 ** v1.1.13-
 
 - v1.1.13
+  - Updates WordPress 5.x 🠆 6.x
   - Updates Emacs v27.1 🠆 v28.1
   - Updates Org v9.1.9 🠆 9.5.2
   - Updates HTMLize v1.54 🠆 v1.56
