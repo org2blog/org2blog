@@ -86,6 +86,7 @@
   - Convert system definition from hashtables to structs
   - Load categories, tags, and pages without failing on error
   - Add tag checkout to org2blog-def-checkout-statement
+  - Document WordPress version
 
 * v1.0
 ** v1.0.00

@@ -55,6 +55,7 @@
     org2blog-def
   name
   version
+  wordpress-version
   metaweblog
   ox-wp
   doc
@@ -71,6 +72,7 @@
    :name "org2blog"
    :version org2blog/wp-version
    :metaweblog org2blog/wp-version
+   :wordpress-version "6.0"
    :ox-wp org2blog/wp-version
    :doc "Blog from Org mode to WordPress"
    :emacs "28.1"
@@ -138,11 +140,13 @@ inspect the generated code."
   (org2blog-def--update-the
    "README.org"
    (goto-char (point-min))
-   (re-search-forward "^Org2Blog requires at least Emacs")
+   (re-search-forward "^Current Requirements: Org2Blog")
    (kill-whole-line 1)
-   (insert (format "Org2Blog requires at least Emacs %s and Org mode %s.\n"
+   (insert (format "Current Requirements: Org2Blog %s, Emacs %s, which includes Org mode %s, and WordPress %s.\n"
+                   (org2blog-def-version org2blog-defi)
                    (org2blog-def-emacs org2blog-defi)
-                   (org2blog-def-org org2blog-defi)))))
+                   (org2blog-def-org org2blog-defi)
+                   (org2blog-def-wordpress-version org2blog-defi)))))
 
 (defun org2blog-def--contact-info (contact)
   "Create string from CONTACT info."

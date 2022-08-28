@@ -79,9 +79,11 @@ Blog from Org mode to WordPress.
 
 * Requirements And Compatibility
 
-Org2Blog runs against the version of Org mode that comes pre-loaded with Emacs. Org2Blog will require a relatively recent version of Emacs to keep it up to date with Org mode. Users today prefer running the most current version of Emacs almost immediately upon release. Org2Blog's release cycle tries to reflect that.
+Org2Blog uses the Org-mode built-in to Emacs to blog on WordPress.
 
-Org2Blog requires at least Emacs 28.1 and Org mode 9.5.2.
+Org2Blog strives to run against the current versions of all of them.
+
+Current Requirements: Org2Blog 1.1.13, Emacs 28.1, which includes Org mode 9.5.2, and WordPress 6.0.
 
 * Installation
 :properties:
