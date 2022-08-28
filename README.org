@@ -162,7 +162,11 @@ The constant ~org2blog-def--package~ helps manage Org2Blog's dependencies. Here 
 For example, you should see something like this:
 
 #+begin_src shell
-git clone https://github.com/hniksic/emacs-htmlize.git /Users/gcr/mysrc/htmlize
+cd ~/tmp
+git clone https://github.com/hniksic/emacs-htmlize.git ~/tmp/htmlize
+cd htmlize
+git checkout release/1.56
+cd ..
 #+end_src
 
 And this
@@ -170,6 +174,8 @@ And this
 #+begin_src emacs-lisp
 (add-to-list 'load-path "/Users/gcr/mysrc/htmlize")
 #+end_src
+
+Note: the correct tag of the project is loaded automatically.
 
 Now you've got everything you need to run Org2Blog against its source code.
 

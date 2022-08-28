@@ -48,6 +48,7 @@
     org2blog-pkg
   name
   version
+  (version-prefix "")
   url)
 
 (defstruct
@@ -78,6 +79,7 @@
                   (make-org2blog-pkg
                    :name "htmlize"
                    :version "1.56"
+                   :version-prefix "release/"
                    :url "https://github.com/hniksic/emacs-htmlize.git")
                   (make-org2blog-pkg
                    :name "hydra"
@@ -90,6 +92,7 @@
                   (make-org2blog-pkg
                    :name "metaweblog"
                    :version org2blog/wp-version
+                   :version-prefix "v"
                    :url "https://github.com/org2blog/org2blog.git"))
    :keywords '("comm" "convenience" "outlines" "wp")
    :authors '(("Puneeth Chaganti" . "punchagan+org2blog@gmail.com"))
@@ -265,15 +268,24 @@ inspect the generated code."
   Copy them from the *Messages* buffer into your Terminal."
   (interactive)
   (let ((install-dir (read-directory-name "Directory:")))
+    (princ (format "cd %s\n" install-dir))
     (mapcar
      (lambda (req)
        (let* ((name (org2blog-pkg-name req))
+              (version (org2blog-pkg-version req))
+              (version-prefix (org2blog-pkg-version-prefix req))
               (url (org2blog-pkg-url req)))
          (princ (format
                  "git clone %s %s/%s\n"
                  url
                  install-dir
-                 name))))
+                 name))
+         (princ (format "cd %s\n" name))
+         (princ (format
+                 "git checkout %s%s\n"
+                 version-prefix
+                 version))
+         (princ (format "cd ..\n" name))))
      (org2blog-def-requirements org2blog-defi))))
 
 (defun org2blog-def-load-statement ()

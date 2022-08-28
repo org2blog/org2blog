@@ -85,6 +85,7 @@
   - XML-RPC v1.6.12 🠆 1.6.15
   - Convert system definition from hashtables to structs
   - Load categories, tags, and pages without failing on error
+  - Add tag checkout to org2blog-def-checkout-statement
 
 * v1.0
 ** v1.0.00
