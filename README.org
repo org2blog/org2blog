@@ -209,14 +209,14 @@ With this set up you can start playing around with things and even making change
 - Display the Org2Blog user interface (UI) by executing the command ~org2blog-user-interface~. You can do everything with Org2Blog using its UI (setting keybindings elsewhere is super easy, too, and you'll cover it soon). For simplicity, these directions will refer to "things to do in the UI" in the style of =UI [action]=.
 - *The Main Menu:*
   - [[file:/images/menu-main.png]]
-- Create a brand new entry from a template: =UI [New Buffer]=
+- Create a brand new Buffer Entry from a template: =UI [New Buffer]=
 - If you aren't logged in, then Org2Blog will ask if you would like to log in. Yes, you should go ahead and log in.
-- A pre-populated buffer post sits in front of you. Please fill it out with test data with title, category, and tags. Org mode requires you to keep a space between the keyword and the value: that is the only way for it to read them. If you accidentally omit the space, then Org2Blog will report it to you and suggest a resolution.
-- Save it as a post-draft on the blog: =UI [Save Post Draft]=
+- A pre-populated Buffer Entry sits in front of you. Please fill it out with test data with title, category, and tags. Org mode requires you to keep a space between the keyword and the value: that is the only way for it to read them. If you accidentally omit the space, then Org2Blog will report it to you and suggest a resolution.
+- Save it as a Buffer Post Draft out on the blog: =UI [Save Post Draft]=
 - Watch for messages in the minibuffer letting you know what is happening.
 - =#+POSTID= is populated now.
 - View it: =UI [View Post]=
-- When you are ready to post it, do it: =UI [Publish Post]=
+- When you are ready to /publish/ it, just do it: =UI [Publish Post]=
 
 Congratulations! You just made your first blog post with Org2Blog! With this experience under your belt, you will be a lot more interested in how to get the most out of Org2Blog. It is simple and powerful, and you can shape it into the perfect blogging tool for you. Work through usage sections at your own pace. Take the time to invest in Org2Blog and your blogging workflow. It is not a race; it is a pleasant walk: so take your time and have fun!
 
@@ -272,7 +272,7 @@ Once you've successfully logged in and read a little bit about Org2Blog, then yo
 - =UI [View It]=:
 - =UI [Publish It]=:
 
-That workflow is 100% of blogging. The right 50% of the menu is dedicated to that alone! For each action, you just need to tell Org2Blog whether you are doing it from (the source) a Buffer Entry or a Subtree Entry and whether or not it is a (destination) post or a page. With that simplicity in mind, please read on to learn about the options for learning more.
+That workflow is 100% of blogging. The right 50% of the menu is dedicated to that alone! For each action, you just need to tell Org2Blog whether you are doing it from (the source) a Buffer Entry or a Subtree Entry and whether or not it is a (destination) Post or Page. With that simplicity in mind, please read on to learn about the options for learning more.
 
 Another way to play around with it is to try out all of the menu items. Don't worry, though, because it is safe. Org2Blog never deletes anything on your computer. It will, of course, delete blog entries on the server, but never the source documents. What each menu item does, too, is pretty apparent by the name. If you want to read its documentation, then hit =h=, its key command will turn red, hit it, and its documentation will come up. They are probably overly detailed, but it is usually better to over-specify. If your preferred style of playing involves reading, running, and configuring things, though, then Org2Blog comes with a rich approach built right in.
 
@@ -295,7 +295,7 @@ This combination of easy-to-use menus and direct access to the code is the best 
 
 ***** Your Second Buffer Post
 
-Perhaps you know some defaults you want for every kind of entry. When you are ready configure them see these variables and functions:
+Perhaps you know some defaults you want for every kind of Entry. When you are ready configure them see these variables and functions:
 - Buffer Entry
   - ~org2blog/wp-buffer-template~
   - ~org2blog/wp-buffer-format-function~
@@ -309,7 +309,7 @@ Perhaps you know some defaults you want for every kind of entry. When you are re
   - ~org2blog/wp-default-categories-subtree~
   - ~org2blog/wp-default-tags-subtree~
 
-With your configuration ready, start creating the post.
+With your configuration ready, start creating the Post.
 
 Start by creating a =UI [New Buffer]=. A template populates your Entry. When you =UI [Login]= Org2Blog learns about your Categories, Tags, and Pages. Position the cursor on one of those lines and =UI [Complete]= and either choose a value or complete a value that you began typing. If you want one, you can add a =#+DESCRIPTION= and a =#+PERMALINK= too.
 
@@ -324,11 +324,11 @@ Org2Blog includes some helpers for inserting content into your Entry under the =
 - =UI [Link To Page]=: Insert a link to a page from a list of posts on /your blog/.
 - =UI [#+ORG2BLOG]=: If your Entry doesn't have the special tag, then it will insert it.
 
-When you are ready, save your new post. Open the main menu by calling ~org2blog-user-interface~. Since you just created a buffer entry, look at the menu items under the Buffers column and find the operation you want to perform. Your first step here is =UI [Save Post Draft]= to save your post on your blog. The language here is essential: actions you'll perform in your actual blog map directly to menu items here. Next, do =UI [View Post]= to bring up a web browser so you can read and review your post. From here, you can iterate through your writing process until you finally =UI [Publish Post]=.
+When you are ready, save your new Post. Open the main menu by calling ~org2blog-user-interface~. Since you just created a Buffer Post, look at the menu items under the Buffers column and find the operation you want to perform. Your first step here is =UI [Save Post Draft]= to save your post on your blog. The language here is essential: actions you'll perform in your actual blog map directly to menu items here. Next, do =UI [View Post]= to bring up a web browser so you can read and review your Post. From here, you can iterate through your writing process until you finally =UI [Publish Post]=.
 
 ***** Your First Buffer Page
 
-Working with pages is virtually identical to working with posts for a good reason: WordPress sees them as nearly the same thing, and Org2Blog does too. The only difference is that when you work with your page, use the functions that have Page in the name.
+Working with Pages is virtually identical to working with Posts for a good reason: WordPress sees them as nearly the same thing, and Org2Blog does too. The only difference is that when you work with your Page, use the functions that have Page in the name.
 
 In the walk-through here, that means using =UI [Save Page Draft]= and so on.
 
@@ -415,23 +415,23 @@ Subtrees are a great way to keep multiple posts in one file. People use this to 
 
 Power users take note: you can store subtrees that post to different blogs by specifying the URL on the subtree. This "just works" like any other subtree post. Not something you might need much, but when you do, it is a very cool feature.
 
-The workflow for creating a subtree entry is virtually identical to a buffer entry. There are only two (but significant) differences:
+The workflow for creating a Subtree Post is virtually identical to a Buffer Post. There are only two (but significant) differences:
 
 - Use =UI [New Subtree]= to get started.
 - Review the properties
 - They go in a drawer like any other subtree.
 - Unless you specify an option: the headline populated the =TITLE=.
-- Unlike a buffer entry: Tags are stored in =POST_TAGS=. Org mode already uses =TAGS= as a fundamental concept for subtrees, so we had to choose a different property name. =POST_TAGS= seemed pretty good.
+- Unlike a Buffer Entry: Tags are stored in =POST_TAGS=. Org mode already uses =TAGS= as a fundamental concept for subtrees, so we had to choose a different property name. =POST_TAGS= seemed pretty good.
 
 Suppose you ever have your cursor in a subtree, any subtree, and you attempt to use a buffer function. In that case, Org2Blog will not perform the actions and give you a warning, preventing unexpected editing and posting behavior.
 
-You can either save your subtree entry in a file or copy and paste it into an existing file.
+You can either save your Subtree Entry in a file or copy and paste it into an existing file.
 
 **** Using Narrowing
 
-Having already read through the manual and posted a buffer entry, you are almost comfortable with how they look. An entry has some configuration data at the top of the page, followed by the title and the content. It is what you'll be seeing time and time again. As you write more, you will probably start to wonder, "Why can't I just store multiple buffer entries in a single buffer in the first place?! (And if you hadn't already, then you will be wondering after you read the section on using Subtrees to store multiple entries!)" That is an excellent question.
+Having already read through the manual and posted a Buffer Entry, you are almost comfortable with how they look. An entry has some configuration data at the top of the page, followed by the title and the content. It is what you'll be seeing time and time again. As you write more, you will probably start to wonder, "Why can't I just store multiple buffer entries in a single buffer in the first place?! (And if you hadn't already, then you will be wondering after you read the section on using Subtrees to store multiple entries!)" That is an excellent question.
 
-The first reason is that it is easier to make sense of your entry types when their home is clearly defined: every single buffer entry is stored in a separate file, and multiple subtree entries are stored in a single file. For most users, this is a straightforward approach that handles most workflows that Org2Bloggers will ever require. Whether or not this workflow serves you, this explanation may still leave you wondering what /exactly/ is the difference between a buffer entry and a subtree entry.
+The first reason is that it is easier to make sense of your Entry types when their home is clearly defined: every single Buffer Entry is stored in a separate file, and multiple subtree entries are stored in a single file. For most users, this is a straightforward approach that handles most workflows that Org2Bloggers will ever require. Whether or not this workflow serves you, this explanation may still leave you wondering what /exactly/ is the difference between a Buffer Entry and a Subtree Entry.
 
 Buffer entries and subtrees are identical in purpose. You write, save, view, publish, and trash them. The only difference between them is their technical format. As you may have seen, buffer entries specify post configuration properties up at the top of the page, and subtree entries specify them just below the subtree. Now to come back around, you might be asking, "Well, if they are identical, then why can't I store multiple buffer entries in a single file?" The answer is that yes, you can.
 
@@ -445,25 +445,25 @@ Narrowing can make it easier to concentrate on a single subroutine or paragraph 
 
 -- [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Narrowing.html][14.5 Narrowing]], from the [[https://www.gnu.org/software/emacs/manual/html_node/emacs/index.html#Top][The Emacs Editor]] Documentation
 
-When you tell Org2Blog to act upon a single Buffer entry, say =[Save Post Draft]=, then Org2Blog needs to think that it is looking at a single Buffer entry. Convincing Org2Blog is easy to do when there is only one Buffer entry /because there is only one buffer entry/. How do you make Org2Blog think that there is only one Buffer entry when you start storing /multiple/ Buffer entries in a single file, though? The answer is that you do it by merely using =Narrowing=.
+When you tell Org2Blog to act upon a single Buffer Entry, say =[Save Post Draft]=, then Org2Blog needs to think that it is looking at a single Buffer entry. Convincing Org2Blog is easy to do when there is only one Buffer entry /because there is only one Buffer Entry/. How do you make Org2Blog think that there is only one Buffer Entry when you start storing /multiple/ Buffer entries in a single file, though? The answer is that you do it by merely using =Narrowing=.
 
 Please read its definition two or three times until you feel good about it. It is a simple idea, but it can take time for it to sink in. Once you start using it, though, you will find it to be a powerful tool useful for many situations that you deal with as a writer of any kind. Here is how to use it to store multiple Buffer entries in a single file:
 
 - Create the file =blog.org= in which to store multiple Buffer entries.
-- Create a Buffer entry, as usual, using the UI
+- Create a Buffer Entry, as usual, using the UI
 - Instead of saving it, copy and paste it into =blog.org=
 - Give it a notable title and some content.
-- Do the same thing for another buffer entry. Now you have two in =blog.org=.
+- Do the same thing for another Buffer Entry. Now you have two in =blog.org=.
 - It should look something like this:
 
 [[file:/images/Narrowing01.png]]
 
-Now you are all set to start working multiple Buffer entries in a single file. You'll go through the process of narrowing it down to a single entry and working on it just as you've already done before. Here are the steps:
+Now you are all set to start working multiple Buffer entries in a single file. You'll go through the process of narrowing it down to a single Entry and working on it just as you've already done before. Here are the steps:
 
-- Identify the second Buffer entry you just created. You will work on this from here on.
+- Identify the second Buffer Entry you just created. You will work on this from here on.
 - Highlight everything from the start of the Entry to the end of the Entry. You can do this using your mouse by positioning the pointer at the top of the post, pressing and holding the mouse button, then releasing it. Another way to do it is to move the cursor up to that position, press ~Control-space~, then move the cursor to the end.
 - Narrow to the selected region by pressing ~Control-x n n~. That means pushing and holding ~Control-x~, releasing it, then striking ~n~ once, and then finally once again.
-- If you did it right then, you would only see the second Buffer entry. You have just narrowed down to the region you selected: the entire Buffer entry.
+- If you did it right then, you would only see the second Buffer Entry. You have just narrowed down to the region you selected: the entire Buffer Entry.
 - From here, you can work with your Entry precisely as you did before.
 - It should look something like this:
 
@@ -482,14 +482,14 @@ WordPress does a great job helping you manage image files using its [[https://en
 
 Org2Blog can help you do one thing here: automatically upload images to your media library for you. The way it works is that when you publish your post to your blog Org2Blog:
 
-- Scans your Org2Blog entry.
+- Scans your Org2Blog Entry.
 - Finds a link to an image file on your computer.
 - Uploads the file to your Media Library.
 - On publishing
   - Modifies the link, so it points to the uploaded file on your blog.
   - Configures the size of the ~IMG~ linked.
   - Inserts the new link in the post.
-  - Make a note in the Org2Blog entry so that it remembers that it already uploaded the image file to your blog.
+  - Make a note in the Org2Blog Entry so that it remembers that it already uploaded the image file to your blog.
 
 This approach is suitable for the following workflows:
 
@@ -569,13 +569,13 @@ Automatic Image Uploading is flexible and /just works/.
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:C88F5A1B-4431-4CAD-BABB-BE24BEEB088B
 :END:
 
-The best way to think about how Org2Blog defines entry properties is first to think about its metadata. For example, there are posts, and posts can have parents. Each has a numerical identifier, so you'll deal with the same thing when you work with them in your Org2Blog file. A permalink also behaves precisely how you would expect. If you haven't looked at post metadata before, then open up a post and click around to see what data it uses.
+The best way to think about how Org2Blog defines Entry properties is first to think about its metadata. For example, there are posts, and posts can have parents. Each has a numerical identifier, so you'll deal with the same thing when you work with them in your Org2Blog file. A permalink also behaves precisely how you would expect. If you haven't looked at post metadata before, then open up a post and click around to see what data it uses.
 
 Next, think about how Org mode metadata can supplement your WordPress data. For example, Subtrees can have a bunch of different date types. Each one of them will work as the date value for the Entry on WordPress.
 
 Since they are plain old Org mode properties, keep a space between the property name and its value.
 
-- Entry
+- Buffer Entry
   - =DATE=
   - =TITLE=
   - =CATEGORY=
@@ -584,7 +584,7 @@ Since they are plain old Org mode properties, keep a space between the property 
   - =PARENT=
   - =PERMALINK=
   - =DESCRIPTION= (aka excerpt)
-- Subtree
+- Subtree Entry
   - For Date
     - =POST_DATE=
     - =SCHEDULEDD=
@@ -612,8 +612,8 @@ After playing around a little bit, you should have a better sense of what is pos
 - You only have to =UI [Logout]= if you are going to start blogging to a different server than you began. All it does is clear out the local variables used to store tags and categories from your blog.
 - When you =UI [Save]= an already published entry, WordPress will change that Entry into a Draft. The WordPress UI works the same way. If you have never used the WordPress UI before, now is the time. Sometimes using Org2Blog without any WordPress familiarity results in surprises when you forget to either publish or trash your draft and now there is a mysterious draft just sitting out there.
 Whenever Org2Blog can't do what you asked and understands why it will show you a message in the minibuffer and the Messages buffer. Suppose it doesn't know why it gives you a warning in the minibuffer and the Warnings buffer. You'll find details there that can both help provide you additional information to figure out what happened and resolve it yourself or to copy and paste and fill out an issue report on the [[https://github.com/org2blog/org2blog/issues][issue tracker]]. Be sure to post issues before you start to get upset. It is probably something we have all faced before, and talking about it will usually get it resolved pretty quickly.
-- You can store a single entry in a file (a Buffer Post). You can store multiple entries in a Subtree Post. See more below.
-- Custom Key Bindings: When you use the menu, you will quickly find that you use 20% or the commands 80% of the time. For example, you may only ever use buffer posts and never use any other menu item than =UI [Publish Post]=: in that case, you only ever need to call one function! The menu item(s) to do what you want most of the time will quickly become "muscle memory." At that point, it will be easy for you to configure your custom keybindings for the functions that back up the menu item. To find the function for the menu item, just open the menu, choose =UI [Help]=, select the menu item, and Org2Blog will present you with the function that does the actual work. Take that function name and bind it to a key within this mode. See ~sample-keybindings~ at the beginning of this document for an example of how.
+- You can store a single Entry in a file (a Buffer Post). You can store multiple entries in a Subtree Post. See more below.
+- Custom Key Bindings: When you use the menu, you will quickly find that you use 20% or the commands 80% of the time. For example, you may only ever use Buffer Posts and never use any other menu item than =UI [Publish Post]=: in that case, you only ever need to call one function! The menu item(s) to do what you want most of the time will quickly become "muscle memory." At that point, it will be easy for you to configure your custom keybindings for the functions that back up the menu item. To find the function for the menu item, just open the menu, choose =UI [Help]=, select the menu item, and Org2Blog will present you with the function that does the actual work. Take that function name and bind it to a key within this mode. See ~sample-keybindings~ at the beginning of this document for an example of how.
   - Here is a screenshot of the Help menu–Just Hit "h":
     - [[file:/images/HelpMenu.gif]]
 - See ~org2blog-mode-map~ or ~org2blog/wp-keymap-prefix~ for details of the default keymap and prefix key.
@@ -764,7 +764,7 @@ With SyntaxHighlighter Evolved enabled:
 
 ***** SyntaxHighlighter Evolved Is Broken Now What?!
 
-Sometimes your source block contents cause this plugin to do the unexpected. It will look at best horrible and more likely just wrong. Then to put it simply, your first reaction will be, "Why doesn't this work😠?!" For example, your source block might be rendered as plain text without any special formatting. If you run into this situation, start debugging it without Org2Blog even involved by editing the entry directly on WordPress.
+Sometimes your source block contents cause this plugin to do the unexpected. It will look at best horrible and more likely just wrong. Then to put it simply, your first reaction will be, "Why doesn't this work😠?!" For example, your source block might be rendered as plain text without any special formatting. If you run into this situation, start debugging it without Org2Blog even involved by editing the Entry directly on WordPress.
 
 For example, remove all of the contents of the source block and type in a single word. Preview the page. It probably worked correctly, so now paste in the first line of content that you removed just now. Keep repeating until it doesn't work correctly anymore. If it looks like the problem is in Org2Blog, then please create an issue ticket, otherwise considering reporting the issue to the plugin maintainer.
 
@@ -850,7 +850,7 @@ If you want to turn an existing Org mode document into an Org2Blog document, you
 
 - Create a =UI [New Buffer]= or =UI [New Subtree= and copy those default property values
 - Copy them into your file and populate them with what you want
-- If you want to use this entry to provide content for an existing post on the server, then populate =POSTID=. When you do this and save or post your entry, whatever was on the server will get replaced.
+- If you want to use this Entry to provide content for an existing post on the server, then populate =POSTID=. When you do this and save or post your Entry, whatever was on the server will get replaced.
 
 That is the process to migrate a single Org file; it is pretty simple. How do you migrate a lot more files, though?
 
@@ -872,7 +872,7 @@ Once you start using Org2Blog for all of your /new/ posts, you will want to star
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:AF693199-1147-4491-859E-72B1400D6197
 :END:
 
-Out of the box, Org2Blog populates your new Buffer entries with a template. If you want to change it you can configure ~org2blog/wp-buffer-template~ or ~org2blog/wp-buffer-subtree-template-prefix~.
+Out of the box, Org2Blog populates your new Buffer Entries with a template. If you want to change it you can configure ~org2blog/wp-buffer-template~ or ~org2blog/wp-buffer-subtree-template-prefix~.
 
 The former takes some reading and study of the code to utilize. A future release will simplify it in a future release. The latter is a template that is inserted without any value substitution.
 
@@ -881,11 +881,11 @@ The former takes some reading and study of the code to utilize. A future release
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:EA8A1588-DC5B-4D69-84F4-B988B35FA640
 :END:
 
-You can automatically track all of the posts that you make. Why might you want to do this?
+You can automatically track all of the Posts that you make. Why might you want to do this?
 
-Perhaps you want a logbook of when you posted your entries versus when you wrote them.
+Perhaps you want a logbook of when you published your Entries versus when you wrote them.
 
-Maybe you want a single place to keep track of when you did all your posts so you can leverage Org mode's feature to get an overview of how you've been posting in terms of volume or topics covered and use that information to decide how to move forward. Each scenario is pretty specific, and it will probably be the same for you.
+Maybe you want a single place to keep track of when you made all your Posts so you can leverage Org mode's feature to get an overview of how you've been posting in terms of volume or topics covered and use that information to decide how to move forward. Each scenario is pretty specific, and it will probably be the same for you.
 
 In my case, sometimes I want a record of what I did post so I can compare it to what is out on the server because sometimes I delete entries on the blog without deleting their source files in Org mode, leaving me confused about what is going on.
 
@@ -980,7 +980,7 @@ In some ways Org2Blog can be surprising. Since it bridges that gap between Org m
 
 Most software out there has some version of [[https://en.wikipedia.org/wiki/Create,_read,_update_and_delete][Create, read, update and delete]] (CRUD). In our case it has to do with WordPress Entries and Pages. In techie language you would talk about CRUD'ing them. In WordPress language you talk about Saving, Viewing, Publishing, and Trashing. Org2Blog chose to use the WordPress language: it is less surprising and makes it easier to keep the idea that Org2Blog fits into your WordPress workflow in your mind.
 
-Take time to learn that workflow /outside/ of Org2Blog. It will save you from uncomfortable situations where your entry enters a /weird/ state. At least it can feel weird. For example when you make changes to an entry and save it, it will enter the Status of =Draft=. From here you only have two options to move it back to a Published state: Save the changes you made, or Save it without any changes. If you've never encountered this before it can be upsetting when the URL for your entry always says ~preview=true~. Whenever you get into a confusing situation be sure to access your blog inside of the WordPress UI to find out more about what is happening. Usually it is something really simple. Then step back and see what Org2Blog is doing within the WordPress workflow.
+Take time to learn that workflow /outside/ of Org2Blog. It will save you from uncomfortable situations where your Entry enters a /weird/ state. At least it can feel weird. For example when you make changes to an Entry and save it, it will enter the Status of =Draft=. From here you only have two options to move it back to a Published state: Save the changes you made, or Save it without any changes. If you've never encountered this before it can be upsetting when the URL for your Entry always says ~preview=true~. Whenever you get into a confusing situation be sure to access your blog inside of the WordPress UI to find out more about what is happening. Usually it is something really simple. Then step back and see what Org2Blog is doing within the WordPress workflow.
 
 Those words are also used because they reflect the natural workflow of working with WordPress that looks like this:
 
@@ -995,9 +995,40 @@ Blogging with WordPress is an iterative workflow, going through the cycle as man
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:790CCCC4-7178-43E0-889B-15AD3163D383
 :END:
 
-WordPress doesn't see much difference between a =Post= and a =Page=, so Org2Blog doesn't either. Here is what I mean:
+WordPress doesn't see much difference between a =Post= and a =Page=, so Org2Blog doesn't either. Here are some terms to help clarify things:
 
-Blog is shorthand for =Web Log=. Every post you make on your blog is called an =Entry=. Org2Blog stores =Entries= in either a Buffer or a Subtree. Every =Entry= can be either a =Post= or a =Page=. This simplicity can actually lead to some less comfortable situations where you accidentally publish one thing as another (it is pretty easy to fix anyway though).
+- Blog is shorthand for =Web Log=
+- Every post you make on your blog is called an =Entry=
+- Org2Blog stores =Entries= in either a =Buffer= or a =Subtree=
+- Every =Entry= can be either a =Post= or a =Page=
+
+Here is how to visualize it remembering this is supposed to make it /easier/ to make sense of how Org2Blog works behind the scenes:
+
+#+begin_src plantuml :file ./images/o2b-entry-source-dest-flow.png
+@startmindmap
+!theme plain
+caption Read Left To Right
+title Data Flow From Org2Blog Entries To WordPress
+header
+  Org2Blog Docs
+endheader
+center footer Org2Blog README
+
+,* Org2Blog
+,** 🠊 WordPress Post
+,** 🠊 WordPress Page
+left side
+,** Buffer Entry 🠊
+,** Subtree Entry 🠊
+@endmindmap
+#+end_src
+
+#+RESULTS:
+#+begin_RESULTS
+[[file:./images/o2b-entry-source-dest-flow.png]]
+#+end_RESULTS
+
+This simplicity can actually lead to some less comfortable situations where you accidentally publish one thing as another (it is pretty easy to fix anyway though).
 
 Although Org2Blog is implemented how WordPress works, it can surprising to see these words used. However you'll get used to it pretty quickly.
 
