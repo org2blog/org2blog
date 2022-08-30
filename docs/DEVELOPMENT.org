@@ -1,0 +1,199 @@
+#+title: Development
+
+* About
+
+Org2Blog Developer Documentation.
+
+* Table of Contents
+:PROPERTIES:
+:TOC:      :include all
+:END:
+:CONTENTS:
+- [[#about][About]]
+- [[#table-of-contents][Table of Contents]]
+- [[#data-model][Data Model]]
+:END:
+
+* Data Model & Functional Design
+
+Org2Blog's data model addresses only two ideas:
+
+- You write an ~Entry~ (=SOURCE=) that gets published to either a WordPress ~Post~ or ~Page~ (=DEST=)
+- An ~Entry~ is defined in either a ~Buffer~ or a ~Subtree~
+
+All of the functions revolve around these two ideas.
+
+=Object-Orientation= is not used with either the data or implementation. With only two data types the effort isn't justified. With that in mind functions must manually manually address this implementation scenario:
+
+[[file:o2b-entry-source-dest-flow.png]]]]
+
+Consequently key functions all either include (or deduce) the variables:
+
+- =SOURCE= :: Either ~'buffer~ or ~'subtree~
+- =DEST= :: Either ~'post~ ~'page~
+
+From the user's perspective the source data is virtually identical: you write an ~Entry~ that gets published out to WordPress. It is really that simple.
+
+From WordPress's perspective a ~Post~ and ~Page~ are almost identical too. Therefore many of the functions can be reused with slight differences.
+
+Since WordPress follows the CRUD model Org2Blog will only need four implementations for each operation type documented here addressing =SOURCE 🠆 DEST=:
+
+- ~Buffer~ 🠆 ~Post~
+- ~Buffer~ 🠆 ~Page~
+- ~Subtree~ 🠆 ~Post~
+- ~Subtree~ 🠆 ~Page~
+
+Resulting in 4x4 combination. Here is how the each work.
+
+In the interest of brevity the ~org2blog-~ prefix is removed from the function names.
+
+The node document format below is:
+
+- Function name: newline
+- Argument names: newline
+- Values passed to next function in round parens: (🠆 args...)
+
+** Create
+
+[[file:/docs/o2b-entry-new-flow.png]]
+
+~org2blog--new~ creates the content but doesn't publish it yet. See Save.
+
+It works like this:
+
+- Confirm the destination type is valid or error out
+- Maybe login
+- Prepare a buffer to population with ~Entry~ content
+- Insert ~Entry~ specific content
+- Maybe track it's creation
+
+#+begin_src plantuml :file o2b-entry-new-flow.png
+@startmindmap
+!theme plain
+caption Read Left To Right
+title Creation Function Flow
+header
+  Org2Blog Docs
+endheader
+center footer Org2Blog DEVELOPMENT
+
+,* -new\nsource
+left side
+,** buffer-new\n('buffer 🠆)
+,** subtree-new\n('subtree 🠆)
+@endmindmap
+#+end_src
+
+#+RESULTS:
+#+begin_RESULTS
+[[file:o2b-entry-new-flow.png]]
+#+end_RESULTS
+
+** Read AKA View
+
+~org2blog-entry-view~ works like this:
+
+- ~Subtree~ processing is almost identical to a ~Buffer~. Therefore
+  make a note right away this for a subtree
+- Get the =Post ID=. If there isn't one then error out.
+- Prepare the preview URL
+- Open in web browser
+
+#+begin_src plantuml :file o2b-entry-view-flow.png
+@startmindmap
+!theme plain
+caption Read Left To Right
+title View Function Flow
+header
+  Org2Blog Docs
+endheader
+center footer Org2Blog DEVELOPMENT
+
+,* entry-view\nsource dest
+left side
+,** buffer-post-view\n('buffer 'post 🠆)
+,** buffer-page-view\n('buffer 'page 🠆)
+,** subtree-view\ndest\n('subtree dest 🠆)
+,*** subtree-post-view\n('post 🠆)
+,*** subtree-page-view\n('page 🠆)
+@endmindmap
+#+end_src
+
+#+RESULTS:
+#+begin_RESULTS
+[[file:o2b-entry-view-flow.png]]
+#+end_RESULTS
+
+** Update AKA Create OR Save
+
+From a WordPress perspective both Create and Save are the same thing. The only difference is whether or not they are a Draft, and private, or published and pubic.
+
+~org2blog-entry-save~ works like this:
+
+- Maybe login
+- ~Subtree~ processing is almost identical to a ~Buffer~. Therefore
+  make a note right away this for a subtree
+- Maybe auto-save and auto-post it
+- Either create or save the post
+- Update the ~Entry~ with the new ID
+-
+
+#+begin_src plantuml :file o2b-entry-create-save-flow.png
+@startmindmap
+!theme plain
+caption Read Left To Right
+title Create & Save Function Flow
+header
+  Org2Blog Docs
+endheader
+center footer Org2Blog DEVELOPMENT
+
+,* entry-save\nsource type &publish
+left side
+,** buffer-post-save\n&publish\n('buffer 'post publish)
+,*** buffer-post-publish\n(t)
+,** subtree-post-save\n&publish\n('subtree 'post publish)
+,*** subtree-post-publish\n(t)
+,** buffer-page-save\n&publish\n('buffer 'page publish)
+,*** buffer-page-publish\n(t)
+,** subtree-page-save\n&publish\n('subtree 'page publish)
+,*** subtree-page-publish\n(t)
+@endmindmap
+#+end_src
+
+#+RESULTS:
+#+begin_RESULTS
+[[file:o2b-entry-create-save-flow.png]]
+#+end_RESULTS
+
+** Delete
+
+~org2blog-entry-trash~ works like this:
+
+- Get the =Post ID=
+- Maybe confirm the trashing
+- Trash it
+
+#+begin_src plantuml :file o2b-entry-trash-flow.png
+@startmindmap
+!theme plain
+caption Read Left To Right
+title Delete Flow
+header
+  Org2Blog Docs
+endheader
+center footer Org2Blog DEVELOPMENT
+
+,* entry-trash\n&post-id
+left side
+,** buffer-post-trash\n&post-id\n('post post-id)
+,** subtree-post-trash\n&post-id\n('post post-id)
+,** buffer-page-trash\n&page-id\n('page page-id)
+,** subtree-page-trash\n&page-id\n('page post-id)
+@endmindmap
+#+end_src
+
+#+RESULTS:
+#+begin_RESULTS
+[[file:o2b-entry-trash-flow.png]]
+#+end_RESULTS

@@ -90,6 +90,9 @@
   - Documents WordPress version
   - Further document Source Entries to Destinations in WordPress
   - Move to new org-make-toc format
+  - Refactor to support different Post and Page view format w/Docs
+    Consequently ~org2blog-buffer-post-or-page-view~ and
+    ~org2blog-subtree-post-or-page-view~ are unusable.
 
 * v1.0
 ** v1.0.00

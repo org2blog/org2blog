@@ -1717,28 +1717,14 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
                             "this again.")
                     thing))
                   (show (message "%s" did)
-                        (cond ((and from-buffer to-post)
-                               (org2blog-buffer-post-or-page-view))
-                              ((and from-buffer to-page)
-                               (org2blog-buffer-post-or-page-view))
-                              ((and from-subtree to-post)
-                               (org2blog-subtree-post-or-page-view))
-                              ((and from-subtree to-page)
-                               (org2blog-subtree-post-or-page-view))))
+                        (org2blog-entry-view source type))
                   ((and ask (y-or-n-p
                              (format
                               (concat did
                                       "Would you like to display "
                                       "your %s: “%s” (ID “%s”)? ")
                               thing (cdr (assoc "title" post)) post-id)))
-                   (cond ((and from-buffer to-post)
-                          (org2blog-buffer-post-or-page-view))
-                         ((and from-buffer to-page)
-                          (org2blog-buffer-post-or-page-view))
-                         ((and from-subtree to-post)
-                          (org2blog-subtree-post-or-page-view))
-                         ((and from-subtree to-page)
-                          (org2blog-subtree-post-or-page-view))))))
+                   (org2blog-entry-view source type))))
           (throw 'return (list 'success post-id "It worked")))))))
 
 ;;;###autoload
@@ -2010,66 +1996,108 @@ already present."
           (widen))))))
 
 ;;;###autoload
+(defun org2blog-buffer-post-or-page-view ()
+  "Use either `org2blog-buffer-post-view' or `org2blog-buffer-page-view'.
+
+WordPress 6 differentiates between viewing a Page and a Post.
+Therefore this function must be retired. It is not a bug:
+WordPress just doesn't work that way with the API now.
+"
+  (interactive)
+  (error
+   (concat
+    "I’m sorry but due to factors outside my control "
+    "this function has been removed. Please use either "
+    "`org2blog-buffer-post-view' or "
+    "`org2blog-buffer-page-view' instead.")))
+
+;;;###autoload
 (defun org2blog-buffer-post-view ()
   "View buffer post."
   (interactive)
-  (org2blog-buffer-post-or-page-view))
+  (org2blog-entry-view 'buffer 'post))
 
 ;;;###autoload
 (defun org2blog-buffer-page-view ()
   "View buffer page."
   (interactive)
-  (org2blog-buffer-post-or-page-view))
+  (org2blog-entry-view 'buffer 'page))
 
 ;;;###autoload
-(defun org2blog-buffer-post-or-page-view ()
-  "View buffer post or page."
+(defun org2blog-subtree-post-or-page-view ()
+  "Use either `org2blog-subtree-post-view' or `org2blog-subtree-page-view'.
+
+WordPress 6 differentiates between viewing a Page and a Post.
+Therefore this function must be retired. It is not a bug:
+WordPress just doesn't work that way with the API now.
+"
   (interactive)
-  (org2blog-source-post-view 'buffer))
+  (error
+   (concat
+    "I’m sorry but due to factors outside my control "
+    "this function has been removed. Please use either "
+    "`org2blog-subtree-post-view' or "
+    "`org2blog-subtree-page-view' instead.")))
 
 ;;;###autoload
 (defun org2blog-subtree-post-view ()
   "View subtree post."
   (interactive)
-  (org2blog-subtree-post-or-page-view))
+  (org2blog-subtree-view 'post))
 
 ;;;###autoload
 (defun org2blog-subtree-page-view ()
   "View subtree page."
   (interactive)
-  (org2blog-subtree-post-or-page-view))
+  (org2blog-subtree-view 'page))
 
 ;;;###autoload
-(defun org2blog-subtree-post-or-page-view ()
-  "View subtree post or page."
+(defun org2blog-subtree-view (dest)
+  "View subtree post or page.
+
+DEST is either ’post or ’page."
   (interactive)
   (catch 'return
     (org2blog--in-subtree-check)
-    (org2blog-source-post-view 'subtree)))
+    (org2blog-entry-view 'subtree dest)))
 
 ;;;###autoload
-(defun org2blog-source-post-view (source)
-  "View post stored in SOURCE.
+(defun org2blog-entry-view (source dest)
+  "View SOURCE's entry published to DEST.
 
-Source is either a ’post or ’subtree"
+SOURCE is either ’buffer or ’subtree.
+
+DEST is either ’post or ’page.
+"
   (interactive)
   (let ((is-subtree (eq source 'subtree))
         (thing (symbol-name source)))
     (when is-subtree (org-narrow-to-subtree))
     (org2blog--ensure-login)
     (when is-subtree (widen))
-    (let* ((entry-id (or (org2blog--bprop "POSTID")
-                         (org2blog--bprop "POST_ID")
-                         (org2blog--eprop "POSTID")
-                         (org2blog--eprop "POST_ID")))
-           (url org2blog-xmlrpc))
+    (let ((entry-id (or (org2blog--bprop "POSTID")
+                        (org2blog--bprop "POST_ID")
+                        (org2blog--eprop "POSTID")
+                        (org2blog--eprop "POST_ID")))
+          (url org2blog-xmlrpc))
       (if (not entry-id)
           (message (concat "Sorry I can’t display this %s post because it "
                            "hasn’t been saved or published yet. Please do "
                            "either and try again.") thing)
-        (setq url (substring url 0 -10))
-        (setq url (concat url "?p=" entry-id "&preview=true"))
-        (browse-url url)))))
+        (let* ((base (substring url 0 -10))
+               (preview "&preview=true")
+               (resource (cond ((eq dest 'post)
+                                (format "?p=%s" entry-id))
+                               ((eq dest 'page)
+                                (format "?page_id=%s" entry-id))
+                               (org2blog--error
+                                (format
+                                 (concat
+                                  "Not sure how to view source "
+                                  "type “%s” and dest type “%s”.")
+                                 source dest))))
+               (url (concat base resource preview)))
+          (browse-url url))))))
 
 ;;;###autoload
 (defun org2blog-insert-link-to-post ()
