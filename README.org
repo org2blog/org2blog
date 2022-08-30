@@ -1028,6 +1028,8 @@ left side
 [[file:./images/o2b-entry-source-dest-flow.png]]
 #+end_RESULTS
 
+[[file:/images/o2b-entry-source-dest-flow.png]]
+
 This simplicity can actually lead to some less comfortable situations where you accidentally publish one thing as another (it is pretty easy to fix anyway though).
 
 Although Org2Blog is implemented how WordPress works, it can surprising to see these words used. However you'll get used to it pretty quickly.
