@@ -1004,6 +1004,10 @@ WordPress doesn't see much difference between a =Post= and a =Page=, so Org2Blog
 
 Here is how to visualize it remembering this is supposed to make it /easier/ to make sense of how Org2Blog works behind the scenes:
 
+[[file:/images/o2b-entry-source-dest-flow.png]]
+
+(Source code for this image follows)
+
 #+begin_src plantuml :file ./images/o2b-entry-source-dest-flow.png
 @startmindmap
 !theme plain
@@ -1027,8 +1031,6 @@ left side
 #+begin_RESULTS
 [[file:./images/o2b-entry-source-dest-flow.png]]
 #+end_RESULTS
-
-[[file:/images/o2b-entry-source-dest-flow.png]]
 
 This simplicity can actually lead to some less comfortable situations where you accidentally publish one thing as another (it is pretty easy to fix anyway though).
 
