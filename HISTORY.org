@@ -89,6 +89,7 @@
   - Adds tag checkout to org2blog-def-checkout-statement
   - Documents WordPress version
   - Further document Source Entries to Destinations in WordPress
+  - Move to new org-make-toc format
 
 * v1.0
 ** v1.0.00

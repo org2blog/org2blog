@@ -12,70 +12,74 @@ Blog from Org mode to WordPress.
 
 * Table of Contents
 :PROPERTIES:
-:toc:      all
+:TOC:      :include all
 :END:
--  [[#about][About]]
--  [[#table-of-contents][Table of Contents]]
--  [[#requirements-and-compatibility][Requirements And Compatibility]]
--  [[#installation][Installation]]
-  -  [[#using-a-package][Using A Package]]
-    -  [[#use-package][Use-Package]]
-    -  [[#install-the-package-yourself][Install The Package Yourself]]
-    -  [[#build-the-package-yourself][Build The Package Yourself]]
-  -  [[#setting-up-the-source-code-by-hand][Setting Up The Source Code By Hand]]
--  [[#usage][Usage]]
-  -  [[#make-your-first-post-in-less-5-minutes][Make Your First Post In Less 5 Minutes]]
-  -  [[#the-6-most-important-next-steps][The 6 Most Important Next Steps]]
-    -  [[#helping-yourself-to-the-basics][Helping Yourself To The Basics]]
-    -  [[#writing-more-after-you-have-settled-into-the-software][Writing More After You Have "Settled Into" The Software]]
-      -  [[#just-writing][Just Writing]]
-        -  [[#your-second-buffer-post][Your Second Buffer Post]]
-        -  [[#your-first-buffer-page][Your First Buffer Page]]
-      -  [[#automatically-configuring-your-environment][Automatically Configuring Your Environment]]
-      -  [[#defining-custom-keybindings][Defining Custom Keybindings]]
-      -  [[#logging-in-faster][Logging In Faster]]
-    -  [[#store-multiple-entries-in-one-file][Store Multiple Entries In One File]]
-      -  [[#using-subtrees][Using Subtrees]]
-      -  [[#using-narrowing][Using Narrowing]]
-    -  [[#automatic-image-uploading][Automatic Image Uploading]]
-      -  [[#how-it-works][How It Works]]
-    -  [[#supported-properties][Supported Properties]]
-    -  [[#tying-it-all-together][Tying It All Together]]
-  -  [[#more-functionality][More Functionality]]
-    -  [[#global-and-blog-specific-configuration][Global And Blog Specific Configuration]]
-    -  [[#inserting-things][Inserting Things]]
-    -  [[#confirming-things][Confirming Things]]
-    -  [[#raw-html-creation][Raw HTML Creation]]
-    -  [[#source-blocks][Source Blocks]]
-      -  [[#plain-source-box-format][Plain Source Box Format]]
-      -  [[#syntaxhighlighter-evolved][SyntaxHighlighter Evolved]]
-        -  [[#syntaxhighlighter-evolved-is-broken-now-what][SyntaxHighlighter Evolved Is Broken Now What?!]]
-    -  [[#latex-support][LaTeX Support]]
-      -  [[#wordpress-latex][WordPress LaTeX]]
-      -  [[#mathjax][MathJax]]
-    -  [[#migrating-org-mode-files-to-org2blog-files][Migrating Org Mode Files To Org2Blog Files]]
-    -  [[#export-wordpress-to-org][Export WordPress to Org]]
-    -  [[#using-entry-templates][Using Entry Templates]]
-    -  [[#tracking-entries][Tracking Entries]]
-    -  [[#doing-things-after-saving-and-publishing][Doing Things After Saving And Publishing]]
-  -  [[#the-huge-power-of-customizations][The Huge Power Of Customizations]]
-  -  [[#some-questions-and-some-answers][Some Questions And Some Answers]]
-    -  [[#why-does-org2blog-talk-about-save-view-publish-and-trash-so-much][Why Does Org2Blog Talk About Save, View, Publish, And Trash So Much?]]
-    -  [[#why-does-org2blog-talk-about-buffers-subtrees-posts-and-pages-so-much][Why Does Org2blog Talk About Buffers, Subtrees, Posts, And Pages So Much?]]
-    -  [[#why-isnt-the-package-name-org2wordpress][Why Isn't The Package Name Org2WordPress?]]
-    -  [[#what-is-metaweblog-and-why-is-it-in-org2blog][What Is MetaWeblog And Why Is It In Org2Blog?]]
-    -  [[#why-does-org2blog-use-both-the-xml-rpc-metaweblog-and-wordpress-api][Why does Org2Blog Use Both The XML-RPC MetaWeblog and WordPress API]]
-    -  [[#how-does-org2blog-manage-autoloads][How does Org2Blog manage autoloads?]]
--  [[#sample-posts][Sample Posts]]
-  -  [[#buffer-post][Buffer Post]]
-  -  [[#subtree-post][Subtree Post]]
--  [[#changelog][Changelog]]
--  [[#credits][Credits]]
--  [[#when-things-go-wrong-or-could-go-even-better][When Things Go Wrong Or Could Go Even Better]]
-  -  [[#when-things-go-wrong][When Things Go Wrong]]
-  -  [[#when-things-could-go-even-better][When Things Could Go Even Better]]
--  [[#development][Development]]
--  [[#license][License]]
+:CONTENTS:
+- [[#about][About]]
+- [[#table-of-contents][Table of Contents]]
+- [[#requirements-and-compatibility][Requirements And Compatibility]]
+- [[#installation][Installation]]
+  - [[#using-a-package][Using a Package]]
+    - [[#use-package][Use-Package]]
+    - [[#install-the-package-yourself][Install the Package Yourself]]
+    - [[#build-the-package-yourself][Build the Package Yourself]]
+  - [[#setting-up-the-source-code-by-hand][Setting Up the Source Code By Hand]]
+- [[#usage][Usage]]
+  - [[#make-your-first-post-in-less-5-minutes][Make Your First Post In Less 5 Minutes]]
+  - [[#the-6-most-important-next-steps][The 6 Most Important Next Steps]]
+    - [[#helping-yourself-to-the-basics][Helping Yourself To The Basics]]
+    - [[#writing-more-after-you-have-settled-into-the-software][Writing More After You Have "Settled Into" The Software]]
+      - [[#just-writing][Just Writing]]
+        - [[#your-second-buffer-post][Your Second Buffer Post]]
+        - [[#your-first-buffer-page][Your First Buffer Page]]
+      - [[#automatically-configuring-your-environment][Automatically Configuring Your Environment]]
+      - [[#defining-custom-keybindings][Defining Custom Keybindings]]
+      - [[#logging-in-faster][Logging In Faster]]
+    - [[#store-multiple-entries-in-one-file][Store Multiple Entries In One File]]
+      - [[#using-subtrees][Using Subtrees]]
+      - [[#using-narrowing][Using Narrowing]]
+    - [[#automatic-image-uploading][Automatic Image Uploading]]
+      - [[#how-it-works][How It Works]]
+    - [[#supported-properties][Supported Properties]]
+    - [[#tying-it-all-together][Tying It All Together]]
+  - [[#more-functionality][More Functionality]]
+    - [[#global-and-blog-specific-configuration][Global And Blog Specific Configuration]]
+    - [[#inserting-things][Inserting Things]]
+    - [[#confirming-things][Confirming Things]]
+    - [[#raw-html-creation][Raw HTML Creation]]
+    - [[#source-blocks][Source Blocks]]
+      - [[#plain-source-box-format][Plain Source Box Format]]
+      - [[#syntaxhighlighter-evolved][SyntaxHighlighter Evolved]]
+        - [[#syntaxhighlighter-evolved-is-broken-now-what][SyntaxHighlighter Evolved Is Broken Now What?!]]
+    - [[#latex-support][LaTeX Support]]
+      - [[#wordpress-latex][WordPress LaTeX]]
+      - [[#mathjax][MathJax]]
+    - [[#migrating-org-mode-files-to-org2blog-files][Migrating Org Mode Files To Org2Blog Files]]
+    - [[#export-wordpress-to-org][Export WordPress to Org]]
+    - [[#using-entry-templates][Using Entry Templates]]
+    - [[#tracking-entries][Tracking Entries]]
+    - [[#doing-things-after-saving-and-publishing][Doing Things After Saving And Publishing]]
+  - [[#the-huge-power-of-customizations][The Huge Power Of Customizations]]
+  - [[#some-questions-and-some-answers][Some Questions And Some Answers]]
+    - [[#why-does-org2blog-talk-about-save-view-publish-and-trash-so-much][Why Does Org2Blog Talk About Save, View, Publish, And Trash So Much?]]
+    - [[#why-does-org2blog-talk-about-buffers-subtrees-posts-and-pages-so-much][Why Does Org2blog Talk About Buffers, Subtrees, Posts, And Pages So Much?]]
+    - [[#why-isnt-the-package-name-org2wordpress][Why Isn't The Package Name Org2WordPress?]]
+    - [[#what-is-metaweblog-and-why-is-it-in-org2blog][What Is MetaWeblog And Why Is It In Org2Blog?]]
+    - [[#why-does-org2blog-use-both-the-xml-rpc-metaweblog-and-wordpress-api][Why does Org2Blog Use Both The XML-RPC MetaWeblog and WordPress API]]
+    - [[#how-does-org2blog-manage-autoloads][How does Org2Blog manage autoloads?]]
+- [[#sample-posts][Sample Posts]]
+  - [[#buffer-post][Buffer Post]]
+  - [[#subtree-post][Subtree Post]]
+- [[#changelog][Changelog]]
+- [[#credits][Credits]]
+- [[#testimonials][Testimonials]]
+- [[#when-things-go-wrong-or-could-go-even-better][When Things Go Wrong Or Could Go Even Better]]
+  - [[#when-things-go-wrong][When Things Go Wrong]]
+  - [[#when-things-could-go-even-better][When Things Could Go Even Better]]
+- [[#development][Development]]
+- [[#license][License]]
+:END:
+
 
 * Requirements And Compatibility
 
@@ -1203,27 +1207,7 @@ Here are the steps:
 
 - You may have already set up your codebase to /run/ Org2Blog, but if you haven't, then find out how up in the Installation section.
 - Readme
-  - If you decide to make changes to the readme, you need to rebuild the table of contents. Install the package [[https://github.com/alphapapa/org-make-toc][org-make-toc]]. Then call ~org-make-toc~. You can also install it by hand like you did the other packages, like this:
-    #+begin_src sh
-cd ~/src
-git clone https://github.com/magnars/s.el.git
-git clone https://github.com/magnars/dash.el.git
-git clone https://github.com/alphapapa/org-make-toc.git
-    #+end_src
-    Use this code to load it:
-    #+begin_src emacs-lisp
-(add-to-list 'load-path "~/src/s")
-(require 's)
-(add-to-list 'load-path "~/src/dash")
-(require 'dash)
-(add-to-list 'load-path "~/src/org-make-toc")
-(require 'org-make-toc)
-    #+end_src
-  - You may wish to automatically update the Readme's table of contents by adding these file local variables:
-    #+begin_src org
-# eval: (require 'org-make-toc)
-# before-save-hook: org-make-toc
-    #+end_src
+  - If you made any changes in the README then rebuild the Table of Contents just to be sure it is correct. Follow the directions [[https://github.com/alphapapa/org-make-toc][here]].
 - Contributing
   - Read the [[./docs/CONTRIBUTING.org][contributing]] guidelines.
   - Before your commit make sure that ~byte-compile-file~, ~checkdoc~, and ~package-lint-current-buffer~ don't report any errors. The first two are included with Emacs. ~package-lint~ you can either install using MELPA or you can also install it by hand like you did the other packages, like this:
