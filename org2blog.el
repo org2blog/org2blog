@@ -1,4 +1,4 @@
-;;; org2blog.el --- Blog from Org mode to WordPress -*- lexical-binding: t; -*-
+;;; org2blog.el --- Blog from Org mode to WordPress -*- lexical-binding: t; byte-compile-warnings: (not docstrings); -*-
 
 ;; Copyright (C) 2008 Ashish Shukla
 ;; Copyright (C) 2010 Benjamin Beckwith <bnbeckwith@gmail.com>

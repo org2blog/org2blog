@@ -93,6 +93,9 @@
   - Refactor to support different Post and Page view format w/Docs
     Consequently ~org2blog-buffer-post-or-page-view~ and
     ~org2blog-subtree-post-or-page-view~ are unusable.
+  - During byte compilation do not warn that docstrings that are too wide.
+    Hydra creates an exceeding number of non-human viewed docstrings
+    so no point warning.
 
 * v1.0
 ** v1.0.00
