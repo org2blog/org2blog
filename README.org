@@ -947,6 +947,27 @@ Here is an example that displays your post or page information in the =*Messages
 (add-hook 'org2blog/wp-after-new-post-or-page-functions (lambda (p) (pp p)))
 #+end_src
 
+*** Parent Pages
+
+#+begin_quote
+Many times you might find the need to display sub pages under a main page. WordPress allows you to create a parent page and then create child pages under it.
+― [[https://web.archive.org/web/20220327065319/https://www.webprotime.com/parent-page-wordpress/][What Is A Parent Page In WordPress]]
+#+end_quote
+
+Use this feature by adding the Parent property to your Buffer Entry like this:
+
+#+begin_src org
+,#+PARENT: My Parent
+#+end_src
+
+or your Subtree Entry like this:
+
+#+begin_src org
+:PARENT: My Parent
+#+end_src
+
+You can use =UI [Completion]= on it too.
+
 ** The Huge Power Of Customizations
 
 By now, you've probably seen that Org2Blog can be tailored to your workflow. If you haven't, the following will show you how easily that it can. If you already have, then you'll see how you can make it even better. It all comes through Customization to your configuration.

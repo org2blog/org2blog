@@ -96,6 +96,7 @@
   - During byte compilation do not warn that docstrings that are too wide.
     Hydra creates an exceeding number of non-human viewed docstrings
     so no point warning.
+  - Document Parent Page support
 
 * v1.0
 ** v1.0.00
