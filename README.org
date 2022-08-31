@@ -268,7 +268,7 @@ Once you've successfully logged in and read a little bit about Org2Blog, then yo
 - =UI [View It]=:
 - =UI [Publish It]=:
 
-That workflow is 100% of blogging. The right 50% of the menu is dedicated to that alone! For each action, you just need to tell Org2Blog whether you are doing it from (the source) a Buffer Entry or a Subtree Entry and whether or not it is a (destination) Post or Page. With that simplicity in mind, please read on to learn about the options for learning more.
+That workflow is 100% of blogging. The right 50% of the menu is dedicated to that alone! For each action, you just need to tell Org2Blog whether you are doing it from (the source) a Buffer Entry or a Subtree Entry and whether or not it is a (destination) [[https://wordpress.org/support/article/pages/][Post or Page]]. With that simplicity in mind, please read on to learn about the options for learning more.
 
 Another way to play around with it is to try out all of the menu items. Don't worry, though, because it is safe. Org2Blog never deletes anything on your computer. It will, of course, delete blog entries on the server, but never the source documents. What each menu item does, too, is pretty apparent by the name. If you want to read its documentation, then hit =h=, its key command will turn red, hit it, and its documentation will come up. They are probably overly detailed, but it is usually better to over-specify. If your preferred style of playing involves reading, running, and configuring things, though, then Org2Blog comes with a rich approach built right in.
 
