@@ -72,7 +72,6 @@ Blog from Org mode to WordPress.
 - [[#license][License]]
 :END:
 
-
 * Requirements And Compatibility
 
 Org2Blog uses the Org-mode built-in to Emacs to blog on WordPress.
