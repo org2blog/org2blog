@@ -58,6 +58,7 @@ Blog from Org mode to WordPress.
     - [[#using-entry-templates][Using Entry Templates]]
     - [[#tracking-entries][Tracking Entries]]
     - [[#doing-things-after-saving-and-publishing][Doing Things After Saving And Publishing]]
+    - [[#parent-pages][Parent Pages]]
   - [[#the-huge-power-of-customizations][The Huge Power Of Customizations]]
 - [[#sample-posts][Sample Posts]]
   - [[#buffer-post][Buffer Post]]
