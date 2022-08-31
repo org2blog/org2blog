@@ -1373,7 +1373,7 @@ and lack of Issue Requests stating otherwise. It looks like this:
   (interactive)
   (catch 'return
     (when (not org2blog/wp-blog-alist)
-      (message "%s" (concat "Sorry, I can’t find any blogs for you to "
+      (message "%s" (concat "I’m sorry, I can’t find any blogs for you to "
                             "login to. Please add your blog to "
                             "‘org2blog/wp-blog-alist’ and try "
                             "logging in again."))
@@ -1388,7 +1388,7 @@ and lack of Issue Requests stating otherwise. It looks like this:
             (mapcar 'car org2blog/wp-blog-alist) nil t)))
     (unless (> (length org2blog-blog-key) 1)
       (message
-       (concat "Sorry, I can’t log in to blogs with names less than 2 "
+       (concat "I’m sorry, I can’t log in to blogs with names less than 2 "
                "characters long! It is weird, but I just can’t! Please "
                "run me again and tell  me about a blog with a name at "
                "least 2 characters long. There are 3 ways to do it: "
@@ -2081,7 +2081,7 @@ DEST is either ’post or ’page.
                         (org2blog--eprop "POST_ID")))
           (url org2blog-xmlrpc))
       (if (not entry-id)
-          (message (concat "Sorry I can’t display this %s post because it "
+          (message (concat "I’m sorry, I can’t display this %s post because it "
                            "hasn’t been saved or published yet. Please do "
                            "either and try again.") thing)
         (let* ((base (substring url 0 -10))
@@ -2730,7 +2730,7 @@ If SUBTREE-P is non-nil, record that."
                              (org2blog--error
                               (format
                                (concat
-                                "Sorry I had a problem creating your post "
+                                "I’m sorry, I had a problem creating your post "
                                 "tracking file. The problem is that the "
                                 "filename is ambiguous. The solution is to "
                                 "either use an absolute path or to set "
@@ -2936,12 +2936,12 @@ and munge it a little to make it suitable to use with the
     (display-warning
      'org2blog/wp
      (format
-      (concat "Sorry, I might have problems running right now. It looks like "
+      (concat "I’m sorry, I might have problems running right now. It looks like "
               "version %s of %s is installed, but I need "
               "at least version %s of %s to run. You might not run "
               "into problems, but please install at "
               "least version %s of %s and run me again. "
-              "Sorry for the trouble, but running a newer version "
+              "I’m sorry for the trouble, but running a newer version "
               "will make your whole Org2Blog experience "
               "faster, easier, and more fun. See you soon!")
       current-version library-name
