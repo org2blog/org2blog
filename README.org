@@ -12,11 +12,10 @@ Blog from Org mode to WordPress.
 
 * Table of Contents
 :PROPERTIES:
-:TOC:      :include all
+:TOC:      :include all :ignore (this)
 :END:
 :CONTENTS:
 - [[#about][About]]
-- [[#table-of-contents][Table of Contents]]
 - [[#requirements-and-compatibility][Requirements And Compatibility]]
 - [[#installation][Installation]]
   - [[#using-a-package][Using a Package]]
