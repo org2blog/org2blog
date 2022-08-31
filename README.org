@@ -1205,6 +1205,8 @@ Here are the steps:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:75FC72AE-6ECF-475F-AF06-9E45F13B07C8
 :END:
 
+See [[./docs/DEVELOPMENT.org][DEVELOPMENT]].
+
 - You may have already set up your codebase to /run/ Org2Blog, but if you haven't, then find out how up in the Installation section.
 - Readme
   - If you made any changes in the README then rebuild the Table of Contents just to be sure it is correct. Follow the directions [[https://github.com/alphapapa/org-make-toc][here]].
