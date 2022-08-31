@@ -358,7 +358,7 @@ The blog specific property is: :id
 Example: An integer defined by a string.")
 
 (defconst org2blog-deprecation "2.0.0"
-  "Release in which obselete objects will be removed.")
+  "Release in which obsolete objects will be removed.")
 
 ;;; Deprecations
 
