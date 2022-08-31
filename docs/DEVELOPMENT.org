@@ -11,7 +11,11 @@ Org2Blog Developer Documentation.
 :CONTENTS:
 - [[#about][About]]
 - [[#table-of-contents][Table of Contents]]
-- [[#data-model][Data Model]]
+- [[#data-model--functional-design][Data Model & Functional Design]]
+  - [[#create][Create]]
+  - [[#read-aka-view][Read AKA View]]
+  - [[#update-aka-create-or-save][Update AKA Create OR Save]]
+  - [[#delete][Delete]]
 :END:
 
 * Data Model & Functional Design
