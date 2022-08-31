@@ -2970,7 +2970,7 @@ and munge it a little to make it suitable to use with the
   (display-buffer "*Warnings*")
   (message
    (concat
-    "I’m sorry, I ran into an error and couldn’t do that 🙇. "
+    "I’m sorry, I ran into an error and couldn’t do that. "
     "Please view the “*Warnings*” buffer for details.")))
 
 (defun org2blog--get-timestamp ()
