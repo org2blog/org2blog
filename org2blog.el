@@ -44,14 +44,14 @@
 (defconst org2blog/wp-version "1.1.13"
   "Current version of org2blog.el.")
 
-(defstruct
+(cl-defstruct
     org2blog-pkg
   name
   version
   (version-prefix "")
   url)
 
-(defstruct
+(cl-defstruct
     org2blog-def
   name
   version
