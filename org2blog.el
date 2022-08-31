@@ -184,7 +184,7 @@ inspect the generated code."
    (insert (format ";; Version: %s\n" version))
    (insert (format ";; Package-Requires: ((emacs \"%s\")"
                    (org2blog-def-emacs org2blog-defi)))
-   (mapcar
+   (mapc
     (lambda (req)
       (let* ((name (org2blog-pkg-name req))
              (version (org2blog-pkg-version req))
