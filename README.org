@@ -296,7 +296,7 @@ Configure it like this:
 - Install [[https://hunspell.github.io/][Hunspell]] with your package manager. For example these directions are for macOS:
   #+begin_src sh
 brew info hunspell
-brew install hunspell~/
+brew install hunspell
   #+end_src
 - [[https://github.com/hunspell/hunspell#dictionaries][Find]] and download your dictionary to the public Spelling folder. You need both an *.aff and *.dic file:
   #+begin_src sh
