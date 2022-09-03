@@ -28,12 +28,9 @@ Blog from Org mode to WordPress.
   - [[#the-6-most-important-next-steps][The 6 Most Important Next Steps]]
     - [[#helping-yourself-to-the-basics][Helping Yourself To The Basics]]
     - [[#writing-more-after-you-have-settled-into-the-software][Writing More After You Have "Settled Into" The Software]]
-      - [[#just-writing][Just Writing]]
-        - [[#your-second-buffer-post][Your Second Buffer Post]]
-        - [[#your-first-buffer-page][Your First Buffer Page]]
-      - [[#automatically-configuring-your-environment][Automatically Configuring Your Environment]]
-      - [[#defining-custom-keybindings][Defining Custom Keybindings]]
-      - [[#logging-in-faster][Logging In Faster]]
+      - [[#spellchecking][Spellchecking]]
+      - [[#your-second-buffer-post][Your Second Buffer Post]]
+      - [[#your-first-buffer-page][Your First Buffer Page]]
     - [[#store-multiple-entries-in-one-file][Store Multiple Entries In One File]]
       - [[#using-subtrees][Using Subtrees]]
       - [[#using-narrowing][Using Narrowing]]
@@ -284,10 +281,42 @@ This combination of easy-to-use menus and direct access to the code is the best 
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:A1DC8316-20E1-4188-AA22-E2F1CD62EC08
 :END:
-**** Just Writing
-:PROPERTIES:
-:ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:CF77828B-1078-4A5E-A9A4-25C5D554EF70
-:END:
+***** Spellchecking
+
+Why bother spellchecking for spelling errors?
+
+- Encourages readers to focus on your mistakes―not your message
+- You are being judged: they reduce your credibility
+- Spellcheckers can do it for you with nearly zero effort required!
+
+Fortunately spellchecking comes pre-loaded with Org2Blog.
+
+Configure it like this:
+
+- Install [[https://hunspell.github.io/][Hunspell]] with your package manager. For example these directions are for macOS:
+  #+begin_src sh
+brew info hunspell
+brew install hunspell~/
+  #+end_src
+- [[https://github.com/hunspell/hunspell#dictionaries][Find]] and download your dictionary to the public Spelling folder. You need both an *.aff and *.dic file:
+  #+begin_src sh
+cd mkdir /usr/local/share/words
+cd /usr/local/share/words
+wget -O en_US.aff https://cgit.freedesktop.org/libreoffice/dictionaries/plain/en/en_US.aff
+wget -O en_US.dic https://cgit.freedesktop.org/libreoffice/dictionaries/plain/en/en_US.dic
+  #+end_src
+- Configure Hunspell's dictionaries
+  #+begin_src sh
+export DICPATH="/usr/local/share/words/"
+  #+end_src
+- Load the variable and restart Emacs
+
+Run it like this:
+
+- Maybe narrow to the content you want to spellcheck
+- Run =[UI] Spellcheck=
+- Step though your spelling corrections
+- Post happily!
 
 ***** Your Second Buffer Post
 
@@ -327,6 +356,11 @@ When you are ready, save your new Post. Open the main menu by calling ~org2blog-
 Working with Pages is virtually identical to working with Posts for a good reason: WordPress sees them as nearly the same thing, and Org2Blog does too. The only difference is that when you work with your Page, use the functions that have Page in the name.
 
 In the walk-through here, that means using =UI [Save Page Draft]= and so on.
+
+**** Just Writing
+:PROPERTIES:
+:ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:CF77828B-1078-4A5E-A9A4-25C5D554EF70
+:END:
 
 **** Automatically Configuring Your Environment
 :PROPERTIES:

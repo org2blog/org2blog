@@ -851,7 +851,7 @@ here seemed to be a good balance between speed and value(s)."
  [_a_] About          [_d_] “Insert A”   [_J_] Save Page Draft  [_U_] Save Page Draft
  [_w_] Version        [_v_] README       [_K_] View Page        [_I_] View Page
  [_h_] Help           [_V_] Variables    [_L_] Publish Page     [_O_] Publish Page
- [_q_] Quit            ^ ^               [_:_] Trash Page       [_P_] Trash Page
+ [_q_] Quit           [_S_] Spellcheck   [_:_] Trash Page       [_P_] Trash Page
 "
   ("4" org2blog-user-login :exit nil)
   ("3" org2blog-user-report-on :exit nil)
@@ -869,6 +869,7 @@ here seemed to be a good balance between speed and value(s)."
   ("d" org2blog--hydra-main-inserts/body)
   ("v" org2blog-readme)
   ("V" org2blog--hydra-main-variables/body)
+  ("S" ispell-buffer)
 
   ("j" org2blog-buffer-post-save)
   ("k" org2blog-buffer-post-view)
