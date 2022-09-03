@@ -314,7 +314,7 @@ export DICPATH="/usr/local/share/words/"
 
 Run it like this:
 
-- Maybe narrow to the content you want to spellcheck
+- Maybe narrow to the content you want to spellcheck. See more in [[#using-narrowing][Using Narrowing]].
 - Run =[UI] Spellcheck=
 - Step though your spelling corrections
 - Post happily!
