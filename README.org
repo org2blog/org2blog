@@ -28,7 +28,7 @@ Blog from Org mode to WordPress.
   - [[#the-6-most-important-next-steps][The 6 Most Important Next Steps]]
     - [[#helping-yourself-to-the-basics][Helping Yourself To The Basics]]
     - [[#writing-more-after-you-have-settled-into-the-software][Writing More After You Have "Settled Into" The Software]]
-      - [[#spellchecking][Spellchecking]]
+      - [[#how-do-you-spell-that-again][How do you spell that again?]]
       - [[#your-second-buffer-post][Your Second Buffer Post]]
       - [[#your-first-buffer-page][Your First Buffer Page]]
     - [[#store-multiple-entries-in-one-file][Store Multiple Entries In One File]]
@@ -281,7 +281,7 @@ This combination of easy-to-use menus and direct access to the code is the best 
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:A1DC8316-20E1-4188-AA22-E2F1CD62EC08
 :END:
-***** Spellchecking
+***** How do you spell that again?
 
 Why bother spellchecking for spelling errors?
 
