@@ -871,7 +871,7 @@ Then the easiest way to use MathJax with WordPress is to set up this [[https://w
 - Custom MathJax location? =YES=
 - [[https://docs.mathjax.org/en/v1.1-latest/configuration.html#loading][This]] explains how to load and configure the library manually. Please read it, so you know what the plugin is doing.
 - Copy the CDN URL up to and including the ~MathJax.js~. Everything /after/ that are configuration options
-- MathJax Configuration: =TeX-AMS-MML_HTMLorMML=
+- MathJax Configuration: =TeX-AMS_HTML=
 
 Now test your installation:
 
