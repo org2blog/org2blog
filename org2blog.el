@@ -837,6 +837,21 @@ here seemed to be a good balance between speed and value(s)."
   "Abstracts displaying information about variable NAME."
   (describe-variable name))
 
+(defconst org2blog--hydra-letters
+  "
+Char : ABCDE FGHIJ KLMNO PQRST UVWXY Z1234 56789 0`-=[ ]\;', ./
+None : XoXXX XoXXX XXooX XXXoo XXXoo oXXXX ooooo ooooo ooXoo oo
+Shift: ooooo oooXX XXooX XooXo XXooo ooooo ooooo ooooo ooXoo oo
+"
+  "Document Main Menu Shortcut Letters in Use.
+
+Legend:
+  Columns: Key name and modifier applied
+  Rows:    Key itself
+
+`o': Un-used
+`X': Used")
+
 (defhydra org2blog--hydra-main (:color blue :hint nil)
   "
 ╔═^═════════╗
