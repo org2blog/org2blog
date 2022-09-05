@@ -837,13 +837,18 @@ here seemed to be a good balance between speed and value(s)."
   "Abstracts displaying information about variable NAME."
   (describe-variable name))
 
-(defconst org2blog--hydra-letters
+(defconst org2blog--hydra-letters-main-menu
   "
 Char : ABCDE FGHIJ KLMNO PQRST UVWXY Z1234 56789 0`-=[ ]\;', ./
-None : XoXXX XoXXX XXooX XXXoX XXXoo oXXXX ooooo ooooo ooXoo oo
-Shift: ooooo oooXX XXooX Xoooo XXXoo oXooo ooooo ooooo ooXoo oo
+None : XoXXX XoXXX XXooX XXXoo XXXoo oXXXX ooooo ooooo ooXoo oo
+Shift: ooooo oooXX XXooX Xoooo XXXoo ooooo ooooo ooooo ooXoo oo
 "
-  "Document Main Menu Shortcut Letters in Use.
+  "Documents Main Menu Shortcut Letters
+
+This is for the top-level main-menu.
+
+Review this before making changes to it―
+document this after making them.
 
 Legend:
   Columns: Key name and modifier applied
@@ -961,27 +966,51 @@ Legend:
 (defun org2blog--main-words ()
   "Open the “Words” menu."
   (org2blog--hydra-main-words/body))
+
 (defhydra org2blog--hydra-main-words (:color blue :hint nil)
+  "
+╔══════════╗
+║ Org2Blog ║ (Main Menu → Words)
+╚══════════╩═══════╦═════════════^═════=══^╗
+                   ║ ^Spell Check^         ║
+                   ╚═^═══════════^═══════=═╝
+                    [_b_] Buffer or Region
+                    [_w_] Word
+                    [_r_] Region
+                     ^ ^
+                     ^ ^
+                     ^ ^
+[_h_] Help           ^ ^
+[_q_] Back           ^ ^
+"
+  ("b" ispell)
+  ("w" ispell-word)
+  ("r" ispell-region)
+
+  ("h" org2blog--hydra-main-words-help/body)
+  ("q" org2blog--hydra-main/body))
+
+(defhydra org2blog--hydra-main-words-help (:color blue :hint nil)
   "
 ╔══════════╗
 ║ Org2Blog ║ (Main Menu → Words)
 ╚══════════╩═══════╦═════════════^════════^╗
                    ║ ^Spell Check^         ║
                    ╚═^═══════════^═════════╝
-                    [_tb_] Buffer
-                    [_tw_] Word
-                    [_tr_] Region
+                    [_b_] Buffer of Region
+                    [_w_] Word
+                    [_r_] Region
                      ^ ^
                      ^ ^
                      ^ ^
                      ^ ^
 [_q_] Back           ^ ^
 "
-  ("tb" ispell)
-  ("tw" ispell-word)
-  ("tr" ispell-region)
+  ("b" (org2blog--hlpf 'ispell))
+  ("w" (org2blog--hlpf 'ispell-word))
+  ("r" (org2blog--hlpf 'ispell-region))
 
-  ("q" org2blog--hydra-main/body))
+  ("q" org2blog--hydra-main-words/body))
 
 (defun org2blog--main-inserts ()
   "Open the “Insert A” menu."
@@ -989,10 +1018,10 @@ Legend:
 (defhydra org2blog--hydra-main-inserts (:color blue :hint nil)
   "
 ╔══════════╗
-║ Org2Blog ║ (Main Menu → Insert)
-╚══════════╩═══════╦═════════════^════════^╗
-                   ║ ^Insert A^            ║
-                   ╚═^═══════════^═════════╝
+║ Org2Blog ║ (Main Menu → Insert → Help) Select any item for more detail
+╚══════════╩═══════╦═════════════^══════=══^╗
+                   ║ ^Insert A^             ║
+                   ╚═^═══════════^════════=═╝
                     [_m_] More Tag
                     [_t_] MathJax Shortcode
                     [_x_] “LaTeX” Name
