@@ -969,7 +969,7 @@ Legend:
                    ║ ^Spell Check^         ║
                    ╚═^═══════════^═════════╝
                     [_tb_] Buffer
-                     ^ ^
+                    [_tw_] Word
                      ^ ^
                      ^ ^
                      ^ ^
@@ -978,6 +978,7 @@ Legend:
 [_q_] Back           ^ ^
 "
   ("tb" ispell)
+  ("tw" ispell-word)
 
   ("q" org2blog--hydra-main/body))
 
