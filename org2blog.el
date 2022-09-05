@@ -840,8 +840,8 @@ here seemed to be a good balance between speed and value(s)."
 (defconst org2blog--hydra-letters
   "
 Char : ABCDE FGHIJ KLMNO PQRST UVWXY Z1234 56789 0`-=[ ]\;', ./
-None : XoXXX XoXXX XXooX XXXoo XXXoo oXXXX ooooo ooooo ooXoo oo
-Shift: ooooo oooXX XXooX XooXo XXooo ooooo ooooo ooooo ooXoo oo
+None : XoXXX XoXXX XXooX XXXoX XXXoo oXXXX ooooo ooooo ooXoo oo
+Shift: ooooo oooXX XXooX Xoooo XXXoo oXooo ooooo ooooo ooXoo oo
 "
   "Document Main Menu Shortcut Letters in Use.
 
@@ -866,7 +866,7 @@ Legend:
  [_a_] About          [_d_] “Insert A”   [_J_] Save Page Draft  [_U_] Save Page Draft
  [_w_] Version        [_v_] README       [_K_] View Page        [_I_] View Page
  [_h_] Help           [_V_] Variables    [_L_] Publish Page     [_O_] Publish Page
- [_q_] Quit           [_S_] Spellcheck   [_:_] Trash Page       [_P_] Trash Page
+ [_q_] Quit           [_W_] Writer Tools [_:_] Trash Page       [_P_] Trash Page
 "
   ("4" org2blog-user-login :exit nil)
   ("3" org2blog-user-report-on :exit nil)
@@ -884,7 +884,7 @@ Legend:
   ("d" org2blog--hydra-main-inserts/body)
   ("v" org2blog-readme)
   ("V" org2blog--hydra-main-variables/body)
-  ("S" ispell-buffer)
+  ("W" org2blog--hydra-main-words/body)
 
   ("j" org2blog-buffer-post-save)
   ("k" org2blog-buffer-post-view)
@@ -957,6 +957,29 @@ Legend:
   ("I" (org2blog--hlpf 'org2blog-subtree-page-view))
   ("O" (org2blog--hlpf 'org2blog-subtree-page-publish))
   ("P" (org2blog--hlpf 'org2blog-subtree-page-trash)))
+
+(defun org2blog--main-words ()
+  "Open the “Words” menu."
+  (org2blog--hydra-main-words/body))
+(defhydra org2blog--hydra-main-words (:color blue :hint nil)
+  "
+╔══════════╗
+║ Org2Blog ║ (Main Menu → Words)
+╚══════════╩═══════╦═════════════^════════^╗
+                   ║ ^Spell Check^         ║
+                   ╚═^═══════════^═════════╝
+                    [_tb_] Buffer
+                     ^ ^
+                     ^ ^
+                     ^ ^
+                     ^ ^
+                     ^ ^
+                     ^ ^
+[_q_] Back           ^ ^
+"
+  ("tb" ispell)
+
+  ("q" org2blog--hydra-main/body))
 
 (defun org2blog--main-inserts ()
   "Open the “Insert A” menu."
