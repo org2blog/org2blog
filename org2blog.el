@@ -970,7 +970,7 @@ Legend:
                    ╚═^═══════════^═════════╝
                     [_tb_] Buffer
                     [_tw_] Word
-                     ^ ^
+                    [_tr_] Region
                      ^ ^
                      ^ ^
                      ^ ^
@@ -979,6 +979,7 @@ Legend:
 "
   ("tb" ispell)
   ("tw" ispell-word)
+  ("tr" ispell-region)
 
   ("q" org2blog--hydra-main/body))
 
