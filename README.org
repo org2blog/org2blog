@@ -31,6 +31,7 @@ Blog from Org mode to WordPress.
       - [[#making-room-to-write][Making Room To Write]]
       - [[#why-writing-requires-good-characters-and-unicode][Why Writing Requires Good Character(s) And Unicode]]
       - [[#how-do-you-spell-that-again][How do you spell that again?]]
+      - [[#we-can-type-it-for-you-wholesale][We Can Type It For You: Wholesale]]
       - [[#have-you-heard-your-new-post][Have you heard your new post?]]
       - [[#your-second-buffer-post][Your Second Buffer Post]]
       - [[#your-first-buffer-page][Your First Buffer Page]]
@@ -334,6 +335,16 @@ Run it like this:
 - Run =[UI] Spellcheck=
 - Step though your spelling corrections
 - Post happily!
+
+***** We Can Type It For You: Wholesale
+
+Ever get tired of typing the same words, structure, or content over and over? Org2Blog can make it easy with different forms of [[https://www.gnu.org/software/emacs/manual/html_mono/autotype.html][Auto typing.]]
+
+The simplest auto typing is completing the word that you are typing. ~dabbrev-expand~ doesn't need to know much. It considers what you typed, looks around and tries to find something similar, and presents it to you cycling through the matches. [[https://www.gnu.org/software/emacs/manual/html_mono/autotype.html#Hippie-Expand][“Hippie” Expansion]] provides similar functionality too. The next thing you should learn about is Org mode [[https://orgmode.org/manual/Structure-Templates.html][Structure Templates]].
+
+Org2Blog comes with Org mode templates. Invoke the user interface by striking ~C-c C-~. The kind responsibility of the template is on the right. The shortcut is on the left. Org2Blog already has the entry =w= in there to insert =wp= blocks. Strike that to see how it works. If you haven't used the others blocks gives those a try too. They are all helpful for blogging. For the most powerful auto typing read more about creating your own templates.
+
+The two most powerful tools for auto typing are [[https://www.gnu.org/software/emacs/manual/html_mono/autotype.html#Using-Skeletons][Skeletons]] and [[https://www.gnu.org/software/emacs/manual/html_mono/autotype.html#Tempo][Tempo]]. Built into Emacs they are easy to access. Take your time learning these and you will get great productivity gains in your personal blogging workflow.
 
 ***** Have you heard your new post?
 
