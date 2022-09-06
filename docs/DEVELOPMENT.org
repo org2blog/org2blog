@@ -10,6 +10,7 @@ Org2Blog Developer Documentation.
 :END:
 :CONTENTS:
 - [[#about][About]]
+- [[#loading-up-the-source-code-by-hand][Loading Up the Source Code By Hand]]
 - [[#getting-started-with-development][Getting Started With Development]]
 - [[#package-questions-and-answers][Package Questions And Answers]]
   - [[#why-does-org2blog-talk-about-save-view-publish-and-trash-so-much][Why Does Org2Blog Talk About Save, View, Publish, And Trash So Much?]]
@@ -24,6 +25,40 @@ Org2Blog Developer Documentation.
   - [[#update-aka-create-or-save][Update AKA Create OR Save]]
   - [[#delete][Delete]]
 :END:
+
+* Loading Up the Source Code By Hand
+:PROPERTIES:
+:ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:3386D277-56FD-4D2F-BE0C-56553541CD25
+:END:
+
+Here is where to start:
+
+The constant ~org2blog-def--package~ helps manage Org2Blog's dependencies. Here are helper functions to quickly get you started:
+
+- ~org2blog-def-checkout-statement~ creates Git commands to get the code from GitHub into the directory you want it stored. Call it and input the directory name. Finally copy and paste the commands from =*Messages*= into your Terminal to run them.
+- ~org2blog-def-load-statement~ creates Elisp code to load the libraries. Call it and input the directory name. Copy and paste the commands from =*Messages*= into your init file. Finally run them. Now they will get loaded each time you start Emacs.
+
+For example, you should see something like this:
+
+#+begin_src shell
+cd ~/tmp
+git clone https://github.com/hniksic/emacs-htmlize.git ~/tmp/htmlize
+cd htmlize
+git checkout release/1.56
+cd ..
+#+end_src
+
+And this
+
+#+begin_src emacs-lisp
+(add-to-list 'load-path "/Users/gcr/mysrc/htmlize")
+#+end_src
+
+Note: the correct tag of the project is loaded automatically.
+
+Now you've got everything you need to run Org2Blog against its source code.
+
+With this set up you can start playing around with things and even making changes. When you scratch an itch: create your branch and submit a pull request. It's fun, easy, and makes Org2Blog better for all its users.
 
 * Getting Started With Development
 
