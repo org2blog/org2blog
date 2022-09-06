@@ -14,7 +14,7 @@
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
 ;; Version: 1.1.13
-;; Package-Requires: ((emacs "28.1") (htmlize "1.56") (hydra "0.15.0") (xml-rpc "1.6.15") (metaweblog "1.1.13"))
+;; Package-Requires: ((emacs "28.1") (htmlize "1.56") (hydra "0.15.0") (xml-rpc "1.6.15") (writegood "2.2.0") (metaweblog "1.1.13"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
 
@@ -91,6 +91,11 @@
                    :name "xml-rpc"
                    :version "1.6.15"
                    :url "https://github.com/hexmode/xml-rpc-el.git")
+                  (make-org2blog-pkg
+                   :name "writegood-mode"
+                   :version "2.2.0"
+                   :version-prefix "v"
+                   :url "https://github.com/bnbeckwith/writegood-mode")
                   (make-org2blog-pkg
                    :name "metaweblog"
                    :version org2blog/wp-version
@@ -971,42 +976,42 @@ Legend:
 (defhydra org2blog--hydra-main-writer-tools (:color blue :hint nil)
   "
 ╔══════════╗
-║ Org2Blog ║ (Main Menu → Words)
-╚══════════╩═══════╦═════════════^═════=══^╗
-                   ║ ^Spell Check^         ║
-                   ╚═^═══════════^═══════=═╝
-                    [_b_] Buffer or Region
-                    [_w_] Word
-                    [_r_] Region
-                     ^ ^
-                     ^ ^
-                     ^ ^
-[_h_] Help           ^ ^
-[_q_] Back           ^ ^
+║ ^Org2Blog^ ║ (Main Menu → Writer Tools)
+╠══════════╩^════^═╦═════════════^════════^╗
+║ ^Tools^          ║ ^Spell Check^         ║
+╚═^═════^══════════╩═^═══════════^═════════╝
+ [_l_] Grade Level   [_b_] Buffer or Region
+ [_m_] Writegood     [_w_] Word
+  ^ ^                [_r_] Region
+ [_h_] Help
+ [_q_] Back
 "
+  ("l" writegood-reading-ease)
+  ("m" writegood-mode)
+
   ("b" ispell)
   ("w" ispell-word)
   ("r" ispell-region)
 
-  ("h" org2blog--hydra-main-words-help/body)
+  ("h" org2blog--hydra-main-writer-tools-help/body)
   ("q" org2blog--hydra-main/body))
 
-(defhydra org2blog--hydra-main-words-help (:color blue :hint nil)
+(defhydra org2blog--hydra-main-writer-tools-help (:color blue :hint nil)
   "
 ╔══════════╗
-║ Org2Blog ║ (Main Menu → Words)
-╚══════════╩═══════╦═════════════^════════^╗
-                   ║ ^Spell Check^         ║
-                   ╚═^═══════════^═════════╝
-                    [_b_] Buffer of Region
-                    [_w_] Word
-                    [_r_] Region
-                     ^ ^
-                     ^ ^
-                     ^ ^
-                     ^ ^
-[_q_] Back           ^ ^
+║ ^Org2Blog^ ║ (Main Menu → Writer Tools Insert → Help) Select any item for more detail
+╠══════════╩^════^═╦═════════════^════════^╗
+║ ^Tools^          ║ ^Spell Check^         ║
+╚═^═════^══════════╩═^═══════════^═════════╝
+ [_l_] Grade Level   [_b_] Buffer or Region
+ [_m_] Writegood     [_w_] Word
+  ^ ^                [_r_] Region
+  ^ ^
+ [_q_] Back
 "
+  ("l" (org2blog--hlpf 'writegood-reading-ease))
+  ("m" (org2blog--hlpf 'writegood-mode))
+
   ("b" (org2blog--hlpf 'ispell))
   ("w" (org2blog--hlpf 'ispell-word))
   ("r" (org2blog--hlpf 'ispell-region))
@@ -1019,22 +1024,22 @@ Legend:
 
 (defhydra org2blog--hydra-main-inserts (:color blue :hint nil)
   "
-╔══════════╗
-║ Org2Blog ║ (Main Menu → Insert → Help) Select any item for more detail
-╚══════════╩═══════╦═════════════^══════=══^╗
-                   ║ ^Insert A^             ║
-                   ╚═^═══════════^════════=═╝
-                    [_m_] More Tag
-                    [_t_] MathJax Shortcode
-                    [_x_] LaTeX Name
-                    [_r_] Link To Post
-                    [_g_] Link To Page
-                    [_o_] #+ORG2BLOG
-                    [_c_] Unicode Char
-                    [_l_] Template
-[_h_] Help           ^ ^
-[_q_] Back           ^ ^
-"
+  ╔══════════╗
+  ║ Org2Blog ║ (Main Menu → Insert → Help) Select any item for more detail
+  ╚══════════╩═══════╦═════════════^══════=══^╗
+  ║ ^Insert A^             ║
+  ╚═^═══════════^════════=═╝
+  [_m_] More Tag
+  [_t_] MathJax Shortcode
+  [_x_] LaTeX Name
+  [_r_] Link To Post
+  [_g_] Link To Page
+  [_o_] #+ORG2BLOG
+  [_c_] Unicode Char
+  [_l_] Template
+  [_h_] Help           ^ ^
+  [_q_] Back           ^ ^
+  "
   ("m" org2blog-insert-more)
   ("t" org2blog-insert-mathjax)
   ("x" org2blog-insert-latex)
@@ -1049,22 +1054,22 @@ Legend:
 
 (defhydra org2blog--hydra-main-inserts-help (:color blue :hint nil)
   "
-╔══════════╗
-║ Org2Blog ║ (Main Menu → Insert → Help) Select any item for more detail
-╚══════════╩═══════╦═════════════^════════^╗
-                   ║ ^Insert A^            ║
-                   ╚═^═══════════^═════════╝
-                    [_m_] More Tag
-                    [_t_] MathJax Shortcode
-                    [_x_] LaTeX Name
-                    [_r_] Link To Post
-                    [_g_] Link To Page
-                    [_o_] #+ORG2BLOG
-                    [_c_] Unicode Char
-                    [_l_] Template
-                     ^ ^
-[_q_] Back           ^ ^
-"
+  ╔══════════╗
+  ║ Org2Blog ║ (Main Menu → Insert → Help) Select any item for more detail
+  ╚══════════╩═══════╦═════════════^════════^╗
+  ║ ^Insert A^            ║
+  ╚═^═══════════^═════════╝
+  [_m_] More Tag
+  [_t_] MathJax Shortcode
+  [_x_] LaTeX Name
+  [_r_] Link To Post
+  [_g_] Link To Page
+  [_o_] #+ORG2BLOG
+  [_c_] Unicode Char
+  [_l_] Template
+  ^ ^
+  [_q_] Back           ^ ^
+  "
   ("m" (org2blog--hlpf 'org2blog-insert-more) :exit nil)
   ("t" (org2blog--hlpf 'org2blog-insert-mathjax) :exit nil)
   ("x" (org2blog--hlpf 'org2blog-insert-latex) :exit nil)
@@ -1081,10 +1086,10 @@ Legend:
 
 (defhydra org2blog--hydra-main-variables (:color blue :columns 2)
   "
-╔══════════╗
-║ Org2Blog ║ (Main Menu → Variables) Select any item for more detail
-╚══════════╩═════════════════════════════════════════════════════════╝
-"
+  ╔══════════╗
+  ║ Org2Blog ║ (Main Menu → Variables) Select any item for more detail
+  ╚══════════╩═════════════════════════════════════════════════════════╝
+  "
   ("aa" (org2blog--hlpv 'org2blog/link-selection-size)
    "org2blog/link-selection-size")
   ("ab" (org2blog--hlpv 'org2blog/wp-blog-alist)
@@ -1149,11 +1154,11 @@ Legend:
 (defun org2blog-readme ()
   "Display project README.org.
 
-Load the project's readme file into a buffer,
-start Org mode, and make buffer readonly.
+  Load the project's readme file into a buffer,
+  start Org mode, and make buffer readonly.
 
-This is the real project readme displayed
-on the project host site (GitHub at the moment)."
+  This is the real project readme displayed
+  on the project host site (GitHub at the moment)."
   (interactive)
   (catch 'return
     (condition-case-unless-debug err
@@ -1218,14 +1223,14 @@ on the project host site (GitHub at the moment)."
 (defun org2blog-on-new-entry-kill (kind)
   "Handler for a new KIND of entry buffer closing.
 
-KIND must be either ’buffer or ’subtree.
+  KIND must be either ’buffer or ’subtree.
 
-Use like this:
+  Use like this:
 
   (add-hook 'kill-buffer-hook
-             (apply-partially #'org2blog-on-new-entry-kill ’buffer)
-                              nil 'local)
-."
+            (apply-partially #'org2blog-on-new-entry-kill ’buffer)
+            nil 'local)
+  ."
   (catch 'return
     (let* ((save-buffer? (and (org2blog--blog-property-or
                                :safe-new-entry-buf-kill
@@ -1248,7 +1253,7 @@ Use like this:
 (defun org2blog-maybe-start ()
   "Enable function `org2blog/wp-mode' when `#+ORG2BLOG:' is present.
 
-Use it like this:
+  Use it like this:
 
   (add-hook 'org-mode-hook #'org2blog-maybe-start)"
   (with-current-buffer (current-buffer)
@@ -1259,88 +1264,88 @@ Use it like this:
 (defun org2blog-user-report (on)
   "Report library actions if ON is non-nil.
 
-Call with a prefix-argument to enable, and without one
-to disable debugging.
+  Call with a prefix-argument to enable, and without one
+  to disable debugging.
 
-org2blog/wp operates using the following APIs in the order
-listed below, followed by details about their debug output:
+  org2blog/wp operates using the following APIs in the order
+  listed below, followed by details about their debug output:
 
-- org2blog: Application Layer
+  - org2blog: Application Layer
   - ox-wp: WordPress API
-    - Display export in a text buffer: *Org WordPress Export*
-- xml-rpc: Message processing layer
+  - Display export in a text buffer: *Org WordPress Export*
+  - xml-rpc: Message processing layer
   - The XML message content sent to the server over HTTPS.
-    Useful for testing with cURL and comparing the results
-    to xml-rpc.
-    - View call request data in buffer: request-data
+  Useful for testing with cURL and comparing the results
+  to xml-rpc.
+  - View call request data in buffer: request-data
   - The internal data structure used to make the
-    post call. Useful for a quick view of the call details
-    as an Elisp list.
-    - View xml-rpc method call data in buffer: func-call
-- url-util: Message transfer layer
+  post call. Useful for a quick view of the call details
+  as an Elisp list.
+  - View xml-rpc method call data in buffer: func-call
+  - url-util: Message transfer layer
   - Debug messages output in buffer: *URL-DEBUG*
-- gnutls: Secure communications layer
+  - gnutls: Secure communications layer
   - Debug messages output in buffer: *Messages*
 
-Investigate by going through layer's messages from top to bottom.
-Call function ‘org2blog-version-info’ to display runtime version numbers
+  Investigate by going through layer's messages from top to bottom.
+  Call function ‘org2blog-version-info’ to display runtime version numbers
 
-You usually only need to keep track of what is happening between
-two of them because if it is doing what you expect then you
-can move on.
+  You usually only need to keep track of what is happening between
+  two of them because if it is doing what you expect then you
+  can move on.
 
-Consider print messages where you need them and also using Edebug.
-With virtually no setup Edebug lets you walk through a function
-and evaluate local variables to see precisely what is happening.
+  Consider print messages where you need them and also using Edebug.
+  With virtually no setup Edebug lets you walk through a function
+  and evaluate local variables to see precisely what is happening.
 
-If after studying the request body, messages, and control flow
-things still don't work then the best thing to do is to test the
-call using another tool. Paste the request-data into a file named
-`test.txt' and make the request using cURL like this:
+  If after studying the request body, messages, and control flow
+  things still don't work then the best thing to do is to test the
+  call using another tool. Paste the request-data into a file named
+  `test.txt' and make the request using cURL like this:
 
-curl --data @test.txt https://www.yourblog.com/xmlrpc.php
+  curl --data @test.txt https://www.yourblog.com/xmlrpc.php
 
-By this point you'll have a better sense of where things are
-happening, or not, and now might be the time to move on to the
-transfer layer.
+  By this point you'll have a better sense of where things are
+  happening, or not, and now might be the time to move on to the
+  transfer layer.
 
-If you are investigating at the GnuTLS layer it helps to study
-the debug messages side by side with the output of an analysis
-tool like tcpdump or Wireshark. Viewing them side-by-side helps
-to make better sense of the flow and interactions between what
-you expected, the APIs tried to do, and what really happened
-over the wire. If the time comes to dig deeper into the
-communications layer then start by reading more in the variable
-‘gnutls-algorithm-priority’ and it's referenced GnuTLS
-documentation. GnuTLS doesn’t expose a version number as a
-variable, but you will see it in the detailed logging
-messages.
+  If you are investigating at the GnuTLS layer it helps to study
+  the debug messages side by side with the output of an analysis
+  tool like tcpdump or Wireshark. Viewing them side-by-side helps
+  to make better sense of the flow and interactions between what
+  you expected, the APIs tried to do, and what really happened
+  over the wire. If the time comes to dig deeper into the
+  communications layer then start by reading more in the variable
+  ‘gnutls-algorithm-priority’ and it's referenced GnuTLS
+  documentation. GnuTLS doesn’t expose a version number as a
+  variable, but you will see it in the detailed logging
+  messages.
 
-This is beyond the domains of Emacs and into GnuTLS. However,
-it will let you do things like selectively enable and disable
-protocols to help narrow down what works and what doesn't, helping
-you further investigate the issue. The contents of the debug
-buffer include things like certificate version and issuer, public
-key algorithm, and protocol. The protocol information is particularly
-important because when clients connect to a server the protocol
-is often negotiated and it might not be what you expect. For
-example this is why your XML request might work using cURL
-but not using gnutls: the negotiated protocol version might not quite work
-right between your client and the server! A solution here then is to
-force a different method by customizing ‘gnutls-algorithm-priority’.
-If you get this far, then give yourself a pat on the back for digging
-deeper. It is actually pretty fun to look behind the curtain and what
-is happening on the socket layer. Of course that is only looking
-back at it—at the time it is pretty unpleasant!
+  This is beyond the domains of Emacs and into GnuTLS. However,
+  it will let you do things like selectively enable and disable
+  protocols to help narrow down what works and what doesn't, helping
+  you further investigate the issue. The contents of the debug
+  buffer include things like certificate version and issuer, public
+  key algorithm, and protocol. The protocol information is particularly
+  important because when clients connect to a server the protocol
+  is often negotiated and it might not be what you expect. For
+  example this is why your XML request might work using cURL
+  but not using gnutls: the negotiated protocol version might not quite work
+  right between your client and the server! A solution here then is to
+  force a different method by customizing ‘gnutls-algorithm-priority’.
+  If you get this far, then give yourself a pat on the back for digging
+  deeper. It is actually pretty fun to look behind the curtain and what
+  is happening on the socket layer. Of course that is only looking
+  back at it—at the time it is pretty unpleasant!
 
-Tracking down the unexpected behavior requires no magic–just
-patience and persistence and definitely talking it through
-with others. Before getting overwhelmed, take a break and
-consider reaching out using email or an Issue Request.
+  Tracking down the unexpected behavior requires no magic–just
+  patience and persistence and definitely talking it through
+  with others. Before getting overwhelmed, take a break and
+  consider reaching out using email or an Issue Request.
 
-Remember: Org2Blog is trying to keep the fun in blogging. So
-enjoy working through your debugging session, it is one step
-closer to doing more blogging!"
+  Remember: Org2Blog is trying to keep the fun in blogging. So
+  enjoy working through your debugging session, it is one step
+  closer to doing more blogging!"
   (interactive "P")
   (setq org-export-show-temporary-export-buffer (if on t nil))
   (setq xml-rpc-debug (if on 3 0))
@@ -1366,11 +1371,11 @@ closer to doing more blogging!"
 (defun org2blog-version-info (&optional value)
   "Display critical library information or return as a VALUE if non-nil.
 
-Hydra doesn't provide a version number."
+  Hydra doesn't provide a version number."
   (interactive)
   (let ((msg (format
               "Org2Blog Runtime: Org2Blog %s, Emacs %s, Org Mode %s,
-MetaWeblog %s, XML-RPC %s, HTMLize %s"
+  MetaWeblog %s, XML-RPC %s, HTMLize %s"
               org2blog/wp-version
               emacs-version
               org-version
@@ -1384,13 +1389,13 @@ MetaWeblog %s, XML-RPC %s, HTMLize %s"
 (defun org2blog-user-set-password ()
   "Set password “in memory”.
 
-This does not change your password on the blog.
+  This does not change your password on the blog.
 
-This does not change your password in your configuration file.
+  This does not change your password in your configuration file.
 
-It does change your password in memory during this session.
+  It does change your password in memory during this session.
 
-See messages below for details."
+  See messages below for details."
   (interactive)
   (catch 'return
     (let ((new (read-passwd
@@ -1417,31 +1422,31 @@ See messages below for details."
 (defun org2blog-user-login (&optional blog-name)
   "Log in to BLOG-NAME if non-nil, otherwise choose from a list.
 
-Please note that this login is only from the User's perspective.
-Org2Blog uses the XML-RPC API to interact with WordPress.
-Org2Blog has to send the Users password with every API call.
-The API is stateless: there is no concept of logging in. Every
-API call is a new one requiring the password each time. Despite
-that Org2Blog has to provide some concept of being logged in
-for the User. Given that goal Org2Blog must know some basics
-about the User's blog. Using that information it must make some
- decisions about how to configure itself for the most common
-usage scenario.
+  Please note that this login is only from the User's perspective.
+  Org2Blog uses the XML-RPC API to interact with WordPress.
+  Org2Blog has to send the Users password with every API call.
+  The API is stateless: there is no concept of logging in. Every
+  API call is a new one requiring the password each time. Despite
+  that Org2Blog has to provide some concept of being logged in
+  for the User. Given that goal Org2Blog must know some basics
+  about the User's blog. Using that information it must make some
+  decisions about how to configure itself for the most common
+  usage scenario.
 
-The most common usage scenario here is defined by imagined usage
-and lack of Issue Requests stating otherwise. It looks like this:
+  The most common usage scenario here is defined by imagined usage
+  and lack of Issue Requests stating otherwise. It looks like this:
 
-- You must tell me about at least one blog available for use
+  - You must tell me about at least one blog available for use
   now. Unless you defined a blog in `org2blog/wp-blog-alist' I'm
   stopping.
-- You must choose a blog to use for this session. Unless you
+  - You must choose a blog to use for this session. Unless you
   choose one I'm stopping.
-- Thus far Org2Blog hasn't made any API calls. Therefore we
+  - Thus far Org2Blog hasn't made any API calls. Therefore we
   still don't know if User's password works or not. This is OK
   because the User can still use Org2Blog without logging
   successfully. The only limitation is that the User won't have
   completion data.
-- `org2blog-complete' needs completion data to work. Therefore
+  - `org2blog-complete' needs completion data to work. Therefore
   categories, tags, and pages are loaded here. If any of the
   loads fail then I'll notify the user. It is an error because
   we don't know why it didn't work. It could be network
@@ -1449,7 +1454,7 @@ and lack of Issue Requests stating otherwise. It looks like this:
   User can still continue moving forward to edit an Org2Blog file
   without that data. Consequently the function proceeds instead
   of failing here.
-"
+  "
   (interactive)
   (catch 'return
     (when (not org2blog/wp-blog-alist)
@@ -1554,7 +1559,7 @@ and lack of Issue Requests stating otherwise. It looks like this:
 
 (defun org2blog--new (destination)
   "Create new entry buffer for DESTINATION.
-Destination is either a symbol ‘buffer’ or a ‘subtree’."
+  Destination is either a symbol ‘buffer’ or a ‘subtree’."
   (catch 'return
     (unless (or (eq destination 'buffer) (eq destination 'subtree))
       (org2blog--error
@@ -1996,7 +2001,7 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
 (defun org2blog-insert-more ()
   "Insert WordPress “More” tag.
 
-“More” tags only work in posts, not Pages."
+  “More” tags only work in posts, not Pages."
   (interactive)
   (let* ((pre "@@wp:<!--more")
          (post "-->@@")
@@ -2009,8 +2014,8 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
 (defun org2blog-structure-template-add ()
   "Enable `BEGIN_EXPORT wp' blocks.
 
-Add them to `snippet-key org-structure-template-alist' unless
-already present."
+  Add them to `snippet-key org-structure-template-alist' unless
+  already present."
   (interactive)
   (let* ((key "w")
          (block "WP")
@@ -2063,10 +2068,10 @@ already present."
 (defun org2blog-buffer-post-or-page-view ()
   "Use either `org2blog-buffer-post-view' or `org2blog-buffer-page-view'.
 
-WordPress 6 differentiates between viewing a Page and a Post.
-Therefore this function must be retired. It is not a bug:
-WordPress just doesn't work that way with the API now.
-"
+  WordPress 6 differentiates between viewing a Page and a Post.
+  Therefore this function must be retired. It is not a bug:
+  WordPress just doesn't work that way with the API now.
+  "
   (interactive)
   (error
    (concat
@@ -2091,10 +2096,10 @@ WordPress just doesn't work that way with the API now.
 (defun org2blog-subtree-post-or-page-view ()
   "Use either `org2blog-subtree-post-view' or `org2blog-subtree-page-view'.
 
-WordPress 6 differentiates between viewing a Page and a Post.
-Therefore this function must be retired. It is not a bug:
-WordPress just doesn't work that way with the API now.
-"
+  WordPress 6 differentiates between viewing a Page and a Post.
+  Therefore this function must be retired. It is not a bug:
+  WordPress just doesn't work that way with the API now.
+  "
   (interactive)
   (error
    (concat
@@ -2119,7 +2124,7 @@ WordPress just doesn't work that way with the API now.
 (defun org2blog-subtree-view (dest)
   "View subtree post or page.
 
-DEST is either ’post or ’page."
+  DEST is either ’post or ’page."
   (interactive)
   (catch 'return
     (org2blog--in-subtree-check)
@@ -2129,10 +2134,10 @@ DEST is either ’post or ’page."
 (defun org2blog-entry-view (source dest)
   "View SOURCE's entry published to DEST.
 
-SOURCE is either ’buffer or ’subtree.
+  SOURCE is either ’buffer or ’subtree.
 
-DEST is either ’post or ’page.
-"
+  DEST is either ’post or ’page.
+  "
   (interactive)
   (let ((is-subtree (eq source 'subtree))
         (thing (symbol-name source)))
@@ -2179,8 +2184,8 @@ DEST is either ’post or ’page.
 (defun org2blog-insert-link (is-page)
   "Choose and insert link to entry using IS-PAGE if non-nil.
 
-When IS-PAGE is nil then chose from page IDs
-instead of posts."
+  When IS-PAGE is nil then chose from page IDs
+  instead of posts."
   (interactive "P")
   (org2blog--ensure-login)
   (message "Loading %s…" (if is-page "page list"
@@ -2225,9 +2230,9 @@ instead of posts."
 (defun org2blog-reload-entry-mode-map ()
   "Re-initialize `org2blog-mode-map'.
 
-Use the prefix key sequence defined by
-`org2blog/wp-keymap-prefix' and update `minor-mode-map-alist'
-accordingly."
+  Use the prefix key sequence defined by
+  `org2blog/wp-keymap-prefix' and update `minor-mode-map-alist'
+  accordingly."
   (interactive)
   (org2blog--init-entry-mode-map)
   (let ((keymap (assoc 'org2blog/wp-mode minor-mode-map-alist)))
@@ -2296,7 +2301,7 @@ accordingly."
   (widget-insert "\n\n")
   (widget-insert "If you’ve never heard the terms “Free Software” or “Libre Software”")
   (widget-insert "\nbefore, or maybe just want to review them, then be sure to
-read all about them here: ")
+  read all about them here: ")
   (widget-create
    'url-link
    :tag "What is free software?"
@@ -2358,9 +2363,9 @@ read all about them here: ")
 (defun org2blog-org2blog-keyword-check ()
   "Insert the ORG2BLOG keyword unless it exists.
 
-Inserts ‘#+ORG2BLOG’ on the first empty lines that it finds.
+  Inserts ‘#+ORG2BLOG’ on the first empty lines that it finds.
 
-If it doesn’t find one then it doesn’t insert it."
+  If it doesn’t find one then it doesn’t insert it."
   (interactive)
   (catch 'return
     (when (org2blog--bprop "ORG2BLOG")
@@ -2380,7 +2385,7 @@ If it doesn’t find one then it doesn’t insert it."
 
 (defun org2blog--load-categories ()
   "Load categories from server.
-Caller must handle any errors."
+  Caller must handle any errors."
   (let* ((raw (metaweblog-get-categories
                org2blog-xmlrpc
                org2blog-username
@@ -2393,7 +2398,7 @@ Caller must handle any errors."
 
 (defun org2blog--load-tags ()
   "Load tags from server.
-Caller must handle any errors."
+  Caller must handle any errors."
   (let* ((raw (metaweblog-wp-get-tags
                org2blog-xmlrpc
                org2blog-username
@@ -2406,7 +2411,7 @@ Caller must handle any errors."
 
 (defun org2blog--load-pages (&optional summaries)
   "Load raw pages from server or SUMMARIES if non-nil.
-Caller must handle any errors."
+  Caller must handle any errors."
   (let* ((pages (metaweblog-wp-get-pagelist
                  org2blog-xmlrpc
                  org2blog-username
@@ -2441,17 +2446,17 @@ Caller must handle any errors."
 (defun org2blog--bprop (name)
   "Return buffer property for NAME.
 
-Hierarchy of properties:
-- Globally
-- Buffer
-- Entry
+  Hierarchy of properties:
+  - Globally
+  - Buffer
+  - Entry
 
-This functions return buffer properties defined in the name
-line syntax “#+name: value”:
+  This functions return buffer properties defined in the name
+  line syntax “#+name: value”:
 
   #+FLOWERTYPE: flower
 
-See: URL ‘https://orgmode.org/manual/Property-syntax.html#Property-syntax’'."
+  See: URL ‘https://orgmode.org/manual/Property-syntax.html#Property-syntax’'."
   (let* ((r (org-make-options-regexp (list (upcase name) (downcase name)))))
     (save-excursion
       (goto-char (point-min))
@@ -2460,7 +2465,7 @@ See: URL ‘https://orgmode.org/manual/Property-syntax.html#Property-syntax’'.
 
 (defun org2blog--eprop (name)
   "Return entry property for NAME.
-See ‘org2blog--bprop’ docstring for details."
+  See ‘org2blog--bprop’ docstring for details."
   (org-entry-get (point) name))
 
 (defun org2blog-blog-has (property)
@@ -2487,21 +2492,21 @@ See ‘org2blog--bprop’ docstring for details."
 (defun org2blog--define-key (map suffix function)
   "Helper to populate ‘org2blog-mode-map’ in MAP for FUNCTION with SUFFIX.
 
-Define a key sequence SUFFIX in MAP for FUNCTION.
+  Define a key sequence SUFFIX in MAP for FUNCTION.
 
-Uses the mode's key map with the prefix
-`org2blog/wp-keymap-prefix', and the given suffix."
+  Uses the mode's key map with the prefix
+  `org2blog/wp-keymap-prefix', and the given suffix."
   (let ((keyseq (read-kbd-macro (concat org2blog/wp-keymap-prefix " " suffix))))
     (define-key map keyseq function)))
 
 (defun org2blog--init-entry-mode-map ()
   "Initialize `org2blog-mode-map'.
 
-Uses the prefix key sequence defined by
-`org2blog/wp-keymap-prefix'.
+  Uses the prefix key sequence defined by
+  `org2blog/wp-keymap-prefix'.
 
-Both sets the map and returns the map so that it can be used both
-at mode start time and after the user re-configures it."
+  Both sets the map and returns the map so that it can be used both
+  at mode start time and after the user re-configures it."
   (let ((map (make-sparse-keymap)))
     (set-keymap-parent map org-mode-map)
     (org2blog--define-key map "p" 'org2blog-buffer-post-publish)
@@ -2555,25 +2560,25 @@ at mode start time and after the user re-configures it."
 (defun org2blog--ensure-login ()
   "Ensure user is logged in to current entry’s blog.
 
-This function handles two scenarios:
+  This function handles two scenarios:
 
-Scenario #1
+  Scenario #1
 
-User logs into BLOG-A and starts blogging. At some point
-User returns to an OLD-ENTRY to make changes. OLD-ENTRY belongs
-to BLOG-B. Upon completing the changes User chooses to save the
-entry. At this point User is logged into BLOG-A while attempting
-to post to BLOG-B. This won’t work, there will be an authentication
-failure.
+  User logs into BLOG-A and starts blogging. At some point
+  User returns to an OLD-ENTRY to make changes. OLD-ENTRY belongs
+  to BLOG-B. Upon completing the changes User chooses to save the
+  entry. At this point User is logged into BLOG-A while attempting
+  to post to BLOG-B. This won’t work, there will be an authentication
+  failure.
 
-This function handles this scenario by logging the User out of
-BLOG-A and logging User into BLOG-B.
+  This function handles this scenario by logging the User out of
+  BLOG-A and logging User into BLOG-B.
 
-Scenario #2:
+  Scenario #2:
 
-User is not logged in and attempts to save a post.
+  User is not logged in and attempts to save a post.
 
-This function prompts the user to login."
+  This function prompts the user to login."
   (let ((blog-name (org2blog--entry-blog-name)))
     (when (and blog-name (not (equal blog-name org2blog-blog-key)))
       (org2blog-user-logout))
@@ -2583,7 +2588,7 @@ This function prompts the user to login."
 (defun org2blog-entry-buffer-make (buffer-template)
   "Create new Buffer Entry populated using BUFFER-TEMPLATE.
 
-See ‘org2blog/wp-buffer-template’ for details about how it is used."
+  See ‘org2blog/wp-buffer-template’ for details about how it is used."
   (format buffer-template
           (format-time-string "[%Y-%m-%d %a %H:%M]" (current-time))
           (string-join
@@ -2597,7 +2602,7 @@ See ‘org2blog/wp-buffer-template’ for details about how it is used."
 (defun org2blog-entry-subtree-make (subtree-template)
   "Create new Subtree Entry populated using SUBTREE-TEMPLATE.
 
-See ‘org2blog/wp-buffer-subtree-template’ for details about how it is used."
+  See ‘org2blog/wp-buffer-subtree-template’ for details about how it is used."
   (format subtree-template
           (org2blog--blog-property-or :default-title-sub org2blog/wp-default-title-subtree)
           org2blog-blog-key
@@ -2746,8 +2751,8 @@ See ‘org2blog/wp-buffer-subtree-template’ for details about how it is used."
 (defun org2blog--get-post-or-page (post-or-page-id)
   "Retrieve an entry for POST-OR-PAGE-ID.
 
-For information about its fields see
-URL`https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.newPost'"
+  For information about its fields see
+  URL`https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.newPost'"
   (interactive)
   (catch 'return
     (condition-case-unless-debug err
@@ -2768,7 +2773,7 @@ URL`https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.newPost'"
 (defun org2blog--save-details (post pid pub subtree-p)
   "Save POST details of PID and PUB.
 
-If SUBTREE-P is non-nil, record that."
+  If SUBTREE-P is non-nil, record that."
   (catch 'return
     (save-excursion
       (let ((the-file (if (org2blog-blog-has :track-posts)
@@ -2845,8 +2850,8 @@ If SUBTREE-P is non-nil, record that."
 (defun org2blog--collect-export-options ()
   "Return a plist of export options.
 
-This can be passed on to the export functions to configure the
-various export options."
+  This can be passed on to the export functions to configure the
+  various export options."
   (let ((export-options org2blog-export-options))
     (plist-put export-options :wp-keep-new-lines
                (org2blog--blog-property-or :keep-new-lines org2blog/wp-keep-new-lines))
@@ -2880,7 +2885,7 @@ various export options."
 (defun org2blog--export-as-post (&optional subtree-p)
   "Parse a buffer entry.
 
-If SUBTREE-P is non nill then parse subtree."
+  If SUBTREE-P is non nill then parse subtree."
 
   (let* ((export-options (org2blog--collect-export-options))
          (tags-as-categories (plist-get export-options :tags-as-categories)))
@@ -2904,8 +2909,8 @@ If SUBTREE-P is non nill then parse subtree."
 (defun org2blog--bprop-parent-id (parent)
   "Return ID of PARENT.
 
-If parent is the id of the parent page, the user need not be
-logged in.  Otherwise, the user is prompted to login."
+  If parent is the id of the parent page, the user need not be
+  logged in.  Otherwise, the user is prompted to login."
 
   (when (and parent (equal 0 (string-to-number parent)))
     (org2blog--ensure-login))
@@ -2934,11 +2939,11 @@ logged in.  Otherwise, the user is prompted to login."
 (defun org2blog--parse-buffer-entry ()
   "Parse an org2blog buffer entry.
 
-The entry object returned does not contain the exported html.
-This entry needs to be further processed by the
-`org2blog--export-as-post' function, to add the export html
-and munge it a little to make it suitable to use with the
-`metaweblog' functions."
+  The entry object returned does not contain the exported html.
+  This entry needs to be further processed by the
+  `org2blog--export-as-post' function, to add the export html
+  and munge it a little to make it suitable to use with the
+  `metaweblog' functions."
   (let*
       ((_ (org-export-with-buffer-copy (org-export-get-environment)))
        (parsed-entry
@@ -2963,11 +2968,11 @@ and munge it a little to make it suitable to use with the
 (defun org2blog--parse-subtree-entry ()
   "Parse an org2blog subtree entry.
 
-The entry object returned does not contain the exported html.
-This entry needs to be further processed by the
-`org2blog--export-as-post' function, to add the export html
-and munge it a little to make it suitable to use with the
-`metaweblog' functions."
+  The entry object returned does not contain the exported html.
+  This entry needs to be further processed by the
+  `org2blog--export-as-post' function, to add the export html
+  and munge it a little to make it suitable to use with the
+  `metaweblog' functions."
   (let*
       ((parsed-entry
         (list
@@ -3055,16 +3060,16 @@ and munge it a little to make it suitable to use with the
 (define-minor-mode org2blog/wp-mode
   "Toggle org2blog/wp minor mode.
 
-With no argument, the mode is toggled on/off.
+  With no argument, the mode is toggled on/off.
 
-Non-nil argument turns mode on.
+  Non-nil argument turns mode on.
 
-Nil argument turns mode off.
+  Nil argument turns mode off.
 
-Commands:
-\\{org2blog-mode-map}
+  Commands:
+  \\{org2blog-mode-map}
 
-Entry to this mode calls the value of `org2blog-mode-hook'."
+  Entry to this mode calls the value of `org2blog-mode-hook'."
 
   :init-value nil
   :lighter " o2b"

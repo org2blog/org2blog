@@ -269,6 +269,23 @@ Although Org2Blog doesn't make any visual changes to your writing room itself th
 - [[https://github.com/joaotavora/darkroom][Darkroom]] :: Remove visual distractions and focus on writing.
 - [[https://github.com/rnkn/olivetti][Olivetti]] :: A simple Emacs minor mode for a nice writing environment.
 
+***** Finding And Saving Your Voice
+
+The unavoidable burden for any writer is to find their voice. To help with that are some of the classics― On Writing Well: The Classic Guide to Writing Nonfiction by William Zinsser, Snoopy's Guide to the Writing Life by Barnaby Conrad, and On Writing: A Memoir of the Craft by Stephen King. Help keeping that voice is another story however. It takes time, practice, discipline, and hopefully some good tools. Software grammar tools are one way to do it. There are plenty, of varying quality and pedigree, but Org2Blog will only focus on two: [[https://vale.sh/][Vale]] and [[https://github.com/bnbeckwith/writegood-mode][Writegood Mode]].
+
+Vale is the ultimate grammar tool. There isn't much to expand or expound upn here. However, it is powerful, configurable, and considered a master-level grammar tool. If now is the right time to jump in then the report is that [[https://www.flycheck.org/en/latest/][flycheck]] configured [[https://emacstil.com/til/2022/03/05/setting-up-vale-prose-linter-on-emacs/][like this for Vale]] is the best way to get started. For the other 80% of us Writegood mode is the best place to start.
+
+To make your life easier Writegood provides a few features with a big payoff that are easy to use and understand. Here is what it gives you:
+
+- Identify the grade level required to understand the content
+- Highlight duplicate words
+- Highlight [[https://en.wikipedia.org/wiki/Weasel_word][Weasel words]]
+- Highlight irregular passive voice verbs
+
+Use
+
+From a technical standpoint Writegood is an ideal choice because it is written in plain old Elisp without any external dependencies.
+
 ***** Why Writing Requires Good Character(s) And Unicode
 
 #+begin_quote
