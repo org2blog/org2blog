@@ -1031,6 +1031,7 @@ Legend:
                     [_g_] Link To Page
                     [_o_] #+ORG2BLOG
                     [_c_] Unicode Char
+                    [_l_] Template
 [_h_] Help           ^ ^
 [_q_] Back           ^ ^
 "
@@ -1041,6 +1042,7 @@ Legend:
   ("g" org2blog-insert-link-to-page)
   ("o" org2blog-org2blog-keyword-check)
   ("c" insert-char)
+  ("l" org-insert-structure-template)
 
   ("h" org2blog--hydra-main-inserts-help/body)
   ("q" org2blog--hydra-main/body))
@@ -1059,6 +1061,7 @@ Legend:
                     [_g_] Link To Page
                     [_o_] #+ORG2BLOG
                     [_c_] Unicode Char
+                    [_l_] Template
                      ^ ^
 [_q_] Back           ^ ^
 "
@@ -1069,6 +1072,7 @@ Legend:
   ("g" (org2blog--hlpf 'org2blog-insert-link-to-page) :exit nil)
   ("o" (org2blog--hlpf 'org2blog-org2blog-keyword-check) :exit nil)
   ("c" (org2blog--hlpf 'insert-char) :exit nil)
+  ("l" (org2blog--hlpf 'org-insert-structure-template) :exit nil)
   ("q" org2blog--hydra-main-inserts/body))
 
 (defun org2blog--main-variables ()
@@ -2003,31 +2007,15 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
 
 ;;;###autoload
 (defun org2blog-structure-template-add ()
-  "Enable `@@wp' or `BEGIN_EXPORT wp' blocks.
+  "Enable `BEGIN_EXPORT wp' blocks.
 
 Add them to `snippet-key org-structure-template-alist' unless
 already present."
   (interactive)
-  (let* ((snippet-key "wp")
-         (snippet-body "@@wp:?@@")
-         (snippet-template (list snippet-key snippet-body))
-         (block-key "WP")
-         (block-body "#+BEGIN_EXPORT wp
-?
-#+END_EXPORT")
-         (block-template (list block-key block-body))
-         (msg
-          (format
-           (concat "The \"<%s\" and \"%s\" "
-                   "Easy templates are ready to use. "
-                   "Type one then hit TAB to create an Org2Blog "
-                   "export snippet or block.")
-           snippet-key block-key)))
-    (unless (assoc snippet-key org-structure-template-alist)
-      (add-to-list 'org-structure-template-alist snippet-template))
-    (unless (assoc block-key org-structure-template-alist)
-      (add-to-list 'org-structure-template-alist block-template))
-    (message "%s" msg)))
+  (let* ((key "w")
+         (block "WP")
+         (template (cons key block)))
+    (add-to-list 'org-structure-template-alist template)))
 
 ;;;###autoload
 (defun org2blog-insert-mathjax ()
@@ -3084,6 +3072,7 @@ Entry to this mode calls the value of `org2blog-mode-hook'."
   :keymap (org2blog--init-entry-mode-map)
 
   (when org2blog/wp-mode
+    (org2blog-structure-template-add)
     (run-mode-hooks 'org2blog-mode-hook)))
 
 ;;; Initialization

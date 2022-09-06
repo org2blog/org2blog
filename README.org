@@ -750,11 +750,7 @@ For larger raw HTML code blocks, use these WP export code blocks:
 ,#+END_EXPORT
 #+end_src
 
-An easy way to create this block is to use [[https://orgmode.org/manual/Structure-Templates.html][Structure Templates]]. Org2Blog comes with a template for creating raw HTML code blocks. However, it doesn't load it automatically. To automatically add the template each time you start Emacs, add ~(org2blog-structure-template-add)~ to your startup file.
-
-Inside of your file type ~<wp~ then strike ~TAB~ to create the snippet, or ~<WP~ to create the raw HTML block you need.
-
-You will know when you need this feature and will immensely enjoy being able to use it.
+Create it by =UI [Insert A]=.
 
 *Note*: In the previous version of Org2Blog, Org2Blog raw HTML export blocks used the ~html~ tag to include raw HTML. Using the ~html~ tag had the convenient side-effect that Org2Blog inserted the raw HTML whether posting your Entry to WordPress /or/ exporting the same document to HTML. However rarely used: this was the original behavior. Since it was *rarely* used, though, Org2Blog switched over to use the ~wp~ tag. ~wp~ is easier to remember and a good reminder of how you are using the structural block. That said: both ~wp~ and ~html~ do and will continue to work the same way. In the future, though, please use the ~wp~ tag instead.
 
