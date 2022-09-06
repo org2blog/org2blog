@@ -366,7 +366,7 @@ Start by creating a =UI [New Buffer]=. A template populates your Entry. When you
 d
 Please note that WordPress has a slightly unexpected behavior when completing Categories and Tags. Although Org2Blog can complete unused Categories, it cannot complete unused Tags. Although the unused Tag exists on the blog, it still can't be completed while writing. Hiding unused tags is normal WordPress behavior for now.
 
-Org2Blog includes some helpers for inserting content into your Entry under the =UI [“Insert A”]= menu:
+Org2Blog includes some helpers for inserting content into your Entry under the =UI [Insert A]= menu:
 
 - =UI [More Tag]=: The WordPress "Read More" tag. Org2Blog will ask if you want to use a message inside of it, too.
 - =UI [MathJax Shortcode]=: If you want to use [[https://www.mathjax.org/][MathJax]], this lets you do it.
