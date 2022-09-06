@@ -1028,6 +1028,7 @@ Legend:
                     [_r_] Link To Post
                     [_g_] Link To Page
                     [_o_] #+ORG2BLOG
+                    [_c_] Unicode Char
 [_h_] Help           ^ ^
 [_q_] Back           ^ ^
 "
@@ -1037,6 +1038,7 @@ Legend:
   ("r" org2blog-insert-link-to-post)
   ("g" org2blog-insert-link-to-page)
   ("o" org2blog-org2blog-keyword-check)
+  ("c" insert-char)
 
   ("h" org2blog--hydra-main-inserts-help/body)
   ("q" org2blog--hydra-main/body))
@@ -1054,6 +1056,7 @@ Legend:
                     [_r_] Link To Post
                     [_g_] Link To Page
                     [_o_] #+ORG2BLOG
+                    [_c_] Unicode Char
                      ^ ^
 [_q_] Back           ^ ^
 "
@@ -1063,6 +1066,7 @@ Legend:
   ("r" (org2blog--hlpf 'org2blog-insert-link-to-post) :exit nil)
   ("g" (org2blog--hlpf 'org2blog-insert-link-to-page) :exit nil)
   ("o" (org2blog--hlpf 'org2blog-org2blog-keyword-check) :exit nil)
+  ("c" (org2blog--hlpf 'insert-char) :exit nil)
   ("q" org2blog--hydra-main-inserts/body))
 
 (defun org2blog--main-variables ()

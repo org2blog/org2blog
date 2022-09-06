@@ -28,6 +28,7 @@ Blog from Org mode to WordPress.
   - [[#the-6-most-important-next-steps][The 6 Most Important Next Steps]]
     - [[#helping-yourself-to-the-basics][Helping Yourself To The Basics]]
     - [[#writing-more-after-you-have-settled-into-the-software][Writing More After You Have "Settled Into" The Software]]
+      - [[#why-writing-requires-good-characters-and-unicode][Why Writing Requires Good Character(s) And Unicode]]
       - [[#how-do-you-spell-that-again][How do you spell that again?]]
       - [[#have-you-heard-your-new-post][Have you heard your new post?]]
       - [[#your-second-buffer-post][Your Second Buffer Post]]
@@ -255,6 +256,37 @@ This combination of easy-to-use menus and direct access to the code is the best 
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:A1DC8316-20E1-4188-AA22-E2F1CD62EC08
 :END:
+***** Why Writing Requires Good Character(s) And Unicode
+
+#+begin_quote
+Your reputation is what others think of you; your character is what you are.
+Your blog post is how you capture your thoughts; the characters are how
+you craft them.
+― Anonymous
+#+end_quote
+
+When blogging we need as much character as we can get and the easiest way to do that is by exploring the [[https://www.unicode.org/charts/index.html][Unicode Character Code Charts]] to get what you need. Org2Blog and WordPress supports Unicode right out of the box. The first step is to try it out.
+
+The easiest way to try out Unicode is to explore the [[https://www.unicode.org/charts/PDF/U1F600.pdf][Emoticons Code Chart]]. You'll immediately recognize them. Either copy and paste or =UI [Insert A]= and type in the character name. You don't even have to know its full name. Just type as little or a lot of it and strike the =TAB= key and you'll get name completion. Now your character is there. What happens though when you get an empty white box instead of the character? Then you don't have a font and the fix is easy.
+
+Install these fonts to get some very good font coverage. It simply works out of the box with no configuration required
+
+- [[http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=AbyssinicaSIL][ABYSSINICA]]
+- [[https://software.sil.org/annapurna/][ANNAPURNA SIL]]
+- [[https://dejavu-fonts.github.io/][DejaVu]]
+- [[https://fonts.google.com/specimen/Fira+Mono][Fira Mono]]
+- [[https://fonts.google.com/specimen/Fira+Sans][Fira Sans]]
+- [[https://sourcefoundry.org/hack/][Hack]]
+- [[https://downloads.sourceforge.net/vietunicode/hannomH.zip][HAN NOM A and B]]
+- [[http://www.quivira-font.com/][Quivira]]
+- [[https://dn-works.com/ufas/][Symbola]]
+
+When you want to get to the next level of configuration what fonts get used for which characters then check out the [[https://github.com/rolandwalker/unicode-fonts][unicode-fonts]] package.
+
+Out of the box it does a great job choosing fonts for characters. When you are ready to make changes for example to specify a language to a different font from that default it is very straightforward.
+
+Once you get hooked on using the full range of Unicode characters you will get hooked. It is a great way to explores s more and a special way to connect with writers around the world.
+
 ***** How do you spell that again?
 
 Why bother spellchecking for spelling errors?
