@@ -889,7 +889,7 @@ Legend:
   ("d" org2blog--hydra-main-inserts/body)
   ("v" org2blog-readme)
   ("V" org2blog--hydra-main-variables/body)
-  ("W" org2blog--hydra-main-words/body)
+  ("W" org2blog--hydra-main-writer-tools/body)
 
   ("j" org2blog-buffer-post-save)
   ("k" org2blog-buffer-post-view)
@@ -925,7 +925,7 @@ Legend:
  [_a_] About          [_d_] Insert A     [_J_] Save Page Draft  [_U_] Save Page Draft
  [_w_] Version        [_v_] README       [_K_] View Page        [_I_] View Page
   ^ ^                 [_V_] Variables    [_L_] Publish Page     [_O_] Publish Page
- [_q_] Back            ^ ^               [_:_] Trash Page       [_P_] Trash Page
+ [_q_] Back           [_W_] Writer Tools [_:_] Trash Page       [_P_] Trash Page
 "
   ("4" (org2blog--hlpf 'org2blog-user-login))
   ("3" (org2blog--hlpf 'org2blog-user-report-on))
@@ -942,6 +942,7 @@ Legend:
   ("d" (org2blog--hlpf 'org2blog--main-inserts))
   ("v" (org2blog--hlpf 'org2blog-readme))
   ("V" (org2blog--hlpf 'org2blog--main-variables))
+  ("W" (org2blog--hlpf 'org2blog--main-writer-tools))
 
   ("j" (org2blog--hlpf 'org2blog-buffer-post-save))
   ("k" (org2blog--hlpf 'org2blog-buffer-post-view))
@@ -963,11 +964,11 @@ Legend:
   ("O" (org2blog--hlpf 'org2blog-subtree-page-publish))
   ("P" (org2blog--hlpf 'org2blog-subtree-page-trash)))
 
-(defun org2blog--main-words ()
-  "Open the “Words” menu."
-  (org2blog--hydra-main-words/body))
+(defun org2blog--main-writer-tools ()
+  "Open the “Writer Tools” menu."
+  (org2blog--hydra-main-writer-tools/body))
 
-(defhydra org2blog--hydra-main-words (:color blue :hint nil)
+(defhydra org2blog--hydra-main-writer-tools (:color blue :hint nil)
   "
 ╔══════════╗
 ║ Org2Blog ║ (Main Menu → Words)
@@ -1010,11 +1011,12 @@ Legend:
   ("w" (org2blog--hlpf 'ispell-word))
   ("r" (org2blog--hlpf 'ispell-region))
 
-  ("q" org2blog--hydra-main-words/body))
+  ("q" org2blog--hydra-main-writer-tools/body))
 
 (defun org2blog--main-inserts ()
   "Open the Insert A menu."
   (org2blog--hydra-main-inserts/body))
+
 (defhydra org2blog--hydra-main-inserts (:color blue :hint nil)
   "
 ╔══════════╗
