@@ -370,7 +370,7 @@ Org2Blog includes some helpers for inserting content into your Entry under the =
 
 - =UI [More Tag]=: The WordPress "Read More" tag. Org2Blog will ask if you want to use a message inside of it, too.
 - =UI [MathJax Shortcode]=: If you want to use [[https://www.mathjax.org/][MathJax]], this lets you do it.
-- =UI [“LaTeX” Name]=: Prove that MathJax is working.
+- =UI [LaTeX Name]=: Prove that MathJax is working.
 - =UI [Link To Post]=: Insert a link to a post from a list of posts on /your blog/.
 - =UI [Link To Page]=: Insert a link to a page from a list of posts on /your blog/.
 - =UI [#+ORG2BLOG]=: If your Entry doesn't have the special tag, then it will insert it.
@@ -711,7 +711,7 @@ An easy way to work with the difference between the global variable name and the
 
 *** Inserting Things
 
-Most Org2Bloggers end up inserting a few elements common to all of us. The menu item =UI [“Insert A”]= captures some of them. You can get help on them for more details and play around with inserting them too. You will be pretty surprised as to how often you end up using them:
+Most Org2Bloggers end up inserting a few elements common to all of us. The menu item =UI [Insert A]= captures some of them. You can get help on them for more details and play around with inserting them too. You will be pretty surprised as to how often you end up using them:
 
 *** Confirming Things
 
@@ -868,7 +868,7 @@ Then the easiest way to use MathJax with WordPress is to set up this [[https://w
 - Configure it
 - Force Load: =NO=
 - Using MathJax adds time for loading your post. It is probably imperceptible, but you probably want page loads to be as fast as possible. If you plan to use MathJax a lot or don't mind the nearly imperceptible load time even if you are not using it, enable this setting: your browser will load MathJax on every post.
-- If you are not going to use it frequently or want to require it when you need it manually, then use =UI [“Insert A”]= followed by =UI [MathJax Shortcode]= to insert the MathJax shortcode. When WordPress sees it, then MathJax will get loaded for the page.
+- If you are not going to use it frequently or want to require it when you need it manually, then use =UI [Insert A]= followed by =UI [MathJax Shortcode]= to insert the MathJax shortcode. When WordPress sees it, then MathJax will get loaded for the page.
 - Default [latex] syntax attribute: =Inline=
 - Use WP-Latex syntax? =YES=
 - Use MathJax CDN Service? =NO=

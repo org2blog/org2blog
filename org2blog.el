@@ -868,7 +868,7 @@ Legend:
  [_3_] Reporting On   [_r_] New Subtree  [_k_] View Post        [_i_] View Post
  [_2_] Reporting Off  [_c_] Completion   [_l_] Publish Post     [_o_] Publish Post
  [_1_] Logout         [_f_] Trash ID     [_;_] Trash Post       [_p_] Trash Post
- [_a_] About          [_d_] “Insert A”   [_J_] Save Page Draft  [_U_] Save Page Draft
+ [_a_] About          [_d_] Insert A     [_J_] Save Page Draft  [_U_] Save Page Draft
  [_w_] Version        [_v_] README       [_K_] View Page        [_I_] View Page
  [_h_] Help           [_V_] Variables    [_L_] Publish Page     [_O_] Publish Page
  [_q_] Quit           [_W_] Writer Tools [_:_] Trash Page       [_P_] Trash Page
@@ -922,7 +922,7 @@ Legend:
  [_3_] Reporting On   [_r_] New Subtree  [_k_] View Post        [_i_] View Post
  [_2_] Reporting Off  [_c_] Completion   [_l_] Publish Post     [_o_] Publish Post
  [_1_] Logout         [_f_] Trash ID     [_;_] Trash Post       [_p_] Trash Post
- [_a_] About          [_d_] “Insert A”   [_J_] Save Page Draft  [_U_] Save Page Draft
+ [_a_] About          [_d_] Insert A     [_J_] Save Page Draft  [_U_] Save Page Draft
  [_w_] Version        [_v_] README       [_K_] View Page        [_I_] View Page
   ^ ^                 [_V_] Variables    [_L_] Publish Page     [_O_] Publish Page
  [_q_] Back            ^ ^               [_:_] Trash Page       [_P_] Trash Page
@@ -1013,7 +1013,7 @@ Legend:
   ("q" org2blog--hydra-main-words/body))
 
 (defun org2blog--main-inserts ()
-  "Open the “Insert A” menu."
+  "Open the Insert A menu."
   (org2blog--hydra-main-inserts/body))
 (defhydra org2blog--hydra-main-inserts (:color blue :hint nil)
   "
@@ -1024,7 +1024,7 @@ Legend:
                    ╚═^═══════════^════════=═╝
                     [_m_] More Tag
                     [_t_] MathJax Shortcode
-                    [_x_] “LaTeX” Name
+                    [_x_] LaTeX Name
                     [_r_] Link To Post
                     [_g_] Link To Page
                     [_o_] #+ORG2BLOG
@@ -1052,7 +1052,7 @@ Legend:
                    ╚═^═══════════^═════════╝
                     [_m_] More Tag
                     [_t_] MathJax Shortcode
-                    [_x_] “LaTeX” Name
+                    [_x_] LaTeX Name
                     [_r_] Link To Post
                     [_g_] Link To Page
                     [_o_] #+ORG2BLOG
