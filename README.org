@@ -18,11 +18,11 @@ Blog from Org mode to WordPress.
 - [[#about][About]]
 - [[#requirements-and-compatibility][Requirements And Compatibility]]
 - [[#installation][Installation]]
-  - [[#using-a-package][Using a Package]]
+  - [[#using-a-package][Using A Package]]
     - [[#use-package][Use-Package]]
-    - [[#install-the-package-yourself][Install the Package Yourself]]
-    - [[#build-the-package-yourself][Build the Package Yourself]]
-  - [[#setting-up-the-source-code-by-hand][Setting Up the Source Code By Hand]]
+    - [[#install-the-package-yourself][Install The Package Yourself]]
+    - [[#build-the-package-yourself][Build The Package Yourself]]
+  - [[#setting-up-the-source-code-by-hand][Setting Up The Source Code By Hand]]
 - [[#usage][Usage]]
   - [[#make-your-first-post-in-less-5-minutes][Make Your First Post In Less 5 Minutes]]
   - [[#the-6-most-important-next-steps][The 6 Most Important Next Steps]]
@@ -30,9 +30,9 @@ Blog from Org mode to WordPress.
     - [[#writing-more-after-you-have-settled-into-the-software][Writing More After You Have "Settled Into" The Software]]
       - [[#making-room-to-write][Making Room To Write]]
       - [[#why-writing-requires-good-characters-and-unicode][Why Writing Requires Good Character(s) And Unicode]]
-      - [[#how-do-you-spell-that-again][How do you spell that again?]]
+      - [[#how-do-you-spell-that-again][How Do You Spell That Again?]]
       - [[#we-can-type-it-for-you-wholesale][We Can Type It For You: Wholesale]]
-      - [[#have-you-heard-your-new-post][Have you heard your new post?]]
+      - [[#have-you-heard-your-new-post][Have You Heard Your New Post?]]
       - [[#your-second-buffer-post][Your Second Buffer Post]]
       - [[#your-first-buffer-page][Your First Buffer Page]]
     - [[#store-multiple-entries-in-one-file][Store Multiple Entries In One File]]
@@ -49,13 +49,14 @@ Blog from Org mode to WordPress.
     - [[#raw-html-creation][Raw HTML Creation]]
     - [[#source-blocks][Source Blocks]]
       - [[#plain-source-box-format][Plain Source Box Format]]
-      - [[#syntaxhighlighter-evolved][SyntaxHighlighter Evolved]]
+      - [[#syntaxhighlighter-evolved][SyntaxhighLighter Evolved]]
         - [[#syntaxhighlighter-evolved-is-broken-now-what][SyntaxHighlighter Evolved Is Broken Now What?!]]
     - [[#latex-support][LaTeX Support]]
+      - [[#amsmath-support][amsmath Support]]
       - [[#wordpress-latex][WordPress LaTeX]]
       - [[#mathjax][MathJax]]
     - [[#migrating-org-mode-files-to-org2blog-files][Migrating Org Mode Files To Org2Blog Files]]
-    - [[#export-wordpress-to-org][Export WordPress to Org]]
+    - [[#export-wordpress-to-org][Export Wordpress To Org]]
     - [[#using-entry-templates][Using Entry Templates]]
     - [[#tracking-entries][Tracking Entries]]
     - [[#doing-things-after-saving-and-publishing][Doing Things After Saving And Publishing]]
@@ -863,9 +864,15 @@ THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:CB9F8F24-278D-4B79-A1A7-72AC7C051DC1
 :END:
 
+**** amsmath Support
+
+Org2Blog strives to adhere to the standards in [[https://www.ctan.org/pkg/amsmath][https://www.ctan.org/pkg/amsmath]].
+
 **** WordPress LaTeX
 
-WordPress has LaTeX support [[https://en.support.wordpress.com/latex/][built-in]]. Although it is incomplete, it is built-in, so read it to figure out if you need more functionality than it provides. Org2Blog attempts to address some of its deficit by implementing the feature itself: in particular, support both additional embedded ~math~ formats and the ~equation~ environment. Org2Blog doesn't address everything you may need, so consider submitting a feature request when you find missing LaTeX markup. ~org2blog/wp-use-wp-latex~ is enabled by default.
+WordPress has LaTeX support [[https://en.support.wordpress.com/latex/][built-in]]. Although it is incomplete, it is built-in, so read it to figure out if you need more functionality than it provides. The biggest room for improvement is to implement the =amsmath= =equation= autonumbering. The easiest way to request enhancements to WordPress is to start by [[https://core.trac.wordpress.org/][reading here]].
+
+Org2Blog includes its own exporter =ox-wp=. It does 80% of everything it needs. The biggest room for improvement is to implement the =amsmath= =equation= autonumbering.
 
 **** MathJax
 
@@ -873,28 +880,28 @@ WordPress has LaTeX support [[https://en.support.wordpress.com/latex/][built-in]
 
 Whether you use MathJax with a WordPress plugin, manual inclusion, or any other means, you need to be aware of MathJax's [[https://www.mathjax.org/cdn-shutting-down/][CDN]] options: you need to get it from somewhere, so choose one of the sources and note the URL.
 
-First, tell Org2Blog to disable translation to =wp-latex= syntax because you want to use MathJax instead.
+First, tell Org2Blog to disable translation to =wp-latex= syntax because you want to use MathJaX instead.
 
 #+begin_src emacs-lisp
 (setq org2blog/wp-use-wp-latex nil)
 #+end_src
 
-Then the easiest way to use MathJax with WordPress is to set up this [[https://wordpress.org/plugins/mathjax-latex/][MathJax-LaTeX]] plugin.
+Then the easiest way to use MathJaX with WordPress is to set up this [[https://wordpress.org/plugins/mathjax-latex/][MathJax-LaTeX]] plugin.
 
 - Steps
 - Install it
 - Configure it
 - Force Load: =NO=
-- Using MathJax adds time for loading your post. It is probably imperceptible, but you probably want page loads to be as fast as possible. If you plan to use MathJax a lot or don't mind the nearly imperceptible load time even if you are not using it, enable this setting: your browser will load MathJax on every post.
-- If you are not going to use it frequently or want to require it when you need it manually, then use =UI [Insert A]= followed by =UI [MathJax Shortcode]= to insert the MathJax shortcode. When WordPress sees it, then MathJax will get loaded for the page.
+- Using MathJaX adds time for loading your post. It is probably imperceptible, but you probably want page loads to be as fast as possible. If you plan to use MathJaX a lot or don't mind the nearly imperceptible load time even if you are not using it, enable this setting: your browser will load MathJaX on every post.
+- If you are not going to use it frequently or want to require it when you need it manually, then use =UI [Insert A]= followed by =UI [MathJaX Shortcode]= to insert the MathJaX shortcode. When WordPress sees it, then MathJaX will get loaded for the page.
 - Default [latex] syntax attribute: =Inline=
 - Use WP-Latex syntax? =YES=
-- Use MathJax CDN Service? =NO=
-- MathJax no longer hosts their CDN, but there are [[https://www.mathjax.org/cdn-shutting-down/][many alternatives]].
-- Custom MathJax location? =YES=
+- Use MathJaX CDN Service? =NO=
+- MathJaX no longer hosts their CDN, but there are [[https://www.mathjax.org/cdn-shutting-down/][many alternatives]].
+- Custom MathJaX location? =YES=
 - [[https://docs.mathjax.org/en/v1.1-latest/configuration.html#loading][This]] explains how to load and configure the library manually. Please read it, so you know what the plugin is doing.
-- Copy the CDN URL up to and including the ~MathJax.js~. Everything /after/ that are configuration options
-- MathJax Configuration: =TeX-AMS_HTML=
+- Copy the CDN URL up to and including the ~MathJaX.js~. Everything /after/ that are configuration options
+- MathJaX Configuration: =TeX-AMS_HTML=
 
 Now test your installation:
 
@@ -914,6 +921,8 @@ You should see something like this:
 <img src="https://github.com/org2blog/org2blog/blob/v1.1.0/images/MathJax.png" alt="MathJax Example"
 width="50%" height="50%">
 #+end_html
+
+MathJaX's default configuration doesn't default to the =amsmath equation= behavior. A future update here will explain how to enable it. You can read about the topic in great detail [[https://github.com/org2blog/org2blog/issues/306#issuecomment-1236236720][here]].
 
 *** Migrating Org Mode Files To Org2Blog Files
 :PROPERTIES:
