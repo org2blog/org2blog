@@ -144,11 +144,11 @@ WordPress doesn't see much difference between a =Post= and a =Page=, so Org2Blog
 
 Here is how to visualize it remembering this is supposed to make it /easier/ to make sense of how Org2Blog works behind the scenes:
 
-[[file:/images/o2b-entry-source-dest-flow.png]]
+[[file:/docs/o2b-entry-source-dest-flow.png]]
 
 (Source code for this image follows)
 
-#+begin_src plantuml :file ./images/o2b-entry-source-dest-flow.png
+#+begin_src plantuml :file o2b-entry-source-dest-flow.png
 @startmindmap
 !theme plain
 caption Read Left To Right
@@ -169,7 +169,7 @@ left side
 
 #+RESULTS:
 #+begin_RESULTS
-[[file:./images/o2b-entry-source-dest-flow.png]]
+[[file:o2b-entry-source-dest-flow.png]]
 #+end_RESULTS
 
 This simplicity can actually lead to some less comfortable situations where you accidentally publish one thing as another (it is pretty easy to fix anyway though).
@@ -285,6 +285,10 @@ It works like this:
 - Insert ~Entry~ specific content
 - Maybe track it's creation
 
+[[file:/docs/o2b-entry-new-flow.png]]]]
+
+(Source code for this image follows)
+
 #+begin_src plantuml :file o2b-entry-new-flow.png
 @startmindmap
 !theme plain
@@ -316,6 +320,10 @@ left side
 - Get the =Post ID=. If there isn't one then error out.
 - Prepare the preview URL
 - Open in web browser
+
+[[file:/docs/o2b-entry-view-flow.png]]]]
+
+(Source code for this image follows)
 
 #+begin_src plantuml :file o2b-entry-view-flow.png
 @startmindmap
@@ -354,7 +362,10 @@ From a WordPress perspective both Create and Save are the same thing. The only d
 - Maybe auto-save and auto-post it
 - Either create or save the post
 - Update the ~Entry~ with the new ID
--
+
+[[file:/docs/o2b-entry-create-save-flow.png]]]]
+
+(Source code for this image follows)
 
 #+begin_src plantuml :file o2b-entry-create-save-flow.png
 @startmindmap
