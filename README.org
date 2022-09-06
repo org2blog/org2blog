@@ -28,6 +28,7 @@ Blog from Org mode to WordPress.
   - [[#the-6-most-important-next-steps][The 6 Most Important Next Steps]]
     - [[#helping-yourself-to-the-basics][Helping Yourself To The Basics]]
     - [[#writing-more-after-you-have-settled-into-the-software][Writing More After You Have "Settled Into" The Software]]
+      - [[#making-room-to-write][Making Room To Write]]
       - [[#why-writing-requires-good-characters-and-unicode][Why Writing Requires Good Character(s) And Unicode]]
       - [[#how-do-you-spell-that-again][How do you spell that again?]]
       - [[#have-you-heard-your-new-post][Have you heard your new post?]]
@@ -256,6 +257,16 @@ This combination of easy-to-use menus and direct access to the code is the best 
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:A1DC8316-20E1-4188-AA22-E2F1CD62EC08
 :END:
+***** Making Room To Write
+
+Some writers can create a dedicated room for writing. Definitely hardwood floors and a sturdy desk. Others prefer a lighter space. Whatever the preference it can be easy to build in your Org2Blog world too.
+
+Although Org2Blog doesn't make any visual changes to your writing room itself there are great packages out there that can. Here are a few of them:
+
+- [[https://github.com/joostkremers/writeroom-mode][Writeroom-mode]] :: A distraction-free writing mode similar to the famous [[https://apps.apple.com/us/app/writeroom/id417967324?mt=12][WriteRoom]] editor for macOS
+- [[https://github.com/joaotavora/darkroom][Darkroom]] :: Remove visual distractions and focus on writing.
+- [[https://github.com/rnkn/olivetti][Olivetti]] :: A simple Emacs minor mode for a nice writing environment.
+
 ***** Why Writing Requires Good Character(s) And Unicode
 
 #+begin_quote
