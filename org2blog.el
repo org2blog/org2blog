@@ -866,17 +866,17 @@ Legend:
   "
 ╔═^═════════╗
 ║ ^Org2Blog ║^ (Main Menu) %(org2blog--login-status)^
-╠═^═════════╩^═══════╦═════════════^═══^╦════════^════════════^╦═^═══════^═══════════^═╗
-║ ^Admin^            ║ ^Use^            ║ ^Buffer^             ║ ^Subtree^           ^ ║
-╚═^═════^════════════╩═^═══^════════════╩═^══════^═════════════╩═^═══════^═══════════^═╝
- [_4_] Login          [_e_] New Buffer   [_j_] Save Post Draft  [_u_] Save Post Draft
- [_3_] Reporting On   [_r_] New Subtree  [_k_] View Post        [_i_] View Post
- [_2_] Reporting Off  [_c_] Completion   [_l_] Publish Post     [_o_] Publish Post
- [_1_] Logout         [_f_] Trash ID     [_;_] Trash Post       [_p_] Trash Post
- [_a_] About          [_d_] Insert A     [_J_] Save Page Draft  [_U_] Save Page Draft
- [_W_] Version        [_v_] README       [_K_] View Page        [_I_] View Page
- [_h_] Help           [_V_] Variables    [_L_] Publish Page     [_O_] Publish Page
- [_q_] Quit           [_w_] Writer Tools [_:_] Trash Page       [_P_] Trash Page
+╠═^═════════╩^═══════╦══════════════^═══^╦════════^════════════^╦═^═══════^═══════════^═╗
+║ ^Admin^            ║ ^Use^             ║ ^Buffer^             ║ ^Subtree^           ^ ║
+╚═^═════^════════════╩═^═══^═════════════╩═^══════^═════════════╩═^═══════^═══════════^═╝
+ [_4_] Login          [_e_] New Buffer    [_j_] Save Post Draft  [_u_] Save Post Draft
+ [_3_] Reporting On   [_r_] New Subtree   [_k_] View Post        [_i_] View Post
+ [_2_] Reporting Off  [_c_] Completion    [_l_] Publish Post     [_o_] Publish Post
+ [_1_] Logout         [_f_] Trash ID      [_;_] Trash Post       [_p_] Trash Post
+ [_a_] About          [_d_] Insert A      [_J_] Save Page Draft  [_U_] Save Page Draft
+ [_W_] Version        [_v_] README        [_K_] View Page        [_I_] View Page
+ [_h_] Help           [_V_] Variables     [_L_] Publish Page     [_O_] Publish Page
+ [_q_] Quit           [_w_] Writer Tools  [_:_] Trash Page       [_P_] Trash Page
 "
   ("4" org2blog-user-login :exit nil)
   ("3" org2blog-user-report-on :exit nil)
@@ -920,17 +920,17 @@ Legend:
   "
 ╔═^═════════╗
 ║ ^Org2Blog ║^ (Main Menu → Help) Select any item for more detail
-╠═^═════════╩^═══════╦═════════════^═══^╦════════^════════════^╦═^═══════^═══════════^═╗
-║ ^Admin^            ║ ^Use^            ║ ^Buffer^             ║ ^Subtree^           ^ ║
-╚═^═════^════════════╩═^═══^════════════╩═^══════^═════════════╩═^═══════^═══════════^═╝
- [_4_] Login          [_e_] New Buffer   [_j_] Save Post Draft  [_u_] Save Post Draft
- [_3_] Reporting On   [_r_] New Subtree  [_k_] View Post        [_i_] View Post
- [_2_] Reporting Off  [_c_] Completion   [_l_] Publish Post     [_o_] Publish Post
- [_1_] Logout         [_f_] Trash ID     [_;_] Trash Post       [_p_] Trash Post
- [_a_] About          [_d_] Insert A     [_J_] Save Page Draft  [_U_] Save Page Draft
- [_W_] Version        [_v_] README       [_K_] View Page        [_I_] View Page
-  ^ ^                 [_V_] Variables    [_L_] Publish Page     [_O_] Publish Page
- [_q_] Back           [_w_] Writer Tools [_:_] Trash Page       [_P_] Trash Page
+╠═^═════════╩^═══════╦══════════════^═══^╦════════^════════════^╦═^═══════^═══════════^═╗
+║ ^Admin^            ║ ^Use^             ║ ^Buffer^             ║ ^Subtree^           ^ ║
+╚═^═════^════════════╩═^═══^═════════════╩═^══════^═════════════╩═^═══════^═══════════^═╝
+ [_4_] Login          [_e_] New Buffer    [_j_] Save Post Draft  [_u_] Save Post Draft
+ [_3_] Reporting On   [_r_] New Subtree   [_k_] View Post        [_i_] View Post
+ [_2_] Reporting Off  [_c_] Completion    [_l_] Publish Post     [_o_] Publish Post
+ [_1_] Logout         [_f_] Trash ID      [_;_] Trash Post       [_p_] Trash Post
+ [_a_] About          [_d_] Insert A      [_J_] Save Page Draft  [_U_] Save Page Draft
+ [_W_] Version        [_v_] README        [_K_] View Page        [_I_] View Page
+  ^ ^                 [_V_] Variables     [_L_] Publish Page     [_O_] Publish Page
+ [_q_] Back           [_w_] Writer Tools  [_:_] Trash Page       [_P_] Trash Page
 "
   ("4" (org2blog--hlpf 'org2blog-user-login))
   ("3" (org2blog--hlpf 'org2blog-user-report-on))
@@ -977,9 +977,9 @@ Legend:
   "
 ╔══════════╗
 ║ ^Org2Blog^ ║ (Main Menu → Writer Tools)
-╠══════════╩^════^═╦═════════════^════════^╗
-║ ^Tools^          ║ ^Spell Check^         ║
-╚═^═════^══════════╩═^═══════════^═════════╝
+╠══════════╩^════^═╦═════════════^═════════^╗
+║ ^Tools^          ║ ^Spell Check^          ║
+╚═^═════^══════════╩═^═══════════^══════════╝
  [_l_] Grade Level   [_b_] Buffer or Region
  [_m_] Writegood     [_w_] Word
   ^ ^                [_r_] Region
@@ -999,10 +999,10 @@ Legend:
 (defhydra org2blog--hydra-main-writer-tools-help (:color blue :hint nil)
   "
 ╔══════════╗
-║ ^Org2Blog^ ║ (Main Menu → Writer Tools Insert → Help) Select any item for more detail
-╠══════════╩^════^═╦═════════════^════════^╗
-║ ^Tools^          ║ ^Spell Check^         ║
-╚═^═════^══════════╩═^═══════════^═════════╝
+║ ^Org2Blog^ ║ (Main Menu → Writer Tools → Help) Select any item for more detail
+╠══════════╩^════^═╦═════════════^═════════^╗
+║ ^Tools^          ║ ^Spell Check^          ║
+╚═^═════^══════════╩═^═══════════^══════════╝
  [_l_] Grade Level   [_b_] Buffer or Region
  [_m_] Writegood     [_w_] Word
   ^ ^                [_r_] Region
