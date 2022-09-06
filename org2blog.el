@@ -874,16 +874,16 @@ Legend:
  [_2_] Reporting Off  [_c_] Completion   [_l_] Publish Post     [_o_] Publish Post
  [_1_] Logout         [_f_] Trash ID     [_;_] Trash Post       [_p_] Trash Post
  [_a_] About          [_d_] Insert A     [_J_] Save Page Draft  [_U_] Save Page Draft
- [_w_] Version        [_v_] README       [_K_] View Page        [_I_] View Page
+ [_W_] Version        [_v_] README       [_K_] View Page        [_I_] View Page
  [_h_] Help           [_V_] Variables    [_L_] Publish Page     [_O_] Publish Page
- [_q_] Quit           [_W_] Writer Tools [_:_] Trash Page       [_P_] Trash Page
+ [_q_] Quit           [_w_] Writer Tools [_:_] Trash Page       [_P_] Trash Page
 "
   ("4" org2blog-user-login :exit nil)
   ("3" org2blog-user-report-on :exit nil)
   ("2" org2blog-user-report-off :exit nil)
   ("1" org2blog-user-logout :exit nil)
   ("a" org2blog-about)
-  ("w" org2blog-version-info)
+  ("W" org2blog-version-info)
   ("h" (org2blog--hydra-main-help/body))
   ("q" nil)
 
@@ -894,7 +894,7 @@ Legend:
   ("d" org2blog--hydra-main-inserts/body)
   ("v" org2blog-readme)
   ("V" org2blog--hydra-main-variables/body)
-  ("W" org2blog--hydra-main-writer-tools/body)
+  ("w" org2blog--hydra-main-writer-tools/body)
 
   ("j" org2blog-buffer-post-save)
   ("k" org2blog-buffer-post-view)
@@ -928,16 +928,16 @@ Legend:
  [_2_] Reporting Off  [_c_] Completion   [_l_] Publish Post     [_o_] Publish Post
  [_1_] Logout         [_f_] Trash ID     [_;_] Trash Post       [_p_] Trash Post
  [_a_] About          [_d_] Insert A     [_J_] Save Page Draft  [_U_] Save Page Draft
- [_w_] Version        [_v_] README       [_K_] View Page        [_I_] View Page
+ [_W_] Version        [_v_] README       [_K_] View Page        [_I_] View Page
   ^ ^                 [_V_] Variables    [_L_] Publish Page     [_O_] Publish Page
- [_q_] Back           [_W_] Writer Tools [_:_] Trash Page       [_P_] Trash Page
+ [_q_] Back           [_w_] Writer Tools [_:_] Trash Page       [_P_] Trash Page
 "
   ("4" (org2blog--hlpf 'org2blog-user-login))
   ("3" (org2blog--hlpf 'org2blog-user-report-on))
   ("2" (org2blog--hlpf 'org2blog-user-report-off))
   ("1" (org2blog--hlpf 'org2blog-user-logout))
   ("a" (org2blog--hlpf 'org2blog-about))
-  ("w" (org2blog--hlpf 'org2blog-version-info))
+  ("W" (org2blog--hlpf 'org2blog-version-info))
   ("q" org2blog--hydra-main/body)
 
   ("e" (org2blog--hlpf 'org2blog-buffer-new))
@@ -947,7 +947,7 @@ Legend:
   ("d" (org2blog--hlpf 'org2blog--main-inserts))
   ("v" (org2blog--hlpf 'org2blog-readme))
   ("V" (org2blog--hlpf 'org2blog--main-variables))
-  ("W" (org2blog--hlpf 'org2blog--main-writer-tools))
+  ("w" (org2blog--hlpf 'org2blog--main-writer-tools))
 
   ("j" (org2blog--hlpf 'org2blog-buffer-post-save))
   ("k" (org2blog--hlpf 'org2blog-buffer-post-view))
@@ -1067,7 +1067,7 @@ Legend:
                        [_o_] #+ORG2BLOG
                        [_c_] Unicode Char
                        [_l_] Template
-  
+
   [_q_] Back           ^ ^
   "  ("m" (org2blog--hlpf 'org2blog-insert-more) :exit nil)
   ("t" (org2blog--hlpf 'org2blog-insert-mathjax) :exit nil)
