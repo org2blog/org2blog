@@ -10,19 +10,19 @@ Org2Blog Developer Documentation.
 :END:
 :CONTENTS:
 - [[#about][About]]
-- [[#loading-up-the-source-code-by-hand][Loading Up the Source Code By Hand]]
+- [[#loading-up-the-source-code-by-hand][Loading Up The Source Code By Hand]]
 - [[#getting-started-with-development][Getting Started With Development]]
 - [[#package-questions-and-answers][Package Questions And Answers]]
-  - [[#why-does-org2blog-talk-about-save-view-publish-and-trash-so-much][Why Does Org2Blog Talk About Save, View, Publish, And Trash So Much?]]
+  - [[#why-does-org2blog-talk-about-save-view-publish-and-trash-so-much][Why Does Org2blog Talk About Save, View, Publish, And Trash So Much?]]
   - [[#why-does-org2blog-talk-about-buffers-subtrees-posts-and-pages-so-much][Why Does Org2blog Talk About Buffers, Subtrees, Posts, And Pages So Much?]]
-  - [[#why-isnt-the-package-name-org2wordpress][Why Isn't The Package Name Org2WordPress?]]
-  - [[#what-is-metaweblog-and-why-is-it-in-org2blog][What Is MetaWeblog And Why Is It In Org2Blog?]]
-  - [[#why-does-org2blog-use-both-the-xml-rpc-metaweblog-and-wordpress-api][Why does Org2Blog Use Both The XML-RPC MetaWeblog and WordPress API]]
-  - [[#how-does-org2blog-manage-autoloads][How does Org2Blog manage autoloads?]]
+  - [[#why-isnt-the-package-name-org2wordpress][Why Isn't The Package Name Org2wordpress?]]
+  - [[#what-is-metaweblog-and-why-is-it-in-org2blog][What Is Metaweblog And Why Is It In Org2blog?]]
+  - [[#why-does-org2blog-use-both-the-xml-rpc-metaweblog-and-wordpress-api][Why Does Org2blog Use Both The Xml-Rpc Metaweblog And Wordpress Api]]
+  - [[#how-does-org2blog-manage-autoloads][How Does Org2blog Manage Autoloads?]]
 - [[#data-model--functional-design][Data Model & Functional Design]]
   - [[#create][Create]]
-  - [[#read-aka-view][Read AKA View]]
-  - [[#update-aka-create-or-save][Update AKA Create OR Save]]
+  - [[#read-aka-view][Read Aka View]]
+  - [[#update-aka-create-or-save][Update Aka Create Or Save]]
   - [[#delete][Delete]]
 :END:
 

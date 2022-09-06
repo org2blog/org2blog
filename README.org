@@ -29,6 +29,7 @@ Blog from Org mode to WordPress.
     - [[#helping-yourself-to-the-basics][Helping Yourself To The Basics]]
     - [[#writing-more-after-you-have-settled-into-the-software][Writing More After You Have "Settled Into" The Software]]
       - [[#making-room-to-write][Making Room To Write]]
+      - [[#finding-and-saving-your-voice][Finding And Saving Your Voice]]
       - [[#why-writing-requires-good-characters-and-unicode][Why Writing Requires Good Character(s) And Unicode]]
       - [[#how-do-you-spell-that-again][How Do You Spell That Again?]]
       - [[#we-can-type-it-for-you-wholesale][We Can Type It For You: Wholesale]]
