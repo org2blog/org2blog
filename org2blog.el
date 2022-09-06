@@ -1026,17 +1026,17 @@ Legend:
   "
   ╔══════════╗
   ║ Org2Blog ║ (Main Menu → Insert → Help) Select any item for more detail
-  ╚══════════╩═══════╦═════════════^══════=══^╗
-  ║ ^Insert A^             ║
-  ╚═^═══════════^════════=═╝
-  [_m_] More Tag
-  [_t_] MathJax Shortcode
-  [_x_] LaTeX Name
-  [_r_] Link To Post
-  [_g_] Link To Page
-  [_o_] #+ORG2BLOG
-  [_c_] Unicode Char
-  [_l_] Template
+  ╚══════════╩═══════╦═════════════^══════════^╗
+                     ║ ^Insert A^              ║
+                     ╚═^═══════════^═══════════╝
+                       [_m_] More Tag
+                       [_t_] MathJax Shortcode
+                       [_x_] LaTeX Name
+                       [_r_] Link To Post
+                       [_g_] Link To Page
+                       [_o_] #+ORG2BLOG
+                       [_c_] Unicode Char
+                       [_l_] Template
   [_h_] Help           ^ ^
   [_q_] Back           ^ ^
   "
@@ -1056,21 +1056,20 @@ Legend:
   "
   ╔══════════╗
   ║ Org2Blog ║ (Main Menu → Insert → Help) Select any item for more detail
-  ╚══════════╩═══════╦═════════════^════════^╗
-  ║ ^Insert A^            ║
-  ╚═^═══════════^═════════╝
-  [_m_] More Tag
-  [_t_] MathJax Shortcode
-  [_x_] LaTeX Name
-  [_r_] Link To Post
-  [_g_] Link To Page
-  [_o_] #+ORG2BLOG
-  [_c_] Unicode Char
-  [_l_] Template
-  ^ ^
+  ╚══════════╩═══════╦═════════════^══════════^╗
+                     ║ ^Insert A^              ║
+                     ╚═^═══════════^═══════════╝
+                       [_m_] More Tag
+                       [_t_] MathJax Shortcode
+                       [_x_] LaTeX Name
+                       [_r_] Link To Post
+                       [_g_] Link To Page
+                       [_o_] #+ORG2BLOG
+                       [_c_] Unicode Char
+                       [_l_] Template
+  
   [_q_] Back           ^ ^
-  "
-  ("m" (org2blog--hlpf 'org2blog-insert-more) :exit nil)
+  "  ("m" (org2blog--hlpf 'org2blog-insert-more) :exit nil)
   ("t" (org2blog--hlpf 'org2blog-insert-mathjax) :exit nil)
   ("x" (org2blog--hlpf 'org2blog-insert-latex) :exit nil)
   ("r" (org2blog--hlpf 'org2blog-insert-link-to-post) :exit nil)

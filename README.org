@@ -282,7 +282,7 @@ To make your life easier Writegood provides a few features with a big payoff tha
 - Highlight [[https://en.wikipedia.org/wiki/Weasel_word][Weasel words]]
 - Highlight irregular passive voice verbs
 
-Use
+Use =UI [Writer Tools]= to report =UI [Grade Level]= and toggle =UI [Writegood]=.
 
 From a technical standpoint Writegood is an ideal choice because it is written in plain old Elisp without any external dependencies.
 
