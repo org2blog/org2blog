@@ -4,7 +4,7 @@
 
 Org2Blog Developer Documentation.
 
-* Table of Contents
+* Table Of Contents
 :PROPERTIES:
 :TOC:      :include all :ignore (this)
 :END:
@@ -26,7 +26,7 @@ Org2Blog Developer Documentation.
   - [[#delete][Delete]]
 :END:
 
-* Loading Up the Source Code By Hand
+* Loading Up The Source Code By Hand
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:3386D277-56FD-4D2F-BE0C-56553541CD25
 :END:
@@ -113,7 +113,7 @@ O2BPASSWORD="password"
 
 In some ways Org2Blog can be surprising. Since it bridges that gap between Org mode documents and WordPress blog posts sometimes there can be a little friction. That is where most of the questions come from in the form of something like "Why does Org2Blog ...fill in the blank...? Because it is really weird!". Be at ease though, this section should clear up some the weirdness ASAP.
 
-** Why Does Org2Blog Talk About Save, View, Publish, And Trash So Much?
+** Why Does Org2blog Talk About Save, View, Publish, And Trash So Much?
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:630E39ED-9A45-4707-9147-FB6C681D23EE
 :END:
@@ -176,7 +176,7 @@ This simplicity can actually lead to some less comfortable situations where you 
 
 Although Org2Blog is implemented how WordPress works, it can surprising to see these words used. However you'll get used to it pretty quickly.
 
-** Why Isn't The Package Name Org2WordPress?
+** Why Isn't The Package Name Org2wordpress?
 
 When Org2Blog was created its technical name, its /package name/, was ~org2blog~. Unbeknownst to us there was another package out there named Org2BlogAtom with the same package name!
 
@@ -188,7 +188,7 @@ Org2Blog is blogging software. You write everything in Org mode and publish it t
 
 In that historical context and considering goals today the name remains Org2Blog instead of Org2WordPress.
 
-** What Is MetaWeblog And Why Is It In Org2Blog?
+** What Is Metaweblog And Why Is It In Org2blog?
 
 #+begin_quote
 The [[https://en.wikipedia.org/wiki/MetaWeblog][MetaWeblog API]] is an application programming interface created by software developer Dave Winer that enables weblog entries to be written, edited, and deleted using web services.
@@ -206,13 +206,13 @@ Org2Blog uses this client to work with WordPress
 
 =metaweblog.el= is provided a package from Org2Blog to make it reusable for others via the standard packaging system.
 
-** Why does Org2Blog Use Both The XML-RPC MetaWeblog and WordPress API
+** Why Does Org2blog Use Both The Xml-Rpc Metaweblog And Wordpress Api
 
 Both APIs are required to get the job done.
 
 For historical reasons the WordPress API client is implemented inside of =metaWeblog=.
 
-** How does Org2Blog manage autoloads?
+** How Does Org2blog Manage Autoloads?
 
 Preemptive TL;DR: It doesn't—Packages are not supposed to manage autoloads.
 
@@ -307,7 +307,7 @@ left side
 [[file:o2b-entry-new-flow.png]]
 #+end_RESULTS
 
-** Read AKA View
+** Read Aka View
 
 ~org2blog-entry-view~ works like this:
 
@@ -342,7 +342,7 @@ left side
 [[file:o2b-entry-view-flow.png]]
 #+end_RESULTS
 
-** Update AKA Create OR Save
+** Update Aka Create Or Save
 
 From a WordPress perspective both Create and Save are the same thing. The only difference is whether or not they are a Draft, and private, or published and pubic.
 

@@ -10,7 +10,7 @@
 
 Blog from Org mode to WordPress.
 
-* Table of Contents
+* Table Of Contents
 :PROPERTIES:
 :TOC:      :include all :ignore (this)
 :END:
@@ -87,7 +87,7 @@ Current Requirements: Org2Blog 1.1.13, Emacs 28.1, which includes Org mode 9.5.2
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:8CEE033C-3D3A-422A-A15A-358D7BE5A224
 :end:
 
-** Using a Package
+** Using A Package
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:22F68132-BA47-4DAB-8F71-900C639CCDC2
 :END:
@@ -129,13 +129,13 @@ Here is how to load Org2Blog:
 
 Take some time to read more about Use-Package. You can use as little or as much as you find helpful. It accommodates just about any Init style you can throw at it.
 
-*** Install the Package Yourself
+*** Install The Package Yourself
 
 You can also do what Use-Package does yourself. Find the package you want in [[#using-a-package][Using A Package]] and download it. It is a plain old ~TAR~ file so you can uncompress and examine it to see how it works.
 
 Install it by calling ~package-install-file~ and choosing the file you just downloaded. Load it by adding ~(require 'org2blog)~ to your init file.
 
-*** Build the Package Yourself
+*** Build The Package Yourself
 
 MELPA creates Org2Blog's package using [[https://github.com/melpa/melpa/blob/master/recipes/org2blog][this recipe]].
 
@@ -146,7 +146,7 @@ Here is how to build it:
 - Make sure that you are using the correct Emacs version (see requirements above) either in your path or editing the recipe
 - Open the Org2Recipe and build it
 
-** Setting Up the Source Code By Hand
+** Setting Up The Source Code By Hand
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:3386D277-56FD-4D2F-BE0C-56553541CD25
 :END:
@@ -299,7 +299,7 @@ Out of the box it does a great job choosing fonts for characters. When you are r
 
 Once you get hooked on using the full range of Unicode characters you will get hooked. It is a great way to explores s more and a special way to connect with writers around the world.
 
-***** How do you spell that again?
+***** How Do You Spell That Again?
 
 Why bother spellchecking for spelling errors?
 
@@ -346,7 +346,7 @@ Org2Blog comes with Org mode templates. Invoke the user interface by striking ~C
 
 The two most powerful tools for auto typing are [[https://www.gnu.org/software/emacs/manual/html_mono/autotype.html#Using-Skeletons][Skeletons]] and [[https://www.gnu.org/software/emacs/manual/html_mono/autotype.html#Tempo][Tempo]]. Built into Emacs they are easy to access. Take your time learning these and you will get great productivity gains in your personal blogging workflow.
 
-***** Have you heard your new post?
+***** Have You Heard Your New Post?
 
 Reading your post out loud completely changes how you think about it. Specifically it makes it easier to find ways to make it better for the reader. Here are some of the most common challenges resolved and improvements possible found by reading out loud:
 
@@ -802,7 +802,7 @@ Here is how the built-in syntax highlighting looks:
 
 [[file:/images/SourceBlockNormal3.png]]
 
-**** SyntaxHighlighter Evolved
+**** SyntaxhighLighter Evolved
 
 [[https://wordpress.org/plugins/syntaxhighlighter/][SyntaxHighlighter Evolved]] is an extremely popular plugin for rendering source code. It supports a bunch of languages and configuration parameters (see [[https://en.support.wordpress.com/code/posting-source-code/][here]]) in addition to open-source custom plugins for other languages.
 
@@ -934,7 +934,7 @@ First, take a post and convert it by hand. It will prove to you that you underst
 
 Create another post and convert it by hand. This time use the API to submit it. Look at the code for ~org2blog--test-buffer-post~ to see how it works. That code goes through all of the steps of posting, including demonstrating how to make changes. You don't need to do that for migration. You only need to log in and publish the post (if you want to see a result code, read the function doc). Now you are ready to begin automating the migration of all of your Org files. When you have any questions, please be sure to reach out here, so your migration is as pleasant and fast as possible.
 
-*** Export WordPress to Org
+*** Export Wordpress To Org
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:0EE1AC01-BE62-4A9F-BB54-19492BE9D42E
 :END:
