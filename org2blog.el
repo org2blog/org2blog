@@ -322,6 +322,7 @@ inspect the generated code."
 (require 'hydra)
 (require 'xml-rpc)
 (require 'metaweblog)
+(require 'writegood-mode)
 
 ;; Packages - Internal
 
