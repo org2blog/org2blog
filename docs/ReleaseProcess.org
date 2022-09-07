@@ -63,4 +63,12 @@
   - [X] Install it with ~package-install-file~. Open install folder and look
     at the headers: are they OK?
   - [X] Test using the package versus using the source code.
+- [ ] Create a Feature Reqest with this in it:
+  #+begin_src gfm
+This is a placeholder for when vX.Y.Z gets released.
+
+It serves as a notification for users running into any issues.
+
+When the [branch](https://github.com/org2blog/org2blog/tree/X.Y.Z) is merged I'll add a comment here.
+  #+end_src
 - [ ] Merge branch into ~master~ and tag the release
