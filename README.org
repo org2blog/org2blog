@@ -69,6 +69,7 @@ Blog from Org mode to WordPress.
     - [[#tracking-entries][Tracking Entries]]
     - [[#doing-things-after-saving-and-publishing][Doing Things After Saving And Publishing]]
     - [[#parent-pages][Parent Pages]]
+    - [[#publishing-and-sharing-with-everyone][Publishing And Sharing With Everyone]]
   - [[#the-huge-power-of-customizations][The Huge Power Of Customizations]]
 - [[#sample-posts][Sample Posts]]
   - [[#buffer-post][Buffer Post]]
@@ -1105,6 +1106,14 @@ or your Subtree Entry like this:
 #+end_src
 
 You can use =UI [Completion]= on it too.
+
+*** Publishing And Sharing With Everyone
+
+Living with first-class WordPress support is fun and comfortable. Some day though you may want to publishing your writing in a different format.
+
+For example say you want to share your writing as flat text files with some of your techie friends. Or maybe you want to share them as PDFs with your other friends and family. Because you ultimately writing Org mode files you can [[https://orgmode.org/manual/Exporting.html][export your file to just about anything]].
+
+When you write your Entries with Org2Blog you are making your writing future-safe and more shareable than any other tool out there.
 
 ** The Huge Power Of Customizations
 
