@@ -519,10 +519,21 @@ Then, configure your blog using those credentials, as shown below.
 
 Decorating your writing room truly makes it your own. Emacs themes make it easy with full theme support. Here are some resources to get started:
 
-- Emacs comes [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Custom-Themes.html][loaded with themes]] out of the box: ~(load-theme 'leuven)~ is a great place to start
 - [[https://melpa.org/#/?q=theme&sort=downloads&asc=false][MELPA has hundreds of them]] with download counts to reveal the most popular
-
-When you want you can even customize your own from scratch too.
+  - For quick reference here are the top then on there today:
+    - [[https://github.com/bbatsov/zenburn-emacs#about][Zenburn]]
+    - [[https://github.com/bbatsov/solarized-emacs#solarized-for-emacs][Solarized]]: Screenshots [[https://emacsthemes.com/themes/solarized-themes.html][here]]
+    - [[https://github.com/purcell/color-theme-sanityinc-tomorrow][Tomorrow]]: Screenshots [[https://github.com/ChrisKempson/Tomorrow-Theme#take-a-look][here]]
+    - [[https://github.com/nashamri/spacemacs-theme#screenshots][Spacemacs]]
+    - [[https://github.com/oneKelvinSmith/monokai-emacs#how-it-looks][Monokai]]
+    - [[https://github.com/fniessen/emacs-leuven-theme#screenshots][Leuven]] (also comes with Emacs)
+    - [[https://github.com/greduan/emacs-theme-gruvbox#theme-versions][Gruvbox]]
+    - [[https://github.com/dracula/emacs#dracula-for-emacs][Dracula]]
+    - [[https://github.com/cpaulik/emacs-material-theme#screenshots][Material]]
+    - [[https://github.com/kuanyui/moe-theme.el#screenshot][Moe]]
+- [[https://emacsthemes.com/][Emacs Themes]]: "tries to be a comprehensive resource for those interested in Emacs themes". *NOTE*: "You should always use the Official Source." MELPA is a good way to do that.
+- Emacs comes [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Custom-Themes.html][loaded with themes]] out of the box. Run
+~M-x customize-themes RET~ to choose them. Even faster: ~(load-theme 'leuven)~ is a great place to start
 
 *** Coming Back For Seconds
 ***** Your Second Buffer Post
