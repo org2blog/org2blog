@@ -71,4 +71,5 @@ It serves as a notification for users running into any issues.
 
 When the [branch](https://github.com/org2blog/org2blog/tree/X.Y.Z) is merged I'll add a comment here.
   #+end_src
-- [ ] Merge branch into ~master~ and tag the release
+- [ ] Merge branch into ~master~
+- [ ] Tag and push it
