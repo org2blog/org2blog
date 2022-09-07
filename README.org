@@ -18,6 +18,7 @@ Blog from Org mode to WordPress.
 - [[#about][About]]
 - [[#requirements-and-compatibility][Requirements And Compatibility]]
 - [[#installation][Installation]]
+  - [[#install-emacs][Install Emacs]]
   - [[#using-a-package][Using A Package]]
     - [[#use-package][Use-Package]]
     - [[#install-the-package-yourself][Install The Package Yourself]]
@@ -88,6 +89,23 @@ Current Requirements: Org2Blog 1.1.13, Emacs 28.1, which includes Org mode 9.5.2
 :properties:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:8CEE033C-3D3A-422A-A15A-358D7BE5A224
 :end:
+
+** Install Emacs
+
+Start by installing Emacs Version 28.1.
+
+[[https://www.gnu.org/software/emacs/][Emacs]] is where Org2Blog lives. To use Org2Blog first you need to install Emacs. Here is where to get it:
+
+- macOS
+  - [[https://emacsformacos.com/][Emacs For macOS]]: Installer
+  - BREW: ~brew install emacs~
+- Windows
+  - [[https://gnu.askapache.com/emacs/windows/][AskApache]]
+- Linux
+  - Your system probably comes with it otherwise use your package manager
+
+If you are new to Emacs and want to drink from the fire-hose of knowledge
+then start [[https://www.masteringemacs.org/article/beginners-guide-to-emacs][here]]. If you want only a sip though just ask a friend. That is the most fun way to get started.
 
 ** Using A Package
 :PROPERTIES:
@@ -284,6 +302,10 @@ To make your life easier Writegood provides a few features with a big payoff tha
 - Highlight irregular passive voice verbs
 
 Use =UI [Writer Tools]= to report =UI [Grade Level]= and toggle =UI [Writegood]=.
+
+To get even simpler consider your wordcount under
+=UI [Writer Tools] Word Count=. Simple is not simplistic: you can always
+say more with less.
 
 From a technical standpoint Writegood is an ideal choice because it is written in plain old Elisp without any external dependencies.
 

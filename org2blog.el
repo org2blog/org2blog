@@ -14,7 +14,7 @@
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
 ;; Version: 1.1.13
-;; Package-Requires: ((emacs "28.1") (htmlize "1.56") (hydra "0.15.0") (xml-rpc "1.6.15") (writegood "2.2.0") (metaweblog "1.1.13"))
+;; Package-Requires: ((emacs "28.1") (htmlize "1.56") (hydra "0.15.0") (xml-rpc "1.6.15") (writegood-mode "2.2.0") (metaweblog "1.1.13"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
 
@@ -151,7 +151,14 @@ inspect the generated code."
                    (org2blog-def-version org2blog-defi)
                    (org2blog-def-emacs org2blog-defi)
                    (org2blog-def-org org2blog-defi)
-                   (org2blog-def-wordpress-version org2blog-defi)))))
+                   (org2blog-def-wordpress-version org2blog-defi))))
+  (org2blog-def--update-the
+   "README.org"
+   (goto-char (point-min))
+   (re-search-forward "^Start by installing Emacs Version ")
+   (kill-whole-line 1)
+   (insert (format "Start by installing Emacs Version %s.\n"
+                   (org2blog-def-emacs org2blog-defi)))))
 
 (defun org2blog-def--contact-info (contact)
   "Create string from CONTACT info."
@@ -313,6 +320,31 @@ inspect the generated code."
                         name))
          (princ (format "(require '%s)\n" name))))
      (org2blog-def-requirements org2blog-defi))))
+
+(defun org2blog-estimated-word-count (&optional subtreep)
+  "Estimate word count using a UTF-8 text export.
+
+Review the export by opening the buffer:
+'(switch-to-buffer-other-window \"*Org ASCII Export*\"))'
+
+When optional argument SUBTREEP is non-nil, export the sub-tree
+at point, extracting information from the headline properties
+first.
+"
+  (interactive)
+  (let ((async nil)
+        (visible-only nil)
+        (body-only nil)
+        (ext-plist
+         '(:ascii-charset utf-8 :title nil :name nil))
+        (org-export-show-temporary-export-buffer nil)
+        (export-buffer "*Org ASCII Export*"))
+    (org-ascii-export-as-ascii
+     async subtreep visible-only body-only ext-plist)
+    (with-current-buffer export-buffer
+      (let ((word-count
+             (count-words (point-min) (point-max))))
+        (message "Estimated Word Count: %s" word-count)))))
 
 ;;; Requires
 
@@ -978,12 +1010,13 @@ Legend:
   "
 ╔══════════╗
 ║ ^Org2Blog^ ║ (Main Menu → Writer Tools)
-╠══════════╩^════^═╦═════════════^═════════^╗
-║ ^Tools^          ║ ^Spell Check^          ║
-╚═^═════^══════════╩═^═══════════^══════════╝
- [_l_] Grade Level   [_b_] Buffer or Region
- [_m_] Writegood     [_w_] Word
-  ^ ^                [_r_] Region
+╠══════════╩^════^═╦═^═══════════^══════════╦═^══════════^═══╗
+║ ^Tools^          ║ ^Spell Check^          ║ ^Word Count^   ║
+╚═^═════^══════════╩═^═══════════^══════════╩═^══════════^═══╝
+ [_l_] Grade Level  [_b_] Buffer or Region   [_c_] Buffer
+ [_m_] Writegood    [_w_] Word               [_C_] Subtree
+  ^ ^               [_r_] Region
+  ^ ^                 ^ ^
  [_h_] Help
  [_q_] Back
 "
@@ -994,28 +1027,35 @@ Legend:
   ("w" ispell-word)
   ("r" ispell-region)
 
+  ("c" org2blog-estimated-word-count)
+  ("C" (lambda () (org2blog-estimated-word-count t)))
+
   ("h" org2blog--hydra-main-writer-tools-help/body)
   ("q" org2blog--hydra-main/body))
 
 (defhydra org2blog--hydra-main-writer-tools-help (:color blue :hint nil)
   "
 ╔══════════╗
-║ ^Org2Blog^ ║ (Main Menu → Writer Tools → Help) Select any item for more detail
-╠══════════╩^════^═╦═════════════^═════════^╗
-║ ^Tools^          ║ ^Spell Check^          ║
-╚═^═════^══════════╩═^═══════════^══════════╝
- [_l_] Grade Level   [_b_] Buffer or Region
- [_m_] Writegood     [_w_] Word
-  ^ ^                [_r_] Region
+║ ^Org2Blog^ ║ (Main Menu → Writer Tools)
+╠══════════╩^════^═╦═^═══════════^══════════╦═^══════════^═══╗
+║ ^Tools^          ║ ^Spell Check^          ║ ^Word Count^   ║
+╚═^═════^══════════╩═^═══════════^══════════╩═^══════════^═══╝
+ [_l_] Grade Level  [_b_] Buffer or Region   [_c_] Buffer
+ [_m_] Writegood    [_w_] Word               [_C_] Subtree
+  ^ ^               [_r_] Region
+  ^ ^                 ^ ^
   ^ ^
  [_q_] Back
 "
-  ("l" (org2blog--hlpf 'writegood-reading-ease))
-  ("m" (org2blog--hlpf 'writegood-mode))
+  ("l" (org2blog--hlpf 'writegood-reading-ease) :exit nil)
+  ("m" (org2blog--hlpf 'writegood-mode) :exit nil)
 
-  ("b" (org2blog--hlpf 'ispell))
-  ("w" (org2blog--hlpf 'ispell-word))
-  ("r" (org2blog--hlpf 'ispell-region))
+  ("b" (org2blog--hlpf 'ispell) :exit nil)
+  ("w" (org2blog--hlpf 'ispell-word) :exit nil)
+  ("r" (org2blog--hlpf 'ispell-region) :exit nil)
+
+  ("c" (org2blog--hlpf 'org2blog-estimated-word-count) :exit nil)
+  ("C" (org2blog--hlpf 'org2blog-estimated-word-count) :exit nil)
 
   ("q" org2blog--hydra-main-writer-tools/body))
 
