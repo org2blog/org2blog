@@ -26,15 +26,21 @@ Blog from Org mode to WordPress.
   - [[#setting-up-the-source-code-by-hand][Setting Up The Source Code By Hand]]
 - [[#usage][Usage]]
   - [[#make-your-first-post-in-less-5-minutes][Make Your First Post In Less 5 Minutes]]
-  - [[#the-6-most-important-next-steps][The 6 Most Important Next Steps]]
+  - [[#the-7-most-important-next-steps][The 7 Most Important Next Steps]]
     - [[#helping-yourself-to-the-basics][Helping Yourself To The Basics]]
     - [[#writing-more-after-you-have-settled-into-the-software][Writing More After You Have "Settled Into" The Software]]
-      - [[#making-room-to-write][Making Room To Write]]
-      - [[#finding-and-saving-your-voice][Finding And Saving Your Voice]]
-      - [[#why-writing-requires-good-characters-and-unicode][Why Writing Requires Good Character(s) And Unicode]]
-      - [[#how-do-you-spell-that-again][How Do You Spell That Again?]]
-      - [[#we-can-type-it-for-you-wholesale][We Can Type It For You: Wholesale]]
-      - [[#have-you-heard-your-new-post][Have You Heard Your New Post?]]
+      - [[#creating-your-writing-room][Creating Your Writing Room]]
+        - [[#making-room-to-write][Making Room To Write]]
+        - [[#finding-and-saving-your-voice][Finding And Saving Your Voice]]
+        - [[#why-writing-requires-good-characters-and-unicode][Why Writing Requires Good Character(s) And Unicode]]
+        - [[#how-do-you-spell-that-again][How Do You Spell That Again?]]
+        - [[#we-can-type-it-for-you-wholesale][We Can Type It For You: Wholesale]]
+        - [[#have-you-heard-your-new-post][Have You Heard Your New Post?]]
+      - [[#just-writing][Just Writing]]
+      - [[#automatically-configuring-your-environment][Automatically Configuring Your Environment]]
+      - [[#defining-custom-keybindings][Defining Custom Keybindings]]
+      - [[#logging-in-faster][Logging In Faster]]
+    - [[#coming-back-for-seconds][Coming Back For Seconds]]
       - [[#your-second-buffer-post][Your Second Buffer Post]]
       - [[#your-first-buffer-page][Your First Buffer Page]]
     - [[#store-multiple-entries-in-one-file][Store Multiple Entries In One File]]
@@ -229,7 +235,7 @@ P.S. If you are interested, here are some other examples of the UI
 *Customizations Documentation Menu:*
 [[file:/images/VariableMenu.png]]
 
-** The 6 Most Important Next Steps
+** The 7 Most Important Next Steps
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:DA51A3B2-9218-4673-B1E4-C68ADDD33366
 :END:
@@ -280,6 +286,7 @@ This combination of easy-to-use menus and direct access to the code is the best 
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:A1DC8316-20E1-4188-AA22-E2F1CD62EC08
 :END:
+**** Creating Your Writing Room
 ***** Making Room To Write
 
 Some writers can create a dedicated room for writing. Definitely hardwood floors and a sturdy desk. Others prefer a lighter space. Whatever the preference it can be easy to build in your Org2Blog world too.
@@ -409,45 +416,6 @@ Second: [[https://www.cereproc.com/en][CereProc]] voices, along with all of thei
 
 Try listening to all of your writing. Listen to your posts, letters, essays and everything you can whether it is in Org2Blog or not. It will make you a better writer and pay off for your entire writing life.
 
-***** Your Second Buffer Post
-
-Perhaps you know some defaults you want for every kind of Entry. When you are ready configure them see these variables and functions:
-- Buffer Entry
-  - ~org2blog/wp-buffer-template~
-  - ~org2blog/wp-buffer-format-function~
-  - ~org2blog/wp-default-title~
-  - ~org2blog/wp-default-categories~
-  - ~org2blog/wp-default-tags~
-- Subtree Entry
-  - ~org2blog/wp-buffer-subtree-template~
-  - ~org2blog/wp-buffer-subtree-format-function~
-  - ~org2blog/wp-default-title-subtree~
-  - ~org2blog/wp-default-categories-subtree~
-  - ~org2blog/wp-default-tags-subtree~
-
-With your configuration ready, start creating the Post.
-
-Start by creating a =UI [New Buffer]=. A template populates your Entry. When you =UI [Login]= Org2Blog learns about your Categories, Tags, and Pages. Position the cursor on one of those lines and =UI [Complete]= and either choose a value or complete a value that you began typing. If you want one, you can add a =#+DESCRIPTION= and a =#+PERMALINK= too.
-d
-Please note that WordPress has a slightly unexpected behavior when completing Categories and Tags. Although Org2Blog can complete unused Categories, it cannot complete unused Tags. Although the unused Tag exists on the blog, it still can't be completed while writing. Hiding unused tags is normal WordPress behavior for now.
-
-Org2Blog includes some helpers for inserting content into your Entry under the =UI [Insert A]= menu:
-
-- =UI [More Tag]=: The WordPress "Read More" tag. Org2Blog will ask if you want to use a message inside of it, too.
-- =UI [MathJax Shortcode]=: If you want to use [[https://www.mathjax.org/][MathJax]], this lets you do it.
-- =UI [LaTeX Name]=: Prove that MathJax is working.
-- =UI [Link To Post]=: Insert a link to a post from a list of posts on /your blog/.
-- =UI [Link To Page]=: Insert a link to a page from a list of posts on /your blog/.
-- =UI [#+ORG2BLOG]=: If your Entry doesn't have the special tag, then it will insert it.
-
-When you are ready, save your new Post. Open the main menu by calling ~org2blog-user-interface~. Since you just created a Buffer Post, look at the menu items under the Buffers column and find the operation you want to perform. Your first step here is =UI [Save Post Draft]= to save your post on your blog. The language here is essential: actions you'll perform in your actual blog map directly to menu items here. Next, do =UI [View Post]= to bring up a web browser so you can read and review your Post. From here, you can iterate through your writing process until you finally =UI [Publish Post]=.
-
-***** Your First Buffer Page
-
-Working with Pages is virtually identical to working with Posts for a good reason: WordPress sees them as nearly the same thing, and Org2Blog does too. The only difference is that when you work with your Page, use the functions that have Page in the name.
-
-In the walk-through here, that means using =UI [Save Page Draft]= and so on.
-
 **** Just Writing
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:CF77828B-1078-4A5E-A9A4-25C5D554EF70
@@ -524,6 +492,46 @@ Then, configure your blog using those credentials, as shown below.
 #+begin_example
 ("wordpress" :url "http://username.server.com/xmlrpc.php" :username nil :password nil)
 #+end_example
+
+*** Coming Back For Seconds
+***** Your Second Buffer Post
+
+Perhaps you know some defaults you want for every kind of Entry. When you are ready configure them see these variables and functions:
+- Buffer Entry
+  - ~org2blog/wp-buffer-template~
+  - ~org2blog/wp-buffer-format-function~
+  - ~org2blog/wp-default-title~
+  - ~org2blog/wp-default-categories~
+  - ~org2blog/wp-default-tags~
+- Subtree Entry
+  - ~org2blog/wp-buffer-subtree-template~
+  - ~org2blog/wp-buffer-subtree-format-function~
+  - ~org2blog/wp-default-title-subtree~
+  - ~org2blog/wp-default-categories-subtree~
+  - ~org2blog/wp-default-tags-subtree~
+
+With your configuration ready, start creating the Post.
+
+Start by creating a =UI [New Buffer]=. A template populates your Entry. When you =UI [Login]= Org2Blog learns about your Categories, Tags, and Pages. Position the cursor on one of those lines and =UI [Complete]= and either choose a value or complete a value that you began typing. If you want one, you can add a =#+DESCRIPTION= and a =#+PERMALINK= too.
+d
+Please note that WordPress has a slightly unexpected behavior when completing Categories and Tags. Although Org2Blog can complete unused Categories, it cannot complete unused Tags. Although the unused Tag exists on the blog, it still can't be completed while writing. Hiding unused tags is normal WordPress behavior for now.
+
+Org2Blog includes some helpers for inserting content into your Entry under the =UI [Insert A]= menu:
+
+- =UI [More Tag]=: The WordPress "Read More" tag. Org2Blog will ask if you want to use a message inside of it, too.
+- =UI [MathJax Shortcode]=: If you want to use [[https://www.mathjax.org/][MathJax]], this lets you do it.
+- =UI [LaTeX Name]=: Prove that MathJax is working.
+- =UI [Link To Post]=: Insert a link to a post from a list of posts on /your blog/.
+- =UI [Link To Page]=: Insert a link to a page from a list of posts on /your blog/.
+- =UI [#+ORG2BLOG]=: If your Entry doesn't have the special tag, then it will insert it.
+
+When you are ready, save your new Post. Open the main menu by calling ~org2blog-user-interface~. Since you just created a Buffer Post, look at the menu items under the Buffers column and find the operation you want to perform. Your first step here is =UI [Save Post Draft]= to save your post on your blog. The language here is essential: actions you'll perform in your actual blog map directly to menu items here. Next, do =UI [View Post]= to bring up a web browser so you can read and review your Post. From here, you can iterate through your writing process until you finally =UI [Publish Post]=.
+
+***** Your First Buffer Page
+
+Working with Pages is virtually identical to working with Posts for a good reason: WordPress sees them as nearly the same thing, and Org2Blog does too. The only difference is that when you work with your Page, use the functions that have Page in the name.
+
+In the walk-through here, that means using =UI [Save Page Draft]= and so on.
 
 *** Store Multiple Entries In One File
 :PROPERTIES:
