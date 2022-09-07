@@ -336,7 +336,7 @@ Use =UI [Writer Tools]= to report =UI [Grade Level]= and toggle =UI [Writegood]=
 
 To get even simpler consider your wordcount under
 =UI [Writer Tools] Word Count=. Simple is not simplistic: you can always
-say more with less.
+say more with less. If you want a litle more flexible word counting try out [[https://github.com/bnbeckwith/wc-mode][wc-mode]] too.
 
 From a technical standpoint Writegood is an ideal choice because it is written in plain old Elisp without any external dependencies.
 
