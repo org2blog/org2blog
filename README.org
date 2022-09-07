@@ -8,7 +8,27 @@
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:B5FB31EA-EA25-4675-90B0-AE0167BAE092
 :end:
 
-Blog from Org mode to WordPress.
+Org2Blog is the most advanced [[https://wordpress.org/][WordPress]] blog editor and manager available today.
+
+It provides the ease and use of a desktop application granting the power and convenience that you would expect of any high-quality tool.
+
+Is it worth the price? Yes absolutely it saves you the most precious commodity: time. What does that price get you? A LOT―
+
+Check out all of the features:
+
+- Tools and tips for a [[#making-room-to-write][distraction free workspace]], [[#decorating-your-room][beautiful colors]], and [[#why-writing-requires-good-characters-and-unicode][lovely fonts]] make writing a treat
+- Make easy problems disappear with built in [[#how-do-you-spell-that-again][spell checking]] and [[#finding-and-saving-your-voice][grammar tools]]
+- Let your computer [[#we-can-type-it-for-you-wholesale][automatically types all of the most tedious, error-prone, and difficult]] giving you more time to write the good stuff
+- [[#make-your-first-post-in-less-5-minutes][Easy user-interface]] helps you get the job done fast. When you can't remember what something does just hit =h= for help and get that help instantly: no user manual required
+- Edit and save in plain old text with [[https://orgmode.org/guide/Markup.html][Org mode]] markup instead of flakey WYSIWYG or nightmarish M. C. Escher-esque style editors that would make [[https://en.wikipedia.org/wiki/Johannes_Gutenberg][Gutenberg]] cry
+- Setup so simple [[#make-your-first-post-in-less-5-minutes][you will be blogging in 5m or less]]
+- [[#why-writing-requires-good-characters-and-unicode][Write around the world in any language ever]] with full first-class Unicode support
+- [[#publishing-and-sharing-with-everyone][Share with your friends]] in any format you want: you are writing in plain text that can get exported to text, PDF, and more
+- Runs on just about [[#install-emacs][every computer out there]]: macOS, Windows, Linux, and most UNIX'en work just file
+- Write posts anytime with an Internet connection or not: they just get saved until you want to post them and you can store them on your computer, in Dropbox, or your favorite version control system
+- Insert images from your computer and they are automatically uploaded to your page along with resizing options
+- Works with [[#your-first-buffer-page][Pages too]]
+- Don't see what you need? [[https://github.com/org2blog/org2blog/issues][Let us know]]. [[#development][Development]] is open-source and easy to get started with. Help Org2Blog get better and better.
 
 * Table Of Contents
 :PROPERTIES:
@@ -40,6 +60,7 @@ Blog from Org mode to WordPress.
       - [[#automatically-configuring-your-environment][Automatically Configuring Your Environment]]
       - [[#defining-custom-keybindings][Defining Custom Keybindings]]
       - [[#logging-in-faster][Logging In Faster]]
+      - [[#decorating-your-room][Decorating Your Room]]
     - [[#coming-back-for-seconds][Coming Back For Seconds]]
       - [[#your-second-buffer-post][Your Second Buffer Post]]
       - [[#your-first-buffer-page][Your First Buffer Page]]
@@ -493,6 +514,15 @@ Then, configure your blog using those credentials, as shown below.
 #+begin_example
 ("wordpress" :url "http://username.server.com/xmlrpc.php" :username nil :password nil)
 #+end_example
+
+**** Decorating Your Room
+
+Decorating your writing room truly makes it your own. Emacs themes make it easy with full theme support. Here are some resources to get started:
+
+- Emacs comes [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Custom-Themes.html][loaded with themes]] out of the box: ~(load-theme 'leuven)~ is a great place to start
+- [[https://melpa.org/#/?q=theme&sort=downloads&asc=false][MELPA has hundreds of them]] with download counts to reveal the most popular
+
+When you want you can even customize your own from scratch too.
 
 *** Coming Back For Seconds
 ***** Your Second Buffer Post
