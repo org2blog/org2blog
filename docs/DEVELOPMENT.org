@@ -273,8 +273,6 @@ The node document format below is:
 
 ** Create
 
-[[file:/docs/o2b-entry-new-flow.png]]
-
 ~org2blog--new~ creates the content but doesn't publish it yet. See Save.
 
 It works like this:
@@ -402,6 +400,8 @@ left side
 - Get the =Post ID=
 - Maybe confirm the trashing
 - Trash it
+
+[[file:/docs/o2b-entry-trash-flow.png]]
 
 #+begin_src plantuml :file o2b-entry-trash-flow.png
 @startmindmap
