@@ -105,7 +105,7 @@ Documents notable release changes.
   - Don't populate kill ring with version message
   - Documentation cleanup
 
-** v1.1.13-
+** v1.1.13-v1.1.14
 
 - v1.1.13
   - Updates WordPress 5.x 🠆 6.x
@@ -126,8 +126,13 @@ Documents notable release changes.
     Hydra creates an exceeding number of non-human viewed docstrings
     so no point warning.
   - Document Parent Page support
-  - v1.1.14
-    - Add spellchecking
+- v1.1.14
+  - Overhauls documentation in recognition that Org2Blog is a full blown
+    application
+  - Adds Writer Tools menu and features: writegood, spellcheck, and
+    word count
+  - Adds more documentation and images on application design
+  - Explains =amsmath= status
 
 * v1.0
 ** v1.0.00
