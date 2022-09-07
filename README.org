@@ -24,7 +24,7 @@ Check out all of the features:
 - Setup so simple [[#make-your-first-post-in-less-5-minutes][you will be blogging in five minutes or less]]
 - [[#why-writing-requires-good-characters-and-unicode][Write around the world in any language ever]] with full first-class Unicode support
 - [[#publishing-and-sharing-with-everyone][Share with your friends]] in any format you want: you are writing in plain text that can get exported to PDF and more
-- Runs on just about [[#install-emacs][every computer out there]]: macOS, Windows, Linux, and most UNIX'en work just file
+- Runs on just about [[#install-emacs][every computer out there]]: macOS, Windows, Linux, and most UNIX'en work just fine
 - Write posts anytime with an Internet connection or not: they just get saved until you want to post them and you can store them on your computer, in Dropbox, or your favorite version control system
 - Insert images from your computer and they are automatically uploaded to your post or page
 - Works with [[#your-first-buffer-page][Pages too]]
