@@ -85,6 +85,8 @@ Org2Blog strives to run against the current versions of all of them.
 
 Current Requirements: Org2Blog 1.1.13, Emacs 28.1, which includes Org mode 9.5.2, and WordPress 6.0.
 
+Although it isn't required to use Org2Blog you will get the best user experience by using the [[https://wordpress.org/plugins/classic-editor/][WordPress Classic Editor]].
+
 * Installation
 :properties:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:8CEE033C-3D3A-422A-A15A-358D7BE5A224
