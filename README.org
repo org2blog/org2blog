@@ -10,7 +10,7 @@
 
 Org2Blog is the most advanced [[https://wordpress.org/][WordPress]] blog editor and manager available today.
 
-It provides the ease and use of a desktop application granting the power and convenience that you would expect of any high-quality app.
+It provides the ease and use of a desktop application granting the power and convenience that you would expect of any high-quality application.
 
 Is it worth the price? Yes absolutely it saves you the most precious commodity: time. What does that price get you? A LOT―
 
