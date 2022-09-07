@@ -1,23 +1,66 @@
-- [ ] Copy this to a temp file or buffer and fill it out. This will get pasted into the commit message for the release
-- [ ] Should should already be performing your release work in a branch. Make sure of that.
-- [ ] The release version number appears in multiple files. Instead of manually updating all of them there is a function to do it. ~org2blog-def-update-artifacts~ visits the files and updates the correct settings. To use it:
+#+DATE: 2022-09-07T00:25:36-05:00
+- [X] What release tag is this? \rarr v1.1.14
+- [X] Create and checkout this branch
+- [X] Update copyright dates
+- [X] Open and update [[../HISTORY.org][History]] as you go
+- [X] Update software versions in ~org2blog-defi~:
+  - Start emacs with no init file and check: ~emacs --no-init-file&~
+  - [X] Emacs version
+  - [X] Org version
+  - [X] For each used library note [internal or external] and [tag] and maybe update it in ~org2blog-defi~ and regenerate things
+    - [X] HTMLize, external, 1.56
+    - [X] Hydra, external, 0.15.0
+    - [X] XML-RPC, external, 1.6.15
+    - [X] WriteGood, external, v2.2.0
+    - [X] Regenerated? [Yes or No] Yes
   - Open ~org2blog.el~
-  - Update ~org2blog-def--package~ with the new version number (~this-release~)
+- [X] The release version number appears in multiple files. Update them with this helper function by following these steps:
+  - Open ~org2blog.el~
   - Evaluate it
   - Call ~org2blog-def-update-artifacts~
     - This step /may/ be fragile. It automates the manual steps of updating version numbers by searching for string matches, and sometimes those values change. If the function fails, try visiting each of the relevant files in the function body, moving the cursor to the first line, and trying again. If that fails, then please file an Issue Report so we can look at it together.
-- [ ] Bring codebase up to expectations in [[CONTRIBUTING.org][Contributing]].
-  - [ ] Byte compile source code files
-  - [ ] Checkdoc
-  - [ ] Package-Lint
-- [ ] Complete [[../org2blog-test-system.el][System Test Program and Test Plan]]
-  - Start Emacs in an empty environment before loading Org2Blog and perform the testing by starting Emacs like this: ~emacs --no-init-file~
-  - The test is identical to running manually. Primarily used in case you don't have a blog and you are pointing at the test server.
-  - Did you run this and why?
-- [ ] Build package with [[https://github.com/melpa/melpa#build-scripts][MELPA]]
-  - [ ] Make sure it installs and loads
-  - [ ] Test using the package
-- [ ] Update copyright dates
-- [ ] Update [[../HISTORY.org][History]]
+  - Stage it and review the results.
+- [X] Bring codebase up to expectations in [[CONTRIBUTING.org][Contributing]].
+  - [X] Byte compile changed files
+    - Expected and non critical warnings
+  - [X] Checkdoc and paste the results here
+    #+begin_quote
+    Buffer comments and tags:  Ok
+    Documentation style:       19 Errors
+    Message/Query text style:  Ok
+    Unwanted Spaces:           Ok
+    #+end_quote
+  - [X] Package-Lint: ~package-lint-current-buffer~- Notes follow
+    - 17:23: warning: This makes the package uninstallable in all released Emacs versions.
+    - Invalid symbol names with slash in them.
+- [X] Testing: Do one or both―note it
+  - [X] Yes: Manually test all functions
+    | Container | Type | Save | View | Publish | Trash |
+    |-----------+------+------+------+---------+-------|
+    | Buffer    | Post | OK   | OK   | OK      | OK    |
+    | Buffer    | Page | OK   | OK   | OK      | OK    |
+    | Subtree   | Post | OK   | OK   | OK      | OK    |
+    | Subtree   | Page | OK   | OK   | OK      | OK    |
+  - [X] No: Complete [[../org2blog-test-system.el][System Test Program and Test Plan]]
+    - Start Emacs in an empty environment before loading Org2Blog and perform the testing by starting Emacs like this: ~emacs --no-init-file~
+    - The test is identical to running manually. Primarily used in case you don't have a blog and you are pointing at the test server.
+    - Did you run this and why?
+- [X] Build package with [[https://github.com/melpa/melpa#build-scripts][MELPA]]: First with metaweblog and second org2blog
+  - [X] Update MELPA from Github
+  - [X] Configure to point at this branch for example. The key thing is that you are pointing it at the branch. When it builds the package verify it. The build script is sensitive to recipe formatting btw. You must enable file variables when you open it.
+    #+begin_src elisp
+(org2blog :fetcher github
+          :repo "org2blog/org2blog"
+          :branch "noautoloads"
+          :files (:defaults "README.org" (:exclude "metaweblog.el")))
+    #+end_src
+  - [X] Build it from the top level dir
+    - make clean
+    - make recipes/org2blog
+    - open packages
+    - open ~/.emacs.d/elpa
+    - Delete the metaweblog and org2blog folder
+  - [X] Install it with ~package-install-file~. Open install folder and look
+    at the headers: are they OK?
+  - [X] Test using the package versus using the source code.
 - [ ] Merge branch into ~master~ and tag the release
-  - Note MELPA master and table downloads.
