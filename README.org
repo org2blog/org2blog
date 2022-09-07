@@ -28,7 +28,7 @@ Check out all of the features:
 - Write posts anytime with an Internet connection or not: they just get saved until you want to post them and you can store them on your computer, in Dropbox, or your favorite version control system
 - Insert images from your computer and they are automatically uploaded to your post or page
 - Works with [[#your-first-buffer-page][Pages too]]
-- Don't see what you need? [[https://github.com/org2blog/org2blog/issues][Let us know]]. [[#development][Development]] is open-source and easy to get started with. Help Org2Blog get better and better.
+- Don't see what you need? [[https://github.com/org2blog/org2blog/issues][Let us know]]. [[#development][Development]] is open-source and easy to get started with. Help Org2Blog get better and better. Happy Blogging!
 
 * Table Of Contents
 :PROPERTIES:
