@@ -11,6 +11,7 @@ Org2Blog Developer Documentation.
 :CONTENTS:
 - [[#about][About]]
 - [[#loading-up-the-source-code-by-hand][Loading Up The Source Code By Hand]]
+- [[#software-packages-used][Software Packages Used]]
 - [[#getting-started-with-development][Getting Started With Development]]
 - [[#package-questions-and-answers][Package Questions And Answers]]
   - [[#why-does-org2blog-talk-about-save-view-publish-and-trash-so-much][Why Does Org2blog Talk About Save, View, Publish, And Trash So Much?]]
@@ -59,6 +60,43 @@ Note: the correct tag of the project is loaded automatically.
 Now you've got everything you need to run Org2Blog against its source code.
 
 With this set up you can start playing around with things and even making changes. When you scratch an itch: create your branch and submit a pull request. It's fun, easy, and makes Org2Blog better for all its users.
+
+* Software Packages Used
+
+Org2Blog uses these libraries:
+
+[[file:/docs/o2b-external-libraries.png]]
+
+(Source code for this image follows)
+
+#+begin_src plantuml :file o2b-external-libraries.png
+@startmindmap
+!theme plain
+caption Read Left To Right
+title Referenced Libraries
+header
+  Org2Blog Docs
+endheader
+center footer Org2Blog DEVELOPMENT
+
+,* org2blog
+left side
+,** Internal
+,*** org
+,*** ox-wp
+,*** subr-x
+,** External
+,*** htmlize
+,*** hydra
+,*** xml-rpc
+,*** metaweblog
+@endmindmap
+#+end_src
+
+#+RESULTS:
+#+begin_RESULTS
+[[file:o2b-external-libraries.png]]
+#+end_RESULTS
 
 * Getting Started With Development
 
@@ -243,7 +281,7 @@ All of the functions revolve around these two ideas.
 
 =Object-Orientation= is not used with either the data or implementation. With only two data types the effort isn't justified. With that in mind functions must manually manually address this implementation scenario:
 
-[[file:o2b-entry-source-dest-flow.png]]]]
+[[file:o2b-entry-source-dest-flow.png]]
 
 Consequently key functions all either include (or deduce) the variables:
 
