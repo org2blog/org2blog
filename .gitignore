@@ -1,3 +1,4 @@
 /org2blog-autoloads.el
 /README.html
 *.elc
+/ci/vale
