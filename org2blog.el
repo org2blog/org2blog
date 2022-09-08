@@ -336,7 +336,8 @@ first.
         (visible-only nil)
         (body-only nil)
         (ext-plist
-         '(:ascii-charset utf-8))
+         '(:ascii-charset utf-8
+                          ))
         (org-export-show-temporary-export-buffer nil)
         (export-buffer "*Org ASCII Export*"))
     (org-ascii-export-as-ascii
@@ -344,7 +345,8 @@ first.
     (with-current-buffer export-buffer
       (let ((word-count
              (count-words (point-min) (point-max))))
-        (message "Estimated Word Count: %s" word-count)))))
+        (message "Estimated Word Count: %s" word-count)))
+    (when (get-buffer export-buffer) (kill-buffer export-buffer))))
 
 ;;; Requires
 
