@@ -336,7 +336,7 @@ first.
         (visible-only nil)
         (body-only nil)
         (ext-plist
-         '(:ascii-charset utf-8 :title nil :name nil))
+         '(:ascii-charset utf-8))
         (org-export-show-temporary-export-buffer nil)
         (export-buffer "*Org ASCII Export*"))
     (org-ascii-export-as-ascii
