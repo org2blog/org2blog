@@ -150,10 +150,10 @@ These are commands that insert markup into your post.
     - Area above UI shows logout status
   - [ ] ~org2blog-user-report~
     - When enabled there are a lot of SSL messages happening
-    - Disable it and they are not
+    - Disable it and they're not
 - [ ] Hooks
   - [ ] ~org2blog-mode-hook~
-    - A good place to create keybindings, check that they are set
+    - A good place to create keybindings, check that they're set
   - [ ] ~org2blog-buffer-entry-save-hook~
     - Add the sample hook from the docsring and veriy that it works.
   - [ ] ~org2blog-maybe-start~

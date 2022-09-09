@@ -26,7 +26,7 @@ Check out all of the features:
 - [[#publishing-and-sharing-with-everyone][Share with your friends]] in any format you want: you are writing in plain text that can get exported to PDF, Word, and more
 - Runs on just about [[#install-emacs][every computer out there]]: macOS, Windows, Linux, and most UNIXen work just fine
 - Write posts anytime with an Internet connection or not: they just get saved until you want to post them and you can store them on your computer, in Dropbox, or your favorite version control system
-- Insert images from your computer and they are automatically uploaded to your post or page
+- Insert images from your computer and they're automatically uploaded to your post or page
 - Works with [[#your-first-buffer-page][Pages too]]
 - Don't see what you need? [[https://github.com/org2blog/org2blog/issues][Let us know]]. [[#development][Development]] is open-source and easy to get started with. Help Org2Blog get better and better. Happy Blogging!
 
@@ -155,7 +155,7 @@ If you want the stable version, then use [[https://stable.melpa.org/#/org2blog][
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 #+end_src
 
-The cutting-edge version contains new changes immediately as they are made. It contains new features and bug fixes faster than the stable version. Although it's very unlikely it may contain breaking changes.
+The cutting-edge version contains new changes immediately as they're made. It contains new features and bug fixes faster than the stable version. Although it's very unlikely it may contain breaking changes.
 
 If you want the cutting edge version using [[https://melpa.org/#/org2blog][MELPA]]
 
@@ -278,7 +278,7 @@ The easiest way to get started with the basics is to play around with the menu. 
 - =UI [About]=: A light introduction to the Org2Blog platform
 - =UI [README]=: A copy of this entire README.org in a writable buffer.
 
-They are both an excellent way to make your notes in place without making changes to the original. Just save your changes to your file, and then you'll have them ready for the next time you are blogging.
+They're both an excellent way to make your notes in place without making changes to the original. Just save your changes to your file, and then you'll have them ready for the next time you are blogging.
 
 Once you've successfully logged in and read a little bit about Org2Blog, then you'll notice that you get started blogging very quickly. Whether you start with a Buffer or Subtree Entry, you'll begin with the same workflow. Here is the workflow:
 
@@ -294,7 +294,7 @@ Once you've successfully logged in and read a little bit about Org2Blog, then yo
 
 That workflow is 100% of blogging. The right 50% of the menu is dedicated to that alone! For each action, you just need to tell Org2Blog whether you are doing it from (the source) a Buffer Entry or a Subtree Entry and whether or not it's a (destination) [[https://wordpress.org/support/article/pages/][Post or Page]]. With that simplicity in mind, please read on to learn about the options for learning more.
 
-Another way to play around with it's to try out all of the menu items. Don't worry, though, because it's safe. Org2Blog never deletes anything on your computer. It will, of course, delete blog entries on the server, but never the source documents. What each menu item does, too, is pretty apparent by the name. If you want to read its documentation, then hit =h=, its key command will turn red, hit it, and its documentation will come up. They are probably overly detailed, but it's usually better to over-specify. If your preferred style of playing involves reading, running, and configuring things, though, then Org2Blog comes with a rich approach built right in.
+Another way to play around with it's to try out all of the menu items. Don't worry, though, because it's safe. Org2Blog never deletes anything on your computer. It will, of course, delete blog entries on the server, but never the source documents. What each menu item does, too, is pretty apparent by the name. If you want to read its documentation, then hit =h=, its key command will turn red, hit it, and its documentation will come up. They're probably overly detailed, but it's usually better to over-specify. If your preferred style of playing involves reading, running, and configuring things, though, then Org2Blog comes with a rich approach built right in.
 
 Start by calling ~Customize~ and search for ~org2blog~. Take a quick look at what is available. You might customize a bunch of things right away, or nothing at all. Store them in the back of your mind. One of the best things about customize is that you can configure variables right along with their definition. That tight integration of the system and documentation makes the whole thing easier to use and understand.
 
@@ -414,9 +414,9 @@ Ever get tired of typing the same words, structure, or content over and over? Or
 
 The simplest auto typing is completing the word that you are typing. ~dabbrev-expand~ doesn't need to know much. It considers what you typed, looks around and tries to find something similar, and presents it to you cycling through the matches. [[https://www.gnu.org/software/emacs/manual/html_mono/autotype.html#Hippie-Expand][“Hippie” Expansion]] provides similar functionality too. The next thing you should learn about is Org mode [[https://orgmode.org/manual/Structure-Templates.html][Structure Templates]].
 
-Org2Blog comes with Org mode templates. Invoke the user interface by striking ~C-c C-~. The kind responsibility of the template is on the right. The shortcut is on the left. Org2Blog already has the entry =w= in there to insert =wp= blocks. Strike that to see how it works. If you haven't used the others blocks gives those a try too. They are all helpful for blogging. For the most powerful auto typing read more about creating your own templates.
+Org2Blog comes with Org mode templates. Invoke the user interface by striking ~C-c C-~. The kind responsibility of the template is on the right. The shortcut is on the left. Org2Blog already has the entry =w= in there to insert =wp= blocks. Strike that to see how it works. If you haven't used the others blocks gives those a try too. They're all helpful for blogging. For the most powerful auto typing read more about creating your own templates.
 
-The two most powerful tools for auto typing are [[https://www.gnu.org/software/emacs/manual/html_mono/autotype.html#Using-Skeletons][Skeletons]] and [[https://www.gnu.org/software/emacs/manual/html_mono/autotype.html#Tempo][Tempo]]. Built into Emacs they are easy to access. Take your time learning these and you will get great productivity gains in your personal blogging workflow.
+The two most powerful tools for auto typing are [[https://www.gnu.org/software/emacs/manual/html_mono/autotype.html#Using-Skeletons][Skeletons]] and [[https://www.gnu.org/software/emacs/manual/html_mono/autotype.html#Tempo][Tempo]]. Built into Emacs they're easy to access. Take your time learning these and you will get great productivity gains in your personal blogging workflow.
 
 ***** Have You Heard Your New Post?
 
@@ -434,7 +434,7 @@ Find every text-to-speech voice out there. Listen to all of them. Use different 
 
 First: you can probably use the built in text-to-speech technology on your computer. On macOS for example it's built in. There are a number of apps out there to perform text-to-speech too.
 
-Second: [[https://www.cereproc.com/en][CereProc]] voices, along with all of their other offerings, are well-respected both in the user and commercial user-space. They are reasonably priced and have a voice to suit everyone.
+Second: [[https://www.cereproc.com/en][CereProc]] voices, along with all of their other offerings, are well-respected both in the user and commercial user-space. They're reasonably priced and have a voice to suit everyone.
 
 Try listening to all of your writing. Listen to your posts, letters, essays and everything you can whether it's in Org2Blog or not. It will make you a better writer and pay off for your entire writing life.
 
@@ -604,7 +604,7 @@ Having already read through the manual and posted a Buffer Entry, you are almost
 
 The first reason is that it's easier to make sense of your Entry types when their home is clearly defined: every single Buffer Entry is stored in a separate file, and multiple subtree entries are stored in a single file. For most users, this is a straightforward approach that handles most workflows that Org2Bloggers will ever require. Whether or not this workflow serves you, this explanation may still leave you wondering what /exactly/ is the difference between a Buffer Entry and a Subtree Entry.
 
-Buffer entries and subtrees are identical in purpose. You write, save, view, publish, and trash them. The only difference between them is their technical format. As you may have seen, buffer entries specify post configuration properties up at the top of the page, and subtree entries specify them just below the subtree. Now to come back around, you might be asking, "Well, if they are identical, then why can't I store multiple buffer entries in a single file?" The answer is that yes, you can.
+Buffer entries and subtrees are identical in purpose. You write, save, view, publish, and trash them. The only difference between them is their technical format. As you may have seen, buffer entries specify post configuration properties up at the top of the page, and subtree entries specify them just below the subtree. Now to come back around, you might be asking, "Well, if they're identical, then why can't I store multiple buffer entries in a single file?" The answer is that yes, you can.
 
 You can store multiple buffer entries in a single file. You write, save, view, publish, and trash them precisely as you would expect. It all "just works," that is, if you are willing to get a little more technical about using Emacs by learning something about =Narrowing=.
 
@@ -666,7 +666,7 @@ This approach is suitable for the following workflows:
 
 - "I Never Want To Touch The Media Library User Interface"
   - "But When I Do I Can Make It And The Entry Consistent"
-- "I Rarely Post Images And When I Do They Are All On My Blog"
+- "I Rarely Post Images And When I Do They're All On My Blog"
   - This features make every image link point to your blog
 - "I'm Very Familiar And Comfortable With HTML, Org mode, And WordPress."
 
@@ -744,7 +744,7 @@ The best way to think about how Org2Blog defines Entry properties is first to th
 
 Next, think about how Org mode metadata can supplement your WordPress data. For example, Subtrees can have a bunch of different date types. Each one of them will work as the date value for the Entry on WordPress.
 
-Since they are plain old Org mode properties, keep a space between the property name and its value.
+Since they're plain old Org mode properties, keep a space between the property name and its value.
 
 - Buffer Entry
   - =DATE=
@@ -765,7 +765,7 @@ Since they are plain old Org mode properties, keep a space between the property 
   - =TITLE=
   - =CATEGORY=
   - =POST_TAGS=
-    - Though they are the same thing, due to technical reasons, when tags appear under a Subtree, they can't use the =TAGS= property like an Entry; they use =POST_TAGS= instead. Please take note of this when you convert an Entry post to a Subtree post.
+    - Though they're the same thing, due to technical reasons, when tags appear under a Subtree, they can't use the =TAGS= property like an Entry; they use =POST_TAGS= instead. Please take note of this when you convert an Entry post to a Subtree post.
   - =POSTID=
   - =PARENT=
   - =PERMALINK=
@@ -1119,7 +1119,7 @@ If it can't do either, then you will get a warning message saying why it failed.
 
 Now your post or page exists both in your Org-Mode file on your computer and also in WordPress itself. That page or post inside WordPress contains a lot of metadata, and you might be interested in some of it. [[https://codex.wordpress.org/XML-RPC_MetaWeblog_API][Here]] is documentation covering all of the fields. You can easily access that data using a hook function.
 
-After publishing your post or page, Org2Blog calls the functions in ~org2blog/wp-after-new-post-or-page-functions~ passing them the post or page metadata. Maybe you've never seen a hook function like this before because it takes an argument. They are still just plain old functions. Here they need to accept one argument so that Org2Blog can give you that metadata. it's pretty simple.
+After publishing your post or page, Org2Blog calls the functions in ~org2blog/wp-after-new-post-or-page-functions~ passing them the post or page metadata. Maybe you've never seen a hook function like this before because it takes an argument. They're still just plain old functions. Here they need to accept one argument so that Org2Blog can give you that metadata. it's pretty simple.
 
 Here is an example that displays your post or page information in the =*Messages*= buffer:
 
@@ -1160,7 +1160,7 @@ When you write your Entries with Org2Blog you are making your writing future-saf
 
 By now, you've probably seen that Org2Blog can be tailored to your workflow. If you haven't, the following will show you how easily that it can. If you already have, then you'll see how you can make it even better. It all comes through Customization to your configuration.
 
-The fastest way to learn about everything possible with Org2Blog is to read the documentation for the customizations. You've already seen some of them in examples, and that is a great way to start learning about them. When you have a particular itch to scratch and find answers in here, the support board, or function documentation, they are all great ways to learn more. You can also benefit a lot from searching for all of the customization variables and reading the documentation for them. Here is how:
+The fastest way to learn about everything possible with Org2Blog is to read the documentation for the customizations. You've already seen some of them in examples, and that is a great way to start learning about them. When you have a particular itch to scratch and find answers in here, the support board, or function documentation, they're all great ways to learn more. You can also benefit a lot from searching for all of the customization variables and reading the documentation for them. Here is how:
 
 - Call ~M-x occur~
 - Insert (defcustom and hit enter
