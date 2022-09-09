@@ -127,10 +127,10 @@ Documents notable release changes.
     so no point warning.
   - Document Parent Page support
 - v1.1.14
-  - Overhauls documentation in recognition that Org2Blog is a full blown
-    application
+  - Recognizes Org2Blog as an application
   - Adds Writer Tools menu and features: writegood, spellcheck, and
     word count
+  - Adds Value for project itself
   - Adds more documentation and images on application design
   - Explains =amsmath= status
 
