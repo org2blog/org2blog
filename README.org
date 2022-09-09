@@ -338,7 +338,7 @@ To get even simpler consider your wordcount under
 =UI [Writer Tools] Word Count=. Simple is not simplistic: you can always
 say more with less. If you want a litle more flexible word counting try out [[https://github.com/bnbeckwith/wc-mode][wc-mode]] too.
 
-From a technical standpoint Writegood is an ideal choice because it's written in plain old Elisp without any external dependencies.
+From a technical standpoint Writegood is an ideal choice because it's written in plain old Elisp without any external dependencies. Some people copy and paste their text into online grammar tools like Grammarly and that works great. The truth about Vale though is that although it is somewhat technical to get set up, once you have it working you will really enjoy its flexibility. 
 
 ***** Why Writing Requires Good Character(s) And Unicode
 
