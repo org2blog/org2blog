@@ -33,7 +33,7 @@ Documents notable release changes.
 
 - Adds a simple and powerful user interface exposing every aspect of Org2Blog—many of which you may never have known even existed before.
   - Use the one-keypress help menu to look up the documentation behind every menu entry along with the function name behind it if you want to bind it to a key.
-- Includes the manual built-in to the application. It is the README.org so you don't have to go to the web page to read it.
+- Includes the manual built-in to the application. It's the README.org so you don't have to go to the web page to read it.
 - Expands on and revises every aspect of documentation including explanations and screenshots.
   - Blogging styles and strategies covered range from first-time blogging to advanced use with multiple blogs and diverse workflows.
 - Adds an API for automating bulk import of Org files when you want to move from another Org based blogging platform to Org2Blog.
@@ -167,7 +167,7 @@ Bump up version.
 - Today is 17-05-19
   - It has been in use for one year and seventeen days
 - And today
-  - Merged post subtree and publish and it is fine
+  - Merged post subtree and publish and it's fine
   - Added dependency on Org-Mode 8.3
 - So therefore a new release
   - v0.9.3

@@ -102,7 +102,7 @@ left side
 
 - You may have already set up your codebase to /run/ Org2Blog, but if you haven't, then find out how up in the Installation section.
 - Readme
-  - If you made any changes in the README then rebuild the Table of Contents just to be sure it is correct. Follow the directions [[https://github.com/alphapapa/org-make-toc][here]].
+  - If you made any changes in the README then rebuild the Table of Contents just to be sure it's correct. Follow the directions [[https://github.com/alphapapa/org-make-toc][here]].
 - Contributing
   - Read the [[./docs/CONTRIBUTING.org][contributing]] guidelines.
   - Before your commit make sure that ~byte-compile-file~, ~checkdoc~, and ~package-lint-current-buffer~ don't report any errors. The first two are included with Emacs. ~package-lint~ you can either install using MELPA or you can also install it by hand like you did the other packages, like this:
@@ -121,7 +121,7 @@ error: `org2blog/wp-version' contains a non-standard separator `/', use hyphens 
     #+END_SRC
 - Testing
   - Programmatic Interactive System Testing
-    - Working with posts and pages is the most critical 80% of this package. This core functionality should always work well and be easy to test. And it is easy to test. It only takes 3 steps to get the system tests running.
+    - Working with posts and pages is the most critical 80% of this package. This core functionality should always work well and be easy to test. And it's easy to test. It only takes 3 steps to get the system tests running.
       - Define three system variables for the blog you will test against like this:
         #+begin_src shell
 O2BXMLRPC="https://yourblog.com/xmlrpc.php"
@@ -130,7 +130,7 @@ O2BPASSWORD="password"
         #+end_src
       - Load and evaluate [[./org2blog-test-system.el][System Test Program]].
         - Start Emacs in an empty environment before loading Org2Blog and performing the testing by starting Emacs like this: ~emacs --no-init-file~
-        - Load (or open and evalute it) it because it is not a package.
+        - Load (or open and evalute it) it because it's not a package.
       - Now you've got everything you need to start automatically going through the entire blogging process. The test functions will log you in, create and display posts, modify them, publish them, and finally trash them. At each step, there is a pause so you can observe what is happening on the blog. Testing is a great way to see how the workflow works, too, if you've never blogged before. These four functions cover everything.
         - ~defun org2blog--test-buffer-post~
         - ~defun org2blog--test-buffer-page~
@@ -138,7 +138,7 @@ O2BPASSWORD="password"
         - ~defun org2blog--test-subtree-page~
     - If you need a test WordPress system to use you can set up a free WordPress blog [[https://wordpress.com][here]].
   - Manual System Testing
-    - Here is a detailed [[./docs/TestPlan.org][Test Plan]] for manually testing every feature of this system. It is a great way to see everything that can be done with Org2Blog.
+    - Here is a detailed [[./docs/TestPlan.org][Test Plan]] for manually testing every feature of this system. It's a great way to see everything that can be done with Org2Blog.
 - [[./docs/ReleaseProcess.org][Release Process]].
 - Rules
   - [[https://alphapapa.github.io/dont-tread-on-emacs/][Don't Tread On Emacs]].
@@ -149,16 +149,16 @@ O2BPASSWORD="password"
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:D0ECB4B0-5922-4BE5-BCE8-904EAB930CDD
 :END:
 
-In some ways Org2Blog can be surprising. Since it bridges that gap between Org mode documents and WordPress blog posts sometimes there can be a little friction. That is where most of the questions come from in the form of something like "Why does Org2Blog ...fill in the blank...? Because it is really weird!". Be at ease though, this section should clear up some the weirdness ASAP.
+In some ways Org2Blog can be surprising. Since it bridges that gap between Org mode documents and WordPress blog posts sometimes there can be a little friction. That is where most of the questions come from in the form of something like "Why does Org2Blog ...fill in the blank...? Because it's really weird!". Be at ease though, this section should clear up some the weirdness ASAP.
 
 ** Why Does Org2blog Talk About Save, View, Publish, And Trash So Much?
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:630E39ED-9A45-4707-9147-FB6C681D23EE
 :END:
 
-Most software out there has some version of [[https://en.wikipedia.org/wiki/Create,_read,_update_and_delete][Create, read, update and delete]] (CRUD). In our case it has to do with WordPress Entries and Pages. In techie language you would talk about CRUD'ing them. In WordPress language you talk about Saving, Viewing, Publishing, and Trashing. Org2Blog chose to use the WordPress language: it is less surprising and makes it easier to keep the idea that Org2Blog fits into your WordPress workflow in your mind.
+Most software out there has some version of [[https://en.wikipedia.org/wiki/Create,_read,_update_and_delete][Create, read, update and delete]] (CRUD). In our case it has to do with WordPress Entries and Pages. In techie language you would talk about CRUD'ing them. In WordPress language you talk about Saving, Viewing, Publishing, and Trashing. Org2Blog chose to use the WordPress language: it's less surprising and makes it easier to keep the idea that Org2Blog fits into your WordPress workflow in your mind.
 
-Take time to learn that workflow /outside/ of Org2Blog. It will save you from uncomfortable situations where your Entry enters a /weird/ state. At least it can feel weird. For example when you make changes to an Entry and save it, it will enter the Status of =Draft=. From here you only have two options to move it back to a Published state: Save the changes you made, or Save it without any changes. If you've never encountered this before it can be upsetting when the URL for your Entry always says ~preview=true~. Whenever you get into a confusing situation be sure to access your blog inside of the WordPress UI to find out more about what is happening. Usually it is something really simple. Then step back and see what Org2Blog is doing within the WordPress workflow.
+Take time to learn that workflow /outside/ of Org2Blog. It will save you from uncomfortable situations where your Entry enters a /weird/ state. At least it can feel weird. For example when you make changes to an Entry and save it, it will enter the Status of =Draft=. From here you only have two options to move it back to a Published state: Save the changes you made, or Save it without any changes. If you've never encountered this before it can be upsetting when the URL for your Entry always says ~preview=true~. Whenever you get into a confusing situation be sure to access your blog inside of the WordPress UI to find out more about what is happening. Usually it's something really simple. Then step back and see what Org2Blog is doing within the WordPress workflow.
 
 Those words are also used because they reflect the natural workflow of working with WordPress that looks like this:
 
@@ -210,7 +210,7 @@ left side
 [[file:o2b-entry-source-dest-flow.png]]
 #+end_RESULTS
 
-This simplicity can actually lead to some less comfortable situations where you accidentally publish one thing as another (it is pretty easy to fix anyway though).
+This simplicity can actually lead to some less comfortable situations where you accidentally publish one thing as another (it's pretty easy to fix anyway though).
 
 Although Org2Blog is implemented how WordPress works, it can surprising to see these words used. However you'll get used to it pretty quickly.
 
@@ -220,9 +220,9 @@ When Org2Blog was created its technical name, its /package name/, was ~org2blog~
 
 These unforeseen naming conflicts do happen more than you might thing and it had to be resolved. Since they both had the same package name they needed some way to differentiate themselves from each other and the slash/suffix approach was chosen resulting in ~org2blog/atom~ and ~org2blog/wp~. So why doesn't /this/ package say 'Org2Blog/WP' all over the place today?
 
-That is another historical accident. This package became known simply as Org2Blog without the /WP, and the name stuck. Part of the reason might be that Org2BlogAtom seems [[https://repo.or.cz/r/org2blog.git/][unavailable]] and no longer maintained. Its [[https://www.emacswiki.org/emacs/Org2BlogAtom][wiki]] page hasn't had any updates on the topic either. Having made this decision it made sense to change the artifact naming scheme to ~org2blog~ instead of ~org2blog/wp~. It is easier to understand and adheres to artifact naming best practices. Over time existing ~/wp~ names are slowly being migrated. That still doesn't answer the original question yet!
+That is another historical accident. This package became known simply as Org2Blog without the /WP, and the name stuck. Part of the reason might be that Org2BlogAtom seems [[https://repo.or.cz/r/org2blog.git/][unavailable]] and no longer maintained. Its [[https://www.emacswiki.org/emacs/Org2BlogAtom][wiki]] page hasn't had any updates on the topic either. Having made this decision it made sense to change the artifact naming scheme to ~org2blog~ instead of ~org2blog/wp~. It's easier to understand and adheres to artifact naming best practices. Over time existing ~/wp~ names are slowly being migrated. That still doesn't answer the original question yet!
 
-Org2Blog is blogging software. You write everything in Org mode and publish it to a blog. It is pretty simple. Currently it publishes to WordPress. Could it publish to any other blog? With some work definitely. Its impossible to rule out using Org2Blog to blog to other blogs in addition to WordPress.
+Org2Blog is blogging software. You write everything in Org mode and publish it to a blog. It's pretty simple. Currently it publishes to WordPress. Could it publish to any other blog? With some work definitely. Its impossible to rule out using Org2Blog to blog to other blogs in addition to WordPress.
 
 In that historical context and considering goals today the name remains Org2Blog instead of Org2WordPress.
 
@@ -254,7 +254,7 @@ For historical reasons the WordPress API client is implemented inside of =metaWe
 
 Preemptive TL;DR: It doesn't—Packages are not supposed to manage autoloads.
 
-[[https://www.gnu.org/software/emacs/manual/html_node/elisp/Autoload.html][The autoload facility]] delays loading Elisp files until their contents are actually used improving Emacs startup times. To state it even more simply: it is how to lazy-load packages. Anytime you see code prefixed with [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Autoload.html#index-autoload-cookie][the default magic autoload comment]] ~;;;###autoload~ you can use it (for example call a function) before the its package is loaded. Org2Blog has lots of ~autoload~'ed functions. Emacs learns about them by reading the autoloads file. There are three entities that /can/ manage the autoloads file along with their decision of whether or not they will:
+[[https://www.gnu.org/software/emacs/manual/html_node/elisp/Autoload.html][The autoload facility]] delays loading Elisp files until their contents are actually used improving Emacs startup times. To state it even more simply: it's how to lazy-load packages. Anytime you see code prefixed with [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Autoload.html#index-autoload-cookie][the default magic autoload comment]] ~;;;###autoload~ you can use it (for example call a function) before the its package is loaded. Org2Blog has lots of ~autoload~'ed functions. Emacs learns about them by reading the autoloads file. There are three entities that /can/ manage the autoloads file along with their decision of whether or not they will:
 
 - Org2Blog: Won't do it
 - You: Should not do it
@@ -262,9 +262,9 @@ Preemptive TL;DR: It doesn't—Packages are not supposed to manage autoloads.
 
 Org2Blog does not manage an autoloads file because packages are not supposed to manage it. Usage and management of an autoloads file is a personal decision made by the user or their choice package manager. By design packages *never* assume the responsibility. For reference at the moment there are 5,258 packages in MELPA and only one of them includes an autoloads file. Like anything there are exceptions to the rule but Org2Blog isn't one of them. Another entity who can manage the autoloads file is you.
 
-With an inordinate amount of effort you can create the autoloads file and load it yourself. However it is likely not worth the effort. Disk drives today are fast. Disk drives of 20 years ago are almost as fast (this applies to whatever the current year is). Drive speed improvements take care of the load time issue. That leaves the time required to manage the autoloads file. If you want to manage the autoloads file yourself you need to create, load it, and update it whenever autoloaded values are changed. It is even more work better left to a program. If you insist then have at it. Otherwise make your life easy and let the package manager do it for you.
+With an inordinate amount of effort you can create the autoloads file and load it yourself. However it's likely not worth the effort. Disk drives today are fast. Disk drives of 20 years ago are almost as fast (this applies to whatever the current year is). Drive speed improvements take care of the load time issue. That leaves the time required to manage the autoloads file. If you want to manage the autoloads file yourself you need to create, load it, and update it whenever autoloaded values are changed. It's even more work better left to a program. If you insist then have at it. Otherwise make your life easy and let the package manager do it for you.
 
-Package Managers by design are responsible for creating the autoloads file for you. It requires no effort and likely zero customization on your part. It is that simpler. Even better though would be something simpler.
+Package Managers by design are responsible for creating the autoloads file for you. It requires no effort and likely zero customization on your part. It's that simpler. Even better though would be something simpler.
 
 The simplest way to handle autoloads is simply never to use them at all. There is essentially [[https://www.gnu.org/software/emacs/manual/html_node/elisp/When-to-Autoload.html][never a good justification]] for using autoloads. There is almost always another way to achieve your goal. The worst part is that once people start relying on that features autoload behavior you can never remove it later on without creating pain for the user.
 
@@ -288,7 +288,7 @@ Consequently key functions all either include (or deduce) the variables:
 - =SOURCE= :: Either ~'buffer~ or ~'subtree~
 - =DEST= :: Either ~'post~ ~'page~
 
-From the user's perspective the source data is virtually identical: you write an ~Entry~ that gets published out to WordPress. It is really that simple.
+From the user's perspective the source data is virtually identical: you write an ~Entry~ that gets published out to WordPress. It's really that simple.
 
 From WordPress's perspective a ~Post~ and ~Page~ are almost identical too. Therefore many of the functions can be reused with slight differences.
 

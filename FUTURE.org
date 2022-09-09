@@ -29,7 +29,7 @@
 - Document spell checking tools
 - Document [[https://github.com/alphapapa/org-web-tools][org-web-tools]] workflow
 - Shortcode documentation needs to be added
-  - Right now ~org2blog/wp-use-sourcecode-shortcode~ is only mentioned in context of one specific plugin. It is a general feature that applies to every plugin. Document this.
+  - Right now ~org2blog/wp-use-sourcecode-shortcode~ is only mentioned in context of one specific plugin. It's a general feature that applies to every plugin. Document this.
 - Application overview for new contributors
 - Keeping issues in a closed state with the "on-hold" label and this file at
   the same time is starting to get confusing.
