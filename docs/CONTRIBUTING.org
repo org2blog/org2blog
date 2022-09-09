@@ -31,7 +31,15 @@ The Emacs Lisp code should follow the [[https://www.gnu.org/software/emacs/manua
 
 ** Grammar and Language
 
-Use a spell-checker like [[http://aspell.net/][Aspell]] and grammar-checker like [[https://languagetool.org/][LanguageTool]] for your docstrings and documentation. Find writing problems like weasel-words, passive-voice and duplicate words with [[https://github.com/bnbeckwith/writegood-mode][Writegood Mode]]. The best tool available today is [[https://grammarly.com/][Grammarly]], and I recommend it above everything else out there. For project documentation, don't break long lines (for example, using Auto Fill Mode) because tools like Grammarly and LanguageTool work on an unbroken sentence. When you give them separate lines, it sees each one as a new paragraph making the tools unusable. It becomes tedious to read long lines, though: the solution is to use [[https://github.com/joostkremers/visual-fill-column][Visual Fill Column]] to mimic the effects of breaking your lines.
+This project is configured for [[https://vale.sh/][Vale]].
+
+At a minimum =errors= must be resolved.
+
+Strive for =warning=s reduced.
+
+=suggestions= are fine just don't leave it in =.vale.ini=.
+
+For project documentation, don't break long lines for example, using Auto Fill Mode. Linters usually don't like broken sentence. It becomes tedious to read long lines, though: the solution is to use [[https://github.com/joostkremers/visual-fill-column][Visual Fill Column]] to mimic the effects of breaking your lines.
 
 ** Use quality-checking tools
 
