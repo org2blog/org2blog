@@ -77,5 +77,5 @@ After day or two when it seems OK I'll tag it.
   - [X] At minimum on the =About= section
   - [X] More: What did you also do?
     - Processed a lot of contractions
-- [ ] Merge branch into ~master~ push it.
-- [ ] Wait a day or two to make sure it's OK then tag it.
+- [X] Merge branch into ~master~ push it.
+- [X] Wait a day or two to make sure it's OK then tag it.
