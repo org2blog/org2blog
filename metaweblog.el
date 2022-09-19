@@ -1,4 +1,4 @@
-;;; metaweblog.el --- An XML-RPC MetaWeblog and WordPress API client. -*- lexical-binding: t; -*-
+;;; metaweblog.el --- An XML-RPC MetaWeblog and WordPress API client -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2008 Ashish Shukla
 ;; Copyright (C) 2010 Puneeth Chaganti
@@ -6,8 +6,8 @@
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Version: 1.1.14
-;; Package-Requires: ((emacs "28.1"))
+;; Version: 1.1.15
+;; Package-Requires: ((emacs "27.1"))
 ;; Keywords: comm
 ;; Homepage: https://github.com/org2blog/org2blog
 
@@ -51,7 +51,7 @@
 
 ;;; Constants
 
-(defconst metaweblog-version "1.1.14"
+(defconst metaweblog-version "1.1.15"
   "Current version of metaweblog.el.")
 
 ;;; Deprecations

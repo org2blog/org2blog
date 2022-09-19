@@ -13,8 +13,8 @@
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Version: 1.1.14
-;; Package-Requires: ((emacs "28.1") (htmlize "1.56") (hydra "0.15.0") (xml-rpc "1.6.15") (writegood-mode "2.2.0") (metaweblog "1.1.14"))
+;; Version: 1.1.15
+;; Package-Requires: ((emacs "27.1") (htmlize "1.56") (hydra "0.15.0") (xml-rpc "1.6.15") (writegood-mode "2.2.0") (metaweblog "1.1.15"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
 
@@ -41,7 +41,7 @@
 
 ;;; System Definition
 
-(defconst org2blog/wp-version "1.1.14"
+(defconst org2blog/wp-version "1.1.15"
   "Current version of org2blog.el.")
 
 (cl-defstruct
@@ -60,6 +60,7 @@
   ox-wp
   doc
   emacs
+  emacs-api
   org
   requirements
   keywords
@@ -76,6 +77,7 @@
    :ox-wp org2blog/wp-version
    :doc "Blog from Org mode to WordPress"
    :emacs "28.1"
+   :emacs-api "27.1"
    :org "9.5.2"
    :requirements (list
                   (make-org2blog-pkg
@@ -195,7 +197,7 @@ inspect the generated code."
                                           (org2blog-def-maintainer org2blog-defi))))
    (insert (format ";; Version: %s\n" version))
    (insert (format ";; Package-Requires: ((emacs \"%s\")"
-                   (org2blog-def-emacs org2blog-defi)))
+                   (org2blog-def-emacs-api org2blog-defi)))
    (mapc
     (lambda (req)
       (let* ((name (org2blog-pkg-name req))
@@ -336,8 +338,7 @@ first.
         (visible-only nil)
         (body-only nil)
         (ext-plist
-         '(:ascii-charset utf-8
-                          ))
+         '(:ascii-charset utf-8))
         (org-export-show-temporary-export-buffer nil)
         (export-buffer "*Org ASCII Export*"))
     (org-ascii-export-as-ascii
