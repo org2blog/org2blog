@@ -105,38 +105,41 @@ Documents notable release changes.
   - Don't populate kill ring with version message
   - Documentation cleanup
 
-** v1.1.13-v1.1.15
+** v1.1.13
+** v1.1.13
 
-- v1.1.13
-  - Updates WordPress 5.x 🠆 6.x
-  - Updates Emacs v27.1 🠆 v28.1
-  - Updates Org v9.1.9 🠆 9.5.2
-  - Updates HTMLize v1.54 🠆 v1.56
-  - Updates XML-RPC v1.6.12 🠆 1.6.15
-  - Converts system definition from hashtables to structs
-  - Loads categories, tags, and pages without failing on error
-  - Adds tag checkout to org2blog-def-checkout-statement
-  - Documents WordPress version
-  - Further document Source Entries to Destinations in WordPress
-  - Move to new org-make-toc format
-  - Refactor to support different Post and Page view format w/Docs
-    Consequently ~org2blog-buffer-post-or-page-view~ and
-    ~org2blog-subtree-post-or-page-view~ are unusable.
-  - During byte compilation do not warn that docstrings that are too wide.
-    Hydra creates an exceeding number of non-human viewed docstrings
-    so no point warning.
-  - Document Parent Page support
-- v1.1.14
-  - Recognizes Org2Blog as an application
-  - Adds Writer Tools menu and features: writegood, spellcheck, and
-    word count
-  - Adds Value for project itself
-  - Adds more documentation and images on application design
-  - Explains =amsmath= status
-- v1.1.15
+- Updates WordPress 5.x 🠆 6.x
+- Updates Emacs v27.1 🠆 v28.1
+- Updates Org v9.1.9 🠆 9.5.2
+- Updates HTMLize v1.54 🠆 v1.56
+- Updates XML-RPC v1.6.12 🠆 1.6.15
+- Converts system definition from hashtables to structs
+- Loads categories, tags, and pages without failing on error
+- Adds tag checkout to org2blog-def-checkout-statement
+- Documents WordPress version
+- Further document Source Entries to Destinations in WordPress
+- Move to new org-make-toc format
+- Refactor to support different Post and Page view format w/Docs
+  Consequently ~org2blog-buffer-post-or-page-view~ and
+  ~org2blog-subtree-post-or-page-view~ are unusable.
+- During byte compilation do not warn that docstrings that are too wide.
+  Hydra creates an exceeding number of non-human viewed docstrings
+  so no point warning.
+- Document Parent Page support
+
+** v1.1.14
+
+- Recognizes Org2Blog as an application
+- Adds Writer Tools menu and features: writegood, spellcheck, and
+  word count
+- Adds Value for project itself
+- Adds more documentation and images on application design
+- Explains =amsmath= status
+
+** v1.1.15
+
   - When you add ~(emacs "XX.YY")~ to the Package-Requires header line
     it must be at least one major version /less/ than the current version
-  -  `package-lint' checks and reports the error
   - This release updates the dependency to 27.1
 
 * v1.0
