@@ -1,3 +1,5 @@
 /org2blog-autoloads.el
 /README.html
 *.elc
+vale/styles/*
+!vale/styles/Vocab/Base
