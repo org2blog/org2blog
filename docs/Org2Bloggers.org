@@ -33,3 +33,4 @@ Please let us know about more blogs to add to the list!
 - [[http://vxlabs.com/2014/05/25/emacs-24-with-prelude-org2blog-and-wordpress/][vxlabs]]
 - [[http://wdicc.com][wd and cc]]
 - [[http://wenshanren.org/][肉山博客(Wenshan's Blog)]]
+- [[https://diggingthedigital.com/bloggen-met-org2blog/][Digging the digital (Dutch)]]
