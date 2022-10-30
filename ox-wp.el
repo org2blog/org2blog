@@ -257,6 +257,16 @@ it needs to continue supporting both tags."
             (string= (org-element-property :type export-block) "HTML"))
     (org-remove-indentation (org-element-property :value export-block))))
 
+;;;; Underline
+
+(defun org-html-underline (_underline contents info)
+  "Transcode UNDERLINE from Org to HTML.
+CONTENTS is the text with underline markup.  INFO is a plist
+holding contextual information."
+  (format (or (cdr (assq 'underline (plist-get info :html-text-markup-alist)))
+              "%s")
+          contents))
+
 (provide 'ox-wp)
 ;;; ox-wp.el ends here
 
