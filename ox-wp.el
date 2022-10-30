@@ -259,13 +259,20 @@ it needs to continue supporting both tags."
 
 ;;;; Underline
 
-(defun org-html-underline (_underline contents info)
+(defun org-html-underline (_underline contents _info)
   "Transcode UNDERLINE from Org to HTML.
 CONTENTS is the text with underline markup.  INFO is a plist
-holding contextual information."
-  (format (or (cdr (assq 'underline (plist-get info :html-text-markup-alist)))
-              "%s")
-          contents))
+holding contextual information.
+
+Underline implementation:
+
+- WordPress friendly plain HTML
+- W3C HTML and WHATWG HTML standard compliant HTML
+- No CSS
+- Zero Org configuration changes. For example ignore
+  `org-html-htmlize-output-type' and
+  `org-html-text-markup-alist'."
+  (format "<u>%s</u>" contents))
 
 (provide 'ox-wp)
 ;;; ox-wp.el ends here
