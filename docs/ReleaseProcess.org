@@ -1,69 +1,79 @@
-#+DATE: 2022-09-07T00:25:36-05:00
-- [X] What release tag is this? \rarr v1.1.14
-- [X] Create and checkout this branch
-- [X] Update copyright dates
+#+TITLE: Org2Blog Release 1.1.16
+#+DATE: 2022-11-17T23:06:17-06:00
+
+- [X] What release tag is this? \rarr v1.1.16
+- [ ] Create and checkout this branch
+- [ ] Update copyright dates
 - [X] Open and update [[../HISTORY.org][History]] as you go
-- [X] Update software versions in ~org2blog-defi~:
+- [ ] Update software versions in ~org2blog-defi~:
   - Start emacs with no init file and check: ~emacs --no-init-file&~
-  - [X] Emacs version
-  - [X] Org version
-  - [X] For each used library note [internal or external] and [tag] and maybe update it in ~org2blog-defi~ and regenerate things
-    - [X] HTMLize, external, 1.56
-    - [X] Hydra, external, 0.15.0
-    - [X] XML-RPC, external, 1.6.15
-    - [X] WriteGood, external, v2.2.0
-    - [X] Regenerated? [Yes or No] Yes
+  - [ ] Emacs version
+  - [ ] Org version
+  - [ ] For each used library note [internal or external] and [tag] and maybe
+    update it in ~org2blog-defi~ and regenerate things
+    - [ ] HTMLize, external, 1.56
+    - [ ] Hydra, external, 0.15.0
+    - [ ] XML-RPC, external, 1.6.15
+    - [ ] WriteGood, external, v2.2.0
+    - [ ] Regenerated? [Yes or No] Yes
   - Open ~org2blog.el~
-- [X] The release version number appears in multiple files. Update them with this helper function by following these steps:
+- [X] The release version number appears in multiple files. Update them with
+  this helper function by following these steps:
   - Open ~org2blog.el~
-  - Evaluate it
+  - Update ~org2blog/wp-version~ with the new version
+  - Evaluate the buffer
   - Call ~org2blog-def-update-artifacts~
-    - This step /may/ be fragile. It automates the manual steps of updating version numbers by searching for string matches, and sometimes those values change. If the function fails, try visiting each of the relevant files in the function body, moving the cursor to the first line, and trying again. If that fails, then please file an Issue Report so we can look at it together.
+    - This step /may/ be fragile. It automates the manual steps of updating
+      version numbers by searching for string matches, and sometimes those
+      values change. If the function fails, try visiting each of the relevant
+      files in the function body, moving the cursor to the first line, and
+      trying again. If that fails, then please file an Issue Report so we can
+      look at it together.
   - Stage it and review the results.
-- [X] Bring codebase up to expectations in [[CONTRIBUTING.org][Contributing]].
-  - [X] Byte compile changed files
+- [ ] Bring codebase up to expectations in [[CONTRIBUTING.org][Contributing]].
+  - [ ] Byte compile changed files
     - Expected and non critical warnings
-  - [X] Checkdoc and paste the results here
+  - [ ] Checkdoc and paste the results here
     #+begin_quote
     Buffer comments and tags:  Ok
     Documentation style:       19 Errors
     Message/Query text style:  Ok
     Unwanted Spaces:           Ok
     #+end_quote
-  - [X] Package-Lint: ~package-lint-current-buffer~- Notes follow
+  - [ ] Package-Lint: ~package-lint-current-buffer~- Notes follow
     - 17:23: warning: This makes the package uninstallable in all released Emacs versions.
     - Invalid symbol names with slash in them.
-- [X] Testing: Do one or both―note it
-  - [X] Yes: Manually test all functions
+- [ ] Testing: Do one or both―note it
+  - [ ] Yes: Manually test all functions
     | Container | Type | Save | View | Publish | Trash |
     |-----------+------+------+------+---------+-------|
     | Buffer    | Post | OK   | OK   | OK      | OK    |
     | Buffer    | Page | OK   | OK   | OK      | OK    |
     | Subtree   | Post | OK   | OK   | OK      | OK    |
     | Subtree   | Page | OK   | OK   | OK      | OK    |
-  - [X] No: Complete [[../org2blog-test-system.el][System Test Program and Test Plan]]
+  - [ ] No: Complete [[../org2blog-test-system.el][System Test Program and Test Plan]]
     - Start Emacs in an empty environment before loading Org2Blog and perform the testing by starting Emacs like this: ~emacs --no-init-file~
     - The test is identical to running manually. Primarily used in case you don't have a blog and you are pointing at the test server.
     - Did you run this and why?
-- [X] Build package with [[https://github.com/melpa/melpa#build-scripts][MELPA]]: First with metaweblog and second org2blog
-  - [X] Update MELPA from Github
-  - [X] Configure to point at this branch for example. The key thing is that you are pointing it at the branch. When it builds the package verify it. The build script is sensitive to recipe formatting btw. You must enable file variables when you open it.
+- [ ] Build package with [[https://github.com/melpa/melpa#build-scripts][MELPA]]: First with metaweblog and second org2blog
+  - [ ] Update MELPA from Github
+  - [ ] Configure to point at this branch for example. The key thing is that you are pointing it at the branch. When it builds the package verify it. The build script is sensitive to recipe formatting btw. You must enable file variables when you open it.
     #+begin_src elisp
 (org2blog :fetcher github
           :repo "org2blog/org2blog"
           :branch "noautoloads"
           :files (:defaults "README.org" (:exclude "metaweblog.el")))
     #+end_src
-  - [X] Build it from the top level dir
+  - [ ] Build it from the top level dir
     - make clean
     - make recipes/org2blog
     - open packages
     - open ~/.emacs.d/elpa
     - Delete the metaweblog and org2blog folder
-  - [X] Install it with ~package-install-file~. Open install folder and look
+  - [ ] Install it with ~package-install-file~. Open install folder and look
     at the headers: are they OK?
-  - [X] Test using the package versus using the source code.
-- [X] Create a Feature Reqest with this in it:
+  - [ ] Test using the package versus using the source code.
+- [ ] Create a Feature Reqest with this in it:
   #+begin_src gfm
 This is a placeholder for when vX.Y.Z gets released.
 
@@ -73,9 +83,36 @@ When the [branch](https://github.com/org2blog/org2blog/tree/X.Y.Z) is merged I'l
 
 After day or two when it seems OK I'll tag it.
   #+end_src
-- [X] Run grammar checker
-  - [X] At minimum on the =About= section
-  - [X] More: What did you also do?
+- [ ] Run grammar checker
+  - [ ] At minimum on the =About= section
+  - [ ] More: What did you also do?
     - Processed a lot of contractions
-- [X] Merge branch into ~master~ push it.
-- [X] Wait a day or two to make sure it's OK then tag it.
+- [ ] Merge branch into ~master~ push it.
+- [X] Wait a day or two to make sure it's OK
+- [X] If you didn't do a merge, then commit the changes here
+  - "Make v1.1.16 release in master"
+- [X] Prepare to later publish announcement on Reddit
+  - Customize Message
+        #+begin_src markdown
+Just released Org2Blog v1.1.16
+
+Just released Org2Blog v1.1.16:
+
+- Underlining was broken
+- Now it works
+
+Cross posting to:
+
+- Org mode: Because it uses Org markup
+- Emacs: Because its an application that runs on top of Emacs
+
+Thank you for helping make Org2Blog better.
+
+Happy Blogging!
+        #+end_src
+- [X] Tag  and push it
+      #+begin_src sh
+git tag v1.1.16
+git log --tags --simplify-by-decoration --pretty="format:%ai %d"
+git push --tags
+      #+end_src

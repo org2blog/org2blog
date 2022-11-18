@@ -109,7 +109,6 @@ Documents notable release changes.
   - Documentation cleanup
 
 ** v1.1.13
-** v1.1.13
 
 - Updates WordPress 5.x 🠆 6.x
 - Updates Emacs v27.1 🠆 v28.1
@@ -141,9 +140,13 @@ Documents notable release changes.
 
 ** v1.1.15
 
-  - When you add ~(emacs "XX.YY")~ to the Package-Requires header line
-    it must be at least one major version /less/ than the current version
-  - This release updates the dependency to 27.1
+- When you add ~(emacs "XX.YY")~ to the Package-Requires header line it must
+  be at least one major version /less/ than the current version
+- This release updates the dependency to 27.1
+
+** v1.1.16
+
+- Override Org-generated CSS Underline with plain HTML underline
 
 * v1.0
 ** v1.0.00

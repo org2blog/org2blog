@@ -111,7 +111,7 @@ Org2Blog uses the Org-mode built-in to Emacs to blog on WordPress.
 
 Org2Blog strives to run against the current versions of all of them.
 
-Current Requirements: Org2Blog 1.1.15, Emacs 28.1, which includes Org mode 9.5.2, and WordPress 6.0.
+Current Requirements: Org2Blog 1.1.16, Emacs 28.1, which includes Org mode 9.5.2, and WordPress 6.0.
 
 Although it's not required to use Org2Blog you will get the best user experience by using the [[https://wordpress.org/plugins/classic-editor/][WordPress Classic Editor]].
 
