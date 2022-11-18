@@ -110,9 +110,12 @@ Thank you for helping make Org2Blog better.
 
 Happy Blogging!
         #+end_src
-- [X] Tag  and push it
+- [X] Tag and push it
       #+begin_src sh
 git tag v1.1.16
 git log --tags --simplify-by-decoration --pretty="format:%ai %d"
 git push --tags
       #+end_src
+- [X] In the post-tag commit:
+  - Create a feature request, paste this in a code block, and close it
+    - Title: Release 1.1.16 
