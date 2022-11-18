@@ -1,3 +1,5 @@
+Note: Please delete explanatory content before submitting this.
+
 ## Pull request checklist
 
 Please check if your PR fulfills the following [Contribution Expectations](https://github.com/org2blog/org2blog/blob/master/docs/CONTRIBUTING.org#contribution-expectations)
