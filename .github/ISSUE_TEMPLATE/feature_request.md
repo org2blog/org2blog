@@ -9,6 +9,8 @@ assignees: ''
 
 Thank you for filling out this feature request (FR). Please perform every step and answer every question to the best of your ability. That will make it easier for you and more accessible for us to address the feature request with the highest level of quality in the shortest amount of time.
 
+Please delete this message content before `Description` :).
+
 ### Description
 
 [Please replace this with: _A single sentence description of the feature._]
