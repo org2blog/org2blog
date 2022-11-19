@@ -101,6 +101,8 @@ Just released Org2Blog v1.1.16:
 - Underlining was broken
 - Now it works
 
+Code: https://github.com/org2blog/org2blog
+
 Cross posting to:
 
 - Org mode: Because it uses Org markup
@@ -118,4 +120,4 @@ git push --tags
       #+end_src
 - [X] In the post-tag commit:
   - Create a feature request, paste this in a code block, and close it
-    - Title: Release 1.1.16 
+    - Title: Release 1.1.16
