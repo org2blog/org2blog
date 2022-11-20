@@ -44,29 +44,30 @@
 (defconst org2blog/wp-version "1.1.16"
   "Current version of org2blog.el.")
 
-(cl-defstruct
-    org2blog-pkg
-  name
-  version
-  (version-prefix "")
-  url)
+(eval-and-compile
+  (cl-defstruct
+      org2blog-pkg
+    name
+    version
+    (version-prefix "")
+    url)
 
-(cl-defstruct
-    org2blog-def
-  name
-  version
-  wordpress-version
-  metaweblog
-  ox-wp
-  doc
-  emacs
-  emacs-api
-  org
-  requirements
-  keywords
-  authors
-  maintainer
-  homepage)
+  (cl-defstruct
+      org2blog-def
+    name
+    version
+    wordpress-version
+    metaweblog
+    ox-wp
+    doc
+    emacs
+    emacs-api
+    org
+    requirements
+    keywords
+    authors
+    maintainer
+    homepage))
 
 (defconst org2blog-defi
   (make-org2blog-def
