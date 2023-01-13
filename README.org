@@ -3,6 +3,20 @@
 
 [[file:/images/logo-color-multi.png]]
 
+* Why We Do This
+
+#+begin_quote
+People don't buy what you do. They buy why you do it.
+―Simon Sinek
+#+end_quote
+
+Org2Blog is a tool for making your voice heard by the world. WHY? Because we
+think that freedom of expression is an intrinsic human right. Its practice is
+fundamental both to the growth of the individual and society. Your words are
+important:
+
+*We Do This So Your Words Will Be Heard*
+
 * About
 :properties:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:B5FB31EA-EA25-4675-90B0-AE0167BAE092
@@ -35,6 +49,7 @@ Check out all the features:
 :TOC:      :include all :ignore (this)
 :END:
 :CONTENTS:
+- [[#why-we-do-this][Why We Do This]]
 - [[#about][About]]
 - [[#requirements-and-compatibility][Requirements And Compatibility]]
 - [[#installation][Installation]]
