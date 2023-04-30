@@ -18,7 +18,7 @@ Org2Blog Developer Documentation.
   - [[#why-does-org2blog-talk-about-buffers-subtrees-posts-and-pages-so-much][Why Does Org2blog Talk About Buffers, Subtrees, Posts, And Pages So Much?]]
   - [[#why-isnt-the-package-name-org2wordpress][Why Isn't The Package Name Org2wordpress?]]
   - [[#what-is-metaweblog-and-why-is-it-in-org2blog][What Is MetaWeblog And Why Is It In Org2blog?]]
-  - [[#why-does-org2blog-use-both-the-xml-rpc-metaweblog-and-wordpress-api][Why Does Org2blog Use Both The XML-RPC MetaWeblog And WordPress Api]]
+  - [[#why-does-org2blog-use-both-the-xml-rpc-metaweblog-and-wordpress-api][Why Does Org2blog Use Both The XML-RPC MetaWeblog And WordPress API]]
   - [[#how-does-org2blog-manage-autoloads][How Does Org2blog Manage Autoloads?]]
 - [[#data-model--functional-design][Data Model & Functional Design]]
   - [[#create][Create]]
@@ -244,7 +244,7 @@ Org2Blog uses this client to work with WordPress
 
 =metaweblog.el= is provided a package from Org2Blog to make it reusable for others via the standard packaging system.
 
-** Why Does Org2blog Use Both The XML-RPC MetaWeblog And WordPress Api
+** Why Does Org2blog Use Both The XML-RPC MetaWeblog And WordPress API
 
 Both APIs are required to get the job done.
 
