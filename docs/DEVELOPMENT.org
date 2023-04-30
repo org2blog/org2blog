@@ -266,6 +266,20 @@ arguments that specify the blog author's username and password along with
 information related to an individual weblog entry.
 #+end_quote
 
+** What Blogs Use MetaWeblog?
+
+- [[https://blogengine.io/news/blogengine-1.5-released/][BlogEngine]]
+- [[https://www.cloudscribe.com/][cloudscribe.SimpleContent]]
+- [[https://docs.expressionengine.com/latest/add-ons/metaweblog-api.html][ExpressionEngine]]
+- [[https://github.com/juforg/hexo-deployer-metaweblog][Hexo]]
+  - To provide context for number of users it serves *many* Chinese COM sites (via
+    [[https://github.com/apanly/metaweblog][apanly]]: 163, 51cto, chinaunix, cnblogs, csdn, oschina, sina)
+- [[https://github.com/elliotekj/orbit][Hugo]]
+- [[https://github.com/tominsam/jekyll-metaweblog][Jekyll]]
+- [[https://code.google.com/archive/p/google-highly-open-participation-joomla/issues/170][Joomla]]
+- [[https://github.com/kastner/sin][Sinatra]]
+- [[https://codex.wordpress.org/XML-RPC_MetaWeblog_API][WordPress]]
+
 ** Why is MetaWeblog In This Project?
 
 1. Org2Blog maintains MetaWeblog as an independent library for common usage
