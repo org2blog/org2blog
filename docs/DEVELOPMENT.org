@@ -248,11 +248,23 @@ The simplest way to handle autoloads is simply never to use them at all. There i
 The best code is the code that doesn't exist: that includes autoloads. Bit by bit Org2Blog will keep moving towards a future without them.
 
 * MetaWeblog
-** What Is MetaWeblog And Why Is It In Org2blog?
+** What Is MetaWeblog?
+
+Via [[https://en.wikipedia.org/wiki/MetaWeblog][Wikipedia]]:
 
 #+begin_quote
-The [[https://en.wikipedia.org/wiki/MetaWeblog][MetaWeblog API]] is an application programming interface created by software developer Dave Winer that enables weblog entries to be written, edited, and deleted using web services.
+The =MetaWeblog= =API= is an application programming interface created by
+software developer Dave Winer^{in 2002} that enables weblog entries to be written,
+edited, and deleted using web services.
+
+The =API= is implemented as an [[https://en.wikipedia.org/wiki/XML-RPC][XML-RPC]] [[https://en.wikipedia.org/wiki/Web_service][web service]] with three methods
+whose names describe their function: ~metaweblog.newPost()~,
+~metaweblog.getPost()~ and ~metaweblog.editPost()~. These methods take
+arguments that specify the blog author's username and password along with
+information related to an individual weblog entry.
 #+end_quote
+
+** What Is MetaWeblog And Why Is It In Org2blog?
 
 WordPress [[https://codex.wordpress.org/XML-RPC_MetaWeblog_API][implements]] the API.
 
