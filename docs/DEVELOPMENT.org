@@ -264,6 +264,11 @@ arguments that specify the blog author's username and password along with
 information related to an individual weblog entry.
 #+end_quote
 
+** Why is MetaWeblog In This Project?
+
+1. Org2Blog maintains MetaWeblog as an independent library for common usage
+2. MetaWeblog provides critical functionality for Org2Blog
+
 ** What Is MetaWeblog And Why Is It In Org2blog?
 
 WordPress [[https://codex.wordpress.org/XML-RPC_MetaWeblog_API][implements]] the API.
