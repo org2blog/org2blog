@@ -19,6 +19,8 @@ Org2Blog Developer Documentation.
   - [[#why-isnt-the-package-name-org2wordpress][Why Isn't The Package Name Org2wordpress?]]
   - [[#how-does-org2blog-manage-autoloads][How Does Org2blog Manage Autoloads?]]
 - [[#metaweblog][MetaWeblog]]
+  - [[#what-is-metaweblog][What Is MetaWeblog?]]
+  - [[#why-is-metaweblog-in-this-project][Why is MetaWeblog In This Project?]]
   - [[#what-is-metaweblog-and-why-is-it-in-org2blog][What Is MetaWeblog And Why Is It In Org2blog?]]
   - [[#why-does-org2blog-use-both-the-xml-rpc-metaweblog-and-wordpress-api][Why Does Org2blog Use Both The XML-RPC MetaWeblog And WordPress API]]
 - [[#data-model--functional-design][Data Model & Functional Design]]
