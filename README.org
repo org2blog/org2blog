@@ -100,7 +100,7 @@ Check out all the features:
       - [[#wordpress-latex][WordPress LaTeX]]
       - [[#mathjax][MathJax]]
     - [[#migrating-org-mode-files-to-org2blog-files][Migrating Org Mode Files To Org2Blog Files]]
-    - [[#export-wordpress-to-org][Export Wordpress To Org]]
+    - [[#export-wordpress-to-org][Export WordPress To Org]]
     - [[#using-entry-templates][Using Entry Templates]]
     - [[#tracking-entries][Tracking Entries]]
     - [[#doing-things-after-saving-and-publishing][Doing Things After Saving And Publishing]]
@@ -1050,7 +1050,7 @@ First, take a post and convert it by hand. It will prove to you that you underst
 
 Create another post and convert it by hand. This time use the API to submit it. Look at the code for ~org2blog--test-buffer-post~ to see how it works. That code goes through all of the steps of posting, including demonstrating how to make changes. You don't need to do that for migration. You only need to log in and publish the post (if you want to see a result code, read the function doc). Now you are ready to begin automating the migration of all of your Org files. When you have any questions, please be sure to reach out here, so your migration is as pleasant and fast as possible.
 
-*** Export Wordpress To Org
+*** Export WordPress To Org
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:0EE1AC01-BE62-4A9F-BB54-19492BE9D42E
 :END:

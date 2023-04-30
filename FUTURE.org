@@ -24,7 +24,7 @@
 - Refactor org2blog-tests.org running again
 - Document how Org2Blog works
 - Update documentation for Gutenberg
-  - Note that since Org2Blog uses the Org-Wordpress model there is no integration.
+  - Note that since Org2Blog uses the Org-WordPress model there is no integration.
 - Add examples of warning messages
 - Document spell checking tools
 - Document [[https://github.com/alphapapa/org-web-tools][org-web-tools]] workflow
