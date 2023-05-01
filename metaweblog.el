@@ -446,13 +446,13 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                        user-name
                        password))
 
-(defun metaweblog-delete-post (blog-xmlrpc user-name password post-id)
+(defun metaweblog-delete-post (blog-xmlrpc app-key user-name password post-id)
   "Delete an existing Post POST-ID.
 
-BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
+BLOG-XMLRPC APP-KEY USER-NAME PASSWORD BLOG-ID"
   (xml-rpc-method-call blog-xmlrpc
                        "metaWeblog.deletePost"
-                       nil
+                       app-key
                        post-id
                        user-name
                        password

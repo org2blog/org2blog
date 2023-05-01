@@ -1940,6 +1940,7 @@ Legend:
           (progn
             (when is-post
               (metaweblog-delete-post org2blog-xmlrpc
+                                      nil
                                       org2blog-username
                                       org2blog-password
                                       entry-id))
@@ -3042,6 +3043,14 @@ Legend:
          (cons "excerpt" (org2blog--eprop "DESCRIPTION"))
          (cons "permalink" (org2blog--eprop "PERMALINK")))))
     parsed-entry))
+
+(defun org2blog-get-users-blogs ()
+  "Retrieve list of blogs to which USER-NAME can post."
+  (interactive)
+  (metaweblog-get-users-blogs org2blog-xmlrpc
+                              nil
+                              org2blog-username
+                              org2blog-password))
 
 (defun org2blog--startup-library-check (library-name current-version min-version)
   "Warn when LIBRARY-NAME CURRENT-VERSION is less than the MIN-VERSION version."
