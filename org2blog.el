@@ -3048,9 +3048,10 @@ Legend:
          (cons "permalink" (org2blog--eprop "PERMALINK")))))
     parsed-entry))
 
-(defun org2blog-get-users-blogs ()
-  "Retrieve list of blogs to which USER-NAME can post."
-  (interactive)
+(defun org2blog--get-users-blogs ()
+  "Retrieve list of blogs to which USER-NAME can post.
+
+Unsure how to utilize this so it is private."
   (metaweblog-get-users-blogs org2blog-xmlrpc
                               org2blog-metaweblog-app-key
                               org2blog-username
