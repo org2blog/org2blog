@@ -23,6 +23,7 @@ Org2Blog Developer Documentation.
   - [[#what-blogs-use-metaweblog][What Blogs Use MetaWeblog?]]
   - [[#what-is-the-official-metaweblog-api][What Is The Official MetaWeblog API?]]
   - [[#metaweblogs-api-support][MetaWeblog's API Support]]
+  - [[#wordpresss-api-support][WordPress's API Support]]
   - [[#why-is-metaweblog-in-this-project][Why is MetaWeblog In This Project?]]
 - [[#data-model--functional-design][Data Model & Functional Design]]
   - [[#create][Create]]
@@ -322,6 +323,19 @@ MetaWeblog API standard:
   - Looking at other implementations the support for ~getTemplate~ and
     ~setTemplate~ is about fifty-percent. The reason why is unknown. It will
     be helpful to understand why.
+
+** WordPress's API Support
+
+In addition to MetaWeblog this library provides the following [[https://codex.wordpress.org/XML-RPC_WordPress_API][XML-RPC
+WordPress API]] methods:
+
+- ~wp.deletePage~
+- ~wp.editPage~
+- ~wp.getPageList~
+- ~wp.getPages~
+- ~wp.getTags~
+- ~wp.newCategory~
+- ~wp.newPage~
 
 ** Why is MetaWeblog In This Project?
 
