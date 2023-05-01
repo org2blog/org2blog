@@ -1944,7 +1944,7 @@ Legend:
           (progn
             (when is-post
               (metaweblog-delete-post org2blog-xmlrpc
-                                      nil
+                                      org2blog-metaweblog-app-key
                                       org2blog-username
                                       org2blog-password
                                       entry-id))
@@ -3052,7 +3052,7 @@ Legend:
   "Retrieve list of blogs to which USER-NAME can post."
   (interactive)
   (metaweblog-get-users-blogs org2blog-xmlrpc
-                              nil
+                              org2blog-metaweblog-app-key
                               org2blog-username
                               org2blog-password))
 
