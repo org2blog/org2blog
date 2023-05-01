@@ -542,6 +542,16 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                                             (name nil "overwrite")
                                             (value nil "t"))))))))))))
 
+(defun metaweblog-get-users-blogs (blog-xmlrpc app-key user-name password)
+  "Retrieve list of blogs to which USER-NAME can post.
+
+BLOG-XMLRPC APP-KEY USER-NAME PASSWORD"
+  (xml-rpc-method-call blog-xmlrpc
+                       "metaWeblog.getUsersBlogs"
+                       app-key
+                       user-name
+                       password))
+
 (provide 'metaweblog)
 
 ;;; metaweblog.el ends here
