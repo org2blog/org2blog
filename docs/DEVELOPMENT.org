@@ -281,6 +281,47 @@ information related to an individual weblog entry.
 - [[https://github.com/kastner/sin][Sinatra]]
 - [[https://codex.wordpress.org/XML-RPC_MetaWeblog_API][WordPress]]
 
+** What Is The Official MetaWeblog API?
+
+The official definition only contains three methods:
+
+- ~metaweblog.editPost()~
+- ~metaweblog.getPost()~
+- ~metaweblog.newPost()~
+
+That doesn't seem like enough. A cursory glance at various [[https://github.com/search?q=metaweblog][implementations]]
+reveals there are likely more. The problem is that neither the specification
+[[http://xmlrpc.com/metaWeblogApi.html][homepage]]―nor [[https://web.archive.org/web/20200523134114/http://xmlrpc.com/metaWeblogApi.html][Web.Archive.Org]]'s snapshot of it―is available to confirm that.
+This leaves us in the situation of having to deduce the /current/ =MetaWeblog=
+=API= specification by studying what is implemented by the servers and the
+client software. Since WordPress definitely supports =MetaWeblog=, Org2Blog
+starts here.
+
+** MetaWeblog's API Support
+
+This library provides the following for what is believed to be the current
+MetaWeblog API standard:
+
+| Method URL                | Supported |
+|---------------------------+-----------|
+| [[https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.deletePost][metaWeblog.deletePost]]     | Yes       |
+| [[https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.editPost][metaWeblog.editPost]]       | Yes       |
+| [[https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.getCategories][metaWeblog.getCategories]]  | Yes       |
+| [[https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.getPost][metaWeblog.getPost]]        | Yes       |
+| [[https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.getRecentPosts][metaWeblog.getRecentPosts]] | Yes       |
+| [[https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.getTemplate][metaWeblog.getTemplate]]    | No        |
+| [[https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.getUsersBlogs][metaWeblog.getUsersBlogs]]  | Yes       |
+| [[https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.newMediaObject][metaWeblog.newMediaObject]] | Yes       |
+| [[https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.newPost][metaWeblog.newPost]]        | Yes       |
+| [[https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.setTemplate][metaWeblog.setTemplate]]    | No        |
+
+- Note
+  - This reflects the subset supported by WordPress.
+  - This definition reflects what other implementations support.
+  - Looking at other implementations the support for ~getTemplate~ and
+    ~setTemplate~ is about fifty-percent. The reason why is unknown. It will
+    be helpful to understand why.
+
 ** Why is MetaWeblog In This Project?
 
 1. Org2Blog maintains MetaWeblog as an independent library for common usage
