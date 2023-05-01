@@ -392,7 +392,6 @@ it will be “1” or above.
 The most likely case for bloggers is a single “site” setup.
 Therefore after you login and Org2Blog can’t find an ‘:id’,
 then it defaults to this value: it defaults to “1”.
-“1”.
 
 The blog specific property is: :id
 
