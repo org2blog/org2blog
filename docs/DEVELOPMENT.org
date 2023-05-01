@@ -277,6 +277,7 @@ information related to an individual weblog entry.
 - [[https://github.com/elliotekj/orbit][Hugo]]
 - [[https://github.com/tominsam/jekyll-metaweblog][Jekyll]]
 - [[https://code.google.com/archive/p/google-highly-open-participation-joomla/issues/170][Joomla]]
+- [[https://devnet.kentico.com/docs/7_0/devguide/index.html?metaweblog_api_overview.htm][Kentico CMS]]
 - [[https://github.com/kastner/sin][Sinatra]]
 - [[https://codex.wordpress.org/XML-RPC_MetaWeblog_API][WordPress]]
 
