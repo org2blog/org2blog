@@ -116,6 +116,7 @@ Check out all the features:
 - [[#when-things-go-wrong-or-could-go-even-better][When Things Go Wrong Or Could Go Even Better]]
   - [[#when-things-go-wrong][When Things Go Wrong]]
   - [[#when-things-could-go-even-better][When Things Could Go Even Better]]
+- [[#similar-applications][Similar Applications]]
 - [[#development][Development]]
 - [[#license][License]]
 :END:
@@ -1289,6 +1290,23 @@ Here are the steps:
 - Ideas for new future features are captured in [[https://github.com/org2blog/org2blog/FUTURE.org][FUTURE]] file. Please read and review it to see if the feature is already listed in there.
 - Review the already submitted [[https://github.com/org2blog/org2blog/issues][entries]] to see if it's already in there. Typically ideas will either assigned for implementation or moved in the [[https://github.com/org2blog/org2blog/FUTURE.org][FUTURE]] file relatively quickly.
 - If you don't find it in either of those places, then fill out a request [[https://github.com/org2blog/org2blog/issues][here]]. Either way, don't worry too much about tracking down whether it was listed or not already: the most important thing is figuring out what to do with it next.
+
+* Similar Applications
+
+- [[https://www.blogdesk.org/en/index.htm][BlogDesk]]
+- [[http://www.blogjet.com/][BlogJet]]
+- [[https://web.archive.org/web/20120401093948/http://www.drinkbrainjuice.com/blogo][Blogo]]
+- [[https://sourceforge.net/projects/catkin/][Catkin-QTM]]
+- [[https://illuminex.com/ecto/][Ecto]]
+- [[https://wordpress.com/google/docs/][Google Docs]]
+- [[https://sourceforge.net/projects/gscribble/][GScribble]]
+- [[https://apps.wordpress.com/mobile/][Jetpack]]
+- [[https://redsweater.com/marsedit/][MarsEdit]]
+- [[https://support.microsoft.com/en-us/office/help-with-blogging-in-word-3ad4ad8d-06a3-441d-99cd-c65e13a3433d?ui=en-us&rs=en-us&ad=us#__toc321212400][MS Word]]
+- [[https://sourceforge.net/projects/mudawin/][Mudawin]]
+- [[https://openlivewriter.com/][Open Live Writer]]
+- [[https://web.archive.org/web/20090202115334/http://qumana.com/download.htm][Qumana]]
+- [[https://ulysses.app/][Ulysses]]
 
 * Development
 :PROPERTIES:
