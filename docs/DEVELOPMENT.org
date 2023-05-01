@@ -24,8 +24,6 @@ Org2Blog Developer Documentation.
   - [[#what-is-the-official-metaweblog-api][What Is The Official MetaWeblog API?]]
   - [[#metaweblogs-api-support][MetaWeblog's API Support]]
   - [[#why-is-metaweblog-in-this-project][Why is MetaWeblog In This Project?]]
-  - [[#what-is-metaweblog-and-why-is-it-in-org2blog][What Is MetaWeblog And Why Is It In Org2blog?]]
-  - [[#why-does-org2blog-use-both-the-xml-rpc-metaweblog-and-wordpress-api][Why Does Org2blog Use Both The XML-RPC MetaWeblog And WordPress API]]
 - [[#data-model--functional-design][Data Model & Functional Design]]
   - [[#create][Create]]
   - [[#read-aka-view][Read Aka View]]
@@ -329,26 +327,6 @@ MetaWeblog API standard:
 
 1. Org2Blog maintains MetaWeblog as an independent library for common usage
 2. MetaWeblog provides critical functionality for Org2Blog
-
-** What Is MetaWeblog And Why Is It In Org2blog?
-
-WordPress [[https://codex.wordpress.org/XML-RPC_MetaWeblog_API][implements]] the API.
-
-Org2Blog implements a MetaWeblog client in =metaWeblog.el=. It has two uses.
-
-First it implements an XML-RPC MetaWeblog client. This is generic and should work with any blog software that exposes the API.
-
-Second it implements a [[https://codex.wordpress.org/XML-RPC_WordPress_API][WordPress XML-RPC client]].
-
-Org2Blog uses this client to work with WordPress
-
-=metaweblog.el= is provided a package from Org2Blog to make it reusable for others via the standard packaging system.
-
-** Why Does Org2blog Use Both The XML-RPC MetaWeblog And WordPress API
-
-Both APIs are required to get the job done.
-
-For historical reasons the WordPress API client is implemented inside of =metaWeblog=.
 
 * Data Model & Functional Design
 
