@@ -398,6 +398,10 @@ The blog specific property is: :id
 
 Example: An integer defined by a string.")
 
+(defconst org2blog-metaweblog-app-key
+  "E8620BB2-C481-4A10-9B55-18D03202EFE5"
+  "MetaWeblog API Requirement: Created randomly. Never change it.")
+
 (defconst org2blog-deprecation "2.0.0"
   "Release in which obsolete objects will be removed.")
 
