@@ -35,3 +35,6 @@
   the same time is starting to get confusing.
 - GPL releases for previous committers.
 - Use ~reporter-submit-bug-report~ instead of custom-created
+- ~metaweblog~ data structures
+  - There are 20 calls to ~cons~ to prepare ~metaweblog~ arguments
+  - This ought to be in a data structure for anyone using the client
