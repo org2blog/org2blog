@@ -126,8 +126,7 @@ inspect the generated code."
   (org2blog-def--update-readme)
   (org2blog-def--update-org2blog)
   (org2blog-def--update-ox-wp)
-  (org2blog-def--update-metaweblog)
-  (org2blog-def--update-pkg))
+  (org2blog-def--update-metaweblog))
 
 (defmacro org2blog-def--update-the (file &rest body)
   "Visit FILE and evaluate BODY."
@@ -218,31 +217,6 @@ inspect the generated code."
    (org2blog-def-version org2blog-defi)
    (org2blog-def-requirements org2blog-defi)
    (org2blog-def-keywords org2blog-defi)))
-
-(defun org2blog-def--update-pkg ()
-  "Update package definition."
-  (interactive)
-  (org2blog-def--update-the
-   "org2blog-pkg.el"
-   (erase-buffer)
-   (pp
-    `(define-package ,(org2blog-def-name org2blog-defi) ,(org2blog-def-version org2blog-defi) ,(org2blog-def-doc org2blog-defi)
-       ',(seq-mapcat
-          (lambda (req)
-            (list
-             (list (intern (org2blog-pkg-name req))
-                   (org2blog-pkg-version req)
-                   (org2blog-pkg-url req))))
-          (org2blog-def-requirements org2blog-defi))
-       :authors
-       ',(org2blog-def-authors org2blog-defi)
-       :maintainer
-       ',(org2blog-def-maintainer org2blog-defi)
-       :keywords
-       ',(org2blog-def-keywords org2blog-defi)
-       :homepage
-       ,(org2blog-def-homepage org2blog-defi))
-    (current-buffer))))
 
 (defun org2blog-def--update-ox-wp ()
   "Update ox-wp file."
