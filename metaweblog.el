@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 2008 Ashish Shukla
 ;; Copyright (C) 2010 Puneeth Chaganti
-;; Copyright (C) 2019-2022 Grant Rettke <grant@wisdomandwonder.com>
+;; Copyright (C) 2019-2025 Grant Rettke <grant@wisdomandwonder.com>
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>

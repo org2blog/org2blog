@@ -1,6 +1,6 @@
 ;;; org2blog-test-system.el --- Org2Blog WordPress System Testing  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2019-2022 Grant Rettke <grant@wisdomandwonder.com>
+;; Copyright (C) 2019-2025 Grant Rettke <grant@wisdomandwonder.com>
 
 ;; Author: Grant Rettke <grant@wisdomandonder.com>
 

@@ -9,7 +9,7 @@
 ;; Copyright (C) 2010 Matt Price <matt@roke.mercey.dyndns.org>
 ;; Copyright (C) 2011 Mykola Nikishov <mn@mn.com.ua>
 ;; Copyright (C) 2013 Peter Vasil <mail@petervasil.net>
-;; Copyright (C) 2015-2022 Grant Rettke <grant@wisdomandwonder.com>
+;; Copyright (C) 2015-2025 Grant Rettke <grant@wisdomandwonder.com>
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
