@@ -13,8 +13,8 @@
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Version: 1.1.16
-;; Package-Requires: ((emacs "27.1") (htmlize "1.56") (hydra "0.15.0") (xml-rpc "1.6.15") (writegood-mode "2.2.0") (metaweblog "1.1.16"))
+;; Version: 1.1.17
+;; Package-Requires: ((emacs "27.1") (htmlize "1.56") (hydra "0.15.0") (xml-rpc "1.6.15") (writegood-mode "2.2.0") (metaweblog "1.1.17"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
 
@@ -41,7 +41,7 @@
 
 ;;; System Definition
 
-(defconst org2blog/wp-version "1.1.16"
+(defconst org2blog/wp-version "1.1.17"
   "Current version of org2blog.el.")
 
 (cl-defstruct

@@ -1,9 +1,9 @@
-#+TITLE: Org2Blog Release 1.1.16
-#+DATE: 2022-11-17T23:06:17-06:00
+#+TITLE: Org2Blog Release 1.1.17
+#+DATE: 2025-01-13T17:29:16-06:00
 
-- [X] What release tag is this? \rarr v1.1.16
+- [X] What release tag is this? \rarr v1.1.17
 - [ ] Create and checkout this branch
-- [ ] Update copyright dates
+- [X] Update copyright dates
 - [X] Open and update [[../HISTORY.org][History]] as you go
 - [ ] Update software versions in ~org2blog-defi~:
   - Start emacs with no init file and check: ~emacs --no-init-file&~
@@ -33,6 +33,7 @@
 - [ ] Bring codebase up to expectations in [[CONTRIBUTING.org][Contributing]].
   - [ ] Byte compile changed files
     - Expected and non critical warnings
+    - Emacs with native compilation is broken here
   - [ ] Checkdoc and paste the results here
     #+begin_quote
     Buffer comments and tags:  Ok
@@ -73,7 +74,7 @@
   - [ ] Install it with ~package-install-file~. Open install folder and look
     at the headers: are they OK?
   - [ ] Test using the package versus using the source code.
-- [ ] Create a Feature Reqest with this in it:
+- [ ] Create a Feature Request with this in it:
   #+begin_src gfm
 This is a placeholder for when vX.Y.Z gets released.
 
@@ -88,15 +89,15 @@ After day or two when it seems OK I'll tag it.
   - [ ] More: What did you also do?
     - Processed a lot of contractions
 - [ ] Merge branch into ~master~ push it.
-- [X] Wait a day or two to make sure it's OK
-- [X] If you didn't do a merge, then commit the changes here
+- [ ] Wait a day or two to make sure it's OK
+- [ ] If you didn't do a merge, then commit the changes here
   - "Make v1.1.16 release in master"
-- [X] Prepare to later publish announcement on Reddit
+- [ ] Prepare to later publish announcement on Reddit
   - Customize Message
         #+begin_src markdown
-Just released Org2Blog v1.1.16
+Just released Org2Blog vX.Y.Z
 
-Just released Org2Blog v1.1.16:
+Just released Org2Blog vX.Y.Z:
 
 - Underlining was broken
 - Now it works
@@ -114,10 +115,10 @@ Happy Blogging!
         #+end_src
 - [X] Tag and push it
       #+begin_src sh
-git tag v1.1.16
+git tag vX.Y.Z
 git log --tags --simplify-by-decoration --pretty="format:%ai %d"
 git push --tags
       #+end_src
-- [X] In the post-tag commit:
+- [ ] In the post-tag commit:
   - Create a feature request, paste this in a code block, and close it
-    - Title: Release 1.1.16
+    - Title: Release vX.Y.Z

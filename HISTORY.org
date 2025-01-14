@@ -148,6 +148,12 @@ Documents notable release changes.
 
 - Override Org-generated CSS Underline with plain HTML underline
 
+** v1.1.17
+
+- Removes generated package file
+- Updates copyrights
+- Fixes links and typos
+
 * v1.0
 ** v1.0.00
 

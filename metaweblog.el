@@ -6,7 +6,7 @@
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Version: 1.1.16
+;; Version: 1.1.17
 ;; Package-Requires: ((emacs "27.1"))
 ;; Keywords: comm
 ;; Homepage: https://github.com/org2blog/org2blog
@@ -51,7 +51,7 @@
 
 ;;; Constants
 
-(defconst metaweblog-version "1.1.16"
+(defconst metaweblog-version "1.1.17"
   "Current version of metaweblog.el.")
 
 ;;; Deprecations
