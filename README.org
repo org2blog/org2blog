@@ -56,7 +56,6 @@ Check out all the features:
   - [[#install-emacs][Install Emacs]]
   - [[#using-a-package][Using A Package]]
     - [[#use-package][Use-Package]]
-    - [[#install-the-package-yourself][Install The Package Yourself]]
     - [[#build-the-package-yourself][Build The Package Yourself]]
   - [[#setting-up-the-source-code-by-hand][Setting Up The Source Code By Hand]]
 - [[#usage][Usage]]
@@ -194,12 +193,6 @@ Here is how to load Org2Blog:
 #+end_src
 
 Take some time to read more about Use-Package. You can use as little or as much as you find helpful. It accommodates just about any Init style you can throw at it.
-
-*** Install The Package Yourself
-
-You can also do what Use-Package does yourself. Find the package you want in [[#using-a-package][Using A Package]] and download it. It's a plain old ~TAR~ file so you can uncompress and examine it to see how it works.
-
-Install it by calling ~package-install-file~ and choosing the file you just downloaded. Load it by adding ~(require 'org2blog)~ to your init file.
 
 *** Build The Package Yourself
 
