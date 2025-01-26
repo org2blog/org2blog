@@ -154,6 +154,12 @@ Documents notable release changes.
 - Updates copyrights
 - Fixes links and typos
 
+** v1.1.18
+
+- Upgraded Emacs and Org mode
+- 2 Bug Fixes
+- Indentation Fixes
+
 * v1.0
 ** v1.0.00
 

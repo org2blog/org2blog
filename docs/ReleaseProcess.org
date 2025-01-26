@@ -1,27 +1,36 @@
-#+TITLE: Org2Blog Release 1.1.17
-#+DATE: 2025-01-13T17:29:16-06:00
+#+TITLE: Org2Blog Release 1.1.18
 
-- [X] What release tag is this? \rarr v1.1.17
-- [ ] Create and checkout this branch
-- [X] Update copyright dates
+Today: 2025-01-25
+
 - [X] Open and update [[../HISTORY.org][History]] as you go
-- [ ] Update software versions in ~org2blog-defi~:
+- [X] What release tag is this? \rarr v1.1.18
+  - Create a headline
+- [X] Create and checkout this branch
+- [X] Document Identify Library Version Changes
+  - Use =NA= if no changes
   - Start emacs with no init file and check: ~emacs --no-init-file&~
-  - [ ] Emacs version
-  - [ ] Org version
-  - [ ] For each used library note [internal or external] and [tag] and maybe
-    update it in ~org2blog-defi~ and regenerate things
-    - [ ] HTMLize, external, 1.56
-    - [ ] Hydra, external, 0.15.0
-    - [ ] XML-RPC, external, 1.6.15
-    - [ ] WriteGood, external, v2.2.0
-    - [ ] Regenerated? [Yes or No] Yes
-  - Open ~org2blog.el~
+    | Library        | From     | To       | Where | Note                    |
+    |----------------+----------+----------+-------+-------------------------|
+    | emacs          | "27.1"   | "29.4"   | Emacs | NA                      |
+    | org            | "9.5.2"  | "9.6.15" | Emacs | NA                      |
+    | htmlize        | "1.56"   | "1.56"   | Emacs | No 1.57 tag 2025-01-25! |
+    | hydra          | "0.15.0" | NA       | [[https://github.com/abo-abo/hydra/tags][here]]  | NA                      |
+    | xml-rpc        | "1.6.15" | NA       | [[https://github.com/xml-rpc-el/xml-rpc-el/tags][here]]  | NA                      |
+    | writegood-mode | "2.2.0"  | NA       | [[https://github.com/bnbeckwith/writegood-mode/tags][here]]  | NA                      |
+    | wordpress blog | "6.0"    | "6.7.1"  | [[https://wordpress.org/documentation/article/wordpress-versions/][here]]  | NA                      |
+- [X] Review changes
+  - [X] [[https://orgmode.org/worg/org-release-notes.html][Release Notes]]
+    - Nothing significant
+  - [X] ~git diff release_9.5.5 release_9.6.15 lisp/ox-html.el~
+    - Not many
+- Open ~org2blog.el~
+- Update ~org2blog/wp-version~ with the new version
+- [X] Update software versions in ~org2blog-defi~
+- [X] Eval buffer
+- [X] Update copyright dates
 - [X] The release version number appears in multiple files. Update them with
   this helper function by following these steps:
-  - Open ~org2blog.el~
-  - Update ~org2blog/wp-version~ with the new version
-  - Evaluate the buffer
+  - Remain in the same file
   - Call ~org2blog-def-update-artifacts~
     - This step /may/ be fragile. It automates the manual steps of updating
       version numbers by searching for string matches, and sometimes those
@@ -30,32 +39,30 @@
       trying again. If that fails, then please file an Issue Report so we can
       look at it together.
   - Stage it and review the results.
-- [ ] Bring codebase up to expectations in [[CONTRIBUTING.org][Contributing]].
-  - [ ] Byte compile changed files
-    - Expected and non critical warnings
-    - Emacs with native compilation is broken here
-  - [ ] Checkdoc and paste the results here
+- [X] Get new checkout of dev libs
+- [X] Update local support for new versions
+- [X] Bring codebase up to expectations in [[CONTRIBUTING.org][Contributing]].
+  - [X] Byte compile =org2blog.el=
+    - Fixed bad cond tail
+  - [X] Checkdoc and paste the results here: The 8 are OK
     #+begin_quote
-    Buffer comments and tags:  Ok
-    Documentation style:       19 Errors
-    Message/Query text style:  Ok
-    Unwanted Spaces:           Ok
-    #+end_quote
-  - [ ] Package-Lint: ~package-lint-current-buffer~- Notes follow
-    - 17:23: warning: This makes the package uninstallable in all released Emacs versions.
-    - Invalid symbol names with slash in them.
-- [ ] Testing: Do one or both―note it
-  - [ ] Yes: Manually test all functions
+Buffer comments and tags:  Ok
+Documentation style:       8 Errors
+Message/Query text style:  Ok
+Unwanted Spaces:           Ok    #+end_quote
+  - [X] Package-Lint: ~package-lint-current-buffer~- Notes follow
+    - 34/34 warnings for slashes in variable names
+- [-] Testing: Do one or both―note it
+  - [X] Yes: Manually test all functions
     | Container | Type | Save | View | Publish | Trash |
     |-----------+------+------+------+---------+-------|
-    | Buffer    | Post | OK   | OK   | OK      | OK    |
-    | Buffer    | Page | OK   | OK   | OK      | OK    |
-    | Subtree   | Post | OK   | OK   | OK      | OK    |
-    | Subtree   | Page | OK   | OK   | OK      | OK    |
-  - [ ] No: Complete [[../org2blog-test-system.el][System Test Program and Test Plan]]
+    | Buffer    | Post | Y    | Y    | Y       | Y     |
+    | Buffer    | Page | Y    | Y    | Y       | Y     |
+    | Subtree   | Post | Y    | Y    | Y       | Y     |
+    | Subtree   | Page | Y    | Y    | Y       | Y     |
+  - [ ] Complete [[../org2blog-test-system.el][System Test Program and Test Plan]]
     - Start Emacs in an empty environment before loading Org2Blog and perform the testing by starting Emacs like this: ~emacs --no-init-file~
     - The test is identical to running manually. Primarily used in case you don't have a blog and you are pointing at the test server.
-    - Did you run this and why?
 - [ ] Build package with [[https://github.com/melpa/melpa#build-scripts][MELPA]]: First with metaweblog and second org2blog
   - [ ] Update MELPA from Github
   - [ ] Configure to point at this branch for example. The key thing is that you are pointing it at the branch. When it builds the package verify it. The build script is sensitive to recipe formatting btw. You must enable file variables when you open it.
@@ -113,7 +120,7 @@ Thank you for helping make Org2Blog better.
 
 Happy Blogging!
         #+end_src
-- [X] Tag and push it
+- [ ] Tag and push it
       #+begin_src sh
 git tag vX.Y.Z
 git log --tags --simplify-by-decoration --pretty="format:%ai %d"

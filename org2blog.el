@@ -13,8 +13,8 @@
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Version: 1.1.17
-;; Package-Requires: ((emacs "27.1") (htmlize "1.56") (hydra "0.15.0") (xml-rpc "1.6.15") (writegood-mode "2.2.0") (metaweblog "1.1.17"))
+;; Version: 1.1.18
+;; Package-Requires: ((emacs "29.4") (htmlize "1.56") (hydra "0.15.0") (xml-rpc "1.6.15") (writegood-mode "2.2.0") (metaweblog "1.1.18"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
 
@@ -41,7 +41,7 @@
 
 ;;; System Definition
 
-(defconst org2blog/wp-version "1.1.17"
+(defconst org2blog/wp-version "1.1.18"
   "Current version of org2blog.el.")
 
 (cl-defstruct
@@ -73,12 +73,12 @@
    :name "org2blog"
    :version org2blog/wp-version
    :metaweblog org2blog/wp-version
-   :wordpress-version "6.0"
+   :wordpress-version "6.7.1"
    :ox-wp org2blog/wp-version
    :doc "Blog from Org mode to WordPress"
-   :emacs "28.1"
-   :emacs-api "27.1"
-   :org "9.5.2"
+   :emacs "29.4"
+   :emacs-api "29.4"
+   :org "9.6.15"
    :requirements (list
                   (make-org2blog-pkg
                    :name "htmlize"
@@ -111,17 +111,17 @@
 (defun org2blog-def-update-artifacts ()
   "Update dependent artifacts with version information.
 
-Use data from `org2blog-def--package'.
+   Use data from `org2blog-def--package'.
 
-Before calling this update and evaluate `org2blog-def--package'
-with the new release version number.
+   Before calling this update and evaluate `org2blog-def--package'
+   with the new release version number.
 
-This function requires that you are calling it while visiting a
-file located in the project's top level directory because it
-opens all of the files relatively.
+   This function requires that you are calling it while visiting a
+   file located in the project's top level directory because it
+   opens all of the files relatively.
 
-It also leaves the file buffers open because you probably want to
-inspect the generated code."
+   It also leaves the file buffers open because you probably want to
+   inspect the generated code."
   (interactive)
   (org2blog-def--update-readme)
   (org2blog-def--update-org2blog)
@@ -268,7 +268,7 @@ inspect the generated code."
               (version-prefix (org2blog-pkg-version-prefix req))
               (url (org2blog-pkg-url req)))
          (princ (format
-                 "git clone %s %s/%s\n"
+                 "git clone %s %s%s\n"
                  url
                  install-dir
                  name))
@@ -277,7 +277,7 @@ inspect the generated code."
                  "git checkout %s%s\n"
                  version-prefix
                  version))
-         (princ (format "cd ..\n" name))))
+         (princ (format "cd ..\n"))))
      (org2blog-def-requirements org2blog-defi))))
 
 (defun org2blog-def-load-statement ()
@@ -305,8 +305,7 @@ Review the export by opening the buffer:
 
 When optional argument SUBTREEP is non-nil, export the sub-tree
 at point, extracting information from the headline properties
-first.
-"
+first."
   (interactive)
   (let ((async nil)
         (visible-only nil)
@@ -516,7 +515,7 @@ Must be greater than or equal to 0.2 seconds.")
 ;;; Groups
 
 (defgroup org2blog/wp nil
-  "Blog from Org mode to WordPress"
+  "Blog from Org mode to WordPress."
   :group 'org2blog/wp)
 
 ;;; Customize
@@ -1474,8 +1473,7 @@ Legend:
   connectivity or a problem with Org2Blog itself. However the
   User can still continue moving forward to edit an Org2Blog file
   without that data. Consequently the function proceeds instead
-  of failing here.
-  "
+  of failing here."
   (interactive)
   (catch 'return
     (when (not org2blog/wp-blog-alist)
@@ -1580,7 +1578,7 @@ Legend:
 
 (defun org2blog--new (destination)
   "Create new entry buffer for DESTINATION.
-  Destination is either a symbol ‘buffer’ or a ‘subtree’."
+Destination is either a symbol ‘buffer’ or a ‘subtree’."
   (catch 'return
     (unless (or (eq destination 'buffer) (eq destination 'subtree))
       (org2blog--error
@@ -2092,8 +2090,7 @@ Legend:
 
   WordPress 6 differentiates between viewing a Page and a Post.
   Therefore this function must be retired. It is not a bug:
-  WordPress just doesn't work that way with the API now.
-  "
+  WordPress just doesn't work that way with the API now."
   (interactive)
   (error
    (concat
@@ -2120,8 +2117,7 @@ Legend:
 
   WordPress 6 differentiates between viewing a Page and a Post.
   Therefore this function must be retired. It is not a bug:
-  WordPress just doesn't work that way with the API now.
-  "
+  WordPress just doesn't work that way with the API now."
   (interactive)
   (error
    (concat
@@ -2158,8 +2154,7 @@ Legend:
 
   SOURCE is either ’buffer or ’subtree.
 
-  DEST is either ’post or ’page.
-  "
+  DEST is either ’post or ’page."
   (interactive)
   (let ((is-subtree (eq source 'subtree))
         (thing (symbol-name source)))
@@ -2181,12 +2176,12 @@ Legend:
                                 (format "?p=%s" entry-id))
                                ((eq dest 'page)
                                 (format "?page_id=%s" entry-id))
-                               (org2blog--error
-                                (format
-                                 (concat
-                                  "Not sure how to view source "
-                                  "type “%s” and dest type “%s”.")
-                                 source dest))))
+                               (t (org2blog--error
+                                   (format
+                                    (concat
+                                     "Not sure how to view source "
+                                     "type “%s” and dest type “%s”.")
+                                    source dest)))))
                (url (concat base resource preview)))
           (browse-url url))))))
 
@@ -2407,7 +2402,7 @@ Legend:
 
 (defun org2blog--load-categories ()
   "Load categories from server.
-  Caller must handle any errors."
+Caller must handle any errors."
   (let* ((raw (metaweblog-get-categories
                org2blog-xmlrpc
                org2blog-username
@@ -2420,7 +2415,7 @@ Legend:
 
 (defun org2blog--load-tags ()
   "Load tags from server.
-  Caller must handle any errors."
+Caller must handle any errors."
   (let* ((raw (metaweblog-wp-get-tags
                org2blog-xmlrpc
                org2blog-username
@@ -2433,7 +2428,7 @@ Legend:
 
 (defun org2blog--load-pages (&optional summaries)
   "Load raw pages from server or SUMMARIES if non-nil.
-  Caller must handle any errors."
+Caller must handle any errors."
   (let* ((pages (metaweblog-wp-get-pagelist
                  org2blog-xmlrpc
                  org2blog-username
@@ -2487,7 +2482,7 @@ Legend:
 
 (defun org2blog--eprop (name)
   "Return entry property for NAME.
-  See ‘org2blog--bprop’ docstring for details."
+See ‘org2blog--bprop’ docstring for details."
   (org-entry-get (point) name))
 
 (defun org2blog-blog-has (property)
