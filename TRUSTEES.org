@@ -1,0 +1,86 @@
+#+title: Trustees and their Role in Succession and Estate Planning
+
+* Introduction
+:PROPERTIES:
+:ID: introduction
+:END:
+
+First read [[file:README.org::#why_we_do_this][Why We Do This]] to dig into the vision of service driving this entire mission called Org2Blog!
+
+WordPress users worldwide have a personal mission to share their words with the world. Org2Blog serves them in their mission.
+
+To ensure the continued service of Org2Blog to the world, we need Trustees to keep the organization thriving during times of providence and turmoil. Trustees are often the most overlooked, misunderstood, and important shoes to be filled. The purpose of this document is to explain why, how, and where you can get started. You will love serving the community as a Trustee, growing your personal and professional experience, and taking on service and responsibility. It is a generous and kind task on your part and greatly appreciated. Read on to find out more!
+
+* Table Of Contents
+:PROPERTIES:
+:TOC:      :include all :ignore (this)
+:END:
+:CONTENTS:
+- [[#introduction][Introduction]]
+- [[#understanding-the-role-of-trustees-and-their-importance][Understanding The Role Of Trustees And Their Importance]]
+- [[#why-trustees-matter-their-commitments-to-the-users][Why Trustees Matter: Their Commitments To The Users]]
+- [[#anyone-can-be-a-trustee-it-is-a-non-technical-role][Anyone Can Be A Trustee: It Is A Non-Technical Role!]]
+- [[#expectations][Expectations]]
+- [[#conclusion][Conclusion]]
+:END:
+
+* Understanding The Role Of Trustees And Their Importance
+:PROPERTIES:
+:ID: importance
+:END:
+
+In the world of open-source projects, such as Org2Blog, a labor of love contributed to by many, having a thoughtful plan for the future is essential. Often, the creators and maintainers of these projects, pour their time, energy, and passion into something greater than themselves. But what happens when they can no longer continue their role, especially in unforeseen circumstances? This is where the role of Trustees becomes vital.
+
+Trustees play an essential part in succession and estate planning for projects like Org2Blog. Their primary purpose is to ensure the project continues to thrive even when current maintainers can no longer fulfill their responsibilities. By having Trustees, we ensure continuity, stability, and preservation of the project’s legacy.
+
+* Why Trustees Matter: Their Commitments To The Users
+:PROPERTIES:
+:ID: commitment
+:END:
+
+- Ensuring Continuity :: Trustees step in to ensure that the project remains active and operational when maintainers are unavailable. They act as custodians, preventing the project from stalling or becoming obsolete.
+- Safeguarding Legacy :: A project like Org2Blog is built on the dedication and hard work of its creators and contributors. Trustees help preserve this legacy, ensuring that the values, vision, and achievements of the project are maintained and respected over time.
+- Facilitating Succession :: In the event that current maintainers can no longer continue, Trustees play a key role in facilitating a smooth transition to new leadership. They provide stability and support as new maintainers are identified and onboarded.
+- Maintaining Community Trust :: Having Trustees reassures the community and users that the project is in good hands, even during times of change. It builds confidence that the project will continue to be relevant and trustworthy.
+
+* Anyone Can Be A Trustee: It Is A Non-Technical Role!
+:PROPERTIES:
+:ID: who_can_do_it
+:END:
+
+The only requirements for being a trustee are that you:
+
+- Care about the users continued happiness using the project
+  - Alignment with [[file:README.org::#why_we_do_this][Why We Do This]] is appreciated but not required
+- Learn a little bit of GitHub's management features
+- Facilitate the ongoing maintenance and search for new maintainers
+- Honor your time and recognize [[#wym][why you matter as a Trustee]]: you serve the users, not the code, not the project, not the maintainers but the user's themselves!
+- Read more about the [[#expectations][detailed expectations here]]
+
+* Expectations
+:PROPERTIES:
+:ID: expectations
+:END:
+
+- /In General/
+  - Know inside yourself why [[#importance][this project is worth keeping alive]]
+  - When the project faces the loss of its Maintainers you are willing to invest your time and effort adhering to a [[#commitment][Trustee's Commitment]]
+- /Specifically And Most Importantly/
+  - Always ensure there are two Trustees
+  - When all of the Maintainers are gone seek out new ones who are aligned as well as possible with the vision and standards of the project you know and love today.
+
+* Conclusion
+:PROPERTIES:
+:ID: expectations
+:END:
+
+Org2Blog's value is created by its users. Happy users are the measure of the success of Org2Blog. The purpose of everything in this project, from writing to coding to maintenance, is performed in service of it. The role of the Trustee is critical in ensuring the ongoing performance of those responsibilities.
+
+It is a good job for a motivated, mature, and reliable individual with an online presence (or privately known relationship) held in respect and admiration. If you are that person or know someone who is, please reflect upon your philosophy and vision and where serving as a Trustee here fits into it. Wherever you go from here, remember: Happy Blogging! :)
+
+* References
+
+- https://en.wikipedia.org/wiki/Succession_planning
+- https://en.wikipedia.org/wiki/Estate_planning
+- https://en.wikipedia.org/wiki/Trustee
+

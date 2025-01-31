@@ -4,6 +4,9 @@
 [[file:/images/logo-color-multi.png]]
 
 * Why We Do This
+:PROPERTIES:
+:CUSTOM_ID: why_we_do_this
+:END:
 
 #+begin_quote
 People don't buy what you do. They buy why you do it.
@@ -116,6 +119,7 @@ Check out all the features:
   - [[#when-things-go-wrong][When Things Go Wrong]]
   - [[#when-things-could-go-even-better][When Things Could Go Even Better]]
 - [[#similar-applications][Similar Applications]]
+- [[#trustees][Trustees]]
 - [[#development][Development]]
 - [[#license][License]]
 :END:
@@ -1301,9 +1305,13 @@ Here are the steps:
 - [[https://web.archive.org/web/20090202115334/http://qumana.com/download.htm][Qumana]]
 - [[https://ulysses.app/][Ulysses]]
 
+* Trustees
+
+- See [[./docs/TRUSTEES.org][TRUSTEES]].
+
 * Development
 :PROPERTIES:
-:ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:75FC72AE-6ECF-475F-AF06-9E45F13B07C8
+:ID:     org_gcr_2019-03-06T17-15-24-06-00_cosmicality:75FC72AE-6ECF-475F-AF06-9E45F13B07C8
 :END:
 
 See [[./docs/DEVELOPMENT.org][DEVELOPMENT]].
