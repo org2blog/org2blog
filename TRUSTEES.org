@@ -5,7 +5,7 @@
 :ID: introduction
 :END:
 
-First read [[file:README.org#why_we_do_this][Why We Do This]] to dig into the vision of service driving this entire mission called Org2Blog!
+First read [[file:README.org#why-we-do-this][Why We Do This]] to dig into the vision of service driving this entire mission called Org2Blog!
 
 WordPress users worldwide have a personal mission to share their words with the world. Org2Blog serves them in their mission.
 
@@ -51,7 +51,7 @@ Trustees play an essential part in succession and estate planning for projects l
 The only requirements for being a trustee are that you:
 
 - Care about the users continued happiness using the project
-  - Alignment with [[file:README.org::#why_we_do_this][Why We Do This]] is appreciated but not required
+  - Alignment with [[file:README.org#why-we-do-this][Why We Do This]] is appreciated but not required
 - Learn a little bit of GitHub's management features
 - Facilitate the ongoing maintenance and search for new maintainers
 - Honor your time and recognize [[#wym][why you matter as a Trustee]]: you serve the users, not the code, not the project, not the maintainers but the user's themselves!
