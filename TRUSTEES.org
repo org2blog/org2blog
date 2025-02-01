@@ -63,8 +63,8 @@ The only requirements for being a trustee are that you:
 :END:
 
 - /In General/
-  - Know inside yourself why [[#importance][this project is worth keeping alive]]
-  - When the project faces the loss of its Maintainers you are willing to invest your time and effort adhering to a [[#commitment][Trustee's Commitment]]
+  - Know inside yourself why [[#understanding-the-role-of-trustees-and-their-importance][this project is worth keeping alive]]
+  - When the project faces the loss of its Maintainers you are willing to invest your time and effort adhering to a [[#understanding-the-role-of-trustees-and-their-importance][Trustee's Commitment]]
 - /Specifically And Most Importantly/
   - Always ensure there are two Trustees
   - When all of the Maintainers are gone seek out new ones who are aligned as well as possible with the vision and standards of the project you know and love today.
