@@ -54,7 +54,7 @@ The only requirements for being a trustee are that you:
   - Alignment with [[file:README.org#why-we-do-this][Why We Do This]] is appreciated but not required
 - Learn a little bit of GitHub's management features
 - Facilitate the ongoing maintenance and search for new maintainers
-- Honor your time and recognize value of your service: you serve the users, not the code, not the project, not the maintainers but the user's themselves!
+- Honor your time and recognize value of your service: ultimately you serve the users, not the code, not the project, not the maintainers―but the user's themselves! That is great work.
 - Read more about the [[#expectations][detailed expectations here]]
 
 * Expectations
