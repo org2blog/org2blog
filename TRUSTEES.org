@@ -5,7 +5,7 @@
 :ID: introduction
 :END:
 
-First read [[file:README.org::#why_we_do_this][Why We Do This]] to dig into the vision of service driving this entire mission called Org2Blog!
+First read [[file:README.org#why_we_do_this][Why We Do This]] to dig into the vision of service driving this entire mission called Org2Blog!
 
 WordPress users worldwide have a personal mission to share their words with the world. Org2Blog serves them in their mission.
 
