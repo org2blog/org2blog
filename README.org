@@ -1307,14 +1307,16 @@ Here are the steps:
 
 * Trustees
 
-- See [[TRUSTEES.org][TRUSTEES]].
+- See [[TRUSTEES.org][TRUSTEES]]
+- Interested in becoming one? It only take [[file:TRUSTEE.org#the-one-critical-responsibility-of-a-trustee][one commitment]]!
 
 * Development
 :PROPERTIES:
 :ID:     org_gcr_2019-03-06T17-15-24-06-00_cosmicality:75FC72AE-6ECF-475F-AF06-9E45F13B07C8
 :END:
 
-See [[./docs/DEVELOPMENT.org][DEVELOPMENT]].
+
+- See [[./docs/DEVELOPMENT.org][DEVELOPMENT]].
 
 * License
 :properties:
