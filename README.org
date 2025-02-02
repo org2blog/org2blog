@@ -1307,7 +1307,7 @@ Here are the steps:
 
 * Trustees
 
-- See [[./docs/TRUSTEES.org][TRUSTEES]].
+- See [[TRUSTEES.org][TRUSTEES]].
 
 * Development
 :PROPERTIES:
