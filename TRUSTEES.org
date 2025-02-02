@@ -20,8 +20,10 @@ To ensure the continued service of Org2Blog to the world, we need Trustees to ke
 - [[#understanding-the-role-of-trustees-and-their-importance][Understanding The Role Of Trustees And Their Importance]]
 - [[#why-trustees-matter-their-commitments-to-the-users][Why Trustees Matter: Their Commitments To The Users]]
 - [[#anyone-can-be-a-trustee-it-is-a-non-technical-role][Anyone Can Be A Trustee: It Is A Non-Technical Role!]]
+- [[#the-one-critical-responsibility-of-a-trustee][The ONE CRITICAL Responsibility Of A Trustee]]
 - [[#expectations][Expectations]]
 - [[#conclusion][Conclusion]]
+- [[#references][References]]
 :END:
 
 * Understanding The Role Of Trustees And Their Importance
@@ -57,17 +59,22 @@ The only requirements for being a trustee are that you:
 - Honor your time and recognize value of your service: ultimately you serve the users, not the code, not the project, not the maintainers―but the user's themselves! That is great work.
 - Read more about the [[#expectations][detailed expectations here]]
 
+
+* The ONE CRITICAL Responsibility Of A Trustee
+
+- Ensure that there are two trustees. That is the only critical requirement. Everything else is secondary.
+- Their singular minimum purpose for existence is that the project is managed and never orphaned. Yes, it can be cloned, but it is immensely easier to maintain management of the same repository.
+
 * Expectations
 :PROPERTIES:
 :ID: expectations
 :END:
 
-- /In General/
-  - Know inside yourself why this project is worth keeping alive
-  - When the project faces the loss of its Maintainers you are willing to invest your time and effort adhering to the Trustee's Commitment
+- Know inside yourself why this project is worth keeping alive
+- When the project faces the loss of its Maintainers, you are willing to invest your time and effort in adhering to the Trustee's Commitment
 - /Specifically And Most Importantly/
   - Always ensure there are two Trustees
-  - When all of the Maintainers are gone seek out new ones who are aligned as well as possible with the vision and standards of the project you know and love today.
+  When all the Maintainers are gone, seek out new ones who are as aligned as possible with the vision and standards of the project you know and love today.
 
 * Conclusion
 :PROPERTIES:
