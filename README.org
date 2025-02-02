@@ -1308,7 +1308,7 @@ Here are the steps:
 * Trustees
 
 - See [[TRUSTEES.org][TRUSTEES]]
-- Interested in becoming one? It only take [[file:TRUSTEE.org#the-one-critical-responsibility-of-a-trustee][one commitment]]!
+- Interested in becoming one? It only take [[file:TRUSTEES.org#the-one-critical-responsibility-of-a-trustee][one commitment]]!
 
 * Development
 :PROPERTIES:
