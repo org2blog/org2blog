@@ -14,7 +14,7 @@
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
 ;; Version: 1.1.18
-;; Package-Requires: ((emacs "29.4") (htmlize "1.56") (hydra "0.15.0") (xml-rpc "1.6.15") (writegood-mode "2.2.0") (metaweblog "1.1.18"))
+;; Package-Requires: ((emacs "29.4") (htmlize "1.58") (hydra "0.15.0") (xml-rpc "1.6.15") (writegood-mode "2.2.0") (metaweblog "1.1.18"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
 
@@ -82,7 +82,7 @@
    :requirements (list
                   (make-org2blog-pkg
                    :name "htmlize"
-                   :version "1.56"
+                   :version "1.58"
                    :version-prefix "release/"
                    :url "https://github.com/hniksic/emacs-htmlize.git")
                   (make-org2blog-pkg
