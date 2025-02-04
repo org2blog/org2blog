@@ -243,7 +243,12 @@
     (org2blog-def--update-header
      file
      (org2blog-def-metaweblog org2blog-defi)
-     nil
+     (list
+      (seq-find
+       (lambda (pkg)
+         (let ((name (org2blog-pkg-name pkg)))
+           (equal name "xml-rpc")))
+       (org2blog-def-requirements org2blog-defi)))
      '("comm"))
     (org2blog-def--update-the
      file

@@ -7,7 +7,7 @@
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
 ;; Version: 1.1.18
-;; Package-Requires: ((emacs "29.4"))
+;; Package-Requires: ((emacs "29.4") (xml-rpc "1.6.15"))
 ;; Keywords: comm
 ;; Homepage: https://github.com/org2blog/org2blog
 
