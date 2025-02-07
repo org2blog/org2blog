@@ -491,7 +491,7 @@ bits - data of the file as a base64 encoded string
 type - mimetype of file deduced from extension.
 
 BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
-  (catch 'file-properties-error
+  (catch 'return
     (let* ((timestamp (format-time-string "%Y%m%dT%H%M%S" (current-time)))
            (base64-str "")
            (type "")
@@ -500,8 +500,10 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
       (condition-case err
           (progn
             (unless (file-readable-p file)
-              (throw 'file-properties-error
-                 (format "(metaweblog:`%s') File not found or is not readable: `%s'." timestamp file )))
+              (let ((msg (format "`%s' is not readable at `%s'."
+                                 file timestamp)))
+                (display-warning 'metaweblog msg :error)
+                (throw 'return nil)))
             (save-excursion
               (save-restriction
                 (with-current-buffer (find-file-noselect file nil t)
@@ -512,10 +514,7 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                   (kill-buffer)
                   (setq file-props `(("name" . ,name)
                                      ("bits" . ,base64-str)
-                                     ("type" . ,type)))))))
-        (error (throw 'file-properties-error
-                  (format "Error retrieving file properties for %s: %s. Timestamp: %s"
-                          file (error-message-string err) timestamp))))
+                                     ("type" . ,type))))))))
       file-props)))
 
 (defun metaweblog-upload-file (blog-xmlrpc user-name password blog-id file)
