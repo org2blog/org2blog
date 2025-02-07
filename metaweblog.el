@@ -493,7 +493,10 @@ type - mimetype of file deduced from extension.
 BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
   (catch 'file-properties-error
     (let* ((timestamp (format-time-string "%Y%m%dT%H%M%S" (current-time)))
-           base64-str type name file-props)
+           (base64-str "")
+           (type "")
+           (name "")
+           (file-props ""))
       (condition-case err
           (progn
             (unless (file-readable-p file)
