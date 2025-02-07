@@ -483,52 +483,43 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                        number-of-posts))
 
 (defun metaweblog-get-file-properties (file)
-  "Gets the properties of a file FILE.
+  "Convert FILE to its constituent base-64 encoded data.
 
 Returns an assoc list with
 name - file name
 bits - data of the file as a base64 encoded string
-type - mimetype of file deduced from extension.
-
-BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
+type - mimetype of file deduced from extension."
   (catch 'return
-    (let* ((timestamp (format-time-string "%Y%m%dT%H%M%S" (current-time)))
-           (base64-str "")
-           (type "")
-           (name "")
-           (file-props ""))
-      (condition-case err
-          (progn
-            (unless (file-readable-p file)
-              (let ((msg (format "`%s' is not readable at `%s'."
-                                 file timestamp)))
+    (condition-case err
+        (progn
+          (unless (file-readable-p file)
+            (let ((msg (format "`%s' is not readable." file)))
+              (display-warning 'metaweblog msg :error)
+              (throw 'return nil)))
+          (with-temp-buffer
+            (set-buffer-multibyte nil)
+            (insert-file-contents-literally file)
+            (unless (> (length (buffer-string)) 0)
+              (let ((msg (format "`%s' is readable but empty." file)))
                 (display-warning 'metaweblog msg :error)
                 (throw 'return nil)))
-            (save-excursion
-              (save-restriction
-                (with-current-buffer (find-file-noselect file nil t)
-                  (fundamental-mode)
-                  (unless (> (length (buffer-string)) 0)
-                    (let ((msg (format "`%s' is empty at `%s'."
-                                       file timestamp)))
-                      (display-warning 'metaweblog msg :error)
-                      (throw 'return nil)))
-                  (setq name (file-name-nondirectory file))
-                  (setq base64-str (base64-encode-string (encode-coding-string (buffer-string) 'binary)))
-                  (setq type (mailcap-extension-to-mime (or (file-name-extension file) "")))
-                  (kill-buffer)
-                  (setq file-props `(("name" . ,name)
-                                     ("bits" . ,base64-str)
-                                     ("type" . ,type)))))))
-        (file-error
-         (let ((msg (format "File error: %s" (error-message-string err))))
-           (display-warning 'metaweblog msg :error)
-           (throw 'return nil)))
-        (wrong-type-argument
-         (let ((msg (format "Wrong type argument: %s" (error-message-string err))))
-           (display-warning 'metaweblog msg :error)
-           (throw 'return nil))))
-      file-props)))
+            (let* ((name (file-name-nondirectory file))
+                   (bits (base64-encode-string (buffer-string) t))
+                   (type (mailcap-extension-to-mime
+                          (or (file-name-extension file) "")))
+                   (file-props (list (cons "name" name)
+                                     (cons "bits" bits)
+                                     (cons "type" type))))
+              file-props)))
+      (file-error
+       (let ((msg (format "File error: %s" (error-message-string err))))
+         (display-warning 'metaweblog msg :error)
+         (throw 'return nil)))
+      (wrong-type-argument
+       (let ((msg (format "Wrong type argument: %s"
+                          (error-message-string err))))
+         (display-warning 'metaweblog msg :error)
+         (throw 'return nil))))))
 
 (defun metaweblog-upload-file (blog-xmlrpc user-name password blog-id file)
   "Upload a media file FILE.
