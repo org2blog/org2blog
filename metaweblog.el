@@ -491,19 +491,29 @@ bits - data of the file as a base64 encoded string
 type - mimetype of file deduced from extension.
 
 BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
-  (let* (base64-str type name file-props)
-    (save-excursion
-      (save-restriction
-        (with-current-buffer (find-file-noselect file nil t)
-          (fundamental-mode)
-          (setq name (file-name-nondirectory file))
-          (setq base64-str (base64-encode-string (encode-coding-string (buffer-string) 'binary)))
-          (setq type (mailcap-extension-to-mime (or (file-name-extension file) "")))
-          (kill-buffer)
-          (setq file-props `(("name" . ,name)
-                             ("bits" . ,base64-str)
-                             ("type" . ,type))))))
-    file-props))
+  (catch 'file-properties-error
+    (let* ((timestamp (format-time-string "%Y%m%dT%H%M%S" (current-time)))
+           base64-str type name file-props)
+      (condition-case err
+          (progn
+            (unless (file-readable-p file)
+              (throw 'file-properties-error
+                 (format "(metaweblog:`%s') File not found or is not readable: `%s'." timestamp file )))
+            (save-excursion
+              (save-restriction
+                (with-current-buffer (find-file-noselect file nil t)
+                  (fundamental-mode)
+                  (setq name (file-name-nondirectory file))
+                  (setq base64-str (base64-encode-string (encode-coding-string (buffer-string) 'binary)))
+                  (setq type (mailcap-extension-to-mime (or (file-name-extension file) "")))
+                  (kill-buffer)
+                  (setq file-props `(("name" . ,name)
+                                     ("bits" . ,base64-str)
+                                     ("type" . ,type)))))))
+        (error (throw 'file-properties-error
+                  (format "Error retrieving file properties for %s: %s. Timestamp: %s"
+                          file (error-message-string err) timestamp))))
+      file-props)))
 
 (defun metaweblog-upload-file (blog-xmlrpc user-name password blog-id file)
   "Upload a media file FILE.
