@@ -519,7 +519,15 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                   (kill-buffer)
                   (setq file-props `(("name" . ,name)
                                      ("bits" . ,base64-str)
-                                     ("type" . ,type))))))))
+                                     ("type" . ,type)))))))
+        (file-error
+         (let ((msg (format "File error: %s" (error-message-string err))))
+           (display-warning 'metaweblog msg :error)
+           (throw 'return nil)))
+        (wrong-type-argument
+         (let ((msg (format "Wrong type argument: %s" (error-message-string err))))
+           (display-warning 'metaweblog msg :error)
+           (throw 'return nil))))
       file-props)))
 
 (defun metaweblog-upload-file (blog-xmlrpc user-name password blog-id file)
