@@ -508,6 +508,11 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
               (save-restriction
                 (with-current-buffer (find-file-noselect file nil t)
                   (fundamental-mode)
+                  (unless (> (length (buffer-string)) 0)
+                    (let ((msg (format "`%s' is empty at `%s'."
+                                       file timestamp)))
+                      (display-warning 'metaweblog msg :error)
+                      (throw 'return nil)))
                   (setq name (file-name-nondirectory file))
                   (setq base64-str (base64-encode-string (encode-coding-string (buffer-string) 'binary)))
                   (setq type (mailcap-extension-to-mime (or (file-name-extension file) "")))
