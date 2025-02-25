@@ -99,6 +99,12 @@ After day or two when it seems OK I'll tag it.
 - [ ] Wait a day or two to make sure it's OK
 - [ ] If you didn't do a merge, then commit the changes here
   - "Make v1.1.16 release in master"
+- [ ] Announcements
+  - [ ] Personal blog
+  - [ ] =/r/emacs=
+  - [ ] =/r/org2blog/
+  - [ ] Mastadon
+  - [ ] X
 - [ ] Prepare to later publish announcement on Reddit
   - Customize Message
         #+begin_src markdown
