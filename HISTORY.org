@@ -131,7 +131,7 @@ Documents notable release changes.
 
 ** v1.1.14
 
-- Recognizes Org2Blog as an application
+- Documentation recognizes Org2Blog as an application
 - Adds Writer Tools menu and features: writegood, spellcheck, and
   word count
 - Adds Value for project itself
