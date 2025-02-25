@@ -156,7 +156,7 @@ Documents notable release changes.
 
 ** v1.1.18
 
-- Upgraded Emacs and Org mode
+- Upgraded to Emacs v29.4 and Org mode vOrg mode version 9.6.15
 - 2 Bug Fixes
 - Indentation Fixes
 
