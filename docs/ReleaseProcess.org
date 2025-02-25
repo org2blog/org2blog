@@ -108,12 +108,11 @@ After day or two when it seems OK I'll tag it.
 - [ ] Prepare to later publish announcement on Reddit
   - Customize Message
         #+begin_src markdown
-Just released Org2Blog vX.Y.Z
-
 Just released Org2Blog vX.Y.Z:
 
-- Underlining was broken
-- Now it works
+- list
+- of
+- changes
 
 Code: https://github.com/org2blog/org2blog
 
