@@ -732,10 +732,23 @@ This variable is a symbol with options:
             yourself after saving or publishing. If you’ve
             blogged before then this is the easiest and least
             surprising approach.
+  - A custom function :: If you provide a function, it will be
+            called with one argument: the URL (string) of the
+            post or page after it has been saved or published.
+            This allows for custom display logic. For example,
+            setting the variable to
+
+            `(lambda (url) (xwidget-webkit-browse-url url))'
+
+            will open the post or page inside Emacs (provided
+            Emacs was compiled with `xwidget-webkit' support).
 
 The blog specific property is: :show"
   :group 'org2blog/wp
-  :type 'symbol)
+  :type '(choice (const :tag "Ask user" ask)
+                 (const :tag "Show in browser" show)
+                 (const :tag "Do not show" dont)
+                 (function :tag "Custom function")))
 
 (defcustom org2blog/wp-keep-new-lines nil
   "Non-nil means do not strip newlines.
@@ -1806,34 +1819,33 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
                            "Published your %s: “%s”. Its ID is “%s”. "
                          "Saved your %s as a draft: “%s”. Its ID is “%s”. ")
                        thing (cdr (assoc "title" post)) post-id))
-                 (showit (or (and (atom show) (symbolp show) (not (listp show)) show) (cadr show)))
-                 (dont (equal showit 'dont))
-                 (show (equal showit 'show))
-                 (ask (equal showit 'ask)))
-            (cond (dont (message
-                         (concat did
-                                 "It looks like you decided not to automatically display "
-                                 "your %s, so I won’t. If you ever want to change "
-                                 "it then try customizing "
-                                 "‘org2blog/wp-show-post-in-browser’.")
-                         thing))
-                  ((not org2blog-logged-in)
-                   (message
-                    (concat did
-                            "It looks like you wanted to display your %s, but "
-                            "I couldn’t because you are not logged in to your "
-                            "blog. Please log in to your blog and try doing "
-                            "this again.")
-                    thing))
-                  (show (message "%s" did)
-                        (org2blog-entry-view source type))
-                  ((and ask (y-or-n-p
-                             (format
-                              (concat did
-                                      "Would you like to display "
-                                      "your %s: “%s” (ID “%s”)? ")
-                              thing (cdr (assoc "title" post)) post-id)))
-                   (org2blog-entry-view source type))))
+                 (show-setting (org2blog--blog-property-or :show org2blog/wp-show-post-in-browser)))
+            (cond
+             ((functionp show-setting)
+              (let ((url (org2blog--get-entry-preview-url post-id type)))
+                (if url
+                    (progn
+                      (message "%s" did)
+                      (funcall show-setting url))
+                  (message (concat did " But could not determine URL for custom display function (not logged in or missing info).")))))
+             ((eq show-setting 'dont)
+              (message
+               (concat did
+                       "It looks like you decided not to automatically display "
+                       "your %s, so I won’t. If you ever want to change "
+                       "it then try customizing "
+                       "‘org2blog/wp-show-post-in-browser’.")
+               thing))
+             ((eq show-setting 'show)
+              (message "%s" did)
+              (org2blog-entry-view source type))
+             ((eq show-setting 'ask)
+              (when (y-or-n-p (format (concat did " Would you like to display your %s: “%s” (ID “%s”)?")
+                                      thing (cdr (assoc "title" post)) post-id))
+                (org2blog-entry-view source type)))
+             (t
+              (message (concat did " Unknown 'org2blog/wp-show-post-in-browser' setting: "
+                               (prin1-to-string show-setting) ". Not displaying " thing ".")))))
           (throw 'return (list 'success post-id "It worked")))))))
 
 ;;;###autoload
@@ -2166,29 +2178,19 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
     (when is-subtree (org-narrow-to-subtree))
     (org2blog--ensure-login)
     (when is-subtree (widen))
-    (let ((entry-id (or (org2blog--bprop "POSTID")
-                        (org2blog--bprop "POST_ID")
-                        (org2blog--eprop "POSTID")
-                        (org2blog--eprop "POST_ID")))
-          (url org2blog-xmlrpc))
-      (if (not entry-id)
-          (message (concat "I’m sorry, I can’t display this %s post because it "
-                           "hasn’t been saved or published yet. Please do "
-                           "either and try again.") thing)
-        (let* ((base (substring url 0 -10))
-               (preview "&preview=true")
-               (resource (cond ((eq dest 'post)
-                                (format "?p=%s" entry-id))
-                               ((eq dest 'page)
-                                (format "?page_id=%s" entry-id))
-                               (t (org2blog--error
-                                   (format
-                                    (concat
-                                     "Not sure how to view source "
-                                     "type “%s” and dest type “%s”.")
-                                    source dest)))))
-               (url (concat base resource preview)))
-          (browse-url url))))))
+    (org2blog--ensure-login) ; Ensures org2blog-xmlrpc is set if possible
+    (let* ((entry-id (or (org2blog--bprop "POSTID")
+                         (org2blog--bprop "POST_ID")
+                         (org2blog--eprop "POSTID")
+                         (org2blog--eprop "POST_ID")))
+           (url (org2blog--get-entry-preview-url entry-id dest)))
+      (if url
+          (browse-url url)
+        (message (concat "I’m sorry, I can’t display this %s "
+                         "because its ID is missing, or I'm not logged in, "
+                         "or it hasn’t been saved/published yet. "
+                         "Please check and try again.")
+                 thing)))))
 
 ;;;###autoload
 (defun org2blog-insert-link-to-post ()
@@ -3054,6 +3056,22 @@ Unsure how to utilize this so it is private."
   (org2blog--startup-library-check "Org mode" org-version
                                    org2blog/wp-required-org-version)
   (org2blog--startup-library-check "Emacs" emacs-version org2blog--minimal-emacs))
+
+(defun org2blog--get-entry-preview-url (entry-id dest-type)
+  "Return the preview URL for ENTRY-ID of DEST-TYPE ('post or 'page).
+Returns nil if ENTRY-ID or `org2blog-xmlrpc' is not set."
+  (when (and entry-id org2blog-xmlrpc (stringp entry-id) (> (length entry-id) 0))
+    (let* ((base (substring org2blog-xmlrpc 0 -10)) ; Remove "xmlrpc.php"
+           (preview "&preview=true")
+           (resource (cond ((eq dest-type 'post)
+                            (format "?p=%s" entry-id))
+                           ((eq dest-type 'page)
+                            (format "?page_id=%s" entry-id))
+                           (t nil))))
+      (if resource
+          (concat base resource preview)
+        (org2blog--error (format "Not sure how to construct preview URL for dest-type: %s" dest-type))
+        nil))))
 
 (defun org2blog--error (amessage &optional report-details)
   "Display error AMESSAGE and non-nil REPORT-DETAILS for a human."
