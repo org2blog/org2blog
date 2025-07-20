@@ -2907,7 +2907,7 @@ See ‘org2blog--bprop’ docstring for details."
 (defun org2blog--export-as-post (&optional subtree-p)
   "Parse a buffer entry.
 
-  If SUBTREE-P is non nill then parse subtree."
+  If SUBTREE-P is non nil then parse subtree."
 
   (let* ((export-options (org2blog--collect-export-options))
          (tags-as-categories (plist-get export-options :tags-as-categories)))
