@@ -460,7 +460,7 @@ left side
 
 ** Update Aka Create Or Save
 
-From a WordPress perspective both Create and Save are the same thing. The only difference is whether or not they're a Draft, and private, or published and pubic.
+From a WordPress perspective both Create and Save are the same thing. The only difference is whether or not they're a Draft, and private, or published and public.
 
 ~org2blog-entry-save~ works like this:
 
