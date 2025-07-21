@@ -28,7 +28,7 @@
 
 ;; This API operates against WordPress using both the
 ;; XML-RPC MetaWeblog API specification
-;; https://codex.wordpress.org/XML-RPC_MetaWeblog_API#metaWeblog.getRecentPosts
+;; https://codex.wordpress.org/XML-RPC_MetaWeblog_API
 ;; and the XML-RPC WordPress API
 ;; https://codex.wordpress.org/XML-RPC_WordPress_API
 
