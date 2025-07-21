@@ -163,19 +163,19 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
              nil
              (member nil
                      (name nil "title")
-                     (value nil ,post-title))
+                     (value nil (string nil ,post-title)))
              (member nil
                      (name nil "description")
-                     (value nil ,post-description))
+                     (value nil (string nil ,post-description)))
              (member nil
                      (name nil "mt_excerpt")
-                     (value nil ,post-excerpt))
+                     (value nil (string nil ,post-excerpt)))
              (member nil
                      (name nil "wp_slug")
-                     (value nil ,post-permalink))
+                     (value nil (string nil ,post-permalink)))
              (member nil
                      (name nil "dateCreated")
-                     (dateTime.iso8601 nil ,post-date))
+                     (value nil (dateTime.iso8601 nil ,post-date)))
              ,(when post-tags
                 `(member nil
                          (name nil "mt_keywords")
@@ -243,22 +243,22 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
              nil
              (member nil
                      (name nil "title")
-                     (value nil ,post-title))
+                     (value nil (string nil ,post-title)))
              (member nil
                      (name nil "description")
-                     (value nil ,post-description))
+                     (value nil (string nil ,post-description)))
              (member nil
                      (name nil "mt_excerpt")
-                     (value nil ,post-excerpt))
+                     (value nil (string nil ,post-excerpt)))
              (member nil
                      (name nil "wp_slug")
-                     (value nil ,post-permalink))
+                     (value nil (string nil ,post-permalink)))
              (member nil
                      (name nil "wp_page_parent_id")
-                     (value nil ,post-parent))
+                     (value nil (string nil ,post-parent)))
              (member nil
                      (name nil "dateCreated")
-                     (dateTime.iso8601 nil ,post-date))
+                     (value nil (dateTime.iso8601 nil ,post-date)))
              ,(when post-tags
                 `(member nil
                          (name nil "mt_keywords")
@@ -328,22 +328,22 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
              nil
              (member nil
                      (name nil "title")
-                     (value nil ,post-title))
+                     (value nil (string nil ,post-title)))
              (member nil
                      (name nil "description")
-                     (value nil ,post-description))
+                     (value nil (string nil ,post-description)))
              (member nil
                      (name nil "mt_excerpt")
-                     (value nil ,post-excerpt))
+                     (value nil (string nil ,post-excerpt)))
              (member nil
                      (name nil "wp_slug")
-                     (value nil ,post-permalink))
+                     (value nil (string nil ,post-permalink)))
              (member nil
                      (name nil "wp_page_parent_id")
-                     (value nil ,post-parent))
+                     (value nil (string nil ,post-parent)))
              (member nil
                      (name nil "dateCreated")
-                     (dateTime.iso8601 nil ,post-date))
+                     (value nil (dateTime.iso8601 nil ,post-date)))
              ,(when post-tags
                 `(member nil
                          (name nil "mt_keywords")
@@ -411,19 +411,19 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
              nil
              (member nil
                      (name nil "title")
-                     (value nil ,post-title))
+                     (value nil (string nil ,post-title)))
              (member nil
                      (name nil "description")
-                     (value nil ,post-description))
+                     (value nil (string nil ,post-description)))
              (member nil
                      (name nil "mt_excerpt")
-                     (value nil ,post-excerpt))
+                     (value nil (string nil ,post-excerpt)))
              (member nil
                      (name nil "wp_slug")
-                     (value nil ,post-permalink))
+                     (value nil (string nil ,post-permalink)))
              (member nil
                      (name nil "dateCreated")
-                     (dateTime.iso8601 nil ,post-date))
+                     (value nil (dateTime.iso8601 nil ,post-date)))
              ,(when post-tags
                 `(member nil
                          (name nil "mt_keywords")
