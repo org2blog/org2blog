@@ -171,9 +171,6 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                      (name nil "mt_excerpt")
                      (value nil (string nil ,post-excerpt)))
              (member nil
-                     (name nil "wp_slug")
-                     (value nil (string nil ,post-permalink)))
-             (member nil
                      (name nil "dateCreated")
                      (value nil (dateTime.iso8601 nil ,post-date)))
              ,(when post-tags
@@ -250,9 +247,6 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
              (member nil
                      (name nil "mt_excerpt")
                      (value nil (string nil ,post-excerpt)))
-             (member nil
-                     (name nil "wp_slug")
-                     (value nil (string nil ,post-permalink)))
              (member nil
                      (name nil "wp_page_parent_id")
                      (value nil (string nil ,post-parent)))
@@ -336,9 +330,6 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                      (name nil "mt_excerpt")
                      (value nil (string nil ,post-excerpt)))
              (member nil
-                     (name nil "wp_slug")
-                     (value nil (string nil ,post-permalink)))
-             (member nil
                      (name nil "wp_page_parent_id")
                      (value nil (string nil ,post-parent)))
              (member nil
@@ -417,10 +408,7 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                      (value nil (string nil ,post-description)))
              (member nil
                      (name nil "mt_excerpt")
-                     (value nil (string nil ,post-excerpt)))
-             (member nil
-                     (name nil "wp_slug")
-                     (value nil (string nil ,post-permalink)))
+                     (value nil (string nil ,post-excerpt)))             
              (member nil
                      (name nil "dateCreated")
                      (value nil (dateTime.iso8601 nil ,post-date)))
