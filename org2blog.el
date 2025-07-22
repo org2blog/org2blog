@@ -1779,6 +1779,7 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
               (format "%s" err))
              (throw 'return (list 'failure post-id "RPC error"))))
           (when made-new-entry
+            (sit-for org2blog-step-time)
             (run-hook-with-args
              'org2blog-buffer-entry-save-hook
              (org2blog--get-post-or-page post-id))
@@ -1796,10 +1797,10 @@ Destination is either a symbol ‘buffer’ or a ‘subtree’."
             (when from-buffer
               (goto-char (point-min))
               (when to-post (insert (concat "#+BLOG: " org2blog-blog-key "\n")))
-              (insert (concat "#+POSTID: " post-id "\n")))
+              (insert (format "#+POSTID: %s\n" post-id)))
             (when from-subtree
               (when to-post (org-entry-put (point) "BLOG" org2blog-blog-key))
-              (org-entry-put (point) "POSTID" post-id)))
+              (org-entry-put (point) "POSTID" (format "%s" post-id))))
           (org2blog--save-details post post-id publish from-subtree)
           (let* ((did (format
                        (if publish
