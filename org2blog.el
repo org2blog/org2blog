@@ -2983,7 +2983,7 @@ See ‘org2blog--bprop’ docstring for details."
          (cons "post-id" (org2blog--bprop "POSTID"))
          (cons "parent" (org2blog--bprop-parent-id
                          (org2blog--bprop "PARENT")))
-         (cons "excerpt" (org2blog--bprop "DESCRIPTION"))
+         (cons "excerpt" (or (org2blog--bprop "DESCRIPTION") ""))
          (cons "permalink" (or (org2blog--bprop "PERMALINK") "")))))
     parsed-entry))
 
@@ -3017,7 +3017,7 @@ See ‘org2blog--bprop’ docstring for details."
                              (org2blog--eprop "POST_ID")))
          (cons "parent" (org2blog--bprop-parent-id
                          (org2blog--eprop "PARENT")))
-         (cons "excerpt" (org2blog--eprop "DESCRIPTION"))
+         (cons "excerpt" (or (org2blog--eprop "DESCRIPTION") ""))
          (cons "permalink" (org2blog--eprop "PERMALINK")))))
     parsed-entry))
 
