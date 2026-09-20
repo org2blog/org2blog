@@ -3,3 +3,5 @@
 *.elc
 vale/styles/*
 !vale/styles/Vocab/Base
+.aider*
+!.aider.conf.yml
