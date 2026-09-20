@@ -1,0 +1,295 @@
+#+TITLE: Style and Encoding
+#+LANGUAGE: en
+#+OPTIONS: toc:1 num:t
+
+* Rules
+:PROPERTIES:
+:CUSTOM_ID: StyleRules
+:END:
+
+- Prose character policy:
+  - In plain prose, authors MAY freely use Unicode characters (including
+    arrows, emoji, and other expressive symbols) where they improve
+    clarity, tone, or readability.
+  - Org entities (e.g., \rarr{}, \ldquo{}, \dots) or utf2xtx fallback
+    ={{{utf2xtx(<unicode>)}}}= MAY still be used when XeLaTeX-specific
+    export robustness is required, but are NOT required for normal
+    prose.
+  - Do NOT use utf2xtx inside code-like contexts (see Code Examples).
+- Code and inline source: ASCII only (no Unicode, entities, or utf2xtx).
+- LLM prompt payloads and byte-for-byte text:
+  - When writing text that will be sent to an LLM verbatim (prompt payloads, protocol snippets, JSON, or other byte-sensitive text), do NOT add Org markup around variable names, identifiers, or literals.
+  - In these contexts, write names exactly as they must appear for the model (e.g., variable_name, SOME_FLAG, "key": "value") without wrapping them in =...= or other Org emphasis.
+- No em dashes. Use colon, semicolon, commas, parentheses, or sentence breaks.
+- CamelCase for IDs and handles.
+- Use CUSTOM_ID literally when discussing Org semantics.
+- Do not use :ID:. This style uses :CUSTOM_ID: exclusively for linking.
+- Arrows and symbols: see [[#ArrowsSymbolsRule][Arrows and Symbols]].
+- Examples that look like Org content must be in Org source blocks (see [[#CodeExamplesRule][Code Examples]]).
+- No Markdown in Org (hard rule; soft-fail handling):
+  - Do NOT use:
+    - =#/##/###= headings
+    - =```= fences
+    - =**bold**=
+    - =_italics_=
+    - =`code`=
+    - =[label](url)=
+    - =![alt](src)=
+  - If any Markdown is detected, record a style note and provide the Org fix (see [[#NoMarkdownPolicy][No Markdown in Org]] and any equivalent soft-fail workflow used in your host system).
+- Lists discipline:
+  - Bullets: -, +, or * followed by a space. Indent sublists by 2 spaces per level (see [[#ListsRule][Lists]]).
+  - Numbered: 1., 2., ... with a space; indent sublists by 2 spaces.
+
+* No Markdown in Org (Policy & Quick Fixes)
+:PROPERTIES:
+:CUSTOM_ID: NoMarkdownPolicy
+:END:
+
+- Policy:
+  - Markdown syntax in Org is forbidden. Use pure Org constructs.
+  - When found, add a visible style note with the fix; editing may
+    continue, but flagged spots must be cleared before export/audit.
+  - In many workflows this is handled by a soft-fail style check that
+    flags issues without blocking editing; adapt this to the closest
+    equivalent policy or linter configuration in your system.
+
+- Common detections → fixes (sublist):
+  - Headings:
+    - Bad: =# Title=
+      - Good: =* Title=
+    - Bad: =## Subtitle=
+      - Good: =** Subtitle=
+  - Code fences:
+    - Bad: =```lang … ```=
+      - Good:
+        #+begin_src org
+,#+BEGIN_SRC x
+...your code...
+,#+END_SRC
+        #+end_src
+  - Inline code:
+    - Bad: =`token`=
+      - Good: =token= (preferred)
+        - Alternative: ~token~ (allowed; =...= preferred for LaTeX safety)
+  - Emphasis:
+    - Bad: =**bold**=
+      - Good: =*bold*=
+    - Bad: =_italic_=
+      - Good: =/italic/=
+  - Links:
+    - Bad: =[label](https://example.com)=
+      - Good: =[[https://example.com][label]]=
+  - Images:
+    - Bad: =![alt](img.png)=
+      - Good: =[[file:img.png][alt]]=
+  - Quotes:
+    - Bad: => quoted text=
+      - Good:
+        #+begin_src org
+,#+BEGIN_QUOTE
+quoted text
+,#+END_QUOTE
+        #+end_src
+  - Lists:
+    - Bad (Markdown):
+      - "- item", 2-space indent rules ignored or mixed with tabs
+    - Good (Org):
+      - "- item" with sublists indented by 2 spaces; numbered lists as "1. ".
+
+- Example style note on detection (adapt to your system's annotation
+  mechanism as needed):
+#+begin_src org
+[style] Markdown heading "# Intro" found. Use Org heading "* Intro".
+#+end_src
+
+* Lists
+:PROPERTIES:
+:CUSTOM_ID: ListsRule
+:END:
+
+- Bulleted lists:
+  - Use -, +, or * followed by a space.
+  - Indent sublists by 2 spaces per nesting level.
+  - Keep a blank line before a list only when separating from preceding
+    paragraph; no blank line required between parent and first sublist.
+
+- Numbered lists:
+  - Use "1.", "2.", … followed by a space.
+  - Restart numbering explicitly as needed; Org will render correctly.
+  - Indent sublists by 2 spaces.
+
+** Examples (Good)
+:PROPERTIES:
+:CUSTOM_ID: ListsExamplesGood
+:END:
+
+#+begin_src org
+- Alpha
+  - Beta
+    - Gamma
+- Delta
+
+1. First
+2. Second
+   1. Nested first
+   2. Nested second
+3. Third
+#+end_src
+
+** Examples (Bad)
+:PROPERTIES:
+:CUSTOM_ID: ListsExamplesBad
+:END:
+
+#+begin_src org
+-Alpha          # no space after bullet (bad)
+-  Beta         # extra spaces after bullet (bad)
+* Mixed bullets and headings accidentally (bad)
+- Item
+    - Indent with 4 spaces (bad; use 2)
+1) Numbering with ) (bad; use ".")
+#+end_src
+
+* Headlines: CUSTOM_ID and Spacing
+:PROPERTIES:
+:CUSTOM_ID: HeadlinesCustomId
+:END:
+
+- Requirement:
+  - Every headline MUST have a PROPERTIES drawer with a unique
+    :CUSTOM_ID:.
+- Format:
+  - :CUSTOM_ID: values are CamelCase, ASCII, short and mnemonic
+    (target 8–20 characters).
+- Uniqueness:
+  - :CUSTOM_ID: MUST be unique within the file.
+- Placement and spacing:
+  - Allowed order:
+    1) Headline
+    2) Optional planning lines (SCHEDULED/DEADLINE/CLOSED/CLOCK)
+    3) PROPERTIES drawer:
+       #+begin_src org
+:PROPERTIES:
+property lines
+:END:
+       #+end_src
+    4) Exactly one blank line
+    5) First content
+  - No blank lines between the headline, any planning lines, and
+    :PROPERTIES:. Insert exactly one blank line after :END: before the
+    first content.
+
+** Examples (Good)
+:PROPERTIES:
+:CUSTOM_ID: HeadlinesExamplesGood
+:END:
+
+#+begin_src org
+* Section Title
+:PROPERTIES:
+:CUSTOM_ID: SectionOverview
+:END:
+
+First paragraph. . .
+
+** Child Section
+SCHEDULED: <2025-09-06 Sat>
+:PROPERTIES:
+:CUSTOM_ID: ChildPlan
+:END:
+
+Content. . .
+#+end_src
+
+** Examples (Bad)
+:PROPERTIES:
+:CUSTOM_ID: HeadlinesExamplesBad
+:END:
+
+#+begin_src org
+* Missing CUSTOM_ID
+# (No PROPERTIES drawer)
+
+* Wrong field (:ID: instead of :CUSTOM_ID:)
+:PROPERTIES:
+:ID: WrongField
+:END:
+#+end_src
+
+* Quotes
+:PROPERTIES:
+:CUSTOM_ID: QuotesRule
+:END:
+
+- Prose:
+  - Authors MAY use straight ASCII quotes or language-appropriate
+    quotation marks in plain prose.
+  - Be consistent within a document when you choose a style.
+- Code-like contexts (code blocks, example blocks, inline source):
+  - Use straight ASCII quotes only:
+    - Double: "
+    - Single/apostrophe: '
+  - Do not use curly/smart quotes (“ ” ‘ ’), low quotes („ ‚), or
+    guillemets (« ») inside code-like contexts.
+
+* Ellipsis
+:PROPERTIES:
+:CUSTOM_ID: EllipsisRule
+:END:
+
+- Prose:
+  - Authors MAY use whatever ellipsis form best fits the prose:
+    Unicode ellipsis (…), Org entity (\dots or \hellip{}), or ASCII
+    ". . ." style.
+  - Prefer consistency within a given document or section, but strict
+    uniformity across the repo is not required.
+- Code-like contexts (code blocks, example blocks, inline source):
+  - NEVER use Unicode ellipsis (…) or entity forms (\dots, \hellip{}).
+  - Use plain ASCII three dots ("...") in code-like contexts.
+
+* Arrows and Symbols
+:PROPERTIES:
+:CUSTOM_ID: ArrowsSymbolsRule
+:END:
+
+- Prose:
+  - Authors MAY freely use Unicode arrows, emoji, and other symbols in
+    plain prose wherever they improve clarity, nuance, or readability.
+  - When preparing XeLaTeX-critical content, Org entities (e.g.,
+    \rarr{} for a right arrow) or explicit utf2xtx forms
+    ={{{utf2xtx(<unicode>)}}}= MAY still be used if needed for export
+    robustness, but they are not required by default.
+- Code and inline source:
+  - ASCII only; arrows as -> and <-.
+  - Do not use entities, utf2xtx, or Unicode inside code.
+
+* Code Examples
+:PROPERTIES:
+:CUSTOM_ID: CodeExamplesRule
+:END:
+
+- Put all examples that look like Org content (headlines, drawers,
+  blocks) inside code blocks.
+  - Use =#+begin_src org= . . . =#+end_src= for multi-line examples.
+  - Use =src_org{. . .}= only for very short inline examples if needed.
+- Do not use entities or Unicode inside code examples.
+
+* Mentioning CUSTOM_ID in Prose
+:PROPERTIES:
+:CUSTOM_ID: CustomIdMentionRule
+:END:
+
+- Fence field names in text as =CUSTOM_ID= or =:CUSTOM_ID:=.
+- When showing assignments, present the Org lines in an =org= code
+  block.
+
+* Exceptions and Legacy Input
+:PROPERTIES:
+:CUSTOM_ID: ExceptionsLegacy
+:END:
+
+- If quoting or handling legacy/external Org that lacks a PROPERTIES
+  drawer:
+  - Insert exactly one blank line between the headline and the first
+    content.
+  - Do not modify the source beyond what is necessary for quotation.
