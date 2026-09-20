@@ -1,0 +1,200 @@
+#+TITLE: Org2Blog Elisp Conventions
+
+* Goals
+:PROPERTIES:
+:CUSTOM_ID: Org2BlogGoals
+:END:
+
+- Maintainable, readable code; predictability over micro-optimizations.
+- Clear inputs/outputs; explicit errors on misuse.
+- Hard 80-column limit in Elisp; wrap intelligently for readability.
+
+* Scope and Placement
+:PROPERTIES:
+:CUSTOM_ID: Org2BlogScope
+:END:
+
+- This document covers Elisp code conventions only.
+- For Org prose and encoding, see =support/StyleGuide.org= and do not
+  duplicate those rules here.
+
+* Naming and Structure
+:PROPERTIES:
+:CUSTOM_ID: Org2BlogNamingStructure
+:END:
+
+- Public: =org2blog-*=; Private: =org2blog--*=.
+- Legacy public APIs may still use =org2blog/wp-*=; new internal helpers
+  and new public commands should use the =org2blog-= / =org2blog--*=
+  prefixes.
+- Keep functions small and single-purpose; prefer helpers over flags.
+- Group code by sections: Private, Public, Setup, Hydra/Menu.
+
+* Line Length and Wrapping
+:PROPERTIES:
+:CUSTOM_ID: Org2BlogLineLength
+:END:
+
+- Hard limit: 80 columns.
+- Break long strings with =concat=; break arg lists across lines with
+  one argument per line when helpful; align keyword args vertically.
+- Prefer small helpers over deep nesting to stay within 80 columns.
+
+* cl-defun Default
+:PROPERTIES:
+:CUSTOM_ID: Org2BlogClDefunDefault
+:END:
+
+- Always use =cl-defun=. Prefer positional args first, then =&key for
+  optional and policy controls (e.g., =:on-error=, =:quiet=).
+- Docstring first line is an imperative summary; include brief notes on
+  error behavior and return values when non-obvious.
+
+* Errors and Messages
+:PROPERTIES:
+:CUSTOM_ID: Org2BlogErrorsMessages
+:END:
+
+- Input validation early; =user-error= for recoverable, user-facing
+  mistakes; =error= for invariants and internal failures.
+- Wrap risky bodies with =condition-case-unless-debug= at the command or
+  batch boundary. Keep inner code straight-line and guarded.
+- Use =pcase= for structured dispatch; guard clauses for clarity.
+- For user-facing errors call =org2blog--error= so users see a polite,
+  specific message and bug reports get enough context automatically.
+- Avoid ad-hoc =message= calls in new code when reporting errors; prefer
+  using =org2blog--error= or returning a short result string for callers
+  to present.
+
+* Interactive Commands
+:PROPERTIES:
+:CUSTOM_ID: Org2BlogInteractive
+:END:
+
+- Guard commands: ensure visiting an =.org= file when required.
+- Use =;;;###autoload= on interactive entry points.
+- Respect prefix args when it improves UX (e.g., open in other window).
+
+* Returns, Side Effects, and Logging
+:PROPERTIES:
+:CUSTOM_ID: Org2BlogReturnsSideEffects
+:END:
+
+- Bind results to locals before returning to aid debugging.
+- Idempotent behavior where feasible; document when not.
+- Debug logging via a single switch or helper; avoid hand-rolled
+  prefixes for errors. Use =org2blog--error= for failures that need
+  context; use =message= only for transient status.
+- Prefer a return-and-message pattern for interactive UX and tests.
+
+* Files and AST Work
+:PROPERTIES:
+:CUSTOM_ID: Org2BlogFilesAst
+:END:
+
+- Prefer =with-temp-buffer= for read-only inspections.
+- Use =find-file-noselect= when editing; save only if the buffer changed.
+- Be mindful of =org-element-parse-buffer= cost; disable caches if
+  correctness requires it; scope parsing to what you need.
+
+* Byte-Compile Hygiene and Deps
+:PROPERTIES:
+:CUSTOM_ID: Org2BlogCompileDeps
+:END:
+
+- =require= at top-level; =declare-function= to silence warnings.
+- Maintain =lexical-binding=; avoid undocumented global state.
+- Provide features with =(provide 'feature)=.
+- Keep autoload cookies on public entry points.
+
+* Org Formatting Notes
+:PROPERTIES:
+:CUSTOM_ID: Org2BlogOrgFormatting
+:END:
+
+- Follow repo StyleGuide at =support/StyleGuide.org=.
+- ASCII in code; Org entities in prose; no Markdown in Org.
+
+* Exemplar (as provided) and a House-Style Sketch
+:PROPERTIES:
+:CUSTOM_ID: Org2BlogExamples
+:END:
+
+- The following external exemplar illustrates: =cl-defun=, guarded
+  checks, =condition-case-unless-debug=, =pcase= dispatch, and helpful
+  messages. Names are prefixed with =ext-= to emphasize that they are
+  not part of the Org2Blog namespace.
+
+#+begin_src elisp
+(defvar ext-hs-visible 'all-visible "Current state of hideshow for toggling all.
+
+If `'all-visible' then every block is visible, otherwise it is
+`'all-hidden', and they are all hidden.")
+
+(cl-defun ext-toggle-hideshow-all ()
+  "Toggle hideshow all.
+
+  SRC URL: (built in) `hideshow.el.gz'"
+  (interactive)
+  (condition-case-unless-debug err
+      (progn
+        (unless (and (boundp 'hs-minor-mode) hs-minor-mode)
+          (user-error
+           (concat "Hideshow either isn't loaded or enabled. "
+                   "First load then enable it and try again."))
+          (cl:return))
+        (pcase (symbol-value 'ext-hs-visible)
+          ('all-visible
+           (setq ext-hs-visible 'all-hidden)
+           (hs-hide-all)
+           (message "Hiding all code blocks"))
+          ('all-hidden
+           (setq ext-hs-visible 'all-visible)
+           (hs-show-all)
+           (message "Showing all code blocks"))
+          (_
+           (error
+            (concat "(ext-hs-visible) Sorry, I couldn't handle toggling "
+                    "`%s'. Please notify me.")
+            ext-hs-visible))))
+    (error
+     (message
+      "(ext-hs-visible) Sorry, an error occurred: %s"
+      (error-message-string err)))))
+#+end_src
+
+- A brief Org2Blog-style sketch shows the agreed 80-col wrapping and the
+  use of a shared error helper, without restating the full example:
+
+#+begin_src elisp
+(defvar ext--hs-visible 'all-visible
+  "Hideshow visibility state: 'all-visible or 'all-hidden.")
+
+(cl-defun ext-toggle-hideshow-all ()
+  "Toggle hideshow across the buffer, with polite status messages.
+
+This example illustrates using `condition-case-unless-debug' and shared
+error handling helpers; see `org2blog--error' in the main codebase."
+  (interactive)
+  (condition-case-unless-debug err
+      (progn
+        (unless (and (boundp 'hs-minor-mode) hs-minor-mode)
+          (user-error
+           (concat "Hideshow is not loaded or enabled. "
+                   "Load and enable it, then try again.")))
+        (pcase ext--hs-visible
+          ('all-visible
+           (setq ext--hs-visible 'all-hidden)
+           (hs-hide-all)
+           (message "Hiding all code blocks"))
+          ('all-hidden
+           (setq ext--hs-visible 'all-visible)
+           (hs-show-all)
+           (message "Showing all code blocks"))
+          (_ (error "Unsupported hideshow state: %s"
+                    ext--hs-visible))))
+    (error
+     (org2blog--error
+      "Error toggling hideshow visibility."
+      (error-message-string err)))))
+#+end_src
