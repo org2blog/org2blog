@@ -1,6 +1,4 @@
 #+TITLE: Style and Encoding
-#+LANGUAGE: en
-#+OPTIONS: toc:1 num:t
 
 * Rules
 :PROPERTIES:
