@@ -1,12 +1,16 @@
 #+title: Development
 
 * About
+:PROPERTIES:
+:CUSTOM_ID: about
+:END:
 
 Org2Blog Developer Documentation.
 
 * Table Of Contents
 :PROPERTIES:
 :TOC:      :include all :ignore (this)
+:CUSTOM_ID: TableOfContents
 :END:
 :CONTENTS:
 - [[#about][About]]
@@ -35,6 +39,7 @@ Org2Blog Developer Documentation.
 * Loading Up The Source Code By Hand
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:3386D277-56FD-4D2F-BE0C-56553541CD25
+:CUSTOM_ID: loading-up-the-source-code-by-hand
 :END:
 
 Here is where to start:
@@ -67,6 +72,9 @@ Now you've got everything you need to run Org2Blog against its source code.
 With this set up you can start playing around with things and even making changes. When you scratch an itch: create your branch and submit a pull request. It's fun, easy, and makes Org2Blog better for all its users.
 
 * Software Packages Used
+:PROPERTIES:
+:CUSTOM_ID: software-packages-used
+:END:
 
 Org2Blog uses these libraries:
 
@@ -104,6 +112,9 @@ left side
 #+end_RESULTS
 
 * Getting Started With Development
+:PROPERTIES:
+:CUSTOM_ID: getting-started-with-development
+:END:
 
 - You may have already set up your codebase to /run/ Org2Blog, but if you haven't, then find out how up in the Installation section.
 - Readme
@@ -152,6 +163,7 @@ O2BPASSWORD="password"
 * Package Questions And Answers
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:D0ECB4B0-5922-4BE5-BCE8-904EAB930CDD
+:CUSTOM_ID: package-questions-and-answers
 :END:
 
 In some ways Org2Blog can be surprising. Since it bridges that gap between Org mode documents and WordPress blog posts sometimes there can be a little friction. That is where most of the questions come from in the form of something like "Why does Org2Blog ...fill in the blank...? Because it's really weird!". Be at ease though, this section should clear up some the weirdness ASAP.
@@ -159,6 +171,7 @@ In some ways Org2Blog can be surprising. Since it bridges that gap between Org m
 ** Why Does Org2blog Talk About Save, View, Publish, And Trash So Much?
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:630E39ED-9A45-4707-9147-FB6C681D23EE
+:CUSTOM_ID: why-does-org2blog-talk-about-save-view-publish-and-trash-so-much
 :END:
 
 Most software out there has some version of [[https://en.wikipedia.org/wiki/Create,_read,_update_and_delete][Create, read, update and delete]] (CRUD). In our case it has to do with WordPress Entries and Pages. In techie language you would talk about CRUD'ing them. In WordPress language you talk about Saving, Viewing, Publishing, and Trashing. Org2Blog chose to use the WordPress language: it's less surprising and makes it easier to keep the idea that Org2Blog fits into your WordPress workflow in your mind.
@@ -176,6 +189,7 @@ Blogging with WordPress is an iterative workflow, going through the cycle as man
 ** Why Does Org2blog Talk About Buffers, Subtrees, Posts, And Pages So Much?
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:790CCCC4-7178-43E0-889B-15AD3163D383
+:CUSTOM_ID: why-does-org2blog-talk-about-buffers-subtrees-posts-and-pages-so-much
 :END:
 
 WordPress doesn't see much difference between a =Post= and a =Page=, so Org2Blog doesn't either. Here are some terms to help clarify things:
@@ -220,6 +234,9 @@ This simplicity can actually lead to some less comfortable situations where you 
 Although Org2Blog is implemented how WordPress works, it can surprising to see these words used. However you'll get used to it pretty quickly.
 
 ** Why Isn't The Package Name Org2wordpress?
+:PROPERTIES:
+:CUSTOM_ID: why-isnt-the-package-name-org2wordpress
+:END:
 
 When Org2Blog was created its technical name, its /package name/, was ~org2blog~. Unbeknownst to us there was another package out there named Org2BlogAtom with the same package name!
 
@@ -232,6 +249,9 @@ Org2Blog is blogging software. You write everything in Org mode and publish it t
 In that historical context and considering goals today the name remains Org2Blog instead of Org2WordPress.
 
 ** How Does Org2blog Manage Autoloads?
+:PROPERTIES:
+:CUSTOM_ID: how-does-org2blog-manage-autoloads
+:END:
 
 Preemptive TL;DR: It doesn't—Packages are not supposed to manage autoloads.
 
@@ -252,7 +272,13 @@ The simplest way to handle autoloads is simply never to use them at all. There i
 The best code is the code that doesn't exist: that includes autoloads. Bit by bit Org2Blog will keep moving towards a future without them.
 
 * MetaWeblog
+:PROPERTIES:
+:CUSTOM_ID: metaweblog
+:END:
 ** What Is MetaWeblog?
+:PROPERTIES:
+:CUSTOM_ID: what-is-metaweblog
+:END:
 
 Via [[https://en.wikipedia.org/wiki/MetaWeblog][Wikipedia]]:
 
@@ -269,6 +295,9 @@ information related to an individual weblog entry.
 #+end_quote
 
 ** What Blogs Use MetaWeblog?
+:PROPERTIES:
+:CUSTOM_ID: what-blogs-use-metaweblog
+:END:
 
 - [[https://blogengine.io/news/blogengine-1.5-released/][BlogEngine]]
 - [[https://www.cloudscribe.com/][cloudscribe.SimpleContent]]
@@ -284,6 +313,9 @@ information related to an individual weblog entry.
 - [[https://codex.wordpress.org/XML-RPC_MetaWeblog_API][WordPress]]
 
 ** What Is The Official MetaWeblog API?
+:PROPERTIES:
+:CUSTOM_ID: what-is-the-official-metaweblog-api
+:END:
 
 The official definition only contains three methods:
 
@@ -300,6 +332,9 @@ client software. Since WordPress definitely supports =MetaWeblog=, Org2Blog
 starts here.
 
 ** MetaWeblog's API Support
+:PROPERTIES:
+:CUSTOM_ID: metaweblogs-api-support
+:END:
 
 This library provides the following for what is believed to be the current
 MetaWeblog API standard:
@@ -325,6 +360,9 @@ MetaWeblog API standard:
     be helpful to understand why.
 
 ** WordPress's API Support
+:PROPERTIES:
+:CUSTOM_ID: wordpresss-api-support
+:END:
 
 In addition to MetaWeblog this library provides the following [[https://codex.wordpress.org/XML-RPC_WordPress_API][XML-RPC
 WordPress API]] methods:
@@ -338,11 +376,17 @@ WordPress API]] methods:
 - ~wp.newPage~
 
 ** Why is MetaWeblog In This Project?
+:PROPERTIES:
+:CUSTOM_ID: why-is-metaweblog-in-this-project
+:END:
 
 1. Org2Blog maintains MetaWeblog as an independent library for common usage
 2. MetaWeblog provides critical functionality for Org2Blog
 
 * Data Model & Functional Design
+:PROPERTIES:
+:CUSTOM_ID: data-model--functional-design
+:END:
 
 Org2Blog's data model addresses only two ideas:
 
@@ -382,6 +426,9 @@ The node document format below is:
 - Values passed to next function in round parens: (🠆 args...)
 
 ** Create
+:PROPERTIES:
+:CUSTOM_ID: create
+:END:
 
 ~org2blog--new~ creates the content but doesn't publish it yet. See Save.
 
@@ -420,6 +467,9 @@ left side
 #+end_RESULTS
 
 ** Read Aka View
+:PROPERTIES:
+:CUSTOM_ID: read-aka-view
+:END:
 
 ~org2blog-entry-view~ works like this:
 
@@ -459,6 +509,9 @@ left side
 #+end_RESULTS
 
 ** Update Aka Create Or Save
+:PROPERTIES:
+:CUSTOM_ID: update-aka-create-or-save
+:END:
 
 From a WordPress perspective both Create and Save are the same thing. The only difference is whether or not they're a Draft, and private, or published and public.
 
@@ -504,6 +557,9 @@ left side
 #+end_RESULTS
 
 ** Delete
+:PROPERTIES:
+:CUSTOM_ID: delete
+:END:
 
 ~org2blog-entry-trash~ works like this:
 
