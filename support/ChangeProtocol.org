@@ -74,27 +74,53 @@ When asked to propose a Git commit message, the assistant must:
   syntax, appropriate bullets, etc.).
 - /Do not/ wrap commit messages in fenced code blocks. They should be
   plain text in the response so the user can paste directly into Git.
-- Wrap the commit message between the literal marker lines:
+- Wrap the commit message between the literal marker lines, following
+  this exact byte layout:
 
-  - First line: ---BEGIN GIT COMMIT MESSAGE---
-  - Last line: ---END GIT COMMIT MESSAGE---
+  - The begin marker line:
+    ---BEGIN GIT COMMIT MESSAGE---
+  - On the next line, after a single blank line, the full commit summary
+    line.
+  - A single blank line after the summary line.
+  - One bullet per line for the structured body.
+  - The end marker line:
+    ---END GIT COMMIT MESSAGE---
+    must appear on its own line, after a single blank line that follows
+    the final body bullet.
 
-  The summary line <type>(<scope>): <subject> MUST begin on the line
-  immediately following ---BEGIN GIT COMMIT MESSAGE--- so that tools
-  can be configured to copy from the summary line down to the end of
-  the message. There MUST be a newline (blank line) between the BEGIN
-  marker and the summary line.
-  Similarly, there MUST be a final newline (blank line) after the last
-  body line and before the =---END GIT COMMIT MESSAGE---= marker.
+In other words, the assistant must:
+
+- Emit the header as:
+
+---BEGIN GIT COMMIT MESSAGE---
+
+<type>(<scope>): <subject>
+
+- Then insert exactly one blank line.
+- Then emit the body lines, each starting with a literal "- " (hyphen
+  followed by a space).
+- After the last body line, insert exactly one blank line and then the
+  literal tail marker on its own line:
+
+---END GIT COMMIT MESSAGE---
+
+This format is different from many tools and must not be "fixed" to a
+more conventional multi-line form. Treat it as a byte-level protocol
+that higher-level tooling depends on.
 
 ** Commit Message Format
 :PROPERTIES:
 :CUSTOM_ID: GitProtocolFormat
 :END:
 
-Use a Conventional-Commit-style summary line:
+Use a Conventional-Commit-style summary line on its own line, after the
+begin marker and a single blank line:
 
-- Header format: <type>(<scope>): <subject>
+- Header byte format (three physical lines):
+
+---BEGIN GIT COMMIT MESSAGE---
+
+<type>(<scope>): <subject>
 
 Where:
 
@@ -104,13 +130,11 @@ Where:
 - <subject> is an imperative phrase, <= 70 characters, no trailing
   period.
 
-Example:
-
-- feat(docs): introduce FPE and change protocol
-
 After the summary line:
 
-- Insert exactly one blank line.
+- Insert *exactly one* blank line.
+- Then start the structured body, one line per entry, each beginning
+  with a literal "- " (hyphen followed by a space).
 - Wrap body lines at 70 characters.
 - Use ASCII in code-like fragments; prose may use Unicode, following
   support/StyleGuide.org.
@@ -134,10 +158,11 @@ entry concise.
   (for example, ChangeProtocol, Org2BlogErrorsMessages).
 
 Example layout (do not wrap this example in a code fence when used as a
-real commit message). The summary line starts immediately after the
-=---BEGIN GIT COMMIT MESSAGE---= marker:
+real commit message). The summary is on a new line after the begin
+marker, and the end marker is on its own line after a final blank line:
 
 ---BEGIN GIT COMMIT MESSAGE---
+
 feat(docs): introduce FPE and change protocol
 
 - Context: Document how the assistant should propose and explain
@@ -153,6 +178,7 @@ feat(docs): introduce FPE and change protocol
   support/ChangeProtocol.org (define change and Git message workflow).
 - Follow-ups: Align test and release docs to reference the new
   ChangeProtocol; optionally add examples of typical refactor flows.
-- Notes: See =ChangeProtocol= and =Org2BlogClDefunDefault= for related
+- Notes: See ChangeProtocol and Org2BlogClDefunDefault for related
   practices.
+
 ---END GIT COMMIT MESSAGE---
