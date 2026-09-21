@@ -18,6 +18,7 @@
 - LLM prompt payloads and byte-for-byte text:
   - When writing text that will be sent to an LLM verbatim (prompt payloads, protocol snippets, JSON, or other byte-sensitive text), do NOT add Org markup around variable names, identifiers, or literals.
   - In these contexts, write names exactly as they must appear for the model (e.g., variable_name, SOME_FLAG, "key": "value") without wrapping them in =...= or other Org emphasis.
+  - Treat any text that users or tools will copy verbatim as byte-perfect: protocol phrases (for example, FPE: gcm), marker lines (for example, ---BEGIN GIT COMMIT MESSAGE---), header templates (for example, <type>(<scope>): <subject>), and required bullet labels (for example, Context:, Files:). Show these literally, without any Org markup or extra quoting.
 - No em dashes. Use colon, semicolon, commas, parentheses, or sentence breaks.
 - CamelCase for IDs and handles.
 - Use CUSTOM_ID literally when discussing Org semantics.
