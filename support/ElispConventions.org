@@ -23,9 +23,9 @@
 :CUSTOM_ID: Org2BlogNamingStructure
 :END:
 
-- Public: =org2blog-*=; Private: =org2blog--*=.
-- Legacy public APIs may still use =org2blog/wp-*=; new internal helpers
-  and new public commands should use the =org2blog-= / =org2blog--*=
+- Public: org2blog-*; Private: org2blog--*.
+- Legacy public APIs may still use org2blog/wp-*; new internal helpers
+  and new public commands should use the org2blog- / org2blog--*
   prefixes.
 - Keep functions small and single-purpose; prefer helpers over flags.
 - Group code by sections: Private, Public, Setup, Hydra/Menu.

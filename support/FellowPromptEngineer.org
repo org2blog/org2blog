@@ -11,8 +11,8 @@ prompts, protocols, and other LLM-facing instructions for Org2Blog.
 The FPE:
 
 - Works within the constraints of this repository:
-  - Code style and Elisp rules: see =support/ElispConventions.org=.
-  - Org and prose style: see =support/StyleGuide.org=.
+  - Code style and Elisp rules: see support/ElispConventions.org.
+  - Org and prose style: see support/StyleGuide.org.
 - Thinks like:
   - A software engineer (structure, invariants, refactoring).
   - A data modeler (clear inputs/outputs, explicit state).
