@@ -1,0 +1,158 @@
+#+TITLE: Change Protocol
+
+* Overview
+:PROPERTIES:
+:CUSTOM_ID: ChangeProtocol
+:END:
+
+The Change Protocol describes how we collaborate with the assistant on
+edits to this repository. It complements, but does not replace:
+
+- Org and prose rules: support/StyleGuide.org
+- Elisp conventions: support/ElispConventions.org
+- Prompt-engineering role: support/FellowPromptEngineer.org
+
+This protocol is about *how* changes are proposed and documented, not
+about low-level style details.
+
+* Change Description Workflow
+:PROPERTIES:
+:CUSTOM_ID: ChangeProtocolSteps
+:END:
+
+When the assistant proposes changes to files in this repo, it must
+follow this workflow:
+
+1. /File identification/: State the file name(s) where changes apply.
+2. /Pre-content/: Show the current (pre-change) content that the user
+   should locate. Keep this as small as practical while still being
+   unambiguous.
+3. /Change description/: Briefly describe:
+   - What is changing (prepend, modify, append, delete, replace).
+   - Why the change is needed (purpose, constraints, cross-refs).
+4. /Post-content/: Show the new version of the content exactly as it
+   should appear after edits, including any surrounding context needed
+   for correct placement.
+
+This protocol is especially important when the user is applying changes
+manually (copy-paste or by hand), rather than via a patch.
+
+* Copy-Ready Payload Fences
+:PROPERTIES:
+:CUSTOM_ID: ChangeProtocolFences
+:END:
+
+For any copy-ready payload (Org reports, new blocks, replacements), the
+assistant MUST:
+
+- Wrap the entire payload in a single fenced code block.
+- Keep explanations and rationale *outside* the fence; treat the code
+  fence as the authoritative bytes to paste.
+- When the content type is clear, use an appropriate language tag:
+
+  - =```org= for Org-mode content (documents, sections, specs).
+  - =```elisp= for Elisp.
+  - =```sh= for shell snippets.
+
+- If the content type is unclear or mixed, still use a single fenced
+  code block but omit the language tag.
+
+Git commit messages are an exception; see GitProtocol below.
+
+Note: When preparing Org content, the assistant must still follow
+support/StyleGuide.org (no Markdown; correct headlines, drawers, etc.).
+
+* Git Protocol
+:PROPERTIES:
+:CUSTOM_ID: GitProtocol
+:END:
+
+When asked to propose a Git commit message, the assistant must:
+
+- Follow standard Git commit conventions.
+- Respect the Org style rules in support/StyleGuide.org (no Markdown
+  syntax, appropriate bullets, etc.).
+- /Do not/ wrap commit messages in fenced code blocks. They should be
+  plain text in the response so the user can paste directly into Git.
+- Wrap the commit message between the literal marker lines:
+
+  - First line: ---BEGIN GIT COMMIT MESSAGE---
+  - Last line: ---END GIT COMMIT MESSAGE---
+
+  The summary line <type>(<scope>): <subject> MUST begin on the line
+  immediately following ---BEGIN GIT COMMIT MESSAGE--- so that tools
+  can be configured to copy from the summary line down to the end of
+  the message. There MUST be a newline (blank line) between the BEGIN
+  marker and the summary line.
+  Similarly, there MUST be a final newline (blank line) after the last
+  body line and before the =---END GIT COMMIT MESSAGE---= marker.
+
+** Commit Message Format
+:PROPERTIES:
+:CUSTOM_ID: GitProtocolFormat
+:END:
+
+Use a Conventional-Commit-style summary line:
+
+- Header format: <type>(<scope>): <subject>
+
+Where:
+
+- <type> is one of: feat, fix, chore, docs, style,
+  refactor, test, perf, build, ci.
+- <scope> is a short scope (e.g., org2blog, metaweblog, docs).
+- <subject> is an imperative phrase, <= 70 characters, no trailing
+  period.
+
+Example:
+
+- feat(docs): introduce FPE and change protocol
+
+After the summary line:
+
+- Insert exactly one blank line.
+- Wrap body lines at 70 characters.
+- Use ASCII in code-like fragments; prose may use Unicode, following
+  support/StyleGuide.org.
+
+** Required Body Structure
+:PROPERTIES:
+:CUSTOM_ID: GitProtocolStructure
+:END:
+
+Use the following bullets in the body, one per line. Keep each
+entry concise.
+
+- Context: one or two lines stating the user request or problem
+  background.
+- Why: primary rationale; risks mitigated; goals served.
+- How: approach taken; notable patterns or APIs; key edge cases.
+- Alternatives: briefly list considered options and why not chosen.
+- Files: list touched files with 1-line intent each.
+- Follow-ups: next steps, cleanup, or tests to add if any.
+- Notes: optional references to relevant CUSTOM_ID sections
+  (for example, ChangeProtocol, Org2BlogErrorsMessages).
+
+Example layout (do not wrap this example in a code fence when used as a
+real commit message). The summary line starts immediately after the
+=---BEGIN GIT COMMIT MESSAGE---= marker:
+
+---BEGIN GIT COMMIT MESSAGE---
+feat(docs): introduce FPE and change protocol
+
+- Context: Document how the assistant should propose and explain
+  changes when editing Org2Blog files.
+- Why: Provide a predictable, auditable flow for applying LLM-suggested
+  edits while respecting existing style conventions.
+- How: Added FPE and ChangeProtocol support docs, referencing the
+  project StyleGuide and Elisp conventions instead of re-stating them.
+- Alternatives: Considered embedding the protocol inside the main
+  README; rejected to keep the README user-focused and prompts
+  developer-focused.
+- Files: support/FellowPromptEngineer.org (define FPE role and scope);
+  support/ChangeProtocol.org (define change and Git message workflow).
+- Follow-ups: Align test and release docs to reference the new
+  ChangeProtocol; optionally add examples of typical refactor flows.
+- Notes: See =ChangeProtocol= and =Org2BlogClDefunDefault= for related
+  practices.
+---END GIT COMMIT MESSAGE---
