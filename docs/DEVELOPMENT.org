@@ -14,6 +14,10 @@ Org2Blog Developer Documentation.
 :END:
 :CONTENTS:
 - [[#about][About]]
+- [[#using-aider-for-development][Using Aider For Development]]
+  - [[#local-aider-configuration-for-org2blog][Local Aider configuration for Org2Blog]]
+  - [[#typical-aider-workflow][Typical Aider workflow]]
+  - [[#asking-the-fpe-for-a-pre-commit-checklist][Asking the FPE for a pre-commit checklist]]
 - [[#loading-up-the-source-code-by-hand][Loading Up The Source Code By Hand]]
 - [[#software-packages-used][Software Packages Used]]
 - [[#getting-started-with-development][Getting Started With Development]]
@@ -35,6 +39,79 @@ Org2Blog Developer Documentation.
   - [[#update-aka-create-or-save][Update Aka Create Or Save]]
   - [[#delete][Delete]]
 :END:
+
+* Using Aider For Development
+:PROPERTIES:
+:CUSTOM_ID: using-aider-for-development
+:END:
+
+Org2Blog uses the Fellow Prompt Engineer (FPE) persona together with Aider to make LLM-assisted development and support predictable and repo-aware. The FPE is an AI assistant that knows about this repository's support documents and helps maintainers and contributors apply them consistently.
+
+You can work on Org2Blog without Aider, but using it is strongly recommended if you plan to do ongoing development, refactors, or documentation work. Aider understands your working tree and diffs, and the FPE persona keeps its feedback aligned with the same support documents that maintainers use.
+
+** Local Aider configuration for Org2Blog
+:PROPERTIES:
+:CUSTOM_ID: local-aider-configuration-for-org2blog
+:END:
+
+This repository includes a local =.aider.conf.yml=. When you run Aider from the root of your Org2Blog clone, that file tells Aider to always load these support documents so the Fellow Prompt Engineer (FPE) can follow the project rules:
+
+- =support/StyleGuide.org=
+- =support/ChangeProtocol.org=
+- =support/FellowPromptEngineer.org=
+- =support/ElispConventions.org=
+
+You can keep using your existing global Aider configuration (models, editor integration, etc.). The local configuration only adds the Org2Blog-specific context.
+
+** Typical Aider workflow
+:PROPERTIES:
+:CUSTOM_ID: typical-aider-workflow
+:END:
+
+From the root of your clone:
+
+1. Start Aider bound to this repository:
+
+   - =aider=
+
+2. In the Aider session:
+
+   - Add the files you plan to touch (for example, =org2blog.el=, =metaweblog.el=, or Org docs).
+   - Describe your goal (bug fix, refactor, new feature, doc update).
+   - Let Aider propose and apply changes to your working tree.
+
+3. In Emacs, use your normal tools to validate changes:
+
+   - =byte-compile-file=
+   - =checkdoc=
+   - =package-lint-current-buffer=
+   - Any tests or manual checks you normally run
+
+The [[#getting-started-with-development][Getting Started With Development]] section below has more details on the Emacs-side checks.
+
+** Asking the FPE for a pre-commit checklist
+:PROPERTIES:
+:CUSTOM_ID: asking-the-fpe-for-a-pre-commit-checklist
+:END:
+
+Before committing or opening a pull request, you can ask the Fellow Prompt Engineer (FPE) to run an Org2Blog pre-commit checklist on your current changes.
+
+In your Aider session, once the changes are saved (and optionally staged), say something like:
+
+- "Fellow Prompt Engineer: run the Org2Blog pre-commit checklist on these changes and give me a short bullet list I can paste into the commit message and PR."
+
+Because Aider has already loaded the support documents via =.aider.conf.yml=, the FPE knows to check:
+
+- Org files against =support/StyleGuide.org= (no Markdown in Org, CUSTOM_ID rules, lists, quotes, etc.).
+- Elisp files against =support/ElispConventions.org= (80-column limit, =cl-defun= usage, error handling, naming, etc.).
+- Change descriptions and any requested Git commit message against =support/ChangeProtocol.org=.
+
+Use the result as follows:
+
+- Paste FPE's short checklist into the body of your commit message.
+- Paste the same checklist into your pull request description.
+
+For the full contributor workflow, including additional tools (Vale, flycheck, package-lint, checkdoc) and more FPE examples, see [[./CONTRIBUTING.org][CONTRIBUTING]].
 
 * Loading Up The Source Code By Hand
 :PROPERTIES:

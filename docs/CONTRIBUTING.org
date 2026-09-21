@@ -11,8 +11,8 @@ Thank you for spending your precious time and valued brainpower—it's truly app
 
 This contribution guide exists so that you and other contributors will get the most out of your effort for the least amount of time and expenditure required. It's simple—we are looking for all and everything you view as a contribution.
 
-Org2Blog has three core support documents that define the rules FPE
-(the Fellow Prompt Engineer) and maintainers will apply when reviewing
+Org2Blog has three core support documents that define the rules the
+Fellow Prompt Engineer (FPE) and maintainers will apply when reviewing
 changes:
 
 - =support/StyleGuide.org=: Org prose, encoding, and formatting rules.
@@ -25,8 +25,9 @@ to use FPE as an automated reviewer on your own machine before you
 open a pull request.
 
 If you would rather not read all of the support documents up front,
-you can lean on FPE: it is configured to follow those files exactly
-and to surface only the parts that matter for your specific changes.
+you can lean on the Fellow Prompt Engineer (FPE): it is an AI
+assistant configured to follow those files exactly and to surface only
+the parts that matter for your specific changes.
 
 * Areas To Contribute
 :PROPERTIES:
@@ -169,7 +170,7 @@ Before committing or opening a pull request, you are encouraged to:
 1. Run your usual local checks:
    - Vale on Org and prose files.
    - flycheck, package-lint, flycheck-package, and checkdoc on Elisp.
-2. Ask FPE (the Fellow Prompt Engineer) to review your changes using
+2. Ask the Fellow Prompt Engineer (FPE) to review your changes using
    Aider, which is the recommended assistant for this project.
 
    A simple workflow is:
@@ -193,13 +194,11 @@ Before committing or opening a pull request, you are encouraged to:
      - Add the files you changed (or plan to change) so FPE can see
        them.
      - Paste or describe your goal.
-     - Then ask FPE something like:
+     - Then ask the Fellow Prompt Engineer something like:
 
-       - "Act as FPE for Org2Blog. Review the changes in these files
-         against support/StyleGuide.org, support/ElispConventions.org,
-         and support/ChangeProtocol.org. Point out any violations or
-         ambiguities, and then give me a short checklist-style summary
-         I can paste into a commit message and PR."
+       - "Fellow Prompt Engineer: run the Org2Blog pre-commit checklist
+         on these changes and give me a short bullet list I can paste
+         into the commit message and PR."
 
    If your changes are large, you can repeat this in chunks (per file
    or per logical change) and let FPE build up a final summary.
