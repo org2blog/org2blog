@@ -343,10 +343,12 @@ This combination of easy-to-use menus and direct access to the code is the best 
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:A1DC8316-20E1-4188-AA22-E2F1CD62EC08
 :CUSTOM_ID: WritingMoreAfterYouHave
 :END:
+
 **** Creating Your Writing Room
 :PROPERTIES:
 :CUSTOM_ID: CreatingYourWritingRoom
 :END:
+
 ***** Making Room To Write
 :PROPERTIES:
 :CUSTOM_ID: MakingRoomToWrite
