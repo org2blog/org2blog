@@ -4,6 +4,15 @@ Over the years various issues have surfaced. Most of them weren't worth mentioni
 
 After studying how debugging works you might enjoy seeing the outcome of an example or two.
 
+When you are in the middle of a difficult issue:
+
+- Turn detailed reporting on with =M-x org2blog-user-report-on= (or =UI [Reporting On]=).
+- Reproduce the problem (login, save, publish, etc.).
+- Then run =M-x org2blog-debug-report-collect= to create a single Org buffer that:
+  - Records your environment and current blog configuration (with passwords /attempted/ to be redacted automatically.
+  - Captures the tail of the =*Org WordPress Export*=, =request-data=, =func-call=, =*URL-DEBUG*=, and filtered =*Messages*= buffers.
+- Carefully review the report buffer yourself to ensure it does not contain any secrets before you share it. When you are satisfied, save that report buffer to a file and attach it to your issue; this is far easier than copying individual debug buffers by hand.
+
 ** Can't Post Unicode
 
 Suddenly Org2Blog couldn't post any content that contained Unicode characters. The problem was that when Emacs 26 came out its HTTP request library began enforcing correct byte usage for Unicode. The library itself worked fine. However clients of the library had to change. The solution was nearly a [[https://github.com/hexmode/xml-rpc-el/commit/8ee416cb7644eef4ca8edda5ea79b1c670555ad0][one line fix]].

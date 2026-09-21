@@ -888,15 +888,17 @@ Legend:
 ╚═^═════^════════════╩═^═══^═════════════╩═^══════^═════════════╩═^═══════^═══════════^═╝
  [_4_] Login          [_e_] New Buffer    [_j_] Save Post Draft  [_u_] Save Post Draft
  [_3_] Reporting On   [_r_] New Subtree   [_k_] View Post        [_i_] View Post
- [_2_] Reporting Off  [_c_] Completion    [_l_] Publish Post     [_o_] Publish Post
- [_1_] Logout         [_f_] Trash ID      [_;_] Trash Post       [_p_] Trash Post
- [_a_] About          [_d_] Insert A      [_J_] Save Page Draft  [_U_] Save Page Draft
- [_W_] Version        [_v_] README        [_K_] View Page        [_I_] View Page
- [_h_] Help           [_V_] Variables     [_L_] Publish Page     [_O_] Publish Page
- [_q_] Quit           [_w_] Writer Tools  [_:_] Trash Page       [_P_] Trash Page
+ [_5_] Debug Report   [_c_] Completion    [_l_] Publish Post     [_o_] Publish Post
+ [_2_] Reporting Off  [_f_] Trash ID      [_;_] Trash Post       [_p_] Trash Post
+ [_1_] Logout         [_d_] Insert A      [_J_] Save Page Draft  [_U_] Save Page Draft
+ [_a_] About          [_v_] README        [_K_] View Page        [_I_] View Page
+ [_W_] Version        [_V_] Variables     [_L_] Publish Page     [_O_] Publish Page
+ [_h_] Help           [_w_] Writer Tools  [_:_] Trash Page       [_P_] Trash Page
+ [_q_] Quit           ^ ^
 "
   ("4" org2blog-user-login :exit nil)
   ("3" org2blog-user-report-on :exit nil)
+  ("5" org2blog-debug-report-collect)
   ("2" org2blog-user-report-off :exit nil)
   ("1" org2blog-user-logout :exit nil)
   ("a" org2blog-about)
@@ -942,15 +944,16 @@ Legend:
 ╚═^═════^════════════╩═^═══^═════════════╩═^══════^═════════════╩═^═══════^═══════════^═╝
  [_4_] Login          [_e_] New Buffer    [_j_] Save Post Draft  [_u_] Save Post Draft
  [_3_] Reporting On   [_r_] New Subtree   [_k_] View Post        [_i_] View Post
- [_2_] Reporting Off  [_c_] Completion    [_l_] Publish Post     [_o_] Publish Post
- [_1_] Logout         [_f_] Trash ID      [_;_] Trash Post       [_p_] Trash Post
- [_a_] About          [_d_] Insert A      [_J_] Save Page Draft  [_U_] Save Page Draft
- [_W_] Version        [_v_] README        [_K_] View Page        [_I_] View Page
-  ^ ^                 [_V_] Variables     [_L_] Publish Page     [_O_] Publish Page
+ [_5_] Debug Report   [_c_] Completion    [_l_] Publish Post     [_o_] Publish Post
+ [_2_] Reporting Off  [_f_] Trash ID      [_;_] Trash Post       [_p_] Trash Post
+ [_1_] Logout         [_d_] Insert A      [_J_] Save Page Draft  [_U_] Save Page Draft
+ [_a_] About          [_v_] README        [_K_] View Page        [_I_] View Page
+ [_W_] Version        [_V_] Variables     [_L_] Publish Page     [_O_] Publish Page
  [_q_] Back           [_w_] Writer Tools  [_:_] Trash Page       [_P_] Trash Page
 "
   ("4" (org2blog--hlpf 'org2blog-user-login))
   ("3" (org2blog--hlpf 'org2blog-user-report-on))
+  ("5" (org2blog--hlpf 'org2blog-debug-report-collect))
   ("2" (org2blog--hlpf 'org2blog-user-report-off))
   ("1" (org2blog--hlpf 'org2blog-user-logout))
   ("a" (org2blog--hlpf 'org2blog-about))
@@ -1117,6 +1120,8 @@ Legend:
   "
   ("aa" (org2blog--hlpv 'org2blog/link-selection-size)
    "org2blog/link-selection-size")
+  ("ab" (org2blog--hlpv 'org2blog/wp-blog-alist)
+   "org2blog/wp-blog-alist")
   ("ab" (org2blog--hlpv 'org2blog/wp-blog-alist)
    "org2blog/wp-blog-alist")
   ("ac" (org2blog--hlpv 'org2blog/wp-buffer-format-function)
@@ -1391,6 +1396,136 @@ Legend:
   "Disable ‘org2blog-user-report’ ’ing."
   (interactive)
   (org2blog-user-report nil))
+
+;;;###autoload
+(defun org2blog-debug-report-collect (&optional lines)
+  "Collect debug information into an Org buffer.
+
+LINES, when non-nil, specifies how many lines to include from
+each debug buffer.  When nil, default to 200.
+
+This command is intended to be used after enabling detailed
+reporting with `org2blog-user-report-on' and reproducing a
+problem.  It gathers information from various layers (Org2Blog,
+ox-wp, xml-rpc, url, and GnuTLS) into a single Org-mode buffer
+that you can review, optionally edit, save, and attach to a bug
+report."
+  (interactive "P")
+  (catch 'return
+    (let* ((max-lines (or (and (numberp lines) lines) 200))
+           (timestamp (org2blog--get-timestamp))
+           (report-name (format "*Org2Blog Debug Report: %s*" timestamp))
+           (buf (get-buffer-create report-name))
+           (in-entry-context (org2blog--debug-in-entry-context-p))
+           (reporting-on (and (eq xml-rpc-debug 3)
+                              url-debug
+                              (> gnutls-log-level 0)
+                              org-export-show-temporary-export-buffer)))
+      (switch-to-buffer buf)
+      (erase-buffer)
+      (org-mode)
+      (insert (format "%s\n\n" report-name))
+      (insert "** Overview\n\n")
+      (insert (format "- Generated at: %s\n" timestamp))
+      (insert (format "- Runtime: %s\n\n" (org2blog-version-info t)))
+      (unless in-entry-context
+        (insert (concat "#+BEGIN_QUOTE\n"
+                        "This command was not called from an Org2Blog entry "
+                        "buffer or subtree. For best results, run it inside "
+                        "the post or page that encountered a problem.\n"
+                        "#+END_QUOTE\n\n")))
+      (unless reporting-on
+        (insert (concat "#+BEGIN_QUOTE\n"
+                        "It looks like detailed reporting may not be fully "
+                        "enabled. For a richer report:\n"
+                        "1. Run M-x org2blog-user-report-on\n"
+                        "2. Reproduce the problem (login, save, publish, etc.)\n"
+                        "3. Then run M-x org2blog-debug-report-collect again.\n"
+                        "#+END_QUOTE\n\n")))
+      (insert "** Environment\n\n")
+      (insert (format "- Emacs version: %s\n" emacs-version))
+      (insert (format "- System type: %s\n" system-type))
+      (insert (format "- System configuration: %s\n\n" system-configuration))
+      (when org2blog-blog-key
+        (insert (format "- Blog key: %s\n" org2blog-blog-key)))
+      (when (and org2blog-blog (consp org2blog-blog))
+        (insert (format "- Blog definition (passwords redacted):\n\n"))
+        (let ((plist (copy-sequence (cdr org2blog-blog))))
+          ;; Redact any :password entries in the blog plist.
+          (let ((tail plist))
+            (while tail
+              (when (eq (car tail) :password)
+                (setcar (cdr tail) "<redacted>"))
+              (setq tail (cddr tail))))
+          (insert "#+begin_src elisp\n")
+          (insert (org2blog--debug-scrub-text
+                   (pp-to-string (list (car org2blog-blog) plist))))
+          (insert "#+end_src\n\n")))
+      (insert "** User scenario (please fill in)\n\n")
+      (insert "- What were you trying to do?\n\n")
+      (insert "- What did you expect to happen?\n\n")
+      (insert "- What actually happened (messages, errors, behavior)?\n\n")
+      (insert "** Org2Blog / ox-wp export\n\n")
+      (let* ((entry-blog (ignore-errors (org2blog--entry-blog-name)))
+             (postid (or (org2blog--bprop "POSTID")
+                         (org2blog--bprop "POST_ID")
+                         (org2blog--eprop "POSTID")
+                         (org2blog--eprop "POST_ID")))
+             (title (or (ignore-errors (org2blog--bprop "TITLE"))
+                        (ignore-errors (org2blog--eprop "TITLE"))
+                        (ignore-errors (nth 4 (org-heading-components)))
+                        "")))
+        (when (or entry-blog postid title (buffer-file-name))
+          (insert "- Current buffer context:\n\n")
+          (insert "#+begin_src elisp\n")
+          (insert (org2blog--debug-scrub-text
+                   (pp-to-string
+                    (list :file (buffer-file-name)
+                          :blog entry-blog
+                          :postid postid
+                          :title title
+                          :narrowed (org-buffer-narrowed-p)))))
+          (insert "#+end_src\n\n")))
+      (dolist (bname '("*Org WordPress Export*" "*Org ASCII Export*"))
+        (let ((txt (org2blog--debug-collect-buffer-tail bname max-lines)))
+          (when txt
+            (insert (format "*** %s (last %s lines)\n\n" bname max-lines))
+            (insert "#+begin_src text\n")
+            (insert (org2blog--debug-scrub-text txt))
+            (insert "#+end_src\n\n"))))
+      (insert "** XML-RPC request and call snapshots\n\n")
+      (dolist (bname '("request-data" "func-call"))
+        (let ((txt (org2blog--debug-collect-buffer-tail bname max-lines)))
+          (when txt
+            (insert (format "*** %s (last %s lines)\n\n" bname max-lines))
+            (insert "#+begin_src text\n")
+            (insert (org2blog--debug-scrub-text txt))
+            (insert "#+end_src\n\n"))))
+      (insert "** URL / network debug (*URL-DEBUG*)\n\n")
+      (let ((txt (org2blog--debug-collect-buffer-tail "*URL-DEBUG*" max-lines)))
+        (when txt
+          (insert (format "- Collected last %s lines from *URL-DEBUG*.\n\n"
+                          max-lines))
+          (insert "#+begin_src text\n")
+          (insert (org2blog--debug-scrub-text txt))
+          (insert "#+end_src\n\n")))
+      (insert "** Messages (Emacs + GnuTLS)\n\n")
+      (let ((txt (org2blog--debug-collect-messages max-lines)))
+        (when txt
+          (insert (format "- Collected last %s matching lines from *Messages*.\n\n"
+                          max-lines))
+          (insert "#+begin_src text\n")
+          (insert (org2blog--debug-scrub-text txt))
+          (insert "#+end_src\n\n")))
+      (goto-char (point-min))
+      (display-warning
+       'org2blog/wp
+       (concat
+        "I created an Org2Blog debug report in this buffer. "
+        "Please carefully review it yourself to ensure it contains no secrets "
+        "before you share it. When you are satisfied, save it to a file and "
+        "attach it to your issue.")
+       :warning))))
 
 ;;;###autoload
 (defun org2blog-version-info (&optional value)
@@ -3055,6 +3190,118 @@ Unsure how to utilize this so it is private."
   (org2blog--startup-library-check "Org mode" org-version
                                    org2blog/wp-required-org-version)
   (org2blog--startup-library-check "Emacs" emacs-version org2blog--minimal-emacs))
+
+(defun org2blog--debug-in-entry-context-p ()
+  "Return non-nil when called from an Org2Blog entry buffer or subtree.
+
+Heuristics:
+
+- Major mode is `org-mode'.
+- Either a buffer-level \"#+ORG2BLOG:\" property exists, or
+  the current subtree has a BLOG or POSTID/POST_ID property."
+  (and (derived-mode-p 'org-mode)
+       (or (org2blog--bprop "ORG2BLOG")
+           (save-excursion
+             (save-restriction
+               (widen)
+               (org2blog--in-subtree-p)
+               (or (org2blog--eprop "BLOG")
+                   (org2blog--eprop "POSTID")
+                   (org2blog--eprop "POST_ID")))))))
+
+(defun org2blog--debug-collect-buffer-tail (buffer-name max-lines)
+  "Return last MAX-LINES from BUFFER-NAME as a string.
+
+If buffer does not exist or is empty, return nil."
+  (let ((buf (get-buffer buffer-name)))
+    (when (buffer-live-p buf)
+      (with-current-buffer buf
+        (save-excursion
+          (save-restriction
+            (widen)
+            (goto-char (point-max))
+            (let* ((end (point))
+                   (beg (max (point-min)
+                             (- end (progn
+                                      (forward-line (- max-lines))
+                                      (point)))))
+                   (text (buffer-substring-no-properties beg end)))
+              text)))))))
+
+(defun org2blog--debug-collect-messages (max-lines)
+  "Return last MAX-LINES filtered lines from *Messages* buffer.
+
+Only include lines containing relevant Org2Blog debug markers."
+  (let ((buf (get-buffer "*Messages*")))
+    (when (buffer-live-p buf)
+      (with-current-buffer buf
+        (save-excursion
+          (save-restriction
+            (widen)
+            (goto-char (point-min))
+            (let ((patterns '("org2blog" "ox-wp" "xml-rpc" "gnutls.c"
+                              "url-http" "Contacting host:"
+                              "Loading categories" "Loading tags"
+                              "Loading page list" "Published your post"
+                              "Published your page"
+                              "I’m sorry I ran into a problem"))
+                  (lines '()))
+              (while (not (eobp))
+                (let* ((line (buffer-substring-no-properties
+                              (line-beginning-position)
+                              (line-end-position)))
+                       (match (seq-some
+                               (lambda (pat) (string-match-p pat line))
+                               patterns)))
+                  (when match
+                    (push line lines)))
+                (forward-line 1))
+              (let* ((lines (nreverse lines))
+                     (len (length lines))
+                     (start (max 0 (- len max-lines))))
+                (mapconcat #'identity (seq-subseq lines start) "\n")))))))))
+
+(defun org2blog--debug-scrub-text (text)
+  "Scrub sensitive information from TEXT.
+
+Currently redacts common password representations in XML-RPC,
+MetaWeblog and URL debug output.  This is a best-effort helper
+and may be extended over time."
+  (let ((result text))
+    ;; Simple XML password scrubbing: look for common patterns where the
+    ;; password is the third <string> in params, but also just any obviously
+    ;; secret-looking long token can be redacted.
+    (setq result
+          (replace-regexp-in-string
+           "<string>[^<]*password[^<]*</string>"
+           "<string>&lt;redacted&gt;</string>"
+           result t t))
+    ;; Generic MetaWeblog/wp password: redacting any <string> that looks
+    ;; like a long, dash-separated token (e.g., generated passwords).
+    (setq result
+          (replace-regexp-in-string
+           "<string>[A-Za-z0-9_-]\\{16,\\}</string>"
+           "<string>&lt;redacted&gt;</string>"
+           result t t))
+    ;; Func-call style: (string nil \"password-like\") → mask long tokens.
+    (setq result
+          (replace-regexp-in-string
+           "(string nil \"[A-Za-z0-9_-]\\{16,\\}\")"
+           "(string nil \"<redacted>\")"
+           result t t))
+    ;; URL-DEBUG XML body: another safety net, same long-token heuristic.
+    (setq result
+          (replace-regexp-in-string
+           "\\(<value>\\s-*<string>\\)[A-Za-z0-9_-]\\{16,\\}\\(</string>\\s-*</value>\\)"
+           "\\1&lt;redacted&gt;\\2"
+           result t t))
+    ;; Elisp plist passwords like :password \"...\".
+    (setq result
+          (replace-regexp-in-string
+           ":password\\s-+\"[^\"]*\""
+           ":password \"<redacted>\""
+           result t t))
+    result))
 
 (defun org2blog--error (amessage &optional report-details)
   "Display error AMESSAGE and non-nil REPORT-DETAILS for a human."

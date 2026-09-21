@@ -1417,6 +1417,7 @@ Here is where to begin:
 - Review the documentation by searching for keywords: it might be a documented feature.
 - Go [[https://github.com/org2blog/org2blog/issues][here]] to search for the issue and maybe report it. Don't hesitate because it's easier to close an already solved issue than go through the pain of trying to figure out a solved problem.
 - If you need to dig deeper, read the documentation for ~org2blog-user-report~. It walks you through the entire process of investigation. It can be intimidating at first. As you read through it, though, you will find that Org2Blog has a few clearly defined layers. When you "see" them, they will make a lot of sense. Once you are comfortable with the ideas there, enable reporting with =UI [Reporting On]=
+- After you have turned reporting on and reproduced the problem, run ~org2blog-debug-report-collect~ (or use the Main Menu Help entry for Reporting) to create an Org buffer that gathers the most recent debug information from all the relevant layers. Carefully review that buffer yourself to ensure it does not contain any secrets before you share it. When you are satisfied, save it to a file and attach it to your issue; it will save you from manually visiting all of the temporary buffers.
 - Read about some past [[./docs/DebuggingStories.org][challenging issues]] and how debugging resolved them.
 
 ** When Things Could Go Even Better
