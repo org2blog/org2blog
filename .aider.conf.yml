@@ -1,3 +1,5 @@
 read:
   - support/StyleGuide.org
+  - support/ChangeProtocol.org
+  - support/FellowPromptEngineer.org
   - support/ElispConventions.org
