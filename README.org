@@ -1,4 +1,3 @@
-
 #+title: Org2Blog
 
 [[file:/images/logo-color-multi.png]]
