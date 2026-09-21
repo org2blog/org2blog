@@ -1,4 +1,7 @@
 * Introduction
+:PROPERTIES:
+:CUSTOM_ID: Introduction
+:END:
 
 Nice to meet you 😄.
 
@@ -26,6 +29,9 @@ you can lean on FPE: it is configured to follow those files exactly
 and to surface only the parts that matter for your specific changes.
 
 * Areas To Contribute
+:PROPERTIES:
+:CUSTOM_ID: AreasToContribute
+:END:
 
 - Improving documentation.
 - Bug triage.
@@ -37,8 +43,14 @@ and to surface only the parts that matter for your specific changes.
 - Whatever things that /aren't/ listed here that /should be/.
 
 * Contribution Expectations
+:PROPERTIES:
+:CUSTOM_ID: ContributionExpectations
+:END:
 
 ** Documentation
+:PROPERTIES:
+:CUSTOM_ID: Documentation
+:END:
 
 80% of the time, your changes require either an update to the project
 documentation, the source code [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Documentation.html][documentation]], or *BOTH*.
@@ -75,6 +87,9 @@ missing or thin documentation in three places:
 - Change descriptions and context (following =support/ChangeProtocol.org=).
 
 ** Coding style and conventions
+:PROPERTIES:
+:CUSTOM_ID: CodingStyleConventions
+:END:
 
 Elisp style and conventions are defined in
 =support/ElispConventions.org=. That document is the single source of
@@ -111,6 +126,9 @@ pull request, maintainers can see exactly which conventions were
 considered.
 
 ** Grammar and Language
+:PROPERTIES:
+:CUSTOM_ID: GrammarLanguage
+:END:
 
 This project is configured for [[https://vale.sh/][Vale]].
 
@@ -131,6 +149,9 @@ when checking Org content, and you should treat it as the canonical
 reference.
 
 ** Use quality-checking tools
+:PROPERTIES:
+:CUSTOM_ID: UseQualityCheckingTools
+:END:
 
 Use [[https://melpa.org/#/flycheck][flycheck]], [[https://github.com/purcell/package-lint][package-lint]] and [[https://github.com/purcell/flycheck-package][flycheck-package]] to help you identify common errors in package metadata and code. Use [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Tips.html][checkdoc]] to make sure that your package follows the conventions for documentation strings.
 
@@ -139,6 +160,9 @@ These tools complement the project-specific conventions in
 for a review; it will give you higher-quality feedback.
 
 ** FPE review and commit / PR workflow
+:PROPERTIES:
+:CUSTOM_ID: FpeReviewCommitPrWorkflow
+:END:
 
 Before committing or opening a pull request, you are encouraged to:
 
@@ -198,18 +222,30 @@ If FPE and a human disagree, the support docs
 =support/ChangeProtocol.org=) are the tiebreaker.
 
 ** Review existing issues
+:PROPERTIES:
+:CUSTOM_ID: ReviewExistingIssues
+:END:
 
 [[https://github.com/org2blog/org2blog/issues][The issue tracker]] may already have them solved; otherwise, they're a great place to start
 
 ** The Future
+:PROPERTIES:
+:CUSTOM_ID: Future
+:END:
 
 [[https://github.com/org2blog/org2blog/blob/master/FUTURE.org][The future file]] may already have new features listed, and if it doesn't, then maybe it should. Either way, it might be a great place to start.
 
 ** Accept the license
+:PROPERTIES:
+:CUSTOM_ID: AcceptLicense
+:END:
 
 Org2Blog is licensed [[https://www.gnu.org/licenses/gpl-3.0.en.html][GPLv3]]: you understand and submit your code under those terms.
 
 * Conclusion
+:PROPERTIES:
+:CUSTOM_ID: Conclusion
+:END:
 
 That is it. That would be everything. If you made it this far: kudos to you for sticking around. Thank you for spending your time here. I hope you keep blogging and having fun with Org2Blog.
 
