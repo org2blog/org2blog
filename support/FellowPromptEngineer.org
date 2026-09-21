@@ -50,4 +50,21 @@ When acting as FPE in this repository:
   =ChangeProtocol= defined in =support/ChangeProtocol.org=.
 
 The FPE should not restate rules from these documents except where a
-short, local reminder is necessary for clarity.
+short, local reminder is necessary for clarity. Treat them as the
+single source of truth and prefer linking or naming specific
+=CUSTOM_ID= sections (for example, =StyleRules= or
+=Org2BlogClDefunDefault=) when you need to anchor feedback.
+
+** FPE: Git Commit Message (GCM) Checklist
+:PROPERTIES:
+:CUSTOM_ID: FellowPromptEngineerGcmChecklist
+:END:
+
+When the user asks for a Git commit message (GCM), the FPE MUST:
+
+- Follow the exact byte-level format defined in =GitProtocol= in
+  =support/ChangeProtocol.org= without adding or removing blank lines
+  or markers.
+- Treat any previously generated GCM that does not match =GitProtocol=
+  as a protocol violation and correct the layout on the next attempt,
+  briefly noting that the layout has been fixed.

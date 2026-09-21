@@ -8,6 +8,23 @@ Thank you for spending your precious time and valued brainpower—it's truly app
 
 This contribution guide exists so that you and other contributors will get the most out of your effort for the least amount of time and expenditure required. It's simple—we are looking for all and everything you view as a contribution.
 
+Org2Blog has three core support documents that define the rules FPE
+(the Fellow Prompt Engineer) and maintainers will apply when reviewing
+changes:
+
+- =support/StyleGuide.org=: Org prose, encoding, and formatting rules.
+- =support/ElispConventions.org=: Elisp coding style and error handling.
+- =support/ChangeProtocol.org=: How to describe and propose changes.
+
+When in doubt, these support docs are the source of truth. This
+CONTRIBUTING guide explains how to work with them in practice and how
+to use FPE as an automated reviewer on your own machine before you
+open a pull request.
+
+If you would rather not read all of the support documents up front,
+you can lean on FPE: it is configured to follow those files exactly
+and to surface only the parts that matter for your specific changes.
+
 * Areas To Contribute
 
 - Improving documentation.
@@ -23,11 +40,75 @@ This contribution guide exists so that you and other contributors will get the m
 
 ** Documentation
 
-80% of the time, your changes require either an update to the project documentation, the source code [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Documentation.html][documentation]], or *BOTH*.  The literal changes your contribution made is crystal clear: the commits explains everything. However, the context for your change, the thought process you followed, and examples of its use are not. There might be little to no documentation required for bug fixes and minor changes: it should be self-evident. For new features, though, assume that you will have to put some real thought into the new documentation. Assume that your fellow bloggers are unfamiliar with the feature area. You are introducing the feature area, the problem you faced using it, and the solution you created for them for the first time. 80% of the time, your fellow users are either using this feature for the first time, or have used it and won't precisely understand it solves. The saddest software is the one that never runs. Unless you update the documentation, other users will likely never learn about your contribution, and the code will essentially die. Consider it your duty, responsibility, and gift to future users to make your donation accessible in both the code and the documentation. Please take this as an opportunity to have some fun changing how other Org2Bloggers think: you are making the Org2Blog universe a better place and all of the greatly appreciate it.
+80% of the time, your changes require either an update to the project
+documentation, the source code [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Documentation.html][documentation]], or *BOTH*.
+
+The literal changes your contribution made are crystal clear: the
+commits explain everything. However, the context for your change, the
+thought process you followed, and examples of its use are not.
+
+There might be little to no documentation required for bug fixes and
+minor changes: it should be self-evident. For new features, though,
+assume that you will have to put some real thought into the new
+documentation. Assume that your fellow bloggers are unfamiliar with
+the feature area. You are introducing the feature area, the problem
+you faced using it, and the solution you created for them for the
+first time.
+
+80% of the time, your fellow users are either using this feature for
+the first time, or have used it and will not precisely understand what
+it solves. The saddest software is the one that never runs. Unless you
+update the documentation, other users will likely never learn about
+your contribution, and the code will essentially die.
+
+Consider it your duty, responsibility, and gift to future users to
+make your contribution accessible in both the code and the
+documentation. Please take this as an opportunity to have some fun
+changing how other Org2Bloggers think: you are making the Org2Blog
+universe a better place and all of us greatly appreciate it.
+
+When you run FPE on your changes, it will gently nudge you about
+missing or thin documentation in three places:
+
+- Elisp docstrings (following =support/ElispConventions.org=).
+- Org user documentation (following =support/StyleGuide.org=).
+- Change descriptions and context (following =support/ChangeProtocol.org=).
 
 ** Coding style and conventions
 
-The Emacs Lisp code should follow the [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Tips.html][Emacs Lisp conventions]] and the [[https://github.com/bbatsov/emacs-lisp-style-guide][Emacs Lisp Style Guide]]. Write easy-to-understand code. That doesn't mean going overboard, though! It just means write code that humans can follow simply by reading and that you can easily debug with [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Edebug.html][Edebug]]. For example, instead of writing multiple expressions embedded many levels deep, use a ~let*~ to write sequential code: it's easier to understand.  Make variable names with full words in all but the most straightforward cases. For example, regular expressions are defined in a two-item list: the first item is the logical name of the regex, for example, "birthday," and the second item is the actual regex pattern to match. Instead of binding the logical name and regex to ~n~ and ~r~ instead bind them to ~rxname~ and ~rxpattern~—another example handling function results. Bind the result of the function to a variable before returning it: ~(let ((result (hard-work-here))) result)~. That way, you can quickly identify where the function logically ends and additionally can set a breakpoint there and play around with ~eval~'ing code during the function's execution (use ~edebug-defun~). Sometimes you run into situations where there is no logical way to proceed through a function, and the best solution is to exit the function. You may never have heard of this before, but you /can/quickly write this style of code using ~catch~ and ~throw~. Although there is a stigma attached to this sequential code in Lisp, it's essential for writing real-world functions as you do in Org2Blog. An additionally, you can combine that with ~condition-case-unless-debug~ for precise error handling. A good example is how to handle errors in functions where you don't have to leave the function but need to quickly abort what you are doing, notify the users, then decide what to do next. When you write non-trivial functions, as are most, it will help you make sense when you are writing it and make it easier for future maintainers. Overall write code to make it easy for future maintainers to maintain: it will result in more accessible and higher quality code for you to write right now and for all maintainers in the future.
+Elisp style and conventions are defined in
+=support/ElispConventions.org=. That document is the single source of
+truth for:
+
+- Function and variable naming.
+- Use of =cl-defun= and keyword arguments.
+- Error handling with =condition-case-unless-debug= and
+  =org2blog--error=.
+- Line length, wrapping, and readability.
+- How to structure public vs. private helpers.
+
+The older guidance that pointed to external style guides has been
+folded into =support/ElispConventions.org=. In practice, this boils
+down to writing code that humans can follow simply by reading and that
+you can easily debug with [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Edebug.html][Edebug]].
+
+A few concrete habits that work well in Org2Blog and are reflected in
+the conventions:
+
+- Prefer straight-line code with =let= or =let*= over deeply nested
+  expressions.
+- Use descriptive variable names (for example, =rx-name= and
+  =rx-pattern= instead of =n= and =r=).
+- Bind the result of non-trivial work before returning it so it is
+  easy to inspect in the debugger.
+- Use =condition-case-unless-debug= and =org2blog--error= for polite,
+  context-rich error handling instead of ad-hoc =message= calls.
+
+FPE will review Elisp changes against
+=support/ElispConventions.org= and call out notable issues or
+ambiguities. When you paste FPE's report into your commit message or
+pull request, maintainers can see exactly which conventions were
+considered.
 
 ** Grammar and Language
 
@@ -37,13 +118,84 @@ At a minimum =errors= must be resolved.
 
 Strive for =warning=s reduced.
 
-=suggestions= are fine just don't leave it in =.vale.ini=.
+=suggestions= are fine; just don't leave it in =.vale.ini=.
 
-For project documentation, don't break long lines for example, using Auto Fill Mode. Linters usually don't like broken sentence. It becomes tedious to read long lines, though: the solution is to use [[https://github.com/joostkremers/visual-fill-column][Visual Fill Column]] to mimic the effects of breaking your lines.
+For project documentation, don't break long lines manually, for example
+using Auto Fill Mode. Linters usually don't like broken sentences. It
+becomes tedious to read long lines, though: the solution is to use
+[[https://github.com/joostkremers/visual-fill-column][Visual Fill Column]] to mimic the effects of breaking your lines.
+
+The detailed rules for Org prose, encoding, lists, and "no Markdown in
+Org" are defined in =support/StyleGuide.org=. FPE relies on that file
+when checking Org content, and you should treat it as the canonical
+reference.
 
 ** Use quality-checking tools
 
 Use [[https://melpa.org/#/flycheck][flycheck]], [[https://github.com/purcell/package-lint][package-lint]] and [[https://github.com/purcell/flycheck-package][flycheck-package]] to help you identify common errors in package metadata and code. Use [[https://www.gnu.org/software/emacs/manual/html_node/elisp/Tips.html][checkdoc]] to make sure that your package follows the conventions for documentation strings.
+
+These tools complement the project-specific conventions in
+=support/ElispConventions.org=. Run them locally before you ask FPE
+for a review; it will give you higher-quality feedback.
+
+** FPE review and commit / PR workflow
+
+Before committing or opening a pull request, you are encouraged to:
+
+1. Run your usual local checks:
+   - Vale on Org and prose files.
+   - flycheck, package-lint, flycheck-package, and checkdoc on Elisp.
+2. Ask FPE (the Fellow Prompt Engineer) to review your changes using
+   Aider, which is the recommended assistant for this project.
+
+   A simple workflow is:
+
+   - From the root of your clone, start Aider bound to this
+     repository. For example:
+
+     - =aider=
+
+     Aider will automatically pick up your global configuration and
+     the local =.aider.conf.yml= in this repo. The local config tells
+     Aider to load the Org2Blog support documents so FPE can read
+     them:
+
+     - =support/StyleGuide.org=
+     - =support/ChangeProtocol.org=
+     - =support/FellowPromptEngineer.org=
+     - =support/ElispConventions.org=
+
+   - In the Aider session:
+     - Add the files you changed (or plan to change) so FPE can see
+       them.
+     - Paste or describe your goal.
+     - Then ask FPE something like:
+
+       - "Act as FPE for Org2Blog. Review the changes in these files
+         against support/StyleGuide.org, support/ElispConventions.org,
+         and support/ChangeProtocol.org. Point out any violations or
+         ambiguities, and then give me a short checklist-style summary
+         I can paste into a commit message and PR."
+
+   If your changes are large, you can repeat this in chunks (per file
+   or per logical change) and let FPE build up a final summary.
+3. Let FPE generate:
+   - A short checklist-style summary suitable for commit messages and
+     pull requests.
+   - Optionally, a longer, more detailed analysis just for you.
+
+When you commit:
+
+- Paste FPE's short checklist into the /body/ of your commit message
+  so reviewers can see which style and process checks were applied.
+- When you open a pull request, include the same checklist in the PR
+  description so that GitHub reviewers and future readers have the
+  context.
+
+Maintainers may also rerun FPE on your branch as part of code review.
+If FPE and a human disagree, the support docs
+(=support/StyleGuide.org=, =support/ElispConventions.org=,
+=support/ChangeProtocol.org=) are the tiebreaker.
 
 ** Review existing issues
 
