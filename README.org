@@ -23,6 +23,7 @@ important:
 * About
 :properties:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:B5FB31EA-EA25-4675-90B0-AE0167BAE092
+:CUSTOM_ID: About
 :end:
 
 Org2Blog is the most advanced [[https://wordpress.org/][WordPress]] blog editor and manager available today.
@@ -50,6 +51,7 @@ Check out all the features:
 * Table Of Contents
 :PROPERTIES:
 :TOC:      :include all :ignore (this)
+:CUSTOM_ID: TableOfContents
 :END:
 :CONTENTS:
 - [[#why-we-do-this][Why We Do This]]
@@ -125,6 +127,9 @@ Check out all the features:
 :END:
 
 * Requirements And Compatibility
+:PROPERTIES:
+:CUSTOM_ID: RequirementsCompatibility
+:END:
 
 Org2Blog uses the Org-mode built-in to Emacs to blog on WordPress.
 
@@ -137,9 +142,13 @@ Although it's not required to use Org2Blog you will get the best user experience
 * Installation
 :properties:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:8CEE033C-3D3A-422A-A15A-358D7BE5A224
+:CUSTOM_ID: Installation
 :end:
 
 ** Install Emacs
+:PROPERTIES:
+:CUSTOM_ID: InstallEmacs
+:END:
 
 Start by installing Emacs Version 29.4.
 
@@ -159,6 +168,7 @@ then start [[https://www.masteringemacs.org/article/beginners-guide-to-emacs][he
 ** Using A Package
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:22F68132-BA47-4DAB-8F71-900C639CCDC2
+:CUSTOM_ID: UsingPackage
 :END:
 
 The easiest way to install Org2Blog is using a [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Packages.html][package]].
@@ -186,6 +196,9 @@ If you want the cutting edge version using [[https://melpa.org/#/org2blog][MELPA
 For advanced users, you can configure Package to use any combination of stable and cutting-edge versions of a package /and/ its dependencies. Read more about how to [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Package-Installation.html#Package-Installation][configure]] it and [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Package-Menu.html#Package-Menu][utilize]] that power in both your init file and the Package user interface.
 
 *** Use-Package
+:PROPERTIES:
+:CUSTOM_ID: UsePackage
+:END:
 
 [[https://github.com/jwiegley/use-package][Use-Package]] brings ease and order to your init file. It manages your packages predictably and simply. It's the easiest way to use Org2Blog because it will download Org2Blog for you along with all of its dependencies. Before using it you must configure your system as explained in [[#using-a-package][Using A Package]]
 
@@ -199,6 +212,9 @@ Here is how to load Org2Blog:
 Take some time to read more about Use-Package. You can use as little or as much as you find helpful. It accommodates just about any Init style you can throw at it.
 
 *** Build The Package Yourself
+:PROPERTIES:
+:CUSTOM_ID: BuildPackageYourself
+:END:
 
 MELPA creates Org2Blog's package using [[https://github.com/melpa/melpa/blob/master/recipes/org2blog][this recipe]].
 
@@ -212,6 +228,7 @@ Here is how to build it:
 ** Setting Up The Source Code By Hand
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:3386D277-56FD-4D2F-BE0C-56553541CD25
+:CUSTOM_ID: SettingUpSourceCodeBy
 :END:
 
 See [[./docs/DEVELOPMENT.org][DEVELOPMENT]].
@@ -219,6 +236,7 @@ See [[./docs/DEVELOPMENT.org][DEVELOPMENT]].
 * Usage
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:808A8EC0-9E9D-4DE2-958D-65E073D5100B
+:CUSTOM_ID: Usage
 :END:
 
 *Note*: For a better learning experience try reading this document inside of Emacs and Org mode after installing Org2Blog by calling ~org2blog-readme~.
@@ -226,6 +244,7 @@ See [[./docs/DEVELOPMENT.org][DEVELOPMENT]].
 ** Make Your First Post In Less 5 Minutes
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:4BAA0490-704B-40D0-976F-0EB40F91E5A9
+:CUSTOM_ID: MakeYourFirstPostIn
 :END:
 
 [[https://www.amazon.com/exec/obidos/ASIN/073820756X/ref=nosim/rebeccaspocke-20][Blogging]] is fun. Org2Blog makes blogging with [[https://wordpress.com/about/][WordPress]] even more fun because it makes it simple. Simplicity is one of Org2Blog's greatest strengths. That means you spend more time blogging and less time fiddling around with stuff. Having fun is why you are doing this, right? Exactly. Before digging into all of the powerful things you can do with Org2Blog, make your first blog post. To do that, it's copy-and-paste time. Don't worry; you'll dig into all the other cool features soon! You can easily make your first post in less than 5 minutes from now because the configuration file and UI make it so simple.
@@ -273,6 +292,7 @@ P.S. If you are interested, here are some other examples of the UI
 ** The 7 Most Important Next Steps
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:DA51A3B2-9218-4673-B1E4-C68ADDD33366
+:CUSTOM_ID: 7MostImportantNextSteps
 :END:
 
 The example at the start of this document is meant to be just that: an example. It only covers a fraction of what is possible for writing and publishing with Org2Blog. This headline covers a few things that fill the gaps in doing more and better blogging with Org2Blog.
@@ -282,6 +302,7 @@ Every Org2Blogger is unique, of course. However, Org2Bloggers all know Emacs and
 *** Helping Yourself To The Basics
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:D57964B2-21BA-40F9-8B61-73204EE21C07
+:CUSTOM_ID: HelpingYourselfToBasics
 :END:
 
 Org2Blog's goal is to keep blogging fun. It strives to make complicated things easy and easy things more leisurely. So in that spirit, you can do everything you want to do via the menu. Start the menu by calling ~org2blog-user-interface~.
@@ -320,9 +341,16 @@ This combination of easy-to-use menus and direct access to the code is the best 
 *** Writing More After You Have "Settled Into" The Software
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:A1DC8316-20E1-4188-AA22-E2F1CD62EC08
+:CUSTOM_ID: WritingMoreAfterYouHave
 :END:
 **** Creating Your Writing Room
+:PROPERTIES:
+:CUSTOM_ID: CreatingYourWritingRoom
+:END:
 ***** Making Room To Write
+:PROPERTIES:
+:CUSTOM_ID: MakingRoomToWrite
+:END:
 
 Some writers can create a dedicated room for writing. Definitely hardwood floors and a sturdy desk. Others prefer a lighter space. Whatever the preference it can be easy to build in your Org2Blog world too.
 
@@ -333,6 +361,9 @@ Although Org2Blog doesn't make any visual changes to your writing room itself th
 - [[https://github.com/rnkn/olivetti][Olivetti]] :: A simple Emacs minor mode for a nice writing environment.
 
 ***** Finding And Saving Your Voice
+:PROPERTIES:
+:CUSTOM_ID: FindingSavingYourVoice
+:END:
 
 The unavoidable burden for any writer is to find their voice. To help with that are some of the classics― On Writing Well: The Classic Guide to Writing Nonfiction by William Zinsser, Snoopy's Guide to the Writing Life by Barnaby Conrad, and On Writing: A Memoir of the Craft by Stephen King. Help keeping that voice is another story however. It takes time, practice, discipline, and hopefully some good tools. Software grammar tools are one way to do it. There are plenty, of varying quality and pedigree, but Org2Blog will only focus on two: [[https://vale.sh/][Vale]] and [[https://github.com/bnbeckwith/writegood-mode][Writegood Mode]].
 
@@ -354,6 +385,9 @@ say more with less. If you want a litle more flexible word counting try out [[ht
 From a technical standpoint Writegood is an ideal choice because it's written in plain old Elisp without any external dependencies. Some people copy and paste their text into online grammar tools like Grammarly and that works great. The truth about Vale though is that although it is somewhat technical to get set up, once you have it working you will really enjoy its flexibility.
 
 ***** Why Writing Requires Good Character(s) And Unicode
+:PROPERTIES:
+:CUSTOM_ID: WhyWritingRequiresGoodCharacter
+:END:
 
 #+begin_quote
 Your reputation is what others think of you; your character is what you are.
@@ -385,6 +419,9 @@ Out of the box it does a great job choosing fonts for characters. When you are r
 Once you get hooked on using the full range of Unicode characters you will get hooked. It's a great way to explores s more and a special way to connect with writers around the world.
 
 ***** How Do You Spell That Again?
+:PROPERTIES:
+:CUSTOM_ID: HowDoYouSpellThat
+:END:
 
 Why bother spellchecking for spelling errors?
 
@@ -422,6 +459,9 @@ Run it like this:
 - Post happily!
 
 ***** We Can Type It For You: Wholesale
+:PROPERTIES:
+:CUSTOM_ID: WeCanTypeItFor
+:END:
 
 Ever get tired of typing the same words, structure, or content over and over? Org2Blog can make it easy with different forms of [[https://www.gnu.org/software/emacs/manual/html_mono/autotype.html][Auto typing.]]
 
@@ -432,6 +472,9 @@ Org2Blog comes with Org mode templates. Invoke the user interface by striking ~C
 The two most powerful tools for auto typing are [[https://www.gnu.org/software/emacs/manual/html_mono/autotype.html#Using-Skeletons][Skeletons]] and [[https://www.gnu.org/software/emacs/manual/html_mono/autotype.html#Tempo][Tempo]]. Built into Emacs they're easy to access. Take your time learning these and you will get great productivity gains in your personal blogging workflow.
 
 ***** Have You Heard Your New Post?
+:PROPERTIES:
+:CUSTOM_ID: HaveYouHeardYourNew
+:END:
 
 Reading your post out loud completely changes how you think about it. Specifically it makes it easier to find ways to make it better for the reader. Here are some of the most common challenges resolved and improvements possible found by reading out loud:
 
@@ -454,11 +497,13 @@ Try listening to all of your writing. Listen to your posts, letters, essays and 
 **** Just Writing
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:CF77828B-1078-4A5E-A9A4-25C5D554EF70
+:CUSTOM_ID: JustWriting
 :END:
 
 **** Automatically Configuring Your Environment
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:DC4AEAC8-0676-4FAA-AC92-45C0A350043E
+:CUSTOM_ID: AutomaticallyConfiguringYourEnvironment
 :END:
 
 You can customize your writing experience by configuring Org2Blog whenever it opens up an Org2Blog file. You do that using ~org2blog-mode-hook~.
@@ -470,6 +515,9 @@ Since Org2Blog documents are plain Org documents, Org2Blog can't tell the differ
 #+end_src
 
 **** Defining Custom Keybindings
+:PROPERTIES:
+:CUSTOM_ID: DefiningCustomKeybindings
+:END:
 
 In addition to using the menu, you might enjoy some personal keybindings for Org2Blog functions. Here is an example:
 
@@ -489,6 +537,7 @@ This sample uses the =alt= name-space because it's /supposed/ to be 100% free fo
 **** Logging In Faster
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:4EAD9D50-F368-4E8B-9763-797F3DED55D2
+:CUSTOM_ID: LoggingInFaster
 :END:
 
 Org2Blog can automatically log you in if you configure a =.netrc= file in your home directory.
@@ -529,6 +578,9 @@ Then, configure your blog using those credentials, as shown below.
 #+end_example
 
 **** Decorating Your Room
+:PROPERTIES:
+:CUSTOM_ID: DecoratingYourRoom
+:END:
 
 Decorating your writing room truly makes it your own. Emacs themes make it easy with full theme support. Here are some resources to get started:
 
@@ -549,7 +601,14 @@ Decorating your writing room truly makes it your own. Emacs themes make it easy 
 ~M-x customize-themes RET~ to choose them. Even faster: ~(load-theme 'leuven)~ is a great place to start
 
 *** Coming Back For Seconds
+:PROPERTIES:
+:CUSTOM_ID: ComingBackForSeconds
+:END:
+
 ***** Your Second Buffer Post
+:PROPERTIES:
+:CUSTOM_ID: YourSecondBufferPost
+:END:
 
 Perhaps you know some defaults you want for every kind of Entry. When you are ready configure them see these variables and functions:
 - Buffer Entry
@@ -583,6 +642,9 @@ Org2Blog includes some helpers for inserting content into your Entry under the =
 When you are ready, save your new Post. Open the main menu by calling ~org2blog-user-interface~. Since you just created a Buffer Post, look at the menu items under the Buffers column and find the operation you want to perform. Your first step here is =UI [Save Post Draft]= to save your post on your blog. The language here is essential: actions you'll perform in your actual blog map directly to menu items here. Next, do =UI [View Post]= to bring up a web browser so you can read and review your Post. From here, you can iterate through your writing process until you finally =UI [Publish Post]=.
 
 ***** Your First Buffer Page
+:PROPERTIES:
+:CUSTOM_ID: YourFirstBufferPage
+:END:
 
 Working with Pages is virtually identical to working with Posts for a good reason: WordPress sees them as nearly the same thing, and Org2Blog does too. The only difference is that when you work with your Page, use the functions that have Page in the name.
 
@@ -591,9 +653,13 @@ In the walk-through here, that means using =UI [Save Page Draft]= and so on.
 *** Store Multiple Entries In One File
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:3F78416A-13E8-4E29-959D-E1ABF134CEDB
+:CUSTOM_ID: StoreMultipleEntriesInOne
 :END:
 
 **** Using Subtrees
+:PROPERTIES:
+:CUSTOM_ID: UsingSubtrees
+:END:
 
 Subtrees are a great way to keep multiple posts in one file. People use this to create a single file for a week or a month and store all entries there. Others, for example, take notes on a chapter or an entire book and keep them in a single place. Just like a plain old Org mode document: subtrees do what they do well.
 
@@ -612,6 +678,9 @@ Suppose you ever have your cursor in a subtree, any subtree, and you attempt to 
 You can either save your Subtree Entry in a file or copy and paste it into an existing file.
 
 **** Using Narrowing
+:PROPERTIES:
+:CUSTOM_ID: UsingNarrowing
+:END:
 
 Having already read through the manual and posted a Buffer Entry, you are almost comfortable with how they look. An entry has some configuration data at the top of the page, followed by the title and the content. It's what you'll be seeing time and time again. As you write more, you will probably start to wonder, "Why can't I just store multiple buffer entries in a single buffer in the first place?! (And if you hadn't already, then you will be wondering after you read the section on using Subtrees to store multiple entries!)" That is an excellent question.
 
@@ -660,6 +729,7 @@ If you read this far, then using ~Narrowing~ to manage multiple Buffer entries m
 *** Automatic Image Uploading
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:FB5F7515-436B-4757-80C7-23FF81485F29
+:CUSTOM_ID: AutomaticImageUploading
 :END:
 
 WordPress does a great job helping you manage image files using its [[https://en.support.wordpress.com/media/][Media Library]]. The Media Library [[https://wordpress.org/support/article/media-library-screen/][User Interface]] is simple and powerful. Whether you post photos once in a while or you are posting pictures daily running a [[https://en.wikipedia.org/wiki/Photoblog][Photoblog]] the Media Library integrates nicely with both of and most of the most common blogging workflows. After blogging for a while and developing the beginnings of a personal workflow, it's an excellent time to start considering where Org2Blog can assist you in working with image files in your Media Library.
@@ -694,6 +764,9 @@ By default, this feature is disabled. If, after reading this, you find that you 
 And read more about how it works.
 
 **** How It Works
+:PROPERTIES:
+:CUSTOM_ID: HowItWorks
+:END:
 
 Org mode is smart about [[https://orgmode.org/worg/org-tutorials/images-and-xhtml-export.html][Image links]]. When it finds images in an Org link for example [[file:example.png][file:]] or =[[example.png]]= it knows to generate an =IMG= tag in the resulting HTML. All of the file types listed in ~org-html-inline-image-rules~ are automatically supported. They work in Org2Blog the same as in Org mode: Org2Blog uses the Org mode HTML exporter to do all of its work which means that everything will work as you expect it.
 
@@ -751,6 +824,7 @@ Automatic Image Uploading is flexible and /just works/.
 *** Supported Properties
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:C88F5A1B-4431-4CAD-BABB-BE24BEEB088B
+:CUSTOM_ID: SupportedProperties
 :END:
 
 The best way to think about how Org2Blog defines Entry properties is first to think about its metadata. For example, there are posts, and posts can have parents. Each has a numerical identifier, so you'll deal with the same thing when you work with them in your Org2Blog file. A permalink also behaves precisely how you would expect. If you haven't looked at post metadata before, then open up a post and click around to see what data it uses.
@@ -787,6 +861,7 @@ Since they're plain old Org mode properties, keep a space between the property n
 *** Tying It All Together
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:1364F0E7-582A-4A40-A32F-A8B839A76C45
+:CUSTOM_ID: TyingItAllTogether
 :END:
 
 After playing around a little bit, you should have a better sense of what is possible. The following are some key points that will tie everything together:
@@ -806,11 +881,15 @@ Whenever Org2Blog can't do what you asked and understands why it will show you a
 ** More Functionality
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:C0921E46-3AB2-4A86-8E1C-88B00C36D90D
+:CUSTOM_ID: MoreFunctionality
 :END:
 
 Org2Blog also helps you do many more good things. See below.
 
 *** Global And Blog Specific Configuration
+:PROPERTIES:
+:CUSTOM_ID: GlobalBlogSpecificConfiguration
+:END:
 
 See ~org2blog/wp-blog-alist~ to learn about how to configure any number of your blogs. You've already seen an example of how to configure this value, and the documentation goes into more detail.
 
@@ -838,10 +917,16 @@ Most variables are optional, but two variables * must* be configured within this
 An easy way to work with the difference between the global variable name and the blog specific name is to read the documentation for the global variable. It will show you the purpose of that setting, example values, and the property name if you want to use it in the blog-specific configure. It's a compelling and convenient feature that makes working with multiple blogs very easy and even fun.
 
 *** Inserting Things
+:PROPERTIES:
+:CUSTOM_ID: InsertingThings
+:END:
 
 Most Org2Bloggers end up inserting a few elements common to all of us. The menu item =UI [Insert A]= captures some of them. You can get help on them for more details and play around with inserting them too. You will be pretty surprised as to how often you end up using them:
 
 *** Confirming Things
+:PROPERTIES:
+:CUSTOM_ID: ConfirmingThings
+:END:
 
 Sometimes you want to be prompted before doing things. Here are some of the possibilities see:
 - ~org2blog/wp-confirm-post~
@@ -850,6 +935,9 @@ Sometimes you want to be prompted before doing things. Here are some of the poss
 - ~org2blog/wp-show-post-in-browser~
 
 *** Raw HTML Creation
+:PROPERTIES:
+:CUSTOM_ID: RawHtmlCreation
+:END:
 
 Sometimes Org2Blog doesn't know how to generate the HTML that you need. For example, you might be working with special requirements for using a ShortCode. Another example is that you might be utilizing custom page elements that aren't accessible any other way. The simplest example you may have already seen above is the WordPress =more= tag. Whatever the case, the easiest and most straightforward way to get what you need is to insert the raw HTML content you need directly.
 
@@ -874,6 +962,7 @@ Create it by =UI [Insert A]=.
 *** Source Blocks
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:F6832BDB-FAD6-417B-A01B-F69A64AD788F
+:CUSTOM_ID: SourceBlocks
 :END:
 
 Org2Blog has first-class source block support. The headlines in this section explain how.
@@ -889,6 +978,9 @@ Out of the box, source blocks are converted into =<pre>= tags. This is the most 
 Here is how they look and work.
 
 **** Plain Source Box Format
+:PROPERTIES:
+:CUSTOM_ID: PlainSourceBoxFormat
+:END:
 
 First make sure that Org2Blog will generate plain on =<pre>= tags like this:
 
@@ -909,6 +1001,9 @@ Here is how the built-in syntax highlighting looks:
 [[file:/images/SourceBlockNormal3.png]]
 
 **** SyntaxhighLighter Evolved
+:PROPERTIES:
+:CUSTOM_ID: SyntaxhighlighterEvolved
+:END:
 
 [[https://wordpress.org/plugins/syntaxhighlighter/][SyntaxHighlighter Evolved]] is an extremely popular plugin for rendering source code. It supports a bunch of languages and configuration parameters (see [[https://en.support.wordpress.com/code/posting-source-code/][here]]) in addition to open-source custom plugins for other languages.
 
@@ -943,6 +1038,9 @@ With SyntaxHighlighter Evolved enabled:
 [[file:/images/SourceBlockSyntaxHighlighterExposed3.png]]
 
 ***** SyntaxHighlighter Evolved Is Broken Now What?!
+:PROPERTIES:
+:CUSTOM_ID: SyntaxhighlighterEvolvedIsBrokenNow
+:END:
 
 Sometimes your source block contents cause this plugin to do the unexpected. It will look at best horrible and more likely just wrong. Then to put it simply, your first reaction will be, "Why doesn't this work😠?!" For example, your source block might be rendered as plain text without any special formatting. If you run into this situation, start debugging it without Org2Blog even involved by editing the Entry directly on WordPress.
 
@@ -967,19 +1065,29 @@ THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
 *** LaTeX Support
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:CB9F8F24-278D-4B79-A1A7-72AC7C051DC1
+:CUSTOM_ID: LatexSupport
 :END:
 
 **** amsmath Support
+:PROPERTIES:
+:CUSTOM_ID: AmsmathSupport
+:END:
 
 Org2Blog strives to adhere to the standards in [[https://www.ctan.org/pkg/amsmath][https://www.ctan.org/pkg/amsmath]].
 
 **** WordPress LaTeX
+:PROPERTIES:
+:CUSTOM_ID: WordpressLatex
+:END:
 
 WordPress has LaTeX support [[https://en.support.wordpress.com/latex/][built-in]]. Although it's incomplete, it's built-in, so read it to figure out if you need more functionality than it provides. The biggest room for improvement is to implement the =amsmath= =equation= autonumbering. The easiest way to request enhancements to WordPress is to start by [[https://core.trac.wordpress.org/][reading here]].
 
 Org2Blog includes its own exporter =ox-wp=. It does 80% of everything it needs. The biggest room for improvement is to implement the =amsmath= =equation= autonumbering.
 
 **** MathJax
+:PROPERTIES:
+:CUSTOM_ID: Mathjax
+:END:
 
 [[https://www.mathjax.org/][MathJax]] is an open-source JavaScript display engine for LaTeX, MathML, and AsciiMath notation that works in all modern browsers."
 
@@ -1032,6 +1140,7 @@ MathJaX's default configuration doesn't default to the =amsmath equation= behavi
 *** Migrating Org Mode Files To Org2Blog Files
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:56FD59F9-1365-44F9-8CC1-12CE12937BF0
+:CUSTOM_ID: MigratingOrgModeFilesTo
 :END:
 
 If you want to turn an existing Org mode document into an Org2Blog document, you only need to populate the required properties. Here is the easiest way how:
@@ -1051,6 +1160,7 @@ Create another post and convert it by hand. This time use the API to submit it. 
 *** Export WordPress To Org
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:0EE1AC01-BE62-4A9F-BB54-19492BE9D42E
+:CUSTOM_ID: ExportWordpressToOrg
 :END:
 
 Once you start using Org2Blog for all of your /new/ posts, you will want to start using it for all of your /old/ posts too. The easiest way for that is to export your WordPress database to Org files. [[https://github.com/org2blog/org2blog-importers][This]] project performs that export. Reports of successful exports of 2000+ entries are common.
@@ -1058,6 +1168,7 @@ Once you start using Org2Blog for all of your /new/ posts, you will want to star
 *** Using Entry Templates
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:AF693199-1147-4491-859E-72B1400D6197
+:CUSTOM_ID: UsingEntryTemplates
 :END:
 
 Out of the box, Org2Blog populates your new Buffer Entries with a template. If you want to change it you can configure ~org2blog/wp-buffer-template~ or ~org2blog/wp-buffer-subtree-template-prefix~.
@@ -1067,6 +1178,7 @@ The former takes some reading and study of the code to utilize. A future release
 *** Tracking Entries
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:EA8A1588-DC5B-4D69-84F4-B988B35FA640
+:CUSTOM_ID: TrackingEntries
 :END:
 
 You can automatically track all of the Posts that you make. Why might you want to do this?
@@ -1128,6 +1240,7 @@ If it can't do either, then you will get a warning message saying why it failed.
 *** Doing Things After Saving And Publishing
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:C31909F6-8E61-4833-89BB-860175914813
+:CUSTOM_ID: DoingThingsAfterSavingPublishing
 :END:
 
 Now your post or page exists both in your Org-Mode file on your computer and also in WordPress itself. That page or post inside WordPress contains a lot of metadata, and you might be interested in some of it. [[https://codex.wordpress.org/XML-RPC_MetaWeblog_API][Here]] is documentation covering all of the fields. You can easily access that data using a hook function.
@@ -1141,6 +1254,9 @@ Here is an example that displays your post or page information in the =*Messages
 #+end_src
 
 *** Parent Pages
+:PROPERTIES:
+:CUSTOM_ID: ParentPages
+:END:
 
 #+begin_quote
 Many times you might find the need to display sub pages under a main page. WordPress allows you to create a parent page and then create child pages under it.
@@ -1162,6 +1278,9 @@ or your Subtree Entry like this:
 You can use =UI [Completion]= on it too.
 
 *** Publishing And Sharing With Everyone
+:PROPERTIES:
+:CUSTOM_ID: PublishingSharingWithEveryone
+:END:
 
 Living with first-class WordPress support is fun and comfortable. Some day though you may want to publishing your writing in a different format.
 
@@ -1170,6 +1289,9 @@ For example say you want to share your writing as flat text files with some of y
 When you write your Entries with Org2Blog you are making your writing future-safe and more shareable than any other tool out there.
 
 ** The Huge Power Of Customizations
+:PROPERTIES:
+:CUSTOM_ID: HugePowerOfCustomizations
+:END:
 
 By now, you've probably seen that Org2Blog can be tailored to your workflow. If you haven't, the following will show you how easily that it can. If you already have, then you'll see how you can make it even better. It all comes through Customization to your configuration.
 
@@ -1184,10 +1306,16 @@ The fastest way to learn about everything possible with Org2Blog is to read the 
 When you have time, read one or two of them and see where they might fit into /your/ workflow.
 
 * Sample Posts
+:PROPERTIES:
+:CUSTOM_ID: SamplePosts
+:END:
 
 There are so many ways to work with posts. Here are some real-world examples.
 
 ** Buffer Post
+:PROPERTIES:
+:CUSTOM_ID: BufferPost
+:END:
 
 #+begin_src org
 ,#+BLOG: wisdomandwonder
@@ -1206,6 +1334,7 @@ Blogging from Org2Blog to WordPress /just works/ and that is just about all ther
 
 ** Subtree Post
 :PROPERTIES:
+:CUSTOM_ID: SubtreePost
 :END:
 
 #+begin_src org
@@ -1227,6 +1356,7 @@ I ran ~M-x butterfly~ and we both smiled as VIM and Emacs converge.
 * Changelog
 :properties:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:E1C2A63C-7FA9-4746-A3CD-93906C9F561C
+:CUSTOM_ID: Changelog
 :end:
 
 See [[./HISTORY.org][HISTORY]].
@@ -1234,6 +1364,7 @@ See [[./HISTORY.org][HISTORY]].
 * Credits
 :PROPERTIES:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:B483A321-5F10-46E0-A073-22EC1B36917C
+:CUSTOM_ID: Credits
 :END:
 
 - This package was inspired by [[http://www.mail-archive.com/gnu-emacs-sources@gnu.org/msg01576.html][Ashish Shukla]] and created by [[https://github.com/punchagan][Puneeth Chaganti]].
@@ -1244,6 +1375,9 @@ See [[./HISTORY.org][HISTORY]].
 - Grant Rettke lovingly maintains Org2Blog.
 
 * Testimonials
+:PROPERTIES:
+:CUSTOM_ID: Testimonials
+:END:
 
 - I’ve recently discovered the absolute joy that is writing and publishing
   wordpress blog posts using Emacs 24 and org2blog. -- [[https://vxlabs.com/2014/05/25/emacs-24-with-prelude-org2blog-and-wordpress/][cpbotha]]
@@ -1263,8 +1397,14 @@ See [[./HISTORY.org][HISTORY]].
   WordPress blogs such as Hypotheses. -- [[https://nlphist.hypotheses.org/178][Michael Piotrowski]]
 
 * When Things Go Wrong Or Could Go Even Better
+:PROPERTIES:
+:CUSTOM_ID: WhenThingsGoWrongOr
+:END:
 
 ** When Things Go Wrong
+:PROPERTIES:
+:CUSTOM_ID: WhenThingsGoWrong
+:END:
 
 Plan on staying positive even when things don't go as planned!
 
@@ -1279,6 +1419,9 @@ Here is where to begin:
 - Read about some past [[./docs/DebuggingStories.org][challenging issues]] and how debugging resolved them.
 
 ** When Things Could Go Even Better
+:PROPERTIES:
+:CUSTOM_ID: WhenThingsCouldGoEven
+:END:
 
 Org2Blog always has room for new and improved features. The process for making those improvements is welcomed and straightforward.
 
@@ -1289,6 +1432,9 @@ Here are the steps:
 - If you don't find it in either of those places, then fill out a request [[https://github.com/org2blog/org2blog/issues][here]]. Either way, don't worry too much about tracking down whether it was listed or not already: the most important thing is figuring out what to do with it next.
 
 * Similar Applications
+:PROPERTIES:
+:CUSTOM_ID: SimilarApplications
+:END:
 
 - [[https://www.blogdesk.org/en/index.htm][BlogDesk]]
 - [[http://www.blogjet.com/][BlogJet]]
@@ -1306,6 +1452,9 @@ Here are the steps:
 - [[https://ulysses.app/][Ulysses]]
 
 * Trustees
+:PROPERTIES:
+:CUSTOM_ID: Trustees
+:END:
 
 - See [[TRUSTEES.org][TRUSTEES]]
 - Interested in becoming one? It only take [[file:TRUSTEES.org#the-one-critical-responsibility-of-a-trustee][one commitment]]!
@@ -1313,6 +1462,7 @@ Here are the steps:
 * Development
 :PROPERTIES:
 :ID:     org_gcr_2019-03-06T17-15-24-06-00_cosmicality:75FC72AE-6ECF-475F-AF06-9E45F13B07C8
+:CUSTOM_ID: Development
 :END:
 
 
@@ -1321,6 +1471,7 @@ Here are the steps:
 * License
 :properties:
 :ID:       org_gcr_2019-03-06T17-15-24-06-00_cosmicality:E4196C89-DA78-44C7-9734-B9F37726F02A
+:CUSTOM_ID: License
 :end:
 
 - [[./LICENSE.txt][GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007]].
