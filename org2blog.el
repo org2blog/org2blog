@@ -3232,20 +3232,40 @@ Heuristics:
 (defun org2blog--debug-collect-buffer-tail (buffer-name max-lines)
   "Return last MAX-LINES from BUFFER-NAME as a string.
 
-If buffer does not exist or is empty, return nil."
+If buffer does not exist or is empty, return nil.
+
+This helper is careful to handle both plain-text buffers and
+Elisp-style debug buffers that contain a single string literal
+with embedded newlines (as used by `xml-rpc' for `request-data')."
   (let ((buf (get-buffer buffer-name)))
     (when (buffer-live-p buf)
       (with-current-buffer buf
         (save-excursion
           (save-restriction
             (widen)
-            (goto-char (point-max))
-            (let* ((end (point))
-                   (beg (max (point-min)
-                             (- end (progn
-                                      (forward-line (- max-lines))
-                                      (point)))))
-                   (text (buffer-substring-no-properties beg end)))
+            (goto-char (point-min))
+            (let* ((raw (buffer-substring-no-properties
+                         (point-min) (point-max)))
+                   ;; In some debug buffers, the XML is stored as a
+                   ;; single Lisp string, e.g.:
+                   ;;
+                   ;;   "<?xml ...>\n<methodCall>...\n"
+                   ;;
+                   ;; Try to read that string and, if successful,
+                   ;; return its contents instead of the quoted form.
+                   (text (condition-case nil
+                             (if (string-match-p "\\`[ \t\n\r]*\"" raw)
+                                 (let* ((sexp (read raw)))
+                                   (if (stringp sexp) sexp raw))
+                               raw)
+                           (error raw))))
+              ;; If we have more than MAX-LINES, trim from the end.
+              (when (and max-lines (> max-lines 0))
+                (let* ((lines (split-string text "\n"))
+                       (len (length lines)))
+                  (when (> len max-lines)
+                    (setq lines (seq-subseq lines (- len max-lines)))
+                    (setq text (mapconcat #'identity lines "\n")))))
               text)))))))
 
 (defun org2blog--debug-collect-messages (max-lines)
