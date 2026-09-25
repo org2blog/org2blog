@@ -1424,8 +1424,14 @@ report."
       (switch-to-buffer buf)
       (erase-buffer)
       (org-mode)
-      (insert (format "#+TITLE: %s\n\n" report-name))
-      (insert "** Overview\n\n")
+      (insert (format "#+TITLE: %s\n" report-name))
+      (insert ":PROPERTIES:\n")
+      (insert ":CUSTOM_ID: Org2blogDebugReportOverview\n")
+      (insert ":END:\n\n")
+      (insert "** Overview\n")
+      (insert ":PROPERTIES:\n")
+      (insert ":CUSTOM_ID: Org2blogDebugOverview\n")
+      (insert ":END:\n\n")
       (insert (format "- Generated at: %s\n" timestamp))
       (let* ((runtime (org2blog-version-info t))
              (prefix "Org2Blog Runtime: ")
@@ -1453,7 +1459,10 @@ report."
                         "2. Reproduce the problem (login, save, publish, etc.)\n"
                         "3. Then run M-x org2blog-debug-report-collect again.\n"
                         "#+END_QUOTE\n\n")))
-      (insert "** Environment\n\n")
+      (insert "** Environment\n")
+      (insert ":PROPERTIES:\n")
+      (insert ":CUSTOM_ID: Org2blogDebugEnvironment\n")
+      (insert ":END:\n\n")
       (insert (format "- Emacs version: %s\n" emacs-version))
       (insert (format "- System type: %s\n" system-type))
       (insert (format "- System configuration: %s\n\n" system-configuration))
@@ -1472,11 +1481,17 @@ report."
           (insert (org2blog--debug-scrub-text
                    (pp-to-string (list (car org2blog-blog) plist))))
           (insert "#+end_src\n\n")))
-      (insert "** User scenario (please fill in)\n\n")
+      (insert "** User scenario (please fill in)\n")
+      (insert ":PROPERTIES:\n")
+      (insert ":CUSTOM_ID: Org2blogDebugUserScenario\n")
+      (insert ":END:\n\n")
       (insert "- What were you trying to do?\n\n")
       (insert "- What did you expect to happen?\n\n")
       (insert "- What actually happened (messages, errors, behavior)?\n\n")
-      (insert "** Org2Blog / ox-wp export\n\n")
+      (insert "** Org2Blog / ox-wp export\n")
+      (insert ":PROPERTIES:\n")
+      (insert ":CUSTOM_ID: Org2blogDebugExport\n")
+      (insert ":END:\n\n")
       (let* ((entry-blog (ignore-errors (org2blog--entry-blog-name)))
              (postid (or (org2blog--bprop "POSTID")
                          (org2blog--bprop "POST_ID")
@@ -1504,7 +1519,10 @@ report."
             (insert "#+begin_src text\n")
             (insert (org2blog--debug-scrub-text txt))
             (insert "#+end_src\n\n"))))
-      (insert "** XML-RPC request and call snapshots\n\n")
+      (insert "** XML-RPC request and call snapshots\n")
+      (insert ":PROPERTIES:\n")
+      (insert ":CUSTOM_ID: Org2blogDebugXmlrpcSnapshots\n")
+      (insert ":END:\n\n")
       (dolist (bname '("request-data" "func-call"))
         (let ((txt (org2blog--debug-collect-buffer-tail bname max-lines)))
           (when txt
@@ -1512,7 +1530,10 @@ report."
             (insert "#+begin_src text\n")
             (insert (org2blog--debug-scrub-text txt))
             (insert "#+end_src\n\n"))))
-      (insert "** Optional: testing the XML with curl\n\n")
+      (insert "** Optional: testing the XML with curl\n")
+      (insert ":PROPERTIES:\n")
+      (insert ":CUSTOM_ID: Org2blogDebugCurlTest\n")
+      (insert ":END:\n\n")
       (insert (concat
                "You can optionally test a captured XML-RPC call outside Emacs:\n\n"
                "- Save the XML body from the =request-data= section above into\n"
@@ -1532,7 +1553,10 @@ report."
                "  debug the issue more easily using this small example.\n\n"
                "For a more detailed walkthrough and examples, see the debugging\n"
                "stories in the Org2Blog documentation.\n\n"))
-      (insert "** URL / network debug (*URL-DEBUG*)\n\n")
+      (insert "** URL / network debug (*URL-DEBUG*)\n")
+      (insert ":PROPERTIES:\n")
+      (insert ":CUSTOM_ID: Org2blogDebugUrlNetwork\n")
+      (insert ":END:\n\n")
       (let ((txt (org2blog--debug-collect-buffer-tail "*URL-DEBUG*" max-lines)))
         (when txt
           (insert (format "- Collected last %s lines from *URL-DEBUG*.\n\n"
@@ -1540,7 +1564,10 @@ report."
           (insert "#+begin_src text\n")
           (insert (org2blog--debug-scrub-text txt))
           (insert "#+end_src\n\n")))
-      (insert "** Messages (Emacs + GnuTLS)\n\n")
+      (insert "** Messages (Emacs + GnuTLS)\n")
+      (insert ":PROPERTIES:\n")
+      (insert ":CUSTOM_ID: Org2blogDebugMessages\n")
+      (insert ":END:\n\n")
       (let ((txt (org2blog--debug-collect-messages max-lines)))
         (when txt
           (insert (format "- Collected last %s matching lines from *Messages*.\n\n"
