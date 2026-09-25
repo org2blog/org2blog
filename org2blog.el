@@ -1501,6 +1501,26 @@ report."
             (insert "#+begin_src text\n")
             (insert (org2blog--debug-scrub-text txt))
             (insert "#+end_src\n\n"))))
+      (insert "** Optional: testing the XML with curl\n\n")
+      (insert (concat
+               "You can optionally test a captured XML-RPC call outside Emacs:\n\n"
+               "- Save the XML body from the =request-data= section above into\n"
+               "  a file (for example: =test.xml=).\n"
+               "- Carefully review that XML and make sure you have removed or\n"
+               "  replaced any real passwords, API keys, or other secrets\n"
+               "  before saving or sharing it.\n"
+               "- From a shell, run a command along these lines (adjusting the\n"
+               "  URL and filename):\n\n"
+               "  #+begin_src sh :eval never\n"
+               "  curl 'https://your-blog.example/xmlrpc.php' \\\n"
+               "       -H 'Content-Type: text/xml; charset=utf-8' \\\n"
+               "       --data-binary @test.xml\n"
+               "  #+end_src\n\n"
+               "- Compare the result to what Org2Blog reports. If curl fails in\n"
+               "  the same way, your blog host or network provider can usually\n"
+               "  debug the issue more easily using this small example.\n\n"
+               "For a more detailed walkthrough and examples, see the debugging\n"
+               "stories in the Org2Blog documentation.\n\n"))
       (insert "** URL / network debug (*URL-DEBUG*)\n\n")
       (let ((txt (org2blog--debug-collect-buffer-tail "*URL-DEBUG*" max-lines)))
         (when txt

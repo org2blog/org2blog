@@ -47,3 +47,71 @@ At least that was the /first/ solution.
 As it would turn out this issue was caused by a bug in GnuTLS and by changing this setting it uninentionally avoided the error.
 
 The issue was resolved in Emacs 26.3.
+
+** Testing XML-RPC Calls With curl
+:PROPERTIES:
+:CUSTOM_ID: DebuggingWithCurl
+:END:
+
+Sometimes it helps to remove Org2Blog and Emacs from the picture entirely and test a single XML-RPC call directly with curl. This is especially helpful when you are working with your blog host or network team.
+
+Here is a minimal, generic example using =wp.getTags=.
+
+1. Capture a request body
+
+From your debug report (via ~org2blog-debug-report-collect~) or from the =request-data= buffer, locate an XML body like this (values here are examples only):
+
+#+begin_src xml :eval never
+<?xml version="1.0" encoding="UTF-8"?>
+<methodCall>
+  <methodName>wp.getTags</methodName>
+  <params>
+    <param>
+      <value>
+        <string>1</string>
+      </value>
+    </param>
+    <param>
+      <value>
+        <string>you</string>
+      </value>
+    </param>
+    <param>
+      <value>
+        <string>&lt;redacted&gt;</string>
+      </value>
+    </param>
+  </params>
+</methodCall>
+#+end_src
+
+Save that XML into a file, for example: =test.xml=.
+
+Before you save or share the file, carefully replace any real passwords, API keys, tokens, or other secrets with a placeholder such as =&lt;redacted&gt;=.
+
+2. Call WordPress directly with curl
+
+From a shell, run a command along these lines (adjusting the URL to match your blog and the filename if needed):
+
+#+begin_src sh :eval never
+curl 'https://yourblog.example/xmlrpc.php' \
+     -H 'Content-Type: text/xml; charset=utf-8' \
+     --data-binary @test.xml
+#+end_src
+
+3. Inspect the response
+
+On success you should see an XML response that looks something like:
+
+#+begin_src xml :eval never
+<value><struct>
+  <member><name>tag_id</name><value><int>428</int></value></member>
+  <member><name>name</name><value><string>X11</string></value></member>
+  <member><name>count</name><value><int>3</int></value></member>
+  <member><name>slug</name><value><string>x11</string></value></member>
+  <member><name>html_url</name><value><string>https://yourblog.example/tag/x11</string></value></member>
+  <member><name>rss_url</name><value><string>https://yourblog.example/tag/x11/feed</string></value></member>
+</struct></value>
+#+end_src
+
+If curl fails in the same way that Org2Blog does, then your host or network provider can use this small, self-contained example to debug the issue without needing to run Emacs or Org2Blog at all. If curl succeeds but Org2Blog does not, then the problem is more likely in Emacs, your configuration, or one of the libraries that Org2Blog uses.
