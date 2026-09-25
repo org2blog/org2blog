@@ -167,11 +167,15 @@
     result))
 
 (defun org2blog-def--interpose (sep list)
-  "Return a new list of all elements in LIST separated by SEP."
-  (let* ((it (mapcar (lambda (x) (list x sep)) list))
-         (it (apply 'concatenate 'list it))
-         (it (seq-take it (- (length it) 1))))
-    it))
+  "Return a new list of all elements in LIST separated by SEP.
+
+This implementation uses cl-lib helpers for clarity."
+  (cl-loop
+   for elt in list
+   for first = t then nil
+   append (if first
+              (list elt)
+            (list sep elt))))
 
 (defun org2blog-def--contacts-info (contacts)
   "Create string from CONTACTS info."
@@ -342,6 +346,7 @@ first."
 (require 'org)
 (require 'ox-wp)
 (eval-when-compile (require 'subr-x))
+(require 'cl-lib)
 
 ;;; Constants
 
