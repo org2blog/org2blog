@@ -200,7 +200,7 @@ Documents notable release changes.
 :CUSTOM_ID: v1118
 :END:
 
-- Upgraded to Emacs v29.4 and Org mode vOrg mode version 9.6.15
+- Upgraded to Emacs v29.4 and Org mode v9.6.15
 - 2 Bug Fixes
 - Indentation Fixes
 
