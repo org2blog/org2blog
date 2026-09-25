@@ -9,12 +9,12 @@
 ;; Copyright (C) 2010 Matt Price <matt@roke.mercey.dyndns.org>
 ;; Copyright (C) 2011 Mykola Nikishov <mn@mn.com.ua>
 ;; Copyright (C) 2013 Peter Vasil <mail@petervasil.net>
-;; Copyright (C) 2015-2025 Grant Rettke <grant@wisdomandwonder.com>
+;; Copyright (C) 2015-2026 Grant Rettke <grant@wisdomandwonder.com>
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Version: 1.1.18
-;; Package-Requires: ((emacs "29.4") (htmlize "1.58") (hydra "0.15.0") (xml-rpc "1.6.15") (writegood-mode "2.2.0") (metaweblog "1.1.18"))
+;; Version: 1.1.19
+;; Package-Requires: ((emacs "30.2") (htmlize "1.59") (hydra "0.15.0") (xml-rpc "1.6.15") (writegood-mode "2.2.0") (metaweblog "1.1.19"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
 
@@ -41,7 +41,7 @@
 
 ;;; System Definition
 
-(defconst org2blog/wp-version "1.1.18"
+(defconst org2blog/wp-version "1.1.19"
   "Current version of org2blog.el.")
 
 (cl-defstruct
@@ -73,16 +73,16 @@
    :name "org2blog"
    :version org2blog/wp-version
    :metaweblog org2blog/wp-version
-   :wordpress-version "6.7.1"
+   :wordpress-version "7.2"
    :ox-wp org2blog/wp-version
    :doc "Blog from Org mode to WordPress"
-   :emacs "29.4"
-   :emacs-api "29.4"
-   :org "9.6.15"
+   :emacs "30.2"
+   :emacs-api "30.2"
+   :org "9.7.11"
    :requirements (list
                   (make-org2blog-pkg
                    :name "htmlize"
-                   :version "1.58"
+                   :version "1.59"
                    :version-prefix "release/"
                    :url "https://github.com/hniksic/emacs-htmlize.git")
                   (make-org2blog-pkg
@@ -1449,18 +1449,13 @@ report."
       (insert "- Save this buffer to a file and attach it to a bug report,\n")
       (insert "  after you have verified that it does not contain secrets.\n\n")
       (insert (format "- Generated at: %s\n" timestamp))
-      (let* ((runtime (org2blog-version-info t))
-             (prefix "Org2Blog Runtime: ")
-             (version (if (string-prefix-p prefix runtime)
-                          (string-trim (substring runtime (length prefix)))
-                        runtime)))
-        (insert "- Runtime:\n")
-        (insert (format "  - Org2Blog Runtime: %s\n" org2blog/wp-version))
-        (insert (format "  - Emacs %s\n" emacs-version))
-        (insert (format "  - Org Mode %s\n" org-version))
-        (insert (format "  - MetaWeblog %s\n" metaweblog-version))
-        (insert (format "  - XML-RPC %s\n" xml-rpc-version))
-        (insert (format "  - HTMLize %s\n\n" htmlize-version)))
+      (insert "- Runtime:\n")
+      (insert (format "  - Org2Blog Runtime: %s\n" org2blog/wp-version))
+      (insert (format "  - Emacs %s\n" emacs-version))
+      (insert (format "  - Org Mode %s\n" org-version))
+      (insert (format "  - MetaWeblog %s\n" metaweblog-version))
+      (insert (format "  - XML-RPC %s\n" xml-rpc-version))
+      (insert (format "  - HTMLize %s\n\n" htmlize-version))
       (unless in-entry-context
         (insert (concat "#+BEGIN_QUOTE\n"
                         "This command was not called from an Org2Blog entry "

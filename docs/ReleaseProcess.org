@@ -1,9 +1,9 @@
-#+TITLE: Org2Blog Release 1.1.18
+#+TITLE: Org2Blog Release 1.1.19
 
-Today: 2025-01-25
+Today: 2026-09-25
 
 - [X] Open and update [[../HISTORY.org][History]] as you go
-- [X] What release tag is this? \rarr v1.1.18
+- [X] What release tag is this? \rarr v1.1.19
   - Create a headline
 - [X] Create and checkout this branch
 - [X] Document Identify Library Version Changes
@@ -11,14 +11,16 @@ Today: 2025-01-25
   - Start emacs with no init file and check: ~emacs --no-init-file&~
     | Library        | From     | To       | Where | Note                    |
     |----------------+----------+----------+-------+-------------------------|
-    | emacs          | "27.1"   | "29.4"   | Emacs | NA                      |
-    | org            | "9.5.2"  | "9.6.15" | Emacs | NA                      |
-    | htmlize        | "1.56"   | "1.56"   | Emacs | No 1.57 tag 2025-01-25! |
-    | hydra          | "0.15.0" | NA       | [[https://github.com/abo-abo/hydra/tags][here]]  | NA                      |
-    | xml-rpc        | "1.6.15" | NA       | [[https://github.com/xml-rpc-el/xml-rpc-el/tags][here]]  | NA                      |
+    | emacs          | "29.4"   | "30.2"   | Emacs | NA                      |
+    | org            | "9.6.15" | "9.7.11" | Emacs | NA                      |
+    | htmlize        | "1.56"   | "1.59"   | Emacs | No 1.57 tag 2025-01-25! |
+    | hydra          | NA       | "0.15.0" | [[https://github.com/abo-abo/hydra/tags][here]]  | NA                      |
+    | xml-rpc        | NA       | "1.6.15" | [[https://github.com/xml-rpc-el/xml-rpc-el/tags][here]]  | NA                      |
     | writegood-mode | "2.2.0"  | NA       | [[https://github.com/bnbeckwith/writegood-mode/tags][here]]  | NA                      |
-    | wordpress blog | "6.0"    | "6.7.1"  | [[https://wordpress.org/documentation/article/wordpress-versions/][here]]  | NA                      |
+    | wordpress blog | "6.7.1"  | "7.2"    | [[https://wordpress.org/documentation/article/wordpress-versions/][here]]  | NA                      |
 - [X] Review changes
+  - [X] Applicable?
+    - No
   - [X] [[https://orgmode.org/worg/org-release-notes.html][Release Notes]]
     - Nothing significant
   - [X] ~git diff release_9.5.5 release_9.6.15 lisp/ox-html.el~
@@ -38,9 +40,10 @@ Today: 2025-01-25
       files in the function body, moving the cursor to the first line, and
       trying again. If that fails, then please file an Issue Report so we can
       look at it together.
+      - Run an ag on elisp and org files
   - Stage it and review the results.
-- [X] Get new checkout of dev libs
-- [X] Update local support for new versions
+- [X] Get new checkout of dev libs: No
+- [X] Update local support for new versions: No
 - [X] Bring codebase up to expectations in [[CONTRIBUTING.org][Contributing]].
   - [X] Byte compile =org2blog.el=
     - Fixed bad cond tail
@@ -53,7 +56,7 @@ Unwanted Spaces:           Ok    #+end_quote
   - [X] Package-Lint: ~package-lint-current-buffer~- Notes follow
     - 34/34 warnings for slashes in variable names
 - [-] Testing: Do one or both―note it
-  - [X] Yes: Manually test all functions
+  - [X] No: Did not
     | Container | Type | Save | View | Publish | Trash |
     |-----------+------+------+------+---------+-------|
     | Buffer    | Post | Y    | Y    | Y       | Y     |

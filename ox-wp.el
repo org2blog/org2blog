@@ -5,8 +5,8 @@
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Version: 1.1.18
-;; Package-Requires: ((emacs "29.4"))
+;; Version: 1.1.19
+;; Package-Requires: ((emacs "30.2"))
 ;; Keywords: comm, convenience, outlines, wp
 ;; Homepage: https://github.com/org2blog/org2blog
 
@@ -35,7 +35,7 @@
 
 ;;; Constants
 
-(defconst ox-wp-version "1.1.18"
+(defconst ox-wp-version "1.1.19"
   "Current version of ox-wp.el.")
 
 ;;; Functions

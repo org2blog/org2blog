@@ -6,8 +6,8 @@
 
 ;; Author: Puneeth Chaganti <punchagan+org2blog@gmail.com>
 ;; Maintainer: Grant Rettke <grant@wisdomandwonder.com>
-;; Version: 1.1.18
-;; Package-Requires: ((emacs "29.4") (xml-rpc "1.6.15"))
+;; Version: 1.1.19
+;; Package-Requires: ((emacs "30.2") (xml-rpc "1.6.15"))
 ;; Keywords: comm
 ;; Homepage: https://github.com/org2blog/org2blog
 
@@ -51,7 +51,7 @@
 
 ;;; Constants
 
-(defconst metaweblog-version "1.1.18"
+(defconst metaweblog-version "1.1.19"
   "Current version of metaweblog.el.")
 
 ;;; Deprecations
@@ -408,7 +408,7 @@ BLOG-XMLRPC USER-NAME PASSWORD BLOG-ID"
                      (value nil (string nil ,post-description)))
              (member nil
                      (name nil "mt_excerpt")
-                     (value nil (string nil ,post-excerpt)))             
+                     (value nil (string nil ,post-excerpt)))
              (member nil
                      (name nil "dateCreated")
                      (value nil (dateTime.iso8601 nil ,post-date)))

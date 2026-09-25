@@ -8,6 +8,7 @@ Documents notable release changes.
 * Table of Contents
 :PROPERTIES:
 :TOC:      :include all :ignore (this)
+:CUSTOM_ID: TableOfContents
 :END:
 :CONTENTS:
 - [[#about][About]]
@@ -24,6 +25,7 @@ Documents notable release changes.
   - [[#v1116][v1.1.16]]
   - [[#v1117][v1.1.17]]
   - [[#v1118][v1.1.18]]
+  - [[#v1119][v1.1.19]]
 - [[#v10][v1.0]]
   - [[#v1000][v1.0.00]]
   - [[#v1001][v1.0.01]]
@@ -203,6 +205,15 @@ Documents notable release changes.
 - Upgraded to Emacs v29.4 and Org mode v9.6.15
 - 2 Bug Fixes
 - Indentation Fixes
+
+** v1.1.19
+:PROPERTIES:
+:CUSTOM_ID: v1119
+:END:
+
+- Added experimental support for Micro.blog
+- Added ~org2blog-debug-report-collect~ to facilite detailed support debugging.
+- Increments supporting sytem and library versions
 
 * v1.0
 :PROPERTIES:
