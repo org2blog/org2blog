@@ -1414,7 +1414,7 @@ report."
   (catch 'return
     (let* ((max-lines (or (and (numberp lines) lines) 200))
            (timestamp (org2blog--get-timestamp))
-           (report-name (format "*Org2Blog Debug Report: %s*" timestamp))
+           (report-name (format "Org2Blog Debug Report: %s" timestamp))
            (buf (get-buffer-create report-name))
            (in-entry-context (org2blog--debug-in-entry-context-p))
            (reporting-on (and (eq xml-rpc-debug 3)
@@ -1424,10 +1424,21 @@ report."
       (switch-to-buffer buf)
       (erase-buffer)
       (org-mode)
-      (insert (format "%s\n\n" report-name))
+      (insert (format "#+TITLE: %s\n\n" report-name))
       (insert "** Overview\n\n")
       (insert (format "- Generated at: %s\n" timestamp))
-      (insert (format "- Runtime: %s\n\n" (org2blog-version-info t)))
+      (let* ((runtime (org2blog-version-info t))
+             (prefix "Org2Blog Runtime: ")
+             (version (if (string-prefix-p prefix runtime)
+                          (string-trim (substring runtime (length prefix)))
+                        runtime)))
+        (insert "- Runtime:\n")
+        (insert (format "  - Org2Blog Runtime: %s\n" org2blog/wp-version))
+        (insert (format "  - Emacs %s\n" emacs-version))
+        (insert (format "  - Org Mode %s\n" org-version))
+        (insert (format "  - MetaWeblog %s\n" metaweblog-version))
+        (insert (format "  - XML-RPC %s\n" xml-rpc-version))
+        (insert (format "  - HTMLize %s\n\n" htmlize-version)))
       (unless in-entry-context
         (insert (concat "#+BEGIN_QUOTE\n"
                         "This command was not called from an Org2Blog entry "
